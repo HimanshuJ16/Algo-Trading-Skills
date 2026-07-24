@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:54:12.850936+00:00",
+  "generated_at": "2026-07-24T15:57:51.402647+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 56,
+  "total_skills": 57,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -923,6 +923,29 @@
       "license": "Apache-2.0",
       "path": "skills/schwab-api-oauth-pkce-flow",
       "skill_md": "skills/schwab-api-oauth-pkce-flow/SKILL.md"
+    },
+    {
+      "name": "stress-testing-against-historical-crash-scenarios",
+      "description": "Use when replaying a live portfolio's current positions against historical crash scenarios (2020 COVID crash, 2015 flash crash, 2008 GFC, etc.) to quantify tail-risk P&L impact and validate that drawdown circuit breakers would trigger before catastrophic loss.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "stress-testing",
+        "crash-scenarios",
+        "tail-risk",
+        "drawdown-analysis"
+      ],
+      "brokers_frameworks": [
+        "NumPy",
+        "Pandas",
+        "Custom Risk Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/stress-testing-against-historical-crash-scenarios",
+      "skill_md": "skills/stress-testing-against-historical-crash-scenarios/SKILL.md"
     },
     {
       "name": "survivorship-bias-free-universe-construction",
