@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:12:36.138579+00:00",
+  "generated_at": "2026-07-24T15:15:11.550361+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 36,
+  "total_skills": 37,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -644,6 +644,30 @@
       "license": "Apache-2.0",
       "path": "skills/walk-forward-validation-setup",
       "skill_md": "skills/walk-forward-validation-setup/SKILL.md"
+    },
+    {
+      "name": "webhook-based-order-fill-notifications",
+      "description": "Use when building webhook consumers for broker order fill notifications to handle HMAC-SHA256 signature verification, at-least-once delivery deduplication, and out-of-order execution sequencing",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "webhooks",
+        "order-fills",
+        "deduplication",
+        "at-least-once-delivery"
+      ],
+      "brokers_frameworks": [
+        "Generic Broker Webhooks",
+        "Interactive Brokers",
+        "TradeStation",
+        "Alpaca"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/webhook-based-order-fill-notifications",
+      "skill_md": "skills/webhook-based-order-fill-notifications/SKILL.md"
     },
     {
       "name": "websocket-reconnect-without-duplicate-subscriptions",
