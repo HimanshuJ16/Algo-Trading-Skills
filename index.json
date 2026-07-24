@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:41:20.009382+00:00",
+  "generated_at": "2026-07-24T15:42:23.124912+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 46,
+  "total_skills": 47,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -110,6 +110,30 @@
       "license": "Apache-2.0",
       "path": "skills/clock-skew-correction-for-tick-timestamps",
       "skill_md": "skills/clock-skew-correction-for-tick-timestamps/SKILL.md"
+    },
+    {
+      "name": "corporate-action-adjusted-backtesting",
+      "description": "Use when processing historical market data for backtesting to apply backward price/volume split adjustments, process ex-dividend cash flows, and prevent double-adjustment errors",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "corporate-actions",
+        "stock-splits",
+        "dividends",
+        "price-adjustment"
+      ],
+      "brokers_frameworks": [
+        "Center for Research in Security Prices (CRSP)",
+        "Yahoo Finance Data",
+        "Interactive Brokers Historical API",
+        "Polygon.io"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/corporate-action-adjusted-backtesting",
+      "skill_md": "skills/corporate-action-adjusted-backtesting/SKILL.md"
     },
     {
       "name": "correlation-aware-exposure-limits",
