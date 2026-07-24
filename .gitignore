@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
+
+# Node (if tooling is added later)
+node_modules/
+
+# Local secrets / env files — never commit broker credentials
+.env
+.env.*
+*.secret
+secrets/
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local databases produced by example scripts (e.g. order_ledger.sqlite3)
+*.sqlite3
+*.db
+
+# Build artifacts
+dist/
+build/

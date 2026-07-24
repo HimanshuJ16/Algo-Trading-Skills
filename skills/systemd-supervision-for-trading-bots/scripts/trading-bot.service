@@ -1,0 +1,22 @@
+[Unit]
+Description=Algo trading strategy engine
+After=network-online.target ws-relay.service
+Wants=network-online.target
+Requires=ws-relay.service
+
+[Service]
+Type=notify
+WatchdogSec=30
+ExecStartPre=/opt/trading-bot/scripts/pre_market_healthcheck.sh
+ExecStart=/opt/trading-bot/venv/bin/python /opt/trading-bot/main.py
+Restart=on-failure
+RestartSec=10
+StartLimitIntervalSec=600
+StartLimitBurst=5
+MemoryMax=1G
+CPUQuota=150%
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
