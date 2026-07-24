@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:39:16.162610+00:00",
+  "generated_at": "2026-07-24T15:40:28.304369+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 44,
+  "total_skills": 45,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -793,6 +793,30 @@
       "license": "Apache-2.0",
       "path": "skills/upstox-oauth-refresh-token-rotation",
       "skill_md": "skills/upstox-oauth-refresh-token-rotation/SKILL.md"
+    },
+    {
+      "name": "walk-forward-optimization-window-management",
+      "description": "Use when conducting quantitative backtests to generate rolling or anchored in-sample and out-of-sample time windows, enforce zero lookahead leakage, and calculate Walk-Forward Efficiency (WFE)",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "walk-forward-optimization",
+        "in-sample-out-of-sample",
+        "lookahead-prevention",
+        "overfitting-control"
+      ],
+      "brokers_frameworks": [
+        "Backtrader",
+        "Zipline",
+        "VectorBT",
+        "Custom Python Backtesters"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/walk-forward-optimization-window-management",
+      "skill_md": "skills/walk-forward-optimization-window-management/SKILL.md"
     },
     {
       "name": "walk-forward-validation-setup",

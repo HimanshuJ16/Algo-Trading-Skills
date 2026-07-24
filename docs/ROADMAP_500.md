@@ -29,6 +29,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 
 ## backtesting-methodology  _(target: 30)_
 
+- **[BUILT]** `walk-forward-optimization-window-management` — Managing in-sample and out-of-sample time windows for walk-forward optimization without lookahead leak.
 - **[planned]** `survivorship-bias-free-universe-construction` — Building historical instrument universes that include delisted/defunct symbols, not just current constituents.
 - **[planned]** `corporate-action-adjusted-backtesting` — Correctly applying splits, dividends, and mergers to historical price series without double-adjusting.
 - **[planned]** `monte-carlo-strategy-robustness-testing` — Randomizing trade sequence/entry timing to test whether a strategy's edge survives reasonable perturbation.
