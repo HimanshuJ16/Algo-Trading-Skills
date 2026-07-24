@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:30:24.417170+00:00",
+  "generated_at": "2026-07-24T15:33:31.893807+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 38,
+  "total_skills": 39,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -513,6 +513,28 @@
       "license": "Apache-2.0",
       "path": "skills/producer-consumer-tick-pipeline",
       "skill_md": "skills/producer-consumer-tick-pipeline/SKILL.md"
+    },
+    {
+      "name": "redis-streams-multi-consumer-tick-fanout",
+      "description": "Use when distributing real-time market data ticks to multiple independent services using Redis Streams consumer groups, message acknowledgments (XACK), and pending message claims (XCLAIM)",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "redis-streams",
+        "tick-fanout",
+        "consumer-groups",
+        "at-least-once"
+      ],
+      "brokers_frameworks": [
+        "Redis 6.0+",
+        "redis-py"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/redis-streams-multi-consumer-tick-fanout",
+      "skill_md": "skills/redis-streams-multi-consumer-tick-fanout/SKILL.md"
     },
     {
       "name": "sandbox-vs-production-endpoint-drift",
