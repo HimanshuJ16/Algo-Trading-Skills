@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T14:58:56.556571+00:00",
+  "generated_at": "2026-07-24T15:09:42.970929+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 34,
+  "total_skills": 35,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -40,6 +40,30 @@
       "license": "Apache-2.0",
       "path": "skills/backpressure-drop-degrade-policy",
       "skill_md": "skills/backpressure-drop-degrade-policy/SKILL.md"
+    },
+    {
+      "name": "broker-agnostic-adapter-interface",
+      "description": "Use when designing quantitative trading systems to decouple strategy logic from broker APIs using a unified abstract adapter interface, standardized order models, and pluggable broker factories",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "adapter-pattern",
+        "broker-agnostic",
+        "trading-architecture",
+        "order-routing"
+      ],
+      "brokers_frameworks": [
+        "Zerodha Kite",
+        "Alpaca",
+        "Interactive Brokers",
+        "Upstox"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-agnostic-adapter-interface",
+      "skill_md": "skills/broker-agnostic-adapter-interface/SKILL.md"
     },
     {
       "name": "correlation-aware-exposure-limits",
