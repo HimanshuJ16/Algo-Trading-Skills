@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:59:37.690102+00:00",
+  "generated_at": "2026-07-24T16:01:18.644092+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 58,
+  "total_skills": 59,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -480,6 +480,30 @@
       "license": "Apache-2.0",
       "path": "skills/lookahead-bias-elimination",
       "skill_md": "skills/lookahead-bias-elimination/SKILL.md"
+    },
+    {
+      "name": "margin-utilization-circuit-breaker",
+      "description": "Use when trading on margin to halt new order placement when margin utilization crosses a defined threshold, independent of P&L-based circuit breakers, preventing margin calls and forced liquidations by the broker.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "margin",
+        "circuit-breaker",
+        "leverage",
+        "margin-call-prevention"
+      ],
+      "brokers_frameworks": [
+        "Custom Risk Engine",
+        "IBKR",
+        "Zerodha",
+        "Alpaca"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/margin-utilization-circuit-breaker",
+      "skill_md": "skills/margin-utilization-circuit-breaker/SKILL.md"
     },
     {
       "name": "market-data-snapshot-plus-delta-reconciliation",
