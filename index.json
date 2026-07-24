@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T14:00:29.160084+00:00",
+  "generated_at": "2026-07-24T14:40:24.533528+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 28,
+  "total_skills": 29,
   "skills": [
     {
       "name": "backpressure-drop-degrade-policy",
@@ -515,6 +515,26 @@
       "license": "Apache-2.0",
       "path": "skills/websocket-reconnect-without-duplicate-subscriptions",
       "skill_md": "skills/websocket-reconnect-without-duplicate-subscriptions/SKILL.md"
+    },
+    {
+      "name": "zerodha-kite-postback-webhook-verification",
+      "description": "Use when consuming Zerodha Kite Connect order postback webhooks to verify SHA-256 signature authenticity, prevent request spoofing, enforce timestamp replay protection, and guarantee idempotent order state updates",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "zerodha-kite-connect",
+        "postback-webhooks",
+        "webhook-security"
+      ],
+      "brokers_frameworks": [
+        "Zerodha Kite Connect v3 API"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/zerodha-kite-postback-webhook-verification",
+      "skill_md": "skills/zerodha-kite-postback-webhook-verification/SKILL.md"
     }
   ]
 }
