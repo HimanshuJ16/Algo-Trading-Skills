@@ -1,10 +1,31 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T14:42:03.050927+00:00",
+  "generated_at": "2026-07-24T14:50:19.978580+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 30,
+  "total_skills": 31,
   "skills": [
+    {
+      "name": "alpaca-paper-live-key-separation",
+      "description": "Use when connecting a bot to Alpaca Trading API to strictly segregate paper and live credentials, enforce base URL endpoint matching, validate account environment flags, and prevent accidental live capital loss",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "alpaca-api",
+        "paper-trading",
+        "live-capital-guard",
+        "credential-security"
+      ],
+      "brokers_frameworks": [
+        "Alpaca Trading API v2"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/alpaca-paper-live-key-separation",
+      "skill_md": "skills/alpaca-paper-live-key-separation/SKILL.md"
+    },
     {
       "name": "backpressure-drop-degrade-policy",
       "description": "Use when a real-time pipeline's consumers fall persistently behind producers and the system needs an explicit, chosen policy rather than an accidental one",
