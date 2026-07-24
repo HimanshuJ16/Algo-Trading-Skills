@@ -14,7 +14,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 - **[BUILT]** `broker-agnostic-adapter-interface` — Designing a broker adapter interface so strategy code doesn't need per-broker branching.
 - **[BUILT]** `sandbox-vs-production-endpoint-drift` — Detecting behavioral differences between a broker's sandbox and production environments before they surprise you live.
 - **[BUILT]** `webhook-based-order-fill-notifications` — Consuming broker fill-webhooks reliably, including replay/dedup for at-least-once delivery guarantees.
-- **[planned]** `broker-account-margin-call-handling` — Detecting and responding programmatically to a broker-issued margin call before forced liquidation.
+- **[BUILT]** `broker-account-margin-call-handling` — Detecting and responding programmatically to a broker-issued margin call before forced liquidation.
 - _(capacity for 25 more skills in this category — not yet titled)_
 
 ## real-time-architecture  _(target: 30)_

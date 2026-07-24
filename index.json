@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:15:11.550361+00:00",
+  "generated_at": "2026-07-24T15:30:24.417170+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 37,
+  "total_skills": 38,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -40,6 +40,29 @@
       "license": "Apache-2.0",
       "path": "skills/backpressure-drop-degrade-policy",
       "skill_md": "skills/backpressure-drop-degrade-policy/SKILL.md"
+    },
+    {
+      "name": "broker-account-margin-call-handling",
+      "description": "Use when monitoring margin account health to calculate real-time maintenance margin ratios, enforce multi-tiered margin warning thresholds, and trigger automated de-leveraging before broker forced liquidation",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "margin-call",
+        "risk-management",
+        "forced-liquidation-prevention",
+        "margin-utilization"
+      ],
+      "brokers_frameworks": [
+        "Interactive Brokers Reg T / Portfolio Margin",
+        "Zerodha RMS",
+        "Alpaca Margin API"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-account-margin-call-handling",
+      "skill_md": "skills/broker-account-margin-call-handling/SKILL.md"
     },
     {
       "name": "broker-agnostic-adapter-interface",
