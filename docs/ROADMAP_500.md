@@ -59,7 +59,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 
 - **[BUILT]** `blue-green-deployment-for-live-strategy-updates` — Rolling out a strategy code update without a gap in market coverage or duplicate order risk.
 - **[BUILT]** `secrets-rotation-without-bot-downtime` — Rotating broker API keys/secrets on a schedule without requiring a full bot restart.
-- **[planned]** `multi-region-failover-for-broker-connectivity` — Failing over to a backup network path/region if the primary connection to a broker degrades.
+- **[BUILT]** `multi-region-failover-for-broker-connectivity` — Failing over to a backup network path/region if the primary connection to a broker degrades.
 - **[planned]** `structured-logging-for-post-incident-forensics` — Designing log schemas that make a post-incident timeline reconstruction possible without guesswork.
 - _(capacity for 26 more skills in this category — not yet titled)_
 

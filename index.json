@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T16:07:50.584037+00:00",
+  "generated_at": "2026-07-24T16:09:42.644462+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 62,
+  "total_skills": 63,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -721,6 +721,30 @@
       "license": "Apache-2.0",
       "path": "skills/multi-exchange-feed-normalization",
       "skill_md": "skills/multi-exchange-feed-normalization/SKILL.md"
+    },
+    {
+      "name": "multi-region-failover-for-broker-connectivity",
+      "description": "Use when a trading bot requires high-availability broker connectivity by failing over to a backup network path or region if the primary connection degrades or becomes unavailable.",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
+      "tags": [
+        "deployment",
+        "failover",
+        "high-availability",
+        "multi-region",
+        "broker-connectivity"
+      ],
+      "brokers_frameworks": [
+        "AWS",
+        "GCP",
+        "Azure",
+        "Custom HA"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-region-failover-for-broker-connectivity",
+      "skill_md": "skills/multi-region-failover-for-broker-connectivity/SKILL.md"
     },
     {
       "name": "multi-strategy-capital-allocation-limits",
