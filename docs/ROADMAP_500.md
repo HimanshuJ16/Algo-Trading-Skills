@@ -43,7 +43,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 - **[BUILT]** `ensemble-signal-combination-without-overfitting` — Combining multiple models' signals without simply overfitting the combination weights to history.
 - **[BUILT]** `feature-store-for-live-and-backtest-parity` — Building a feature store that guarantees identical computation between backtest and live paths.
 - **[BUILT]** `reinforcement-learning-safety-constraints-for-execution` — Constraining an RL-based execution agent so it cannot learn to violate risk limits.
-- **[planned]** `explainability-for-live-trading-signals` — Generating human-readable explanations for why a live ML signal fired, for post-hoc audit and trust-building.
+- **[BUILT]** `explainability-for-live-trading-signals` — Generating human-readable explanations for why a live ML signal fired, for post-hoc audit and trust-building.
 - _(capacity for 35 more skills in this category — not yet titled)_
 
 ## risk-management  _(target: 40)_

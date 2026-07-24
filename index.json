@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:49:42.372348+00:00",
+  "generated_at": "2026-07-24T15:50:48.037767+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 54,
+  "total_skills": 55,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -264,6 +264,31 @@
       "license": "Apache-2.0",
       "path": "skills/execution-realistic-simulation",
       "skill_md": "skills/execution-realistic-simulation/SKILL.md"
+    },
+    {
+      "name": "explainability-for-live-trading-signals",
+      "description": "Use when deploying ML trading models to decompose raw live signal predictions into local feature attributions (SHAP/contributions) and generate human-readable audit explanations",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "explainable-ai",
+        "shap-values",
+        "signal-attribution",
+        "compliance-audit"
+      ],
+      "brokers_frameworks": [
+        "SHAP",
+        "Captum",
+        "scikit-learn",
+        "XGBoost",
+        "Custom Explainers"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/explainability-for-live-trading-signals",
+      "skill_md": "skills/explainability-for-live-trading-signals/SKILL.md"
     },
     {
       "name": "feature-engineering-without-leakage",
