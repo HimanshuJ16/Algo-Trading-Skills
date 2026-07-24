@@ -39,7 +39,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 
 ## financial-ml  _(target: 40)_
 
-- **[planned]** `regime-detection-for-strategy-switching` — Detecting market regime shifts (trending/ranging/high-vol) to switch between strategy variants live.
+- **[BUILT]** `regime-detection-for-strategy-switching` — Detecting market regime shifts (trending/ranging/high-vol) to switch between strategy variants live.
 - **[planned]** `ensemble-signal-combination-without-overfitting` — Combining multiple models' signals without simply overfitting the combination weights to history.
 - **[planned]** `feature-store-for-live-and-backtest-parity` — Building a feature store that guarantees identical computation between backtest and live paths.
 - **[planned]** `reinforcement-learning-safety-constraints-for-execution` — Constraining an RL-based execution agent so it cannot learn to violate risk limits.
