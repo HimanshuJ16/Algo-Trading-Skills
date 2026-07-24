@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T14:56:24.635832+00:00",
+  "generated_at": "2026-07-24T14:58:56.556571+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 33,
+  "total_skills": 34,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -542,6 +542,27 @@
       "license": "Apache-2.0",
       "path": "skills/token-lifecycle-live-probing",
       "skill_md": "skills/token-lifecycle-live-probing/SKILL.md"
+    },
+    {
+      "name": "tradestation-websocket-order-updates",
+      "description": "Use when consuming TradeStation's WebAPI order update stream to manage streaming WebSocket connections, gap-reconciliation via REST fallback, and fill deduplication across network reconnects",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "tradestation-api",
+        "websocket-stream",
+        "order-updates",
+        "gap-reconciliation"
+      ],
+      "brokers_frameworks": [
+        "TradeStation WebAPI v2/v3"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/tradestation-websocket-order-updates",
+      "skill_md": "skills/tradestation-websocket-order-updates/SKILL.md"
     },
     {
       "name": "upstox-oauth-refresh-token-rotation",

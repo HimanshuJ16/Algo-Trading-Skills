@@ -10,7 +10,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 - **[BUILT]** `alpaca-paper-live-key-separation` — Preventing a bot from accidentally trading live capital using a paper-environment code path, and vice versa.
 - **[BUILT]** `ibkr-tws-gateway-headless-launch` — Running IBKR's TWS/Gateway headless in a container for a bot with no persistent desktop session.
 - **[BUILT]** `schwab-api-oauth-pkce-flow` — Implementing Schwab's (post-TD-Ameritrade-migration) OAuth2 PKCE flow for unattended token refresh.
-- **[planned]** `tradestation-websocket-order-updates` — Consuming TradeStation's order-update stream without missing fills during reconnects.
+- **[BUILT]** `tradestation-websocket-order-updates` — Consuming TradeStation's order-update stream without missing fills during reconnects.
 - **[planned]** `broker-agnostic-adapter-interface` — Designing a broker adapter interface so strategy code doesn't need per-broker branching.
 - **[planned]** `sandbox-vs-production-endpoint-drift` — Detecting behavioral differences between a broker's sandbox and production environments before they surprise you live.
 - **[planned]** `webhook-based-order-fill-notifications` — Consuming broker fill-webhooks reliably, including replay/dedup for at-least-once delivery guarantees.
