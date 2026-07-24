@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:46:42.998249+00:00",
+  "generated_at": "2026-07-24T15:47:42.625524+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 51,
+  "total_skills": 52,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -210,6 +210,30 @@
       "license": "Apache-2.0",
       "path": "skills/crypto-wallet-key-custody-security",
       "skill_md": "skills/crypto-wallet-key-custody-security/SKILL.md"
+    },
+    {
+      "name": "ensemble-signal-combination-without-overfitting",
+      "description": "Use when ensembling multiple trading signals or ML models to apply signal normalization, non-negative weight constraints, 1/N shrinkage, and inverse variance weighting without overfitting to historical noise",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "ensemble-learning",
+        "signal-combination",
+        "l2-regularization",
+        "1-over-n-shrinkage"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn",
+        "SciPy Optimize",
+        "NumPy",
+        "Custom Signal Ensembles"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/ensemble-signal-combination-without-overfitting",
+      "skill_md": "skills/ensemble-signal-combination-without-overfitting/SKILL.md"
     },
     {
       "name": "execution-algo-twap-vwap-slicing",
