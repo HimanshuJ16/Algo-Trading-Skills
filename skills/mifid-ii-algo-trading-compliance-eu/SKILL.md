@@ -4,7 +4,7 @@ description: >-
   Use when deploying an algorithmic trading system that executes on an EU trading venue, to account for MiFID II's specific technical and organizational requirements for algorithmic trading firms (RTS 6), which go beyond the general risk-management practices covered elsewhere in this repo
 domain: algorithmic-trading
 subdomain: regulatory-compliance-global
-tags: ["regulatory-compliance-global", "mifid-ii---mifir", "rts-6-(regulatory-technical-standard-on-algorithmic-trading)"]
+tags: ["regulatory-compliance-global", "mifid-ii-mifir", "rts-6-algorithmic-trading"]
 brokers_frameworks: ["MiFID II / MiFIR", "RTS 6 (Regulatory Technical Standard on algorithmic trading)"]
 version: "1.0"
 author: algo-trading-skills-contributors

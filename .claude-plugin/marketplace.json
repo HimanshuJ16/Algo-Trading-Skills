@@ -1,0 +1,40 @@
+{
+  "name": "anthropic-algo-trading-skills",
+  "owner": {
+    "name": "algo-trading-skills-contributors",
+    "email": "contributors@algotradingskills.org"
+  },
+  "metadata": {
+    "description": "28 production-grade algorithmic trading skills for AI coding agents, covering broker integration, real-time market data architecture, backtesting methodology, financial ML, risk management, and deployment ops.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "algo-trading-skills",
+      "source": "./",
+      "description": "28 production-grade algorithmic trading skills covering broker APIs, real-time tick architecture, backtesting methodology, financial ML, risk management, and deployment ops. Mapped to regulatory and exchange frameworks.",
+      "version": "1.0.0",
+      "author": {
+        "name": "algo-trading-skills-contributors"
+      },
+      "license": "Apache-2.0",
+      "keywords": [
+        "algorithmic-trading",
+        "quant",
+        "trading-bot",
+        "backtesting",
+        "risk-management",
+        "real-time-architecture",
+        "fyers",
+        "zerodha",
+        "icici-breeze",
+        "upstox",
+        "alpaca",
+        "ibkr"
+      ],
+      "category": "trading-and-finance",
+      "homepage": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
+      "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills"
+    }
+  ]
+}

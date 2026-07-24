@@ -1,9 +1,92 @@
 {
-  "repo": "algo-trading-skills",
-  "standard": "agentskills.io",
   "version": "1.0.0",
-  "skill_count": 106,
+  "generated_at": "2026-07-24T14:00:29.160084+00:00",
+  "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
+  "domain": "algorithmic-trading",
+  "total_skills": 28,
   "skills": [
+    {
+      "name": "backpressure-drop-degrade-policy",
+      "description": "Use when a real-time pipeline's consumers fall persistently behind producers and the system needs an explicit, chosen policy rather than an accidental one",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/backpressure-drop-degrade-policy",
+      "skill_md": "skills/backpressure-drop-degrade-policy/SKILL.md"
+    },
+    {
+      "name": "correlation-aware-exposure-limits",
+      "description": "Use when a bot can hold multiple simultaneous positions, to prevent sector or factor concentration that per-instrument position limits alone don't catch",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/correlation-aware-exposure-limits",
+      "skill_md": "skills/correlation-aware-exposure-limits/SKILL.md"
+    },
+    {
+      "name": "crypto-exchange-api-integration",
+      "description": "Use when integrating a crypto exchange (Binance, Coinbase Advanced Trade, Kraken) for spot or derivatives trading, where 24/7 markets, different rate-limit models, and exchange-specific order semantics break assumptions carried over from equities broker integration",
+      "domain": "algorithmic-trading",
+      "subdomain": "global-market-integration",
+      "tags": [
+        "global-market-integration",
+        "binance-spot-futures-api",
+        "coinbase-advanced-trade-api",
+        "kraken-rest-websocket-v2"
+      ],
+      "brokers_frameworks": [
+        "Binance Spot/Futures API",
+        "Coinbase Advanced Trade API",
+        "Kraken REST/WebSocket v2"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/crypto-exchange-api-integration",
+      "skill_md": "skills/crypto-exchange-api-integration/SKILL.md"
+    },
+    {
+      "name": "crypto-wallet-key-custody-security",
+      "description": "Use when a trading bot has any access to crypto private keys, exchange API keys with withdrawal permission, or wallet infrastructure, to bound the damage a compromised bot or leaked credential can cause",
+      "domain": "algorithmic-trading",
+      "subdomain": "crypto-custody-security",
+      "tags": [
+        "crypto-custody-security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/crypto-wallet-key-custody-security",
+      "skill_md": "skills/crypto-wallet-key-custody-security/SKILL.md"
+    },
+    {
+      "name": "execution-algo-twap-vwap-slicing",
+      "description": "Use when an order is large enough relative to typical market liquidity that placing it as a single order would move the price against the strategy, requiring a TWAP/VWAP-style slicing algorithm instead",
+      "domain": "algorithmic-trading",
+      "subdomain": "execution-algorithms",
+      "tags": [
+        "execution-algorithms"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/execution-algo-twap-vwap-slicing",
+      "skill_md": "skills/execution-algo-twap-vwap-slicing/SKILL.md"
+    },
     {
       "name": "execution-realistic-simulation",
       "description": "Use when building a backtest's fill/execution model, to ensure simulated fills, slippage, and fees reflect what would actually happen in a live order rather than idealized instantaneous execution at a quoted price",
@@ -13,32 +96,66 @@
         "backtesting-methodology"
       ],
       "brokers_frameworks": [],
-      "path": "skills/execution-realistic-simulation/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/execution-realistic-simulation",
+      "skill_md": "skills/execution-realistic-simulation/SKILL.md"
     },
     {
-      "name": "lookahead-bias-elimination",
-      "description": "Use when writing or auditing backtest code to ensure no signal, feature, or decision uses information that would not have been available at the actual decision timestamp in live trading",
+      "name": "feature-engineering-without-leakage",
+      "description": "Use when constructing features for an ML-based trading signal classifier, to guarantee every feature is computable using only information available strictly before the prediction target's outcome",
       "domain": "algorithmic-trading",
-      "subdomain": "backtesting-methodology",
+      "subdomain": "financial-ml",
       "tags": [
-        "backtesting-methodology"
+        "financial-ml"
       ],
       "brokers_frameworks": [],
-      "path": "skills/lookahead-bias-elimination/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/feature-engineering-without-leakage",
+      "skill_md": "skills/feature-engineering-without-leakage/SKILL.md"
     },
     {
-      "name": "walk-forward-validation-setup",
-      "description": "Use when validating a trading strategy or ML signal model on historical time-series data, to avoid the invalid train/test splits that k-fold cross-validation produces on non-stationary sequential data",
+      "name": "forex-broker-integration-oanda-mt5",
+      "description": "Use when integrating a forex broker (OANDA's REST/streaming API, or MetaTrader 5 for brokers that only expose an MT5 terminal) where pip-based pricing, rollover/swap charges, and MT5's non-Python-native environment introduce integration patterns distinct from equities brokers",
       "domain": "algorithmic-trading",
-      "subdomain": "backtesting-methodology",
+      "subdomain": "global-market-integration",
       "tags": [
-        "backtesting-methodology"
+        "global-market-integration",
+        "oanda-v20-rest-api",
+        "metatrader-5-python-integration"
       ],
-      "brokers_frameworks": [],
-      "path": "skills/walk-forward-validation-setup/SKILL.md",
-      "status": "built"
+      "brokers_frameworks": [
+        "OANDA v20 REST API",
+        "MetaTrader 5 Python integration"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/forex-broker-integration-oanda-mt5",
+      "skill_md": "skills/forex-broker-integration-oanda-mt5/SKILL.md"
+    },
+    {
+      "name": "global-exchange-holiday-calendar-handling",
+      "description": "Use when a bot or backtest operates across more than one country's exchange, to avoid treating a foreign market holiday as a normal trading day (or vice versa)",
+      "domain": "algorithmic-trading",
+      "subdomain": "data-management-global",
+      "tags": [
+        "data-management-global",
+        "exchange_calendars-(python)",
+        "pandas_market_calendars"
+      ],
+      "brokers_frameworks": [
+        "exchange_calendars (Python)",
+        "pandas_market_calendars"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/global-exchange-holiday-calendar-handling",
+      "skill_md": "skills/global-exchange-holiday-calendar-handling/SKILL.md"
     },
     {
       "name": "headless-broker-auth-patterns",
@@ -59,8 +176,76 @@
         "Alpaca Trading API",
         "IBKR TWS/Gateway API"
       ],
-      "path": "skills/headless-broker-auth-patterns/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/headless-broker-auth-patterns",
+      "skill_md": "skills/headless-broker-auth-patterns/SKILL.md"
+    },
+    {
+      "name": "kill-switch-and-drawdown-circuit-breakers",
+      "description": "Use when a live trading bot needs hard, strategy-independent limits that force-flatten positions and halt new orders, so that a strategy bug or unexpected market condition cannot cause unbounded loss",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/kill-switch-and-drawdown-circuit-breakers",
+      "skill_md": "skills/kill-switch-and-drawdown-circuit-breakers/SKILL.md"
+    },
+    {
+      "name": "lookahead-bias-elimination",
+      "description": "Use when writing or auditing backtest code to ensure no signal, feature, or decision uses information that would not have been available at the actual decision timestamp in live trading",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/lookahead-bias-elimination",
+      "skill_md": "skills/lookahead-bias-elimination/SKILL.md"
+    },
+    {
+      "name": "mifid-ii-algo-trading-compliance-eu",
+      "description": "Use when deploying an algorithmic trading system that executes on an EU trading venue, to account for MiFID II's specific technical and organizational requirements for algorithmic trading firms (RTS 6), which go beyond the general risk-management practices covered elsewhere in this repo",
+      "domain": "algorithmic-trading",
+      "subdomain": "regulatory-compliance-global",
+      "tags": [
+        "regulatory-compliance-global",
+        "mifid-ii-mifir",
+        "rts-6-algorithmic-trading"
+      ],
+      "brokers_frameworks": [
+        "MiFID II / MiFIR",
+        "RTS 6 (Regulatory Technical Standard on algorithmic trading)"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/mifid-ii-algo-trading-compliance-eu",
+      "skill_md": "skills/mifid-ii-algo-trading-compliance-eu/SKILL.md"
+    },
+    {
+      "name": "model-staleness-detection",
+      "description": "Use when a live signal classifier has been running for a while and needs ongoing monitoring for performance drift relative to its training-time distribution, rather than being trusted indefinitely after initial validation",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/model-staleness-detection",
+      "skill_md": "skills/model-staleness-detection/SKILL.md"
     },
     {
       "name": "multi-broker-rate-limit-handling",
@@ -81,8 +266,81 @@
         "Alpaca Trading API",
         "IBKR API"
       ],
-      "path": "skills/multi-broker-rate-limit-handling/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-broker-rate-limit-handling",
+      "skill_md": "skills/multi-broker-rate-limit-handling/SKILL.md"
+    },
+    {
+      "name": "multi-currency-pnl-and-fx-conversion",
+      "description": "Use when a bot or backtest holds positions denominated in more than one currency, to prevent P&L from different currencies being silently summed as if they were the same unit",
+      "domain": "algorithmic-trading",
+      "subdomain": "data-management-global",
+      "tags": [
+        "data-management-global"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-currency-pnl-and-fx-conversion",
+      "skill_md": "skills/multi-currency-pnl-and-fx-conversion/SKILL.md"
+    },
+    {
+      "name": "multi-timezone-session-scheduling",
+      "description": "Use when a bot's scheduling logic (session start/end, pre-market checks, EOD tasks) must operate correctly across time zones and daylight saving transitions, not just a single fixed local time",
+      "domain": "algorithmic-trading",
+      "subdomain": "data-management-global",
+      "tags": [
+        "data-management-global",
+        "iana-tz-database",
+        "pytz-zoneinfo"
+      ],
+      "brokers_frameworks": [
+        "IANA tz database",
+        "pytz/zoneinfo"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-timezone-session-scheduling",
+      "skill_md": "skills/multi-timezone-session-scheduling/SKILL.md"
+    },
+    {
+      "name": "offline-train-online-infer-deployment",
+      "description": "Use when exporting a trained ML signal classifier's weights from an offline training pipeline into a live trading bot's inference path",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/offline-train-online-infer-deployment",
+      "skill_md": "skills/offline-train-online-infer-deployment/SKILL.md"
+    },
+    {
+      "name": "options-margin-span-calculation-global",
+      "description": "Use when a strategy trades options/futures and needs to estimate margin requirements accurately across brokers/exchanges using SPAN-style or broker-specific portfolio-margin methodologies, to avoid a strategy that looks fine on paper but is unplaceable due to margin",
+      "domain": "algorithmic-trading",
+      "subdomain": "multi-asset-derivatives",
+      "tags": [
+        "multi-asset-derivatives",
+        "span-(standard-portfolio-analysis-of-risk)",
+        "broker-specific-portfolio-margin-models"
+      ],
+      "brokers_frameworks": [
+        "SPAN (Standard Portfolio Analysis of Risk)",
+        "broker-specific portfolio margin models"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/options-margin-span-calculation-global",
+      "skill_md": "skills/options-margin-span-calculation-global/SKILL.md"
     },
     {
       "name": "order-placement-idempotency",
@@ -103,27 +361,11 @@
         "Alpaca Trading API",
         "IBKR API"
       ],
-      "path": "skills/order-placement-idempotency/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "token-lifecycle-live-probing",
-      "description": "Use when a bot needs to decide whether a cached broker token is still valid before making trading calls \u2014 especially for brokers that invalidate tokens outside their documented expiry windows",
-      "domain": "algorithmic-trading",
-      "subdomain": "broker-integration",
-      "tags": [
-        "broker-integration",
-        "fyers-api-v3",
-        "icici-breeze-api",
-        "zerodha-kite-connect"
-      ],
-      "brokers_frameworks": [
-        "Fyers API v3",
-        "ICICI Breeze API",
-        "Zerodha Kite Connect"
-      ],
-      "path": "skills/token-lifecycle-live-probing/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/order-placement-idempotency",
+      "skill_md": "skills/order-placement-idempotency/SKILL.md"
     },
     {
       "name": "paper-to-live-promotion-checklist",
@@ -134,71 +376,29 @@
         "deployment-ops"
       ],
       "brokers_frameworks": [],
-      "path": "skills/paper-to-live-promotion-checklist/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/paper-to-live-promotion-checklist",
+      "skill_md": "skills/paper-to-live-promotion-checklist/SKILL.md"
     },
     {
-      "name": "systemd-supervision-for-trading-bots",
-      "description": "Use when deploying a trading bot process to a Linux server/VM, to get reliable process supervision, restart behavior, and pre-market health checks \u2014 preferred over cron for anything long-running",
+      "name": "pattern-day-trader-rule-compliance-us",
+      "description": "Use when a bot trades US equities/options in a margin account under $25,000 in equity, to avoid triggering FINRA's Pattern Day Trader restriction, which can freeze the account's day-trading ability",
       "domain": "algorithmic-trading",
-      "subdomain": "deployment-ops",
+      "subdomain": "regulatory-compliance-global",
       "tags": [
-        "deployment-ops",
-        "systemd"
+        "regulatory-compliance-global",
+        "finra-rule-4210-(pattern-day-trader)"
       ],
       "brokers_frameworks": [
-        "systemd"
+        "FINRA Rule 4210 (Pattern Day Trader)"
       ],
-      "path": "skills/systemd-supervision-for-trading-bots/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "feature-engineering-without-leakage",
-      "description": "Use when constructing features for an ML-based trading signal classifier, to guarantee every feature is computable using only information available strictly before the prediction target's outcome",
-      "domain": "algorithmic-trading",
-      "subdomain": "financial-ml",
-      "tags": [
-        "financial-ml"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/feature-engineering-without-leakage/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "model-staleness-detection",
-      "description": "Use when a live signal classifier has been running for a while and needs ongoing monitoring for performance drift relative to its training-time distribution, rather than being trusted indefinitely after initial validation",
-      "domain": "algorithmic-trading",
-      "subdomain": "financial-ml",
-      "tags": [
-        "financial-ml"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/model-staleness-detection/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "offline-train-online-infer-deployment",
-      "description": "Use when exporting a trained ML signal classifier's weights from an offline training pipeline into a live trading bot's inference path",
-      "domain": "algorithmic-trading",
-      "subdomain": "financial-ml",
-      "tags": [
-        "financial-ml"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/offline-train-online-infer-deployment/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "backpressure-drop-degrade-policy",
-      "description": "Use when a real-time pipeline's consumers fall persistently behind producers and the system needs an explicit, chosen policy rather than an accidental one",
-      "domain": "algorithmic-trading",
-      "subdomain": "real-time-architecture",
-      "tags": [
-        "real-time-architecture"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/backpressure-drop-degrade-policy/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/pattern-day-trader-rule-compliance-us",
+      "skill_md": "skills/pattern-day-trader-rule-compliance-us/SKILL.md"
     },
     {
       "name": "producer-consumer-tick-pipeline",
@@ -217,8 +417,29 @@
         "IBKR",
         "Alpaca market data streams"
       ],
-      "path": "skills/producer-consumer-tick-pipeline/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/producer-consumer-tick-pipeline",
+      "skill_md": "skills/producer-consumer-tick-pipeline/SKILL.md"
+    },
+    {
+      "name": "systemd-supervision-for-trading-bots",
+      "description": "Use when deploying a trading bot process to a Linux server/VM, to get reliable process supervision, restart behavior, and pre-market health checks \u2014 preferred over cron for anything long-running",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
+      "tags": [
+        "deployment-ops",
+        "systemd"
+      ],
+      "brokers_frameworks": [
+        "systemd"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/systemd-supervision-for-trading-bots",
+      "skill_md": "skills/systemd-supervision-for-trading-bots/SKILL.md"
     },
     {
       "name": "tick-buffering-burst-handling",
@@ -229,8 +450,48 @@
         "real-time-architecture"
       ],
       "brokers_frameworks": [],
-      "path": "skills/tick-buffering-burst-handling/SKILL.md",
-      "status": "built"
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/tick-buffering-burst-handling",
+      "skill_md": "skills/tick-buffering-burst-handling/SKILL.md"
+    },
+    {
+      "name": "token-lifecycle-live-probing",
+      "description": "Use when a bot needs to decide whether a cached broker token is still valid before making trading calls \u2014 especially for brokers that invalidate tokens outside their documented expiry windows",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "fyers-api-v3",
+        "icici-breeze-api",
+        "zerodha-kite-connect"
+      ],
+      "brokers_frameworks": [
+        "Fyers API v3",
+        "ICICI Breeze API",
+        "Zerodha Kite Connect"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/token-lifecycle-live-probing",
+      "skill_md": "skills/token-lifecycle-live-probing/SKILL.md"
+    },
+    {
+      "name": "walk-forward-validation-setup",
+      "description": "Use when validating a trading strategy or ML signal model on historical time-series data, to avoid the invalid train/test splits that k-fold cross-validation produces on non-stationary sequential data",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/walk-forward-validation-setup",
+      "skill_md": "skills/walk-forward-validation-setup/SKILL.md"
     },
     {
       "name": "websocket-reconnect-without-duplicate-subscriptions",
@@ -249,658 +510,11 @@
         "IBKR",
         "Alpaca market data streams"
       ],
-      "path": "skills/websocket-reconnect-without-duplicate-subscriptions/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "correlation-aware-exposure-limits",
-      "description": "Use when a bot can hold multiple simultaneous positions, to prevent sector or factor concentration that per-instrument position limits alone don't catch",
-      "domain": "algorithmic-trading",
-      "subdomain": "risk-management",
-      "tags": [
-        "risk-management"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/correlation-aware-exposure-limits/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "kill-switch-and-drawdown-circuit-breakers",
-      "description": "Use when a live trading bot needs hard, strategy-independent limits that force-flatten positions and halt new orders, so that a strategy bug or unexpected market condition cannot cause unbounded loss",
-      "domain": "algorithmic-trading",
-      "subdomain": "risk-management",
-      "tags": [
-        "risk-management"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/kill-switch-and-drawdown-circuit-breakers/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "crypto-exchange-api-integration",
-      "description": "Use when integrating a crypto exchange (Binance, Coinbase Advanced Trade, Kraken) for spot or derivatives trading, where 24/7 markets, different rate-limit models, and exchange-specific order semantics break assumptions carried over from equities broker integration",
-      "domain": "algorithmic-trading",
-      "subdomain": "global-market-integration",
-      "tags": [
-        "global-market-integration",
-        "binance-spot-futures-api",
-        "coinbase-advanced-trade-api",
-        "kraken-rest-websocket-v2"
-      ],
-      "brokers_frameworks": [
-        "Binance Spot/Futures API",
-        "Coinbase Advanced Trade API",
-        "Kraken REST/WebSocket v2"
-      ],
-      "path": "skills/crypto-exchange-api-integration/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "crypto-wallet-key-custody-security",
-      "description": "Use when a trading bot has any access to crypto private keys, exchange API keys with withdrawal permission, or wallet infrastructure, to bound the damage a compromised bot or leaked credential can cause",
-      "domain": "algorithmic-trading",
-      "subdomain": "crypto-custody-security",
-      "tags": [
-        "crypto-custody-security"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/crypto-wallet-key-custody-security/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "execution-algo-twap-vwap-slicing",
-      "description": "Use when an order is large enough relative to typical market liquidity that placing it as a single order would move the price against the strategy, requiring a TWAP/VWAP-style slicing algorithm instead",
-      "domain": "algorithmic-trading",
-      "subdomain": "execution-algorithms",
-      "tags": [
-        "execution-algorithms"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/execution-algo-twap-vwap-slicing/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "forex-broker-integration-oanda-mt5",
-      "description": "Use when integrating a forex broker (OANDA's REST/streaming API, or MetaTrader 5 for brokers that only expose an MT5 terminal) where pip-based pricing, rollover/swap charges, and MT5's non-Python-native environment introduce integration patterns distinct from equities brokers",
-      "domain": "algorithmic-trading",
-      "subdomain": "global-market-integration",
-      "tags": [
-        "global-market-integration",
-        "oanda-v20-rest-api",
-        "metatrader-5-python-integration"
-      ],
-      "brokers_frameworks": [
-        "OANDA v20 REST API",
-        "MetaTrader 5 Python integration"
-      ],
-      "path": "skills/forex-broker-integration-oanda-mt5/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "global-exchange-holiday-calendar-handling",
-      "description": "Use when a bot or backtest operates across more than one country's exchange, to avoid treating a foreign market holiday as a normal trading day (or vice versa)",
-      "domain": "algorithmic-trading",
-      "subdomain": "data-management-global",
-      "tags": [
-        "data-management-global",
-        "exchange_calendars-(python)",
-        "pandas_market_calendars"
-      ],
-      "brokers_frameworks": [
-        "exchange_calendars (Python)",
-        "pandas_market_calendars"
-      ],
-      "path": "skills/global-exchange-holiday-calendar-handling/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "mifid-ii-algo-trading-compliance-eu",
-      "description": "Use when deploying an algorithmic trading system that executes on an EU trading venue, to account for MiFID II's specific technical and organizational requirements for algorithmic trading firms (RTS 6), which go beyond the general risk-management practices covered elsewhere in this repo",
-      "domain": "algorithmic-trading",
-      "subdomain": "regulatory-compliance-global",
-      "tags": [
-        "regulatory-compliance-global",
-        "mifid-ii---mifir",
-        "rts-6-(regulatory-technical-standard-on-algorithmic-trading)"
-      ],
-      "brokers_frameworks": [
-        "MiFID II / MiFIR",
-        "RTS 6 (Regulatory Technical Standard on algorithmic trading)"
-      ],
-      "path": "skills/mifid-ii-algo-trading-compliance-eu/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "multi-currency-pnl-and-fx-conversion",
-      "description": "Use when a bot or backtest holds positions denominated in more than one currency, to prevent P&L from different currencies being silently summed as if they were the same unit",
-      "domain": "algorithmic-trading",
-      "subdomain": "data-management-global",
-      "tags": [
-        "data-management-global"
-      ],
-      "brokers_frameworks": [],
-      "path": "skills/multi-currency-pnl-and-fx-conversion/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "multi-timezone-session-scheduling",
-      "description": "Use when a bot's scheduling logic (session start/end, pre-market checks, EOD tasks) must operate correctly across time zones and daylight saving transitions, not just a single fixed local time",
-      "domain": "algorithmic-trading",
-      "subdomain": "data-management-global",
-      "tags": [
-        "data-management-global",
-        "iana-tz-database",
-        "pytz-zoneinfo"
-      ],
-      "brokers_frameworks": [
-        "IANA tz database",
-        "pytz/zoneinfo"
-      ],
-      "path": "skills/multi-timezone-session-scheduling/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "options-margin-span-calculation-global",
-      "description": "Use when a strategy trades options/futures and needs to estimate margin requirements accurately across brokers/exchanges using SPAN-style or broker-specific portfolio-margin methodologies, to avoid a strategy that looks fine on paper but is unplaceable due to margin",
-      "domain": "algorithmic-trading",
-      "subdomain": "multi-asset-derivatives",
-      "tags": [
-        "multi-asset-derivatives",
-        "span-(standard-portfolio-analysis-of-risk)",
-        "broker-specific-portfolio-margin-models"
-      ],
-      "brokers_frameworks": [
-        "SPAN (Standard Portfolio Analysis of Risk)",
-        "broker-specific portfolio margin models"
-      ],
-      "path": "skills/options-margin-span-calculation-global/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "pattern-day-trader-rule-compliance-us",
-      "description": "Use when a bot trades US equities/options in a margin account under $25,000 in equity, to avoid triggering FINRA's Pattern Day Trader restriction, which can freeze the account's day-trading ability",
-      "domain": "algorithmic-trading",
-      "subdomain": "regulatory-compliance-global",
-      "tags": [
-        "regulatory-compliance-global",
-        "finra-rule-4210-(pattern-day-trader)"
-      ],
-      "brokers_frameworks": [
-        "FINRA Rule 4210 (Pattern Day Trader)"
-      ],
-      "path": "skills/pattern-day-trader-rule-compliance-us/SKILL.md",
-      "status": "built"
-    },
-    {
-      "name": "zerodha-kite-postback-webhook-verification",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Validating Kite Connect postback signatures so order-update webhooks can't be spoofed."
-    },
-    {
-      "name": "upstox-oauth-refresh-token-rotation",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Handling Upstox's refresh-token rotation without breaking a long-running bot session."
-    },
-    {
-      "name": "alpaca-paper-live-key-separation",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Preventing a bot from accidentally trading live capital using a paper-environment code path, and vice versa."
-    },
-    {
-      "name": "ibkr-tws-gateway-headless-launch",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Running IBKR's TWS/Gateway headless in a container for a bot with no persistent desktop session."
-    },
-    {
-      "name": "schwab-api-oauth-pkce-flow",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Implementing Schwab's (post-TD-Ameritrade-migration) OAuth2 PKCE flow for unattended token refresh."
-    },
-    {
-      "name": "tradestation-websocket-order-updates",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Consuming TradeStation's order-update stream without missing fills during reconnects."
-    },
-    {
-      "name": "broker-agnostic-adapter-interface",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Designing a broker adapter interface so strategy code doesn't need per-broker branching."
-    },
-    {
-      "name": "sandbox-vs-production-endpoint-drift",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Detecting behavioral differences between a broker's sandbox and production environments before they surprise you live."
-    },
-    {
-      "name": "webhook-based-order-fill-notifications",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Consuming broker fill-webhooks reliably, including replay/dedup for at-least-once delivery guarantees."
-    },
-    {
-      "name": "broker-account-margin-call-handling",
-      "category": "broker-integration",
-      "status": "planned",
-      "description": "Detecting and responding programmatically to a broker-issued margin call before forced liquidation."
-    },
-    {
-      "name": "redis-streams-multi-consumer-tick-fanout",
-      "category": "real-time-architecture",
-      "status": "planned",
-      "description": "Fanning out a single tick feed to multiple independent consumer services via Redis Streams consumer groups."
-    },
-    {
-      "name": "clock-skew-correction-for-tick-timestamps",
-      "category": "real-time-architecture",
-      "status": "planned",
-      "description": "Correcting for local-clock drift when timestamping incoming ticks against exchange-reported times."
-    },
-    {
-      "name": "market-data-snapshot-plus-delta-reconciliation",
-      "category": "real-time-architecture",
-      "status": "planned",
-      "description": "Reconciling an initial full order-book snapshot with a subsequent delta stream without gaps."
-    },
-    {
-      "name": "multi-exchange-feed-normalization",
-      "category": "real-time-architecture",
-      "status": "planned",
-      "description": "Normalizing tick schemas across multiple exchanges/brokers into one internal representation."
-    },
-    {
-      "name": "graceful-degradation-to-polling-fallback",
-      "category": "real-time-architecture",
-      "status": "planned",
-      "description": "Falling back to REST polling when a WebSocket feed is degraded, without duplicating or missing data at the handover."
-    },
-    {
-      "name": "order-book-depth-processing-l2-l3",
-      "category": "real-time-architecture",
-      "status": "planned",
-      "description": "Processing L2/L3 order book updates without introducing race conditions between bid/ask update messages."
-    },
-    {
-      "name": "survivorship-bias-free-universe-construction",
-      "category": "backtesting-methodology",
-      "status": "planned",
-      "description": "Building historical instrument universes that include delisted/defunct symbols, not just current constituents."
-    },
-    {
-      "name": "corporate-action-adjusted-backtesting",
-      "category": "backtesting-methodology",
-      "status": "planned",
-      "description": "Correctly applying splits, dividends, and mergers to historical price series without double-adjusting."
-    },
-    {
-      "name": "monte-carlo-strategy-robustness-testing",
-      "category": "backtesting-methodology",
-      "status": "planned",
-      "description": "Randomizing trade sequence/entry timing to test whether a strategy's edge survives reasonable perturbation."
-    },
-    {
-      "name": "multi-asset-backtest-currency-normalization",
-      "category": "backtesting-methodology",
-      "status": "planned",
-      "description": "Backtesting a multi-currency portfolio without silently mixing P&L across currencies."
-    },
-    {
-      "name": "benchmark-relative-performance-attribution",
-      "category": "backtesting-methodology",
-      "status": "planned",
-      "description": "Attributing backtest outperformance to specific factors rather than reporting only raw returns."
-    },
-    {
-      "name": "regime-detection-for-strategy-switching",
-      "category": "financial-ml",
-      "status": "planned",
-      "description": "Detecting market regime shifts (trending/ranging/high-vol) to switch between strategy variants live."
-    },
-    {
-      "name": "ensemble-signal-combination-without-overfitting",
-      "category": "financial-ml",
-      "status": "planned",
-      "description": "Combining multiple models' signals without simply overfitting the combination weights to history."
-    },
-    {
-      "name": "feature-store-for-live-and-backtest-parity",
-      "category": "financial-ml",
-      "status": "planned",
-      "description": "Building a feature store that guarantees identical computation between backtest and live paths."
-    },
-    {
-      "name": "reinforcement-learning-safety-constraints-for-execution",
-      "category": "financial-ml",
-      "status": "planned",
-      "description": "Constraining an RL-based execution agent so it cannot learn to violate risk limits."
-    },
-    {
-      "name": "explainability-for-live-trading-signals",
-      "category": "financial-ml",
-      "status": "planned",
-      "description": "Generating human-readable explanations for why a live ML signal fired, for post-hoc audit and trust-building."
-    },
-    {
-      "name": "value-at-risk-var-live-monitoring",
-      "category": "risk-management",
-      "status": "planned",
-      "description": "Computing and monitoring a live portfolio VaR estimate, not just a backtest-time figure."
-    },
-    {
-      "name": "stress-testing-against-historical-crash-scenarios",
-      "category": "risk-management",
-      "status": "planned",
-      "description": "Replaying a live portfolio's positions against historical crash scenarios (2020 COVID crash, 2015 flash crash, etc.) for tail-risk sizing."
-    },
-    {
-      "name": "multi-strategy-capital-allocation-limits",
-      "category": "risk-management",
-      "status": "planned",
-      "description": "Allocating and capping capital across multiple concurrently-running strategies sharing one account."
-    },
-    {
-      "name": "margin-utilization-circuit-breaker",
-      "category": "risk-management",
-      "status": "planned",
-      "description": "Halting new orders when margin utilization crosses a defined threshold, independent of P&L-based breakers."
-    },
-    {
-      "name": "counterparty-and-broker-concentration-risk",
-      "category": "risk-management",
-      "status": "planned",
-      "description": "Limiting exposure to any single broker/custodian to bound counterparty risk, not just market risk."
-    },
-    {
-      "name": "blue-green-deployment-for-live-strategy-updates",
-      "category": "deployment-ops",
-      "status": "planned",
-      "description": "Rolling out a strategy code update without a gap in market coverage or duplicate order risk."
-    },
-    {
-      "name": "secrets-rotation-without-bot-downtime",
-      "category": "deployment-ops",
-      "status": "planned",
-      "description": "Rotating broker API keys/secrets on a schedule without requiring a full bot restart."
-    },
-    {
-      "name": "multi-region-failover-for-broker-connectivity",
-      "category": "deployment-ops",
-      "status": "planned",
-      "description": "Failing over to a backup network path/region if the primary connection to a broker degrades."
-    },
-    {
-      "name": "structured-logging-for-post-incident-forensics",
-      "category": "deployment-ops",
-      "status": "planned",
-      "description": "Designing log schemas that make a post-incident timeline reconstruction possible without guesswork."
-    },
-    {
-      "name": "binance-futures-testnet-to-mainnet-promotion",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Safely promoting a crypto futures bot from Binance testnet to mainnet with a distinct credential/config path."
-    },
-    {
-      "name": "coinbase-advanced-trade-api-migration",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Migrating from Coinbase's legacy Pro API to Advanced Trade without silently breaking order semantics."
-    },
-    {
-      "name": "kraken-websocket-v2-auth-and-subscriptions",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Authenticating and subscribing to Kraken's WebSocket v2 private feeds for order/fill updates."
-    },
-    {
-      "name": "interactive-brokers-global-multi-exchange-routing",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Routing orders correctly across IBKR's many supported global exchanges (LSE, HKEX, ASX, etc.) with correct contract specification."
-    },
-    {
-      "name": "mt5-python-bridge-for-forex-bots",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Bridging MetaTrader 5's native environment to a Python strategy engine reliably."
-    },
-    {
-      "name": "cme-globex-futures-api-integration",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Integrating with CME Globex for futures order routing and market data."
-    },
-    {
-      "name": "eurex-market-data-and-order-api",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Handling Eurex-specific contract specs and API quirks for European derivatives."
-    },
-    {
-      "name": "hong-kong-exchange-hkex-orion-api",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Integrating with HKEX's Orion trading API and its specific session/lot-size conventions."
-    },
-    {
-      "name": "singapore-exchange-sgx-api-integration",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Integrating with SGX's API for Singapore-listed derivatives and equities."
-    },
-    {
-      "name": "australian-securities-exchange-asx-api",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Handling ASX's API and T+2 settlement conventions for an Australian equities bot."
-    },
-    {
-      "name": "japan-exchange-group-jpx-api-integration",
-      "category": "global-market-integration",
-      "status": "planned",
-      "description": "Integrating with JPX/Tokyo Stock Exchange APIs, including their distinct trading-hour and tick-size rules."
-    },
-    {
-      "name": "sec-rule-15c3-5-risk-controls-us",
-      "category": "regulatory-compliance-global",
-      "status": "planned",
-      "description": "Implementing the pre-trade risk controls required under SEC Rule 15c3-5 (the 'market access rule') for US broker-dealer routed flow."
-    },
-    {
-      "name": "finra-algo-trading-registration-requirements",
-      "category": "regulatory-compliance-global",
-      "status": "planned",
-      "description": "Understanding FINRA's algorithmic trading registration and testing requirements for US-based strategies."
-    },
-    {
-      "name": "esma-double-volume-cap-mechanism",
-      "category": "regulatory-compliance-global",
-      "status": "planned",
-      "description": "Accounting for ESMA's double volume cap mechanism when trading EU dark-pool venues."
-    },
-    {
-      "name": "uk-fca-algorithmic-trading-systems-controls",
-      "category": "regulatory-compliance-global",
-      "status": "planned",
-      "description": "Implementing the systems-and-controls requirements the UK FCA expects of algorithmic trading firms."
-    },
-    {
-      "name": "asic-market-integrity-rules-automated-trading",
-      "category": "regulatory-compliance-global",
-      "status": "planned",
-      "description": "Complying with ASIC's market integrity rules for automated order processing in Australia."
-    },
-    {
-      "name": "mas-singapore-algo-trading-guidelines",
-      "category": "regulatory-compliance-global",
-      "status": "planned",
-      "description": "Following MAS guidelines on automated trading systems risk management for Singapore-based operations."
-    },
-    {
-      "name": "wash-trade-and-spoofing-self-detection",
-      "category": "regulatory-compliance-global",
-      "status": "planned",
-      "description": "Building self-checks that flag a strategy's own order pattern if it could resemble wash trading or spoofing, before a regulator does."
-    },
-    {
-      "name": "best-execution-record-keeping-global",
-      "category": "regulatory-compliance-global",
-      "status": "planned",
-      "description": "Maintaining best-execution evidence across jurisdictions with differing regulatory expectations (US Reg NMS, EU MiFID II, etc.)."
-    },
-    {
-      "name": "futures-contract-roll-automation",
-      "category": "multi-asset-derivatives",
-      "status": "planned",
-      "description": "Automatically rolling futures positions ahead of expiry without a naive same-day roll causing slippage spikes."
-    },
-    {
-      "name": "options-greeks-real-time-portfolio-aggregation",
-      "category": "multi-asset-derivatives",
-      "status": "planned",
-      "description": "Aggregating delta/gamma/vega/theta across a multi-leg options portfolio in real time for risk monitoring."
-    },
-    {
-      "name": "calendar-spread-and-multi-leg-order-atomicity",
-      "category": "multi-asset-derivatives",
-      "status": "planned",
-      "description": "Ensuring multi-leg option/futures spread orders either fill entirely or roll back, not partially."
-    },
-    {
-      "name": "cross-margining-across-asset-classes",
-      "category": "multi-asset-derivatives",
-      "status": "planned",
-      "description": "Handling brokers that offer cross-margining between equities, options, and futures without misreporting available capital."
-    },
-    {
-      "name": "perpetual-futures-funding-rate-handling",
-      "category": "multi-asset-derivatives",
-      "status": "planned",
-      "description": "Accounting for perpetual futures funding-rate payments/receipts in live P&L for crypto derivatives."
-    },
-    {
-      "name": "fx-forward-and-swap-position-tracking",
-      "category": "multi-asset-derivatives",
-      "status": "planned",
-      "description": "Tracking FX forward/swap positions and their forward-point carry correctly, distinct from spot P&L."
-    },
-    {
-      "name": "participation-of-volume-pov-execution",
-      "category": "execution-algorithms",
-      "status": "planned",
-      "description": "Implementing a POV execution algorithm that scales order slicing to real-time observed volume."
-    },
-    {
-      "name": "implementation-shortfall-minimization",
-      "category": "execution-algorithms",
-      "status": "planned",
-      "description": "Designing an execution schedule that minimizes implementation shortfall versus the arrival price benchmark."
-    },
-    {
-      "name": "iceberg-order-simulation-and-detection",
-      "category": "execution-algorithms",
-      "status": "planned",
-      "description": "Simulating iceberg/hidden-quantity orders in a backtest, and detecting when a strategy is inadvertently signaling its own size."
-    },
-    {
-      "name": "smart-order-routing-across-venues",
-      "category": "execution-algorithms",
-      "status": "planned",
-      "description": "Routing an order across multiple venues/exchanges to minimize cost when a single venue lacks sufficient liquidity."
-    },
-    {
-      "name": "adaptive-execution-under-volatility-spikes",
-      "category": "execution-algorithms",
-      "status": "planned",
-      "description": "Switching an execution algorithm's aggressiveness in response to a real-time volatility spike detector."
-    },
-    {
-      "name": "daylight-saving-time-transition-handling",
-      "category": "data-management-global",
-      "status": "planned",
-      "description": "Handling DST transitions correctly for exchanges/brokers whose local trading hours shift twice a year."
-    },
-    {
-      "name": "point-in-time-fundamentals-data-joins",
-      "category": "data-management-global",
-      "status": "planned",
-      "description": "Joining fundamentals/reference data by as-of publish date rather than calendar date, across global data vendors."
-    },
-    {
-      "name": "reference-data-symbol-mapping-across-vendors",
-      "category": "data-management-global",
-      "status": "planned",
-      "description": "Mapping instrument identifiers (ISIN, CUSIP, ticker, exchange-specific codes) consistently across data vendors and brokers."
-    },
-    {
-      "name": "historical-tick-data-storage-and-compaction",
-      "category": "data-management-global",
-      "status": "planned",
-      "description": "Storing and compacting historical tick data at scale without exhausting storage or query latency budgets."
-    },
-    {
-      "name": "hot-cold-wallet-split-for-trading-bots",
-      "category": "crypto-custody-security",
-      "status": "planned",
-      "description": "Splitting a crypto trading bot's operational hot-wallet balance from cold storage to bound loss from a compromise."
-    },
-    {
-      "name": "exchange-withdrawal-whitelist-enforcement",
-      "category": "crypto-custody-security",
-      "status": "planned",
-      "description": "Enforcing withdrawal address whitelisting so a compromised bot credential can't exfiltrate funds to an arbitrary address."
-    },
-    {
-      "name": "multi-signature-approval-for-large-transfers",
-      "category": "crypto-custody-security",
-      "status": "planned",
-      "description": "Requiring multi-sig approval for any transfer above a threshold, independent of the bot's own logic."
-    },
-    {
-      "name": "cross-strategy-correlation-monitoring",
-      "category": "portfolio-multi-strategy",
-      "status": "planned",
-      "description": "Monitoring correlation between concurrently-running strategies to detect unintended aggregate concentration."
-    },
-    {
-      "name": "capital-reallocation-based-on-live-performance",
-      "category": "portfolio-multi-strategy",
-      "status": "planned",
-      "description": "Reallocating capital between strategies based on live (not just backtested) rolling performance, with safeguards against reallocation churn."
-    },
-    {
-      "name": "strategy-lifecycle-retirement-criteria",
-      "category": "portfolio-multi-strategy",
-      "status": "planned",
-      "description": "Defining explicit, pre-agreed criteria for retiring a live strategy rather than letting it run indefinitely on inertia."
-    },
-    {
-      "name": "colocation-latency-budget-accounting",
-      "category": "market-microstructure-latency",
-      "status": "planned",
-      "description": "Accounting for colocation and network latency budgets when a strategy's edge depends on sub-millisecond response time."
-    },
-    {
-      "name": "clock-synchronization-ptp-for-trading-hosts",
-      "category": "market-microstructure-latency",
-      "status": "planned",
-      "description": "Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters."
-    },
-    {
-      "name": "tick-to-trade-latency-measurement",
-      "category": "market-microstructure-latency",
-      "status": "planned",
-      "description": "Measuring true tick-to-trade latency end to end, not just the strategy's own compute time."
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/websocket-reconnect-without-duplicate-subscriptions",
+      "skill_md": "skills/websocket-reconnect-without-duplicate-subscriptions/SKILL.md"
     }
-  ],
-  "roadmap_target": 500,
-  "roadmap_built": 28,
-  "roadmap_planned": 78
+  ]
 }
