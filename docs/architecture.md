@@ -5,39 +5,39 @@ roughly like this — the architecture the skills were extracted from:
 
 ```
                  ┌─────────────────────┐
-                 │   Broker(s)          │
-                 │  Fyers / Breeze /    │
-                 │  Kite / Upstox / ... │
+                 │   Broker(s)         │
+                 │  Fyers / Breeze /   │
+                 │  Kite / Upstox / ...│
                  └──────────┬──────────┘
-                             │ REST (auth, orders) + WebSocket (ticks)
-                             ▼
-   ┌────────────────────────────────────────────────┐
-   │              WebSocket Relay Process             │  ← producer-consumer-tick-pipeline
-   │       (owns broker session, tick ingestion)       │     websocket-reconnect-without-duplicate-subscriptions
-   └───────────────────────┬──────────────────────────┘
+                            │ REST (auth, orders) + WebSocket (ticks)
+                            ▼
+   ┌─────────────────────────────────────────────────┐
+   │              WebSocket Relay Process            │  ← producer-consumer-tick-pipeline
+   │       (owns broker session, tick ingestion)     │     websocket-reconnect-without-duplicate-subscriptions
+   └────────────────────────┬────────────────────────┘
                             │ pub-sub / queue (Redis or in-process)
                             ▼
    ┌────────────────────────────────────────────────┐
-   │             Strategy / Signal Engine              │  ← tick-buffering-burst-handling
-   │   (feature computation, ML inference, signals)     │     backpressure-drop-degrade-policy
-   │                                                    │     feature-engineering-without-leakage
-   │                                                    │     offline-train-online-infer-deployment
-   │                                                    │     model-staleness-detection
-   └───────────────────────┬──────────────────────────┘
+   │             Strategy / Signal Engine           │  ← tick-buffering-burst-handling
+   │   (feature computation, ML inference, signals) │     backpressure-drop-degrade-policy
+   │                                                │     feature-engineering-without-leakage
+   │                                                │     offline-train-online-infer-deployment
+   │                                                │     model-staleness-detection
+   └────────────────────────┬───────────────────────┘
                             │ proposed orders
                             ▼
    ┌────────────────────────────────────────────────┐
-   │              Risk Module (independent)            │  ← kill-switch-and-drawdown-circuit-breakers
-   │   (position/drawdown/correlation limits — has       correlation-aware-exposure-limits
-   │    veto power over the strategy engine)             │
-   └───────────────────────┬──────────────────────────┘
+   │              Risk Module (independent)         │  ← kill-switch-and-drawdown-circuit-breakers
+   │   (position/drawdown/correlation limits — has  │    correlation-aware-exposure-limits
+   │    veto power over the strategy engine)        │
+   └────────────────────────┬───────────────────────┘
                             │ approved orders
                             ▼
    ┌────────────────────────────────────────────────┐
-   │           Order Placement + Idempotency           │  ← order-placement-idempotency
-   │        (broker auth, rate limiting, ledger)        │     token-lifecycle-live-probing
-   │                                                    │     multi-broker-rate-limit-handling
-   │                                                    │     headless-broker-auth-patterns
+   │           Order Placement + Idempotency        │  ← order-placement-idempotency
+   │        (broker auth, rate limiting, ledger)    │     token-lifecycle-live-probing
+   │                                                │     multi-broker-rate-limit-handling
+   │                                                │     headless-broker-auth-patterns
    └────────────────────────────────────────────────┘
 
    Shared state: PostgreSQL/NeonDB (positions, ledger, logs)
