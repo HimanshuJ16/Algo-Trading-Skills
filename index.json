@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:33:31.893807+00:00",
+  "generated_at": "2026-07-24T15:34:33.147311+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 39,
+  "total_skills": 40,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -87,6 +87,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
       "skill_md": "skills/broker-agnostic-adapter-interface/SKILL.md"
+    },
+    {
+      "name": "clock-skew-correction-for-tick-timestamps",
+      "description": "Use when processing market data feeds to dynamically estimate and correct local clock drift against exchange matching engine timestamps using EWMA filtering and network jitter rejection",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "clock-skew",
+        "timestamp-calibration",
+        "ewma-filter",
+        "latency-measurement"
+      ],
+      "brokers_frameworks": [
+        "All Market Data Streams",
+        "Fix Protocol",
+        "WebSockets"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/clock-skew-correction-for-tick-timestamps",
+      "skill_md": "skills/clock-skew-correction-for-tick-timestamps/SKILL.md"
     },
     {
       "name": "correlation-aware-exposure-limits",
