@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T16:05:13.720273+00:00",
+  "generated_at": "2026-07-24T16:07:50.584037+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 61,
+  "total_skills": 62,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1015,6 +1015,29 @@
       "license": "Apache-2.0",
       "path": "skills/schwab-api-oauth-pkce-flow",
       "skill_md": "skills/schwab-api-oauth-pkce-flow/SKILL.md"
+    },
+    {
+      "name": "secrets-rotation-without-bot-downtime",
+      "description": "Use when rotating broker API keys, secrets, or tokens on a schedule without requiring a full bot restart, ensuring continuous trading coverage during credential transitions.",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
+      "tags": [
+        "deployment",
+        "secrets-rotation",
+        "credentials",
+        "zero-downtime",
+        "api-keys"
+      ],
+      "brokers_frameworks": [
+        "Vault",
+        "AWS Secrets Manager",
+        "Custom Secrets Store"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/secrets-rotation-without-bot-downtime",
+      "skill_md": "skills/secrets-rotation-without-bot-downtime/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",
