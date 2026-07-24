@@ -52,7 +52,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 - **[BUILT]** `stress-testing-against-historical-crash-scenarios` — Replaying a live portfolio's positions against historical crash scenarios (2020 COVID crash, 2015 flash crash, etc.) for tail-risk sizing.
 - **[BUILT]** `multi-strategy-capital-allocation-limits` — Allocating and capping capital across multiple concurrently-running strategies sharing one account.
 - **[BUILT]** `margin-utilization-circuit-breaker` — Halting new orders when margin utilization crosses a defined threshold, independent of P&L-based breakers.
-- **[planned]** `counterparty-and-broker-concentration-risk` — Limiting exposure to any single broker/custodian to bound counterparty risk, not just market risk.
+- **[BUILT]** `counterparty-and-broker-concentration-risk` — Limiting exposure to any single broker/custodian to bound counterparty risk, not just market risk.
 - _(capacity for 35 more skills in this category — not yet titled)_
 
 ## deployment-ops  _(target: 30)_

@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T16:01:18.644092+00:00",
+  "generated_at": "2026-07-24T16:03:17.060937+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 59,
+  "total_skills": 60,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -183,6 +183,28 @@
       "license": "Apache-2.0",
       "path": "skills/correlation-aware-exposure-limits",
       "skill_md": "skills/correlation-aware-exposure-limits/SKILL.md"
+    },
+    {
+      "name": "counterparty-and-broker-concentration-risk",
+      "description": "Use when trading across multiple brokers or custodians to limit exposure to any single counterparty, bounding losses from broker default, insolvency, or operational failure rather than just market risk.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "counterparty-risk",
+        "broker-risk",
+        "concentration-limits",
+        "custodian-risk"
+      ],
+      "brokers_frameworks": [
+        "Custom Risk Engine",
+        "Multi-Broker"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/counterparty-and-broker-concentration-risk",
+      "skill_md": "skills/counterparty-and-broker-concentration-risk/SKILL.md"
     },
     {
       "name": "crypto-exchange-api-integration",
