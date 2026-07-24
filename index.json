@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:42:23.124912+00:00",
+  "generated_at": "2026-07-24T15:43:16.956829+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 47,
+  "total_skills": 48,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -431,6 +431,30 @@
       "license": "Apache-2.0",
       "path": "skills/model-staleness-detection",
       "skill_md": "skills/model-staleness-detection/SKILL.md"
+    },
+    {
+      "name": "monte-carlo-strategy-robustness-testing",
+      "description": "Use when validating trading strategy robustness to run Monte Carlo trade sequence shuffling, bootstrap resampling, and price noise perturbations to compute Risk of Ruin and 95th percentile drawdown limits",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "monte-carlo",
+        "risk-of-ruin",
+        "robustness-testing",
+        "bootstrap-resampling"
+      ],
+      "brokers_frameworks": [
+        "Backtrader",
+        "VectorBT",
+        "PyPFcon",
+        "Custom Backtesting Engines"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/monte-carlo-strategy-robustness-testing",
+      "skill_md": "skills/monte-carlo-strategy-robustness-testing/SKILL.md"
     },
     {
       "name": "multi-broker-rate-limit-handling",
