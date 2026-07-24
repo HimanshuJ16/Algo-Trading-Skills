@@ -1,9 +1,10 @@
-# Broker & Framework Coverage — correlation-aware-exposure-limits
+# Risk Management Standards — correlation-aware-exposure-limits
 
-| Broker / Framework | Relevance to this skill |
-|---|---|
-| Python `pandas` / `numpy` / `scipy` | Pearson correlation matrix calculation, covariance matrix decomposition, and connected component graph clustering. |
-| Institutional RMS (Risk Management Systems) | Multi-asset cluster exposure caps, delta-adjusted factor risk limits, and Marginal VaR / Risk Contribution monitoring. |
+| Metric / Constraint | Recommended Parameter | Operational Description |
+|---|---|---|
+| Correlation Threshold ($\rho_{\text{threshold}}$) | $0.70$ | Min pair correlation to form cluster |
+| Rolling Lookback Window | 60 days | Historical return window for correlation estimation |
+| Max Cluster Exposure Cap | $30.0\%$ NAV | Max total portfolio exposure per correlated cluster |
 
 ## Category
 
@@ -12,4 +13,4 @@ across the full skill library.
 
 ## Regulatory & Operational Notes
 
-Intersects with exchange position limit guidelines, SEBI risk management framework for algorithmic trading, and EU MiFID II RTS 6 pre-trade risk controls (enforcing aggregate sector and factor concentration limits before order routing).
+Intersects with SEC Rule 15c3-5 risk management controls, Basel III concentration risk guidelines, and institutional portfolio risk management standards.

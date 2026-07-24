@@ -48,7 +48,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 
 ## risk-management  _(target: 40)_
 
-- **[planned]** `value-at-risk-var-live-monitoring` — Computing and monitoring a live portfolio VaR estimate, not just a backtest-time figure.
+- **[BUILT]** `value-at-risk-var-live-monitoring` — Computing and monitoring a live portfolio VaR estimate, not just a backtest-time figure.
 - **[planned]** `stress-testing-against-historical-crash-scenarios` — Replaying a live portfolio's positions against historical crash scenarios (2020 COVID crash, 2015 flash crash, etc.) for tail-risk sizing.
 - **[planned]** `multi-strategy-capital-allocation-limits` — Allocating and capping capital across multiple concurrently-running strategies sharing one account.
 - **[planned]** `margin-utilization-circuit-breaker` — Halting new orders when margin utilization crosses a defined threshold, independent of P&L-based breakers.
@@ -136,6 +136,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 
 ## portfolio-multi-strategy  _(target: 30)_
 
+- **[BUILT]** `correlation-aware-exposure-limits` — Capping exposure to clusters of highly correlated instruments (e.g., tech stocks or crypto L1s) to prevent secret risk concentration.
 - **[planned]** `cross-strategy-correlation-monitoring` — Monitoring correlation between concurrently-running strategies to detect unintended aggregate concentration.
 - **[planned]** `capital-reallocation-based-on-live-performance` — Reallocating capital between strategies based on live (not just backtested) rolling performance, with safeguards against reallocation churn.
 - **[planned]** `strategy-lifecycle-retirement-criteria` — Defining explicit, pre-agreed criteria for retiring a live strategy rather than letting it run indefinitely on inertia.

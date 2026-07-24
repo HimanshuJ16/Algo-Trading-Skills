@@ -1,11 +1,11 @@
 ---
 name: correlation-aware-exposure-limits
 description: >-
-  Use when a bot can hold multiple simultaneous positions, to prevent sector or factor concentration that per-instrument position limits alone don't catch
+  Use when building multi-asset portfolio risk systems to compute pairwise correlation matrices, cluster correlated instruments, and cap aggregate cluster exposure to prevent risk concentration
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management"]
-brokers_frameworks: []
+tags: ["risk-management", "correlation-matrix", "exposure-limits", "cluster-risk", "concentration-risk"]
+brokers_frameworks: ["PyPFcon", "Riskfolio-Lib", "Pandas", "NumPy", "Custom Portfolio Risk"]
 version: "1.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
@@ -13,21 +13,33 @@ license: Apache-2.0
 
 ## When to Use
 
-Invoke this whenever a strategy can select from a universe of instruments (e.g., multiple Nifty 50 constituents, multiple strikes/expiries) and may end up holding several positions at once. A per-instrument position size limit alone does not prevent concentration risk — a bot can be fully compliant with every individual position limit while still holding, say, five different bank-sector stocks that all move together, effectively taking one large directional bet on the banking sector while the position-limit checks each pass individually.
+Invoke this whenever a portfolio trades multiple instruments within the same sector, asset class, or macro factor (e.g., holding multiple tech stocks `NVDA`, `AMD`, `MSFT`, or crypto assets `BTC`, `ETH`, `SOL`). Setting individual position limits per ticker alone creates hidden concentration risk: when correlated instruments fall in tandem during market sell-offs, total portfolio drawdown spikes unexpectedly. Estimating rolling return correlation matrices ($C_{i,j}$), grouping instruments into correlated clusters ($\rho \ge 0.70$), and capping total cluster exposure (e.g. $\le 30\%$ NAV) before approving order executions is mandatory.
 
 ## Prerequisites
 
-- A correlation matrix (or at minimum a sector/factor classification) for the instrument universe, updated on a reasonable cadence (correlations are not static — recompute periodically, e.g., rolling 60-90 day correlation, rather than using a single historical estimate indefinitely)
-- Defined aggregate exposure limits at the sector/cluster level, separate from per-instrument limits
+- Historical return series for portfolio instruments over rolling lookback window (e.g. 60 days).
+- Defined correlation threshold $\rho_{\text{threshold}}$ (default 0.70).
+- Defined maximum allowed cluster exposure cap (default 30% of total portfolio NAV).
 
 ## Workflow
 
-1. Before adding a new position, compute its correlation (or shared-sector/factor membership) with all currently held positions using a recently-updated correlation matrix, not a static one computed once at strategy design time — correlations between stocks/sectors shift meaningfully over months, and a stale matrix can approve a concentration that current market conditions would flag.
-2. Define an aggregate exposure cap not just per-instrument but per correlation cluster (e.g., group instruments with pairwise correlation above a threshold into the same cluster, or use sector classification as a simpler proxy) — reject or size down a new position if it would push the cluster's aggregate notional exposure beyond the defined cap, even if each individual position within that cluster is within its own per-instrument limit.
-3. For options-based strategies specifically, account for correlated exposure through shared underlying risk factors beyond just "same stock" — e.g., multiple strikes on the same underlying, or positions across highly correlated sector ETF constituents, should be evaluated for aggregate delta/vega exposure to the shared underlying factor, not treated as independent just because the specific contracts differ.
-4. Recompute the correlation matrix on a defined schedule (e.g., weekly, or before each new trading session) using a rolling historical window, and log when cluster membership changes meaningfully — a stock moving from one correlation cluster to another is itself useful information about changing market structure.
-5. When rejecting or sizing down a position due to a correlation-cluster breach, log the specific cluster and its current aggregate exposure so the decision is auditable rather than a silent no-op the strategy layer might not distinguish from "no signal today."
-6. Treat correlation-based limits as a complement to, not a replacement for, the aggregate exposure and drawdown limits in `kill-switch-and-drawdown-circuit-breakers` — a strategy can breach aggregate risk limits even with perfect correlation-cluster management if overall position sizing is simply too large.
+1. **Estimate Rolling Correlation Matrix**:
+   - Compute pairwise Pearson correlation matrix $C$ over historical return vectors $R_1, R_2, \dots, R_K$:
+     $$C_{i,j} = \frac{\text{Cov}(R_i, R_j)}{\sigma_i \cdot \sigma_j}$$
+
+2. **Form Correlation Clusters**:
+   - Group assets into clusters $G_1, G_2, \dots, G_m$ where pairwise correlation $C_{i,j} \ge \rho_{\text{threshold}}$.
+
+3. **Compute Current Cluster Exposures**:
+   - Calculate current dollar exposure for cluster $k$:
+     $$\text{Exposure}(G_k) = \sum_{i \in G_k} |\text{Position}_i \cdot P_i|$$
+   - Calculate percentage of portfolio NAV:
+     $$\text{ExposurePct}(G_k) = \frac{\text{Exposure}(G_k)}{\text{Portfolio NAV}}$$
+
+4. **Validate Proposed Order Execution**:
+   - For proposed order on symbol $i$ with value $V_{\text{proposed}}$:
+     - Compute projected cluster exposure: $\text{ProjectedExposurePct}(G_k) = \frac{\text{Exposure}(G_k) + |V_{\text{proposed}}|}{\text{Portfolio NAV}}$.
+     - If $\text{ProjectedExposurePct}(G_k) > \text{MaxClusterExposurePct}$, veto or downsize order.
 
 > Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
 > Broker/framework coverage table for this skill: see `references/standards.md`.
@@ -35,18 +47,19 @@ Invoke this whenever a strategy can select from a universe of instruments (e.g.,
 
 ## Common Pitfalls
 
-- Relying only on per-instrument position limits and assuming diversification "because they're different stocks," without checking actual correlation or shared sector/factor exposure.
-- Computing a correlation matrix once during strategy design and never updating it, so the risk check operates on stale relationships that no longer reflect current market structure.
-- Treating different strikes/expiries on the same underlying as independent positions for exposure-limit purposes, undercounting true directional exposure to that underlying.
-- Sizing down or rejecting a position silently without logging which cluster/correlation check caused it, making the behavior indistinguishable from a strategy simply not generating a signal.
+- **Per-Ticker Limit Blind Spot**: Assuming single-ticker limits (e.g. 5% per stock) prevent risk concentration across 8 tech stocks (40% total tech exposure).
+- **Static Correlation Assumptions**: Using static historical correlations without updating rolling matrices, missing correlation breakdown during market crashes.
+- **Ignoring Short Positions**: Failing to account for directional correlation when computing net cluster exposures.
 
 ## Verification
 
-- Construct a test scenario where the strategy would naturally select several highly correlated instruments (e.g., multiple bank-sector stocks) in the same session and confirm the aggregate cluster exposure check reduces or rejects positions beyond the defined cap, even though each passes its individual per-instrument limit.
-- Confirm the correlation matrix used in a given trading session is recent (check its computation timestamp against the defined refresh schedule) rather than a stale artifact from initial strategy design.
-- Audit logs after a live/paper session to confirm every correlation-driven rejection or size-down is logged with the specific cluster and exposure figures involved.
+- Submit returns for highly correlated assets (`NVDA` & `AMD`, $\rho = 0.85$) and verify `CorrelationExposureManager` groups them into the same cluster.
+- Submit proposed order that breaches 30% cluster exposure limit and verify order is vetoed with `CorrelationLimitBreachError`.
+- Run unit test suite `python scripts/test_correlation_manager.py` and confirm 100% pass rate.
 
 ## Related Skills
 
-- `kill-switch-and-drawdown-circuit-breakers`
-- `order-placement-idempotency`
+- `broker-account-margin-call-handling`
+- `survivorship-bias-free-universe-construction`
+- `ensemble-signal-combination-without-overfitting`
+---

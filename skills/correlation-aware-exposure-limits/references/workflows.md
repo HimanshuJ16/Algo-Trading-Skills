@@ -5,36 +5,26 @@ actually implementing the skill, not just when deciding whether it applies.
 
 ## Full Procedure
 
-1. **Calculate Rolling Correlation Matrix:**
-   - Compute pairwise Pearson correlation coefficients from price log-returns across a rolling historical window (e.g. 60–90 days).
-   - Validate matrix freshness: track `matrix_timestamp` and flag matrices older than 7 days as stale before running trade approvals.
+1. **Estimate Rolling Pearson Correlation Matrix:**
+   - Compute pairwise correlations $C_{i,j}$ over historical return vectors.
 
-2. **Cluster Universe Construction:**
-   - Group instruments into clusters using connected components where pairwise correlation $\ge \text{threshold}$ (e.g. 0.70) or where instruments share a common sector classification.
-   - Re-cluster dynamically on scheduled intervals (e.g. weekly or pre-session).
+2. **Form Correlation Clusters:**
+   - Group symbols into connected clusters where pairwise correlation $C_{i,j} \ge \rho_{\text{threshold}}$.
 
-3. **Evaluate Proposed Position against Limits:**
-   - **Total Portfolio Cap:** Verify total portfolio notional after proposed trade does not breach `max_portfolio_notional`.
-   - **Cluster Exposure Cap:** Identify the target cluster for the proposed symbol. Compute existing notional exposure across all active positions in the cluster:
-     $$\text{Cluster Exposure} = \sum_{i \in \text{Cluster}} |\text{Notional}_i|$$
-   - Evaluate proposed position: if $\text{Cluster Exposure} + \text{Proposed Notional} > \text{Max Cluster Limit}$, scale down proposed notional to:
-     $$\text{Allowed Notional} = \max(0, \text{Max Cluster Limit} - \text{Cluster Exposure})$$
+3. **Compute Current Cluster Exposure:**
+   - Sum position valuations for all constituents of cluster $k$:
+     $$\text{ExposurePct}(G_k) = \frac{\sum_{i \in G_k} |Q_i \cdot P_i|}{\text{Portfolio NAV}}$$
 
-4. **Options Delta / Factor Exposure Weighting:**
-   - For option contracts across strikes/expiries or sector ETFs, weight proposed notional by underlying delta $\Delta$:
-     $$\text{Effective Proposed Notional} = |\text{Proposed Notional}| \times |\Delta|$$
-
-5. **Audit Logging & Telemetry:**
-   - Record every risk evaluation in `PositionAuditLog` with timestamp, symbol, proposed notional, approved notional, decision reason, and cluster ID.
+4. **Validate Proposed Order Value:**
+   - Check if $\text{ExposurePct}(G_k) + \frac{|V_{\text{proposed}}|}{\text{NAV}} > \text{MaxClusterExposurePct}$.
+   - Veto or downsize order if limit is breached.
 
 ## Failure Modes Observed in Production
 
-- **Per-Instrument Tunnel Vision:** Approving multiple positions in the same sector (e.g., 5 bank stocks) because each individual position is below its single-instrument limit.
-- **Stale Correlation Matrix:** Operating risk checks on correlation matrices calculated months ago, missing recent regime shifts and market structural changes.
-- **Unweighted Derivative Exposure:** Treating different option strikes on the same underlying as independent, underestimating true directional risk.
-- **Silent Order Drop:** Rejecting or scaling down orders without audit logging, rendering risk actions indistinguishable from signal generator failures.
+- **Single-Symbol Limit Blind Spot:** Setting 5% limits per ticker while holding 8 tech stocks (40% total tech exposure).
+- **Static Correlation Assumption:** Assuming historical correlations remain static during market crises.
 
 ## Production Implementation Reference
 
-- Reference code: `scripts/exposure_limits.py` (`CorrelationExposureManager`, `PositionAuditLog`, `RiskCheckResult`).
-- Automated unit tests: `scripts/test_exposure_limits.py`.
+- Reference code: `scripts/correlation_manager.py` (`CorrelationExposureManager`, `ClusterInfo`, `OrderValidationResult`).
+- Automated unit tests: `scripts/test_correlation_manager.py`.
