@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:09:42.970929+00:00",
+  "generated_at": "2026-07-24T15:12:36.138579+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 35,
+  "total_skills": 36,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -490,6 +490,27 @@
       "license": "Apache-2.0",
       "path": "skills/producer-consumer-tick-pipeline",
       "skill_md": "skills/producer-consumer-tick-pipeline/SKILL.md"
+    },
+    {
+      "name": "sandbox-vs-production-endpoint-drift",
+      "description": "Use when testing broker API integrations to detect schema drift, response payload mismatches, header variations, and status code discrepancies between sandbox and production environments",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "sandbox-drift",
+        "api-schema-audit",
+        "environment-parity",
+        "regression-testing"
+      ],
+      "brokers_frameworks": [
+        "All Broker REST APIs"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/sandbox-vs-production-endpoint-drift",
+      "skill_md": "skills/sandbox-vs-production-endpoint-drift/SKILL.md"
     },
     {
       "name": "schwab-api-oauth-pkce-flow",
