@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:43:16.956829+00:00",
+  "generated_at": "2026-07-24T15:44:15.673175+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 48,
+  "total_skills": 49,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -455,6 +455,29 @@
       "license": "Apache-2.0",
       "path": "skills/monte-carlo-strategy-robustness-testing",
       "skill_md": "skills/monte-carlo-strategy-robustness-testing/SKILL.md"
+    },
+    {
+      "name": "multi-asset-backtest-currency-normalization",
+      "description": "Use when backtesting global multi-asset portfolios to convert multi-currency cash flows, position valuations, and FX conversion rates into a single unified reporting currency without currency mixing errors",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "multi-currency",
+        "fx-conversion",
+        "portfolio-accounting",
+        "currency-normalization"
+      ],
+      "brokers_frameworks": [
+        "Interactive Brokers Multi-Currency",
+        "Backtrader Multi-Asset",
+        "VectorBT FX"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-asset-backtest-currency-normalization",
+      "skill_md": "skills/multi-asset-backtest-currency-normalization/SKILL.md"
     },
     {
       "name": "multi-broker-rate-limit-handling",
