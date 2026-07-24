@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:35:36.891511+00:00",
+  "generated_at": "2026-07-24T15:36:31.957361+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 41,
+  "total_skills": 42,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -424,6 +424,31 @@
       "license": "Apache-2.0",
       "path": "skills/multi-currency-pnl-and-fx-conversion",
       "skill_md": "skills/multi-currency-pnl-and-fx-conversion/SKILL.md"
+    },
+    {
+      "name": "multi-exchange-feed-normalization",
+      "description": "Use when building multi-exchange market data pipelines to map heterogeneous WebSocket/REST tick payloads into a single unified internal schema with normalized symbols, prices, quantities, and timestamps",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "feed-normalization",
+        "multi-exchange",
+        "unified-tick",
+        "market-data-schema"
+      ],
+      "brokers_frameworks": [
+        "Binance",
+        "Coinbase",
+        "Zerodha",
+        "IBKR",
+        "Kraken"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-exchange-feed-normalization",
+      "skill_md": "skills/multi-exchange-feed-normalization/SKILL.md"
     },
     {
       "name": "multi-timezone-session-scheduling",
