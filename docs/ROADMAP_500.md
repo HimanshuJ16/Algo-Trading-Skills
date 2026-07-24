@@ -21,7 +21,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 
 - **[BUILT]** `redis-streams-multi-consumer-tick-fanout` — Fanning out a single tick feed to multiple independent consumer services via Redis Streams consumer groups.
 - **[BUILT]** `clock-skew-correction-for-tick-timestamps` — Correcting for local-clock drift when timestamping incoming ticks against exchange-reported times.
-- **[planned]** `market-data-snapshot-plus-delta-reconciliation` — Reconciling an initial full order-book snapshot with a subsequent delta stream without gaps.
+- **[BUILT]** `market-data-snapshot-plus-delta-reconciliation` — Reconciling an initial full order-book snapshot with a subsequent delta stream without gaps.
 - **[planned]** `multi-exchange-feed-normalization` — Normalizing tick schemas across multiple exchanges/brokers into one internal representation.
 - **[planned]** `graceful-degradation-to-polling-fallback` — Falling back to REST polling when a WebSocket feed is degraded, without duplicating or missing data at the handover.
 - **[planned]** `order-book-depth-processing-l2-l3` — Processing L2/L3 order book updates without introducing race conditions between bid/ask update messages.
