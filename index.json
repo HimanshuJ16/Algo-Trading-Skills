@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:48:47.299291+00:00",
+  "generated_at": "2026-07-24T15:49:42.372348+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 53,
+  "total_skills": 54,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -822,6 +822,30 @@
       "license": "Apache-2.0",
       "path": "skills/regime-detection-for-strategy-switching",
       "skill_md": "skills/regime-detection-for-strategy-switching/SKILL.md"
+    },
+    {
+      "name": "reinforcement-learning-safety-constraints-for-execution",
+      "description": "Use when training or deploying RL execution agents to implement hard action masking, position limits, spread veto guards, and reward penalty shaping to prevent unsafe policy exploration",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "reinforcement-learning",
+        "action-masking",
+        "safety-constraints",
+        "rl-execution"
+      ],
+      "brokers_frameworks": [
+        "Gymnasium",
+        "Stable-Baselines3",
+        "Ray RLLib",
+        "Custom RL Environments"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/reinforcement-learning-safety-constraints-for-execution",
+      "skill_md": "skills/reinforcement-learning-safety-constraints-for-execution/SKILL.md"
     },
     {
       "name": "sandbox-vs-production-endpoint-drift",
