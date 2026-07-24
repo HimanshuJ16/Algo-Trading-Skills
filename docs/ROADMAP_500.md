@@ -24,7 +24,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 - **[BUILT]** `market-data-snapshot-plus-delta-reconciliation` — Reconciling an initial full order-book snapshot with a subsequent delta stream without gaps.
 - **[BUILT]** `multi-exchange-feed-normalization` — Normalizing tick schemas across multiple exchanges/brokers into one internal representation.
 - **[BUILT]** `graceful-degradation-to-polling-fallback` — Falling back to REST polling when a WebSocket feed is degraded, without duplicating or missing data at the handover.
-- **[planned]** `order-book-depth-processing-l2-l3` — Processing L2/L3 order book updates without introducing race conditions between bid/ask update messages.
+- **[BUILT]** `order-book-depth-processing-l2-l3` — Processing L2/L3 order book updates without introducing race conditions between bid/ask update messages.
 - _(capacity for 24 more skills in this category — not yet titled)_
 
 ## backtesting-methodology  _(target: 30)_

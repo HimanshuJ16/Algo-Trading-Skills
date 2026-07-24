@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:37:55.026714+00:00",
+  "generated_at": "2026-07-24T15:39:16.162610+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 43,
+  "total_skills": 44,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -527,6 +527,30 @@
       "license": "Apache-2.0",
       "path": "skills/options-margin-span-calculation-global",
       "skill_md": "skills/options-margin-span-calculation-global/SKILL.md"
+    },
+    {
+      "name": "order-book-depth-processing-l2-l3",
+      "description": "Use when processing high-frequency Level 2 and Level 3 order book depth feeds to enforce atomic thread safety, prevent crossed-book states, and compute real-time order book imbalance metrics",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "order-book-l2-l3",
+        "book-imbalance",
+        "weighted-midprice",
+        "thread-safety"
+      ],
+      "brokers_frameworks": [
+        "CME ITCH",
+        "Nasdaq TotalView L3",
+        "Coinbase L3",
+        "Binance Depth Stream"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/order-book-depth-processing-l2-l3",
+      "skill_md": "skills/order-book-depth-processing-l2-l3/SKILL.md"
     },
     {
       "name": "order-placement-idempotency",
