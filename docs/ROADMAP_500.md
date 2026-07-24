@@ -6,7 +6,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 ## broker-integration  _(target: 35)_
 
 - **[BUILT]** `zerodha-kite-postback-webhook-verification` — Validating Kite Connect postback signatures so order-update webhooks can't be spoofed.
-- **[planned]** `upstox-oauth-refresh-token-rotation` — Handling Upstox's refresh-token rotation without breaking a long-running bot session.
+- **[BUILT]** `upstox-oauth-refresh-token-rotation` — Handling Upstox's refresh-token rotation without breaking a long-running bot session.
 - **[planned]** `alpaca-paper-live-key-separation` — Preventing a bot from accidentally trading live capital using a paper-environment code path, and vice versa.
 - **[planned]** `ibkr-tws-gateway-headless-launch` — Running IBKR's TWS/Gateway headless in a container for a bot with no persistent desktop session.
 - **[planned]** `schwab-api-oauth-pkce-flow` — Implementing Schwab's (post-TD-Ameritrade-migration) OAuth2 PKCE flow for unattended token refresh.
