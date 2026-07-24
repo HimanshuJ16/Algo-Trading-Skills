@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T14:50:19.978580+00:00",
+  "generated_at": "2026-07-24T14:53:10.659048+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 31,
+  "total_skills": 32,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -202,6 +202,29 @@
       "license": "Apache-2.0",
       "path": "skills/headless-broker-auth-patterns",
       "skill_md": "skills/headless-broker-auth-patterns/SKILL.md"
+    },
+    {
+      "name": "ibkr-tws-gateway-headless-launch",
+      "description": "Use when deploying an Interactive Brokers (IBKR) trading bot to a headless server or container to manage IB Gateway / IBC headless startup, port probes, daily reset handling, and socket readiness checks",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "ibkr",
+        "ib-gateway",
+        "tws-api",
+        "docker-headless"
+      ],
+      "brokers_frameworks": [
+        "Interactive Brokers TWS API",
+        "IB Gateway",
+        "IBC"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/ibkr-tws-gateway-headless-launch",
+      "skill_md": "skills/ibkr-tws-gateway-headless-launch/SKILL.md"
     },
     {
       "name": "kill-switch-and-drawdown-circuit-breakers",
