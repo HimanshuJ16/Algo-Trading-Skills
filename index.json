@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T15:40:28.304369+00:00",
+  "generated_at": "2026-07-24T15:41:20.009382+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 45,
+  "total_skills": 46,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -696,6 +696,30 @@
       "license": "Apache-2.0",
       "path": "skills/schwab-api-oauth-pkce-flow",
       "skill_md": "skills/schwab-api-oauth-pkce-flow/SKILL.md"
+    },
+    {
+      "name": "survivorship-bias-free-universe-construction",
+      "description": "Use when building backtesting datasets to reconstruct point-in-time constituent universes including delisted and bankrupt instruments, preventing survivorship bias in historical performance evaluation",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "survivorship-bias",
+        "point-in-time",
+        "delisted-stocks",
+        "universe-selection"
+      ],
+      "brokers_frameworks": [
+        "CRSP",
+        "Sharadar",
+        "Norgate Data",
+        "QuantConnect Data"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/survivorship-bias-free-universe-construction",
+      "skill_md": "skills/survivorship-bias-free-universe-construction/SKILL.md"
     },
     {
       "name": "systemd-supervision-for-trading-bots",
