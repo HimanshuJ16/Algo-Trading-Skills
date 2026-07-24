@@ -34,7 +34,7 @@ This is a planning backlog, not a claim that 500 skills are fully built. Entries
 - **[BUILT]** `corporate-action-adjusted-backtesting` — Correctly applying splits, dividends, and mergers to historical price series without double-adjusting.
 - **[BUILT]** `monte-carlo-strategy-robustness-testing` — Randomizing trade sequence/entry timing to test whether a strategy's edge survives reasonable perturbation.
 - **[BUILT]** `multi-asset-backtest-currency-normalization` — Backtesting a multi-currency portfolio without silently mixing P&L across currencies.
-- **[planned]** `benchmark-relative-performance-attribution` — Attributing backtest outperformance to specific factors rather than reporting only raw returns.
+- **[BUILT]** `benchmark-relative-performance-attribution` — Attributing backtest outperformance to specific factors rather than reporting only raw returns.
 - _(capacity for 25 more skills in this category — not yet titled)_
 
 ## financial-ml  _(target: 40)_
