@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T16:03:17.060937+00:00",
+  "generated_at": "2026-07-24T16:05:13.720273+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 60,
+  "total_skills": 61,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -64,6 +64,30 @@
       "license": "Apache-2.0",
       "path": "skills/benchmark-relative-performance-attribution",
       "skill_md": "skills/benchmark-relative-performance-attribution/SKILL.md"
+    },
+    {
+      "name": "blue-green-deployment-for-live-strategy-updates",
+      "description": "Use when deploying strategy code updates to a live trading system without a gap in market coverage or duplicate order risk, using a blue-green deployment pattern with traffic cutover and rollback capability.",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
+      "tags": [
+        "deployment",
+        "blue-green",
+        "zero-downtime",
+        "strategy-updates",
+        "rollback"
+      ],
+      "brokers_frameworks": [
+        "Docker",
+        "Kubernetes",
+        "Systemd",
+        "Custom Deployment"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/blue-green-deployment-for-live-strategy-updates",
+      "skill_md": "skills/blue-green-deployment-for-live-strategy-updates/SKILL.md"
     },
     {
       "name": "broker-account-margin-call-handling",
