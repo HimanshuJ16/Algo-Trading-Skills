@@ -66,7 +66,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `multi-region-active-active-tick-ingestion` — Running tick ingestion active-active across two regions/hosts to eliminate a single point of failure in the ingestion layer.
 - **[BUILT]** `memory-mapped-ring-buffer-for-ultra-low-latency` — Using a memory-mapped ring buffer instead of a language-level queue for the lowest-latency tier of tick processing.
 - **[BUILT]** `feed-handler-cpu-pinning-and-numa-awareness` — Pinning feed-handler processes to specific CPU cores and NUMA nodes to reduce jitter in latency-sensitive pipelines.
-- **[planned]** `market-data-replay-harness-for-integration-testing` — Building a deterministic tick-replay harness to integration-test the full pipeline against a recorded historical session.
+- **[BUILT]** `market-data-replay-harness-for-integration-testing` — Building a deterministic tick-replay harness to integration-test the full pipeline against a recorded historical session.
 - **[planned]** `adaptive-batch-size-tuning-under-load` — Dynamically tuning batch sizes for downstream writes (DB, message queue) based on observed load rather than a fixed constant.
 - **[planned]** `graceful-shutdown-draining-in-flight-ticks` — Draining in-flight ticks from queues cleanly on a planned shutdown/deploy, rather than dropping whatever's mid-flight.
 - **[planned]** `exchange-multicast-feed-handling` — Handling raw multicast market-data feeds (common at co-located exchange gateways) including gap-fill/retransmission request logic.

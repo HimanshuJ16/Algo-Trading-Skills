@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:04:15.214912+00:00",
+  "generated_at": "2026-07-25T03:05:40.162544+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 96,
+  "total_skills": 97,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -992,6 +992,29 @@
       "license": "Apache-2.0",
       "path": "skills/market-data-feed-arbitration-across-vendors",
       "skill_md": "skills/market-data-feed-arbitration-across-vendors/SKILL.md"
+    },
+    {
+      "name": "market-data-replay-harness-for-integration-testing",
+      "description": "Use when integration-testing trading engines and execution algorithms to replay recorded historical tick sessions at deterministic speeds (1x real-time, 10x fast-forward) to verify exact strategy event handling.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "tick-replay",
+        "integration-testing",
+        "deterministic-backtest",
+        "time-warp",
+        "event-driven"
+      ],
+      "brokers_frameworks": [
+        "Tick Replay Harness",
+        "Python Async Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/market-data-replay-harness-for-integration-testing",
+      "skill_md": "skills/market-data-replay-harness-for-integration-testing/SKILL.md"
     },
     {
       "name": "market-data-snapshot-plus-delta-reconciliation",
