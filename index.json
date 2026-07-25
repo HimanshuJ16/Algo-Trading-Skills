@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:12.913173+00:00",
+  "generated_at": "2026-07-25T08:25:13.334265+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 429,
+  "total_skills": 430,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2059,6 +2059,24 @@
       "license": "MIT",
       "path": "skills/cross-strategy-shared-infrastructure-resource-contention",
       "skill_md": "skills/cross-strategy-shared-infrastructure-resource-contention/SKILL.md"
+    },
+    {
+      "name": "cross-strategy-tax-lot-optimization",
+      "description": "Skill for cross strategy tax lot optimization",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-strategy-tax-lot-optimization",
+      "skill_md": "skills/cross-strategy-tax-lot-optimization/SKILL.md"
     },
     {
       "name": "cross-validation-of-commission-schedules-over-time",
