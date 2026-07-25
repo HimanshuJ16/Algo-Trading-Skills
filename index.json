@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:13.490593+00:00",
+  "generated_at": "2026-07-25T08:13:14.085839+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 264,
+  "total_skills": 265,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -518,6 +518,25 @@
       "license": "MIT",
       "path": "skills/benchmark-selection-for-strategy-evaluation",
       "skill_md": "skills/benchmark-selection-for-strategy-evaluation/SKILL.md"
+    },
+    {
+      "name": "best-execution-record-keeping-global",
+      "description": "Compliance controls for best execution record keeping global",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/best-execution-record-keeping-global",
+      "skill_md": "skills/best-execution-record-keeping-global/SKILL.md"
     },
     {
       "name": "binance-futures-testnet-to-mainnet-promotion",
