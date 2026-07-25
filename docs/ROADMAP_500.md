@@ -32,7 +32,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `broker-api-versioning-migration-playbook` — A structured playbook for migrating a live bot from one broker API version to the next without a trading-hours outage.
 - **[BUILT]** `demo-account-realism-gap-assessment` — Systematically comparing a broker's demo/practice account fill behavior against live behavior to know how much to trust demo-based testing.
 - **[BUILT]** `broker-order-type-capability-matrix` — Building a capability matrix of which order types (bracket, OCO, trailing stop, iceberg) each integrated broker actually supports, since support varies significantly.
-- **[planned]** `api-key-least-privilege-audit-tool` — An automated audit tool that flags any broker API key with more permission scope than the calling process needs.
+- **[BUILT]** `api-key-least-privilege-audit-tool` — An automated audit tool that flags any broker API key with more permission scope than the calling process needs.
 - **[planned]** `broker-status-page-monitoring-integration` — Programmatically monitoring a broker's public status page/API to distinguish 'broker outage' from 'our bug' during an incident.
 - **[planned]** `multi-broker-consolidated-position-view` — Building a consolidated, reconciled view of positions held across multiple brokers for a single strategy's risk accounting.
 - **[planned]** `broker-api-deprecation-notice-monitoring` — Monitoring broker developer-changelog feeds for API deprecation notices before they break a live bot.

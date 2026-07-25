@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:44:53.556434+00:00",
+  "generated_at": "2026-07-25T02:46:00.863143+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 75,
+  "total_skills": 76,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -25,6 +25,29 @@
       "license": "Apache-2.0",
       "path": "skills/alpaca-paper-live-key-separation",
       "skill_md": "skills/alpaca-paper-live-key-separation/SKILL.md"
+    },
+    {
+      "name": "api-key-least-privilege-audit-tool",
+      "description": "Use when auditing broker API keys and credentials to inspect granted permission scopes, enforce the principle of least privilege, and flag over-privileged keys (e.g., withdrawal rights or admin access) before live deployment.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "api-keys",
+        "security-audit",
+        "least-privilege",
+        "withdrawal-protection",
+        "credential-hygiene"
+      ],
+      "brokers_frameworks": [
+        "Security Audit Engine",
+        "Python Security"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/api-key-least-privilege-audit-tool",
+      "skill_md": "skills/api-key-least-privilege-audit-tool/SKILL.md"
     },
     {
       "name": "backpressure-drop-degrade-policy",
