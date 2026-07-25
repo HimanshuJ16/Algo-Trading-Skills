@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:16.505775+00:00",
+  "generated_at": "2026-07-25T13:19:17.313980+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 492,
+  "total_skills": 493,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -3042,6 +3042,22 @@
       "license": "MIT",
       "path": "skills/esma-double-volume-cap-mechanism",
       "skill_md": "skills/esma-double-volume-cap-mechanism/SKILL.md"
+    },
+    {
+      "name": "estimated-tax-payment-scheduling-for-active-trading-income",
+      "description": "Implementation for estimated-tax-payment-scheduling-for-active-trading-income",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/estimated-tax-payment-scheduling-for-active-trading-income",
+      "skill_md": "skills/estimated-tax-payment-scheduling-for-active-trading-income/SKILL.md"
     },
     {
       "name": "etrade-oauth1-signature-flow",
