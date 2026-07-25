@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:41.524475+00:00",
+  "generated_at": "2026-07-25T08:20:42.231587+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 365,
+  "total_skills": 366,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4899,6 +4899,24 @@
       "license": "MIT",
       "path": "skills/options-greeks-real-time-portfolio-aggregation",
       "skill_md": "skills/options-greeks-real-time-portfolio-aggregation/SKILL.md"
+    },
+    {
+      "name": "options-implied-volatility-surface-construction",
+      "description": "Implementation of options-implied-volatility-surface-construction",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/options-implied-volatility-surface-construction",
+      "skill_md": "skills/options-implied-volatility-surface-construction/SKILL.md"
     },
     {
       "name": "options-margin-span-calculation-global",
