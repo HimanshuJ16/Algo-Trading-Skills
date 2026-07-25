@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:51:36.646009+00:00",
+  "generated_at": "2026-07-25T02:52:11.126285+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 83,
+  "total_skills": 84,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1322,6 +1322,30 @@
       "license": "Apache-2.0",
       "path": "skills/regime-detection-for-strategy-switching",
       "skill_md": "skills/regime-detection-for-strategy-switching/SKILL.md"
+    },
+    {
+      "name": "regional-broker-data-residency-constraints",
+      "description": "Use when deploying trading infrastructure across global jurisdictions to enforce regional data residency constraints (MiFID II, SEBI, GDPR, FINMA) and verify that trading bots run strictly within legally compliant cloud regions.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "data-residency",
+        "compliance",
+        "mifid-ii",
+        "sebi",
+        "cloud-regions",
+        "regulatory-guard"
+      ],
+      "brokers_frameworks": [
+        "Data Residency Compliance Guard",
+        "Python Cloud Security"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/regional-broker-data-residency-constraints",
+      "skill_md": "skills/regional-broker-data-residency-constraints/SKILL.md"
     },
     {
       "name": "reinforcement-learning-safety-constraints-for-execution",
