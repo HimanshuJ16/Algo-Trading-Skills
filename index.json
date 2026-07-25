@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:00:35.942268+00:00",
+  "generated_at": "2026-07-25T03:01:06.914298+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 92,
+  "total_skills": 93,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -389,6 +389,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-status-page-monitoring-integration",
       "skill_md": "skills/broker-status-page-monitoring-integration/SKILL.md"
+    },
+    {
+      "name": "circuit-breaker-for-downstream-service-calls",
+      "description": "Use when connecting trading engines to downstream microservices (database, risk service, portfolio ledger) to execute the Circuit Breaker pattern (CLOSED -> OPEN -> HALF_OPEN), preventing cascading latency and tick-processing thread starvation.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "circuit-breaker",
+        "resilience",
+        "fail-fast",
+        "cascading-failure",
+        "fault-tolerance"
+      ],
+      "brokers_frameworks": [
+        "Circuit Breaker Engine",
+        "Python Decorators"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/circuit-breaker-for-downstream-service-calls",
+      "skill_md": "skills/circuit-breaker-for-downstream-service-calls/SKILL.md"
     },
     {
       "name": "clock-skew-correction-for-tick-timestamps",
