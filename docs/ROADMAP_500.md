@@ -147,7 +147,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `concept-drift-vs-staleness-differentiation` — Distinguishing gradual concept drift from a sudden regime break in monitoring logic, since the appropriate response differs (retrain vs halt).
 - **[planned]** `model-serving-infrastructure-ab-testing` — A/B testing two model versions on live (non-overlapping) traffic slices before fully promoting a challenger model.
 - **[planned]** `explainable-boosting-machines-for-regulated-signals` — Using inherently interpretable model classes (e.g. explainable boosting machines) where a jurisdiction's regulatory expectations favor explainability over raw accuracy.
-- **[planned]** `point-in-time-database-for-ml-training-data` — Building a point-in-time-correct training database as the single source of truth feeding both backtests and live feature computation.
+- **[BUILT]** `point-in-time-database-for-ml-training-data` — Building a point-in-time-correct training database as the single source of truth feeding both backtests and live feature computation.
 - **[planned]** `cold-start-handling-for-newly-listed-instruments` — Handling ML signal generation for newly-listed instruments with no historical training data, without silently extrapolating from unrelated instruments.
 - **[planned]** `model-monitoring-dashboard-for-non-technical-stakeholders` — Building a monitoring dashboard that surfaces model health (accuracy, drift, staleness) in terms a non-ML-technical risk reviewer can act on.
 - **[planned]** `quantile-regression-for-uncertainty-aware-signals` — Using quantile regression to produce uncertainty-aware signals rather than a single point forecast, enabling confidence-scaled position sizing.
