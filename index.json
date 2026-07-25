@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:39.049092+00:00",
+  "generated_at": "2026-07-25T08:23:39.803476+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 394,
+  "total_skills": 395,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7025,6 +7025,26 @@
       "license": "Apache-2.0",
       "path": "skills/tastytrade-api-integration",
       "skill_md": "skills/tastytrade-api-integration/SKILL.md"
+    },
+    {
+      "name": "test-transaction-verification-before-large-transfers",
+      "description": "Skill to handle test transaction verification before large transfers.",
+      "domain": "Crypto Custody",
+      "subdomain": "Security",
+      "tags": [
+        "security",
+        "crypto",
+        "custody",
+        "test"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/test-transaction-verification-before-large-transfers",
+      "skill_md": "skills/test-transaction-verification-before-large-transfers/SKILL.md"
     },
     {
       "name": "third-party-custody-audit-report-review-cadence",
