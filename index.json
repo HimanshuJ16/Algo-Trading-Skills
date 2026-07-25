@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:53.068910+00:00",
+  "generated_at": "2026-07-25T08:20:53.877490+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 381,
+  "total_skills": 382,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4148,6 +4148,24 @@
       "license": "Apache-2.0",
       "path": "skills/market-data-feed-arbitration-across-vendors",
       "skill_md": "skills/market-data-feed-arbitration-across-vendors/SKILL.md"
+    },
+    {
+      "name": "market-data-latency-monitoring-per-vendor",
+      "description": "Implementation of market-data-latency-monitoring-per-vendor",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/market-data-latency-monitoring-per-vendor",
+      "skill_md": "skills/market-data-latency-monitoring-per-vendor/SKILL.md"
     },
     {
       "name": "market-data-replay-harness-for-integration-testing",
