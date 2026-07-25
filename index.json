@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:55.380436+00:00",
+  "generated_at": "2026-07-25T08:16:55.893053+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 306,
+  "total_skills": 307,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2548,6 +2548,24 @@
       "license": "MIT",
       "path": "skills/ftx-style-exchange-post-collapse-risk-lessons",
       "skill_md": "skills/ftx-style-exchange-post-collapse-risk-lessons/SKILL.md"
+    },
+    {
+      "name": "futures-contract-roll-automation",
+      "description": "Automation and handling of futures contract roll automation.",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "derivatives-trading",
+      "tags": [
+        "futures-contract-roll-automation",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/futures-contract-roll-automation",
+      "skill_md": "skills/futures-contract-roll-automation/SKILL.md"
     },
     {
       "name": "futures-expiry-week-liquidity-and-volatility-handling",
