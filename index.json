@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:54:30.093683+00:00",
+  "generated_at": "2026-07-25T07:55:59.834088+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 160,
+  "total_skills": 161,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1713,6 +1713,29 @@
       "license": "MIT",
       "path": "skills/label-noise-estimation-in-financial-targets",
       "skill_md": "skills/label-noise-estimation-in-financial-targets/SKILL.md"
+    },
+    {
+      "name": "liquidity-adjusted-position-sizing",
+      "description": "Use when calculating portfolio position sizes to cap allocations by Average Daily Volume (ADV) and order book depth, enforcing Days-to-Liquidate (DTL) limits and preventing market impact lockup.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "position-sizing",
+        "liquidity-adjustment",
+        "adv-cap",
+        "days-to-liquidate",
+        "market-impact"
+      ],
+      "brokers_frameworks": [
+        "Liquidity Position Sizer Engine",
+        "Python NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/liquidity-adjusted-position-sizing",
+      "skill_md": "skills/liquidity-adjusted-position-sizing/SKILL.md"
     },
     {
       "name": "lookahead-bias-elimination",
