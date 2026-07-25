@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:55.757429+00:00",
+  "generated_at": "2026-07-25T08:13:56.482272+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 287,
+  "total_skills": 288,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4454,6 +4454,23 @@
       "license": "MIT",
       "path": "skills/regulatory-capital-requirement-tracking",
       "skill_md": "skills/regulatory-capital-requirement-tracking/SKILL.md"
+    },
+    {
+      "name": "regulatory-sandbox-programs-for-fintech-testing",
+      "description": "Compliance controls and workflows for regulatory sandbox programs for fintech testing",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/regulatory-sandbox-programs-for-fintech-testing",
+      "skill_md": "skills/regulatory-sandbox-programs-for-fintech-testing/SKILL.md"
     },
     {
       "name": "reinforcement-learning-safety-constraints-for-execution",
