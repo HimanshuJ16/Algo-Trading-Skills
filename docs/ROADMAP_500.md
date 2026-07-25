@@ -140,7 +140,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `multi-model-ensemble-weight-decay` — Decaying the weight given to an underperforming model within an ensemble gradually rather than an abrupt on/off switch.
 - **[BUILT]** `backtesting-ml-models-against-transaction-costs` — Ensuring ML model backtests apply the same realistic transaction-cost modeling as rule-based strategies (see execution-realistic-simulation), since ML signals are just as vulnerable to cost-blind overstatement.
 - **[BUILT]** `categorical-feature-encoding-for-instrument-identity` — Encoding instrument identity (symbol, sector) as a categorical feature without leaking future-only classification info (e.g. sector reclassifications).
-- **[planned]** `model-training-data-freshness-sla` — Defining an SLA for how stale training data is allowed to become before a scheduled retrain is mandatory, independent of staleness-triggered retrains.
+- **[BUILT]** `model-training-data-freshness-sla` — Defining an SLA for how stale training data is allowed to become before a scheduled retrain is mandatory, independent of staleness-triggered retrains.
 - **[planned]** `reproducible-ml-training-pipelines` — Building fully reproducible training pipelines (pinned library versions, fixed seeds, versioned data) so a model can be exactly regenerated for audit.
 - **[planned]** `label-noise-estimation-in-financial-targets` — Estimating the inherent noise floor in a financial prediction target to set realistic expectations for achievable model accuracy.
 - **[planned]** `transfer-learning-across-correlated-instruments` — Using transfer learning to bootstrap a model for a thinly-traded instrument using patterns learned from a more liquid, correlated one.

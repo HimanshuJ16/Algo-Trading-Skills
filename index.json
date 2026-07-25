@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:44.425792+00:00",
+  "generated_at": "2026-07-25T07:49:45.161088+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 155,
+  "total_skills": 156,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1889,6 +1889,24 @@
       "license": "Apache-2.0",
       "path": "skills/model-staleness-detection",
       "skill_md": "skills/model-staleness-detection/SKILL.md"
+    },
+    {
+      "name": "model-training-data-freshness-sla",
+      "description": "Skill for model training data freshness sla",
+      "domain": "Financial ML",
+      "subdomain": "MLOps",
+      "tags": [
+        "ml",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/model-training-data-freshness-sla",
+      "skill_md": "skills/model-training-data-freshness-sla/SKILL.md"
     },
     {
       "name": "model-versioning-and-rollback",
