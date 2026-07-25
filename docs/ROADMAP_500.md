@@ -153,7 +153,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `quantile-regression-for-uncertainty-aware-signals` — Using quantile regression to produce uncertainty-aware signals rather than a single point forecast, enabling confidence-scaled position sizing.
 - **[BUILT]** `feature-engineering-cost-benefit-tracking` — Tracking each feature's marginal contribution to model performance against its computational/data cost, to prune low-value expensive features.
 
-## risk-management  _(39 tracked: 2 built, 37 planned)_
+## risk-management  _(39 tracked: 39 built, 0 planned)_
 
 - **[BUILT]** `correlation-aware-exposure-limits` — see `skills/correlation-aware-exposure-limits/SKILL.md`
 - **[BUILT]** `kill-switch-and-drawdown-circuit-breakers` — see `skills/kill-switch-and-drawdown-circuit-breakers/SKILL.md`
@@ -179,11 +179,11 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `counterparty-credit-risk-for-otc-derivatives` — Assessing counterparty credit risk explicitly for any OTC (non-exchange-cleared) derivative position.
 - **[BUILT]** `black-swan-playbook-for-halted-markets` — Defining an explicit playbook for what the bot should do if the underlying market is halted mid-position (not just if the bot's own connectivity fails).
 - **[BUILT]** `risk-metric-recalculation-frequency-tuning` — Tuning how frequently each risk metric (VaR, Greeks, drawdown) is recalculated based on its actual decision-relevance, rather than recalculating everything on the same fixed cadence.
-- **[planned]** `leverage-limit-enforcement-across-instruments` — Enforcing an aggregate leverage limit across instruments with different inherent leverage (options, futures, margin equities) using a normalized exposure measure.
-- **[planned]** `risk-reporting-for-external-stakeholders` — Producing risk reports suitable for external stakeholders (investors, auditors) distinct from the internal, more granular risk-monitoring dashboards.
-- **[planned]** `post-breach-root-cause-analysis-template` — A standardized template for root-cause analysis after any risk-control breach, ensuring lessons actually feed back into control design.
-- **[planned]** `risk-control-unit-testing-framework` — A dedicated unit-testing framework specifically for risk-control logic, tested with the same rigor as trading-signal code rather than as an afterthought.
-- **[planned]** `capital-preservation-mode-for-degraded-conditions` — A defined 'capital preservation mode' the system can enter automatically under degraded conditions (data quality issues, unusual volatility) that reduces risk appetite without a full halt.
+- **[BUILT]** `leverage-limit-enforcement-across-instruments` — Enforcing an aggregate leverage limit across instruments with different inherent leverage (options, futures, margin equities) using a normalized exposure measure.
+- **[BUILT]** `risk-reporting-for-external-stakeholders` — Producing risk reports suitable for external stakeholders (investors, auditors) distinct from the internal, more granular risk-monitoring dashboards.
+- **[BUILT]** `post-breach-root-cause-analysis-template` — A standardized template for root-cause analysis after any risk-control breach, ensuring lessons actually feed back into control design.
+- **[BUILT]** `risk-control-unit-testing-framework` — A dedicated unit-testing framework specifically for risk-control logic, tested with the same rigor as trading-signal code rather than as an afterthought.
+- **[BUILT]** `capital-preservation-mode-for-degraded-conditions` — A defined 'capital preservation mode' the system can enter automatically under degraded conditions (data quality issues, unusual volatility) that reduces risk appetite without a full halt.
 - **[BUILT]** `risk-limit-calibration-against-historical-drawdowns` — Calibrating risk-limit thresholds using the strategy's own historical drawdown distribution rather than an arbitrary round-number choice.
 - **[BUILT]** `multi-currency-var-aggregation` — Aggregating VaR correctly across a multi-currency portfolio, building on the currency-conversion discipline in multi-currency-pnl-and-fx-conversion.
 - **[BUILT]** `risk-control-configuration-change-approval-workflow` — Requiring a defined approval workflow (not a simple config-file edit) for any change to live risk-control thresholds.
