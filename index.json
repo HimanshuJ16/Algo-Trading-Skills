@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:46:22.653360+00:00",
+  "generated_at": "2026-07-25T07:47:11.400837+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 129,
@@ -226,20 +226,23 @@
     },
     {
       "name": "backtest-look-ahead-in-universe-selection",
-      "description": "Auditing for lookahead bias specifically in universe-selection logic.",
-      "domain": "Backtesting",
-      "subdomain": "Bias Mitigation",
+      "description": "Use when auditing strategy universe selection logic to detect and prevent lookahead bias (e.g. selecting top 50 S&P 500 stocks by today's market cap retroactively for 2015 backtests).",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
       "tags": [
-        "Lookahead",
-        "Universe Selection",
-        "Backtesting"
+        "backtesting-methodology",
+        "universe-selection",
+        "lookahead-bias",
+        "point-in-time",
+        "survivorship-bias"
       ],
       "brokers_frameworks": [
-        "General"
+        "Universe Lookahead Auditor",
+        "Python"
       ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/backtest-look-ahead-in-universe-selection",
       "skill_md": "skills/backtest-look-ahead-in-universe-selection/SKILL.md"
     },
@@ -291,20 +294,24 @@
     },
     {
       "name": "backtest-reporting-standardized-tearsheet",
-      "description": "Producing a standardized performance tearsheet.",
-      "domain": "Reporting",
-      "subdomain": "Performance Metrics",
+      "description": "Use when evaluating completed backtests to generate a standardized performance tearsheet computing Sharpe, Sortino, Calmar, max drawdown, win rate, and profit factor for objective strategy comparison.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
       "tags": [
-        "Tearsheet",
-        "Performance",
-        "Backtesting"
+        "backtesting-methodology",
+        "tearsheet",
+        "performance-metrics",
+        "sharpe-ratio",
+        "drawdown",
+        "backtest-reporting"
       ],
       "brokers_frameworks": [
-        "General"
+        "Standardized Tearsheet Generator",
+        "Python NumPy"
       ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/backtest-reporting-standardized-tearsheet",
       "skill_md": "skills/backtest-reporting-standardized-tearsheet/SKILL.md"
     },
@@ -2475,20 +2482,24 @@
     },
     {
       "name": "synthetic-data-generation-for-backtest-augmentation",
-      "description": "Generating synthetic price paths to augment limited historical data for backtest robustness testing.",
-      "domain": "Data",
-      "subdomain": "Augmentation",
+      "description": "Use when historical dataset length is limited to generate synthetic price paths via Geometric Brownian Motion (GBM) and block bootstrapping, enabling stress-testing and robustness evaluation.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
       "tags": [
-        "Synthetic Data",
-        "GBM",
-        "Bootstrap"
+        "backtesting-methodology",
+        "synthetic-data",
+        "gbm",
+        "bootstrap",
+        "data-augmentation",
+        "robustness-testing"
       ],
       "brokers_frameworks": [
-        "General"
+        "Synthetic Data Generator",
+        "Python NumPy"
       ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/synthetic-data-generation-for-backtest-augmentation",
       "skill_md": "skills/synthetic-data-generation-for-backtest-augmentation/SKILL.md"
     },
