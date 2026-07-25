@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:53.913288+00:00",
+  "generated_at": "2026-07-25T08:23:54.747953+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 401,
+  "total_skills": 402,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5202,6 +5202,25 @@
       "license": "MIT",
       "path": "skills/on-call-rotation-and-escalation-for-trading-systems",
       "skill_md": "skills/on-call-rotation-and-escalation-for-trading-systems/SKILL.md"
+    },
+    {
+      "name": "on-chain-transaction-monitoring-for-anomalies",
+      "description": "Implementation for on-chain-transaction-monitoring-for-anomalies",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/on-chain-transaction-monitoring-for-anomalies",
+      "skill_md": "skills/on-chain-transaction-monitoring-for-anomalies/SKILL.md"
     },
     {
       "name": "online-learning-for-adaptive-signal-models",
