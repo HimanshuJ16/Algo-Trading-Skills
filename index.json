@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:07.842553+00:00",
+  "generated_at": "2026-07-25T08:07:08.516332+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 203,
+  "total_skills": 204,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3553,6 +3553,24 @@
       "license": "Apache-2.0",
       "path": "skills/robinhood-unofficial-api-integration",
       "skill_md": "skills/robinhood-unofficial-api-integration/SKILL.md"
+    },
+    {
+      "name": "Runbook Automation",
+      "description": "A skill to handle Runbook Automation in algo-trading",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment-ops"
+      ],
+      "brokers_frameworks": [
+        "aws",
+        "gcp"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/runbook-automation-for-common-incident-types",
+      "skill_md": "skills/runbook-automation-for-common-incident-types/SKILL.md"
     },
     {
       "name": "sample-weighting-for-overlapping-labels",
