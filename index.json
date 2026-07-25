@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:08.516332+00:00",
+  "generated_at": "2026-07-25T08:07:09.300212+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 204,
+  "total_skills": 205,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2107,6 +2107,24 @@
       "license": "Apache-2.0",
       "path": "skills/liquidity-adjusted-position-sizing",
       "skill_md": "skills/liquidity-adjusted-position-sizing/SKILL.md"
+    },
+    {
+      "name": "Load Testing",
+      "description": "A skill to handle Load Testing in algo-trading",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment-ops"
+      ],
+      "brokers_frameworks": [
+        "aws",
+        "gcp"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/load-testing-before-scaling-to-new-instrument-universe",
+      "skill_md": "skills/load-testing-before-scaling-to-new-instrument-universe/SKILL.md"
     },
     {
       "name": "log-aggregation-and-centralized-observability",
