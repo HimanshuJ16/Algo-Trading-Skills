@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:25.554107+00:00",
+  "generated_at": "2026-07-25T08:18:26.270555+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 345,
+  "total_skills": 346,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -27,6 +27,25 @@
       "license": "Apache-2.0",
       "path": "skills/adaptive-batch-size-tuning-under-load",
       "skill_md": "skills/adaptive-batch-size-tuning-under-load/SKILL.md"
+    },
+    {
+      "name": "adaptive-execution-under-volatility-spikes",
+      "description": "Execution algorithm for adaptive execution under volatility spikes",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/adaptive-execution-under-volatility-spikes",
+      "skill_md": "skills/adaptive-execution-under-volatility-spikes/SKILL.md"
     },
     {
       "name": "adaptive-sampling-under-extreme-tick-rates",
