@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:02:16.885647+00:00",
+  "generated_at": "2026-07-25T03:02:45.781211+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 94,
+  "total_skills": 95,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -993,6 +993,30 @@
       "license": "Apache-2.0",
       "path": "skills/market-data-snapshot-plus-delta-reconciliation",
       "skill_md": "skills/market-data-snapshot-plus-delta-reconciliation/SKILL.md"
+    },
+    {
+      "name": "memory-mapped-ring-buffer-for-ultra-low-latency",
+      "description": "Use when operating sub-microsecond market data pipelines to execute zero-copy memory-mapped file (mmap) ring buffers, eliminating heap allocations, garbage collection pauses, and language-level queue locks.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "memory-mapped",
+        "mmap",
+        "ring-buffer",
+        "zero-copy",
+        "low-latency",
+        "ipc"
+      ],
+      "brokers_frameworks": [
+        "mmap Ring Buffer",
+        "Python mmap Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/memory-mapped-ring-buffer-for-ultra-low-latency",
+      "skill_md": "skills/memory-mapped-ring-buffer-for-ultra-low-latency/SKILL.md"
     },
     {
       "name": "mifid-ii-algo-trading-compliance-eu",
