@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:51.630001+00:00",
+  "generated_at": "2026-07-25T08:10:52.224373+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 246,
+  "total_skills": 247,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -199,6 +199,23 @@
       "license": "MIT",
       "path": "skills/automated-rollback-triggers-on-anomaly-detection",
       "skill_md": "skills/automated-rollback-triggers-on-anomaly-detection/SKILL.md"
+    },
+    {
+      "name": "b3-brazil-exchange-api-integration",
+      "description": "Integration or workflow skill for b3-brazil-exchange-api-integration.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "b3-brazil-exchange-api-integration"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/b3-brazil-exchange-api-integration",
+      "skill_md": "skills/b3-brazil-exchange-api-integration/SKILL.md"
     },
     {
       "name": "backpressure-drop-degrade-policy",
