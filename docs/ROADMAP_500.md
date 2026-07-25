@@ -132,7 +132,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `feature-importance-drift-monitoring` — Monitoring whether a model's feature-importance ranking shifts over time, as an early regime-change indicator distinct from accuracy-based staleness detection.
 - **[planned]** `model-inference-latency-budget-for-live-trading` — Bounding and monitoring ML inference latency so a slow model doesn't become the bottleneck in a latency-sensitive strategy.
 - **[planned]** `synthetic-labels-from-triple-barrier-method` — Constructing ML labels via the triple-barrier method (profit-take/stop-loss/time-limit) rather than naive fixed-horizon return labels.
-- **[planned]** `sample-weighting-for-overlapping-labels` — Weighting training samples to account for overlapping label windows (a known issue in financial ML where adjacent labels aren't independent).
+- **[BUILT]** `sample-weighting-for-overlapping-labels` — Weighting training samples to account for overlapping label windows (a known issue in financial ML where adjacent labels aren't independent).
 - **[planned]** `model-card-documentation-for-trading-models` — Maintaining a 'model card' (training data range, known limitations, intended use) for every live trading model, mirroring ML-ops best practice.
 - **[planned]** `gradient-boosted-tree-vs-neural-net-tradeoffs` — Choosing between gradient-boosted trees and neural architectures for tabular financial data based on data volume and interpretability needs.
 - **[planned]** `adversarial-robustness-of-trading-signals` — Testing whether a trading signal model is unduly sensitive to small, plausible input perturbations (a financial-ML analogue of adversarial robustness testing).

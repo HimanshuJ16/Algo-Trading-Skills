@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:33.650776+00:00",
+  "generated_at": "2026-07-25T07:49:39.506023+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 147,
+  "total_skills": 148,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2552,6 +2552,24 @@
       "license": "Apache-2.0",
       "path": "skills/robinhood-unofficial-api-integration",
       "skill_md": "skills/robinhood-unofficial-api-integration/SKILL.md"
+    },
+    {
+      "name": "sample-weighting-for-overlapping-labels",
+      "description": "Skill for sample weighting for overlapping labels",
+      "domain": "Financial ML",
+      "subdomain": "Sample Weighting",
+      "tags": [
+        "ml",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/sample-weighting-for-overlapping-labels",
+      "skill_md": "skills/sample-weighting-for-overlapping-labels/SKILL.md"
     },
     {
       "name": "sandbox-credential-leakage-prevention",
