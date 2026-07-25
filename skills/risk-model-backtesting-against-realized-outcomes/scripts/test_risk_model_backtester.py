@@ -1,9 +1,12 @@
 import unittest
 import sys
 import os
+import importlib
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-from risk_model_backtester import RiskModelBacktesterEngine, Result
+module = importlib.import_module("risk_model_backtester")
+RiskModelBacktesterEngine = getattr(module, "RiskModelBacktesterEngine")
+Result = getattr(module, "Result")
 
 class TestRiskModelBacktesterEngine(unittest.TestCase):
     def setUp(self):
