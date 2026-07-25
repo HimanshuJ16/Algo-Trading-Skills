@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:07.651633+00:00",
+  "generated_at": "2026-07-25T08:25:08.468129+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 421,
+  "total_skills": 422,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5297,6 +5297,26 @@
       "license": "MIT",
       "path": "skills/network-segmentation-for-trading-infrastructure",
       "skill_md": "skills/network-segmentation-for-trading-infrastructure/SKILL.md"
+    },
+    {
+      "name": "new-strategy-onboarding-checklist",
+      "description": "Skill for new-strategy-onboarding-checklist in portfolio multi strategy.",
+      "domain": "Portfolio Management",
+      "subdomain": "Multi Strategy",
+      "tags": [
+        "portfolio",
+        "strategy",
+        "new"
+      ],
+      "brokers_frameworks": [
+        "Backtrader",
+        "QuantConnect"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/new-strategy-onboarding-checklist",
+      "skill_md": "skills/new-strategy-onboarding-checklist/SKILL.md"
     },
     {
       "name": "new-zealand-exchange-nzx-api",
