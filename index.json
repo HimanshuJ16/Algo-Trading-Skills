@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:11.038774+00:00",
+  "generated_at": "2026-07-25T08:13:11.631992+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 260,
+  "total_skills": 261,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4984,6 +4984,25 @@
       "license": "MIT",
       "path": "skills/transfer-learning-across-correlated-instruments",
       "skill_md": "skills/transfer-learning-across-correlated-instruments/SKILL.md"
+    },
+    {
+      "name": "uk-fca-algorithmic-trading-systems-controls",
+      "description": "Compliance controls for uk fca algorithmic trading systems controls",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/uk-fca-algorithmic-trading-systems-controls",
+      "skill_md": "skills/uk-fca-algorithmic-trading-systems-controls/SKILL.md"
     },
     {
       "name": "upstox-oauth-refresh-token-rotation",
