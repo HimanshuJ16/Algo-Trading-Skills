@@ -372,16 +372,16 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `smart-order-router-failover-on-venue-outage` — Ensuring a smart order router fails over gracefully to alternate venues if a primary venue experiences an outage mid-execution.
 - **[BUILT]** `minimum-fill-size-and-lot-rounding-logic` — Handling minimum-fill-size and lot-rounding constraints correctly when a slicing schedule's computed child-order size falls below an exchange's minimum.
 - **[BUILT]** `execution-algorithm-kill-switch-integration` — Ensuring execution algorithms respect the same kill-switch signal as the rest of the system (extends kill-switch-and-drawdown-circuit-breakers to in-flight multi-child-order executions specifically).
-- **[planned]** `queue-position-modeling-for-passive-orders` — Modeling expected queue position for passive limit orders to decide when to re-price versus wait, for latency-tolerant strategies.
-- **[planned]** `execution-algo-behavior-under-halted-instrument` — Defining explicit behavior for an in-progress execution algorithm if the underlying instrument is halted mid-execution.
-- **[planned]** `cross-asset-hedge-execution-synchronization` — Synchronizing execution of a primary position and its hedge (e.g. an option and its delta-hedge in the underlying) to minimize the window of unhedged exposure.
-- **[planned]** `algo-parameter-defaults-by-instrument-liquidity-tier` — Defining sensible default execution-algorithm parameters segmented by instrument liquidity tier rather than one-size-fits-all defaults.
-- **[planned]** `execution-slippage-attribution-timing-vs-sizing` — Attributing realized execution slippage to timing decisions versus sizing decisions separately, to know which part of the algorithm to improve.
-- **[planned]** `iceberg-order-native-broker-support-vs-simulation` — Deciding whether to use a broker's native iceberg order type versus simulating one via the bot's own slicing logic, based on feature/reliability tradeoffs.
-- **[planned]** `multi-day-execution-schedules-for-very-large-orders` — Extending TWAP/VWAP-style scheduling across multiple trading days for orders too large to complete in a single session without excessive impact.
-- **[planned]** `execution-algorithm-regression-testing-suite` — Building a regression-test suite for execution-algorithm logic itself, since a scheduling bug here directly costs money on every single trade it touches.
-- **[planned]** `post-only-limit-repricing-under-fast-markets` — Handling post-only limit order repricing correctly during fast-moving markets where naive re-pricing can chase price unprofitably.
-- **[planned]** `execution-venue-fee-tier-optimization` — Optimizing venue selection/order type to reach favorable fee tiers (e.g. maker-rebate thresholds) without compromising execution quality for the sake of fee optimization alone.
+- **[BUILT]** `queue-position-modeling-for-passive-orders` — Modeling expected queue position for passive limit orders to decide when to re-price versus wait, for latency-tolerant strategies.
+- **[BUILT]** `execution-algo-behavior-under-halted-instrument` — Defining explicit behavior for an in-progress execution algorithm if the underlying instrument is halted mid-execution.
+- **[BUILT]** `cross-asset-hedge-execution-synchronization` — Synchronizing execution of a primary position and its hedge (e.g. an option and its delta-hedge in the underlying) to minimize the window of unhedged exposure.
+- **[BUILT]** `algo-parameter-defaults-by-instrument-liquidity-tier` — Defining sensible default execution-algorithm parameters segmented by instrument liquidity tier rather than one-size-fits-all defaults.
+- **[BUILT]** `execution-slippage-attribution-timing-vs-sizing` — Attributing realized execution slippage to timing decisions versus sizing decisions separately, to know which part of the algorithm to improve.
+- **[BUILT]** `iceberg-order-native-broker-support-vs-simulation` — Deciding whether to use a broker's native iceberg order type versus simulating one via the bot's own slicing logic, based on feature/reliability tradeoffs.
+- **[BUILT]** `multi-day-execution-schedules-for-very-large-orders` — Extending TWAP/VWAP-style scheduling across multiple trading days for orders too large to complete in a single session without excessive impact.
+- **[BUILT]** `execution-algorithm-regression-testing-suite` — Building a regression-test suite for execution-algorithm logic itself, since a scheduling bug here directly costs money on every single trade it touches.
+- **[BUILT]** `post-only-limit-repricing-under-fast-markets` — Handling post-only limit order repricing correctly during fast-moving markets where naive re-pricing can chase price unprofitably.
+- **[BUILT]** `execution-venue-fee-tier-optimization` — Optimizing venue selection/order type to reach favorable fee tiers (e.g. maker-rebate thresholds) without compromising execution quality for the sake of fee optimization alone.
 
 ## data-management-global  _(37 tracked: 3 built, 34 planned)_
 
