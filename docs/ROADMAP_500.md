@@ -383,23 +383,23 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `post-only-limit-repricing-under-fast-markets` — Handling post-only limit order repricing correctly during fast-moving markets where naive re-pricing can chase price unprofitably.
 - **[BUILT]** `execution-venue-fee-tier-optimization` — Optimizing venue selection/order type to reach favorable fee tiers (e.g. maker-rebate thresholds) without compromising execution quality for the sake of fee optimization alone.
 
-## data-management-global  _(37 tracked: 3 built, 34 planned)_
+## data-management-global  _(37 tracked: 37 built, 0 planned)_
 
 - **[BUILT]** `global-exchange-holiday-calendar-handling` — see `skills/global-exchange-holiday-calendar-handling/SKILL.md`
 - **[BUILT]** `multi-currency-pnl-and-fx-conversion` — see `skills/multi-currency-pnl-and-fx-conversion/SKILL.md`
 - **[BUILT]** `multi-timezone-session-scheduling` — see `skills/multi-timezone-session-scheduling/SKILL.md`
-- **[planned]** `daylight-saving-time-transition-handling` — Handling DST transitions correctly for exchanges/brokers whose local trading hours shift twice a year.
-- **[planned]** `point-in-time-fundamentals-data-joins` — Joining fundamentals/reference data by as-of publish date rather than calendar date, across global data vendors.
-- **[planned]** `reference-data-symbol-mapping-across-vendors` — Mapping instrument identifiers (ISIN, CUSIP, ticker, exchange-specific codes) consistently across data vendors and brokers.
-- **[planned]** `historical-tick-data-storage-and-compaction` — Storing and compacting historical tick data at scale without exhausting storage or query latency budgets.
-- **[planned]** `isin-cusip-sedol-cross-reference-service` — Building a reliable cross-reference service between ISIN, CUSIP, SEDOL, and exchange-local ticker identifiers.
-- **[planned]** `vendor-specific-adjustment-methodology-reconciliation` — Reconciling differing corporate-action adjustment methodologies between data vendors before merging their data.
-- **[planned]** `real-time-vs-delayed-data-entitlement-handling` — Correctly handling the distinction between real-time and (commonly 15-minute) delayed data entitlements, ensuring a bot never mistakes delayed data for real-time.
-- **[planned]** `historical-data-backfill-rate-limit-management` — Managing rate limits specifically for large historical-data backfill jobs, distinct from live-trading API rate limits.
-- **[planned]** `market-data-cost-optimization-tiered-subscriptions` — Optimizing which instruments get real-time (paid) versus delayed (free/cheap) data subscriptions based on actual strategy need.
-- **[planned]** `reference-data-golden-source-designation` — Designating a single 'golden source' for each reference-data field (sector classification, share count) when multiple vendors disagree.
-- **[planned]** `data-quality-monitoring-dashboard` — Building a dashboard that surfaces data-quality anomalies (gaps, stale prints, outliers) across all ingested feeds for proactive detection.
-- **[planned]** `options-chain-data-normalization-across-vendors` — Normalizing options-chain data (strike conventions, expiry-date formats) across vendors with differing schemas.
+- **[BUILT]** `daylight-saving-time-transition-handling` — Handling DST transitions correctly for exchanges/brokers whose local trading hours shift twice a year.
+- **[BUILT]** `point-in-time-fundamentals-data-joins` — Joining fundamentals/reference data by as-of publish date rather than calendar date, across global data vendors.
+- **[BUILT]** `reference-data-symbol-mapping-across-vendors` — Mapping instrument identifiers (ISIN, CUSIP, ticker, exchange-specific codes) consistently across data vendors and brokers.
+- **[BUILT]** `historical-tick-data-storage-and-compaction` — Storing and compacting historical tick data at scale without exhausting storage or query latency budgets.
+- **[BUILT]** `isin-cusip-sedol-cross-reference-service` — Building a reliable cross-reference service between ISIN, CUSIP, SEDOL, and exchange-local ticker identifiers.
+- **[BUILT]** `vendor-specific-adjustment-methodology-reconciliation` — Reconciling differing corporate-action adjustment methodologies between data vendors before merging their data.
+- **[BUILT]** `real-time-vs-delayed-data-entitlement-handling` — Correctly handling the distinction between real-time and (commonly 15-minute) delayed data entitlements, ensuring a bot never mistakes delayed data for real-time.
+- **[BUILT]** `historical-data-backfill-rate-limit-management` — Managing rate limits specifically for large historical-data backfill jobs, distinct from live-trading API rate limits.
+- **[BUILT]** `market-data-cost-optimization-tiered-subscriptions` — Optimizing which instruments get real-time (paid) versus delayed (free/cheap) data subscriptions based on actual strategy need.
+- **[BUILT]** `reference-data-golden-source-designation` — Designating a single 'golden source' for each reference-data field (sector classification, share count) when multiple vendors disagree.
+- **[BUILT]** `data-quality-monitoring-dashboard` — Building a dashboard that surfaces data-quality anomalies (gaps, stale prints, outliers) across all ingested feeds for proactive detection.
+- **[BUILT]** `options-chain-data-normalization-across-vendors` — Normalizing options-chain data (strike conventions, expiry-date formats) across vendors with differing schemas.
 - **[BUILT]** `corporate-action-event-calendar-integration` — Integrating a corporate-action event calendar (splits, dividends, mergers) to pre-empt rather than react to adjustment-related backtest/live discrepancies.
 - **[BUILT]** `currency-pair-quoting-convention-normalization` — Normalizing currency-pair quoting conventions (which currency is base vs quote) consistently across data sources, since this flips silently between vendors.
 - **[BUILT]** `exchange-tick-size-regime-tracking` — Tracking exchange-specific (and sometimes price-tier-dependent) tick-size regimes correctly for order-price validation.
