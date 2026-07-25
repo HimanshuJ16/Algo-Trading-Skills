@@ -462,7 +462,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `strategy-lifecycle-retirement-criteria` — Defining explicit, pre-agreed criteria for retiring a live strategy rather than letting it run indefinitely on inertia.
 - **[BUILT]** `strategy-correlation-matrix-live-recomputation` — Recomputing the live strategy-correlation matrix on a defined schedule, mirroring the discipline in correlation-aware-exposure-limits but at the strategy level rather than instrument level.
 - **[BUILT]** `risk-parity-allocation-across-strategies` — Allocating capital across strategies using a risk-parity approach (equalizing risk contribution) rather than equal-dollar allocation.
-- **[planned]** `strategy-performance-attribution-vs-market-beta` — Decomposing each strategy's returns into market-beta-driven and idiosyncratic-alpha-driven components for honest cross-strategy comparison.
+- **[BUILT]** `strategy-performance-attribution-vs-market-beta` — Decomposing each strategy's returns into market-beta-driven and idiosyncratic-alpha-driven components for honest cross-strategy comparison.
 - **[planned]** `portfolio-level-stop-loss-independent-of-strategy-stops` — Implementing a portfolio-level stop-loss that can halt all strategies simultaneously, independent of and in addition to each strategy's own internal stops.
 - **[planned]** `new-strategy-onboarding-checklist` — A standardized checklist (data requirements, risk-control integration, paper-trading gate) for onboarding a new strategy into a multi-strategy portfolio.
 - **[planned]** `strategy-capacity-estimation-before-scaling-capital` — Estimating a strategy's capacity (the capital level beyond which its own market impact degrades returns) before scaling allocated capital.

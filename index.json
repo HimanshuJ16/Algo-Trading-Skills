@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:05.882523+00:00",
+  "generated_at": "2026-07-25T08:25:06.735512+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 419,
+  "total_skills": 420,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7206,6 +7206,26 @@
       "license": "MIT",
       "path": "skills/strategy-lifecycle-retirement-criteria",
       "skill_md": "skills/strategy-lifecycle-retirement-criteria/SKILL.md"
+    },
+    {
+      "name": "strategy-performance-attribution-vs-market-beta",
+      "description": "Skill for strategy-performance-attribution-vs-market-beta in portfolio multi strategy.",
+      "domain": "Portfolio Management",
+      "subdomain": "Multi Strategy",
+      "tags": [
+        "portfolio",
+        "strategy",
+        "strategy"
+      ],
+      "brokers_frameworks": [
+        "Backtrader",
+        "QuantConnect"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-performance-attribution-vs-market-beta",
+      "skill_md": "skills/strategy-performance-attribution-vs-market-beta/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",
