@@ -477,7 +477,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `strategy-committee-governance-for-capital-allocation-decisions` — Establishing a lightweight governance process (even for a small team) for capital-allocation decisions across strategies, rather than ad hoc reallocation.
 - **[planned]** `benchmark-portfolio-for-multi-strategy-performance-context` — Maintaining a simple benchmark portfolio to contextualize whether the full multi-strategy portfolio's complexity is actually adding value over a simpler alternative.
 - **[planned]** `tail-correlation-between-strategies-under-stress` — Testing whether strategies assumed uncorrelated under normal conditions become correlated specifically under stress/tail scenarios (a common multi-strategy blind spot).
-- **[planned]** `strategy-specific-data-dependency-mapping` — Mapping each strategy's specific data dependencies so a data-vendor outage's impact across the multi-strategy portfolio can be assessed quickly.
+- **[BUILT]** `strategy-specific-data-dependency-mapping` — Mapping each strategy's specific data dependencies so a data-vendor outage's impact across the multi-strategy portfolio can be assessed quickly.
 - **[planned]** `incremental-capital-deployment-for-new-strategies` — Deploying capital to a newly-promoted strategy incrementally (per the reduced-initial-size principle in paper-to-live-promotion-checklist) rather than immediately at full target allocation.
 - **[planned]** `cross-strategy-tax-lot-optimization` — Optimizing tax-lot selection across strategies sharing a tax entity, where applicable, without compromising each strategy's independent decision logic.
 - **[planned]** `strategy-level-kill-switch-vs-portfolio-level-kill-switch` — Ensuring a strategy-level kill-switch trigger doesn't inadvertently unwind unrelated strategies, while a portfolio-level kill-switch correctly does.
@@ -560,3 +560,4 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 ---
 
 **Grand total: 504 skills tracked (293 built, 211 planned) across 16 categories.**
+  

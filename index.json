@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:10.149145+00:00",
+  "generated_at": "2026-07-25T08:25:10.756228+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 424,
+  "total_skills": 425,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7266,6 +7266,24 @@
       "license": "MIT",
       "path": "skills/strategy-correlation-matrix-live-recomputation",
       "skill_md": "skills/strategy-correlation-matrix-live-recomputation/SKILL.md"
+    },
+    {
+      "name": "strategy-decommissioning-and-position-unwind-procedure",
+      "description": "Skill implementation for strategy-decommissioning-and-position-unwind-procedure",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Skill Management",
+      "tags": [
+        "algo-trading",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-decommissioning-and-position-unwind-procedure",
+      "skill_md": "skills/strategy-decommissioning-and-position-unwind-procedure/SKILL.md"
     },
     {
       "name": "strategy-lifecycle-retirement-criteria",
