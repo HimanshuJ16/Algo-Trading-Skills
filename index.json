@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:10.448863+00:00",
+  "generated_at": "2026-07-25T08:07:11.006281+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 208,
+  "total_skills": 210,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -152,6 +152,21 @@
       "license": "Apache-2.0",
       "path": "skills/api-key-least-privilege-audit-tool",
       "skill_md": "skills/api-key-least-privilege-audit-tool/SKILL.md"
+    },
+    {
+      "name": "automated-rollback-triggers-on-anomaly-detection",
+      "description": "Skill for automated-rollback-triggers-on-anomaly-detection",
+      "domain": "deployment-ops",
+      "subdomain": "deployment",
+      "tags": [
+        "automated-rollback-triggers-on-anomaly-detection"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/automated-rollback-triggers-on-anomaly-detection",
+      "skill_md": "skills/automated-rollback-triggers-on-anomaly-detection/SKILL.md"
     },
     {
       "name": "backpressure-drop-degrade-policy",
@@ -3092,6 +3107,24 @@
       "license": "MIT",
       "path": "skills/post-breach-root-cause-analysis-template",
       "skill_md": "skills/post-breach-root-cause-analysis-template/SKILL.md"
+    },
+    {
+      "name": "Blameless Postmortem",
+      "description": "A skill to handle Blameless Postmortem in algo-trading",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment-ops"
+      ],
+      "brokers_frameworks": [
+        "aws",
+        "gcp"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/post-mortem-culture-and-blameless-review-process",
+      "skill_md": "skills/post-mortem-culture-and-blameless-review-process/SKILL.md"
     },
     {
       "name": "post-only-and-maker-taker-fee-optimization",
