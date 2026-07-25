@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:04:57.011963+00:00",
+  "generated_at": "2026-07-25T08:04:57.552468+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 177,
+  "total_skills": 178,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3066,6 +3066,25 @@
       "license": "Apache-2.0",
       "path": "skills/risk-metric-recalculation-frequency-tuning",
       "skill_md": "skills/risk-metric-recalculation-frequency-tuning/SKILL.md"
+    },
+    {
+      "name": "risk-reporting-for-external-stakeholders",
+      "description": "Institutional risk reporting format.",
+      "domain": "risk-management",
+      "subdomain": "compliance",
+      "tags": [
+        "risk",
+        "compliance",
+        "automation"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/risk-reporting-for-external-stakeholders",
+      "skill_md": "skills/risk-reporting-for-external-stakeholders/SKILL.md"
     },
     {
       "name": "robinhood-unofficial-api-integration",
