@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:51.479082+00:00",
+  "generated_at": "2026-07-25T08:20:52.242890+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 379,
+  "total_skills": 380,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2089,6 +2089,24 @@
       "license": "MIT",
       "path": "skills/data-localization-requirements-for-trade-records",
       "skill_md": "skills/data-localization-requirements-for-trade-records/SKILL.md"
+    },
+    {
+      "name": "data-pipeline-schema-contract-testing",
+      "description": "Implementation of data-pipeline-schema-contract-testing",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/data-pipeline-schema-contract-testing",
+      "skill_md": "skills/data-pipeline-schema-contract-testing/SKILL.md"
     },
     {
       "name": "data-quality-monitoring-dashboard",

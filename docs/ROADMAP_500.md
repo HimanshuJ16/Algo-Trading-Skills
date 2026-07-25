@@ -404,7 +404,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `currency-pair-quoting-convention-normalization` — Normalizing currency-pair quoting conventions (which currency is base vs quote) consistently across data sources, since this flips silently between vendors.
 - **[BUILT]** `exchange-tick-size-regime-tracking` — Tracking exchange-specific (and sometimes price-tier-dependent) tick-size regimes correctly for order-price validation.
 - **[BUILT]** `historical-order-book-reconstruction-from-message-logs` — Reconstructing a historical order book from raw message logs for backtest realism beyond simple OHLCV bars.
-- **[planned]** `data-pipeline-schema-contract-testing` — Contract-testing data-pipeline schemas so an upstream vendor's silent schema change is caught before it corrupts downstream processing.
+- **[BUILT]** `data-pipeline-schema-contract-testing` — Contract-testing data-pipeline schemas so an upstream vendor's silent schema change is caught before it corrupts downstream processing.
 - **[planned]** `point-in-time-index-constituent-tracking` — Tracking historical index constituents (not just current membership) for accurate survivorship-bias-free backtest universes.
 - **[planned]** `market-data-latency-monitoring-per-vendor` — Monitoring actual observed latency per data vendor/feed, since advertised 'real-time' can vary meaningfully in practice.
 - **[planned]** `unicode-and-encoding-issues-in-global-instrument-names` — Handling encoding issues (non-ASCII characters in company/instrument names) correctly across data pipelines spanning multiple countries.
