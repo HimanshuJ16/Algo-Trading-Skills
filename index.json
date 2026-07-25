@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:10.894044+00:00",
+  "generated_at": "2026-07-25T08:24:11.699977+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 405,
+  "total_skills": 406,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2844,6 +2844,23 @@
       "license": "MIT",
       "path": "skills/exchange-tick-size-regime-tracking",
       "skill_md": "skills/exchange-tick-size-regime-tracking/SKILL.md"
+    },
+    {
+      "name": "exchange-withdrawal-whitelist-enforcement",
+      "description": "Skill for exchange withdrawal whitelist enforcement",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/exchange-withdrawal-whitelist-enforcement",
+      "skill_md": "skills/exchange-withdrawal-whitelist-enforcement/SKILL.md"
     },
     {
       "name": "execution-algo-behavior-under-halted-instrument",
