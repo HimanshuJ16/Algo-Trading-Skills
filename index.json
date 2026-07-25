@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:33.062596+00:00",
+  "generated_at": "2026-07-25T07:49:33.650776+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 146,
+  "total_skills": 147,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -764,6 +764,29 @@
       "license": "Apache-2.0",
       "path": "skills/clock-skew-correction-for-tick-timestamps",
       "skill_md": "skills/clock-skew-correction-for-tick-timestamps/SKILL.md"
+    },
+    {
+      "name": "cold-start-handling-for-newly-listed-instruments",
+      "description": "Use when deploying ML signal generation models to handle newly-listed instruments (IPOs, new crypto pairs) with zero or minimal trading history, using fallback heuristics and cluster-proxy feature transfer without extrapolating invalid historical statistics.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "cold-start",
+        "new-instruments",
+        "feature-transfer",
+        "fallback-heuristics",
+        "cluster-proxy"
+      ],
+      "brokers_frameworks": [
+        "Cold Start Handler Engine",
+        "Python NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/cold-start-handling-for-newly-listed-instruments",
+      "skill_md": "skills/cold-start-handling-for-newly-listed-instruments/SKILL.md"
     },
     {
       "name": "concept-drift-vs-staleness-differentiation",
