@@ -122,7 +122,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `feature-store-for-live-and-backtest-parity` — Building a feature store that guarantees identical computation between backtest and live paths.
 - **[BUILT]** `reinforcement-learning-safety-constraints-for-execution` — Constraining an RL-based execution agent so it cannot learn to violate risk limits.
 - **[BUILT]** `explainability-for-live-trading-signals` — Generating human-readable explanations for why a live ML signal fired, for post-hoc audit and trust-building.
-- **[planned]** `online-learning-for-adaptive-signal-models` — Using online/incremental learning so a model updates continuously rather than requiring full batch retraining.
+- **[BUILT]** `online-learning-for-adaptive-signal-models` — Using online/incremental learning so a model updates continuously rather than requiring full batch retraining.
 - **[planned]** `cross-sectional-vs-time-series-model-design` — Choosing between a cross-sectional model (ranking instruments against each other) and a pure time-series model based on the strategy's structure.
 - **[planned]** `alternative-data-feature-integration` — Integrating alternative data (satellite imagery, web-scraped sentiment, credit-card transaction data) as ML features with appropriate lag/availability handling.
 - **[planned]** `model-versioning-and-rollback` — Versioning deployed models so a newly-detected staleness or bug can trigger an immediate rollback to the last-known-good version.

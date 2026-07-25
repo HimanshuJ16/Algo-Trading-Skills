@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:47:11.400837+00:00",
+  "generated_at": "2026-07-25T07:48:00.026492+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 129,
+  "total_skills": 130,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1913,6 +1913,30 @@
       "license": "Apache-2.0",
       "path": "skills/offline-train-online-infer-deployment",
       "skill_md": "skills/offline-train-online-infer-deployment/SKILL.md"
+    },
+    {
+      "name": "online-learning-for-adaptive-signal-models",
+      "description": "Use when deploying machine learning signal models to adapt continuously to shifting market microstructures using online/incremental learning algorithms (Stochastic Gradient Descent / Recursive Least Squares) without full batch retraining.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "online-learning",
+        "adaptive-model",
+        "incremental-learning",
+        "rls",
+        "concept-drift",
+        "signal-processing"
+      ],
+      "brokers_frameworks": [
+        "Online Adaptive Model Engine",
+        "Python NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/online-learning-for-adaptive-signal-models",
+      "skill_md": "skills/online-learning-for-adaptive-signal-models/SKILL.md"
     },
     {
       "name": "options-backtesting-with-realistic-iv-surface",
