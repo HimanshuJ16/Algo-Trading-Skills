@@ -167,7 +167,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `tail-risk-hedging-with-options` — Systematically using out-of-the-money options as tail-risk insurance for a portfolio, with defined cost budgets.
 - **[BUILT]** `real-time-var-backtesting-kupiec-test` — Backtesting a live VaR model's accuracy using statistical tests (e.g. Kupiec's proportion-of-failures test) rather than assuming the model is correct.
 - **[BUILT]** `concentration-risk-single-name-limits` — Capping exposure to any single instrument independent of sector-correlation clustering, as a simpler complementary control.
-- **[planned]** `risk-limit-breach-escalation-matrix` — Defining a graduated escalation matrix (warn → reduce → halt → force-flatten) rather than a single binary breach/no-breach risk response.
+- **[BUILT]** `risk-limit-breach-escalation-matrix` — Defining a graduated escalation matrix (warn → reduce → halt → force-flatten) rather than a single binary breach/no-breach risk response.
 - **[planned]** `scenario-based-stress-testing-custom-shocks` — Building custom stress-test scenarios beyond historical replay (e.g. a hypothetical rate-shock scenario) for forward-looking tail-risk assessment.
 - **[planned]** `risk-budget-allocation-across-time-horizons` — Allocating a portfolio's risk budget explicitly across different holding-period buckets (intraday, swing, position) to avoid unintentional horizon concentration.
 - **[planned]** `real-time-greeks-recalculation-on-market-moves` — Recalculating portfolio Greeks in real time as the market moves, rather than only at fixed intervals, for options-heavy portfolios.
