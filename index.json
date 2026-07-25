@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:17.621507+00:00",
+  "generated_at": "2026-07-25T08:17:49.542256+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 320,
+  "total_skills": 330,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -91,6 +91,24 @@
       "license": "MIT",
       "path": "skills/adversarial-robustness-of-trading-signals",
       "skill_md": "skills/adversarial-robustness-of-trading-signals/SKILL.md"
+    },
+    {
+      "name": "algo-parameter-defaults-by-instrument-liquidity-tier",
+      "description": "Implementation for algo-parameter-defaults-by-instrument-liquidity-tier",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/algo-parameter-defaults-by-instrument-liquidity-tier",
+      "skill_md": "skills/algo-parameter-defaults-by-instrument-liquidity-tier/SKILL.md"
     },
     {
       "name": "algo-trading-disclosure-to-exchange-membership",
@@ -1647,6 +1665,24 @@
       "skill_md": "skills/cross-asset-correlation-regime-shifts/SKILL.md"
     },
     {
+      "name": "cross-asset-hedge-execution-synchronization",
+      "description": "Implementation for cross-asset-hedge-execution-synchronization",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-asset-hedge-execution-synchronization",
+      "skill_md": "skills/cross-asset-hedge-execution-synchronization/SKILL.md"
+    },
+    {
       "name": "cross-border-data-transfer-restrictions-for-trade-data",
       "description": "Compliance tool for cross border data transfer restrictions for trade data",
       "domain": "regulatory-compliance-global",
@@ -2346,6 +2382,24 @@
       "skill_md": "skills/exchange-multicast-feed-handling/SKILL.md"
     },
     {
+      "name": "execution-algo-behavior-under-halted-instrument",
+      "description": "Implementation for execution-algo-behavior-under-halted-instrument",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/execution-algo-behavior-under-halted-instrument",
+      "skill_md": "skills/execution-algo-behavior-under-halted-instrument/SKILL.md"
+    },
+    {
       "name": "execution-algo-twap-vwap-slicing",
       "description": "Use when an order is large enough relative to typical market liquidity that placing it as a single order would move the price against the strategy, requiring a TWAP/VWAP-style slicing algorithm instead",
       "domain": "algorithmic-trading",
@@ -2361,6 +2415,24 @@
       "skill_md": "skills/execution-algo-twap-vwap-slicing/SKILL.md"
     },
     {
+      "name": "execution-algorithm-regression-testing-suite",
+      "description": "Implementation for execution-algorithm-regression-testing-suite",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/execution-algorithm-regression-testing-suite",
+      "skill_md": "skills/execution-algorithm-regression-testing-suite/SKILL.md"
+    },
+    {
       "name": "execution-realistic-simulation",
       "description": "Use when building a backtest's fill/execution model, to ensure simulated fills, slippage, and fees reflect what would actually happen in a live order rather than idealized instantaneous execution at a quoted price",
       "domain": "algorithmic-trading",
@@ -2374,6 +2446,42 @@
       "license": "Apache-2.0",
       "path": "skills/execution-realistic-simulation",
       "skill_md": "skills/execution-realistic-simulation/SKILL.md"
+    },
+    {
+      "name": "execution-slippage-attribution-timing-vs-sizing",
+      "description": "Implementation for execution-slippage-attribution-timing-vs-sizing",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/execution-slippage-attribution-timing-vs-sizing",
+      "skill_md": "skills/execution-slippage-attribution-timing-vs-sizing/SKILL.md"
+    },
+    {
+      "name": "execution-venue-fee-tier-optimization",
+      "description": "Implementation for execution-venue-fee-tier-optimization",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/execution-venue-fee-tier-optimization",
+      "skill_md": "skills/execution-venue-fee-tier-optimization/SKILL.md"
     },
     {
       "name": "explainability-for-live-trading-signals",
@@ -2976,6 +3084,24 @@
       "license": "MIT",
       "path": "skills/ice-futures-us-eu-integration",
       "skill_md": "skills/ice-futures-us-eu-integration/SKILL.md"
+    },
+    {
+      "name": "iceberg-order-native-broker-support-vs-simulation",
+      "description": "Implementation for iceberg-order-native-broker-support-vs-simulation",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/iceberg-order-native-broker-support-vs-simulation",
+      "skill_md": "skills/iceberg-order-native-broker-support-vs-simulation/SKILL.md"
     },
     {
       "name": "idx-indonesia-stock-exchange-api",
@@ -3900,6 +4026,24 @@
       "skill_md": "skills/multi-currency-var-aggregation/SKILL.md"
     },
     {
+      "name": "multi-day-execution-schedules-for-very-large-orders",
+      "description": "Implementation for multi-day-execution-schedules-for-very-large-orders",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/multi-day-execution-schedules-for-very-large-orders",
+      "skill_md": "skills/multi-day-execution-schedules-for-very-large-orders/SKILL.md"
+    },
+    {
       "name": "multi-exchange-feed-normalization",
       "description": "Use when building multi-exchange market data pipelines to map heterogeneous WebSocket/REST tick payloads into a single unified internal schema with normalized symbols, prices, quantities, and timestamps",
       "domain": "algorithmic-trading",
@@ -4635,6 +4779,24 @@
       "skill_md": "skills/post-only-and-maker-taker-fee-optimization/SKILL.md"
     },
     {
+      "name": "post-only-limit-repricing-under-fast-markets",
+      "description": "Implementation for post-only-limit-repricing-under-fast-markets",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/post-only-limit-repricing-under-fast-markets",
+      "skill_md": "skills/post-only-limit-repricing-under-fast-markets/SKILL.md"
+    },
+    {
       "name": "prime-brokerage-multi-venue-consolidation",
       "description": "Integration or workflow skill for prime-brokerage-multi-venue-consolidation.",
       "domain": "Execution",
@@ -4738,6 +4900,24 @@
       "license": "Apache-2.0",
       "path": "skills/questrade-api-rate-limit-and-account-types",
       "skill_md": "skills/questrade-api-rate-limit-and-account-types/SKILL.md"
+    },
+    {
+      "name": "queue-position-modeling-for-passive-orders",
+      "description": "Implementation for queue-position-modeling-for-passive-orders",
+      "domain": "Execution",
+      "subdomain": "Algorithms",
+      "tags": [
+        "execution",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/queue-position-modeling-for-passive-orders",
+      "skill_md": "skills/queue-position-modeling-for-passive-orders/SKILL.md"
     },
     {
       "name": "real-time-greeks-recalculation-on-market-moves",
