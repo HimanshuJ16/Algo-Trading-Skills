@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:57.369006+00:00",
+  "generated_at": "2026-07-25T08:16:57.629837+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 311,
+  "total_skills": 312,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5923,6 +5923,23 @@
       "license": "Apache-2.0",
       "path": "skills/vectorized-vs-event-driven-backtest-tradeoffs",
       "skill_md": "skills/vectorized-vs-event-driven-backtest-tradeoffs/SKILL.md"
+    },
+    {
+      "name": "vix-and-volatility-index-derivative-strategies",
+      "description": "Skill for vix and volatility index derivative strategies",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Volatility",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/vix-and-volatility-index-derivative-strategies",
+      "skill_md": "skills/vix-and-volatility-index-derivative-strategies/SKILL.md"
     },
     {
       "name": "walk-forward-hyperparameter-search-budget",
