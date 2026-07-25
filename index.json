@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:59:12.878054+00:00",
+  "generated_at": "2026-07-25T07:59:13.774530+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 170,
+  "total_skills": 171,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3040,6 +3040,22 @@
       "license": "Apache-2.0",
       "path": "skills/saxo-bank-openapi-integration",
       "skill_md": "skills/saxo-bank-openapi-integration/SKILL.md"
+    },
+    {
+      "name": "scenario-based-stress-testing-custom-shocks",
+      "description": "Stress testing with custom macroeconomic/rate shock scenarios",
+      "domain": "risk-management",
+      "subdomain": "risk",
+      "tags": [
+        "risk",
+        "management"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/scenario-based-stress-testing-custom-shocks",
+      "skill_md": "skills/scenario-based-stress-testing-custom-shocks/SKILL.md"
     },
     {
       "name": "schwab-api-oauth-pkce-flow",
