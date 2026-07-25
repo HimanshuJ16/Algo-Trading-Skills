@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:38.773208+00:00",
+  "generated_at": "2026-07-25T13:19:39.656612+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 500,
+  "total_skills": 501,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -738,6 +738,23 @@
       "license": "Apache-2.0",
       "path": "skills/backtest-vs-live-performance-divergence-tracking",
       "skill_md": "skills/backtest-vs-live-performance-divergence-tracking/SKILL.md"
+    },
+    {
+      "name": "backtesting-alt-data-strategies-with-realistic-availability-lag",
+      "description": "Skill for backtesting alt data strategies with realistic availability lag",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/backtesting-alt-data-strategies-with-realistic-availability-lag",
+      "skill_md": "skills/backtesting-alt-data-strategies-with-realistic-availability-lag/SKILL.md"
     },
     {
       "name": "backtesting-ml-models-against-transaction-costs",
