@@ -18,6 +18,22 @@ skills = [
     "research-idea-pipeline-tracking-and-prioritization",
 ]
 
+import time
+
+def run_git(args):
+    for _ in range(5):
+        try:
+            res = subprocess.run(args, capture_output=True, text=True)
+            if res.returncode == 0:
+                return res
+            if "nothing to commit" in res.stdout:
+                return res
+        except Exception:
+            pass
+        time.sleep(1)
+    return subprocess.run(args, check=True)
+
+
 def make_skill_md(skill_name):
     return f"""---
 name: {skill_name}
@@ -156,9 +172,9 @@ def main():
         
         # Rebuild index for each skill and add
         subprocess.run(["python", "tools/build_index.py"], check=True)
-        subprocess.run(["git", "add", "-A"], check=True)
+        run_git(["git", "add", "-A"])
         
-        subprocess.run(["git", "commit", "-m", f"feat: implement skill #{skills.index(skill)+1} {skill}"], check=True)
+        run_git(["git", "commit", "-m", f"feat: implement skill #{skills.index(skill)+1} {skill}"])
 
 if __name__ == '__main__':
     main()
