@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:41:53.924605+00:00",
+  "generated_at": "2026-07-25T07:42:37.252874+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 121,
+  "total_skills": 124,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -134,6 +134,28 @@
       "skill_md": "skills/backpressure-drop-degrade-policy/SKILL.md"
     },
     {
+      "name": "backtest-database-schema-for-point-in-time-queries",
+      "description": "Use when designing a database schema that natively supports point-in-time queries to make lookahead-bias mistakes structurally harder to introduce in backtests.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "point-in-time",
+        "database-schema",
+        "lookahead-bias",
+        "temporal-queries"
+      ],
+      "brokers_frameworks": [
+        "Point-in-Time Schema Engine",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/backtest-database-schema-for-point-in-time-queries",
+      "skill_md": "skills/backtest-database-schema-for-point-in-time-queries/SKILL.md"
+    },
+    {
       "name": "backtest-determinism-and-reproducibility",
       "description": "Use when designing backtest execution frameworks to enforce deterministic random seeding, sort input data streams strictly, eliminate async race conditions, and verify bit-identical P&L results via cryptographic audit checksums.",
       "domain": "algorithmic-trading",
@@ -157,6 +179,27 @@
       "license": "Apache-2.0",
       "path": "skills/backtest-determinism-and-reproducibility",
       "skill_md": "skills/backtest-determinism-and-reproducibility/SKILL.md"
+    },
+    {
+      "name": "backtest-infrastructure-cost-budgeting",
+      "description": "Budgeting compute/storage cost for large-scale backtesting before it becomes a surprise cloud bill.",
+      "domain": "Backtesting",
+      "subdomain": "Infrastructure",
+      "tags": [
+        "backtesting",
+        "cost",
+        "budgeting",
+        "cloud"
+      ],
+      "brokers_frameworks": [
+        "AWS",
+        "GCP"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/backtest-infrastructure-cost-budgeting",
+      "skill_md": "skills/backtest-infrastructure-cost-budgeting/SKILL.md"
     },
     {
       "name": "backtest-look-ahead-in-universe-selection",
@@ -199,6 +242,25 @@
       "license": "Apache-2.0",
       "path": "skills/backtest-parameter-sensitivity-analysis",
       "skill_md": "skills/backtest-parameter-sensitivity-analysis/SKILL.md"
+    },
+    {
+      "name": "backtest-reporting-standardized-tearsheet",
+      "description": "Producing a standardized performance tearsheet.",
+      "domain": "Reporting",
+      "subdomain": "Performance Metrics",
+      "tags": [
+        "Tearsheet",
+        "Performance",
+        "Backtesting"
+      ],
+      "brokers_frameworks": [
+        "General"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/backtest-reporting-standardized-tearsheet",
+      "skill_md": "skills/backtest-reporting-standardized-tearsheet/SKILL.md"
     },
     {
       "name": "backtest-vs-live-performance-divergence-tracking",
