@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:58:19.300616+00:00",
+  "generated_at": "2026-07-25T07:58:30.711661+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 166,
+  "total_skills": 167,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3210,6 +3210,22 @@
       "license": "Apache-2.0",
       "path": "skills/systemd-supervision-for-trading-bots",
       "skill_md": "skills/systemd-supervision-for-trading-bots/SKILL.md"
+    },
+    {
+      "name": "tail-risk-hedging-with-options",
+      "description": "OTM options tail risk insurance under defined budget",
+      "domain": "risk-management",
+      "subdomain": "risk",
+      "tags": [
+        "risk",
+        "management"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/tail-risk-hedging-with-options",
+      "skill_md": "skills/tail-risk-hedging-with-options/SKILL.md"
     },
     {
       "name": "tastytrade-api-integration",

@@ -164,7 +164,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `counterparty-and-broker-concentration-risk` — Limiting exposure to any single broker/custodian to bound counterparty risk, not just market risk.
 - **[BUILT]** `greeks-based-portfolio-hedging-automation` — Automatically generating hedge orders to keep portfolio-level delta/vega within defined bounds.
 - **[BUILT]** `liquidity-adjusted-position-sizing` — Sizing positions relative to an instrument's actual liquidity (average daily volume, bid-ask depth) rather than a flat percentage-of-capital rule.
-- **[planned]** `tail-risk-hedging-with-options` — Systematically using out-of-the-money options as tail-risk insurance for a portfolio, with defined cost budgets.
+- **[BUILT]** `tail-risk-hedging-with-options` — Systematically using out-of-the-money options as tail-risk insurance for a portfolio, with defined cost budgets.
 - **[planned]** `real-time-var-backtesting-kupiec-test` — Backtesting a live VaR model's accuracy using statistical tests (e.g. Kupiec's proportion-of-failures test) rather than assuming the model is correct.
 - **[planned]** `concentration-risk-single-name-limits` — Capping exposure to any single instrument independent of sector-correlation clustering, as a simpler complementary control.
 - **[planned]** `risk-limit-breach-escalation-matrix` — Defining a graduated escalation matrix (warn → reduce → halt → force-flatten) rather than a single binary breach/no-breach risk response.
