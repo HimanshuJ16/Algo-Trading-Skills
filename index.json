@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:56:31.623840+00:00",
+  "generated_at": "2026-07-25T02:57:01.427966+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 88,
+  "total_skills": 89,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -749,6 +749,31 @@
       "license": "Apache-2.0",
       "path": "skills/graceful-degradation-to-polling-fallback",
       "skill_md": "skills/graceful-degradation-to-polling-fallback/SKILL.md"
+    },
+    {
+      "name": "grpc-streaming-for-internal-service-communication",
+      "description": "Use when connecting internal microservices (Order Gateway, Risk Engine, Portfolio Manager) to replace REST JSON polling with gRPC bi-directional HTTP/2 binary streaming for low-latency, strongly-typed data communication.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "grpc",
+        "protobuf",
+        "http2",
+        "streaming",
+        "low-latency",
+        "microservices"
+      ],
+      "brokers_frameworks": [
+        "gRPC Engine",
+        "Protocol Buffers",
+        "Python asyncio"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/grpc-streaming-for-internal-service-communication",
+      "skill_md": "skills/grpc-streaming-for-internal-service-communication/SKILL.md"
     },
     {
       "name": "headless-broker-auth-patterns",
