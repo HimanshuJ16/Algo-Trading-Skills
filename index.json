@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:47:28.147643+00:00",
+  "generated_at": "2026-07-25T02:48:36.798663+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 77,
+  "total_skills": 78,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -865,6 +865,29 @@
       "license": "Apache-2.0",
       "path": "skills/multi-asset-backtest-currency-normalization",
       "skill_md": "skills/multi-asset-backtest-currency-normalization/SKILL.md"
+    },
+    {
+      "name": "multi-broker-consolidated-position-view",
+      "description": "Use when running quantitative trading strategies across multiple brokers to aggregate, reconcile, and net position holdings, market values, and unrealized P&L into a single consolidated base-currency risk accounting view.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "multi-broker",
+        "consolidated-view",
+        "position-reconciliation",
+        "risk-accounting",
+        "netting"
+      ],
+      "brokers_frameworks": [
+        "Multi-Broker Ledger",
+        "Python Risk Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-broker-consolidated-position-view",
+      "skill_md": "skills/multi-broker-consolidated-position-view/SKILL.md"
     },
     {
       "name": "multi-broker-rate-limit-handling",
