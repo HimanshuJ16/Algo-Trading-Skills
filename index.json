@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:36:27.248216+00:00",
+  "generated_at": "2026-07-25T02:37:09.007284+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 67,
+  "total_skills": 68,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -266,6 +266,30 @@
       "license": "Apache-2.0",
       "path": "skills/crypto-wallet-key-custody-security",
       "skill_md": "skills/crypto-wallet-key-custody-security/SKILL.md"
+    },
+    {
+      "name": "degiro-unofficial-api-risk-assessment",
+      "description": "Use when connecting to DEGIRO via reverse-engineered Web API endpoints for European retail trading to evaluate ToS compliance, manage session tokens, calculate pre-trade order fees, and enforce fallback circuit breakers.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "degiro",
+        "european-markets",
+        "unofficial-api",
+        "risk-assessment",
+        "euronext"
+      ],
+      "brokers_frameworks": [
+        "DEGIRO Web API",
+        "Python requests",
+        "Custom Risk Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/degiro-unofficial-api-risk-assessment",
+      "skill_md": "skills/degiro-unofficial-api-risk-assessment/SKILL.md"
     },
     {
       "name": "ensemble-signal-combination-without-overfitting",
