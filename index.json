@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:38.091186+00:00",
+  "generated_at": "2026-07-25T08:13:38.768657+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 279,
+  "total_skills": 280,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1454,6 +1454,25 @@
       "license": "MIT",
       "path": "skills/cross-account-aggregate-risk-view",
       "skill_md": "skills/cross-account-aggregate-risk-view/SKILL.md"
+    },
+    {
+      "name": "cross-border-data-transfer-restrictions-for-trade-data",
+      "description": "Compliance tool for cross border data transfer restrictions for trade data",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/cross-border-data-transfer-restrictions-for-trade-data",
+      "skill_md": "skills/cross-border-data-transfer-restrictions-for-trade-data/SKILL.md"
     },
     {
       "name": "cross-chain-bridge-risk-for-multi-chain-strategies",
