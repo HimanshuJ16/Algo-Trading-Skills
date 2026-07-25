@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:46.754696+00:00",
+  "generated_at": "2026-07-25T08:20:47.502247+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 372,
+  "total_skills": 373,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1887,6 +1887,24 @@
       "license": "MIT",
       "path": "skills/cross-margining-across-asset-classes",
       "skill_md": "skills/cross-margining-across-asset-classes/SKILL.md"
+    },
+    {
+      "name": "cross-region-data-replication-lag-monitoring",
+      "description": "Implementation of cross-region-data-replication-lag-monitoring",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/cross-region-data-replication-lag-monitoring",
+      "skill_md": "skills/cross-region-data-replication-lag-monitoring/SKILL.md"
     },
     {
       "name": "cross-sectional-vs-time-series-model-design",
