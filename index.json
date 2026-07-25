@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:55:59.834088+00:00",
+  "generated_at": "2026-07-25T07:58:16.373641+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 161,
+  "total_skills": 162,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2788,6 +2788,25 @@
       "license": "MIT",
       "path": "skills/reproducible-ml-training-pipelines",
       "skill_md": "skills/reproducible-ml-training-pipelines/SKILL.md"
+    },
+    {
+      "name": "risk-budget-allocation-across-time-horizons",
+      "description": "Risk budgeting across intraday, swing, and position holding periods.",
+      "domain": "risk-management",
+      "subdomain": "risk-budgeting",
+      "tags": [
+        "risk",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "ccxt",
+        "interactive-brokers"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/risk-budget-allocation-across-time-horizons",
+      "skill_md": "skills/risk-budget-allocation-across-time-horizons/SKILL.md"
     },
     {
       "name": "robinhood-unofficial-api-integration",
