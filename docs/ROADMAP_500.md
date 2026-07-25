@@ -356,7 +356,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `smart-order-routing-across-venues` — Routing an order across multiple venues/exchanges to minimize cost when a single venue lacks sufficient liquidity.
 - **[BUILT]** `adaptive-execution-under-volatility-spikes` — Switching an execution algorithm's aggressiveness in response to a real-time volatility spike detector.
 - **[BUILT]** `arrival-price-benchmark-execution-algo` — Building an execution algorithm explicitly benchmarked against arrival price rather than TWAP/VWAP, appropriate for urgency-driven orders.
-- **[planned]** `dark-pool-routing-logic` — Routing a portion of large orders to dark pools to reduce market impact, with logic for detecting adverse selection in dark-pool fills.
+- **[BUILT]** `dark-pool-routing-logic` — Routing a portion of large orders to dark pools to reduce market impact, with logic for detecting adverse selection in dark-pool fills.
 - **[planned]** `liquidity-seeking-algorithm-across-lit-and-dark-venues` — Building a liquidity-seeking algorithm that dynamically allocates order flow across lit and dark venues based on observed fill quality.
 - **[planned]** `close-auction-participation-strategy` — Participating correctly in an exchange's closing auction, including its distinct order-type and timing rules versus continuous trading.
 - **[planned]** `opening-auction-imbalance-based-execution` — Using published opening-auction imbalance information to inform execution timing around the open.

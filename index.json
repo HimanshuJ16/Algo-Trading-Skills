@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:27.094754+00:00",
+  "generated_at": "2026-07-25T08:18:28.025816+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 347,
+  "total_skills": 348,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1962,6 +1962,25 @@
       "license": "Apache-2.0",
       "path": "skills/crypto-wallet-key-custody-security",
       "skill_md": "skills/crypto-wallet-key-custody-security/SKILL.md"
+    },
+    {
+      "name": "dark-pool-routing-logic",
+      "description": "Execution algorithm for dark pool routing logic",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/dark-pool-routing-logic",
+      "skill_md": "skills/dark-pool-routing-logic/SKILL.md"
     },
     {
       "name": "data-localization-requirements-for-trade-records",
