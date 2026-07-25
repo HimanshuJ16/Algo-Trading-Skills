@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:30.576286+00:00",
+  "generated_at": "2026-07-25T08:28:31.439004+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 458,
+  "total_skills": 459,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -110,6 +110,24 @@
       "license": "MIT",
       "path": "skills/adversarial-robustness-of-trading-signals",
       "skill_md": "skills/adversarial-robustness-of-trading-signals/SKILL.md"
+    },
+    {
+      "name": "adverse-selection-measurement-for-passive-orders",
+      "description": "Skill for adverse-selection-measurement-for-passive-orders",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "trading",
+        "latency"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/adverse-selection-measurement-for-passive-orders",
+      "skill_md": "skills/adverse-selection-measurement-for-passive-orders/SKILL.md"
     },
     {
       "name": "air-gapped-signing-workflow-for-cold-storage",
