@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:55.893053+00:00",
+  "generated_at": "2026-07-25T08:16:56.126445+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 307,
+  "total_skills": 308,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1442,6 +1442,23 @@
       "license": "Apache-2.0",
       "path": "skills/consumer-group-rebalance-safety",
       "skill_md": "skills/consumer-group-rebalance-safety/SKILL.md"
+    },
+    {
+      "name": "convertible-bond-arbitrage-data-requirements",
+      "description": "Skill for convertible bond arbitrage data requirements",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Fixed Income",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/convertible-bond-arbitrage-data-requirements",
+      "skill_md": "skills/convertible-bond-arbitrage-data-requirements/SKILL.md"
     },
     {
       "name": "corporate-action-adjusted-backtesting",
