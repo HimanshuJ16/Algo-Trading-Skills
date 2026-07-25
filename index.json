@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:37:09.007284+00:00",
+  "generated_at": "2026-07-25T02:37:52.828249+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 68,
+  "total_skills": 69,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1112,6 +1112,30 @@
       "license": "Apache-2.0",
       "path": "skills/sandbox-vs-production-endpoint-drift",
       "skill_md": "skills/sandbox-vs-production-endpoint-drift/SKILL.md"
+    },
+    {
+      "name": "saxo-bank-openapi-integration",
+      "description": "Use when connecting to Saxo Bank OpenAPI for multi-asset trading (Equities, FX, Futures, Options, CFDs) to execute OAuth2 authentication, multi-asset instrument lookup, order placement, and portfolio position tracking.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "saxo-bank",
+        "multi-asset",
+        "openapi",
+        "fx-trading",
+        "global-markets"
+      ],
+      "brokers_frameworks": [
+        "Saxo Bank OpenAPI",
+        "Python requests",
+        "WebSockets"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/saxo-bank-openapi-integration",
+      "skill_md": "skills/saxo-bank-openapi-integration/SKILL.md"
     },
     {
       "name": "schwab-api-oauth-pkce-flow",
