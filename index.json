@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:41.726837+00:00",
+  "generated_at": "2026-07-25T07:49:42.404935+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 151,
+  "total_skills": 152,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1266,6 +1266,24 @@
       "license": "MIT",
       "path": "skills/feature-importance-drift-monitoring",
       "skill_md": "skills/feature-importance-drift-monitoring/SKILL.md"
+    },
+    {
+      "name": "feature-selection-stability-across-folds",
+      "description": "Skill for feature selection stability across folds",
+      "domain": "Financial ML",
+      "subdomain": "Feature Selection",
+      "tags": [
+        "ml",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/feature-selection-stability-across-folds",
+      "skill_md": "skills/feature-selection-stability-across-folds/SKILL.md"
     },
     {
       "name": "feature-store-for-live-and-backtest-parity",
