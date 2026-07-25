@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:13.927925+00:00",
+  "generated_at": "2026-07-25T08:07:14.546919+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 214,
+  "total_skills": 215,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2886,6 +2886,21 @@
       "license": "Apache-2.0",
       "path": "skills/network-interface-level-tick-timestamping",
       "skill_md": "skills/network-interface-level-tick-timestamping/SKILL.md"
+    },
+    {
+      "name": "network-segmentation-for-trading-infrastructure",
+      "description": "Skill for network-segmentation-for-trading-infrastructure",
+      "domain": "deployment-ops",
+      "subdomain": "deployment",
+      "tags": [
+        "network-segmentation-for-trading-infrastructure"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/network-segmentation-for-trading-infrastructure",
+      "skill_md": "skills/network-segmentation-for-trading-infrastructure/SKILL.md"
     },
     {
       "name": "offline-train-online-infer-deployment",
