@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:07.019503+00:00",
+  "generated_at": "2026-07-25T13:19:07.937551+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 480,
+  "total_skills": 481,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -9053,6 +9053,23 @@
       "license": "MIT",
       "path": "skills/wash-trade-and-spoofing-self-detection",
       "skill_md": "skills/wash-trade-and-spoofing-self-detection/SKILL.md"
+    },
+    {
+      "name": "weather-data-signal-research-for-commodity-strategies",
+      "description": "Skill for weather data signal research for commodity strategies",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/weather-data-signal-research-for-commodity-strategies",
+      "skill_md": "skills/weather-data-signal-research-for-commodity-strategies/SKILL.md"
     },
     {
       "name": "weather-derivatives-and-niche-instrument-handling",
