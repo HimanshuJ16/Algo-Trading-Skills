@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:45:58.377625+00:00",
+  "generated_at": "2026-07-25T07:46:22.653360+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 128,
+  "total_skills": 129,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -132,6 +132,29 @@
       "license": "Apache-2.0",
       "path": "skills/backpressure-drop-degrade-policy",
       "skill_md": "skills/backpressure-drop-degrade-policy/SKILL.md"
+    },
+    {
+      "name": "backtest-audit-trail-for-regulatory-review",
+      "description": "Use when conducting production backtests to record and sign a immutable audit trail capturing code git commit SHA, data version checksum, hyperparameter manifest, and execution environment metadata for regulatory review (e.g. SEC/FINRA/MiFID II).",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "regulatory-compliance",
+        "audit-trail",
+        "reproducibility",
+        "sec-compliance",
+        "data-lineage"
+      ],
+      "brokers_frameworks": [
+        "Regulatory Audit Trail Engine",
+        "Python Cryptography"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/backtest-audit-trail-for-regulatory-review",
+      "skill_md": "skills/backtest-audit-trail-for-regulatory-review/SKILL.md"
     },
     {
       "name": "backtest-database-schema-for-point-in-time-queries",
