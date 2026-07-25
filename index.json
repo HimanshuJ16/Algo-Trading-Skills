@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:21.600109+00:00",
+  "generated_at": "2026-07-25T08:28:26.423179+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 452,
+  "total_skills": 453,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1571,6 +1571,24 @@
       "license": "MIT",
       "path": "skills/cold-storage-geographic-distribution-strategy",
       "skill_md": "skills/cold-storage-geographic-distribution-strategy/SKILL.md"
+    },
+    {
+      "name": "colocation-latency-budget-accounting",
+      "description": "Skill for colocation-latency-budget-accounting",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "trading",
+        "latency"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/colocation-latency-budget-accounting",
+      "skill_md": "skills/colocation-latency-budget-accounting/SKILL.md"
     },
     {
       "name": "commodity-futures-storage-and-carry-cost-modeling",
