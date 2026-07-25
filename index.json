@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:59.652520+00:00",
+  "generated_at": "2026-07-25T08:17:00.315736+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 317,
+  "total_skills": 318,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5987,6 +5987,24 @@
       "license": "Apache-2.0",
       "path": "skills/value-at-risk-var-live-monitoring",
       "skill_md": "skills/value-at-risk-var-live-monitoring/SKILL.md"
+    },
+    {
+      "name": "variance-swap-and-volatility-derivative-pricing",
+      "description": "Automation and handling of variance swap and volatility derivative pricing.",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "derivatives-trading",
+      "tags": [
+        "variance-swap-and-volatility-derivative-pricing",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/variance-swap-and-volatility-derivative-pricing",
+      "skill_md": "skills/variance-swap-and-volatility-derivative-pricing/SKILL.md"
     },
     {
       "name": "vectorized-vs-event-driven-backtest-tradeoffs",
