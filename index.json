@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:11.631992+00:00",
+  "generated_at": "2026-07-25T08:13:12.266644+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 261,
+  "total_skills": 262,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -152,6 +152,25 @@
       "license": "Apache-2.0",
       "path": "skills/api-key-least-privilege-audit-tool",
       "skill_md": "skills/api-key-least-privilege-audit-tool/SKILL.md"
+    },
+    {
+      "name": "asic-market-integrity-rules-automated-trading",
+      "description": "Compliance controls for asic market integrity rules automated trading",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/asic-market-integrity-rules-automated-trading",
+      "skill_md": "skills/asic-market-integrity-rules-automated-trading/SKILL.md"
     },
     {
       "name": "audit-logging-for-configuration-changes",
