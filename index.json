@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:25:43.243810+00:00",
+  "generated_at": "2026-07-25T02:33:31.957240+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 64,
+  "total_skills": 65,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -997,6 +997,29 @@
       "license": "Apache-2.0",
       "path": "skills/reinforcement-learning-safety-constraints-for-execution",
       "skill_md": "skills/reinforcement-learning-safety-constraints-for-execution/SKILL.md"
+    },
+    {
+      "name": "robinhood-unofficial-api-integration",
+      "description": "Use when integrating Robinhood via its unofficial API for algorithmic trading, with explicit acknowledgment of Terms of Service risk, authentication via device token and MFA challenge, and order placement/status polling patterns.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "robinhood",
+        "unofficial-api",
+        "mfa-auth",
+        "commission-free"
+      ],
+      "brokers_frameworks": [
+        "Robinhood (unofficial)",
+        "robin_stocks",
+        "Python requests"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/robinhood-unofficial-api-integration",
+      "skill_md": "skills/robinhood-unofficial-api-integration/SKILL.md"
     },
     {
       "name": "sandbox-vs-production-endpoint-drift",
