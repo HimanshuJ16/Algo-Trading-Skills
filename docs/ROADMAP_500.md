@@ -187,7 +187,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `risk-limit-calibration-against-historical-drawdowns` — Calibrating risk-limit thresholds using the strategy's own historical drawdown distribution rather than an arbitrary round-number choice.
 - **[BUILT]** `multi-currency-var-aggregation` — Aggregating VaR correctly across a multi-currency portfolio, building on the currency-conversion discipline in multi-currency-pnl-and-fx-conversion.
 - **[BUILT]** `risk-control-configuration-change-approval-workflow` — Requiring a defined approval workflow (not a simple config-file edit) for any change to live risk-control thresholds.
-- **[planned]** `real-time-liquidity-risk-monitoring` — Monitoring real-time liquidity conditions (widening spreads, thinning depth) as a distinct risk signal from price-based risk metrics.
+- **[BUILT]** `real-time-liquidity-risk-monitoring` — Monitoring real-time liquidity conditions (widening spreads, thinning depth) as a distinct risk signal from price-based risk metrics.
 - **[planned]** `risk-adjusted-performance-attribution-per-strategy` — Attributing risk-adjusted performance (not just raw P&L) per strategy when multiple strategies share a risk budget.
 - **[BUILT]** `emergency-manual-override-access-control` — Controlling and auditing who has access to manually override or disable risk controls, treating this access itself as a security-sensitive permission.
 - **[BUILT]** `risk-model-backtesting-against-realized-outcomes` — Periodically backtesting the risk model itself (not just the trading strategy) against realized outcomes to detect a risk model that's become miscalibrated.
