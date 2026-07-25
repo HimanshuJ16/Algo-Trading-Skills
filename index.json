@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:52.224373+00:00",
+  "generated_at": "2026-07-25T08:10:52.807919+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 247,
+  "total_skills": 248,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2457,6 +2457,23 @@
       "license": "MIT",
       "path": "skills/japan-exchange-group-jpx-api-integration",
       "skill_md": "skills/japan-exchange-group-jpx-api-integration/SKILL.md"
+    },
+    {
+      "name": "jse-south-africa-api-integration",
+      "description": "Integration or workflow skill for jse-south-africa-api-integration.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "jse-south-africa-api-integration"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/jse-south-africa-api-integration",
+      "skill_md": "skills/jse-south-africa-api-integration/SKILL.md"
     },
     {
       "name": "kafka-based-tick-distribution-at-scale",
