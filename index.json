@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:27:46.610034+00:00",
+  "generated_at": "2026-07-25T08:28:21.600109+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 444,
+  "total_skills": 452,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1497,6 +1497,22 @@
       "skill_md": "skills/cme-group-fix-api-for-futures/SKILL.md"
     },
     {
+      "name": "co-location-provider-selection-and-network-topology",
+      "description": "Skill to handle co location provider selection and network topology",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "hft"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/co-location-provider-selection-and-network-topology",
+      "skill_md": "skills/co-location-provider-selection-and-network-topology/SKILL.md"
+    },
+    {
       "name": "coinbase-advanced-trade-api-migration",
       "description": "Integration for coinbase-advanced-trade-api-migration",
       "domain": "global-market-integration",
@@ -2953,6 +2969,22 @@
       "skill_md": "skills/exchange-for-physical-efp-transactions/SKILL.md"
     },
     {
+      "name": "exchange-matching-engine-behavior-under-load",
+      "description": "Skill to handle exchange matching engine behavior under load",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "hft"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/exchange-matching-engine-behavior-under-load",
+      "skill_md": "skills/exchange-matching-engine-behavior-under-load/SKILL.md"
+    },
+    {
       "name": "exchange-multicast-feed-handling",
       "description": "Use when connecting to co-located exchange gateways (CME MDP 3.0, NASDAQ MoldUDP64) to handle dual A/B UDP multicast channels, re-sequence out-of-order packets, and issue TCP historical gap-fill re-transmission requests.",
       "domain": "algorithmic-trading",
@@ -3428,6 +3460,22 @@
       "license": "Apache-2.0",
       "path": "skills/forex-broker-integration-oanda-mt5",
       "skill_md": "skills/forex-broker-integration-oanda-mt5/SKILL.md"
+    },
+    {
+      "name": "fpga-based-market-data-processing-evaluation",
+      "description": "Skill to handle fpga based market data processing evaluation",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "hft"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/fpga-based-market-data-processing-evaluation",
+      "skill_md": "skills/fpga-based-market-data-processing-evaluation/SKILL.md"
     },
     {
       "name": "ftx-style-exchange-post-collapse-risk-lessons",
@@ -4699,6 +4747,22 @@
       "skill_md": "skills/memory-mapped-ring-buffer-for-ultra-low-latency/SKILL.md"
     },
     {
+      "name": "message-rate-limit-vs-latency-tradeoff-tuning",
+      "description": "Skill to handle message rate limit vs latency tradeoff tuning",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "hft"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/message-rate-limit-vs-latency-tradeoff-tuning",
+      "skill_md": "skills/message-rate-limit-vs-latency-tradeoff-tuning/SKILL.md"
+    },
+    {
       "name": "meta-strategy-signal-arbitration",
       "description": "Skill implementation for meta-strategy-signal-arbitration",
       "domain": "Portfolio Multi-Strategy",
@@ -4715,6 +4779,38 @@
       "license": "MIT",
       "path": "skills/meta-strategy-signal-arbitration",
       "skill_md": "skills/meta-strategy-signal-arbitration/SKILL.md"
+    },
+    {
+      "name": "microstructure-noise-filtering-for-hf-signals",
+      "description": "Skill to handle microstructure noise filtering for hf signals",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "hft"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/microstructure-noise-filtering-for-hf-signals",
+      "skill_md": "skills/microstructure-noise-filtering-for-hf-signals/SKILL.md"
+    },
+    {
+      "name": "microwave-vs-fiber-network-links-for-cross-market-latency",
+      "description": "Skill to handle microwave vs fiber network links for cross market latency",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "hft"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/microwave-vs-fiber-network-links-for-cross-market-latency",
+      "skill_md": "skills/microwave-vs-fiber-network-links-for-cross-market-latency/SKILL.md"
     },
     {
       "name": "mifid-ii-algo-trading-compliance-eu",
@@ -5832,6 +5928,22 @@
       "license": "Apache-2.0",
       "path": "skills/order-placement-idempotency",
       "skill_md": "skills/order-placement-idempotency/SKILL.md"
+    },
+    {
+      "name": "order-to-trade-ratio-fee-penalty-avoidance",
+      "description": "Skill to handle order to trade ratio fee penalty avoidance",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "hft"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/order-to-trade-ratio-fee-penalty-avoidance",
+      "skill_md": "skills/order-to-trade-ratio-fee-penalty-avoidance/SKILL.md"
     },
     {
       "name": "paper-to-live-promotion-checklist",
@@ -7985,6 +8097,22 @@
       "license": "Apache-2.0",
       "path": "skills/tick-data-schema-versioning",
       "skill_md": "skills/tick-data-schema-versioning/SKILL.md"
+    },
+    {
+      "name": "tick-size-pilot-program-impact-assessment",
+      "description": "Skill to handle tick size pilot program impact assessment",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "hft"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/tick-size-pilot-program-impact-assessment",
+      "skill_md": "skills/tick-size-pilot-program-impact-assessment/SKILL.md"
     },
     {
       "name": "token-lifecycle-live-probing",
