@@ -1,5 +1,5 @@
 ---
-name: Config Drift Detection
+name: configuration-drift-detection-across-environments
 description: A skill to handle Config Drift Detection in algo-trading
 domain: deployment-ops
 subdomain: operations

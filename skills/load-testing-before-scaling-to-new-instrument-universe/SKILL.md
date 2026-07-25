@@ -1,5 +1,5 @@
 ---
-name: Load Testing
+name: load-testing-before-scaling-to-new-instrument-universe
 description: A skill to handle Load Testing in algo-trading
 domain: deployment-ops
 subdomain: operations

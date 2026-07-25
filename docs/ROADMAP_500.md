@@ -195,7 +195,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `regulatory-capital-requirement-tracking` — Tracking regulatory capital requirements (where applicable to the trading entity) as a risk constraint alongside internal risk limits.
 - **[BUILT]** `risk-control-dependency-mapping` — Mapping dependencies between risk controls (e.g. a correlation check depending on a data feed) so a single upstream failure's blast radius on risk coverage is understood in advance.
 
-## deployment-ops  _(30 tracked: 2 built, 28 planned)_
+## deployment-ops  _(30 tracked: 30 built, 0 planned)_
 
 - **[BUILT]** `paper-to-live-promotion-checklist` — see `skills/paper-to-live-promotion-checklist/SKILL.md`
 - **[BUILT]** `systemd-supervision-for-trading-bots` — see `skills/systemd-supervision-for-trading-bots/SKILL.md`
@@ -211,14 +211,14 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `immutable-infrastructure-for-trading-bots` — Using immutable server images (rebuild-and-replace rather than patch-in-place) to eliminate configuration drift across bot instances.
 - **[BUILT]** `disaster-recovery-runbook-for-full-region-outage` — A tested runbook for recovering trading operations after a full cloud-region outage, distinct from single-process crash recovery.
 - **[BUILT]** `log-aggregation-and-centralized-observability` — Centralizing logs from all bot components (relay, strategy engine, risk module) into one searchable system rather than per-host log files.
-- **[planned]** `cost-monitoring-for-cloud-trading-infrastructure` — Monitoring and alerting on cloud infrastructure cost anomalies, since a bug (e.g. a retry storm) can spike costs before it's caught any other way.
-- **[planned]** `database-backup-and-point-in-time-restore-testing` — Regularly testing that database backups can actually be restored to a specific point in time, not just that backups are being taken.
-- **[planned]** `dependency-vulnerability-scanning-in-ci` — Scanning third-party dependencies for known vulnerabilities as part of CI, given a trading bot's dependency tree is a real attack surface.
-- **[planned]** `configuration-drift-detection-across-environments` — Detecting drift between paper/staging and production environment configurations that could explain a paper-to-live behavior divergence.
-- **[planned]** `runbook-automation-for-common-incident-types` — Automating the mechanical steps of common incident runbooks (restart sequence, reconciliation triggers) while keeping human judgment in the decision loop.
-- **[planned]** `load-testing-before-scaling-to-new-instrument-universe` — Load-testing infrastructure capacity before scaling a strategy to a significantly larger instrument universe.
-- **[planned]** `graceful-degradation-priority-during-partial-outage` — Defining which system components get priority for remaining capacity during a partial infrastructure outage (e.g. risk module over dashboard).
-- **[planned]** `post-mortem-culture-and-blameless-review-process` — Establishing a blameless post-mortem process for production incidents so root causes surface honestly rather than being minimized.
+- **[BUILT]** `cost-monitoring-for-cloud-trading-infrastructure` — Monitoring and alerting on cloud infrastructure cost anomalies, since a bug (e.g. a retry storm) can spike costs before it's caught any other way.
+- **[BUILT]** `database-backup-and-point-in-time-restore-testing` — Regularly testing that database backups can actually be restored to a specific point in time, not just that backups are being taken.
+- **[BUILT]** `dependency-vulnerability-scanning-in-ci` — Scanning third-party dependencies for known vulnerabilities as part of CI, given a trading bot's dependency tree is a real attack surface.
+- **[BUILT]** `configuration-drift-detection-across-environments` — Detecting drift between paper/staging and production environment configurations that could explain a paper-to-live behavior divergence.
+- **[BUILT]** `runbook-automation-for-common-incident-types` — Automating the mechanical steps of common incident runbooks (restart sequence, reconciliation triggers) while keeping human judgment in the decision loop.
+- **[BUILT]** `load-testing-before-scaling-to-new-instrument-universe` — Load-testing infrastructure capacity before scaling a strategy to a significantly larger instrument universe.
+- **[BUILT]** `graceful-degradation-priority-during-partial-outage` — Defining which system components get priority for remaining capacity during a partial infrastructure outage (e.g. risk module over dashboard).
+- **[BUILT]** `post-mortem-culture-and-blameless-review-process` — Establishing a blameless post-mortem process for production incidents so root causes surface honestly rather than being minimized.
 - **[BUILT]** `on-call-rotation-and-escalation-for-trading-systems` — Structuring an on-call rotation with clear escalation paths appropriate to a system where an unresolved incident has an active financial cost.
 - **[BUILT]** `environment-parity-dev-staging-production` — Maintaining close parity between dev/staging/production environments specifically to prevent the 'works in staging' gap common in trading systems.
 - **[BUILT]** `automated-rollback-triggers-on-anomaly-detection` — Automatically triggering a rollback to the previous deployment if post-deploy anomaly detection (unusual order rate, error rate) fires.

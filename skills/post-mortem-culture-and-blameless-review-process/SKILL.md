@@ -1,5 +1,5 @@
 ---
-name: Blameless Postmortem
+name: post-mortem-culture-and-blameless-review-process
 description: A skill to handle Blameless Postmortem in algo-trading
 domain: deployment-ops
 subdomain: operations

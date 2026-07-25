@@ -1,5 +1,5 @@
 ---
-name: Graceful Degradation
+name: graceful-degradation-priority-during-partial-outage
 description: A skill to handle Graceful Degradation in algo-trading
 domain: deployment-ops
 subdomain: operations

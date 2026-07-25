@@ -1,5 +1,5 @@
 ---
-name: PITR Testing
+name: database-backup-and-point-in-time-restore-testing
 description: A skill to handle PITR Testing in algo-trading
 domain: deployment-ops
 subdomain: operations

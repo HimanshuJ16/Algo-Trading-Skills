@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:08:42.099495+00:00",
+  "generated_at": "2026-07-25T08:09:36.219285+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 215,
@@ -1017,7 +1017,7 @@
       "skill_md": "skills/concept-drift-vs-staleness-differentiation/SKILL.md"
     },
     {
-      "name": "Config Drift Detection",
+      "name": "configuration-drift-detection-across-environments",
       "description": "A skill to handle Config Drift Detection in algo-trading",
       "domain": "deployment-ops",
       "subdomain": "operations",
@@ -1108,7 +1108,7 @@
       "skill_md": "skills/correlation-aware-exposure-limits/SKILL.md"
     },
     {
-      "name": "Cost Monitoring",
+      "name": "cost-monitoring-for-cloud-trading-infrastructure",
       "description": "A skill to handle Cost Monitoring in algo-trading",
       "domain": "deployment-ops",
       "subdomain": "operations",
@@ -1314,7 +1314,7 @@
       "skill_md": "skills/data-vendor-cross-validation-for-backtests/SKILL.md"
     },
     {
-      "name": "PITR Testing",
+      "name": "database-backup-and-point-in-time-restore-testing",
       "description": "A skill to handle PITR Testing in algo-trading",
       "domain": "deployment-ops",
       "subdomain": "operations",
@@ -1394,7 +1394,7 @@
       "skill_md": "skills/dependency-pinning-and-reproducible-builds/SKILL.md"
     },
     {
-      "name": "Dep Vuln Scanning",
+      "name": "dependency-vulnerability-scanning-in-ci",
       "description": "A skill to handle Dep Vuln Scanning in algo-trading",
       "domain": "deployment-ops",
       "subdomain": "operations",
@@ -1832,7 +1832,7 @@
       "skill_md": "skills/global-exchange-holiday-calendar-handling/SKILL.md"
     },
     {
-      "name": "Graceful Degradation",
+      "name": "graceful-degradation-priority-during-partial-outage",
       "description": "A skill to handle Graceful Degradation in algo-trading",
       "domain": "deployment-ops",
       "subdomain": "operations",
@@ -2202,7 +2202,7 @@
       "skill_md": "skills/liquidity-adjusted-position-sizing/SKILL.md"
     },
     {
-      "name": "Load Testing",
+      "name": "load-testing-before-scaling-to-new-instrument-universe",
       "description": "A skill to handle Load Testing in algo-trading",
       "domain": "deployment-ops",
       "subdomain": "operations",
@@ -3169,7 +3169,7 @@
       "skill_md": "skills/post-breach-root-cause-analysis-template/SKILL.md"
     },
     {
-      "name": "Blameless Postmortem",
+      "name": "post-mortem-culture-and-blameless-review-process",
       "description": "A skill to handle Blameless Postmortem in algo-trading",
       "domain": "deployment-ops",
       "subdomain": "operations",
@@ -3714,7 +3714,7 @@
       "skill_md": "skills/robinhood-unofficial-api-integration/SKILL.md"
     },
     {
-      "name": "Runbook Automation",
+      "name": "runbook-automation-for-common-incident-types",
       "description": "A skill to handle Runbook Automation in algo-trading",
       "domain": "deployment-ops",
       "subdomain": "operations",

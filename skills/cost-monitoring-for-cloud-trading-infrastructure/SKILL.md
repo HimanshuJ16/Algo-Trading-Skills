@@ -1,5 +1,5 @@
 ---
-name: Cost Monitoring
+name: cost-monitoring-for-cloud-trading-infrastructure
 description: A skill to handle Cost Monitoring in algo-trading
 domain: deployment-ops
 subdomain: operations
