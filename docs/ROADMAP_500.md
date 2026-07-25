@@ -71,7 +71,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `graceful-shutdown-draining-in-flight-ticks` — Draining in-flight ticks from queues cleanly on a planned shutdown/deploy, rather than dropping whatever's mid-flight.
 - **[BUILT]** `exchange-multicast-feed-handling` — Handling raw multicast market-data feeds (common at co-located exchange gateways) including gap-fill/retransmission request logic.
 - **[BUILT]** `tick-data-schema-versioning` — Versioning the internal tick schema so a schema change can roll out without breaking already-deployed consumers mid-migration.
-- **[planned]** `consumer-group-rebalance-safety` — Ensuring a Kafka/Redis-Streams consumer-group rebalance event doesn't cause duplicate or dropped tick processing during the rebalance window.
+- **[BUILT]** `consumer-group-rebalance-safety` — Ensuring a Kafka/Redis-Streams consumer-group rebalance event doesn't cause duplicate or dropped tick processing during the rebalance window.
 - **[planned]** `adaptive-sampling-under-extreme-tick-rates` — Falling back to statistically-sampled tick processing under truly extreme tick rates (flash-crash-level volume) as a last-resort degrade tier beyond OHLC aggregation.
 - **[planned]** `network-interface-level-tick-timestamping` — Timestamping ticks at the network interface (kernel bypass / hardware timestamping) rather than in application code, for latency-sensitive strategies.
 - **[planned]** `cross-datacenter-clock-sync-validation` — Validating clock synchronization accuracy across datacenters/regions feeding a single strategy engine.

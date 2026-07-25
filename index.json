@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:11:25.374268+00:00",
+  "generated_at": "2026-07-25T03:12:00.998729+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 101,
+  "total_skills": 102,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -458,6 +458,30 @@
       "license": "Apache-2.0",
       "path": "skills/clock-skew-correction-for-tick-timestamps",
       "skill_md": "skills/clock-skew-correction-for-tick-timestamps/SKILL.md"
+    },
+    {
+      "name": "consumer-group-rebalance-safety",
+      "description": "Use when operating distributed message stream consumer groups (Kafka, Redis Streams) to handle partition rebalance events safely, flushing in-flight batches and committing offset checkpoints before partition reassignment to prevent duplicate tick processing.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "consumer-group",
+        "rebalance-safety",
+        "kafka",
+        "redis-streams",
+        "offset-commit",
+        "partition-reassignment"
+      ],
+      "brokers_frameworks": [
+        "Consumer Rebalance Guard",
+        "Python Async Stream"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/consumer-group-rebalance-safety",
+      "skill_md": "skills/consumer-group-rebalance-safety/SKILL.md"
     },
     {
       "name": "corporate-action-adjusted-backtesting",
