@@ -89,27 +89,35 @@ class ComplianceChecker:
         f.write(impl_content)
 
     # test_impl.py
-    test_content = f"""import unittest
-from {impl_name} import ComplianceChecker
+    test_code = f"""import unittest
+import sys
+import os
 
-class TestCompliance(unittest.TestCase):
+# Add the script dir to path so we can import the module
+sys.path.insert(0, os.path.dirname(__file__))
+from {impl_name} import {impl_name.title().replace("_", "")}Engine
+
+class Test{impl_name.title().replace("_", "")}(unittest.TestCase):
     def setUp(self):
-        self.checker = ComplianceChecker()
-
-    def test_single_check(self):
-        res = self.checker.check_compliance("T1")
+        self.engine = {impl_name.title().replace("_", "")}Engine()
+        
+    def test_valid(self):
+        res = self.engine.check({{"valid": True}})
         self.assertTrue(res.is_compliant)
-
-    def test_batch_check(self):
-        res = self.checker.batch_check(["T1", "T2"])
-        self.assertEqual(len(res), 2)
-        self.assertTrue(all(r.is_compliant for r in res))
+        
+    def test_invalid(self):
+        res = self.engine.check({{"valid": False}})
+        self.assertFalse(res.is_compliant)
+        
+    def test_edge(self):
+        res = self.engine.check({{}})
+        self.assertFalse(res.is_compliant)
 
 if __name__ == '__main__':
     unittest.main()
 """
     with open(os.path.join(skill_dir, "scripts", f"test_{impl_name}.py"), "w") as f:
-        f.write(test_content)
+        f.write(test_code)
 
     # references/workflows.md
     with open(os.path.join(skill_dir, "references", "workflows.md"), "w") as f:

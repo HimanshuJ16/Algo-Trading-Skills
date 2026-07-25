@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:34.741279+00:00",
+  "generated_at": "2026-07-25T08:13:35.370377+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 274,
+  "total_skills": 275,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5250,6 +5250,25 @@
       "license": "Apache-2.0",
       "path": "skills/upstox-oauth-refresh-token-rotation",
       "skill_md": "skills/upstox-oauth-refresh-token-rotation/SKILL.md"
+    },
+    {
+      "name": "us-reg-sho-short-sale-locate-requirements",
+      "description": "Compliance tool for us reg sho short sale locate requirements",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/us-reg-sho-short-sale-locate-requirements",
+      "skill_md": "skills/us-reg-sho-short-sale-locate-requirements/SKILL.md"
     },
     {
       "name": "value-at-risk-var-live-monitoring",
