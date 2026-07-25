@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:32.237907+00:00",
+  "generated_at": "2026-07-25T08:28:58.337177+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 460,
+  "total_skills": 461,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4482,6 +4482,24 @@
       "license": "MIT",
       "path": "skills/latency-arbitrage-defensive-order-sizing",
       "skill_md": "skills/latency-arbitrage-defensive-order-sizing/SKILL.md"
+    },
+    {
+      "name": "latency-monitoring-percentile-based-slas",
+      "description": "Skill for latency monitoring percentile based slas",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "microstructure"
+      ],
+      "brokers_frameworks": [
+        "ccxt"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/latency-monitoring-percentile-based-slas",
+      "skill_md": "skills/latency-monitoring-percentile-based-slas/SKILL.md"
     },
     {
       "name": "leverage-limit-enforcement-across-instruments",
