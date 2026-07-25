@@ -347,7 +347,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `quanto-options-and-cross-currency-derivative-structures` — Understanding quanto options and other cross-currency derivative structures where the payoff currency differs from the underlying's natural currency.
 - **[BUILT]** `options-pin-risk-management-at-expiry` — Managing pin-risk (uncertainty near expiry when the underlying settles very close to a strike) for short options positions.
 
-## execution-algorithms  _(33 tracked: 1 built, 32 planned)_
+## execution-algorithms  _(33 tracked: 33 built, 0 planned)_
 
 - **[BUILT]** `execution-algo-twap-vwap-slicing` — see `skills/execution-algo-twap-vwap-slicing/SKILL.md`
 - **[BUILT]** `participation-of-volume-pov-execution` — Implementing a POV execution algorithm that scales order slicing to real-time observed volume.
