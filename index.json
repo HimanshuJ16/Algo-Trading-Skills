@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:00.985480+00:00",
+  "generated_at": "2026-07-25T08:29:01.819311+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 464,
+  "total_skills": 465,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3858,6 +3858,24 @@
       "license": "MIT",
       "path": "skills/hardware-security-module-hsm-for-signing-keys",
       "skill_md": "skills/hardware-security-module-hsm-for-signing-keys/SKILL.md"
+    },
+    {
+      "name": "hardware-timestamping-vs-software-timestamping-accuracy",
+      "description": "Skill for hardware timestamping vs software timestamping accuracy",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "microstructure"
+      ],
+      "brokers_frameworks": [
+        "ccxt"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/hardware-timestamping-vs-software-timestamping-accuracy",
+      "skill_md": "skills/hardware-timestamping-vs-software-timestamping-accuracy/SKILL.md"
     },
     {
       "name": "headless-broker-auth-patterns",
