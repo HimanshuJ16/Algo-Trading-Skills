@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:58.337177+00:00",
+  "generated_at": "2026-07-25T08:28:59.173962+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 461,
+  "total_skills": 462,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1437,6 +1437,24 @@
       "license": "MIT",
       "path": "skills/class-imbalance-handling-for-rare-signal-events",
       "skill_md": "skills/class-imbalance-handling-for-rare-signal-events/SKILL.md"
+    },
+    {
+      "name": "clock-drift-monitoring-alerting-thresholds",
+      "description": "Skill for clock drift monitoring alerting thresholds",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "microstructure"
+      ],
+      "brokers_frameworks": [
+        "ccxt"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/clock-drift-monitoring-alerting-thresholds",
+      "skill_md": "skills/clock-drift-monitoring-alerting-thresholds/SKILL.md"
     },
     {
       "name": "clock-skew-correction-for-tick-timestamps",
