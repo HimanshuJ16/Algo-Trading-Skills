@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:55.608486+00:00",
+  "generated_at": "2026-07-25T08:23:56.590357+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 403,
+  "total_skills": 404,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6747,6 +6747,25 @@
       "license": "Apache-2.0",
       "path": "skills/secrets-rotation-without-bot-downtime",
       "skill_md": "skills/secrets-rotation-without-bot-downtime/SKILL.md"
+    },
+    {
+      "name": "segregation-of-duties-for-custody-operations",
+      "description": "Implementation for segregation-of-duties-for-custody-operations",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/segregation-of-duties-for-custody-operations",
+      "skill_md": "skills/segregation-of-duties-for-custody-operations/SKILL.md"
     },
     {
       "name": "sequence-number-gap-detection-for-feeds",
