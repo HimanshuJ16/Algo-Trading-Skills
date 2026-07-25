@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:33:31.957240+00:00",
+  "generated_at": "2026-07-25T02:35:41.385491+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 65,
+  "total_skills": 66,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -290,6 +290,29 @@
       "license": "Apache-2.0",
       "path": "skills/ensemble-signal-combination-without-overfitting",
       "skill_md": "skills/ensemble-signal-combination-without-overfitting/SKILL.md"
+    },
+    {
+      "name": "etrade-oauth1-signature-flow",
+      "description": "Use when integrating E*TRADE's API which uses OAuth1 (not OAuth2) signature-based authentication, handling request token acquisition, user authorization callback, access token exchange, and HMAC-SHA1 request signing for every API call.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "etrade",
+        "oauth1",
+        "hmac-sha1",
+        "request-signing"
+      ],
+      "brokers_frameworks": [
+        "E*TRADE",
+        "OAuth1",
+        "HMAC-SHA1"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/etrade-oauth1-signature-flow",
+      "skill_md": "skills/etrade-oauth1-signature-flow/SKILL.md"
     },
     {
       "name": "execution-algo-twap-vwap-slicing",
