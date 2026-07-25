@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:59.173962+00:00",
+  "generated_at": "2026-07-25T08:29:00.066564+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 462,
+  "total_skills": 463,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3057,6 +3057,24 @@
       "license": "MIT",
       "path": "skills/exchange-for-physical-efp-transactions",
       "skill_md": "skills/exchange-for-physical-efp-transactions/SKILL.md"
+    },
+    {
+      "name": "exchange-gateway-redundancy-and-failover-testing",
+      "description": "Skill for exchange gateway redundancy and failover testing",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "microstructure"
+      ],
+      "brokers_frameworks": [
+        "ccxt"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/exchange-gateway-redundancy-and-failover-testing",
+      "skill_md": "skills/exchange-gateway-redundancy-and-failover-testing/SKILL.md"
     },
     {
       "name": "exchange-matching-engine-behavior-under-load",
