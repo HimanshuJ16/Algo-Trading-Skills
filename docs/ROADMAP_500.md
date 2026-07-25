@@ -102,7 +102,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `short-selling-borrow-cost-and-availability-modeling` — Modeling stock-borrow cost and availability constraints in a backtest for any strategy that shorts equities.
 - **[planned]** `backtest-infrastructure-cost-budgeting` — Budgeting compute/storage cost for large-scale backtesting (parameter sweeps, walk-forward across many instruments) before it becomes a surprise cloud bill.
 - **[planned]** `benchmark-selection-for-strategy-evaluation` — Choosing an appropriate benchmark (not just a broad index) against which to evaluate a strategy's risk-adjusted performance.
-- **[planned]** `backtest-look-ahead-in-universe-selection` — Auditing for lookahead bias specifically in universe-selection logic (e.g. 'top 50 by market cap today' applied retroactively), distinct from lookahead in signal computation.
+- **[BUILT]** `backtest-look-ahead-in-universe-selection` — Auditing for lookahead bias specifically in universe-selection logic (e.g. 'top 50 by market cap today' applied retroactively), distinct from lookahead in signal computation.
 - **[planned]** `synthetic-data-generation-for-backtest-augmentation` — Generating synthetic price paths (e.g. via GANs or bootstrap resampling) to augment limited historical data for backtest robustness testing.
 - **[planned]** `backtest-reporting-standardized-tearsheet` — Producing a standardized performance tearsheet (drawdown, Sharpe, Sortino, hit rate, etc.) so strategies are compared on a consistent basis.
 - **[planned]** `intraday-vs-eod-backtest-granularity-tradeoffs` — Choosing appropriate data granularity (tick, minute, EOD) for a backtest based on the strategy's actual holding period and decision frequency.

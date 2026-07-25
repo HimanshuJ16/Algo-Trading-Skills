@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:39:49.323481+00:00",
+  "generated_at": "2026-07-25T07:41:12.677829+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 117,
+  "total_skills": 120,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -157,6 +157,25 @@
       "license": "Apache-2.0",
       "path": "skills/backtest-determinism-and-reproducibility",
       "skill_md": "skills/backtest-determinism-and-reproducibility/SKILL.md"
+    },
+    {
+      "name": "backtest-look-ahead-in-universe-selection",
+      "description": "Auditing for lookahead bias specifically in universe-selection logic.",
+      "domain": "Backtesting",
+      "subdomain": "Bias Mitigation",
+      "tags": [
+        "Lookahead",
+        "Universe Selection",
+        "Backtesting"
+      ],
+      "brokers_frameworks": [
+        "General"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/backtest-look-ahead-in-universe-selection",
+      "skill_md": "skills/backtest-look-ahead-in-universe-selection/SKILL.md"
     },
     {
       "name": "backtest-parameter-sensitivity-analysis",
@@ -1175,6 +1194,29 @@
       "skill_md": "skills/ibkr-tws-gateway-headless-launch/SKILL.md"
     },
     {
+      "name": "intraday-vs-eod-backtest-granularity-tradeoffs",
+      "description": "Use when choosing appropriate data granularity (tick, minute, EOD) for a backtest based on the strategy's holding period and decision frequency to balance accuracy against compute cost.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "data-granularity",
+        "intraday",
+        "eod",
+        "tick-data",
+        "compute-cost"
+      ],
+      "brokers_frameworks": [
+        "Granularity Advisor Engine",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/intraday-vs-eod-backtest-granularity-tradeoffs",
+      "skill_md": "skills/intraday-vs-eod-backtest-granularity-tradeoffs/SKILL.md"
+    },
+    {
       "name": "kafka-based-tick-distribution-at-scale",
       "description": "Use when building high-throughput distributed market data ingestion pipelines (50k+ ticks/sec) using Apache Kafka to partition tick events by symbol, balance consumer group loads, configure producer batching, and commit offset checkpoints cleanly.",
       "domain": "algorithmic-trading",
@@ -2186,6 +2228,27 @@
       "license": "Apache-2.0",
       "path": "skills/sequence-number-gap-detection-for-feeds",
       "skill_md": "skills/sequence-number-gap-detection-for-feeds/SKILL.md"
+    },
+    {
+      "name": "short-selling-borrow-cost-and-availability-modeling",
+      "description": "Modeling stock-borrow cost and availability constraints in a backtest for any strategy that shorts equities.",
+      "domain": "Backtesting",
+      "subdomain": "Constraints",
+      "tags": [
+        "backtesting",
+        "short-selling",
+        "borrow-cost",
+        "constraints"
+      ],
+      "brokers_frameworks": [
+        "QuantConnect",
+        "Zipline"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/short-selling-borrow-cost-and-availability-modeling",
+      "skill_md": "skills/short-selling-borrow-cost-and-availability-modeling/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",
