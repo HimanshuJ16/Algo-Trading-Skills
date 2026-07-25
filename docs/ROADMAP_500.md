@@ -23,7 +23,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `broker-account-margin-call-handling` — Detecting and responding programmatically to a broker-issued margin call before forced liquidation.
 - **[BUILT]** `robinhood-unofficial-api-integration` — Integrating Robinhood via its unofficial API, with explicit acknowledgment of the ToS and stability risk versus documented broker APIs.
 - **[BUILT]** `etrade-oauth1-signature-flow` — Handling E*TRADE's OAuth1 (not OAuth2) signature-based auth flow, which differs structurally from most other brokers covered in this repo.
-- **[planned]** `questrade-api-rate-limit-and-account-types` — Handling Questrade's per-account-type API rate limits for Canadian equities/options trading.
+- **[BUILT]** `questrade-api-rate-limit-and-account-types` — Handling Questrade's per-account-type API rate limits for Canadian equities/options trading.
 - **[planned]** `degiro-unofficial-api-risk-assessment` — Assessing the stability/legal risk of DEGIRO's unofficial API for European retail algo trading.
 - **[planned]** `saxo-bank-openapi-integration` — Integrating Saxo Bank's OpenAPI for multi-asset European/global trading.
 - **[planned]** `tastytrade-api-integration` — Integrating Tastytrade's API for options-focused US retail trading.

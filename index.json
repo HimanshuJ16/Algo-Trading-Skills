@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:35:41.385491+00:00",
+  "generated_at": "2026-07-25T02:36:27.248216+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 66,
+  "total_skills": 67,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -950,6 +950,30 @@
       "license": "Apache-2.0",
       "path": "skills/producer-consumer-tick-pipeline",
       "skill_md": "skills/producer-consumer-tick-pipeline/SKILL.md"
+    },
+    {
+      "name": "questrade-api-rate-limit-and-account-types",
+      "description": "Use when building algorithmic trading bots for Canadian markets via Questrade API to handle OAuth2 refresh token rotation, account type routing (TFSA, RRSP, Margin), and token-bucket rate limiting.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "questrade",
+        "canadian-markets",
+        "oauth2",
+        "rate-limiting",
+        "tfsa-rrsp"
+      ],
+      "brokers_frameworks": [
+        "Questrade API",
+        "Python requests",
+        "Token Bucket Rate Limiter"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/questrade-api-rate-limit-and-account-types",
+      "skill_md": "skills/questrade-api-rate-limit-and-account-types/SKILL.md"
     },
     {
       "name": "redis-streams-multi-consumer-tick-fanout",
