@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:40.152814+00:00",
+  "generated_at": "2026-07-25T08:20:41.524475+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 364,
+  "total_skills": 365,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6413,6 +6413,24 @@
       "license": "MIT",
       "path": "skills/swiss-finma-algorithmic-trading-expectations",
       "skill_md": "skills/swiss-finma-algorithmic-trading-expectations/SKILL.md"
+    },
+    {
+      "name": "synthetic-continuous-futures-contract-construction",
+      "description": "Implementation of synthetic-continuous-futures-contract-construction",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/synthetic-continuous-futures-contract-construction",
+      "skill_md": "skills/synthetic-continuous-futures-contract-construction/SKILL.md"
     },
     {
       "name": "synthetic-data-generation-for-backtest-augmentation",
