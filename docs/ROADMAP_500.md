@@ -44,7 +44,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `broker-api-idempotent-cancel-requests` — Extending order-placement idempotency specifically to cancel requests, which have their own race conditions distinct from order placement.
 - **[BUILT]** `broker-api-changelog-diffing-tool` — Automatically diffing a broker's API changelog release-over-release to flag breaking changes before they hit production.
 
-## real-time-architecture  _(30 tracked: 4 built, 26 planned)_
+## real-time-architecture  _(30 tracked: 30 built, 0 planned)_
 
 - **[BUILT]** `backpressure-drop-degrade-policy` — see `skills/backpressure-drop-degrade-policy/SKILL.md`
 - **[BUILT]** `producer-consumer-tick-pipeline` — see `skills/producer-consumer-tick-pipeline/SKILL.md`
@@ -76,7 +76,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `network-interface-level-tick-timestamping` — Timestamping ticks at the network interface (kernel bypass / hardware timestamping) rather than in application code, for latency-sensitive strategies.
 - **[BUILT]** `cross-datacenter-clock-sync-validation` — Validating clock synchronization accuracy across datacenters/regions feeding a single strategy engine.
 - **[BUILT]** `feed-handler-canary-deployment` — Canary-deploying a new feed-handler version against a fraction of symbols before full rollout.
-- **[planned]** `order-book-imbalance-signal-pipeline` — Building a dedicated low-latency pipeline for order-book-imbalance signals, separate from the general tick-processing path given its stricter latency budget.
+- **[BUILT]** `order-book-imbalance-signal-pipeline` — Building a dedicated low-latency pipeline for order-book-imbalance signals, separate from the general tick-processing path given its stricter latency budget.
 
 ## backtesting-methodology  _(30 tracked: 3 built, 27 planned)_
 

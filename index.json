@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:14:52.320813+00:00",
+  "generated_at": "2026-07-25T03:15:37.381814+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 106,
+  "total_skills": 107,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1594,6 +1594,30 @@
       "license": "Apache-2.0",
       "path": "skills/order-book-depth-processing-l2-l3",
       "skill_md": "skills/order-book-depth-processing-l2-l3/SKILL.md"
+    },
+    {
+      "name": "order-book-imbalance-signal-pipeline",
+      "description": "Use when building dedicated fast-path pipelines for Level-2 order book imbalance (OBI) and micro-price signals, bypassing standard tick aggregation channels to achieve sub-microsecond signal generation.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "order-book-imbalance",
+        "micro-price",
+        "fast-path",
+        "low-latency",
+        "l2-book",
+        "hft-signals"
+      ],
+      "brokers_frameworks": [
+        "Order Book Imbalance Pipeline",
+        "Python Real-Time Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/order-book-imbalance-signal-pipeline",
+      "skill_md": "skills/order-book-imbalance-signal-pipeline/SKILL.md"
     },
     {
       "name": "order-placement-idempotency",
