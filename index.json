@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:55.020435+00:00",
+  "generated_at": "2026-07-25T08:13:55.757429+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 286,
+  "total_skills": 287,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4783,6 +4783,23 @@
       "license": "MIT",
       "path": "skills/sample-weighting-for-overlapping-labels",
       "skill_md": "skills/sample-weighting-for-overlapping-labels/SKILL.md"
+    },
+    {
+      "name": "sanctions-screening-for-counterparties-and-instruments",
+      "description": "Compliance controls and workflows for sanctions screening for counterparties and instruments",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/sanctions-screening-for-counterparties-and-instruments",
+      "skill_md": "skills/sanctions-screening-for-counterparties-and-instruments/SKILL.md"
     },
     {
       "name": "sandbox-credential-leakage-prevention",
