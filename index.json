@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:57:01.427966+00:00",
+  "generated_at": "2026-07-25T02:57:28.437625+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 89,
+  "total_skills": 90,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -900,6 +900,29 @@
       "license": "Apache-2.0",
       "path": "skills/margin-utilization-circuit-breaker",
       "skill_md": "skills/margin-utilization-circuit-breaker/SKILL.md"
+    },
+    {
+      "name": "market-data-feed-arbitration-across-vendors",
+      "description": "Use when consuming redundant market data streams from dual data vendors (e.g. Bloomberg and Refinitiv) to execute real-time feed arbitration, detect price divergence spikes, filter bad ticks, and fail over seamlessly when one vendor feed becomes stale.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "feed-arbitration",
+        "dual-vendors",
+        "bad-tick-filter",
+        "price-divergence",
+        "redundancy"
+      ],
+      "brokers_frameworks": [
+        "Feed Arbitrator Engine",
+        "Python Real-Time Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/market-data-feed-arbitration-across-vendors",
+      "skill_md": "skills/market-data-feed-arbitration-across-vendors/SKILL.md"
     },
     {
       "name": "market-data-snapshot-plus-delta-reconciliation",

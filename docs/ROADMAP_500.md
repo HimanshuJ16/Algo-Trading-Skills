@@ -59,7 +59,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `websocket-reconnection-with-state-recovery` — Automatic WS reconnect with exponential backoff + jitter, re-subscribing channels and fetching missing sequence IDs via REST.
 - **[BUILT]** `kafka-based-tick-distribution-at-scale` — Using Kafka instead of Redis pub-sub for tick distribution when consumer count or retention requirements grow beyond Redis's sweet spot.
 - **[BUILT]** `grpc-streaming-for-internal-service-communication` — Using gRPC streaming between internal trading services instead of REST polling for lower-latency internal data flow.
-- **[planned]** `market-data-feed-arbitration-across-vendors` — Arbitrating between two redundant market-data feed vendors when they disagree, to avoid acting on a bad tick from either.
+- **[BUILT]** `market-data-feed-arbitration-across-vendors` — Arbitrating between two redundant market-data feed vendors when they disagree, to avoid acting on a bad tick from either.
 - **[planned]** `sequence-number-gap-detection-for-feeds` — Detecting sequence-number gaps in an exchange feed indicating dropped messages, distinct from a full disconnect.
 - **[planned]** `binary-protocol-parsing-for-low-latency-feeds` — Parsing binary exchange protocols (FIX/FAST, ITCH, proprietary binary feeds) instead of JSON/REST for latency-sensitive strategies.
 - **[planned]** `circuit-breaker-for-downstream-service-calls` — Applying a circuit-breaker pattern to calls from the strategy engine to downstream services (DB, risk module) so a slow downstream doesn't cascade into missed ticks.
