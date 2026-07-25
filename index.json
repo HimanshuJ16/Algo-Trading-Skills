@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:30:55.862966+00:00",
+  "generated_at": "2026-07-25T07:33:03.314615+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 113,
+  "total_skills": 114,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -685,6 +685,29 @@
       "license": "Apache-2.0",
       "path": "skills/crypto-wallet-key-custody-security",
       "skill_md": "skills/crypto-wallet-key-custody-security/SKILL.md"
+    },
+    {
+      "name": "data-vendor-cross-validation-for-backtests",
+      "description": "Use when validating historical price data integrity by cross-referencing OHLCV bars from two independent data vendors, detecting discrepancies in price, volume, and missing-bar coverage before they corrupt backtest results.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "data-validation",
+        "cross-vendor",
+        "data-quality",
+        "price-discrepancy",
+        "missing-bars"
+      ],
+      "brokers_frameworks": [
+        "Data Vendor Cross Validator",
+        "Python Statistics"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/data-vendor-cross-validation-for-backtests",
+      "skill_md": "skills/data-vendor-cross-validation-for-backtests/SKILL.md"
     },
     {
       "name": "degiro-unofficial-api-risk-assessment",
