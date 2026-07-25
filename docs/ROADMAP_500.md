@@ -337,15 +337,15 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `vix-and-volatility-index-derivative-strategies` — Handling VIX futures/options' specific term-structure and contango/backwardation dynamics distinct from standard equity options.
 - **[planned]** `single-stock-futures-where-available` — Handling single-stock futures (available in some markets, e.g. certain European and Indian exchanges) as a distinct instrument class from equity options.
 - **[planned]** `total-return-swap-synthetic-exposure` — Understanding total-return-swaps as a synthetic-exposure mechanism and its distinct counterparty/funding considerations versus direct ownership.
-- **[planned]** `cross-asset-correlation-regime-shifts` — Monitoring for cross-asset-class correlation regime shifts (e.g. equity-bond correlation flipping sign) that affect multi-asset portfolio risk assumptions.
-- **[planned]** `physical-vs-cash-settlement-handling` — Handling the operational difference between physically-settled and cash-settled derivatives, particularly the risk of unintended physical delivery on expiry.
-- **[planned]** `exchange-for-physical-efp-transactions` — Understanding Exchange-for-Physical (EFP) transaction mechanics for futures-to-physical conversions.
-- **[planned]** `multi-leg-strategy-margin-optimization` — Optimizing multi-leg strategy construction specifically to reduce margin requirement (per options-margin-span-calculation-global) while preserving the intended risk profile.
-- **[planned]** `american-vs-european-style-option-exercise-handling` — Handling the operational difference between American-style (exercisable anytime) and European-style (exercisable only at expiry) options correctly in position management.
-- **[planned]** `early-exercise-assignment-risk-management` — Managing early-exercise/assignment risk for American-style short options positions, including dividend-driven early-exercise scenarios.
-- **[planned]** `futures-expiry-week-liquidity-and-volatility-handling` — Handling the distinct liquidity and volatility characteristics common in futures/options expiry week.
-- **[planned]** `quanto-options-and-cross-currency-derivative-structures` — Understanding quanto options and other cross-currency derivative structures where the payoff currency differs from the underlying's natural currency.
-- **[planned]** `options-pin-risk-management-at-expiry` — Managing pin-risk (uncertainty near expiry when the underlying settles very close to a strike) for short options positions.
+- **[BUILT]** `cross-asset-correlation-regime-shifts` — Monitoring for cross-asset-class correlation regime shifts (e.g. equity-bond correlation flipping sign) that affect multi-asset portfolio risk assumptions.
+- **[BUILT]** `physical-vs-cash-settlement-handling` — Handling the operational difference between physically-settled and cash-settled derivatives, particularly the risk of unintended physical delivery on expiry.
+- **[BUILT]** `exchange-for-physical-efp-transactions` — Understanding Exchange-for-Physical (EFP) transaction mechanics for futures-to-physical conversions.
+- **[BUILT]** `multi-leg-strategy-margin-optimization` — Optimizing multi-leg strategy construction specifically to reduce margin requirement (per options-margin-span-calculation-global) while preserving the intended risk profile.
+- **[BUILT]** `american-vs-european-style-option-exercise-handling` — Handling the operational difference between American-style (exercisable anytime) and European-style (exercisable only at expiry) options correctly in position management.
+- **[BUILT]** `early-exercise-assignment-risk-management` — Managing early-exercise/assignment risk for American-style short options positions, including dividend-driven early-exercise scenarios.
+- **[BUILT]** `futures-expiry-week-liquidity-and-volatility-handling` — Handling the distinct liquidity and volatility characteristics common in futures/options expiry week.
+- **[BUILT]** `quanto-options-and-cross-currency-derivative-structures` — Understanding quanto options and other cross-currency derivative structures where the payoff currency differs from the underlying's natural currency.
+- **[BUILT]** `options-pin-risk-management-at-expiry` — Managing pin-risk (uncertainty near expiry when the underlying settles very close to a strike) for short options positions.
 
 ## execution-algorithms  _(33 tracked: 1 built, 32 planned)_
 

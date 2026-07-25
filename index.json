@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:17.509903+00:00",
+  "generated_at": "2026-07-25T08:16:52.151882+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 293,
+  "total_skills": 302,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -163,6 +163,24 @@
       "license": "MIT",
       "path": "skills/alternative-data-feature-integration",
       "skill_md": "skills/alternative-data-feature-integration/SKILL.md"
+    },
+    {
+      "name": "american-vs-european-style-option-exercise-handling",
+      "description": "Skill for american-vs-european-style-option-exercise-handling",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/american-vs-european-style-option-exercise-handling",
+      "skill_md": "skills/american-vs-european-style-option-exercise-handling/SKILL.md"
     },
     {
       "name": "annual-compliance-attestation-workflow",
@@ -1524,6 +1542,24 @@
       "skill_md": "skills/cross-account-aggregate-risk-view/SKILL.md"
     },
     {
+      "name": "cross-asset-correlation-regime-shifts",
+      "description": "Skill for cross-asset-correlation-regime-shifts",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-asset-correlation-regime-shifts",
+      "skill_md": "skills/cross-asset-correlation-regime-shifts/SKILL.md"
+    },
+    {
       "name": "cross-border-data-transfer-restrictions-for-trade-data",
       "description": "Compliance tool for cross border data transfer restrictions for trade data",
       "domain": "regulatory-compliance-global",
@@ -1940,6 +1976,24 @@
       "skill_md": "skills/dynamic-position-sizing-based-on-realized-volatility/SKILL.md"
     },
     {
+      "name": "early-exercise-assignment-risk-management",
+      "description": "Skill for early-exercise-assignment-risk-management",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/early-exercise-assignment-risk-management",
+      "skill_md": "skills/early-exercise-assignment-risk-management/SKILL.md"
+    },
+    {
       "name": "emergency-manual-override-access-control",
       "description": "Role-based access control and MFA audit for manual overrides.",
       "domain": "risk-management",
@@ -2126,6 +2180,24 @@
       "license": "MIT",
       "path": "skills/euronext-optiq-market-data-integration",
       "skill_md": "skills/euronext-optiq-market-data-integration/SKILL.md"
+    },
+    {
+      "name": "exchange-for-physical-efp-transactions",
+      "description": "Skill for exchange-for-physical-efp-transactions",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/exchange-for-physical-efp-transactions",
+      "skill_md": "skills/exchange-for-physical-efp-transactions/SKILL.md"
     },
     {
       "name": "exchange-multicast-feed-handling",
@@ -2442,6 +2514,24 @@
       "license": "MIT",
       "path": "skills/ftx-style-exchange-post-collapse-risk-lessons",
       "skill_md": "skills/ftx-style-exchange-post-collapse-risk-lessons/SKILL.md"
+    },
+    {
+      "name": "futures-expiry-week-liquidity-and-volatility-handling",
+      "description": "Skill for futures-expiry-week-liquidity-and-volatility-handling",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/futures-expiry-week-liquidity-and-volatility-handling",
+      "skill_md": "skills/futures-expiry-week-liquidity-and-volatility-handling/SKILL.md"
     },
     {
       "name": "global-exchange-holiday-calendar-handling",
@@ -3676,6 +3766,24 @@
       "skill_md": "skills/multi-horizon-forecasting-architecture/SKILL.md"
     },
     {
+      "name": "multi-leg-strategy-margin-optimization",
+      "description": "Skill for multi-leg-strategy-margin-optimization",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/multi-leg-strategy-margin-optimization",
+      "skill_md": "skills/multi-leg-strategy-margin-optimization/SKILL.md"
+    },
+    {
       "name": "multi-model-ensemble-weight-decay",
       "description": "Skill for multi model ensemble weight decay",
       "domain": "Financial ML",
@@ -4035,6 +4143,24 @@
       "skill_md": "skills/options-margin-span-calculation-global/SKILL.md"
     },
     {
+      "name": "options-pin-risk-management-at-expiry",
+      "description": "Skill for options-pin-risk-management-at-expiry",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/options-pin-risk-management-at-expiry",
+      "skill_md": "skills/options-pin-risk-management-at-expiry/SKILL.md"
+    },
+    {
       "name": "order-book-depth-processing-l2-l3",
       "description": "Use when processing high-frequency Level 2 and Level 3 order book depth feeds to enforce atomic thread safety, prevent crossed-book states, and compute real-time order book imbalance metrics",
       "domain": "algorithmic-trading",
@@ -4156,6 +4282,24 @@
       "license": "MIT",
       "path": "skills/philippine-stock-exchange-api",
       "skill_md": "skills/philippine-stock-exchange-api/SKILL.md"
+    },
+    {
+      "name": "physical-vs-cash-settlement-handling",
+      "description": "Skill for physical-vs-cash-settlement-handling",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/physical-vs-cash-settlement-handling",
+      "skill_md": "skills/physical-vs-cash-settlement-handling/SKILL.md"
     },
     {
       "name": "point-in-time-database-for-ml-training-data",
@@ -4340,6 +4484,24 @@
       "license": "Apache-2.0",
       "path": "skills/quantile-regression-for-uncertainty-aware-signals",
       "skill_md": "skills/quantile-regression-for-uncertainty-aware-signals/SKILL.md"
+    },
+    {
+      "name": "quanto-options-and-cross-currency-derivative-structures",
+      "description": "Skill for quanto-options-and-cross-currency-derivative-structures",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "subdomain",
+      "tags": [
+        "trading",
+        "algos"
+      ],
+      "brokers_frameworks": [
+        "all"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/quanto-options-and-cross-currency-derivative-structures",
+      "skill_md": "skills/quanto-options-and-cross-currency-derivative-structures/SKILL.md"
     },
     {
       "name": "questrade-api-rate-limit-and-account-types",
