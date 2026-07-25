@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:57.629837+00:00",
+  "generated_at": "2026-07-25T08:16:58.120764+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 312,
+  "total_skills": 313,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1704,6 +1704,24 @@
       "license": "MIT",
       "path": "skills/cross-jurisdiction-regulatory-conflict-resolution",
       "skill_md": "skills/cross-jurisdiction-regulatory-conflict-resolution/SKILL.md"
+    },
+    {
+      "name": "cross-margining-across-asset-classes",
+      "description": "Automation and handling of cross margining across asset classes.",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "derivatives-trading",
+      "tags": [
+        "cross-margining-across-asset-classes",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-margining-across-asset-classes",
+      "skill_md": "skills/cross-margining-across-asset-classes/SKILL.md"
     },
     {
       "name": "cross-sectional-vs-time-series-model-design",
