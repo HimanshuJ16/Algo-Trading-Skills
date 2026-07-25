@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:26.270555+00:00",
+  "generated_at": "2026-07-25T08:18:27.094754+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 346,
+  "total_skills": 347,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -276,6 +276,25 @@
       "license": "Apache-2.0",
       "path": "skills/api-key-least-privilege-audit-tool",
       "skill_md": "skills/api-key-least-privilege-audit-tool/SKILL.md"
+    },
+    {
+      "name": "arrival-price-benchmark-execution-algo",
+      "description": "Execution algorithm for arrival price benchmark execution algo",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/arrival-price-benchmark-execution-algo",
+      "skill_md": "skills/arrival-price-benchmark-execution-algo/SKILL.md"
     },
     {
       "name": "asic-market-integrity-rules-automated-trading",
