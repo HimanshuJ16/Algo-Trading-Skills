@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:49:32.402045+00:00",
+  "generated_at": "2026-07-25T02:49:59.972052+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 79,
+  "total_skills": 80,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1300,6 +1300,29 @@
       "license": "Apache-2.0",
       "path": "skills/robinhood-unofficial-api-integration",
       "skill_md": "skills/robinhood-unofficial-api-integration/SKILL.md"
+    },
+    {
+      "name": "sandbox-credential-leakage-prevention",
+      "description": "Use when building broker adapters to enforce strict runtime isolation between sandbox/paper test credentials and live production endpoints, preventing test keys from reaching live gateways and blocking accidental real-money order routing.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "sandbox-prevention",
+        "credential-leakage",
+        "environment-guard",
+        "security",
+        "production-safety"
+      ],
+      "brokers_frameworks": [
+        "Credential Security Guard",
+        "Python Security"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/sandbox-credential-leakage-prevention",
+      "skill_md": "skills/sandbox-credential-leakage-prevention/SKILL.md"
     },
     {
       "name": "sandbox-vs-production-endpoint-drift",
