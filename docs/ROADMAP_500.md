@@ -222,7 +222,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `on-call-rotation-and-escalation-for-trading-systems` — Structuring an on-call rotation with clear escalation paths appropriate to a system where an unresolved incident has an active financial cost.
 - **[BUILT]** `environment-parity-dev-staging-production` — Maintaining close parity between dev/staging/production environments specifically to prevent the 'works in staging' gap common in trading systems.
 - **[BUILT]** `automated-rollback-triggers-on-anomaly-detection` — Automatically triggering a rollback to the previous deployment if post-deploy anomaly detection (unusual order rate, error rate) fires.
-- **[planned]** `capacity-planning-for-symbol-universe-growth` — Forward capacity-planning infrastructure scaling as the traded symbol universe grows, rather than reactively scaling after hitting a limit.
+- **[BUILT]** `capacity-planning-for-symbol-universe-growth` — Forward capacity-planning infrastructure scaling as the traded symbol universe grows, rather than reactively scaling after hitting a limit.
 - **[planned]** `zero-downtime-database-schema-migrations` — Performing database schema migrations for a live trading system's state store without requiring a trading-hours outage.
 - **[planned]** `dependency-pinning-and-reproducible-builds` — Pinning exact dependency versions and building reproducibly, so 'it worked yesterday' incidents from a silent dependency update don't happen.
 - **[planned]** `audit-logging-for-configuration-changes` — Logging every configuration change (risk limits, strategy parameters) with who/when/what-changed, independent of code-deployment logs.
