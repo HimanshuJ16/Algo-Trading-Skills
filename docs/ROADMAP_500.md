@@ -275,7 +275,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `fix-protocol-session-management-across-venues` — Managing FIX protocol sessions (logon/heartbeat/sequence-number recovery) consistently across multiple venues with different FIX dialect quirks.
 - **[BUILT]** `market-data-entitlement-and-licensing-per-venue` — Tracking market-data entitlement/licensing requirements per venue, since redistribution or algorithmic-consumption rights vary and are commonly violated unknowingly.
 
-## regulatory-compliance-global  _(38 tracked: 2 built, 36 planned)_
+## regulatory-compliance-global  _(38 tracked: 38 built, 0 planned)_
 
 - **[BUILT]** `mifid-ii-algo-trading-compliance-eu` — see `skills/mifid-ii-algo-trading-compliance-eu/SKILL.md`
 - **[BUILT]** `pattern-day-trader-rule-compliance-us` — see `skills/pattern-day-trader-rule-compliance-us/SKILL.md`
