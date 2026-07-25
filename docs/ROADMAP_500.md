@@ -494,7 +494,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `clock-synchronization-ptp-for-trading-hosts` — Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters.
 - **[BUILT]** `tick-to-trade-latency-measurement` — Measuring true tick-to-trade latency end to end, not just the strategy's own compute time.
 - **[BUILT]** `order-book-microstructure-signal-research` — Researching order-book microstructure signals (queue dynamics, order-flow imbalance) as a distinct signal class from price-based technical signals.
-- **[planned]** `exchange-fee-tier-and-rebate-structure-analysis` — Analyzing exchange fee-tier and rebate structures in detail, since these materially affect the true profitability of high-turnover strategies.
+- **[BUILT]** `exchange-fee-tier-and-rebate-structure-analysis` — Analyzing exchange fee-tier and rebate structures in detail, since these materially affect the true profitability of high-turnover strategies.
 - **[planned]** `market-maker-vs-taker-strategy-classification` — Classifying a strategy's own behavior as predominantly maker or taker, and understanding the fee/risk implications of each posture.
 - **[planned]** `adverse-selection-measurement-for-passive-orders` — Measuring realized adverse selection on filled passive orders (did the market move against the fill immediately after) to assess passive-order strategy quality.
 - **[planned]** `latency-arbitrage-defensive-order-sizing` — Sizing orders defensively to limit exposure to latency arbitrage by faster participants reacting to the same signal.

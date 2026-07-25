@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:28.910984+00:00",
+  "generated_at": "2026-07-25T08:28:29.689694+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 456,
+  "total_skills": 457,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2985,6 +2985,24 @@
       "license": "MIT",
       "path": "skills/euronext-optiq-market-data-integration",
       "skill_md": "skills/euronext-optiq-market-data-integration/SKILL.md"
+    },
+    {
+      "name": "exchange-fee-tier-and-rebate-structure-analysis",
+      "description": "Skill for exchange-fee-tier-and-rebate-structure-analysis",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "trading",
+        "latency"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/exchange-fee-tier-and-rebate-structure-analysis",
+      "skill_md": "skills/exchange-fee-tier-and-rebate-structure-analysis/SKILL.md"
     },
     {
       "name": "exchange-for-physical-efp-transactions",
