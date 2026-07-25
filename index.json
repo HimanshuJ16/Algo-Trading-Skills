@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:55.085714+00:00",
+  "generated_at": "2026-07-25T08:29:56.437570+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 471,
+  "total_skills": 472,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -8114,6 +8114,24 @@
       "license": "Apache-2.0",
       "path": "skills/structured-logging-for-post-incident-forensics",
       "skill_md": "skills/structured-logging-for-post-incident-forensics/SKILL.md"
+    },
+    {
+      "name": "supply-chain-data-for-earnings-prediction",
+      "description": "A quant research alternative data skill for supply-chain-data-for-earnings-prediction.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/supply-chain-data-for-earnings-prediction",
+      "skill_md": "skills/supply-chain-data-for-earnings-prediction/SKILL.md"
     },
     {
       "name": "survivorship-bias-free-universe-construction",
