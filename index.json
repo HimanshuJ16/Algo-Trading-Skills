@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:17:59.035159+00:00",
+  "generated_at": "2026-07-25T03:18:47.921829+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 109,
+  "total_skills": 110,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2217,6 +2217,29 @@
       "license": "Apache-2.0",
       "path": "skills/tradestation-websocket-order-updates",
       "skill_md": "skills/tradestation-websocket-order-updates/SKILL.md"
+    },
+    {
+      "name": "transaction-cost-analysis-tca-integration",
+      "description": "Use when validating strategy backtests to integrate Transaction Cost Analysis (TCA) frameworks, decompose implementation shortfall into delay cost, spread cross, market impact, and commissions, and calibrate backtest slippage models.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "tca-integration",
+        "implementation-shortfall",
+        "market-impact",
+        "slippage-calibration",
+        "transaction-costs"
+      ],
+      "brokers_frameworks": [
+        "TCA Backtest Integrator",
+        "Python Real-Time Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/transaction-cost-analysis-tca-integration",
+      "skill_md": "skills/transaction-cost-analysis-tca-integration/SKILL.md"
     },
     {
       "name": "upstox-oauth-refresh-token-rotation",

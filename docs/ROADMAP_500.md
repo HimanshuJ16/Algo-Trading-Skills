@@ -91,7 +91,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `benchmark-relative-performance-attribution` — Attributing backtest outperformance to specific factors rather than reporting only raw returns.
 - **[BUILT]** `vectorized-vs-event-driven-backtest-tradeoffs` — Choosing between a fast vectorized backtest engine and a slower but more realistic event-driven engine based on strategy characteristics.
 - **[BUILT]** `multi-year-regime-coverage-requirement` — Requiring backtest data to span multiple distinct market regimes (bull, bear, high-vol, low-vol) before trusting reported performance.
-- **[planned]** `transaction-cost-analysis-tca-integration` — Integrating post-trade transaction-cost-analysis (TCA) reports into the backtest validation loop to calibrate slippage assumptions.
+- **[BUILT]** `transaction-cost-analysis-tca-integration` — Integrating post-trade transaction-cost-analysis (TCA) reports into the backtest validation loop to calibrate slippage assumptions.
 - **[planned]** `backtest-determinism-and-reproducibility` — Ensuring a backtest produces bit-identical results on repeated runs (fixed random seeds, deterministic data ordering) for reliable comparison across code changes.
 - **[planned]** `options-backtesting-with-realistic-iv-surface` — Backtesting options strategies against a realistic historical implied-volatility surface rather than a flat or interpolated approximation.
 - **[planned]** `backtest-vs-live-performance-divergence-tracking` — Systematically tracking and explaining divergence between backtested and subsequently realized live performance for every promoted strategy.
