@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:52:11.126285+00:00",
+  "generated_at": "2026-07-25T02:52:49.060471+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 84,
+  "total_skills": 85,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -182,6 +182,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-api-deprecation-notice-monitoring",
       "skill_md": "skills/broker-api-deprecation-notice-monitoring/SKILL.md"
+    },
+    {
+      "name": "broker-api-idempotent-cancel-requests",
+      "description": "Use when managing order lifecycles to execute idempotent order cancel requests, handling Cancel-vs-Fill race conditions, network timeouts, and duplicate cancel retries without unhandled broker API exceptions.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "idempotency",
+        "order-cancellation",
+        "race-condition",
+        "cancel-vs-fill",
+        "resilience"
+      ],
+      "brokers_frameworks": [
+        "Idempotent Cancel Manager",
+        "Python Trading Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-api-idempotent-cancel-requests",
+      "skill_md": "skills/broker-api-idempotent-cancel-requests/SKILL.md"
     },
     {
       "name": "broker-api-versioning-migration-playbook",

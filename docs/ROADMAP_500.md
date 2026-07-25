@@ -41,7 +41,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `post-only-and-maker-taker-fee-optimization` — Using post-only order flags to ensure maker (not taker) fee tier on brokers/exchanges with maker-taker fee schedules.
 - **[BUILT]** `broker-margin-interest-accrual-tracking` — Tracking accrued margin interest explicitly as a cost, since it compounds and is frequently omitted from naive P&L tracking.
 - **[BUILT]** `regional-broker-data-residency-constraints` — Handling data-residency requirements that affect which cloud region a bot connecting to a specific national broker must run in.
-- **[planned]** `broker-api-idempotent-cancel-requests` — Extending order-placement idempotency specifically to cancel requests, which have their own race conditions distinct from order placement.
+- **[BUILT]** `broker-api-idempotent-cancel-requests` — Extending order-placement idempotency specifically to cancel requests, which have their own race conditions distinct from order placement.
 - **[planned]** `broker-api-changelog-diffing-tool` — Automatically diffing a broker's API changelog release-over-release to flag breaking changes before they hit production.
 
 ## real-time-architecture  _(30 tracked: 4 built, 26 planned)_
