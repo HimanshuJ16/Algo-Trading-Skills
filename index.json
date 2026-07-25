@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:54.747953+00:00",
+  "generated_at": "2026-07-25T08:23:55.608486+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 402,
+  "total_skills": 403,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6039,6 +6039,25 @@
       "license": "MIT",
       "path": "skills/record-retention-periods-by-jurisdiction",
       "skill_md": "skills/record-retention-periods-by-jurisdiction/SKILL.md"
+    },
+    {
+      "name": "recovery-plan-for-lost-or-compromised-keys",
+      "description": "Implementation for recovery-plan-for-lost-or-compromised-keys",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/recovery-plan-for-lost-or-compromised-keys",
+      "skill_md": "skills/recovery-plan-for-lost-or-compromised-keys/SKILL.md"
     },
     {
       "name": "redis-streams-multi-consumer-tick-fanout",
