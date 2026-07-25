@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:15.992601+00:00",
+  "generated_at": "2026-07-25T08:13:16.596918+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 268,
+  "total_skills": 269,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2641,6 +2641,25 @@
       "license": "MIT",
       "path": "skills/japan-exchange-group-jpx-api-integration",
       "skill_md": "skills/japan-exchange-group-jpx-api-integration/SKILL.md"
+    },
+    {
+      "name": "japan-fsa-high-speed-trading-registration",
+      "description": "Compliance controls for japan fsa high speed trading registration",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/japan-fsa-high-speed-trading-registration",
+      "skill_md": "skills/japan-fsa-high-speed-trading-registration/SKILL.md"
     },
     {
       "name": "jse-south-africa-api-integration",
