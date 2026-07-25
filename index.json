@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:53.421861+00:00",
+  "generated_at": "2026-07-25T08:16:54.049349+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 303,
+  "total_skills": 304,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5899,6 +5899,23 @@
       "license": "MIT",
       "path": "skills/wash-trade-and-spoofing-self-detection",
       "skill_md": "skills/wash-trade-and-spoofing-self-detection/SKILL.md"
+    },
+    {
+      "name": "weather-derivatives-and-niche-instrument-handling",
+      "description": "Skill for weather derivatives and niche instrument handling",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Exotics",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/weather-derivatives-and-niche-instrument-handling",
+      "skill_md": "skills/weather-derivatives-and-niche-instrument-handling/SKILL.md"
     },
     {
       "name": "webhook-based-order-fill-notifications",
