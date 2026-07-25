@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:02:03.767741+00:00",
+  "generated_at": "2026-07-25T08:02:29.378410+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 173,
+  "total_skills": 174,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -971,6 +971,30 @@
       "license": "Apache-2.0",
       "path": "skills/counterparty-and-broker-concentration-risk",
       "skill_md": "skills/counterparty-and-broker-concentration-risk/SKILL.md"
+    },
+    {
+      "name": "counterparty-credit-risk-for-otc-derivatives",
+      "description": "Use when trading bilateral OTC derivatives (swaps, OTC options, forwards) to compute Expected Exposure (EE), Potential Future Exposure (PFE), and Credit Valuation Adjustment (CVA) while enforcing ISDA CSA collateral thresholds.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "counterparty-risk",
+        "otc-derivatives",
+        "cva",
+        "pfe",
+        "isda-csa",
+        "credit-limit"
+      ],
+      "brokers_frameworks": [
+        "Counterparty Credit Risk Manager",
+        "Python NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/counterparty-credit-risk-for-otc-derivatives",
+      "skill_md": "skills/counterparty-credit-risk-for-otc-derivatives/SKILL.md"
     },
     {
       "name": "cross-account-aggregate-risk-view",
