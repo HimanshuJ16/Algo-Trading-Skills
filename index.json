@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:10.756228+00:00",
+  "generated_at": "2026-07-25T08:25:11.353569+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 425,
+  "total_skills": 426,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7324,6 +7324,24 @@
       "license": "MIT",
       "path": "skills/strategy-performance-attribution-vs-market-beta",
       "skill_md": "skills/strategy-performance-attribution-vs-market-beta/SKILL.md"
+    },
+    {
+      "name": "strategy-specific-data-dependency-mapping",
+      "description": "Skill for strategy specific data dependency mapping",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-specific-data-dependency-mapping",
+      "skill_md": "skills/strategy-specific-data-dependency-mapping/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",
