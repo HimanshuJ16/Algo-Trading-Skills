@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:04:59.197734+00:00",
+  "generated_at": "2026-07-25T08:05:01.495247+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 181,
+  "total_skills": 182,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1250,6 +1250,24 @@
       "license": "Apache-2.0",
       "path": "skills/dynamic-position-sizing-based-on-realized-volatility",
       "skill_md": "skills/dynamic-position-sizing-based-on-realized-volatility/SKILL.md"
+    },
+    {
+      "name": "emergency-manual-override-access-control",
+      "description": "Role-based access control and MFA audit for manual overrides.",
+      "domain": "risk-management",
+      "subdomain": "risk-controls",
+      "tags": [
+        "risk",
+        "controls"
+      ],
+      "brokers_frameworks": [
+        "Any"
+      ],
+      "version": "1.0.0",
+      "author": "AI Builder",
+      "license": "MIT",
+      "path": "skills/emergency-manual-override-access-control",
+      "skill_md": "skills/emergency-manual-override-access-control/SKILL.md"
     },
     {
       "name": "ensemble-signal-combination-without-overfitting",
