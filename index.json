@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:03.443867+00:00",
+  "generated_at": "2026-07-25T08:29:04.296059+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 467,
+  "total_skills": 468,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3132,6 +3132,24 @@
       "license": "MIT",
       "path": "skills/exchange-proof-of-reserves-verification",
       "skill_md": "skills/exchange-proof-of-reserves-verification/SKILL.md"
+    },
+    {
+      "name": "exchange-self-match-prevention-configuration",
+      "description": "Skill for exchange self match prevention configuration",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "microstructure"
+      ],
+      "brokers_frameworks": [
+        "ccxt"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/exchange-self-match-prevention-configuration",
+      "skill_md": "skills/exchange-self-match-prevention-configuration/SKILL.md"
     },
     {
       "name": "exchange-tick-size-regime-tracking",
