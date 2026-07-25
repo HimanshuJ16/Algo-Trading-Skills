@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:52.729707+00:00",
+  "generated_at": "2026-07-25T08:13:53.427295+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 283,
+  "total_skills": 284,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1514,6 +1514,23 @@
       "license": "Apache-2.0",
       "path": "skills/cross-datacenter-clock-sync-validation",
       "skill_md": "skills/cross-datacenter-clock-sync-validation/SKILL.md"
+    },
+    {
+      "name": "cross-jurisdiction-regulatory-conflict-resolution",
+      "description": "Compliance controls and workflows for cross jurisdiction regulatory conflict resolution",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-jurisdiction-regulatory-conflict-resolution",
+      "skill_md": "skills/cross-jurisdiction-regulatory-conflict-resolution/SKILL.md"
     },
     {
       "name": "cross-sectional-vs-time-series-model-design",
