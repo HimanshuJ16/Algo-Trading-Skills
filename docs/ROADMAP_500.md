@@ -106,7 +106,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `synthetic-data-generation-for-backtest-augmentation` — Generating synthetic price paths (e.g. via GANs or bootstrap resampling) to augment limited historical data for backtest robustness testing.
 - **[BUILT]** `backtest-reporting-standardized-tearsheet` — Producing a standardized performance tearsheet (drawdown, Sharpe, Sortino, hit rate, etc.) so strategies are compared on a consistent basis.
 - **[BUILT]** `intraday-vs-eod-backtest-granularity-tradeoffs` — Choosing appropriate data granularity (tick, minute, EOD) for a backtest based on the strategy's actual holding period and decision frequency.
-- **[planned]** `backtest-database-schema-for-point-in-time-queries` — Designing a database schema that natively supports point-in-time queries to make lookahead-bias mistakes structurally harder to introduce.
+- **[BUILT]** `backtest-database-schema-for-point-in-time-queries` — Designing a database schema that natively supports point-in-time queries to make lookahead-bias mistakes structurally harder to introduce.
 - **[planned]** `cross-validation-of-commission-schedules-over-time` — Modeling historical changes in a broker's commission schedule over the backtest period rather than applying today's rates retroactively.
 - **[planned]** `backtest-outlier-and-bad-tick-filtering` — Filtering historical data for clearly erroneous prints (bad ticks, stale quotes) before they distort backtested signal computation.
 - **[planned]** `walk-forward-hyperparameter-search-budget` — Bounding the hyperparameter search space in walk-forward validation to avoid indirect overfitting via excessive search itself.
