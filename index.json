@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:45.989315+00:00",
+  "generated_at": "2026-07-25T08:20:46.754696+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 371,
+  "total_skills": 372,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3555,6 +3555,24 @@
       "license": "MIT",
       "path": "skills/insider-trading-controls-for-alternative-data-usage",
       "skill_md": "skills/insider-trading-controls-for-alternative-data-usage/SKILL.md"
+    },
+    {
+      "name": "instrument-universe-change-detection-and-alerting",
+      "description": "Implementation of instrument-universe-change-detection-and-alerting",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/instrument-universe-change-detection-and-alerting",
+      "skill_md": "skills/instrument-universe-change-detection-and-alerting/SKILL.md"
     },
     {
       "name": "interactive-brokers-global-multi-exchange-routing",
