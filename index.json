@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:37.027537+00:00",
+  "generated_at": "2026-07-25T13:19:37.882472+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 498,
+  "total_skills": 499,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -2977,6 +2977,23 @@
       "license": "MIT",
       "path": "skills/early-exercise-assignment-risk-management",
       "skill_md": "skills/early-exercise-assignment-risk-management/SKILL.md"
+    },
+    {
+      "name": "earnings-call-transcript-nlp-signal-research",
+      "description": "Skill for earnings call transcript nlp signal research",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/earnings-call-transcript-nlp-signal-research",
+      "skill_md": "skills/earnings-call-transcript-nlp-signal-research/SKILL.md"
     },
     {
       "name": "emergency-manual-override-access-control",
