@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:43.616089+00:00",
+  "generated_at": "2026-07-25T08:20:44.351644+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 368,
+  "total_skills": 369,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3074,6 +3074,24 @@
       "license": "Apache-2.0",
       "path": "skills/global-exchange-holiday-calendar-handling",
       "skill_md": "skills/global-exchange-holiday-calendar-handling/SKILL.md"
+    },
+    {
+      "name": "global-macro-economic-calendar-integration",
+      "description": "Implementation of global-macro-economic-calendar-integration",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/global-macro-economic-calendar-integration",
+      "skill_md": "skills/global-macro-economic-calendar-integration/SKILL.md"
     },
     {
       "name": "graceful-degradation-priority-during-partial-outage",
