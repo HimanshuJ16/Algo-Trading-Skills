@@ -458,7 +458,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 ## portfolio-multi-strategy  _(30 tracked: 0 built, 30 planned)_
 
 - **[BUILT]** `cross-strategy-correlation-monitoring` — Monitoring correlation between concurrently-running strategies to detect unintended aggregate concentration.
-- **[planned]** `capital-reallocation-based-on-live-performance` — Reallocating capital between strategies based on live (not just backtested) rolling performance, with safeguards against reallocation churn.
+- **[BUILT]** `capital-reallocation-based-on-live-performance` — Reallocating capital between strategies based on live (not just backtested) rolling performance, with safeguards against reallocation churn.
 - **[planned]** `strategy-lifecycle-retirement-criteria` — Defining explicit, pre-agreed criteria for retiring a live strategy rather than letting it run indefinitely on inertia.
 - **[planned]** `strategy-correlation-matrix-live-recomputation` — Recomputing the live strategy-correlation matrix on a defined schedule, mirroring the discipline in correlation-aware-exposure-limits but at the strategy level rather than instrument level.
 - **[planned]** `risk-parity-allocation-across-strategies` — Allocating capital across strategies using a risk-parity approach (equalizing risk contribution) rather than equal-dollar allocation.
