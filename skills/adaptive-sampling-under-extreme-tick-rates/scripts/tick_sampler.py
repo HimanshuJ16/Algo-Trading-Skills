@@ -2,12 +2,12 @@
 adaptive-sampling-under-extreme-tick-rates: Dynamic tick rate frequency monitor,
 systematic 1:N sampling engine, and cumulative volume/VWAP aggregator.
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import logging
 import math
 import time
 from enum import Enum
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Dict, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -22,9 +22,8 @@ class SampledTick:
     symbol: str
     sequence_id: int
     timestamp: float
-    price: float
-    volume: float
-    accumulated_volume: float
+    price: float  # Represents VWAP if sampled
+    volume: float # Total accumulated volume if sampled
     sampling_factor: int
     mode: SamplingMode
 
@@ -33,19 +32,49 @@ class AdaptiveTickSamplerEngine:
     """
     Monitors tick arrival rates and dynamically applies 1:N systematic sampling under
     extreme volume conditions while preserving volume and VWAP metrics.
+    Uses O(1) sliding window counters for rate tracking to prevent memory bloat.
     """
 
     def __init__(
         self,
         target_max_rate_per_sec: int = 5000,
-        window_sec: float = 1.0,
     ):
         self.target_max_rate_per_sec = target_max_rate_per_sec
-        self.window_sec = window_sec
 
-        self.tick_counts: Dict[str, List[float]] = {}  # symbol -> list of timestamps
-        self.tick_counters: Dict[str, int] = {}       # symbol -> counter modulo k
-        self.accumulated_vol: Dict[str, float] = {}   # symbol -> skipped volume sum
+        # O(1) rate tracking
+        self.current_window_sec: Dict[str, int] = {}
+        self.current_window_count: Dict[str, int] = {}
+        self.previous_window_count: Dict[str, int] = {}
+
+        # Sampling state
+        self.tick_counters: Dict[str, int] = {}
+        self.accumulated_vol: Dict[str, float] = {}
+        self.accumulated_notional: Dict[str, float] = {}
+
+    def _get_rolling_rate(self, sym: str, now: float) -> float:
+        current_sec = int(now)
+        
+        if sym not in self.current_window_sec:
+            self.current_window_sec[sym] = current_sec
+            self.current_window_count[sym] = 0
+            self.previous_window_count[sym] = 0
+            
+        if current_sec > self.current_window_sec[sym]:
+            # Shift windows
+            diff = current_sec - self.current_window_sec[sym]
+            if diff == 1:
+                self.previous_window_count[sym] = self.current_window_count[sym]
+            else:
+                self.previous_window_count[sym] = 0
+            self.current_window_count[sym] = 0
+            self.current_window_sec[sym] = current_sec
+            
+        self.current_window_count[sym] += 1
+        
+        # Sliding window estimate
+        fraction_of_second = now - current_sec
+        estimated_rate = self.previous_window_count[sym] * (1 - fraction_of_second) + self.current_window_count[sym]
+        return estimated_rate
 
     def ingest_tick(
         self,
@@ -57,23 +86,13 @@ class AdaptiveTickSamplerEngine:
     ) -> Optional[SampledTick]:
         """
         Ingests a tick and determines if it should be emitted under current sampling rate.
+        Accumulates volume and notional to emit a VWAP price when sampling.
         """
         sym = symbol.upper()
         now = timestamp or time.time()
 
-        # Update frequency tracking window
-        if sym not in self.tick_counts:
-            self.tick_counts[sym] = []
-            self.tick_counters[sym] = 0
-            self.accumulated_vol[sym] = 0.0
-
-        ts_list = self.tick_counts[sym]
-        ts_list.append(now)
-
-        # Evict timestamps older than window_sec
-        cutoff = now - self.window_sec
-        self.tick_counts[sym] = [t for t in ts_list if t >= cutoff]
-        current_rate = len(self.tick_counts[sym])
+        # O(1) Rolling Rate Estimation
+        current_rate = self._get_rolling_rate(sym, now)
 
         # Compute sampling factor k
         if current_rate > self.target_max_rate_per_sec:
@@ -83,28 +102,36 @@ class AdaptiveTickSamplerEngine:
             k = 1
             mode = SamplingMode.PASSTHROUGH
 
+        if sym not in self.tick_counters:
+            self.tick_counters[sym] = 0
+            self.accumulated_vol[sym] = 0.0
+            self.accumulated_notional[sym] = 0.0
+
         self.tick_counters[sym] += 1
         self.accumulated_vol[sym] += volume
+        self.accumulated_notional[sym] += (price * volume)
 
         # Emit if counter hits k
         if self.tick_counters[sym] >= k or mode == SamplingMode.PASSTHROUGH:
             emitted_vol = self.accumulated_vol[sym]
+            emitted_vwap = self.accumulated_notional[sym] / emitted_vol if emitted_vol > 0 else price
+            
             self.tick_counters[sym] = 0
             self.accumulated_vol[sym] = 0.0
+            self.accumulated_notional[sym] = 0.0
 
             if mode == SamplingMode.SYSTEMATIC_SAMPLING:
                 logger.info(
-                    f"Adaptive Sampler [{sym}]: Extreme tick rate ({current_rate}/s > {self.target_max_rate_per_sec}/s). "
-                    f"Sampled 1:{k}. Emitted volume: {emitted_vol:.2f}"
+                    f"Adaptive Sampler [{sym}]: Extreme tick rate ({current_rate:.0f}/s > {self.target_max_rate_per_sec}/s). "
+                    f"Sampled 1:{k}. Emitted VWAP: {emitted_vwap:.2f}, Vol: {emitted_vol:.2f}"
                 )
 
             return SampledTick(
                 symbol=sym,
                 sequence_id=sequence_id,
                 timestamp=now,
-                price=price,
-                volume=volume,
-                accumulated_volume=emitted_vol,
+                price=emitted_vwap,
+                volume=emitted_vol,
                 sampling_factor=k,
                 mode=mode,
             )
@@ -113,19 +140,22 @@ class AdaptiveTickSamplerEngine:
         return None
 
     def flush(self, symbol: str) -> Optional[SampledTick]:
-        """Flushes remaining accumulated volume for symbol during quiet periods or shutdown."""
+        """Flushes remaining accumulated volume for symbol."""
         sym = symbol.upper()
         if sym in self.accumulated_vol and self.accumulated_vol[sym] > 0:
             emitted_vol = self.accumulated_vol[sym]
+            emitted_vwap = self.accumulated_notional[sym] / emitted_vol
+            
             self.accumulated_vol[sym] = 0.0
+            self.accumulated_notional[sym] = 0.0
             self.tick_counters[sym] = 0
+            
             return SampledTick(
                 symbol=sym,
                 sequence_id=-1,
                 timestamp=time.time(),
-                price=0.0,
-                volume=0.0,
-                accumulated_volume=emitted_vol,
+                price=emitted_vwap,
+                volume=emitted_vol,
                 sampling_factor=1,
                 mode=SamplingMode.PASSTHROUGH,
             )

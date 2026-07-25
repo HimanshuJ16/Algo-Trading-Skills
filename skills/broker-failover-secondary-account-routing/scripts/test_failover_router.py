@@ -1,54 +1,74 @@
-"""
-Unit tests for broker-failover-secondary-account-routing skill.
-"""
 import unittest
+import time
 from failover_router import (
-    BrokerFailoverRouter, BrokerHealthStatus, MockBrokerAdapter, OrderRequest,
+    BrokerFailoverRouter, CircuitBreakerState, MockBrokerAdapter, OrderRequest,
 )
 
-
 class TestBrokerFailoverRouter(unittest.TestCase):
-
     def setUp(self):
-        self.primary = MockBrokerAdapter(name="ibkr", account_id="U1234567")
-        self.secondary = MockBrokerAdapter(name="alpaca", account_id="ALP_98765")
+        self.primary = MockBrokerAdapter(name="primary_broker", account_id="P123")
+        self.secondary = MockBrokerAdapter(name="secondary_broker", account_id="S456")
         self.router = BrokerFailoverRouter(
             primary_broker=self.primary,
             secondary_broker=self.secondary,
             max_consecutive_failures=3,
+            recovery_timeout_seconds=0.1  # very short for tests
         )
-        self.router.register_symbol_map("AAPL", "AAPL STK SMART", "AAPL")
+        self.router.register_symbol_map("AAPL", "AAPL.P", "AAPL.S")
 
-    def test_normal_primary_routing(self):
-        order = OrderRequest(symbol="AAPL", action="BUY", quantity=10.0)
-        result = self.router.submit_order(order)
-
-        self.assertEqual(result.broker_name, "ibkr")
-        self.assertEqual(result.account_id, "U1234567")
-        self.assertEqual(result.symbol, "AAPL STK SMART")
-        self.assertEqual(len(self.primary.executed_orders), 1)
-        self.assertEqual(len(self.secondary.executed_orders), 0)
-
-    def test_automatic_secondary_rerouting_on_failure(self):
-        self.primary.should_fail = True
-        order = OrderRequest(symbol="AAPL", action="BUY", quantity=10.0)
-
-        # 1st failure
-        self.router.submit_order(order)
-        self.assertEqual(self.router.primary_failures, 1)
-
-        # 2nd failure
-        self.router.submit_order(order)
-        self.assertEqual(self.router.primary_failures, 2)
-
-        # 3rd failure trips breaker and reroutes to secondary
+    def test_normal_routing(self):
+        order = OrderRequest(symbol="AAPL", action="BUY", quantity=100)
         res = self.router.submit_order(order)
-        self.assertEqual(self.router.primary_status, BrokerHealthStatus.DOWN)
-        self.assertEqual(self.router.active_broker_name, "alpaca")
-        self.assertEqual(res.broker_name, "alpaca")
-        self.assertEqual(res.symbol, "AAPL")
-        self.assertEqual(len(self.secondary.executed_orders), 3)
+        self.assertEqual(res.broker_name, "primary_broker")
+        self.assertEqual(res.symbol, "AAPL.P")
+        self.assertEqual(self.router.circuit_state, CircuitBreakerState.CLOSED)
 
+    def test_circuit_breaker_trips_and_reroutes(self):
+        self.primary.should_fail = True
+        order = OrderRequest(symbol="AAPL", action="BUY", quantity=100)
+        
+        # First 2 failures
+        self.router.submit_order(order)
+        self.router.submit_order(order)
+        self.assertEqual(self.router.circuit_state, CircuitBreakerState.CLOSED)
+        
+        # 3rd failure trips the breaker
+        self.router.submit_order(order)
+        self.assertEqual(self.router.circuit_state, CircuitBreakerState.OPEN)
+        
+        # Next order should be routed to secondary directly
+        res = self.router.submit_order(order)
+        self.assertEqual(res.broker_name, "secondary_broker")
+        self.assertEqual(res.symbol, "AAPL.S")
+        self.assertEqual(len(self.secondary.executed_orders), 4) # all 4 orders fell back to secondary
+
+    def test_half_open_recovery(self):
+        self.primary.should_fail = True
+        order = OrderRequest(symbol="AAPL", action="BUY", quantity=100)
+        
+        # Trip the breaker
+        for _ in range(3):
+            self.router.submit_order(order)
+            
+        self.assertEqual(self.router.circuit_state, CircuitBreakerState.OPEN)
+        
+        # Wait for recovery timeout
+        time.sleep(0.15)
+        
+        # The next submit will transition to HALF_OPEN and probe
+        # If primary still fails, it goes back to OPEN
+        self.router.submit_order(order)
+        self.assertEqual(self.router.circuit_state, CircuitBreakerState.OPEN)
+        
+        # Wait again
+        time.sleep(0.15)
+        # Fix primary
+        self.primary.should_fail = False
+        
+        # Next order probes (HALF_OPEN) and succeeds (CLOSED)
+        res = self.router.submit_order(order)
+        self.assertEqual(res.broker_name, "primary_broker")
+        self.assertEqual(self.router.circuit_state, CircuitBreakerState.CLOSED)
 
 if __name__ == "__main__":
     unittest.main()

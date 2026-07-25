@@ -2,12 +2,14 @@
 
 Use this before considering the skill's implementation complete.
 
-- [ ] **Capability Registry:** Confirm target broker native order types are registered accurately.
-- [ ] **Native Capability Pre-Validation:** Confirm native support is queried prior to order dispatch.
-- [ ] **Software Emulation Synthesizer:** Confirm complex orders (Bracket, Iceberg) are decomposed into local trigger legs when native support is missing.
-- [ ] **Automated Testing:** Run `python scripts/test_capability_matrix.py` — 100% pass rate.
+- [ ] **Capability Registry Expansion:** Target broker native order types (including advanced algo types like TWAP) are registered accurately.
+- [ ] **Native Capability Pre-Validation:** Ensure `plan_order_execution` routes native flags efficiently without fallback overhead.
+- [ ] **Software Emulation Synthesizer:** Confirm complex orders (Bracket, Iceberg, TWAP) are decomposed into well-typed `EmulatedLeg` objects (with action inversion correctly mapped for stops/takes).
+- [ ] **Edge Cases Handled:** `plan_order_execution` catches mutually exclusive arguments, invalid broker names, and unsupported/un-emulatable edge cases.
+- [ ] **Automated Testing:** Run `python -m unittest test_capability_matrix.py` — 100% pass rate confirmed.
 
 ## Sign-off
 
-- Reviewed by: ___________________________
+- Quant Engineer: ___________________________
+- Code Reviewer: ___________________________
 - Date: ___________________________

@@ -1,14 +1,11 @@
-# Pre-Flight / Sign-off Checklist — binary-protocol-parsing-for-low-latency-feeds
+# Pre-Flight Checklist for Binary Parsers
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Struct Layout Alignment:** Confirm struct format string matches byte offsets per exchange spec.
-- [ ] **Endianness Verification:** Confirm big-endian (`>`) or little-endian (`<`) is enforced correctly.
-- [ ] **Price Scale Division:** Confirm integer prices are scaled by $10^4$ to match floating-point prices.
-- [ ] **Invalid Size Rejection:** Confirm truncated binary frames raise validation errors.
-- [ ] **Automated Testing:** Run `python scripts/test_binary_parser.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Network byte order (`>`) is strictly enforced on all multibyte primitive unpacks.
+- [ ] 6-byte timestamps (uint48) are correctly handled (e.g., using `int.from_bytes` or bitwise shifts).
+- [ ] Prices are parsed as integers and scaled correctly (e.g., `/ 10000.0`).
+- [ ] `struct.Struct` is precompiled at class initialization to prevent runtime compilation overhead.
+- [ ] Struct payloads are passed via `memoryview` or pointers to prevent copying data arrays.
+- [ ] Unit tests cover 100% of parser paths, including short/corrupted payloads.
+- [ ] Profiling shows zero dynamic heap allocations per parsed message on the hot path.
+- [ ] Alpha/Numeric encodings (e.g., 'B' vs 'S' for Buy/Sell) are correctly converted to ASCII and stripped of null padding.
+- [ ] LOB bounds checking is handled gracefully (e.g., order reference IDs are within valid tracked limits).

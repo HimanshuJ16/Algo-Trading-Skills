@@ -1,24 +1,29 @@
-# Deep Workflow Reference — broker-api-versioning-migration-playbook
+# Institutional API Migration Workflows
 
-This file holds the full technical procedure referenced by `SKILL.md`.
+Migrating critical order execution paths requires strict adherence to phase-gated workflows. The following sequence ensures zero-downtime and protects capital.
 
-## Full Procedure
+## Phase 1: Preparation & V1 Baseline (V1_ONLY)
+- **Objective**: Establish baseline latency and error rate metrics for the existing API.
+- **Action**: All reads and writes are routed strictly through the V1 API. No structural changes are made.
+- **Metrics Gathered**: V1 Round-trip time (RTT), standard deviation of latency, error codes baseline.
 
-1. **Dual-Version Protocol Adapters**:
-   - Implement `V1Adapter` and `V2Adapter` implementing a unified `IBrokerAdapter` contract.
+## Phase 2: Shadow Mode (SHADOW_MODE)
+- **Objective**: Validate read equivalence and latency for the new API version.
+- **Action**: 
+  - Writes remain 100% on V1.
+  - Reads (positions, order status, market data) are executed on V1 and *concurrently* executed on V2.
+  - The results of V2 are discarded from the application logic but are passed to the `SchemaAuditDiff` engine.
+- **Criteria to Pass**: 0% schema mismatches over 48 hours. V2 latency must be <= V1 latency + 5%.
 
-2. **Shadow Mode Schema Audit**:
-   - Issue read requests to both V1 and V2 in parallel.
-   - Run `audit_shadow_response()` to detect missing fields or schema drift prior to cutover.
+## Phase 3: Canary Cutover (CANARY_CUTOVER)
+- **Objective**: Incrementally expose write paths (orders, cancels) to the new API.
+- **Action**:
+  - Begin with a 1% to 5% canary split. `route_order_version` directs a fraction of payload traffic to V2.
+  - Monitor execution reports and fill latency.
+  - Ramp up canary percentage (10% -> 25% -> 50% -> 100%) across multiple trading sessions.
+- **Emergency Action**: If fill rates drop or order rejections spike, instantly trigger `ROLLBACK_V1`.
 
-3. **Canary Traffic Split**:
-   - Set migration phase to `CANARY_CUTOVER`.
-   - Scale V2 canary percentage incrementally ($0\% \to 25\% \to 50\% \to 100\%$).
-
-4. **Emergency Rollback Guard**:
-   - If V2 encounters elevated error rates or unexpected field breaks, instantly revert phase to `ROLLBACK_V1`.
-
-## Production Implementation Reference
-
-- Reference code: `scripts/api_migrator.py` (`BrokerAPIVersionMigrator`, `MigrationPhase`).
-- Automated unit tests: `scripts/test_api_migrator.py`.
+## Phase 4: Full Cutover (V2_ONLY)
+- **Objective**: Run exclusively on the new API.
+- **Action**: 100% of read and write traffic is routed to V2.
+- **Cleanup**: Deprecate V1 code paths after 2 weeks of stability.

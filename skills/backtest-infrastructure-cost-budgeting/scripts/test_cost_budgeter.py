@@ -45,5 +45,27 @@ class TestBacktestCostBudgeter(unittest.TestCase):
         self.assertTrue(result["is_over_budget"])
         self.assertTrue(result["total_cost"] > 100.0)
 
+    def test_estimate_costs_with_spot_and_retention(self):
+        job = BacktestJobSpec(
+            instruments=100,
+            parameter_combinations=50,
+            cpu_hours_per_unit=0.1,
+            memory_gb_required=4.0,
+            storage_gb_per_unit=0.01,
+            storage_retention_days=3.0  # 3 days = 10% of a month
+        )
+        
+        # On-Demand compute was 30.0 (20 CPU + 10 RAM). Spot (0.3x) = 9.0
+        # On-Demand storage was 5.0 (for 30 days). For 3 days (0.1x) = 0.5
+        # Total expected = 9.5
+        
+        result = self.budgeter.estimate_costs(job, use_spot_instances=True)
+        self.assertAlmostEqual(result["cpu_cost"], 6.0)
+        self.assertAlmostEqual(result["ram_cost"], 3.0)
+        self.assertAlmostEqual(result["storage_cost"], 0.5)
+        self.assertAlmostEqual(result["total_cost"], 9.5)
+        self.assertFalse(result["is_over_budget"])
+        self.assertTrue(result["use_spot_instances"])
+
 if __name__ == '__main__':
     unittest.main()

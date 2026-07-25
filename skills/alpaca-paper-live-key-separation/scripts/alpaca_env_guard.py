@@ -58,7 +58,10 @@ class AlpacaEnvironmentManager:
                     f"CRITICAL SAFETY BREACH: Paper mode configured but base_url points to LIVE endpoint ({LIVE_BASE_URL})!"
                 )
             if key_id.startswith("AK"):
-                logger.warning("Key ID starts with 'AK' (live format) while operating in PAPER mode. Verify credentials.")
+                raise EnvironmentMismatchError(
+                    "Key ID starts with 'AK' (live format) while operating in PAPER mode. "
+                    "Cannot use live credentials for a paper environment."
+                )
 
         elif env == TradingEnvironment.LIVE:
             if base_url != LIVE_BASE_URL:

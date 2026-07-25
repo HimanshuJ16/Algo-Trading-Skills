@@ -1,19 +1,19 @@
 ---
 name: broker-api-changelog-diffing-tool
 description: >-
-  Use when updating broker SDKs or API integrations to automatically diff release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals, renamed parameters, and type mutations before production deployment.
+  Use when updating broker SDKs or API integrations to automatically diff release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals, renamed parameters, mutated enums, request body changes, and response model alterations before production deployment.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "api-changelog", "schema-diffing", "openapi", "breaking-changes", "ci-cd-security"]
-brokers_frameworks: ["Schema Diffing Engine", "Python OpenAPI Parser"]
-version: "1.0"
+tags: ["broker-integration", "api-changelog", "schema-diffing", "openapi", "breaking-changes", "ci-cd-security", "quantitative-engineering"]
+brokers_frameworks: ["Schema Diffing Engine", "Python OpenAPI Parser", "Quantitative Standards"]
+version: "2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill prior to upgrading broker SDK versions or pulling new API specifications (e.g. Binance OpenAPI specs, Coinbase REST schemas, IBKR Client Portal specs). Broker API version updates frequently introduce silent breaking changes — removing required fields, altering parameter types, or changing status enum values. This skill automatically diffs API schemas release-over-release to flag breaking changes in CI/CD build pipelines.
+Invoke this skill prior to upgrading broker SDK versions or pulling new API specifications (e.g., Binance OpenAPI specs, Coinbase REST schemas, IBKR Client Portal specs). Broker API version updates frequently introduce silent breaking changes — removing required fields in nested response objects, altering parameter types, or deleting enum values. This skill rigorously diffs API schemas release-over-release to flag these changes in CI/CD build pipelines, adhering to strict institutional quant standards.
 
 ## Prerequisites
 
@@ -28,18 +28,26 @@ Invoke this skill prior to upgrading broker SDK versions or pulling new API spec
 2. **Diff Endpoint & Path Hierarchies**:
    - Identify deleted paths, added endpoints, and modified HTTP methods.
 
-3. **Diff Request & Response Schemas**:
-   - Scan for removed request/response fields, modified field data types, and new mandatory parameters.
+3. **Diff Request Parameters & Bodies**:
+   - recursively scan for removed fields, modified field data types, deleted enums, and new mandatory parameters.
+   - Specifically handles `requestBody` objects across different `content-type` specifications.
 
-4. **Classify Breaking Change Severity**:
-   - `REMOVED_ENDPOINT` (Critical)
-   - `REMOVED_FIELD` (High)
-   - `TYPE_MUTATION` (High)
-   - `NEW_REQUIRED_PARAMETER` (Medium)
-   - `ADDED_OPTIONAL_FIELD` (Non-breaking Info)
+4. **Diff Response Schemas**:
+   - Ensure the broker does not remove payload fields that trading algorithms might depend on to parse market state, executions, or balances.
+   - Check for response type mutations.
 
-5. **Generate CI/CD Compatibility Report**:
-   - Fail CI build if critical or high breaking changes are detected without adapter updates.
+5. **Classify Breaking Change Severity**:
+   - `REMOVED_ENDPOINT` / `CRITICAL_BREAKING`
+   - `REMOVED_FIELD` / `HIGH_BREAKING`
+   - `TYPE_MUTATION` / `HIGH_BREAKING`
+   - `ENUM_MUTATION` / `HIGH_BREAKING`
+   - `REMOVED_RESPONSE_FIELD` / `HIGH_BREAKING`
+   - `RESPONSE_TYPE_MUTATION` / `HIGH_BREAKING`
+   - `NEW_REQUIRED_PARAMETER` / `MEDIUM_BREAKING`
+   - `ADDED_OPTIONAL_FIELD` / `NON_BREAKING_INFO`
+
+6. **Generate CI/CD Compatibility Report**:
+   - Fail CI build if critical, high, or medium breaking changes are detected without adapter updates.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -47,13 +55,13 @@ Invoke this skill prior to upgrading broker SDK versions or pulling new API spec
 
 ## Common Pitfalls
 
-- **Silent Enum Value Modifications**: Broker adding new order states or cancellation reason strings without updating top-level schema types.
-- **Ignoring Nested Payload Objects**: Diffing top-level JSON keys while missing breaking changes inside nested arrays or objects.
+- **Silent Enum Value Modifications**: Broker removing order states or cancellation reason strings, breaking quantitative state machines.
+- **Ignoring Nested Payload Objects**: Diffing top-level JSON keys while missing breaking changes inside nested arrays or request bodies.
 - **Treating Optional Field Additions as Breaking**: Raising false alarm build failures for non-breaking backward-compatible additions.
 
 ## Verification
 
-- Input two OpenAPI schemas where an endpoint is removed and a field type is changed, verifying breaking change detection.
+- Input two OpenAPI schemas where an endpoint is removed, a response field is removed, an enum is removed, and a field type is mutated.
 - Verify non-breaking optional field additions are correctly classified as `INFO`.
 - Run `python scripts/test_changelog_differ.py` and confirm 100% pass rate.
 
@@ -62,4 +70,3 @@ Invoke this skill prior to upgrading broker SDK versions or pulling new API spec
 - `broker-api-versioning-migration-playbook`
 - `broker-api-deprecation-notice-monitoring`
 - `sandbox-vs-production-endpoint-drift`
----

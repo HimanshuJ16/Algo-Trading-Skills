@@ -1,14 +1,11 @@
-# Pre-Flight / Sign-off Checklist — broker-api-deprecation-notice-monitoring
+# Pre-Flight Checklist: Deprecation Monitoring
 
-Use this before considering the skill's implementation complete.
+Use this checklist before merging your broker adapter changes into production:
 
-- [ ] **RFC 8594 Sunset Header Inspection:** Confirm HTTP responses are scanned for `Sunset` and `Deprecation` headers.
-- [ ] **Changelog Feed Parsing:** Confirm RSS/JSON developer feeds are parsed for deprecation keywords.
-- [ ] **Sunset Date Parsing:** Confirm RFC 1123 and ISO date strings are parsed into UTC date objects.
-- [ ] **Urgency Classification:** Confirm $D \le 7$ days triggers `CRITICAL_SUNSET_IMMINENT` alerts.
-- [ ] **Automated Testing:** Run `python scripts/test_deprecation_monitor.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] **HTTP Client Middleware integration**: The `BrokerDeprecationMonitor.inspect_http_headers` method is hooked into the HTTP client's global response handler.
+- [ ] **Thread Safety**: The integration uses `BrokerDeprecationMonitor` correctly across threads/async workers without raising race conditions.
+- [ ] **Callback Configuration**: The `alert_callback` is correctly wired to the firm's alerting router (Slack/PagerDuty/Email).
+- [ ] **UTC Datetimes**: System clock relies on UTC, and the monitor accurately computes time-deltas agnostic to local server host timezone.
+- [ ] **Link Extraction Tested**: Monitor can extract `rel="sunset"` link URLs pointing to the broker's migration docs.
+- [ ] **Changelog Cron Job**: An external cron or Celery worker is scheduled to invoke `parse_changelog_entry` at least once every 24 hours per broker.
+- [ ] **Error Muting**: Malformed headers from brokers do not crash the bot's critical path; monitor fails silently and logs the parsing error instead.

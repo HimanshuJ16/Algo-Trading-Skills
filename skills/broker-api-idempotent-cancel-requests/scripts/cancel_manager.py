@@ -1,15 +1,16 @@
 """
 broker-api-idempotent-cancel-requests: Idempotent cancel request manager handling
-Cancel-vs-Fill race conditions and duplicate cancel retries.
+Cancel-vs-Fill race conditions, connection retries, and duplicate cancel storms.
 """
-from dataclasses import dataclass, field
 import logging
+import threading
 import time
+from collections import OrderedDict
+from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Callable, Dict, Optional, Tuple
 
 logger = logging.getLogger(__name__)
-
 
 class CancelStatus(Enum):
     CANCELLED = "CANCELLED"
@@ -17,7 +18,7 @@ class CancelStatus(Enum):
     ALREADY_CANCELLED = "ALREADY_CANCELLED"
     PENDING_CANCEL = "PENDING_CANCEL"
     FAILED = "FAILED"
-
+    REJECTED = "REJECTED"
 
 @dataclass
 class CancelResult:
@@ -27,24 +28,39 @@ class CancelResult:
     is_idempotent_retry: bool
     message: str
 
-
 class IdempotentCancelManager:
     """
-    Manages idempotent order cancel requests, preventing duplicate dispatches
-    and classifying Cancel-vs-Fill race condition HTTP responses.
+    Thread-safe manager for idempotent order cancel requests.
+    Prevents duplicate dispatches, manages retry logic with backoff,
+    and classifies Cancel-vs-Fill race condition HTTP responses.
     """
 
     def __init__(
         self,
-        http_cancel_fn: Optional[Callable[[str, str], Tuple[int, Dict[str, Any]]]] = None,
+        http_cancel_fn: Callable[[str, str], Tuple[int, Dict[str, Any]]],
+        max_cache_size: int = 10000,
+        max_retries: int = 3,
+        base_backoff_ms: int = 100,
     ):
         self._http_cancel_fn = http_cancel_fn
-        self.cancel_history: Dict[str, CancelResult] = {}  # client_cancel_id -> CancelResult
+        self._max_cache_size = max_cache_size
+        self._max_retries = max_retries
+        self._base_backoff_ms = base_backoff_ms
+        
+        self._lock = threading.Lock()
+        self._cancel_history: OrderedDict[str, CancelResult] = OrderedDict()
         self._seq_counter = 0
 
     def generate_client_cancel_id(self, order_id: str) -> str:
-        self._seq_counter += 1
-        return f"CANCEL_{order_id}_{self._seq_counter}"
+        with self._lock:
+            self._seq_counter += 1
+            return f"CANCEL_{order_id}_{self._seq_counter}_{int(time.time()*1000)}"
+
+    def _cache_result(self, cid: str, result: CancelResult) -> None:
+        with self._lock:
+            self._cancel_history[cid] = result
+            if len(self._cancel_history) > self._max_cache_size:
+                self._cancel_history.popitem(last=False)
 
     def cancel_order_idempotent(self, order_id: str, client_cancel_id: Optional[str] = None) -> CancelResult:
         """
@@ -52,28 +68,38 @@ class IdempotentCancelManager:
         processed previously, returns cached result instantly.
         """
         cid = client_cancel_id or self.generate_client_cancel_id(order_id)
-
-        # 1. Idempotency Cache Check
-        if cid in self.cancel_history:
-            cached = self.cancel_history[cid]
-            logger.info(f"Idempotent Cancel Cache Hit for {cid}: Returning status {cached.status.value}")
-            return CancelResult(
-                client_cancel_id=cid,
-                order_id=order_id,
-                status=cached.status,
-                is_idempotent_retry=True,
-                message=f"Idempotent retry: {cached.message}",
-            )
-
-        # 2. Dispatch Cancel Request
-        if self._http_cancel_fn:
-            status_code, response_data = self._http_cancel_fn(order_id, cid)
-        else:
-            raise RuntimeError("HTTP cancel transport function not configured.")
-
-        # 3. Classify Race Conditions & Response Codes
-        detail = str(response_data.get("detail", "")).lower()
-
+        
+        with self._lock:
+            if cid in self._cancel_history:
+                cached = self._cancel_history[cid]
+                logger.info(f"Idempotent Cancel Cache Hit for {cid}: Returning status {cached.status.value}")
+                return CancelResult(
+                    client_cancel_id=cid,
+                    order_id=order_id,
+                    status=cached.status,
+                    is_idempotent_retry=True,
+                    message=f"Idempotent retry: {cached.message}",
+                )
+        
+        status_code = 0
+        response_data = {}
+        err_msg = ""
+        
+        for attempt in range(self._max_retries + 1):
+            try:
+                status_code, response_data = self._http_cancel_fn(order_id, cid)
+                # Break if not a 5xx error (server error/gateway timeout)
+                if status_code < 500:
+                    break
+            except Exception as e:
+                err_msg = str(e)
+                status_code = 0
+            
+            if attempt < self._max_retries:
+                time.sleep((self._base_backoff_ms * (2 ** attempt)) / 1000.0)
+                
+        detail = str(response_data.get("detail", response_data.get("error", err_msg))).lower()
+        
         if status_code in (200, 202, 204):
             res_status = CancelStatus.CANCELLED
             msg = f"Order {order_id} successfully cancelled."
@@ -87,9 +113,9 @@ class IdempotentCancelManager:
             logger.info(msg)
         else:
             res_status = CancelStatus.FAILED
-            msg = f"Cancel failed (HTTP {status_code}): {response_data}"
+            msg = f"Cancel failed (HTTP {status_code}): {detail}"
             logger.error(msg)
-
+            
         result = CancelResult(
             client_cancel_id=cid,
             order_id=order_id,
@@ -97,6 +123,5 @@ class IdempotentCancelManager:
             is_idempotent_retry=False,
             message=msg,
         )
-
-        self.cancel_history[cid] = result
+        self._cache_result(cid, result)
         return result

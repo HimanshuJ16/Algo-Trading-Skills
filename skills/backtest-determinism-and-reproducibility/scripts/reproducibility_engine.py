@@ -20,6 +20,13 @@ try:
 except ImportError:
     HAS_NUMPY = False
 
+# Try importing torch gracefully
+try:
+    import torch
+    HAS_TORCH = True
+except ImportError:
+    HAS_TORCH = False
+
 
 @dataclass
 class TradeExecutionRecord:
@@ -53,10 +60,26 @@ class BacktestDeterminismEngine:
     @staticmethod
     def apply_master_seeds(seed: int = 42) -> None:
         """Injects deterministic seeds across global RNG modules."""
+        
+        # PYTHONHASHSEED must be set *before* the Python interpreter starts. 
+        # Setting it via os.environ at runtime does not change string hash randomization.
+        current_hash_seed = os.environ.get("PYTHONHASHSEED")
+        if current_hash_seed != str(seed) and current_hash_seed != "0":
+            logger.warning(
+                f"Determinism Warning: PYTHONHASHSEED is '{current_hash_seed}', not '{seed}' or '0'. "
+                f"Restart interpreter with `PYTHONHASHSEED={seed}` to ensure dict/set iteration determinism."
+            )
+
         random.seed(seed)
-        os.environ["PYTHONHASHSEED"] = str(seed)
+        
         if HAS_NUMPY:
             np.random.seed(seed)
+            
+        if HAS_TORCH:
+            torch.manual_seed(seed)
+            if torch.cuda.is_available():
+                torch.cuda.manual_seed_all(seed)
+                
         logger.info(f"Determinism Engine: Master random seed set to {seed}.")
 
     def sort_event_stream(self, raw_events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:

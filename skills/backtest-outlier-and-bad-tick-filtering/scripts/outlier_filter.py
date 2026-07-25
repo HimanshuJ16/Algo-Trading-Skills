@@ -31,10 +31,12 @@ class OutlierBadTickFilter:
         window_size: int = 21,
         z_threshold: float = 5.0,
         max_single_tick_jump_pct: float = 20.0,
+        max_consecutive_drops: int = 3,
     ):
         self.window_size = window_size
         self.z_threshold = z_threshold
         self.max_single_tick_jump_pct = max_single_tick_jump_pct
+        self.max_consecutive_drops = max_consecutive_drops
 
     @staticmethod
     def _median(arr: List[float]) -> float:
@@ -52,6 +54,8 @@ class OutlierBadTickFilter:
 
         cleaned_prices: List[float] = []
         purged_indices: List[int] = []
+        
+        consecutive_drops = 0
 
         for i in range(n):
             p = prices[i]
@@ -61,17 +65,19 @@ class OutlierBadTickFilter:
                 purged_indices.append(i)
                 continue
 
+            is_outlier = False
+            drop_reason = ""
+
             # Rule 2: Single tick jump check vs previous valid price
             if cleaned_prices:
                 prev_p = cleaned_prices[-1]
                 pct_change = abs(p - prev_p) / prev_p * 100.0
                 if pct_change > self.max_single_tick_jump_pct:
-                    purged_indices.append(i)
-                    logger.warning(f"BAD TICK PURGED (Jump {pct_change:.1f}%): idx={i}, price={p}, prev={prev_p}")
-                    continue
+                    is_outlier = True
+                    drop_reason = f"Jump {pct_change:.1f}%"
 
             # Rule 3: Rolling MAD modified Z-score check
-            if len(cleaned_prices) >= self.window_size:
+            if not is_outlier and len(cleaned_prices) >= self.window_size:
                 window = cleaned_prices[-self.window_size:]
                 med = self._median(window)
                 mad = self._median([abs(x - med) for x in window])
@@ -79,10 +85,23 @@ class OutlierBadTickFilter:
                 if mad > 0:
                     mod_z = (0.6745 * abs(p - med)) / mad
                     if mod_z > self.z_threshold:
-                        purged_indices.append(i)
-                        logger.warning(f"OUTLIER PURGED (Z={mod_z:.1f}): idx={i}, price={p}, median={med}")
-                        continue
+                        is_outlier = True
+                        drop_reason = f"Z={mod_z:.1f}"
 
+            if is_outlier:
+                consecutive_drops += 1
+                if consecutive_drops >= self.max_consecutive_drops:
+                    logger.warning(f"REGIME CHANGE DETECTED: {consecutive_drops} drops. Accepting price {p} and resetting.")
+                    # It's a genuine gap or split, accept it and reset consecutive counter
+                    consecutive_drops = 0
+                    # We accept p below
+                else:
+                    purged_indices.append(i)
+                    logger.warning(f"BAD TICK PURGED ({drop_reason}): idx={i}, price={p}")
+                    continue
+
+            # If we reach here, it's a valid tick or a regime reset
+            consecutive_drops = 0
             cleaned_prices.append(p)
 
         purged_cnt = len(purged_indices)

@@ -1,60 +1,28 @@
 ---
-name: broker-api-versioning-migration-playbook
-description: >-
-  Use when migrating a live trading system between broker API versions (e.g. V1 to V2 REST/WebSocket APIs) to execute zero-downtime version migration using shadow traffic validation, payload translation layers, and canary traffic cutovers.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags: ["broker-integration", "api-versioning", "migration-playbook", "zero-downtime", "canary-deployment", "shadow-traffic"]
-brokers_frameworks: ["Broker API Adapters", "Python Custom Migrator"]
-version: "1.0"
-author: algo-trading-skills-contributors
-license: Apache-2.0
+name: Broker API Versioning & Migration Playbook
+description: Institutional-grade playbook and automation for zero-downtime broker API version migrations.
+tags: [trading, infrastructure, api-migration, devops, quantitative-engineering]
 ---
 
-## When to Use
+# Broker API Versioning & Migration Playbook
 
-Invoke this skill whenever a brokerage updates its API protocol or deprecates an older API version (e.g. Coinbase Pro to Advanced Trade, IBKR Client Portal API v1 to v2, Zerodha Kite v3 to v4). Upgrading live trading bots risks order outages or silent payload breaks. This skill executes a structured 4-phase migration playbook: Schema Mapping, Shadow Traffic Auditing, Canary Rollout (25% -> 50% -> 100%), and Emergency Version Rollback.
+This skill provides a rigorously engineered framework for migrating institutional trading infrastructure between broker API versions. Upgrading APIs (e.g., from V1 to V2 REST/FIX endpoints) poses significant risks including downtime, broken schema mappings, unexpected latency spikes, and corrupted order state.
 
-## Prerequisites
+## Core Capabilities
 
-- API documentation for both legacy (V1) and target (V2) broker API versions.
-- Abstracted broker adapter interface separating strategy logic from API payloads.
+1. **Shadow Traffic Auditing**: Replicates read traffic (e.g., fetching positions, order status) to both the legacy and target API versions to detect schema drifts, type mismatches, and latency regressions without impacting actual trading.
+2. **Canary Traffic Cutover**: Deterministically or probabilistically routes a controlled percentage of order flow (writes) to the new API version.
+3. **Instant Rollback**: State machine driven instantaneous rollback mechanisms to revert traffic to the legacy version if error rates or latency thresholds are breached.
+4. **Latency Tracking**: Thread-safe concurrent latency monitoring to ensure the new API meets execution speed requirements.
 
-## Workflow
+## Directory Structure
 
-1. **Phase 1 — Dual-Version Adapter Construction**:
-   - Implement `V1Adapter` and `V2Adapter` implementing a unified `IBrokerAdapter` contract.
+- `scripts/api_migrator.py`: The core `BrokerAPIVersionMigrator` thread-safe state machine and engine.
+- `scripts/test_api_migrator.py`: Comprehensive test suite verifying the migrator's quantitative logic.
+- `references/workflows.md`: Detailed step-by-step institutional migration workflows.
+- `references/standards.md`: API migration standards and thresholds for quant systems.
+- `assets/checklist.md`: The operational checklist for executing a migration.
 
-2. **Phase 2 — Shadow Traffic Auditing**:
-   - Route live read/market-data requests to both V1 and V2 in parallel.
-   - Audit V1 vs V2 response schema diffs and verify data equivalence without dispatching real orders to V2.
+## Usage
 
-3. **Phase 3 — Canary Traffic Cutover**:
-   - Configure canary traffic percentage (e.g., 25% of live orders to V2, 75% to V1).
-   - Dynamically scale V2 traffic percentage as fill reliability is validated.
-
-4. **Phase 4 — Decommission & Rollback Guard**:
-   - If V2 encounters unexpected schema errors or HTTP 5xx codes, instantly set canary percentage to 0% (full fallback to V1).
-
-> Full procedure: see `references/workflows.md`.
-> Standards reference: see `references/standards.md`.
-> Printable pre-flight checklist: see `assets/checklist.md`.
-
-## Common Pitfalls
-
-- **Silent Order Type Semantic Drift**: V1 and V2 handling limit/stop price parameters under slightly different field names (e.g., `price` vs `limit_price`).
-- **Timestamp Precision Discrepancies**: V1 returning epoch seconds while V2 returns ISO-8601 strings or nanosecond timestamps.
-- **Unvalidated Shadow Orders**: Attempting shadow mode on order placement calls (causing duplicate live orders on the exchange).
-
-## Verification
-
-- Simulate shadow mode on market data calls and verify schema diff auditor.
-- Simulate canary traffic cutover from 0% -> 50% -> 100% and confirm traffic split.
-- Run `python scripts/test_api_migrator.py` and confirm 100% pass rate.
-
-## Related Skills
-
-- `blue-green-deployment-for-live-strategy-updates`
-- `broker-agnostic-adapter-interface`
-- `sandbox-vs-production-endpoint-drift`
----
+Use the migrator class to manage the lifecycle of an API upgrade within your trading engines. Start in `V1_ONLY`, proceed to `SHADOW_MODE` for reads, move to `CANARY_CUTOVER` for writes, and finalize with `V2_ONLY`. Always have `ROLLBACK_V1` bound to an emergency kill switch.

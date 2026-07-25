@@ -34,8 +34,8 @@ class ParameterSensitivityAnalyzer:
     and classifies parameter robustness vs overfitting fragility.
     """
 
-    def __init__(self, max_gradient_threshold: float = 2.0):
-        self.max_gradient_threshold = max_gradient_threshold
+    def __init__(self, max_neighborhood_degradation_pct: float = 0.15):
+        self.max_neighborhood_degradation_pct = max_neighborhood_degradation_pct
 
     def run_grid_sweep(
         self,
@@ -63,22 +63,26 @@ class ParameterSensitivityAnalyzer:
         avg_s = sum(sharpes) / len(sharpes)
         std_s = math.sqrt(sum((s - avg_s)**2 for s in sharpes) / len(sharpes)) if len(sharpes) > 1 else 0.0
 
-        # Compute max absolute gradient between adjacent grid points
-        max_grad = 0.0
-        for i in range(1, len(grid_results)):
-            p1 = grid_results[i-1].params[param_name]
-            p2 = grid_results[i].params[param_name]
-            dp = abs(p2 - p1)
-            if dp > 0:
-                grad = abs(sharpes[i] - sharpes[i-1]) / dp
-                max_grad = max(max_grad, grad)
+        # Plateau Score Algorithm: Evaluate the stability of the neighborhood around the BEST parameter.
+        # If the immediate neighbors suffer a massive drop in Sharpe, the optimal point is a fragile overfit peak.
+        neighbors = []
+        if best_idx > 0:
+            neighbors.append(sharpes[best_idx - 1])
+        if best_idx < len(sharpes) - 1:
+            neighbors.append(sharpes[best_idx + 1])
+            
+        max_degradation = 0.0
+        if neighbors and best.sharpe_ratio > 0:
+            worst_neighbor = min(neighbors)
+            max_degradation = (best.sharpe_ratio - worst_neighbor) / best.sharpe_ratio
 
-        is_robust = (max_grad <= self.max_gradient_threshold) and (std_s < avg_s * 0.5 if avg_s > 0 else True)
+        # A parameter choice is robust if it sits on a plateau (degradation < threshold)
+        is_robust = max_degradation <= self.max_neighborhood_degradation_pct
 
         if is_robust:
-            msg = f"Parameter '{param_name}' is ROBUST: max gradient {max_grad:.2f}, Sharpe std {std_s:.2f}."
+            msg = f"ROBUST PLATEAU: Parameter '{param_name}' neighborhood degradation is {max_degradation*100:.1f}%. Safe to deploy."
         else:
-            msg = f"FRAGILE PARAMETER '{param_name}': max gradient {max_grad:.2f} exceeds threshold. Likely overfit."
+            msg = f"FRAGILE PEAK: Parameter '{param_name}' suffers a {max_degradation*100:.1f}% degradation in its immediate neighborhood. High risk of overfitting."
             logger.warning(msg)
 
         return SensitivityReport(
@@ -87,7 +91,7 @@ class ParameterSensitivityAnalyzer:
             best_params=best.params,
             avg_sharpe=round(avg_s, 4),
             sharpe_std=round(std_s, 4),
-            max_gradient=round(max_grad, 4),
+            max_gradient=round(max_degradation, 4),  # Reusing this field to store degradation score
             is_robust=is_robust,
             message=msg,
         )

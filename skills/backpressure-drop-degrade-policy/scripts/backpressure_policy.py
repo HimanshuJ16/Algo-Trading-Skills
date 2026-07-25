@@ -77,7 +77,9 @@ class TickAggregator:
             if self.current_bar is not None:
                 completed_bar = dict(self.current_bar)
 
-            self.bar_start_time = timestamp
+            # Snap the bar start time to a deterministic interval boundary based on the tick timestamp,
+            # rather than using the raw timestamp directly. This ensures OHLC bars align properly.
+            self.bar_start_time = timestamp - (timestamp % self.interval_sec)
             self.current_bar = {
                 "symbol": self.symbol,
                 "open": price,

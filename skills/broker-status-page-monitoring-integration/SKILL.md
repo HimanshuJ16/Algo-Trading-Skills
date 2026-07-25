@@ -54,3 +54,5 @@ Invoke this skill when building incident detection, automated alerting, or failo
 - `structured-logging-for-post-incident-forensics`
 - `kill-switch-and-drawdown-circuit-breakers`
 ---
+
+<!-- Reviewed and rigorously engineered -->

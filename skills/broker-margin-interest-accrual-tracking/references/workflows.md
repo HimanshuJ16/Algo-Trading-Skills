@@ -1,23 +1,28 @@
-# Deep Workflow Reference — broker-margin-interest-accrual-tracking
+# Margin Interest and Borrow Fee Tracking Workflows
 
-This file holds the full technical procedure referenced by `SKILL.md`.
+## 1. Daily EOD Balances Extraction
+At 17:00 ET (or equivalent market close), capture the exact cash debit balance and the gross short market value of the portfolio. Intraday leverage does not incur overnight interest; only EOD balances matter.
 
-## Full Procedure
+## 2. Progressive Rate Calculation (Blended)
+For brokers like Interactive Brokers, margin interest is computed progressively.
+- E.g., for a $300k debit balance:
+  - The first $100k is charged at Tier 1 (e.g., 6.83%).
+  - The remaining $200k is charged at Tier 2 (e.g., 6.33%).
+- Derive the `effective_APR = (100k * 6.83% + 200k * 6.33%) / 300k = 6.496%`.
 
-1. **Margin Rate Tier Schedule Setup**:
-   - Register rate tiers (e.g. $0–$100k @ 6.50% APR; $100k–$1M @ 5.80% APR).
+## 3. Daily Accrual Formula
+Calculate the daily margin charge:
+`Daily_Margin_Cost = Debit_Balance * (effective_APR / 360)`
+Note the 360-day divisor for USD.
 
-2. **Daily Margin Debit Balance Calculation**:
-   - Compute daily debit balance $B_t = \max(0, -\text{CashBalance}_t) + \text{ShortMarketValue}_t$.
+Calculate the daily short borrow fee:
+`Daily_Borrow_Cost = Short_Market_Value * (HTB_APR / 360)`
 
-3. **Accrual Simulation & Weekend Compounding**:
-   - Calculate daily interest $I_t = B_t \times (\text{APR} / 365)$.
-   - Charge 3 days of interest on Friday night holdings (Fri, Sat, Sun).
+## 4. Weekend and Holiday Adjustments
+- **Fridays**: A position held overnight on Friday accrues 3 days of interest (covering Friday, Saturday, and Sunday) since settlement cannot occur until the next business day.
+- **Holidays**: If Monday is a market holiday, positions held from Friday accrue 4 days of interest. Incorporate a trading calendar to track non-settlement days dynamically.
 
-4. **Net P&L Adjustment**:
-   - Deduct total accrued interest from Gross P&L: $\text{NetPnL}_{\text{adjusted}} = \text{GrossPnL} - \sum I_t$.
-
-## Production Implementation Reference
-
-- Reference code: `scripts/margin_interest.py` (`MarginInterestTracker`, `MarginRateTier`, `MarginInterestSummary`).
-- Automated unit tests: `scripts/test_margin_interest.py`.
+## 5. Ledger Integration
+Append the daily total cost (`Daily_Margin_Cost + Daily_Borrow_Cost`) to the strategy's continuous ledger.
+- `Net_PnL = Gross_Trading_PnL - Cumulative_Cost`
+- Perform this at the portfolio level (for cash balance) and at the position level (for specific short borrow fees).

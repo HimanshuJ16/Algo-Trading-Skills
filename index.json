@@ -1,18 +1,20 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:22:35.005713+00:00",
+  "generated_at": "2026-07-25T15:56:29.157671+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
-      "description": "Implementation for 1099-b-and-broker-tax-reporting-reconciliation",
+      "description": "Institutional-grade reconciliation engine for matching internal trade ledgers against broker 1099-B tax reports.",
       "domain": "tax-accounting-reporting-global",
       "subdomain": "tax-reporting",
       "tags": [
         "tax",
-        "reporting"
+        "reconciliation",
+        "compliance",
+        "1099-B"
       ],
       "brokers_frameworks": [],
       "version": "1.0.0",
@@ -46,19 +48,22 @@
     },
     {
       "name": "adaptive-execution-under-volatility-spikes",
-      "description": "Execution algorithm for adaptive execution under volatility spikes",
+      "description": "Execution algorithm logic for dynamically adjusting order sizing, participation rates, and routing during severe market volatility and flash crashes.",
       "domain": "execution-algorithms",
       "subdomain": "execution-strategies",
       "tags": [
         "execution",
         "trading",
-        "algo"
+        "algo",
+        "volatility",
+        "flash-crash",
+        "risk-management"
       ],
       "brokers_frameworks": [
         "generic"
       ],
       "version": "1.0.0",
-      "author": "assistant",
+      "author": "System",
       "license": "MIT",
       "path": "skills/adaptive-execution-under-volatility-spikes",
       "skill_md": "skills/adaptive-execution-under-volatility-spikes/SKILL.md"
@@ -88,7 +93,7 @@
     },
     {
       "name": "adjusted-vs-unadjusted-price-series-pitfalls",
-      "description": "Use when preparing historical price data for backtesting to detect and handle split/dividend-adjusted vs unadjusted price series, preventing silent signal corruption from mixing adjustment types.",
+      "description": "Audits historical price and volume series for corporate action discontinuities (splits/dividends) to prevent look-ahead bias and false signals in backtesting pipelines.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -97,31 +102,35 @@
         "stock-splits",
         "dividends",
         "data-integrity",
-        "corporate-actions"
+        "look-ahead-bias"
       ],
       "brokers_frameworks": [
         "Price Adjustment Auditor",
         "Python"
       ],
-      "version": "1.0",
-      "author": "algo-trading-skills-contributors",
-      "license": "Apache-2.0",
+      "version": "1.1",
+      "author": "System",
+      "license": "MIT",
       "path": "skills/adjusted-vs-unadjusted-price-series-pitfalls",
       "skill_md": "skills/adjusted-vs-unadjusted-price-series-pitfalls/SKILL.md"
     },
     {
       "name": "adversarial-robustness-of-trading-signals",
-      "description": "Skill for adversarial robustness of trading signals",
-      "domain": "Financial ML",
-      "subdomain": "Robustness",
+      "description": "Tests financial machine learning models for adversarial vulnerability by injecting epsilon-bounded perturbations (simulating flash-crash noise or FGSM attacks) and measuring signal flip rates.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml-robustness",
       "tags": [
         "ml",
-        "trading"
+        "trading",
+        "adversarial-robustness",
+        "fgsm",
+        "signal-processing"
       ],
       "brokers_frameworks": [
-        "scikit-learn"
+        "scikit-learn",
+        "numpy"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/adversarial-robustness-of-trading-signals",
@@ -129,17 +138,20 @@
     },
     {
       "name": "adverse-selection-measurement-for-passive-orders",
-      "description": "Skill for adverse-selection-measurement-for-passive-orders",
-      "domain": "Market Microstructure",
-      "subdomain": "Latency",
+      "description": "Computes markout curves for passive limit order fills across multiple time horizons to quantify adverse selection and toxic liquidity exposure.",
+      "domain": "algorithmic-trading",
+      "subdomain": "execution-quality",
       "tags": [
+        "execution",
         "trading",
-        "latency"
+        "adverse-selection",
+        "markouts",
+        "market-microstructure"
       ],
       "brokers_frameworks": [
-        "custom"
+        "generic"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/adverse-selection-measurement-for-passive-orders",
@@ -147,18 +159,20 @@
     },
     {
       "name": "air-gapped-signing-workflow-for-cold-storage",
-      "description": "Implementation for air-gapped-signing-workflow-for-cold-storage",
-      "domain": "Crypto",
-      "subdomain": "Custody Security",
+      "description": "Simulates and enforces a strict air-gapped signing workflow (Coordinator -> QR/SD -> Offline Vault -> Sign -> Broadcast) for institutional crypto custody.",
+      "domain": "crypto-custody-security",
+      "subdomain": "Key Management",
       "tags": [
         "crypto",
         "custody",
-        "security"
+        "security",
+        "air-gap",
+        "psbt"
       ],
       "brokers_frameworks": [
-        "None"
+        "Generic"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/air-gapped-signing-workflow-for-cold-storage",
@@ -166,17 +180,20 @@
     },
     {
       "name": "algo-parameter-defaults-by-instrument-liquidity-tier",
-      "description": "Implementation for algo-parameter-defaults-by-instrument-liquidity-tier",
-      "domain": "Execution",
-      "subdomain": "Algorithms",
+      "description": "Dynamically assigns algorithmic execution parameters (participation rates, aggression, TWAP/VWAP defaults) based on the instrument's liquidity tier (ADV).",
+      "domain": "algorithmic-trading",
+      "subdomain": "execution-algorithms",
       "tags": [
         "execution",
-        "trading"
+        "smart-order-routing",
+        "market-impact",
+        "twap",
+        "vwap"
       ],
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algo-parameter-defaults-by-instrument-liquidity-tier",
@@ -184,16 +201,20 @@
     },
     {
       "name": "algo-trading-disclosure-to-exchange-membership",
-      "description": "Compliance controls and workflows for algo trading disclosure to exchange membership",
+      "description": "Evaluates outbound orders to ensure compliance with algorithmic trading disclosure regulations (e.g., MiFID II, SEBI) requiring unique Algo ID tagging and registration verification.",
       "domain": "regulatory-compliance",
-      "subdomain": "global",
+      "subdomain": "exchange-connectivity",
       "tags": [
         "compliance",
         "regulatory",
-        "trading"
+        "mifid-ii",
+        "algo-id",
+        "pre-trade-risk"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "generic-fix"
+      ],
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algo-trading-disclosure-to-exchange-membership",
@@ -201,34 +222,41 @@
     },
     {
       "name": "algo-wheel-broker-execution-quality-comparison",
-      "description": "Implementation of algo wheel broker execution quality comparison.",
+      "description": "Implements an Algorithmic Wheel that dynamically routes orders to brokers based on historical Transaction Cost Analysis (TCA), explicitly minimizing Implementation Shortfall (IS).",
       "domain": "execution-algorithms",
-      "subdomain": "general",
+      "subdomain": "smart-order-routing",
       "tags": [
         "execution",
-        "algo"
+        "algo-wheel",
+        "tca",
+        "implementation-shortfall",
+        "broker-routing"
       ],
       "brokers_frameworks": [
-        "general"
+        "generic"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "System",
       "license": "MIT",
       "path": "skills/algo-wheel-broker-execution-quality-comparison",
       "skill_md": "skills/algo-wheel-broker-execution-quality-comparison/SKILL.md"
     },
     {
       "name": "algorithmic-trading-firm-licensing-thresholds",
-      "description": "Compliance controls and workflows for algorithmic trading firm licensing thresholds",
+      "description": "Evaluates proprietary trading activity against global regulatory thresholds (SEC Rule 15b9-1, MiFID II, SEBI) to trigger mandatory firm licensing and registration alerts.",
       "domain": "regulatory-compliance",
-      "subdomain": "global",
+      "subdomain": "legal-and-registration",
       "tags": [
         "compliance",
-        "regulatory",
-        "trading"
+        "sec",
+        "finra",
+        "mifid-ii",
+        "hft"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algorithmic-trading-firm-licensing-thresholds",
@@ -257,16 +285,20 @@
     },
     {
       "name": "alternative-data-feature-integration",
-      "description": "Implementation for alternative-data-feature-integration",
+      "description": "Integrates alternative data sources (e.g., satellite, credit card logs, sentiment) into quantitative features while enforcing strict Point-in-Time (PIT) lag mapping to prevent look-ahead bias.",
       "domain": "financial-ml",
-      "subdomain": "execution",
+      "subdomain": "data-engineering",
       "tags": [
-        "machine-learning"
+        "machine-learning",
+        "alternative-data",
+        "look-ahead-bias",
+        "point-in-time",
+        "feature-engineering"
       ],
       "brokers_frameworks": [
-        "scikit-learn"
+        "generic"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/alternative-data-feature-integration",
@@ -274,34 +306,40 @@
     },
     {
       "name": "alternative-data-vendor-due-diligence-checklist",
-      "description": "Skill for alternative data vendor due diligence checklist",
-      "domain": "quant-research-alt-data",
-      "subdomain": "Alternative Data",
+      "description": "Institutional compliance engine for automating alternative data vendor due diligence. Evaluates PII, MNPI, and web scraping (CFAA) legal risks.",
+      "domain": "regulatory-compliance",
+      "subdomain": "data-sourcing",
       "tags": [
-        "alt-data",
-        "python",
-        "research"
+        "compliance",
+        "alternative-data",
+        "mnpi",
+        "pii",
+        "legal-risk"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "AI",
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.1.0",
+      "author": "System",
       "license": "MIT",
       "path": "skills/alternative-data-vendor-due-diligence-checklist",
       "skill_md": "skills/alternative-data-vendor-due-diligence-checklist/SKILL.md"
     },
     {
       "name": "american-vs-european-style-option-exercise-handling",
-      "description": "Skill for american-vs-european-style-option-exercise-handling",
+      "description": "Quantitative decision engine for determining optimal early exercise conditions for American options vs holding to expiration (European style).",
       "domain": "multi-asset-derivatives",
-      "subdomain": "subdomain",
+      "subdomain": "options-pricing",
       "tags": [
-        "trading",
-        "algos"
+        "options",
+        "derivatives",
+        "early-exercise",
+        "quantitative-finance"
       ],
       "brokers_frameworks": [
-        "all"
+        "generic"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/american-vs-european-style-option-exercise-handling",
@@ -309,16 +347,20 @@
     },
     {
       "name": "annual-compliance-attestation-workflow",
-      "description": "Compliance controls and workflows for annual compliance attestation workflow",
+      "description": "Automated compliance verification engine for SEC Rule 206(4)-7 and FINRA Rule 3130 annual attestations in quantitative hedge funds.",
       "domain": "regulatory-compliance",
-      "subdomain": "global",
+      "subdomain": "institutional-reporting",
       "tags": [
         "compliance",
+        "sec-20647",
+        "finra-3130",
         "regulatory",
-        "trading"
+        "attestation"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/annual-compliance-attestation-workflow",
@@ -349,87 +391,104 @@
     },
     {
       "name": "app-download-and-usage-data-for-consumer-companies",
-      "description": "Skill for app download and usage data for consumer companies",
+      "description": "Quantitative alternative data engine for analyzing app engagement metrics (DAU, MAU, Downloads) to generate predictive signals for consumer companies.",
       "domain": "quant-research-alt-data",
-      "subdomain": "Alternative Data",
+      "subdomain": "digital-footprint",
       "tags": [
         "alt-data",
-        "python",
-        "research"
+        "dau-mau",
+        "consumer-tech",
+        "signal-generation",
+        "churn-prediction"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "AI",
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.1.0",
+      "author": "System",
       "license": "MIT",
       "path": "skills/app-download-and-usage-data-for-consumer-companies",
       "skill_md": "skills/app-download-and-usage-data-for-consumer-companies/SKILL.md"
     },
     {
       "name": "arrival-price-benchmark-execution-algo",
-      "description": "Execution algorithm for arrival price benchmark execution algo",
+      "description": "Implementation Shortfall (IS) execution algorithm generating optimal trading trajectories based on the Almgren-Chriss framework and trader urgency.",
       "domain": "execution-algorithms",
       "subdomain": "execution-strategies",
       "tags": [
         "execution",
-        "trading",
-        "algo"
+        "implementation-shortfall",
+        "arrival-price",
+        "almgren-chriss",
+        "urgency"
       ],
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.0.0",
-      "author": "assistant",
+      "version": "1.1.0",
+      "author": "System",
       "license": "MIT",
       "path": "skills/arrival-price-benchmark-execution-algo",
       "skill_md": "skills/arrival-price-benchmark-execution-algo/SKILL.md"
     },
     {
       "name": "asic-market-integrity-rules-automated-trading",
-      "description": "Compliance controls for asic market integrity rules automated trading",
+      "description": "Compliance engine enforcing ASIC Market Integrity Rules (MIRs) for Automated Order Processing (AOP), including pre-trade filters and kill switches.",
       "domain": "regulatory-compliance-global",
       "subdomain": "regulatory",
       "tags": [
         "compliance",
-        "risk",
-        "regulatory"
+        "asic",
+        "australia",
+        "pre-trade-filter",
+        "kill-switch"
       ],
       "brokers_frameworks": [
-        "any"
+        "generic"
       ],
-      "version": "1.0.0",
-      "author": "skill-builder",
+      "version": "1.1.0",
+      "author": "System",
       "license": "MIT",
       "path": "skills/asic-market-integrity-rules-automated-trading",
       "skill_md": "skills/asic-market-integrity-rules-automated-trading/SKILL.md"
     },
     {
       "name": "auction-only-order-types-for-illiquid-names",
-      "description": "Implementation of auction only order types for illiquid names.",
+      "description": "Execution algorithm optimizing the use of Limit-on-Close (LOC) and Market-on-Close (MOC) orders to minimize market impact when trading illiquid equities.",
       "domain": "execution-algorithms",
-      "subdomain": "general",
+      "subdomain": "liquidity-seeking",
       "tags": [
         "execution",
-        "algo"
+        "illiquid",
+        "closing-auction",
+        "loc",
+        "moc"
       ],
       "brokers_frameworks": [
-        "general"
+        "generic"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "System",
       "license": "MIT",
       "path": "skills/auction-only-order-types-for-illiquid-names",
       "skill_md": "skills/auction-only-order-types-for-illiquid-names/SKILL.md"
     },
     {
       "name": "audit-logging-for-configuration-changes",
-      "description": "Skill for audit-logging-for-configuration-changes",
+      "description": "Immutable audit logging engine enforcing SEC Reg SCI and FINRA Rule 3110 compliance for algorithmic trading configuration changes.",
       "domain": "deployment-ops",
-      "subdomain": "deployment",
+      "subdomain": "regulatory",
       "tags": [
-        "audit-logging-for-configuration-changes"
+        "compliance",
+        "audit-logging",
+        "sec-reg-sci",
+        "finra-3110",
+        "risk-controls"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/audit-logging-for-configuration-changes",
@@ -437,50 +496,66 @@
     },
     {
       "name": "australia-asic-drt-obligations",
-      "description": "Compliance tool for australia asic drt obligations",
+      "description": "Compliance validation engine enforcing ASIC Derivative Transaction Rules (DRT) 2024, ensuring mandatory LEI, UTI, and UPI fields for OTC derivatives reporting.",
       "domain": "regulatory-compliance-global",
-      "subdomain": "compliance",
+      "subdomain": "regulatory",
       "tags": [
-        "regulatory",
         "compliance",
-        "trading"
+        "asic",
+        "australia",
+        "otc-derivatives",
+        "trade-reporting",
+        "lei",
+        "uti",
+        "upi"
       ],
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "System",
       "license": "MIT",
       "path": "skills/australia-asic-drt-obligations",
       "skill_md": "skills/australia-asic-drt-obligations/SKILL.md"
     },
     {
       "name": "australian-securities-exchange-asx-api",
-      "description": "Integration for australian-securities-exchange-asx-api",
+      "description": "Institutional API integration adapter for the Australian Securities Exchange (ASX), supporting FIX 5.0 SP2, OUCH, and ITCH protocols.",
       "domain": "global-market-integration",
       "subdomain": "exchanges",
       "tags": [
-        "australian-securities-exchange-asx-api"
+        "asx",
+        "australia",
+        "fix",
+        "ouch",
+        "itch",
+        "market-connectivity"
       ],
       "brokers_frameworks": [
-        "Custom"
+        "direct-market-access"
       ],
-      "version": "1.0.0",
-      "author": "assistant",
+      "version": "1.1.0",
+      "author": "System",
       "license": "MIT",
       "path": "skills/australian-securities-exchange-asx-api",
       "skill_md": "skills/australian-securities-exchange-asx-api/SKILL.md"
     },
     {
       "name": "automated-rollback-triggers-on-anomaly-detection",
-      "description": "Skill for automated-rollback-triggers-on-anomaly-detection",
+      "description": "Deployment ops engine that monitors post-deployment health metrics and triggers automated rollbacks if trading or technical anomalies are detected.",
       "domain": "deployment-ops",
       "subdomain": "deployment",
       "tags": [
-        "automated-rollback-triggers-on-anomaly-detection"
+        "deployment",
+        "ci-cd",
+        "rollback",
+        "anomaly-detection",
+        "self-healing"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/automated-rollback-triggers-on-anomaly-detection",
@@ -488,15 +563,21 @@
     },
     {
       "name": "automated-tax-lot-reporting-pipeline",
-      "description": "Implementation for automated-tax-lot-reporting-pipeline",
+      "description": "Ledger engine for automated tax lot matching and capital gains calculation supporting FIFO and HIFO strategies.",
       "domain": "tax-accounting-reporting-global",
       "subdomain": "tax-reporting",
       "tags": [
         "tax",
-        "reporting"
+        "reporting",
+        "fifo",
+        "hifo",
+        "capital-gains",
+        "portfolio-accounting"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/automated-tax-lot-reporting-pipeline",
@@ -504,16 +585,22 @@
     },
     {
       "name": "b3-brazil-exchange-api-integration",
-      "description": "Integration or workflow skill for b3-brazil-exchange-api-integration.",
-      "domain": "Execution",
-      "subdomain": "Venue Integration",
+      "description": "Connectivity engine for the B3 Exchange (Brasil Bolsa Balc\u00e3o) PUMA Trading System, supporting both Legacy (FIX/FAST) and Modern (Binary SBE) architectures.",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
       "tags": [
-        "b3-brazil-exchange-api-integration"
+        "b3",
+        "brazil",
+        "puma-trading-system",
+        "fix-fast",
+        "umdf",
+        "sbe",
+        "binary-order-entry"
       ],
       "brokers_frameworks": [
-        "generic"
+        "direct-market-access"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/b3-brazil-exchange-api-integration",
@@ -741,54 +828,68 @@
     },
     {
       "name": "backtesting-alt-data-strategies-with-realistic-availability-lag",
-      "description": "Skill for backtesting alt data strategies with realistic availability lag",
-      "domain": "quant-research-alt-data",
-      "subdomain": "Alternative Data",
+      "description": "Use when backtesting trading strategies driven by alternative data (e.g., credit card receipts, satellite imagery) to mathematically enforce Point-in-Time (PIT) publication lags and prevent catastrophic lookahead bias.",
+      "domain": "algorithmic-trading",
+      "subdomain": "data-management",
       "tags": [
-        "alt-data",
-        "python",
-        "research"
+        "alternative-data",
+        "lookahead-bias",
+        "point-in-time",
+        "backtesting",
+        "publication-lag"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "AI",
-      "license": "MIT",
+      "brokers_frameworks": [
+        "Pandas",
+        "Point-in-Time Enforcement"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/backtesting-alt-data-strategies-with-realistic-availability-lag",
       "skill_md": "skills/backtesting-alt-data-strategies-with-realistic-availability-lag/SKILL.md"
     },
     {
       "name": "backtesting-ml-models-against-transaction-costs",
-      "description": "Skill for backtesting ml models against transaction costs",
-      "domain": "Financial ML",
-      "subdomain": "Backtesting",
+      "description": "Use when backtesting Machine Learning (ML) return predictions to apply rigorous Trade Frequency Drag (TCA), turnover tracking, and confidence thresholding. Prevents deploying high-turnover ML models that lose money after slippage.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
       "tags": [
-        "ml",
-        "trading"
+        "machine-learning",
+        "tca",
+        "transaction-costs",
+        "turnover-drag",
+        "thresholding"
       ],
       "brokers_frameworks": [
-        "scikit-learn"
+        "NumPy",
+        "ML Backtesting"
       ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/backtesting-ml-models-against-transaction-costs",
       "skill_md": "skills/backtesting-ml-models-against-transaction-costs/SKILL.md"
     },
     {
       "name": "benchmark-portfolio-for-multi-strategy-performance-context",
-      "description": "Skill implementation for benchmark-portfolio-for-multi-strategy-performance-context",
-      "domain": "Portfolio Multi-Strategy",
-      "subdomain": "Skill Management",
+      "description": "Use when evaluating a multi-strategy quantitative portfolio to isolate genuine skill (Alpha) from hidden market exposure (Beta) and calculate tracking error against a custom or standard benchmark.",
+      "domain": "algorithmic-trading",
+      "subdomain": "portfolio-construction",
       "tags": [
-        "algo-trading",
-        "python"
+        "multi-strategy",
+        "benchmarking",
+        "alpha",
+        "beta",
+        "information-ratio",
+        "tracking-error"
       ],
       "brokers_frameworks": [
-        "general"
+        "NumPy",
+        "Portfolio Benchmarking"
       ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/benchmark-portfolio-for-multi-strategy-performance-context",
       "skill_md": "skills/benchmark-portfolio-for-multi-strategy-performance-context/SKILL.md"
     },
@@ -839,18 +940,20 @@
     },
     {
       "name": "best-execution-record-keeping-global",
-      "description": "Compliance controls for best execution record keeping global",
+      "description": "Rigorous compliance controls for global best execution and audit-proof record keeping in quantitative trading.",
       "domain": "regulatory-compliance-global",
       "subdomain": "regulatory",
       "tags": [
         "compliance",
         "risk",
-        "regulatory"
+        "regulatory",
+        "best-execution",
+        "audit"
       ],
       "brokers_frameworks": [
         "any"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "skill-builder",
       "license": "MIT",
       "path": "skills/best-execution-record-keeping-global",
@@ -858,14 +961,17 @@
     },
     {
       "name": "binance-futures-testnet-to-mainnet-promotion",
-      "description": "Integration for binance-futures-testnet-to-mainnet-promotion",
+      "description": "Institutional quantitative standards for promoting a trading strategy from Binance Futures Testnet to Mainnet.",
       "domain": "global-market-integration",
       "subdomain": "exchanges",
       "tags": [
-        "binance-futures-testnet-to-mainnet-promotion"
+        "binance-futures",
+        "deployment",
+        "risk-management",
+        "institutional-standards"
       ],
       "brokers_frameworks": [
-        "Custom"
+        "Binance Futures"
       ],
       "version": "1.0.0",
       "author": "assistant",
@@ -875,38 +981,24 @@
     },
     {
       "name": "binary-options-regulatory-and-risk-considerations",
-      "description": "Skill for binary options regulatory and risk considerations",
-      "domain": "Multi-Asset Derivatives",
-      "subdomain": "Exotics",
-      "tags": [
-        "Multi-Asset Derivatives"
-      ],
-      "brokers_frameworks": [
-        "Generic"
-      ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "description": "Institutional quant standards for regulatory compliance and risk management in binary options trading.",
+      "domain": "algorithmic-trading",
+      "subdomain": "",
+      "tags": [],
+      "brokers_frameworks": [],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/binary-options-regulatory-and-risk-considerations",
       "skill_md": "skills/binary-options-regulatory-and-risk-considerations/SKILL.md"
     },
     {
       "name": "binary-protocol-parsing-for-low-latency-feeds",
-      "description": "Use when connecting to high-frequency binary market data feeds (NASDAQ ITCH, CME MDP 3.0, FIX/FAST, SBE) to unpack binary structs with sub-microsecond zero-copy parsers, decoding price scaling and orderbook messages without JSON text overhead.",
+      "description": "Zero-copy binary struct unpacker for NASDAQ ITCH / CME MDP style binary market data feeds.",
       "domain": "algorithmic-trading",
-      "subdomain": "real-time-architecture",
-      "tags": [
-        "real-time-architecture",
-        "binary-parsing",
-        "itch-protocol",
-        "low-latency",
-        "cme-mdp",
-        "struct-unpack"
-      ],
-      "brokers_frameworks": [
-        "Binary Feed Parser",
-        "Python Struct Engine"
-      ],
+      "subdomain": "",
+      "tags": [],
+      "brokers_frameworks": [],
       "version": "1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
@@ -915,7 +1007,7 @@
     },
     {
       "name": "black-swan-playbook-for-halted-markets",
-      "description": "Use when operating live trading bots to handle exchange trading halts (LULD, volatility halts, circuit breakers), executing automated fallback playbooks including proxy index hedging and post-halt auction resume management.",
+      "description": "Institutional quant standard playbook for handling exchange trading halts (LULD, volatility halts, market-wide circuit breakers). Includes microstructure awareness, basis-risk filtered dynamic proxy index hedging, and fair-value auction resumption management.",
       "domain": "algorithmic-trading",
       "subdomain": "risk-management",
       "tags": [
@@ -925,36 +1017,26 @@
         "black-swan",
         "proxy-hedging",
         "luld",
-        "halt-playbook"
+        "halt-playbook",
+        "institutional"
       ],
       "brokers_frameworks": [
         "Black Swan Halted Market Engine",
         "Python"
       ],
-      "version": "1.0",
+      "version": "2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/black-swan-playbook-for-halted-markets",
       "skill_md": "skills/black-swan-playbook-for-halted-markets/SKILL.md"
     },
     {
-      "name": "blue-green-deployment-for-live-strategy-updates",
-      "description": "Use when deploying strategy code updates to a live trading system without a gap in market coverage or duplicate order risk, using a blue-green deployment pattern with traffic cutover and rollback capability.",
+      "name": "Blue-Green Deployment for Live Strategy Updates",
+      "description": "Institutional quant standards for zero-downtime, state-synchronized blue-green deployments for live trading systems.",
       "domain": "algorithmic-trading",
-      "subdomain": "deployment-ops",
-      "tags": [
-        "deployment",
-        "blue-green",
-        "zero-downtime",
-        "strategy-updates",
-        "rollback"
-      ],
-      "brokers_frameworks": [
-        "Docker",
-        "Kubernetes",
-        "Systemd",
-        "Custom Deployment"
-      ],
+      "subdomain": "",
+      "tags": [],
+      "brokers_frameworks": [],
       "version": "1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
@@ -963,24 +1045,29 @@
     },
     {
       "name": "borsa-istanbul-api-integration",
-      "description": "Integration or workflow skill for borsa-istanbul-api-integration.",
+      "description": "Advanced institutional integration skill for Borsa Istanbul (BIST) via BISTECH FIX 5.0 SP2 and OUCH/ITCH protocols.",
       "domain": "Execution",
       "subdomain": "Venue Integration",
       "tags": [
-        "borsa-istanbul-api-integration"
+        "borsa-istanbul",
+        "fix-protocol",
+        "bistech",
+        "order-routing",
+        "market-data"
       ],
       "brokers_frameworks": [
-        "generic"
+        "quickfix",
+        "bistech-api"
       ],
       "version": "1.0.0",
-      "author": "System",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/borsa-istanbul-api-integration",
       "skill_md": "skills/borsa-istanbul-api-integration/SKILL.md"
     },
     {
       "name": "broker-account-margin-call-handling",
-      "description": "Use when monitoring margin account health to calculate real-time maintenance margin ratios, enforce multi-tiered margin warning thresholds, and trigger automated de-leveraging before broker forced liquidation",
+      "description": "Use when monitoring margin account health to calculate real-time maintenance margin ratios, enforce multi-tiered margin warning thresholds, evaluate predictive order impacts, and trigger automated liquidity-aware de-leveraging before broker forced liquidation.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -988,22 +1075,24 @@
         "margin-call",
         "risk-management",
         "forced-liquidation-prevention",
-        "margin-utilization"
+        "margin-utilization",
+        "liquidity-aware"
       ],
       "brokers_frameworks": [
         "Interactive Brokers Reg T / Portfolio Margin",
         "Zerodha RMS",
-        "Alpaca Margin API"
+        "Alpaca Margin API",
+        "CME SPAN"
       ],
-      "version": "1.0",
-      "author": "algo-trading-skills-contributors",
+      "version": "2.0",
+      "author": "quantitative-systems-engineer",
       "license": "Apache-2.0",
       "path": "skills/broker-account-margin-call-handling",
       "skill_md": "skills/broker-account-margin-call-handling/SKILL.md"
     },
     {
       "name": "broker-agnostic-adapter-interface",
-      "description": "Use when designing quantitative trading systems to decouple strategy logic from broker APIs using a unified abstract adapter interface, standardized order models, and pluggable broker factories",
+      "description": "Use when designing quantitative trading systems to decouple strategy logic from broker APIs using a unified abstract adapter interface, standardized order models, and pluggable broker factories. This institutional-grade implementation utilizes precise Decimal arithmetic for all currency calculations, robust typed exceptions, and normalized cross-venue status mapping.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1011,7 +1100,8 @@
         "adapter-pattern",
         "broker-agnostic",
         "trading-architecture",
-        "order-routing"
+        "order-routing",
+        "institutional-grade"
       ],
       "brokers_frameworks": [
         "Zerodha Kite",
@@ -1019,7 +1109,7 @@
         "Interactive Brokers",
         "Upstox"
       ],
-      "version": "1.0",
+      "version": "2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
@@ -1027,7 +1117,7 @@
     },
     {
       "name": "broker-api-changelog-diffing-tool",
-      "description": "Use when updating broker SDKs or API integrations to automatically diff release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals, renamed parameters, and type mutations before production deployment.",
+      "description": "Use when updating broker SDKs or API integrations to automatically diff release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals, renamed parameters, mutated enums, request body changes, and response model alterations before production deployment.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1036,13 +1126,15 @@
         "schema-diffing",
         "openapi",
         "breaking-changes",
-        "ci-cd-security"
+        "ci-cd-security",
+        "quantitative-engineering"
       ],
       "brokers_frameworks": [
         "Schema Diffing Engine",
-        "Python OpenAPI Parser"
+        "Python OpenAPI Parser",
+        "Quantitative Standards"
       ],
-      "version": "1.0",
+      "version": "2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-changelog-diffing-tool",
@@ -1050,7 +1142,7 @@
     },
     {
       "name": "broker-api-deprecation-notice-monitoring",
-      "description": "Use when building production broker adapters to monitor HTTP deprecation headers (RFC 8594 / Sunset header) and developer changelog RSS feeds, alerting ops teams before API endpoint retirements break live trading bots.",
+      "description": "Use when building production broker adapters to monitor HTTP deprecation headers (RFC 8594 / Sunset header) and developer changelog RSS feeds, alerting ops teams before API endpoint retirements break live trading bots. Highly robust implementation suitable for quantitative trading desks.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1059,14 +1151,15 @@
         "sunset-headers",
         "rfc-8594",
         "changelog-parser",
-        "api-maintenance"
+        "api-maintenance",
+        "quantitative-engineering"
       ],
       "brokers_frameworks": [
         "Deprecation Monitor",
         "Python Requests",
         "RFC 8594"
       ],
-      "version": "1.0",
+      "version": "2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-deprecation-notice-monitoring",
@@ -1074,7 +1167,7 @@
     },
     {
       "name": "broker-api-idempotent-cancel-requests",
-      "description": "Use when managing order lifecycles to execute idempotent order cancel requests, handling Cancel-vs-Fill race conditions, network timeouts, and duplicate cancel retries without unhandled broker API exceptions.",
+      "description": "Use when managing order lifecycles to execute idempotent order cancel requests, handling Cancel-vs-Fill race conditions, network timeouts, 5xx server errors, and duplicate cancel retries without unhandled broker API exceptions.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1083,35 +1176,33 @@
         "order-cancellation",
         "race-condition",
         "cancel-vs-fill",
-        "resilience"
+        "resilience",
+        "concurrency"
       ],
       "brokers_frameworks": [
         "Idempotent Cancel Manager",
-        "Python Trading Engine"
+        "Python Trading Engine",
+        "FIX Protocol Concepts"
       ],
-      "version": "1.0",
+      "version": "2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-idempotent-cancel-requests",
       "skill_md": "skills/broker-api-idempotent-cancel-requests/SKILL.md"
     },
     {
-      "name": "broker-api-versioning-migration-playbook",
-      "description": "Use when migrating a live trading system between broker API versions (e.g. V1 to V2 REST/WebSocket APIs) to execute zero-downtime version migration using shadow traffic validation, payload translation layers, and canary traffic cutovers.",
+      "name": "Broker API Versioning & Migration Playbook",
+      "description": "Institutional-grade playbook and automation for zero-downtime broker API version migrations.",
       "domain": "algorithmic-trading",
-      "subdomain": "broker-integration",
+      "subdomain": "",
       "tags": [
-        "broker-integration",
-        "api-versioning",
-        "migration-playbook",
-        "zero-downtime",
-        "canary-deployment",
-        "shadow-traffic"
+        "trading",
+        "infrastructure",
+        "api-migration",
+        "devops",
+        "quantitative-engineering"
       ],
-      "brokers_frameworks": [
-        "Broker API Adapters",
-        "Python Custom Migrator"
-      ],
+      "brokers_frameworks": [],
       "version": "1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
@@ -1119,23 +1210,13 @@
       "skill_md": "skills/broker-api-versioning-migration-playbook/SKILL.md"
     },
     {
-      "name": "broker-failover-secondary-account-routing",
-      "description": "Use when building high-availability trading systems to route order flow automatically to a secondary broker account if the primary broker suffers connection degradation, rate limiting, or session outages mid-session.",
+      "name": "Broker Failover & Secondary Account Routing",
+      "description": "Institutional-grade circuit breaker and failover router for high-availability algorithmic trading systems.",
       "domain": "algorithmic-trading",
-      "subdomain": "broker-integration",
-      "tags": [
-        "broker-integration",
-        "failover",
-        "high-availability",
-        "secondary-broker",
-        "order-routing",
-        "resilience"
-      ],
-      "brokers_frameworks": [
-        "Multi-Broker Adapter",
-        "Python Custom Engine"
-      ],
-      "version": "1.0",
+      "subdomain": "",
+      "tags": [],
+      "brokers_frameworks": [],
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-failover-secondary-account-routing",
@@ -1143,7 +1224,7 @@
     },
     {
       "name": "broker-margin-interest-accrual-tracking",
-      "description": "Use when calculating live and backtest P&L for leveraged or short positions to track daily accrued margin interest, apply tiered APR rate schedules, and deduct interest compounding costs from strategy net returns.",
+      "description": "Institutional-grade margin interest and short borrow fee tracker. Uses progressive blended rate schedules (e.g. IBKR style), accounts for 360-day vs 365-day conventions, applies weekend T+1/T+2 compounding rules, and deducts cost of leverage and borrow from net P&L.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1152,13 +1233,15 @@
         "accrual-tracking",
         "borrowing-cost",
         "pnl-accounting",
-        "leverage-cost"
+        "leverage-cost",
+        "institutional"
       ],
       "brokers_frameworks": [
         "Margin Cost Tracker",
-        "Python PnL Accounting"
+        "Python PnL Accounting",
+        "Interactive Brokers"
       ],
-      "version": "1.0",
+      "version": "2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-margin-interest-accrual-tracking",
@@ -1166,7 +1249,7 @@
     },
     {
       "name": "broker-order-type-capability-matrix",
-      "description": "Use when building multi-broker quantitative trading systems to maintain a capability matrix of native order types (Bracket, OCO, Trailing Stop, Iceberg, PEG) supported by each broker, and synthesize software-emulated order triggers when native support is missing.",
+      "description": "Use when building multi-broker quantitative trading systems to maintain a capability matrix of native order types (Bracket, OCO, Trailing Stop, Iceberg, PEG, TWAP, VWAP) supported by each broker, and synthesize software-emulated order triggers (via local EMS) when native support is missing.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1175,13 +1258,14 @@
         "capability-matrix",
         "bracket-orders",
         "oco-orders",
-        "synthetic-orders"
+        "synthetic-orders",
+        "execution-algorithms"
       ],
       "brokers_frameworks": [
         "Multi-Broker Capability Matrix",
         "Python Order Synthesizer"
       ],
-      "version": "1.0",
+      "version": "2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-order-type-capability-matrix",
@@ -1189,7 +1273,7 @@
     },
     {
       "name": "broker-side-order-throttle-detection",
-      "description": "Use when operating high-frequency or high-volume trading bots to measure order acknowledgment round-trip latency (ACK RTT), detect silent broker-side order throttling during market volatility, and dynamically back off order dispatch before order queues overflow.",
+      "description": "Use when operating high-frequency or high-volume trading bots to measure order acknowledgment round-trip latency (ACK RTT), detect silent broker-side order throttling during market volatility using Exponentially Weighted Moving Average (EWMA) and Variance (EWMVar), and dynamically back off order dispatch using an AIMD congestion control engine.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1198,13 +1282,14 @@
         "latency-monitoring",
         "ack-rtt",
         "silent-throttling",
-        "backoff"
+        "aimd-backoff",
+        "ewma-anomaly-detection"
       ],
       "brokers_frameworks": [
         "Broker Throttle Detector",
         "Python High-Frequency Engine"
       ],
-      "version": "1.0",
+      "version": "2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-side-order-throttle-detection",
@@ -1235,246 +1320,300 @@
     },
     {
       "name": "bursa-malaysia-api-integration",
-      "description": "Integration or workflow skill for bursa-malaysia-api-integration.",
+      "description": "Institutional-grade FIX 5.0 SP1 engine for Bursa Malaysia BTS2 (Bursa Trade Securities 2) trading gateway integration.",
       "domain": "Execution",
       "subdomain": "Venue Integration",
       "tags": [
-        "bursa-malaysia-api-integration"
+        "bursa-malaysia",
+        "fix-protocol",
+        "bts2",
+        "order-routing",
+        "asian-equities"
       ],
       "brokers_frameworks": [
-        "generic"
+        "Bursa Malaysia BTS2",
+        "FIX 5.0 SP1"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/bursa-malaysia-api-integration",
       "skill_md": "skills/bursa-malaysia-api-integration/SKILL.md"
     },
     {
       "name": "bybit-derivatives-api-integration",
-      "description": "Integration or workflow skill for bybit-derivatives-api-integration.",
+      "description": "Institutional-grade Bybit V5 API integration handling HMAC-SHA256 signature generation, NTP timestamp compliance, and REST rate limit tracking.",
       "domain": "Execution",
       "subdomain": "Venue Integration",
       "tags": [
-        "bybit-derivatives-api-integration"
+        "bybit",
+        "crypto-derivatives",
+        "v5-api",
+        "hmac-sha256",
+        "rate-limiting"
       ],
       "brokers_frameworks": [
-        "generic"
+        "Bybit V5 REST"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/bybit-derivatives-api-integration",
       "skill_md": "skills/bybit-derivatives-api-integration/SKILL.md"
     },
     {
       "name": "calendar-spread-and-multi-leg-order-atomicity",
-      "description": "Automation and handling of calendar spread and multi leg order atomicity.",
-      "domain": "multi-asset-derivatives",
-      "subdomain": "derivatives-trading",
+      "description": "Use when executing multi-leg strategies (like calendar spreads) on exchanges that do not support native combo orders. Implements algorithmic atomicity and legging-risk management.",
+      "domain": "algorithmic-trading",
+      "subdomain": "execution-algorithms",
       "tags": [
-        "calendar-spread-and-multi-leg-order-atomicity",
-        "trading"
+        "execution",
+        "multi-leg",
+        "atomicity",
+        "legging-risk",
+        "calendar-spread"
       ],
       "brokers_frameworks": [
-        "generic"
+        "Generic Execution"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/calendar-spread-and-multi-leg-order-atomicity",
       "skill_md": "skills/calendar-spread-and-multi-leg-order-atomicity/SKILL.md"
     },
     {
       "name": "canada-iiroc-electronic-trading-rules",
-      "description": "Compliance controls for canada iiroc electronic trading rules",
-      "domain": "regulatory-compliance-global",
-      "subdomain": "regulatory",
+      "description": "Pre-trade regulatory risk controls compliant with CIRO (formerly IIROC) UMIR Rule 7.1 and NI 23-103 for algorithmic trading in Canadian markets.",
+      "domain": "Compliance",
+      "subdomain": "Regulatory Controls",
       "tags": [
-        "compliance",
-        "risk",
-        "regulatory"
+        "canada",
+        "iiroc",
+        "ciro",
+        "umir",
+        "pre-trade-risk",
+        "compliance"
       ],
       "brokers_frameworks": [
-        "any"
+        "Generic Execution"
       ],
       "version": "1.0.0",
-      "author": "skill-builder",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/canada-iiroc-electronic-trading-rules",
       "skill_md": "skills/canada-iiroc-electronic-trading-rules/SKILL.md"
     },
     {
       "name": "canary-releases-for-strategy-code-changes",
-      "description": "Deployment ops skill for canary-releases-for-strategy-code-changes",
-      "domain": "deployment-ops",
-      "subdomain": "operations",
+      "description": "Quantitative execution engine for safely transitioning strategies through SHADOW, CANARY, and PRODUCTION stages with strict order size scaling.",
+      "domain": "CI/CD",
+      "subdomain": "Live Deployment",
       "tags": [
-        "deployment"
+        "canary",
+        "shadow-mode",
+        "deployment",
+        "risk-management",
+        "order-scaling"
       ],
       "brokers_frameworks": [
-        "general"
+        "Generic Execution"
       ],
       "version": "1.0.0",
-      "author": "AI",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/canary-releases-for-strategy-code-changes",
       "skill_md": "skills/canary-releases-for-strategy-code-changes/SKILL.md"
     },
     {
       "name": "capacity-planning-for-symbol-universe-growth",
-      "description": "Skill for capacity-planning-for-symbol-universe-growth",
-      "domain": "deployment-ops",
-      "subdomain": "deployment",
+      "description": "Quantitative infrastructure modeling tool to forecast CPU, memory, and network bandwidth requirements as a strategy's symbol universe expands.",
+      "domain": "Infrastructure",
+      "subdomain": "Scalability",
       "tags": [
-        "capacity-planning-for-symbol-universe-growth"
+        "capacity-planning",
+        "throughput",
+        "bandwidth",
+        "memory",
+        "symbol-universe"
       ],
-      "brokers_frameworks": [],
+      "brokers_frameworks": [
+        "Generic Systems Engineering"
+      ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/capacity-planning-for-symbol-universe-growth",
       "skill_md": "skills/capacity-planning-for-symbol-universe-growth/SKILL.md"
     },
     {
       "name": "capital-efficiency-across-cross-margined-strategies",
-      "description": "Skill implementation for capital-efficiency-across-cross-margined-strategies",
-      "domain": "Portfolio Multi-Strategy",
-      "subdomain": "Skill Management",
+      "description": "Quantitative margin optimization engine to calculate capital efficiency gains using Portfolio/Cross-Margining based on asset correlation and directional delta.",
+      "domain": "Risk Management",
+      "subdomain": "Margin & Capital",
       "tags": [
-        "algo-trading",
-        "python"
+        "cross-margin",
+        "portfolio-margin",
+        "capital-efficiency",
+        "correlation",
+        "risk"
       ],
       "brokers_frameworks": [
-        "general"
+        "Generic Risk Engineering"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/capital-efficiency-across-cross-margined-strategies",
       "skill_md": "skills/capital-efficiency-across-cross-margined-strategies/SKILL.md"
     },
     {
       "name": "capital-gains-vs-business-income-classification",
-      "description": "Implementation for capital-gains-vs-business-income-classification",
-      "domain": "tax-accounting-reporting-global",
-      "subdomain": "tax-reporting",
+      "description": "Quantitative tax classification engine to automatically categorize trading activity as Capital Gains vs Business Income (Speculative / Non-Speculative) based on holding periods and asset class.",
+      "domain": "Back-Office",
+      "subdomain": "Taxation & Compliance",
       "tags": [
         "tax",
-        "reporting"
+        "capital-gains",
+        "business-income",
+        "speculative",
+        "classification"
       ],
-      "brokers_frameworks": [],
+      "brokers_frameworks": [
+        "Generic Post-Trade"
+      ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/capital-gains-vs-business-income-classification",
       "skill_md": "skills/capital-gains-vs-business-income-classification/SKILL.md"
     },
     {
       "name": "capital-preservation-mode-for-degraded-conditions",
-      "description": "Degraded condition mode with scaled risk appetite.",
-      "domain": "risk-management",
-      "subdomain": "compliance",
+      "description": "Quantitative kill-switch and capital preservation engine that monitors order rates, daily drawdowns, and API errors to automatically halt trading during degraded conditions.",
+      "domain": "Risk Management",
+      "subdomain": "Emergency Controls",
       "tags": [
-        "risk",
-        "compliance",
-        "automation"
+        "kill-switch",
+        "capital-preservation",
+        "drawdown",
+        "circuit-breaker",
+        "risk"
       ],
       "brokers_frameworks": [
-        "any"
+        "Generic Risk Engineering"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/capital-preservation-mode-for-degraded-conditions",
       "skill_md": "skills/capital-preservation-mode-for-degraded-conditions/SKILL.md"
     },
     {
       "name": "capital-reallocation-based-on-live-performance",
-      "description": "Skill for capital-reallocation-based-on-live-performance in portfolio multi strategy.",
+      "description": "Quantitative capital allocation engine that dynamically re-weights funding across multiple active strategies based on real-time performance metrics (Sharpe, Kelly).",
       "domain": "Portfolio Management",
-      "subdomain": "Multi Strategy",
+      "subdomain": "Capital Allocation",
       "tags": [
-        "portfolio",
-        "strategy",
-        "capital"
+        "capital-allocation",
+        "dynamic-weighting",
+        "kelly-criterion",
+        "sharpe-ratio",
+        "portfolio"
       ],
       "brokers_frameworks": [
-        "Backtrader",
-        "QuantConnect"
+        "Generic Portfolio Management"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/capital-reallocation-based-on-live-performance",
       "skill_md": "skills/capital-reallocation-based-on-live-performance/SKILL.md"
     },
     {
       "name": "categorical-feature-encoding-for-instrument-identity",
-      "description": "Skill for categorical feature encoding for instrument identity",
-      "domain": "Financial ML",
+      "description": "Quantitative feature engineering pipeline for safely encoding high-cardinality instrument identities (tickers) using smoothed target encoding without lookahead bias.",
+      "domain": "Machine Learning",
       "subdomain": "Feature Engineering",
       "tags": [
-        "ml",
-        "trading"
+        "categorical-encoding",
+        "target-encoding",
+        "instrument-identity",
+        "feature-engineering",
+        "machine-learning"
       ],
       "brokers_frameworks": [
-        "scikit-learn"
+        "Scikit-Learn",
+        "Pandas"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/categorical-feature-encoding-for-instrument-identity",
       "skill_md": "skills/categorical-feature-encoding-for-instrument-identity/SKILL.md"
     },
     {
       "name": "cboe-options-exchange-api-integration",
-      "description": "Integration for cboe-options-exchange-api-integration",
-      "domain": "global-market-integration",
-      "subdomain": "exchanges",
+      "description": "Quantitative integration for Cboe Options Exchange API, specializing in Complex Order Book (COB) multi-leg routing and Complex Order Auction (COA) participation.",
+      "domain": "Market Connectivity",
+      "subdomain": "Exchange API",
       "tags": [
-        "cboe-options-exchange-api-integration"
+        "cboe",
+        "options",
+        "complex-order-book",
+        "multi-leg",
+        "fix-protocol"
       ],
       "brokers_frameworks": [
-        "Custom"
+        "Generic FIX Engine"
       ],
       "version": "1.0.0",
-      "author": "assistant",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/cboe-options-exchange-api-integration",
       "skill_md": "skills/cboe-options-exchange-api-integration/SKILL.md"
     },
     {
       "name": "central-bank-communication-nlp-analysis",
-      "description": "Skill for central bank communication nlp analysis",
-      "domain": "quant-research-alt-data",
+      "description": "Quantitative NLP engine for extracting hawkish vs. dovish sentiment from central bank statements, featuring n-gram negation handling and standardized scoring.",
+      "domain": "Alpha Generation",
       "subdomain": "Alternative Data",
       "tags": [
-        "alt-data",
-        "python",
-        "research"
+        "nlp",
+        "sentiment-analysis",
+        "central-bank",
+        "fomc",
+        "hawkish",
+        "dovish"
       ],
-      "brokers_frameworks": [],
+      "brokers_frameworks": [
+        "Generic NLP"
+      ],
       "version": "1.0.0",
-      "author": "AI",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/central-bank-communication-nlp-analysis",
       "skill_md": "skills/central-bank-communication-nlp-analysis/SKILL.md"
     },
     {
       "name": "centralized-secrets-management-vault-integration",
-      "description": "Deployment ops skill for centralized-secrets-management-vault-integration",
-      "domain": "deployment-ops",
-      "subdomain": "operations",
+      "description": "Secure, centralized API key management using HashiCorp Vault. Enforces AppRole authentication, environment isolation, and secret caching for trading bots.",
+      "domain": "Infrastructure",
+      "subdomain": "Security",
       "tags": [
-        "deployment"
+        "vault",
+        "hashicorp",
+        "secrets",
+        "api-keys",
+        "approle",
+        "security"
       ],
       "brokers_frameworks": [
-        "general"
+        "HashiCorp Vault"
       ],
       "version": "1.0.0",
-      "author": "AI",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/centralized-secrets-management-vault-integration",
       "skill_md": "skills/centralized-secrets-management-vault-integration/SKILL.md"
     },

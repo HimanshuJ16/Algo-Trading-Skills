@@ -34,6 +34,17 @@ class RegulatoryAuditTrailEngine:
     def __init__(self, organization: str = "QuantDesk Institutional"):
         self.organization = organization
 
+    def compute_file_checksum(self, filepath: str, chunk_size: int = 8192) -> str:
+        """
+        Computes the SHA256 checksum of a massive dataset (e.g., Parquet/CSV)
+        by streaming it in chunks to avoid OOM errors.
+        """
+        sha256_hash = hashlib.sha256()
+        with open(filepath, "rb") as f:
+            for byte_block in iter(lambda: f.read(chunk_size), b""):
+                sha256_hash.update(byte_block)
+        return sha256_hash.hexdigest()
+
     def build_manifest(
         self,
         strategy_id: str,

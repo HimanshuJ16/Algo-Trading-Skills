@@ -1,14 +1,12 @@
 """
-broker-side-order-throttle-detection: ACK RTT latency collector, statistical anomaly
-classifier, and adaptive order dispatch backoff engine.
+broker-side-order-throttle-detection: Advanced quant standard implementation for detecting
+silent broker-side order throttling using EWMA/EWMVar anomaly detection and AIMD
+(Additive Increase, Multiplicative Decrease) adaptive order dispatch backoff.
 """
-from dataclasses import dataclass, field
 import logging
 import math
-import statistics
-import time
 from enum import Enum
-from typing import List, Optional
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 
@@ -34,8 +32,8 @@ class OrderACKSample:
 class ThrottleStatusReport:
     state: ThrottleState
     latest_rtt_ms: float
-    baseline_mean_ms: float
-    baseline_std_ms: float
+    ewma_rtt_ms: float
+    ewmsd_rtt_ms: float
     recommended_backoff_ms: float
     is_throttled: bool
     summary: str
@@ -43,73 +41,96 @@ class ThrottleStatusReport:
 
 class OrderThrottleDetector:
     """
-    Monitors order ACK round-trip times (RTT), identifies statistical latency spikes,
-    and calculates adaptive order dispatch backoff delays.
+    Monitors order ACK round-trip times (RTT) using Exponentially Weighted 
+    Moving Average (EWMA) and Variance (EWMVar) for robust statistical anomaly detection.
+    Applies AIMD-style backoff logic.
     """
 
     def __init__(
         self,
-        window_size: int = 50,
+        alpha: float = 0.1,
         z_score_threshold: float = 3.0,
         max_absolute_rtt_ms: float = 500.0,
+        min_variance_clamp: float = 1.0,
+        min_backoff_ms: float = 10.0,
+        max_backoff_ms: float = 2000.0,
     ):
-        self.window_size = window_size
+        """
+        :param alpha: Smoothing factor for EWMA (0 < alpha <= 1).
+        :param z_score_threshold: Standard deviations threshold for SILENT_THROTTLE.
+        :param max_absolute_rtt_ms: Hard threshold above which throttling is assumed.
+        :param min_variance_clamp: Prevents division by zero in highly deterministic environments.
+        """
+        self.alpha = alpha
         self.z_score_threshold = z_score_threshold
         self.max_absolute_rtt_ms = max_absolute_rtt_ms
-        self.rtt_history: List[float] = []
+        self.min_variance_clamp = min_variance_clamp
+        self.min_backoff_ms = min_backoff_ms
+        self.max_backoff_ms = max_backoff_ms
+        
+        # State variables
+        self.ewma_rtt = 0.0
+        self.ewmvar_rtt = 0.0
+        self.initialized = False
+        self.current_backoff_ms = 0.0
 
     def record_order_ack(self, order_id: str, submission_time: float, ack_time: float) -> ThrottleStatusReport:
-        """
-        Records an ACK RTT measurement and evaluates throttle status.
-        """
-        sample = OrderACKSample(order_id=order_id, submission_time=submission_time, ack_time=ack_time)
+        sample = OrderACKSample(order_id, submission_time, ack_time)
         rtt = sample.rtt_ms
 
-        # Keep sliding window
-        self.rtt_history.append(rtt)
-        if len(self.rtt_history) > self.window_size:
-            self.rtt_history.pop(0)
-
-        # Compute baseline statistics if we have enough samples
-        if len(self.rtt_history) >= 5:
-            mean_rtt = statistics.mean(self.rtt_history)
-            std_rtt = statistics.stdev(self.rtt_history) if len(self.rtt_history) > 1 else 0.0
+        if not self.initialized:
+            self.ewma_rtt = rtt
+            self.ewmvar_rtt = 0.0
+            self.initialized = True
+            z_score = 0.0
+            ewmsd = 0.0
         else:
-            mean_rtt = rtt
-            std_rtt = 0.0
+            ewmsd = math.sqrt(self.ewmvar_rtt)
+            clamped_std = max(ewmsd, self.min_variance_clamp)
+            z_score = (rtt - self.ewma_rtt) / clamped_std
 
-        # Evaluate Throttle State
+            # Update EWMA and EWMVar using Welford's method for exponential weights
+            diff = rtt - self.ewma_rtt
+            self.ewma_rtt += self.alpha * diff
+            self.ewmvar_rtt = (1 - self.alpha) * (self.ewmvar_rtt + self.alpha * diff ** 2)
+
         state = ThrottleState.NORMAL
-        backoff_ms = 0.0
         is_throttled = False
-
-        z_score = (rtt - mean_rtt) / std_rtt if std_rtt > 1e-3 else 0.0
 
         if rtt >= self.max_absolute_rtt_ms or z_score >= self.z_score_threshold:
             state = ThrottleState.SILENT_THROTTLE
             is_throttled = True
-            # Adaptive backoff proportional to latency spike
-            backoff_ms = min(2000.0, max(100.0, rtt * 1.5))
+            
+            # Multiplicative Decrease (in throughput, so Multiplicative Increase in backoff)
+            if self.current_backoff_ms == 0:
+                self.current_backoff_ms = max(self.min_backoff_ms, rtt * 0.5)
+            else:
+                self.current_backoff_ms = min(self.max_backoff_ms, self.current_backoff_ms * 2.0)
+                
             logger.warning(
                 f"SILENT BROKER THROTTLE DETECTED on order {order_id}: RTT {rtt:.1f}ms "
-                f"(Baseline: {mean_rtt:.1f}ms +/- {std_rtt:.1f}ms, Z-Score: {z_score:.2f}). "
-                f"Applying backoff delay {backoff_ms:.0f}ms."
+                f"(EWMA: {self.ewma_rtt:.1f}ms, Z-Score: {z_score:.2f}). "
+                f"Applying backoff delay {self.current_backoff_ms:.0f}ms."
             )
-        elif rtt > mean_rtt + std_rtt:
+        elif rtt > self.ewma_rtt + max(ewmsd, self.min_variance_clamp):
             state = ThrottleState.ELEVATED_LATENCY
-            backoff_ms = 25.0
+            # Minor penalty
+            self.current_backoff_ms = min(self.max_backoff_ms, max(self.min_backoff_ms, self.current_backoff_ms + 10.0))
+        else:
+            # Additive Increase (in throughput, so Additive Decrease in backoff)
+            self.current_backoff_ms = max(0.0, self.current_backoff_ms - 20.0)
 
         summary = (
             f"ACK RTT: {rtt:.1f}ms | State: {state.value} | "
-            f"Baseline: {mean_rtt:.1f}ms +/- {std_rtt:.1f}ms | Backoff: {backoff_ms:.0f}ms"
+            f"EWMA: {self.ewma_rtt:.1f}ms +/- {ewmsd:.1f}ms | Backoff: {self.current_backoff_ms:.0f}ms"
         )
 
         return ThrottleStatusReport(
             state=state,
             latest_rtt_ms=rtt,
-            baseline_mean_ms=mean_rtt,
-            baseline_std_ms=std_rtt,
-            recommended_backoff_ms=backoff_ms,
+            ewma_rtt_ms=self.ewma_rtt,
+            ewmsd_rtt_ms=ewmsd,
+            recommended_backoff_ms=self.current_backoff_ms,
             is_throttled=is_throttled,
             summary=summary,
         )

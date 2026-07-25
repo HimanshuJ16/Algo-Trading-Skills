@@ -1,35 +1,24 @@
 ---
 name: binary-options-regulatory-and-risk-considerations
-description: Skill for binary options regulatory and risk considerations
-domain: Multi-Asset Derivatives
-subdomain: Exotics
-tags:
-  - Multi-Asset Derivatives
-brokers_frameworks:
-  - Generic
-version: 1.0.0
-author: System
-license: MIT
+description: Institutional quant standards for regulatory compliance and risk management in binary options trading.
 ---
 
-# binary-options-regulatory-and-risk-considerations
+# Binary Options Regulatory & Risk Considerations
 
-## When to Use
-Use when implementing binary options regulatory and risk considerations.
+This skill provides a framework for integrating regulatory compliance and risk management directly into the order flow of a binary options trading system.
 
-## Prerequisites
-- Basic understanding of Exotics.
+## Core Concepts
 
-## Workflow
-1. Initialize the components.
-2. Apply the model.
-3. Validate results.
+1. **Regulatory Fragmentation**: Binary options are treated differently across jurisdictions.
+   - **US (CFTC)**: Permitted only on regulated exchanges (e.g., Nadex).
+   - **EU (ESMA) / UK (FCA)**: Banned for retail clients; permissible for professional clients under strict rules.
+   - **Unregulated Venues**: Strictly prohibited for institutional trading due to counterparty and legal risk.
 
-## Common Pitfalls
-- Incorrect parameter initialization.
+2. **Risk Mechanics**:
+   - **Pin Risk**: As the underlying approaches the strike near expiry, delta and gamma spike dramatically, creating severe hedging difficulties.
+   - **Notional Limits**: Hard caps on exposure per trade and per asset class to limit gap risk.
+   - **Liquidity Risk**: Binary options are generally illiquid; unwinding positions before expiry is costly.
 
-## Verification
-- Unit tests pass.
-
-## Related Skills
-- other-skills
+3. **Implementation**:
+   - Systems must employ pre-trade compliance checks.
+   - Risk engines must run pre-trade and real-time exposure limits.

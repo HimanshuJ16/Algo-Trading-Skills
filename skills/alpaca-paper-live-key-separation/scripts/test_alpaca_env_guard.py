@@ -51,6 +51,16 @@ class TestAlpacaPaperLiveKeySeparation(unittest.TestCase):
         with self.assertRaises(EnvironmentMismatchError):
             self.mgr.validate_config(flawed)
 
+    def test_paper_mode_with_live_key_rejection(self):
+        flawed = AlpacaConfig(
+            environment=TradingEnvironment.PAPER,
+            key_id="AK1234567890", # Live key!
+            secret_key="SECRET",
+            base_url=PAPER_BASE_URL,
+        )
+        with self.assertRaises(EnvironmentMismatchError):
+            self.mgr.validate_config(flawed)
+
     def test_live_mode_blocked_without_env_flag(self):
         os.environ.pop("ALLOW_LIVE_TRADING", None)
         with self.assertRaises(EnvironmentMismatchError):

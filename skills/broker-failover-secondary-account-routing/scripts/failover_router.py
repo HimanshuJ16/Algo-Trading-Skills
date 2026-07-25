@@ -1,30 +1,29 @@
-"""
-broker-failover-secondary-account-routing: Dynamic multi-account failover router that
-detects primary broker degradation and seamlessly redirects order flow to a secondary account.
-"""
-from dataclasses import dataclass, field
 import logging
 import time
+import threading
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional
+from dataclasses import dataclass, field
+from typing import Dict, Optional, List
 
 logger = logging.getLogger(__name__)
 
+class CircuitBreakerState(Enum):
+    CLOSED = "CLOSED"         # Normal operation, primary broker is healthy
+    OPEN = "OPEN"             # Primary is down, routing everything to secondary
+    HALF_OPEN = "HALF_OPEN"   # Probing primary with a single test order
 
 class BrokerHealthStatus(Enum):
     HEALTHY = "HEALTHY"
     DEGRADED = "DEGRADED"
     DOWN = "DOWN"
 
-
 @dataclass
 class OrderRequest:
     symbol: str
-    action: str  # "BUY" or "SELL"
+    action: str
     quantity: float
     order_type: str = "MARKET"
     limit_price: Optional[float] = None
-
 
 @dataclass
 class OrderResult:
@@ -37,10 +36,7 @@ class OrderResult:
     status: str
     executed_at: float
 
-
 class MockBrokerAdapter:
-    """Mock broker adapter interface for testing failover routing."""
-
     def __init__(self, name: str, account_id: str, should_fail: bool = False):
         self.name = name
         self.account_id = account_id
@@ -50,7 +46,7 @@ class MockBrokerAdapter:
     def place_order(self, order: OrderRequest) -> OrderResult:
         if self.should_fail:
             raise RuntimeError(f"Broker {self.name} connection failed / HTTP 503 Service Unavailable.")
-
+        
         res = OrderResult(
             order_id=f"{self.name.upper()}_ORD_{len(self.executed_orders) + 1}",
             broker_name=self.name,
@@ -64,83 +60,96 @@ class MockBrokerAdapter:
         self.executed_orders.append(res)
         return res
 
-
 class BrokerFailoverRouter:
     """
-    Reroutes order flow to a secondary broker account when primary broker suffers
-    connection errors or degradation.
+    Rigorously engineered failover router using a Circuit Breaker pattern.
+    Supports concurrency using threading locks, exponential backoff principles (simulated via reset timeouts),
+    and Half-Open probing for primary broker recovery.
     """
-
     def __init__(
         self,
         primary_broker: MockBrokerAdapter,
         secondary_broker: MockBrokerAdapter,
         max_consecutive_failures: int = 3,
+        recovery_timeout_seconds: float = 60.0
     ):
         self.primary_broker = primary_broker
         self.secondary_broker = secondary_broker
+        
         self.max_consecutive_failures = max_consecutive_failures
-
+        self.recovery_timeout_seconds = recovery_timeout_seconds
+        
+        self.circuit_state = CircuitBreakerState.CLOSED
         self.primary_failures = 0
-        self.primary_status = BrokerHealthStatus.HEALTHY
-        self.active_broker_name = primary_broker.name
-        self.symbol_mapping: Dict[str, Dict[str, str]] = {}  # symbol -> {primary: sys1, secondary: sys2}
+        self.last_failure_time = 0.0
+        self.lock = threading.Lock()
+        
+        self.symbol_mapping: Dict[str, Dict[str, str]] = {}
 
     def register_symbol_map(self, canonical_symbol: str, primary_symbol: str, secondary_symbol: str) -> None:
-        """Maps canonical symbol names to broker-specific symbols."""
-        self.symbol_mapping[canonical_symbol] = {
-            self.primary_broker.name: primary_symbol,
-            self.secondary_broker.name: secondary_symbol,
-        }
+        with self.lock:
+            self.symbol_mapping[canonical_symbol] = {
+                self.primary_broker.name: primary_symbol,
+                self.secondary_broker.name: secondary_symbol,
+            }
 
     def _get_broker_symbol(self, canonical_symbol: str, broker_name: str) -> str:
-        if canonical_symbol in self.symbol_mapping:
-            return self.symbol_mapping[canonical_symbol].get(broker_name, canonical_symbol)
-        return canonical_symbol
+        with self.lock:
+            if canonical_symbol in self.symbol_mapping:
+                return self.symbol_mapping[canonical_symbol].get(broker_name, canonical_symbol)
+            return canonical_symbol
 
-    def submit_order(self, order: OrderRequest) -> OrderResult:
-        """
-        Submits order to active broker. Automatically trips breaker and reroutes
-        to secondary broker if primary fails consecutively.
-        """
-        # If primary is HEALTHY, attempt primary
-        if self.primary_status == BrokerHealthStatus.HEALTHY:
-            try:
-                mapped_order = OrderRequest(
-                    symbol=self._get_broker_symbol(order.symbol, self.primary_broker.name),
-                    action=order.action,
-                    quantity=order.quantity,
-                    order_type=order.order_type,
-                    limit_price=order.limit_price,
-                )
-                result = self.primary_broker.place_order(mapped_order)
-                self.primary_failures = 0
-                return result
-            except Exception as e:
-                self.primary_failures += 1
-                logger.warning(f"Primary broker failure ({self.primary_failures}/{self.max_consecutive_failures}): {e}")
-
-                if self.primary_failures >= self.max_consecutive_failures:
-                    self.primary_status = BrokerHealthStatus.DOWN
-                    self.active_broker_name = self.secondary_broker.name
-                    logger.error(
-                        f"PRIMARY BROKER FAILED ({self.primary_broker.name}). "
-                        f"Tripping circuit breaker! Rerouting all orders to SECONDARY BROKER ({self.secondary_broker.name})."
-                    )
-
-        # Route to secondary broker
+    def _route_to_broker(self, broker: MockBrokerAdapter, order: OrderRequest) -> OrderResult:
         mapped_order = OrderRequest(
-            symbol=self._get_broker_symbol(order.symbol, self.secondary_broker.name),
+            symbol=self._get_broker_symbol(order.symbol, broker.name),
             action=order.action,
             quantity=order.quantity,
             order_type=order.order_type,
             limit_price=order.limit_price,
         )
-        return self.secondary_broker.place_order(mapped_order)
+        return broker.place_order(mapped_order)
 
-    def reset_primary() -> None:
-        """Resets primary broker status back to HEALTHY after manual/probed recovery."""
-        self.primary_failures = 0
-        self.primary_status = BrokerHealthStatus.HEALTHY
-        self.active_broker_name = self.primary_broker.name
-        logger.info(f"Primary broker {self.primary_broker.name} reset to HEALTHY.")
+    def submit_order(self, order: OrderRequest) -> OrderResult:
+        with self.lock:
+            current_state = self.circuit_state
+            
+            if current_state == CircuitBreakerState.OPEN:
+                if (time.time() - self.last_failure_time) > self.recovery_timeout_seconds:
+                    logger.info("Recovery timeout reached. Transitioning to HALF_OPEN to probe primary broker.")
+                    self.circuit_state = CircuitBreakerState.HALF_OPEN
+                    current_state = CircuitBreakerState.HALF_OPEN
+            
+        if current_state == CircuitBreakerState.CLOSED or current_state == CircuitBreakerState.HALF_OPEN:
+            try:
+                result = self._route_to_broker(self.primary_broker, order)
+                
+                with self.lock:
+                    if self.circuit_state == CircuitBreakerState.HALF_OPEN:
+                        logger.info("Primary broker probe successful. Transitioning to CLOSED.")
+                    self.circuit_state = CircuitBreakerState.CLOSED
+                    self.primary_failures = 0
+                return result
+            
+            except Exception as e:
+                with self.lock:
+                    self.last_failure_time = time.time()
+                    self.primary_failures += 1
+                    
+                    if self.circuit_state == CircuitBreakerState.HALF_OPEN:
+                        logger.warning("Primary broker probe failed. Transitioning back to OPEN.")
+                        self.circuit_state = CircuitBreakerState.OPEN
+                    elif self.primary_failures >= self.max_consecutive_failures:
+                        logger.error(f"Primary broker failures ({self.primary_failures}) exceeded threshold. Circuit OPEN.")
+                        self.circuit_state = CircuitBreakerState.OPEN
+                    else:
+                        logger.warning(f"Primary broker failure ({self.primary_failures}/{self.max_consecutive_failures}): {e}")
+        
+        # Route to secondary
+        return self._route_to_broker(self.secondary_broker, order)
+
+    def manual_reset(self) -> None:
+        """Forcibly resets the circuit breaker to CLOSED state."""
+        with self.lock:
+            self.circuit_state = CircuitBreakerState.CLOSED
+            self.primary_failures = 0
+            logger.info("Circuit breaker manually reset to CLOSED.")

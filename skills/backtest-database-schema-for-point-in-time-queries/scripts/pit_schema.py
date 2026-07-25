@@ -47,7 +47,8 @@ class PointInTimeStore:
         if not candidates:
             return PITQueryResult(symbol, field, as_of_date, None, None, False)
 
-        best = max(candidates, key=lambda r: r.known_at)
+        # Tie-break simultaneous publications (same known_at) by choosing the latest valid_from
+        best = max(candidates, key=lambda r: (r.known_at, r.valid_from))
         return PITQueryResult(symbol, field, as_of_date, best.value, best.known_at, False)
 
     def audit_leakage(self, symbol: str, field: str, backtest_date: str) -> PITQueryResult:

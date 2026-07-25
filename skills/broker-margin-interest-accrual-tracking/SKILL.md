@@ -1,41 +1,34 @@
 ---
 name: broker-margin-interest-accrual-tracking
 description: >-
-  Use when calculating live and backtest P&L for leveraged or short positions to track daily accrued margin interest, apply tiered APR rate schedules, and deduct interest compounding costs from strategy net returns.
+  Institutional-grade margin interest and short borrow fee tracker. Uses progressive blended rate schedules (e.g. IBKR style), accounts for 360-day vs 365-day conventions, applies weekend T+1/T+2 compounding rules, and deducts cost of leverage and borrow from net P&L.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "margin-interest", "accrual-tracking", "borrowing-cost", "pnl-accounting", "leverage-cost"]
-brokers_frameworks: ["Margin Cost Tracker", "Python PnL Accounting"]
-version: "1.0"
+tags: ["broker-integration", "margin-interest", "accrual-tracking", "borrowing-cost", "pnl-accounting", "leverage-cost", "institutional"]
+brokers_frameworks: ["Margin Cost Tracker", "Python PnL Accounting", "Interactive Brokers"]
+version: "2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when executing leveraged long strategies or short equity/futures positions held overnight across margin-enabled brokerage accounts (e.g., IBKR, Schwab, E*TRADE). Standard naive P&L tracking ignores daily margin interest, overestimating net strategy profitability — particularly during high interest rate environments (e.g. 5% to 8% APR). This skill calculates exact daily interest accruals using tiered broker rate schedules and deducts interest expenses from net strategy P&L.
+Invoke this skill when performing highly accurate institutional P&L accounting for algorithmic strategies that use leverage, hold overnight positions, or engage in short selling. Standard retail backtests ignore financing costs, leading to massive overestimations of Sharpe and net return—especially in elevated interest rate environments (5-8% APR). This skill calculates exact daily interest and short borrow accruals using institutional progressive tiered schedules and accurate day count conventions.
 
 ## Prerequisites
 
-- Broker margin interest APR schedule (tiered by debit balance size).
-- Daily cash debit balance and short position market values.
-- Day-count convention (360 days for US equities/FX, 365 days for international).
+- Broker margin interest schedule (blended progressive tiers).
+- Short stock hard-to-borrow (HTB) rates.
+- Day-count conventions (typically 360 days for US broker margin and borrow fees, 365 days for some international).
+- Accurate daily EOD cash and short market values.
 
 ## Workflow
 
-1. **Configure Broker Margin Tier APR Schedule**:
-   - Register rate tiers (e.g. $0–$100k @ 6.50% APR; $100k–$1M @ 5.80% APR).
-
-2. **Calculate Daily Margin Debit Balance**:
-   - Compute daily debit balance $B_t = \max(0, -\text{CashBalance}_t) + \text{ShortMarketValue}_t$.
-
-3. **Compute Daily Accrued Interest**:
-   - Apply daily rate for day $t$:
-     $$I_t = B_t \times \frac{\text{APR}(B_t)}{365}$$
-
-4. **Deduct Interest from Net Strategy P&L**:
-   - Accrue cumulative interest charges into position ledger:
-     $$\text{NetPnL}_{\text{adjusted}} = \text{GrossPnL} - \sum I_t$$
+1. **Configure Rate Schedules**: Set up the progressive tiers representing your broker's lending rates (e.g., 6.83% for first $100k, 6.33% for next $900k, etc.).
+2. **Track Daily Debit Balance & Short Market Value**: Determine end-of-day balances subject to financing.
+3. **Apply Blended Rate Calculation**: Calculate the effective APR for the total balance by filling each tier progressively.
+4. **Compute Daily Cost with Weekend Logic**: Apply daily rates (using `rate / 360`). For positions held over Friday night, apply 3 days of interest (covering Saturday and Sunday).
+5. **Adjust P&L**: Subtract total financing costs (margin interest + borrow fees) from Gross P&L to derive exact Adjusted Net P&L.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -43,19 +36,12 @@ Invoke this skill when executing leveraged long strategies or short equity/futur
 
 ## Common Pitfalls
 
-- **Ignoring Weekend Interest Charges**: Margin interest accrues 7 days a week, meaning Friday night positions incur 3 days of interest (Friday, Saturday, Sunday).
-- **Using Flat APR Across Tiers**: Applying a single average APR instead of tier-discounted rates on large margin balances.
-- **Conflating Borrow Fees with Margin Interest**: Short selling incurs both hard-to-borrow fees AND margin debit interest.
+- **Ignoring Blended Rates**: Assuming the lowest tier's rate applies to the entire balance, whereas brokers charge progressively.
+- **Wrong Day-Count**: Using 365 days instead of the industry standard 360 days for US dollar financing, understating costs by ~1.4%.
+- **Missing Weekend Compounding**: Forgetting that overnight margin held Friday incurs 3 days of interest.
+- **Conflating Borrow Fees with Margin**: Shorting a stock incurs a borrow fee (based on the short market value) AND if it causes a cash debit, incurs margin interest as well.
 
 ## Verification
 
-- Simulate 30-day overnight margin borrow of $200,000 at 6.5% APR and verify exact daily accrual and total cost deduction.
-- Verify weekend (3-day) interest compounding logic.
-- Run `python scripts/test_margin_interest.py` and confirm 100% pass rate.
-
-## Related Skills
-
-- `locate-and-borrow-cost-integration-for-shorts`
-- `broker-account-margin-call-handling`
-- `multi-currency-pnl-and-fx-conversion`
----
+- Simulate a $150k margin balance across the weekend and verify the blended APR and 3-day accrual logic.
+- Run `python scripts/test_margin_interest.py` and confirm all tests pass 100%.

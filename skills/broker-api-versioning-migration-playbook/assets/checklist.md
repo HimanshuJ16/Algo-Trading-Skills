@@ -1,15 +1,28 @@
-# Pre-Flight / Sign-off Checklist — broker-api-versioning-migration-playbook
+# API Migration Operations Checklist
 
-Use this before considering the skill's implementation complete.
+Use this checklist during live deployment of an API version migration.
 
-- [ ] **Dual-Version Adapters:** Confirm V1 and V2 adapters implement a common interface contract.
-- [ ] **Payload Translation:** Confirm V1 order parameters map cleanly to V2 API JSON structures.
-- [ ] **Shadow Traffic Audit:** Confirm V1 vs V2 schema diff auditor flags missing/drifted fields.
-- [ ] **Canary Traffic Split:** Confirm canary traffic percentage routes live orders accurately.
-- [ ] **Emergency Rollback:** Confirm `ROLLBACK_V1` instantly reverts 100% traffic to V1.
-- [ ] **Automated Testing:** Run `python scripts/test_api_migrator.py` — 100% pass rate.
+## Pre-Migration
+- [ ] Ensure V1 baseline metrics (latency, error rates) are captured and saved.
+- [ ] Verify test suite for `BrokerAPIVersionMigrator` passes 100%.
+- [ ] Confirm emergency kill switch is mapped to `MigrationPhase.ROLLBACK_V1`.
+- [ ] Notify execution traders of impending shadow mode activation.
 
-## Sign-off
+## Shadow Mode Deployment
+- [ ] Transition phase to `SHADOW_MODE`.
+- [ ] Let run for minimum 2 full trading sessions (e.g., 48 hours).
+- [ ] Review `audit_log` output. 
+- [ ] Confirm `is_equivalent == True` for all critical endpoints.
+- [ ] Verify V2 latency tracker stats meet tolerance standards.
 
-- Reviewed by: ___________________________
-- Date: ___________________________
+## Canary Cutover
+- [ ] Transition phase to `CANARY_CUTOVER` with `canary_percentage = 0.01` (1%).
+- [ ] Monitor order fill rates and reject rates for 1 hour.
+- [ ] Increase to 5%, monitor through one market close.
+- [ ] Increase to 25%, monitor through one market open.
+- [ ] Increase to 50%, then 100%.
+
+## Finalization
+- [ ] Transition phase to `V2_ONLY`.
+- [ ] Confirm 0 traffic on V1 read and write paths.
+- [ ] Create Jira ticket to remove V1 boilerplate in next sprint.

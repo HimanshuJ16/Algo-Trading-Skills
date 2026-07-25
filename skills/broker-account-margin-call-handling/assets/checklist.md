@@ -2,11 +2,12 @@
 
 Use this before considering the skill's implementation complete.
 
-- [ ] **Ratio Evaluation:** Confirm `evaluate_margin_health()` calculates margin ratio accurately.
+- [ ] **Ratio Evaluation:** Confirm `evaluate_margin_health()` calculates both initial and maintenance margin ratios accurately.
 - [ ] **Multi-Tier Gates:** Confirm state transitions to `WARNING` (85%), `CRITICAL` (95%), and `BREACH` (100%).
-- [ ] **Order Veto Gate:** Confirm `guard_new_order()` blocks leverage-increasing orders under margin stress.
-- [ ] **De-leveraging Plan:** Confirm `plan_deleveraging()` calculates position reductions to restore margin safety buffer.
-- [ ] **Automated Testing:** Run `python scripts/test_margin_call_engine.py` and confirm 100% test pass rate.
+- [ ] **Predictive Order Veto Gate:** Confirm `guard_new_order()` calculates projected margin impact and blocks leverage-increasing orders under margin stress.
+- [ ] **Tail-Risk Prioritization:** Confirm `plan_deleveraging()` sorts unhedged short options first for liquidation.
+- [ ] **Liquidity Capping:** Confirm `plan_deleveraging()` applies an ADV (Average Daily Volume) maximum participation rate to prevent crashing illiquid assets.
+- [ ] **Automated Testing:** Run `python -m unittest test_margin_call_engine.py` and confirm 100% test pass rate.
 
 ## Sign-off
 

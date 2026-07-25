@@ -16,23 +16,29 @@ class StandardizedTearsheetGenerator:
         # Annualized Return
         ann_return = (1 + total_return) ** (self.ppy / len(returns)) - 1
         
+        # Arithmetic Annualized Return (for Sharpe/Sortino numerators)
+        arithmetic_ann_return = np.mean(returns) * self.ppy
+        
         # Volatility
         vol = np.std(returns, ddof=1) * np.sqrt(self.ppy) if len(returns) > 1 else 0.0
         
-        # Sharpe Ratio
-        sharpe = (ann_return - self.rf) / vol if vol != 0 else 0.0
+        # Sharpe Ratio (Arithmetic)
+        sharpe = (arithmetic_ann_return - self.rf) / vol if vol != 0 else 0.0
         
         # Max Drawdown
         running_max = np.maximum.accumulate(cum_returns)
         drawdowns = (cum_returns - running_max) / running_max
         max_dd = np.min(drawdowns)
         
-        # Sortino Ratio
-        downside_returns = returns[returns < 0]
-        downside_vol = np.std(downside_returns, ddof=1) * np.sqrt(self.ppy) if len(downside_returns) > 1 else 0.0
-        sortino = (ann_return - self.rf) / downside_vol if downside_vol != 0 else 0.0
+        # Sortino Ratio (True Downside Deviation from Minimum Acceptable Return)
+        daily_mar = self.rf / self.ppy
+        downside_diff = np.clip(returns - daily_mar, a_min=None, a_max=0)
+        downside_variance = np.mean(np.square(downside_diff))
+        downside_vol = np.sqrt(downside_variance) * np.sqrt(self.ppy)
         
-        # Calmar Ratio
+        sortino = (arithmetic_ann_return - self.rf) / downside_vol if downside_vol != 0 else 0.0
+        
+        # Calmar Ratio (Uses CAGR, not arithmetic mean)
         calmar = (ann_return - self.rf) / abs(max_dd) if max_dd != 0 else 0.0
         
         # Win Rate

@@ -57,6 +57,8 @@ class BacktestLiveDivergenceTracker:
         sharpe_critical_pct: float = 50.0,
         drawdown_warning_multiplier: float = 1.5,
         drawdown_critical_multiplier: float = 2.0,
+        win_rate_warning_decay_pct: float = 10.0,
+        win_rate_critical_decay_pct: float = 25.0,
         fill_rate_warning_gap_pct: float = 5.0,
         fill_rate_critical_gap_pct: float = 15.0,
         slippage_warning_multiplier: float = 2.0,
@@ -66,6 +68,8 @@ class BacktestLiveDivergenceTracker:
         self.sharpe_crit = sharpe_critical_pct
         self.dd_warn_mult = drawdown_warning_multiplier
         self.dd_crit_mult = drawdown_critical_multiplier
+        self.wr_warn = win_rate_warning_decay_pct
+        self.wr_crit = win_rate_critical_decay_pct
         self.fill_warn = fill_rate_warning_gap_pct
         self.fill_crit = fill_rate_critical_gap_pct
         self.slip_warn_mult = slippage_warning_multiplier
@@ -119,6 +123,22 @@ class BacktestLiveDivergenceTracker:
             divergence_pct=round(dd_div_pct, 2),
             threshold_warning=self.dd_warn_mult,
             threshold_critical=self.dd_crit_mult,
+            severity=severity,
+        ))
+
+        # 2.5 Win Rate Decay (Concept Drift)
+        if backtest.win_rate_pct > 0:
+            wr_decay_pct = max(0.0, ((backtest.win_rate_pct - live.win_rate_pct) / backtest.win_rate_pct) * 100.0)
+        else:
+            wr_decay_pct = 0.0
+        severity = self._classify(wr_decay_pct, self.wr_warn, self.wr_crit)
+        metrics.append(DivergenceMetric(
+            name="Win Rate Decay",
+            backtest_value=backtest.win_rate_pct,
+            live_value=live.win_rate_pct,
+            divergence_pct=round(wr_decay_pct, 2),
+            threshold_warning=self.wr_warn,
+            threshold_critical=self.wr_crit,
             severity=severity,
         ))
 

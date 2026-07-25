@@ -1,11 +1,11 @@
-# Deep Workflow Reference — adjusted-vs-unadjusted-price-series-pitfalls
+# Workflows for adjusted-vs-unadjusted-price-series-pitfalls
 
-## Full Procedure
-1. **Detect Discontinuities**: Scan for overnight price jumps $\ge 30\%$.
-2. **Classify Adjustment Type**: Map discontinuities to known corporate actions.
-3. **Apply Backward Adjustment**: Divide pre-split prices by split ratio.
-4. **Validate Universe Consistency**: Assert all symbols use same adjustment type.
+## Institutional Data Ingestion Pipeline
 
-## Production Implementation Reference
-- Reference code: `scripts/price_adjustment_auditor.py`
-- Automated unit tests: `scripts/test_price_adjustment_auditor.py`
+1. **Load Raw Unadjusted Series**: Fetch exact historical tape data (OHLCV) from the data vendor.
+2. **Discontinuity Scan**: Pass data through `PriceAdjustmentAuditor` to find $\ge 30\%$ overnight jumps.
+3. **Volume Consistency Audit**: For any detected split, verify that trading volume scaled inversely to the price drop (maintaining historical liquidity depth/notional value).
+4. **Apply Adjustments**:
+   - For **Splits**: Apply the backward adjustment to both price and volume across the entire historical series prior to the split date.
+   - For **Dividends**: Do *not* alter historical prices. Record the dividend as a discrete cash-inflow event to the portfolio to prevent Look-Ahead Bias.
+5. **Universe Validation**: Run `validate_universe_consistency` to ensure no mixed data formats exist in the final backtest universe.

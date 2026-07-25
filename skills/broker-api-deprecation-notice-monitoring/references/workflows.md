@@ -1,25 +1,22 @@
-# Deep Workflow Reference — broker-api-deprecation-notice-monitoring
+# Workflow: Broker API Deprecation Monitoring
 
-This file holds the full technical procedure referenced by `SKILL.md`.
+## 1. Real-time REST Header Extraction
+Intercept API responses dynamically within the HTTP client session (e.g., using `requests` Session hooks or middleware in `aiohttp`).
+- Check headers: `Sunset`, `Deprecation`, `Link` (with `rel="sunset"`), and `X-API-Deprecation-Warning`.
+- Extract dates ensuring strict conversion to UTC using `email.utils.parsedate_tz` or ISO8601 parsing.
+- Compute delta days against `datetime.now(timezone.utc)`.
 
-## Full Procedure
+## 2. Asynchronous Feed Polling
+Run a background thread or asynchronous task polling the broker's changelog RSS/Atom feed or JSON API every 24 hours.
+- Regex scan descriptions for: `\bdeprecated\b`, `\bsunset\b`, `\bbreaking change\b`.
+- Use heuristics to extract ISO dates indicating sunset timelines.
 
-1. **HTTP Response Header Scanning (RFC 8594)**:
-   - On every REST API response, inspect headers for `Sunset`, `Deprecation`, and `X-API-Deprecation-Warning`.
-   - Parse date string into UTC date.
+## 3. In-Memory Deduplication
+Maintain a thread-safe registry (using `threading.RLock`) of active deprecation notices keyed by `broker_name:endpoint`.
+- Only trigger an alert callback if a new notice is discovered, or if the `urgency` tier of an existing notice escalates (e.g., transitions from 30-day warning to 7-day critical).
 
-2. **Developer Changelog RSS Ingestion**:
-   - Periodically poll broker changelog feeds.
-   - Scan titles and bodies for keywords (`deprecated`, `sunset`, `breaking change`, `end of life`).
-
-3. **Sunset Countdown & Urgency Classification**:
-   - Compute $D = \text{SunsetDate} - \text{CurrentDate}$.
-   - Classify urgency: `CRITICAL_SUNSET_IMMINENT` ($D \le 7$), `WARNING_30_DAYS` ($7 < D \le 30$), `NOTICE` ($D > 30$).
-
-4. **Alert Escalation**:
-   - Trigger ops alerts for critical deprecation notices before API shutdown.
-
-## Production Implementation Reference
-
-- Reference code: `scripts/deprecation_monitor.py` (`BrokerDeprecationMonitor`, `DeprecationNotice`, `DeprecationUrgency`).
-- Automated unit tests: `scripts/test_deprecation_monitor.py`.
+## 4. Alert Routing
+Execute injected callbacks to route notices:
+- `NOTICE`: Route to standard logs for next sprint planning.
+- `WARNING_30_DAYS`: Route to Slack/Teams for engineering visibility.
+- `CRITICAL_SUNSET_IMMINENT`: Route to PagerDuty/Opsgenie to prevent imminent bot crashes in production.

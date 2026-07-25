@@ -42,6 +42,17 @@ class TestBacktestLiveDivergenceTracker(unittest.TestCase):
         self.assertEqual(report.overall_severity, DivergenceSeverity.WARNING)
         self.assertFalse(report.is_suspension_recommended)
 
+    def test_critical_win_rate_decay(self):
+        # Even if Sharpe is barely acceptable, a crash in Win Rate from 80% to 50% (>25% decay) triggers CRITICAL Concept Drift
+        bt = PerformanceSnapshot(sharpe_ratio=2.0, max_drawdown_pct=10.0, win_rate_pct=80.0, fill_rate_pct=98.0, avg_slippage_bps=3.0)
+        live = PerformanceSnapshot(sharpe_ratio=1.6, max_drawdown_pct=11.0, win_rate_pct=50.0, fill_rate_pct=98.0, avg_slippage_bps=3.0)
+
+        report = self.tracker.evaluate_divergence("concept_drift_strat", bt, live)
+
+        self.assertEqual(report.overall_severity, DivergenceSeverity.CRITICAL)
+        self.assertTrue(report.is_suspension_recommended)
+        self.assertTrue(any(m.name == "Win Rate Decay" and m.severity == DivergenceSeverity.CRITICAL for m in report.metrics))
+
 
 if __name__ == "__main__":
     unittest.main()

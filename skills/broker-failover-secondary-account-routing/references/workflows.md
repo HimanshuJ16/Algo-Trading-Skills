@@ -1,24 +1,36 @@
-# Deep Workflow Reference — broker-failover-secondary-account-routing
+# Failover Workflow Sequence
 
-This file holds the full technical procedure referenced by `SKILL.md`.
+```mermaid
+sequenceDiagram
+    participant Strategy
+    participant Router as FailoverRouter
+    participant Primary
+    participant Secondary
 
-## Full Procedure
+    Note over Router, Primary: State: CLOSED (Normal)
+    Strategy->>Router: submit_order(AAPL)
+    Router->>Primary: place_order(AAPL STK SMART)
+    Primary-->>Router: Error (HTTP 503)
+    Router->>Secondary: place_order(AAPL)
+    Secondary-->>Router: FILLED
+    Router-->>Strategy: OrderResult (Secondary)
 
-1. **Adapter Registration & Symbol Mapping**:
-   - Initialize primary and secondary broker adapters.
-   - Register symbol translations between brokers (e.g. IBKR `AAPL STK SMART` vs Alpaca `AAPL`).
+    Note over Router, Primary: Failures > Max. State: OPEN
+    Strategy->>Router: submit_order(MSFT)
+    Router->>Secondary: place_order(MSFT)
+    Secondary-->>Router: FILLED
+    Router-->>Strategy: OrderResult (Secondary)
 
-2. **Intercept Order Submissions & Track Failures**:
-   - Wrap `place_order()` with error handling. Increments `primary_failures` on 5xx or connection exception.
+    Note over Router, Primary: Timeout Exceeded. State: HALF_OPEN
+    Strategy->>Router: submit_order(GOOG)
+    Router->>Primary: place_order(GOOG STK SMART)
+    Primary-->>Router: FILLED
+    Router-->>Strategy: OrderResult (Primary)
+    Note over Router, Primary: Probe Success. State: CLOSED
+```
 
-3. **Trip Breaker & Reroute**:
-   - When `primary_failures >= max_consecutive_failures` (default 3), set primary status to `DOWN`.
-   - Automatically redirect all subsequent orders to secondary adapter.
-
-4. **Unified Exposure Ledger**:
-   - Aggregate holdings across both account IDs for portfolio risk limits.
-
-## Production Implementation Reference
-
-- Reference code: `scripts/failover_router.py` (`BrokerFailoverRouter`, `MockBrokerAdapter`).
-- Automated unit tests: `scripts/test_failover_router.py`.
+## Explanation
+1. **Normal Flow**: Orders go to the Primary Broker.
+2. **Tripping the Breaker**: If consecutive errors occur, the internal state shifts to OPEN.
+3. **Failover Execution**: While OPEN, all subsequent orders bypass the Primary and are mapped/sent to the Secondary.
+4. **Recovery**: After a timeout, the state becomes HALF_OPEN. The next order acts as a probe. If successful, state goes back to CLOSED.
