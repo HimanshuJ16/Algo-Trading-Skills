@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:48.347458+00:00",
+  "generated_at": "2026-07-25T08:20:49.096186+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 374,
+  "total_skills": 376,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1630,6 +1630,24 @@
       "license": "Apache-2.0",
       "path": "skills/corporate-action-adjusted-backtesting",
       "skill_md": "skills/corporate-action-adjusted-backtesting/SKILL.md"
+    },
+    {
+      "name": "corporate-action-event-calendar-integration",
+      "description": "Implementation of corporate-action-event-calendar-integration",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/corporate-action-event-calendar-integration",
+      "skill_md": "skills/corporate-action-event-calendar-integration/SKILL.md"
     },
     {
       "name": "correlation-aware-exposure-limits",
@@ -7030,6 +7048,24 @@
       "license": "Apache-2.0",
       "path": "skills/vectorized-vs-event-driven-backtest-tradeoffs",
       "skill_md": "skills/vectorized-vs-event-driven-backtest-tradeoffs/SKILL.md"
+    },
+    {
+      "name": "vendor-outage-fallback-data-source-hierarchy",
+      "description": "Implementation of vendor-outage-fallback-data-source-hierarchy",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/vendor-outage-fallback-data-source-hierarchy",
+      "skill_md": "skills/vendor-outage-fallback-data-source-hierarchy/SKILL.md"
     },
     {
       "name": "vendor-specific-adjustment-methodology-reconciliation",

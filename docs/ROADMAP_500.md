@@ -400,7 +400,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `reference-data-golden-source-designation` — Designating a single 'golden source' for each reference-data field (sector classification, share count) when multiple vendors disagree.
 - **[planned]** `data-quality-monitoring-dashboard` — Building a dashboard that surfaces data-quality anomalies (gaps, stale prints, outliers) across all ingested feeds for proactive detection.
 - **[planned]** `options-chain-data-normalization-across-vendors` — Normalizing options-chain data (strike conventions, expiry-date formats) across vendors with differing schemas.
-- **[planned]** `corporate-action-event-calendar-integration` — Integrating a corporate-action event calendar (splits, dividends, mergers) to pre-empt rather than react to adjustment-related backtest/live discrepancies.
+- **[BUILT]** `corporate-action-event-calendar-integration` — Integrating a corporate-action event calendar (splits, dividends, mergers) to pre-empt rather than react to adjustment-related backtest/live discrepancies.
 - **[planned]** `currency-pair-quoting-convention-normalization` — Normalizing currency-pair quoting conventions (which currency is base vs quote) consistently across data sources, since this flips silently between vendors.
 - **[planned]** `exchange-tick-size-regime-tracking` — Tracking exchange-specific (and sometimes price-tier-dependent) tick-size regimes correctly for order-price validation.
 - **[planned]** `historical-order-book-reconstruction-from-message-logs` — Reconstructing a historical order book from raw message logs for backtest realism beyond simple OHLCV bars.
