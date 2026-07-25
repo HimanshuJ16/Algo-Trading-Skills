@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:59.752541+00:00",
+  "generated_at": "2026-07-25T08:18:00.551875+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 340,
+  "total_skills": 341,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2503,6 +2503,24 @@
       "license": "Apache-2.0",
       "path": "skills/execution-algo-twap-vwap-slicing",
       "skill_md": "skills/execution-algo-twap-vwap-slicing/SKILL.md"
+    },
+    {
+      "name": "execution-algorithm-kill-switch-integration",
+      "description": "Implementation of execution algorithm kill switch integration.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/execution-algorithm-kill-switch-integration",
+      "skill_md": "skills/execution-algorithm-kill-switch-integration/SKILL.md"
     },
     {
       "name": "execution-algorithm-regression-testing-suite",
