@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:20:58.811267+00:00",
+  "generated_at": "2026-07-25T07:28:33.169086+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 111,
+  "total_skills": 112,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1599,6 +1599,31 @@
       "license": "Apache-2.0",
       "path": "skills/offline-train-online-infer-deployment",
       "skill_md": "skills/offline-train-online-infer-deployment/SKILL.md"
+    },
+    {
+      "name": "options-backtesting-with-realistic-iv-surface",
+      "description": "Use when backtesting options strategies (straddles, vertical spreads, iron condors) to interpolate dynamic 3D implied volatility (IV) surfaces across strike moneyness and term structure, avoiding flat IV mispricing errors.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "options-backtesting",
+        "iv-surface",
+        "volatility-smile",
+        "greeks-calculation",
+        "black-scholes",
+        "derivatives"
+      ],
+      "brokers_frameworks": [
+        "Options IV Surface Engine",
+        "Python SciPy",
+        "NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/options-backtesting-with-realistic-iv-surface",
+      "skill_md": "skills/options-backtesting-with-realistic-iv-surface/SKILL.md"
     },
     {
       "name": "options-margin-span-calculation-global",

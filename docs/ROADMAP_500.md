@@ -93,7 +93,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `multi-year-regime-coverage-requirement` — Requiring backtest data to span multiple distinct market regimes (bull, bear, high-vol, low-vol) before trusting reported performance.
 - **[BUILT]** `transaction-cost-analysis-tca-integration` — Integrating post-trade transaction-cost-analysis (TCA) reports into the backtest validation loop to calibrate slippage assumptions.
 - **[BUILT]** `backtest-determinism-and-reproducibility` — Ensuring a backtest produces bit-identical results on repeated runs (fixed random seeds, deterministic data ordering) for reliable comparison across code changes.
-- **[planned]** `options-backtesting-with-realistic-iv-surface` — Backtesting options strategies against a realistic historical implied-volatility surface rather than a flat or interpolated approximation.
+- **[BUILT]** `options-backtesting-with-realistic-iv-surface` — Backtesting options strategies against a realistic historical implied-volatility surface rather than a flat or interpolated approximation.
 - **[planned]** `backtest-vs-live-performance-divergence-tracking` — Systematically tracking and explaining divergence between backtested and subsequently realized live performance for every promoted strategy.
 - **[planned]** `data-vendor-cross-validation-for-backtests` — Cross-validating historical price data against a second vendor to catch vendor-specific data errors before they corrupt a backtest.
 - **[planned]** `adjusted-vs-unadjusted-price-series-pitfalls` — Explicitly deciding and documenting when a backtest should use split/dividend-adjusted vs unadjusted price series, since mixing them silently corrupts signals.
