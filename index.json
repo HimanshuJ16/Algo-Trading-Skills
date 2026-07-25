@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:17.592743+00:00",
+  "generated_at": "2026-07-25T08:24:18.503050+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 413,
+  "total_skills": 414,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3920,6 +3920,23 @@
       "license": "MIT",
       "path": "skills/instrument-universe-change-detection-and-alerting",
       "skill_md": "skills/instrument-universe-change-detection-and-alerting/SKILL.md"
+    },
+    {
+      "name": "insurance-coverage-assessment-for-custodied-crypto",
+      "description": "Skill for insurance coverage assessment for custodied crypto",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/insurance-coverage-assessment-for-custodied-crypto",
+      "skill_md": "skills/insurance-coverage-assessment-for-custodied-crypto/SKILL.md"
     },
     {
       "name": "interactive-brokers-global-multi-exchange-routing",

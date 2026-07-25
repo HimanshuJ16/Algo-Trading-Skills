@@ -435,7 +435,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `smart-contract-audit-requirements-before-defi-integration` — Requiring a completed third-party smart-contract audit before integrating with any DeFi protocol as a counterparty.
 - **[BUILT]** `exchange-proof-of-reserves-verification` — Verifying an exchange's published proof-of-reserves attestation independently rather than accepting it at face value.
 - **[BUILT]** `key-rotation-schedule-for-hot-wallet-keys` — Defining and following a key-rotation schedule for hot-wallet operational keys, distinct from one-time initial setup.
-- **[planned]** `insurance-coverage-assessment-for-custodied-crypto` — Assessing what insurance coverage (if any) actually applies to custodied crypto assets, since coverage terms vary widely and are often narrower than assumed.
+- **[BUILT]** `insurance-coverage-assessment-for-custodied-crypto` — Assessing what insurance coverage (if any) actually applies to custodied crypto assets, since coverage terms vary widely and are often narrower than assumed.
 - **[BUILT]** `air-gapped-signing-workflow-for-cold-storage` — Implementing an air-gapped signing workflow for cold-storage transactions, ensuring the signing device never has network connectivity.
 - **[BUILT]** `withdrawal-velocity-limits-and-anomaly-detection` — Setting withdrawal velocity limits (max value/frequency in a time window) with anomaly detection distinct from simple threshold breaches.
 - **[BUILT]** `multi-party-computation-mpc-custody-solutions` — Evaluating MPC-based custody solutions as an alternative to traditional multi-sig for distributing key control without a single complete key ever existing.
