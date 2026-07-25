@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:05:23.642551+00:00",
+  "generated_at": "2026-07-25T08:05:24.289994+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 189,
+  "total_skills": 190,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3034,6 +3034,24 @@
       "license": "Apache-2.0",
       "path": "skills/regional-broker-data-residency-constraints",
       "skill_md": "skills/regional-broker-data-residency-constraints/SKILL.md"
+    },
+    {
+      "name": "regulatory-capital-requirement-tracking",
+      "description": "Basel III / SEC Rule 15c3-1 Net Capital tracking.",
+      "domain": "risk-management",
+      "subdomain": "risk-controls",
+      "tags": [
+        "risk",
+        "controls"
+      ],
+      "brokers_frameworks": [
+        "Any"
+      ],
+      "version": "1.0.0",
+      "author": "AI Builder",
+      "license": "MIT",
+      "path": "skills/regulatory-capital-requirement-tracking",
+      "skill_md": "skills/regulatory-capital-requirement-tracking/SKILL.md"
     },
     {
       "name": "reinforcement-learning-safety-constraints-for-execution",
