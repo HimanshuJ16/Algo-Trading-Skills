@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:48:00.026492+00:00",
+  "generated_at": "2026-07-25T07:49:21.958583+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 130,
+  "total_skills": 137,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -732,6 +732,25 @@
       "skill_md": "skills/clock-skew-correction-for-tick-timestamps/SKILL.md"
     },
     {
+      "name": "concept-drift-vs-staleness-differentiation",
+      "description": "Skill for concept-drift-vs-staleness-differentiation",
+      "domain": "financial-ml",
+      "subdomain": "ml-ops",
+      "tags": [
+        "ml",
+        "ops",
+        "finance"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/concept-drift-vs-staleness-differentiation",
+      "skill_md": "skills/concept-drift-vs-staleness-differentiation/SKILL.md"
+    },
+    {
       "name": "consumer-group-rebalance-safety",
       "description": "Use when operating distributed message stream consumer groups (Kafka, Redis Streams) to handle partition rebalance events safely, flushing in-flight batches and committing offset checkpoints before partition reassignment to prevent duplicate tick processing.",
       "domain": "algorithmic-trading",
@@ -1106,6 +1125,25 @@
       "skill_md": "skills/explainability-for-live-trading-signals/SKILL.md"
     },
     {
+      "name": "explainable-boosting-machines-for-regulated-signals",
+      "description": "Skill for explainable-boosting-machines-for-regulated-signals",
+      "domain": "financial-ml",
+      "subdomain": "ml-ops",
+      "tags": [
+        "ml",
+        "ops",
+        "finance"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/explainable-boosting-machines-for-regulated-signals",
+      "skill_md": "skills/explainable-boosting-machines-for-regulated-signals/SKILL.md"
+    },
+    {
       "name": "feature-engineering-without-leakage",
       "description": "Use when constructing features for an ML-based trading signal classifier, to guarantee every feature is computable using only information available strictly before the prediction target's outcome",
       "domain": "algorithmic-trading",
@@ -1414,6 +1452,25 @@
       "skill_md": "skills/kill-switch-and-drawdown-circuit-breakers/SKILL.md"
     },
     {
+      "name": "label-noise-estimation-in-financial-targets",
+      "description": "Skill for label-noise-estimation-in-financial-targets",
+      "domain": "financial-ml",
+      "subdomain": "ml-ops",
+      "tags": [
+        "ml",
+        "ops",
+        "finance"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/label-noise-estimation-in-financial-targets",
+      "skill_md": "skills/label-noise-estimation-in-financial-targets/SKILL.md"
+    },
+    {
       "name": "lookahead-bias-elimination",
       "description": "Use when writing or auditing backtest code to ensure no signal, feature, or decision uses information that would not have been available at the actual decision timestamp in live trading",
       "domain": "algorithmic-trading",
@@ -1565,6 +1622,25 @@
       "license": "Apache-2.0",
       "path": "skills/mifid-ii-algo-trading-compliance-eu",
       "skill_md": "skills/mifid-ii-algo-trading-compliance-eu/SKILL.md"
+    },
+    {
+      "name": "model-serving-infrastructure-ab-testing",
+      "description": "Skill for model-serving-infrastructure-ab-testing",
+      "domain": "financial-ml",
+      "subdomain": "ml-ops",
+      "tags": [
+        "ml",
+        "ops",
+        "finance"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/model-serving-infrastructure-ab-testing",
+      "skill_md": "skills/model-serving-infrastructure-ab-testing/SKILL.md"
     },
     {
       "name": "model-staleness-detection",
@@ -2090,6 +2166,29 @@
       "skill_md": "skills/pattern-day-trader-rule-compliance-us/SKILL.md"
     },
     {
+      "name": "point-in-time-database-for-ml-training-data",
+      "description": "Use when constructing ML training datasets to build a point-in-time correct feature store database, ensuring feature values joined to historical labels reflect only information available at target timestamp T.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "point-in-time-db",
+        "training-data",
+        "feature-store",
+        "data-leakage-prevention",
+        "as-of-join"
+      ],
+      "brokers_frameworks": [
+        "Point-In-Time ML Database Engine",
+        "Python Pandas"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/point-in-time-database-for-ml-training-data",
+      "skill_md": "skills/point-in-time-database-for-ml-training-data/SKILL.md"
+    },
+    {
       "name": "post-only-and-maker-taker-fee-optimization",
       "description": "Use when deploying order execution algorithms to exchanges or brokers with maker-taker fee structures to inject Post-Only order flags, guarantee maker fee tiers, handle spread-crossing order cancellations, and quantify net transaction fee savings.",
       "domain": "algorithmic-trading",
@@ -2252,6 +2351,25 @@
       "license": "Apache-2.0",
       "path": "skills/reinforcement-learning-safety-constraints-for-execution",
       "skill_md": "skills/reinforcement-learning-safety-constraints-for-execution/SKILL.md"
+    },
+    {
+      "name": "reproducible-ml-training-pipelines",
+      "description": "Skill for reproducible-ml-training-pipelines",
+      "domain": "financial-ml",
+      "subdomain": "ml-ops",
+      "tags": [
+        "ml",
+        "ops",
+        "finance"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/reproducible-ml-training-pipelines",
+      "skill_md": "skills/reproducible-ml-training-pipelines/SKILL.md"
     },
     {
       "name": "robinhood-unofficial-api-integration",
@@ -2672,6 +2790,25 @@
       "license": "Apache-2.0",
       "path": "skills/transaction-cost-analysis-tca-integration",
       "skill_md": "skills/transaction-cost-analysis-tca-integration/SKILL.md"
+    },
+    {
+      "name": "transfer-learning-across-correlated-instruments",
+      "description": "Skill for transfer-learning-across-correlated-instruments",
+      "domain": "financial-ml",
+      "subdomain": "ml-ops",
+      "tags": [
+        "ml",
+        "ops",
+        "finance"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/transfer-learning-across-correlated-instruments",
+      "skill_md": "skills/transfer-learning-across-correlated-instruments/SKILL.md"
     },
     {
       "name": "upstox-oauth-refresh-token-rotation",
