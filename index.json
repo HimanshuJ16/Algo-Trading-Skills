@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:35.370377+00:00",
+  "generated_at": "2026-07-25T08:13:36.022457+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 275,
+  "total_skills": 276,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5250,6 +5250,25 @@
       "license": "Apache-2.0",
       "path": "skills/upstox-oauth-refresh-token-rotation",
       "skill_md": "skills/upstox-oauth-refresh-token-rotation/SKILL.md"
+    },
+    {
+      "name": "us-reg-nms-order-protection-rule-compliance",
+      "description": "Compliance tool for us reg nms order protection rule compliance",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/us-reg-nms-order-protection-rule-compliance",
+      "skill_md": "skills/us-reg-nms-order-protection-rule-compliance/SKILL.md"
     },
     {
       "name": "us-reg-sho-short-sale-locate-requirements",
