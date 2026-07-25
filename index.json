@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:55.376596+00:00",
+  "generated_at": "2026-07-25T08:10:56.079846+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 252,
+  "total_skills": 253,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1648,6 +1648,23 @@
       "license": "MIT",
       "path": "skills/disaster-recovery-runbook-for-full-region-outage",
       "skill_md": "skills/disaster-recovery-runbook-for-full-region-outage/SKILL.md"
+    },
+    {
+      "name": "dubai-financial-market-dfm-api",
+      "description": "Integration or workflow skill for dubai-financial-market-dfm-api.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "dubai-financial-market-dfm-api"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/dubai-financial-market-dfm-api",
+      "skill_md": "skills/dubai-financial-market-dfm-api/SKILL.md"
     },
     {
       "name": "dynamic-position-sizing-based-on-realized-volatility",
