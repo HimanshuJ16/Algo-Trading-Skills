@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:53.462418+00:00",
+  "generated_at": "2026-07-25T08:10:54.086583+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 249,
+  "total_skills": 250,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2513,6 +2513,23 @@
       "license": "Apache-2.0",
       "path": "skills/kill-switch-and-drawdown-circuit-breakers",
       "skill_md": "skills/kill-switch-and-drawdown-circuit-breakers/SKILL.md"
+    },
+    {
+      "name": "korea-exchange-krx-api-integration",
+      "description": "Integration or workflow skill for korea-exchange-krx-api-integration.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "korea-exchange-krx-api-integration"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/korea-exchange-krx-api-integration",
+      "skill_md": "skills/korea-exchange-krx-api-integration/SKILL.md"
     },
     {
       "name": "kraken-websocket-v2-auth-and-subscriptions",
