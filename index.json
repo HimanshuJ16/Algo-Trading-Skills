@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:53.055659+00:00",
+  "generated_at": "2026-07-25T08:23:53.913288+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 400,
+  "total_skills": 401,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2132,6 +2132,25 @@
       "license": "MIT",
       "path": "skills/custody-solution-uptime-and-liveness-guarantees",
       "skill_md": "skills/custody-solution-uptime-and-liveness-guarantees/SKILL.md"
+    },
+    {
+      "name": "custody-solution-vendor-due-diligence-checklist",
+      "description": "Implementation for custody-solution-vendor-due-diligence-checklist",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/custody-solution-vendor-due-diligence-checklist",
+      "skill_md": "skills/custody-solution-vendor-due-diligence-checklist/SKILL.md"
     },
     {
       "name": "dark-pool-routing-logic",

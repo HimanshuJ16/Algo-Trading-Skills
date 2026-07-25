@@ -441,7 +441,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `multi-party-computation-mpc-custody-solutions` — Evaluating MPC-based custody solutions as an alternative to traditional multi-sig for distributing key control without a single complete key ever existing.
 - **[BUILT]** `smart-contract-approval-scope-minimization` — Minimizing and periodically auditing token-approval scopes granted to smart contracts, since unlimited approvals are a common attack vector.
 - **[BUILT]** `phishing-resistant-authentication-for-custody-access` — Using phishing-resistant authentication (hardware security keys, not SMS/email OTP) for any human access to custody infrastructure.
-- **[planned]** `custody-solution-vendor-due-diligence-checklist` — A structured due-diligence checklist for evaluating a third-party custody vendor before entrusting them with operational funds.
+- **[BUILT]** `custody-solution-vendor-due-diligence-checklist` — A structured due-diligence checklist for evaluating a third-party custody vendor before entrusting them with operational funds.
 - **[planned]** `on-chain-transaction-monitoring-for-anomalies` — Monitoring on-chain transaction activity in real time for anomalies (unexpected destination, unusual size) as a detection layer independent of application-level logging.
 - **[planned]** `recovery-plan-for-lost-or-compromised-keys` — Maintaining a tested recovery plan for lost or compromised keys, distinct from the initial custody design, since custody design alone doesn't guarantee recoverability.
 - **[planned]** `segregation-of-duties-for-custody-operations` — Enforcing segregation of duties (no single person can both initiate and approve a large transfer) for custody operations.
