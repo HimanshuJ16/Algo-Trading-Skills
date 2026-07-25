@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:00.066564+00:00",
+  "generated_at": "2026-07-25T08:29:00.985480+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 463,
+  "total_skills": 464,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5686,6 +5686,24 @@
       "license": "Apache-2.0",
       "path": "skills/network-interface-level-tick-timestamping",
       "skill_md": "skills/network-interface-level-tick-timestamping/SKILL.md"
+    },
+    {
+      "name": "network-jitter-impact-on-strategy-performance",
+      "description": "Skill for network jitter impact on strategy performance",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "microstructure"
+      ],
+      "brokers_frameworks": [
+        "ccxt"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/network-jitter-impact-on-strategy-performance",
+      "skill_md": "skills/network-jitter-impact-on-strategy-performance/SKILL.md"
     },
     {
       "name": "network-segmentation-for-trading-infrastructure",
