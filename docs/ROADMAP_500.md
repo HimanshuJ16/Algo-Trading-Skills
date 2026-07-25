@@ -228,7 +228,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `audit-logging-for-configuration-changes` — Logging every configuration change (risk limits, strategy parameters) with who/when/what-changed, independent of code-deployment logs.
 - **[BUILT]** `network-segmentation-for-trading-infrastructure` — Segmenting trading infrastructure network access so a compromised non-critical service (e.g. dashboard) can't reach order-placement infrastructure.
 
-## global-market-integration  _(44 tracked: 2 built, 42 planned)_
+## global-market-integration  _(44 tracked: 44 built, 0 planned)_
 
 - **[BUILT]** `crypto-exchange-api-integration` — see `skills/crypto-exchange-api-integration/SKILL.md`
 - **[BUILT]** `forex-broker-integration-oanda-mt5` — see `skills/forex-broker-integration-oanda-mt5/SKILL.md`
@@ -246,34 +246,34 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `cboe-options-exchange-api-integration` — Integrating with Cboe's options exchange API and its specific complex-order-book conventions.
 - **[BUILT]** `nasdaq-totalview-itch-feed-parsing` — Parsing NASDAQ's TotalView-ITCH binary market-data feed for full order-book reconstruction.
 - **[BUILT]** `nyse-arca-integrated-feed-handling` — Handling NYSE Arca's integrated feed for consolidated US equities data.
-- **[planned]** `lse-millennium-exchange-api` — Integrating with the London Stock Exchange's Millennium Exchange trading platform API.
-- **[planned]** `deutsche-borse-xetra-api-integration` — Integrating with Deutsche Börse's Xetra trading system for German/European equities.
-- **[planned]** `euronext-optiq-market-data-integration` — Integrating with Euronext's Optiq market-data and trading platform across its pan-European venues.
-- **[planned]** `b3-brazil-exchange-api-integration` — Integrating with B3 (Brazil's exchange) for Latin American equities and derivatives.
-- **[planned]** `jse-south-africa-api-integration` — Integrating with the Johannesburg Stock Exchange's API for South African equities.
-- **[planned]** `tase-israel-exchange-api` — Integrating with the Tel Aviv Stock Exchange's API and its specific settlement conventions.
-- **[planned]** `korea-exchange-krx-api-integration` — Integrating with the Korea Exchange's API, including its distinct circuit-breaker and price-limit rules.
-- **[planned]** `taiwan-stock-exchange-twse-api` — Integrating with the Taiwan Stock Exchange's API for Taiwanese equities.
-- **[planned]** `shanghai-shenzhen-connect-programs` — Handling the Stock Connect programs (Shanghai/Shenzhen-Hong Kong) for mainland China equity access via Hong Kong.
-- **[planned]** `dubai-financial-market-dfm-api` — Integrating with the Dubai Financial Market's API for UAE equities.
-- **[planned]** `moscow-exchange-moex-api-integration` — Integrating with the Moscow Exchange API, noting the distinct sanctions/access-restriction landscape that must be checked independently.
-- **[planned]** `borsa-istanbul-api-integration` — Integrating with Borsa Istanbul's API for Turkish equities and derivatives.
-- **[planned]** `philippine-stock-exchange-api` — Integrating with the Philippine Stock Exchange's API for Southeast Asian equity access.
-- **[planned]** `bursa-malaysia-api-integration` — Integrating with Bursa Malaysia's trading API.
-- **[planned]** `idx-indonesia-stock-exchange-api` — Integrating with the Indonesia Stock Exchange (IDX) API.
-- **[planned]** `new-zealand-exchange-nzx-api` — Integrating with the New Zealand Exchange's API, including its distinct small-market liquidity considerations.
-- **[planned]** `cme-group-fix-api-for-futures` — Using CME Group's FIX API specifically (as distinct from Globex's native binary protocol) for futures order routing.
-- **[planned]** `ice-futures-us-eu-integration` — Integrating with ICE Futures US/EU for energy and agricultural futures.
-- **[planned]** `lme-london-metal-exchange-integration` — Integrating with the London Metal Exchange's specific ring/electronic trading conventions.
-- **[planned]** `deribit-crypto-options-api` — Integrating with Deribit's API, the dominant crypto options venue, including its specific margining model.
-- **[planned]** `bybit-derivatives-api-integration` — Integrating with Bybit's derivatives API for crypto perpetuals and options.
-- **[planned]** `okx-unified-account-api` — Integrating with OKX's unified-account API model spanning spot, margin, and derivatives.
-- **[planned]** `ftx-style-exchange-post-collapse-risk-lessons` — Documenting the specific counterparty and custody risk lessons from the FTX collapse as a checklist for evaluating any centralized crypto exchange.
-- **[planned]** `decentralized-exchange-dex-integration-uniswap-style` — Integrating with an AMM-style DEX (Uniswap-family) including slippage/impermanent-loss-aware execution logic distinct from centralized order-book exchanges.
-- **[planned]** `cross-chain-bridge-risk-for-multi-chain-strategies` — Assessing cross-chain bridge risk explicitly for any strategy that moves crypto assets between chains.
-- **[planned]** `prime-brokerage-multi-venue-consolidation` — Using a prime-broker/prime-of-prime relationship to consolidate access to multiple venues under one credential and margin relationship.
-- **[planned]** `fix-protocol-session-management-across-venues` — Managing FIX protocol sessions (logon/heartbeat/sequence-number recovery) consistently across multiple venues with different FIX dialect quirks.
-- **[planned]** `market-data-entitlement-and-licensing-per-venue` — Tracking market-data entitlement/licensing requirements per venue, since redistribution or algorithmic-consumption rights vary and are commonly violated unknowingly.
+- **[BUILT]** `lse-millennium-exchange-api` — Integrating with the London Stock Exchange's Millennium Exchange trading platform API.
+- **[BUILT]** `deutsche-borse-xetra-api-integration` — Integrating with Deutsche Börse's Xetra trading system for German/European equities.
+- **[BUILT]** `euronext-optiq-market-data-integration` — Integrating with Euronext's Optiq market-data and trading platform across its pan-European venues.
+- **[BUILT]** `b3-brazil-exchange-api-integration` — Integrating with B3 (Brazil's exchange) for Latin American equities and derivatives.
+- **[BUILT]** `jse-south-africa-api-integration` — Integrating with the Johannesburg Stock Exchange's API for South African equities.
+- **[BUILT]** `tase-israel-exchange-api` — Integrating with the Tel Aviv Stock Exchange's API and its specific settlement conventions.
+- **[BUILT]** `korea-exchange-krx-api-integration` — Integrating with the Korea Exchange's API, including its distinct circuit-breaker and price-limit rules.
+- **[BUILT]** `taiwan-stock-exchange-twse-api` — Integrating with the Taiwan Stock Exchange's API for Taiwanese equities.
+- **[BUILT]** `shanghai-shenzhen-connect-programs` — Handling the Stock Connect programs (Shanghai/Shenzhen-Hong Kong) for mainland China equity access via Hong Kong.
+- **[BUILT]** `dubai-financial-market-dfm-api` — Integrating with the Dubai Financial Market's API for UAE equities.
+- **[BUILT]** `moscow-exchange-moex-api-integration` — Integrating with the Moscow Exchange API, noting the distinct sanctions/access-restriction landscape that must be checked independently.
+- **[BUILT]** `borsa-istanbul-api-integration` — Integrating with Borsa Istanbul's API for Turkish equities and derivatives.
+- **[BUILT]** `philippine-stock-exchange-api` — Integrating with the Philippine Stock Exchange's API for Southeast Asian equity access.
+- **[BUILT]** `bursa-malaysia-api-integration` — Integrating with Bursa Malaysia's trading API.
+- **[BUILT]** `idx-indonesia-stock-exchange-api` — Integrating with the Indonesia Stock Exchange (IDX) API.
+- **[BUILT]** `new-zealand-exchange-nzx-api` — Integrating with the New Zealand Exchange's API, including its distinct small-market liquidity considerations.
+- **[BUILT]** `cme-group-fix-api-for-futures` — Using CME Group's FIX API specifically (as distinct from Globex's native binary protocol) for futures order routing.
+- **[BUILT]** `ice-futures-us-eu-integration` — Integrating with ICE Futures US/EU for energy and agricultural futures.
+- **[BUILT]** `lme-london-metal-exchange-integration` — Integrating with the London Metal Exchange's specific ring/electronic trading conventions.
+- **[BUILT]** `deribit-crypto-options-api` — Integrating with Deribit's API, the dominant crypto options venue, including its specific margining model.
+- **[BUILT]** `bybit-derivatives-api-integration` — Integrating with Bybit's derivatives API for crypto perpetuals and options.
+- **[BUILT]** `okx-unified-account-api` — Integrating with OKX's unified-account API model spanning spot, margin, and derivatives.
+- **[BUILT]** `ftx-style-exchange-post-collapse-risk-lessons` — Documenting the specific counterparty and custody risk lessons from the FTX collapse as a checklist for evaluating any centralized crypto exchange.
+- **[BUILT]** `decentralized-exchange-dex-integration-uniswap-style` — Integrating with an AMM-style DEX (Uniswap-family) including slippage/impermanent-loss-aware execution logic distinct from centralized order-book exchanges.
+- **[BUILT]** `cross-chain-bridge-risk-for-multi-chain-strategies` — Assessing cross-chain bridge risk explicitly for any strategy that moves crypto assets between chains.
+- **[BUILT]** `prime-brokerage-multi-venue-consolidation` — Using a prime-broker/prime-of-prime relationship to consolidate access to multiple venues under one credential and margin relationship.
+- **[BUILT]** `fix-protocol-session-management-across-venues` — Managing FIX protocol sessions (logon/heartbeat/sequence-number recovery) consistently across multiple venues with different FIX dialect quirks.
+- **[BUILT]** `market-data-entitlement-and-licensing-per-venue` — Tracking market-data entitlement/licensing requirements per venue, since redistribution or algorithmic-consumption rights vary and are commonly violated unknowingly.
 
 ## regulatory-compliance-global  _(38 tracked: 2 built, 36 planned)_
 
