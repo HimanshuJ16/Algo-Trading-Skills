@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:56.805734+00:00",
+  "generated_at": "2026-07-25T08:16:57.369006+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 310,
+  "total_skills": 311,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1036,6 +1036,24 @@
       "license": "MIT",
       "path": "skills/bybit-derivatives-api-integration",
       "skill_md": "skills/bybit-derivatives-api-integration/SKILL.md"
+    },
+    {
+      "name": "calendar-spread-and-multi-leg-order-atomicity",
+      "description": "Automation and handling of calendar spread and multi leg order atomicity.",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "derivatives-trading",
+      "tags": [
+        "calendar-spread-and-multi-leg-order-atomicity",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/calendar-spread-and-multi-leg-order-atomicity",
+      "skill_md": "skills/calendar-spread-and-multi-leg-order-atomicity/SKILL.md"
     },
     {
       "name": "canada-iiroc-electronic-trading-rules",
