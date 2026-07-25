@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:56.589916+00:00",
+  "generated_at": "2026-07-25T08:16:56.805734+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 309,
+  "total_skills": 310,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1985,6 +1985,23 @@
       "license": "MIT",
       "path": "skills/disaster-recovery-runbook-for-full-region-outage",
       "skill_md": "skills/disaster-recovery-runbook-for-full-region-outage/SKILL.md"
+    },
+    {
+      "name": "dividend-futures-and-forward-modeling",
+      "description": "Skill for dividend futures and forward modeling",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Equities",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/dividend-futures-and-forward-modeling",
+      "skill_md": "skills/dividend-futures-and-forward-modeling/SKILL.md"
     },
     {
       "name": "dubai-financial-market-dfm-api",
