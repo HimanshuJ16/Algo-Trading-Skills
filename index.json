@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:51:09.287567+00:00",
+  "generated_at": "2026-07-25T02:51:36.646009+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 82,
+  "total_skills": 83,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -228,6 +228,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-failover-secondary-account-routing",
       "skill_md": "skills/broker-failover-secondary-account-routing/SKILL.md"
+    },
+    {
+      "name": "broker-margin-interest-accrual-tracking",
+      "description": "Use when calculating live and backtest P&L for leveraged or short positions to track daily accrued margin interest, apply tiered APR rate schedules, and deduct interest compounding costs from strategy net returns.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "margin-interest",
+        "accrual-tracking",
+        "borrowing-cost",
+        "pnl-accounting",
+        "leverage-cost"
+      ],
+      "brokers_frameworks": [
+        "Margin Cost Tracker",
+        "Python PnL Accounting"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-margin-interest-accrual-tracking",
+      "skill_md": "skills/broker-margin-interest-accrual-tracking/SKILL.md"
     },
     {
       "name": "broker-order-type-capability-matrix",
