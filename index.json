@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:50:39.076313+00:00",
+  "generated_at": "2026-07-25T07:51:04.570163+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 158,
+  "total_skills": 159,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1270,6 +1270,29 @@
       "license": "MIT",
       "path": "skills/explainable-boosting-machines-for-regulated-signals",
       "skill_md": "skills/explainable-boosting-machines-for-regulated-signals/SKILL.md"
+    },
+    {
+      "name": "feature-engineering-cost-benefit-tracking",
+      "description": "Use when engineering ML feature sets to evaluate each feature's marginal performance contribution (Shapley / Permutation Importance) against its compute, storage, and API licensing cost, pruning expensive low-value features.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "feature-cost-benefit",
+        "shapley-value",
+        "cost-benefit-pruning",
+        "feature-selection",
+        "compute-efficiency"
+      ],
+      "brokers_frameworks": [
+        "Feature Cost-Benefit Tracker Engine",
+        "Python NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/feature-engineering-cost-benefit-tracking",
+      "skill_md": "skills/feature-engineering-cost-benefit-tracking/SKILL.md"
     },
     {
       "name": "feature-engineering-without-leakage",

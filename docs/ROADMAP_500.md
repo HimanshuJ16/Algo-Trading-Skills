@@ -112,7 +112,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `walk-forward-hyperparameter-search-budget` — Bounding the hyperparameter search space in walk-forward validation to avoid indirect overfitting via excessive search itself.
 - **[BUILT]** `backtest-audit-trail-for-regulatory-review` — Maintaining a backtest audit trail (data version, code version, parameters) sufficient to reproduce results if ever required for regulatory review.
 
-## financial-ml  _(38 tracked: 3 built, 35 planned)_
+## financial-ml  _(38 tracked: 38 built, 0 planned)_
 
 - **[BUILT]** `feature-engineering-without-leakage` — see `skills/feature-engineering-without-leakage/SKILL.md`
 - **[BUILT]** `model-staleness-detection` — see `skills/model-staleness-detection/SKILL.md`
@@ -151,7 +151,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `cold-start-handling-for-newly-listed-instruments` — Handling ML signal generation for newly-listed instruments with no historical training data, without silently extrapolating from unrelated instruments.
 - **[BUILT]** `model-monitoring-dashboard-for-non-technical-stakeholders` — Building a monitoring dashboard that surfaces model health (accuracy, drift, staleness) in terms a non-ML-technical risk reviewer can act on.
 - **[BUILT]** `quantile-regression-for-uncertainty-aware-signals` — Using quantile regression to produce uncertainty-aware signals rather than a single point forecast, enabling confidence-scaled position sizing.
-- **[planned]** `feature-engineering-cost-benefit-tracking` — Tracking each feature's marginal contribution to model performance against its computational/data cost, to prune low-value expensive features.
+- **[BUILT]** `feature-engineering-cost-benefit-tracking` — Tracking each feature's marginal contribution to model performance against its computational/data cost, to prune low-value expensive features.
 
 ## risk-management  _(39 tracked: 2 built, 37 planned)_
 
