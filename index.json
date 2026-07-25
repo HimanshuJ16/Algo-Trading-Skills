@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:56.437570+00:00",
+  "generated_at": "2026-07-25T08:29:57.809237+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 472,
+  "total_skills": 473,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3729,6 +3729,24 @@
       "license": "MIT",
       "path": "skills/global-macro-economic-calendar-integration",
       "skill_md": "skills/global-macro-economic-calendar-integration/SKILL.md"
+    },
+    {
+      "name": "google-trends-and-search-volume-signal-research",
+      "description": "A quant research alternative data skill for google-trends-and-search-volume-signal-research.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/google-trends-and-search-volume-signal-research",
+      "skill_md": "skills/google-trends-and-search-volume-signal-research/SKILL.md"
     },
     {
       "name": "graceful-degradation-priority-during-partial-outage",
