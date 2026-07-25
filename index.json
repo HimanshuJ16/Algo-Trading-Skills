@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:57.530129+00:00",
+  "generated_at": "2026-07-25T08:10:58.146311+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 255,
+  "total_skills": 256,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3701,6 +3701,23 @@
       "license": "Apache-2.0",
       "path": "skills/pattern-day-trader-rule-compliance-us",
       "skill_md": "skills/pattern-day-trader-rule-compliance-us/SKILL.md"
+    },
+    {
+      "name": "philippine-stock-exchange-api",
+      "description": "Integration or workflow skill for philippine-stock-exchange-api.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "philippine-stock-exchange-api"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/philippine-stock-exchange-api",
+      "skill_md": "skills/philippine-stock-exchange-api/SKILL.md"
     },
     {
       "name": "point-in-time-database-for-ml-training-data",
