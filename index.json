@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:18.368800+00:00",
+  "generated_at": "2026-07-25T08:25:19.031504+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 440,
+  "total_skills": 442,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -672,6 +672,24 @@
       "license": "MIT",
       "path": "skills/backtesting-ml-models-against-transaction-costs",
       "skill_md": "skills/backtesting-ml-models-against-transaction-costs/SKILL.md"
+    },
+    {
+      "name": "benchmark-portfolio-for-multi-strategy-performance-context",
+      "description": "Skill implementation for benchmark-portfolio-for-multi-strategy-performance-context",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Skill Management",
+      "tags": [
+        "algo-trading",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/benchmark-portfolio-for-multi-strategy-performance-context",
+      "skill_md": "skills/benchmark-portfolio-for-multi-strategy-performance-context/SKILL.md"
     },
     {
       "name": "benchmark-relative-performance-attribution",
@@ -7594,6 +7612,24 @@
       "license": "MIT",
       "path": "skills/strategy-specific-vs-shared-risk-budget-allocation",
       "skill_md": "skills/strategy-specific-vs-shared-risk-budget-allocation/SKILL.md"
+    },
+    {
+      "name": "strategy-underperformance-remediation-decision-tree",
+      "description": "Skill for strategy underperformance remediation decision tree",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-underperformance-remediation-decision-tree",
+      "skill_md": "skills/strategy-underperformance-remediation-decision-tree/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",

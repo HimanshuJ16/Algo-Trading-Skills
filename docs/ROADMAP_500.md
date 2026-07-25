@@ -484,7 +484,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `multi-strategy-reporting-consolidation-for-stakeholders` — Consolidating multi-strategy performance/risk reporting into a single coherent view for stakeholders who don't need per-strategy granularity.
 - **[planned]** `strategy-research-to-production-pipeline-governance` — Governing the pipeline from research idea to production strategy with defined gates, extending paper-to-live-promotion-checklist to the earlier research-stage decision points.
 - **[planned]** `opportunity-cost-tracking-for-idle-capital` — Tracking the opportunity cost of capital held idle (e.g. as a risk buffer) across the portfolio, to periodically reassess whether buffer sizing is still appropriate.
-- **[BUILT]** `cross-strategy-signal-reuse-and-licensing` — Managing cases where one strategy's computed features/signals are reused by another, including versioning so a change to the shared signal doesn't silently affect multiple strategies at once.
+- **[planned]** `cross-strategy-signal-reuse-and-licensing` — Managing cases where one strategy's computed features/signals are reused by another, including versioning so a change to the shared signal doesn't silently affect multiple strategies at once.
 - **[planned]** `strategy-underperformance-remediation-decision-tree` — A structured decision tree (investigate → adjust → reduce size → retire) for responding to strategy underperformance, rather than ad hoc case-by-case reactions.
 - **[planned]** `portfolio-stress-test-including-liquidity-crunch-scenarios` — Stress-testing the full multi-strategy portfolio against scenarios combining price shock with a simultaneous liquidity crunch across correlated instruments.
 
