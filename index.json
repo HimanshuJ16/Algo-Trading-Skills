@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:30:01.980874+00:00",
+  "generated_at": "2026-07-25T08:30:03.263656+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 476,
+  "total_skills": 477,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4280,6 +4280,24 @@
       "license": "MIT",
       "path": "skills/insider-trading-controls-for-alternative-data-usage",
       "skill_md": "skills/insider-trading-controls-for-alternative-data-usage/SKILL.md"
+    },
+    {
+      "name": "insider-transaction-filing-signal-research",
+      "description": "A quant research alternative data skill for insider-transaction-filing-signal-research.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/insider-transaction-filing-signal-research",
+      "skill_md": "skills/insider-transaction-filing-signal-research/SKILL.md"
     },
     {
       "name": "instrument-universe-change-detection-and-alerting",
