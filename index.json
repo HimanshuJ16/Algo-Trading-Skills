@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:45.153274+00:00",
+  "generated_at": "2026-07-25T08:20:45.989315+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 370,
+  "total_skills": 371,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4045,6 +4045,24 @@
       "license": "Apache-2.0",
       "path": "skills/market-data-replay-harness-for-integration-testing",
       "skill_md": "skills/market-data-replay-harness-for-integration-testing/SKILL.md"
+    },
+    {
+      "name": "market-data-simulator-for-offline-development",
+      "description": "Implementation of market-data-simulator-for-offline-development",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/market-data-simulator-for-offline-development",
+      "skill_md": "skills/market-data-simulator-for-offline-development/SKILL.md"
     },
     {
       "name": "market-data-snapshot-plus-delta-reconciliation",
