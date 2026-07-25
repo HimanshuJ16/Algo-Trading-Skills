@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:48:36.798663+00:00",
+  "generated_at": "2026-07-25T02:49:32.402045+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 78,
+  "total_skills": 79,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -158,6 +158,30 @@
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
       "skill_md": "skills/broker-agnostic-adapter-interface/SKILL.md"
+    },
+    {
+      "name": "broker-api-deprecation-notice-monitoring",
+      "description": "Use when building production broker adapters to monitor HTTP deprecation headers (RFC 8594 / Sunset header) and developer changelog RSS feeds, alerting ops teams before API endpoint retirements break live trading bots.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "deprecation-monitoring",
+        "sunset-headers",
+        "rfc-8594",
+        "changelog-parser",
+        "api-maintenance"
+      ],
+      "brokers_frameworks": [
+        "Deprecation Monitor",
+        "Python Requests",
+        "RFC 8594"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-api-deprecation-notice-monitoring",
+      "skill_md": "skills/broker-api-deprecation-notice-monitoring/SKILL.md"
     },
     {
       "name": "broker-api-versioning-migration-playbook",
