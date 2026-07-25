@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:05:44.212171+00:00",
+  "generated_at": "2026-07-25T08:07:05.557608+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 191,
+  "total_skills": 200,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -763,6 +763,23 @@
       "skill_md": "skills/broker-status-page-monitoring-integration/SKILL.md"
     },
     {
+      "name": "canary-releases-for-strategy-code-changes",
+      "description": "Deployment ops skill for canary-releases-for-strategy-code-changes",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/canary-releases-for-strategy-code-changes",
+      "skill_md": "skills/canary-releases-for-strategy-code-changes/SKILL.md"
+    },
+    {
       "name": "capital-preservation-mode-for-degraded-conditions",
       "description": "Degraded condition mode with scaled risk appetite.",
       "domain": "risk-management",
@@ -798,6 +815,40 @@
       "license": "MIT",
       "path": "skills/categorical-feature-encoding-for-instrument-identity",
       "skill_md": "skills/categorical-feature-encoding-for-instrument-identity/SKILL.md"
+    },
+    {
+      "name": "centralized-secrets-management-vault-integration",
+      "description": "Deployment ops skill for centralized-secrets-management-vault-integration",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/centralized-secrets-management-vault-integration",
+      "skill_md": "skills/centralized-secrets-management-vault-integration/SKILL.md"
+    },
+    {
+      "name": "chaos-engineering-for-trading-infrastructure",
+      "description": "Deployment ops skill for chaos-engineering-for-trading-infrastructure",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/chaos-engineering-for-trading-infrastructure",
+      "skill_md": "skills/chaos-engineering-for-trading-infrastructure/SKILL.md"
     },
     {
       "name": "circuit-breaker-for-downstream-service-calls",
@@ -992,6 +1043,24 @@
       "license": "Apache-2.0",
       "path": "skills/correlation-aware-exposure-limits",
       "skill_md": "skills/correlation-aware-exposure-limits/SKILL.md"
+    },
+    {
+      "name": "Cost Monitoring",
+      "description": "A skill to handle Cost Monitoring in algo-trading",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment-ops"
+      ],
+      "brokers_frameworks": [
+        "aws",
+        "gcp"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/cost-monitoring-for-cloud-trading-infrastructure",
+      "skill_md": "skills/cost-monitoring-for-cloud-trading-infrastructure/SKILL.md"
     },
     {
       "name": "counterparty-and-broker-concentration-risk",
@@ -1227,6 +1296,40 @@
       "license": "Apache-2.0",
       "path": "skills/demo-account-realism-gap-assessment",
       "skill_md": "skills/demo-account-realism-gap-assessment/SKILL.md"
+    },
+    {
+      "name": "deployment-freeze-windows-around-market-events",
+      "description": "Deployment ops skill for deployment-freeze-windows-around-market-events",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/deployment-freeze-windows-around-market-events",
+      "skill_md": "skills/deployment-freeze-windows-around-market-events/SKILL.md"
+    },
+    {
+      "name": "disaster-recovery-runbook-for-full-region-outage",
+      "description": "Deployment ops skill for disaster-recovery-runbook-for-full-region-outage",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/disaster-recovery-runbook-for-full-region-outage",
+      "skill_md": "skills/disaster-recovery-runbook-for-full-region-outage/SKILL.md"
     },
     {
       "name": "dynamic-position-sizing-based-on-realized-volatility",
@@ -1795,6 +1898,40 @@
       "skill_md": "skills/ibkr-tws-gateway-headless-launch/SKILL.md"
     },
     {
+      "name": "immutable-infrastructure-for-trading-bots",
+      "description": "Deployment ops skill for immutable-infrastructure-for-trading-bots",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/immutable-infrastructure-for-trading-bots",
+      "skill_md": "skills/immutable-infrastructure-for-trading-bots/SKILL.md"
+    },
+    {
+      "name": "infrastructure-as-code-for-trading-hosts",
+      "description": "Deployment ops skill for infrastructure-as-code-for-trading-hosts",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/infrastructure-as-code-for-trading-hosts",
+      "skill_md": "skills/infrastructure-as-code-for-trading-hosts/SKILL.md"
+    },
+    {
       "name": "intraday-vs-eod-backtest-granularity-tradeoffs",
       "description": "Use when choosing appropriate data granularity (tick, minute, EOD) for a backtest based on the strategy's holding period and decision frequency to balance accuracy against compute cost.",
       "domain": "algorithmic-trading",
@@ -1916,6 +2053,23 @@
       "license": "Apache-2.0",
       "path": "skills/liquidity-adjusted-position-sizing",
       "skill_md": "skills/liquidity-adjusted-position-sizing/SKILL.md"
+    },
+    {
+      "name": "log-aggregation-and-centralized-observability",
+      "description": "Deployment ops skill for log-aggregation-and-centralized-observability",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/log-aggregation-and-centralized-observability",
+      "skill_md": "skills/log-aggregation-and-centralized-observability/SKILL.md"
     },
     {
       "name": "lookahead-bias-elimination",
