@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:51.954149+00:00",
+  "generated_at": "2026-07-25T08:13:52.729707+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 282,
+  "total_skills": 283,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2696,6 +2696,23 @@
       "license": "MIT",
       "path": "skills/infrastructure-as-code-for-trading-hosts",
       "skill_md": "skills/infrastructure-as-code-for-trading-hosts/SKILL.md"
+    },
+    {
+      "name": "insider-trading-controls-for-alternative-data-usage",
+      "description": "Compliance controls and workflows for insider trading controls for alternative data usage",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/insider-trading-controls-for-alternative-data-usage",
+      "skill_md": "skills/insider-trading-controls-for-alternative-data-usage/SKILL.md"
     },
     {
       "name": "interactive-brokers-global-multi-exchange-routing",
