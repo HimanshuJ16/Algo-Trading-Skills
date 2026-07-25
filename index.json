@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:44:46.828761+00:00",
+  "generated_at": "2026-07-25T07:45:11.340027+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 125,
+  "total_skills": 126,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -796,6 +796,28 @@
       "license": "Apache-2.0",
       "path": "skills/cross-datacenter-clock-sync-validation",
       "skill_md": "skills/cross-datacenter-clock-sync-validation/SKILL.md"
+    },
+    {
+      "name": "cross-validation-of-commission-schedules-over-time",
+      "description": "Use when backtesting multi-year historical strategies to model historical changes in broker commission schedules over time rather than applying modern zero-commission or current fee structures retroactively.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "commission-schedule",
+        "historical-fees",
+        "transaction-costs",
+        "broker-rates"
+      ],
+      "brokers_frameworks": [
+        "Historical Commission Modeler",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/cross-validation-of-commission-schedules-over-time",
+      "skill_md": "skills/cross-validation-of-commission-schedules-over-time/SKILL.md"
     },
     {
       "name": "crypto-exchange-api-integration",
