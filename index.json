@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:15.979698+00:00",
+  "generated_at": "2026-07-25T08:24:16.791144+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 411,
+  "total_skills": 412,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2843,6 +2843,23 @@
       "license": "Apache-2.0",
       "path": "skills/exchange-multicast-feed-handling",
       "skill_md": "skills/exchange-multicast-feed-handling/SKILL.md"
+    },
+    {
+      "name": "exchange-proof-of-reserves-verification",
+      "description": "Skill for exchange proof of reserves verification",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/exchange-proof-of-reserves-verification",
+      "skill_md": "skills/exchange-proof-of-reserves-verification/SKILL.md"
     },
     {
       "name": "exchange-tick-size-regime-tracking",

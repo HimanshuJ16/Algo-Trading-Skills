@@ -433,7 +433,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `shamir-secret-sharing-for-key-backup` — Using Shamir's Secret Sharing to split a key backup across multiple custodians/locations, avoiding a single point of failure or compromise.
 - **[BUILT]** `custodial-vs-non-custodial-tradeoff-assessment` — Assessing the tradeoffs between using a third-party custodian versus self-custody for a given operational scale and risk tolerance.
 - **[BUILT]** `smart-contract-audit-requirements-before-defi-integration` — Requiring a completed third-party smart-contract audit before integrating with any DeFi protocol as a counterparty.
-- **[planned]** `exchange-proof-of-reserves-verification` — Verifying an exchange's published proof-of-reserves attestation independently rather than accepting it at face value.
+- **[BUILT]** `exchange-proof-of-reserves-verification` — Verifying an exchange's published proof-of-reserves attestation independently rather than accepting it at face value.
 - **[planned]** `key-rotation-schedule-for-hot-wallet-keys` — Defining and following a key-rotation schedule for hot-wallet operational keys, distinct from one-time initial setup.
 - **[planned]** `insurance-coverage-assessment-for-custodied-crypto` — Assessing what insurance coverage (if any) actually applies to custodied crypto assets, since coverage terms vary widely and are often narrower than assumed.
 - **[BUILT]** `air-gapped-signing-workflow-for-cold-storage` — Implementing an air-gapped signing workflow for cold-storage transactions, ensuring the signing device never has network connectivity.
