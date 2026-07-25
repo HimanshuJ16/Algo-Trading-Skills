@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:12.885786+00:00",
+  "generated_at": "2026-07-25T08:13:13.490593+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 263,
+  "total_skills": 264,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5174,6 +5174,25 @@
       "license": "Apache-2.0",
       "path": "skills/walk-forward-validation-setup",
       "skill_md": "skills/walk-forward-validation-setup/SKILL.md"
+    },
+    {
+      "name": "wash-trade-and-spoofing-self-detection",
+      "description": "Compliance controls for wash trade and spoofing self detection",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/wash-trade-and-spoofing-self-detection",
+      "skill_md": "skills/wash-trade-and-spoofing-self-detection/SKILL.md"
     },
     {
       "name": "webhook-based-order-fill-notifications",
