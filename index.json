@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:45:33.549532+00:00",
+  "generated_at": "2026-07-25T07:45:58.377625+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 127,
+  "total_skills": 128,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2685,6 +2685,29 @@
       "license": "Apache-2.0",
       "path": "skills/vectorized-vs-event-driven-backtest-tradeoffs",
       "skill_md": "skills/vectorized-vs-event-driven-backtest-tradeoffs/SKILL.md"
+    },
+    {
+      "name": "walk-forward-hyperparameter-search-budget",
+      "description": "Use when conducting walk-forward strategy optimization to compute, bound, and enforce hyperparameter search budgets ($N_{\\text{evals}}$), preventing indirect overfitting from excessive trial iterations across out-of-sample slices.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "hyperparameter-budget",
+        "walk-forward",
+        "overfitting-prevention",
+        "pbo",
+        "search-space-bounding"
+      ],
+      "brokers_frameworks": [
+        "Hyperparameter Search Budgeter",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/walk-forward-hyperparameter-search-budget",
+      "skill_md": "skills/walk-forward-hyperparameter-search-budget/SKILL.md"
     },
     {
       "name": "walk-forward-optimization-window-management",
