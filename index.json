@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:42.404935+00:00",
+  "generated_at": "2026-07-25T07:49:43.082387+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 152,
+  "total_skills": 153,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2046,6 +2046,24 @@
       "license": "MIT",
       "path": "skills/multi-horizon-forecasting-architecture",
       "skill_md": "skills/multi-horizon-forecasting-architecture/SKILL.md"
+    },
+    {
+      "name": "multi-model-ensemble-weight-decay",
+      "description": "Skill for multi model ensemble weight decay",
+      "domain": "Financial ML",
+      "subdomain": "Ensembling",
+      "tags": [
+        "ml",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/multi-model-ensemble-weight-decay",
+      "skill_md": "skills/multi-model-ensemble-weight-decay/SKILL.md"
     },
     {
       "name": "multi-region-active-active-tick-ingestion",
