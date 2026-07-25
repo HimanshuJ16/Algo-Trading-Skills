@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:07.937551+00:00",
+  "generated_at": "2026-07-25T13:19:09.729812+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 481,
+  "total_skills": 484,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1361,6 +1361,23 @@
       "license": "MIT",
       "path": "skills/cboe-options-exchange-api-integration",
       "skill_md": "skills/cboe-options-exchange-api-integration/SKILL.md"
+    },
+    {
+      "name": "central-bank-communication-nlp-analysis",
+      "description": "Skill for central bank communication nlp analysis",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/central-bank-communication-nlp-analysis",
+      "skill_md": "skills/central-bank-communication-nlp-analysis/SKILL.md"
     },
     {
       "name": "centralized-secrets-management-vault-integration",
@@ -3582,6 +3599,22 @@
       "license": "Apache-2.0",
       "path": "skills/feed-handler-cpu-pinning-and-numa-awareness",
       "skill_md": "skills/feed-handler-cpu-pinning-and-numa-awareness/SKILL.md"
+    },
+    {
+      "name": "fifo-vs-specific-lot-tax-accounting-methods",
+      "description": "Implementation for fifo-vs-specific-lot-tax-accounting-methods",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/fifo-vs-specific-lot-tax-accounting-methods",
+      "skill_md": "skills/fifo-vs-specific-lot-tax-accounting-methods/SKILL.md"
     },
     {
       "name": "finra-algo-trading-registration-requirements",
@@ -9034,6 +9067,22 @@
       "license": "MIT",
       "path": "skills/warrants-and-structured-product-integration",
       "skill_md": "skills/warrants-and-structured-product-integration/SKILL.md"
+    },
+    {
+      "name": "wash-sale-rule-tracking-us",
+      "description": "Implementation for wash-sale-rule-tracking-us",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/wash-sale-rule-tracking-us",
+      "skill_md": "skills/wash-sale-rule-tracking-us/SKILL.md"
     },
     {
       "name": "wash-trade-and-spoofing-self-detection",
