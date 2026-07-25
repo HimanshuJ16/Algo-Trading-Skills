@@ -28,7 +28,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `saxo-bank-openapi-integration` — Integrating Saxo Bank's OpenAPI for multi-asset European/global trading.
 - **[BUILT]** `tastytrade-api-integration` — Integrating Tastytrade's API for options-focused US retail trading.
 - **[BUILT]** `broker-failover-secondary-account-routing` — Routing orders to a secondary broker account automatically if the primary becomes unavailable mid-session.
-- **[planned]** `multi-account-same-strategy-fan-out` — Running one strategy's signals across multiple client accounts (e.g. for a fund) without cross-account order collision.
+- **[BUILT]** `multi-account-same-strategy-fan-out` — Running one strategy's signals across multiple client accounts (e.g. for a fund) without cross-account order collision.
 - **[planned]** `broker-api-versioning-migration-playbook` — A structured playbook for migrating a live bot from one broker API version to the next without a trading-hours outage.
 - **[planned]** `demo-account-realism-gap-assessment` — Systematically comparing a broker's demo/practice account fill behavior against live behavior to know how much to trust demo-based testing.
 - **[planned]** `broker-order-type-capability-matrix` — Building a capability matrix of which order types (bracket, OCO, trailing stop, iceberg) each integrated broker actually supports, since support varies significantly.
