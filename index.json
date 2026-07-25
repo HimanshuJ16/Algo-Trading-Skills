@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:50.871605+00:00",
+  "generated_at": "2026-07-25T08:23:51.367449+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 397,
+  "total_skills": 398,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4874,6 +4874,25 @@
       "license": "MIT",
       "path": "skills/multi-order-netting-before-routing",
       "skill_md": "skills/multi-order-netting-before-routing/SKILL.md"
+    },
+    {
+      "name": "multi-party-computation-mpc-custody-solutions",
+      "description": "Implementation for multi-party-computation-mpc-custody-solutions",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/multi-party-computation-mpc-custody-solutions",
+      "skill_md": "skills/multi-party-computation-mpc-custody-solutions/SKILL.md"
     },
     {
       "name": "multi-region-active-active-tick-ingestion",
