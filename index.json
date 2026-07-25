@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:26.539462+00:00",
+  "generated_at": "2026-07-25T08:10:26.914766+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 234,
+  "total_skills": 236,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -167,6 +167,23 @@
       "license": "MIT",
       "path": "skills/audit-logging-for-configuration-changes",
       "skill_md": "skills/audit-logging-for-configuration-changes/SKILL.md"
+    },
+    {
+      "name": "australian-securities-exchange-asx-api",
+      "description": "Integration for australian-securities-exchange-asx-api",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
+      "tags": [
+        "australian-securities-exchange-asx-api"
+      ],
+      "brokers_frameworks": [
+        "Custom"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/australian-securities-exchange-asx-api",
+      "skill_md": "skills/australian-securities-exchange-asx-api/SKILL.md"
     },
     {
       "name": "automated-rollback-triggers-on-anomaly-detection",
@@ -1274,6 +1291,23 @@
       "license": "MIT",
       "path": "skills/cross-account-aggregate-risk-view",
       "skill_md": "skills/cross-account-aggregate-risk-view/SKILL.md"
+    },
+    {
+      "name": "cross-chain-bridge-risk-for-multi-chain-strategies",
+      "description": "Integration or workflow skill for cross-chain-bridge-risk-for-multi-chain-strategies.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "cross-chain-bridge-risk-for-multi-chain-strategies"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-chain-bridge-risk-for-multi-chain-strategies",
+      "skill_md": "skills/cross-chain-bridge-risk-for-multi-chain-strategies/SKILL.md"
     },
     {
       "name": "cross-datacenter-clock-sync-validation",

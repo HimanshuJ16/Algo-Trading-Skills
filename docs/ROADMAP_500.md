@@ -560,4 +560,3 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 ---
 
 **Grand total: 502 skills tracked (28 built, 474 planned) across 16 categories.**
-  
