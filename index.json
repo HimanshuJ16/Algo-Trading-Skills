@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:43:10.918208+00:00",
+  "generated_at": "2026-07-25T07:43:57.725984+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 124,
+  "total_skills": 125,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -308,6 +308,27 @@
       "license": "Apache-2.0",
       "path": "skills/benchmark-relative-performance-attribution",
       "skill_md": "skills/benchmark-relative-performance-attribution/SKILL.md"
+    },
+    {
+      "name": "benchmark-selection-for-strategy-evaluation",
+      "description": "Choosing an appropriate benchmark against which to evaluate a strategy's risk-adjusted performance.",
+      "domain": "Backtesting",
+      "subdomain": "Evaluation",
+      "tags": [
+        "backtesting",
+        "benchmark",
+        "evaluation",
+        "metrics"
+      ],
+      "brokers_frameworks": [
+        "Pandas",
+        "NumPy"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/benchmark-selection-for-strategy-evaluation",
+      "skill_md": "skills/benchmark-selection-for-strategy-evaluation/SKILL.md"
     },
     {
       "name": "binary-protocol-parsing-for-low-latency-feeds",
