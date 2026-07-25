@@ -240,7 +240,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `cme-globex-futures-api-integration` — Integrating with CME Globex for futures order routing and market data.
 - **[BUILT]** `eurex-market-data-and-order-api` — Handling Eurex-specific contract specs and API quirks for European derivatives.
 - **[BUILT]** `hong-kong-exchange-hkex-orion-api` — Integrating with HKEX's Orion trading API and its specific session/lot-size conventions.
-- **[planned]** `singapore-exchange-sgx-api-integration` — Integrating with SGX's API for Singapore-listed derivatives and equities.
+- **[BUILT]** `singapore-exchange-sgx-api-integration` — Integrating with SGX's API for Singapore-listed derivatives and equities.
 - **[planned]** `australian-securities-exchange-asx-api` — Handling ASX's API and T+2 settlement conventions for an Australian equities bot.
 - **[planned]** `japan-exchange-group-jpx-api-integration` — Integrating with JPX/Tokyo Stock Exchange APIs, including their distinct trading-hour and tick-size rules.
 - **[planned]** `cboe-options-exchange-api-integration` — Integrating with Cboe's options exchange API and its specific complex-order-book conventions.
