@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:54.893940+00:00",
+  "generated_at": "2026-07-25T08:17:55.547546+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 333,
+  "total_skills": 334,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1437,6 +1437,24 @@
       "license": "MIT",
       "path": "skills/concept-drift-vs-staleness-differentiation",
       "skill_md": "skills/concept-drift-vs-staleness-differentiation/SKILL.md"
+    },
+    {
+      "name": "conditional-order-logic-for-execution-triggers",
+      "description": "Implementation of conditional order logic for execution triggers.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/conditional-order-logic-for-execution-triggers",
+      "skill_md": "skills/conditional-order-logic-for-execution-triggers/SKILL.md"
     },
     {
       "name": "configuration-drift-detection-across-environments",
