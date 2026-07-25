@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:24.790250+00:00",
+  "generated_at": "2026-07-25T08:10:25.361818+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 228,
+  "total_skills": 230,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1651,6 +1651,23 @@
       "skill_md": "skills/etrade-oauth1-signature-flow/SKILL.md"
     },
     {
+      "name": "eurex-market-data-and-order-api",
+      "description": "Integration for eurex-market-data-and-order-api",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
+      "tags": [
+        "eurex-market-data-and-order-api"
+      ],
+      "brokers_frameworks": [
+        "Custom"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/eurex-market-data-and-order-api",
+      "skill_md": "skills/eurex-market-data-and-order-api/SKILL.md"
+    },
+    {
       "name": "exchange-multicast-feed-handling",
       "description": "Use when connecting to co-located exchange gateways (CME MDP 3.0, NASDAQ MoldUDP64) to handle dual A/B UDP multicast channels, re-sequence out-of-order packets, and issue TCP historical gap-fill re-transmission requests.",
       "domain": "algorithmic-trading",
@@ -3137,6 +3154,23 @@
       "license": "Apache-2.0",
       "path": "skills/offline-train-online-infer-deployment",
       "skill_md": "skills/offline-train-online-infer-deployment/SKILL.md"
+    },
+    {
+      "name": "okx-unified-account-api",
+      "description": "Integration or workflow skill for okx-unified-account-api.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "okx-unified-account-api"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/okx-unified-account-api",
+      "skill_md": "skills/okx-unified-account-api/SKILL.md"
     },
     {
       "name": "on-call-rotation-and-escalation-for-trading-systems",
