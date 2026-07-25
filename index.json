@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:58.120764+00:00",
+  "generated_at": "2026-07-25T08:16:58.390091+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 313,
+  "total_skills": 314,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5448,6 +5448,23 @@
       "license": "MIT",
       "path": "skills/singapore-mas-notice-on-cyber-hygiene-for-trading-systems",
       "skill_md": "skills/singapore-mas-notice-on-cyber-hygiene-for-trading-systems/SKILL.md"
+    },
+    {
+      "name": "single-stock-futures-where-available",
+      "description": "Skill for single stock futures where available",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Equities",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/single-stock-futures-where-available",
+      "skill_md": "skills/single-stock-futures-where-available/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",
