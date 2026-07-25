@@ -363,7 +363,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `peg-order-types-for-passive-execution` — Using pegged order types (mid-peg, primary-peg) for passive execution that tracks the market without requiring constant re-pricing logic.
 - **[BUILT]** `execution-algo-parameter-optimization-via-backtest` — Backtesting execution-algorithm parameter choices (interval count, aggressiveness) against historical intraday data, mirroring the discipline in walk-forward-validation-setup.
 - **[BUILT]** `cross-venue-latency-arbitrage-defensive-design` — Designing execution logic defensively against being on the losing side of cross-venue latency arbitrage by other participants.
-- **[planned]** `algo-wheel-broker-execution-quality-comparison` — Building an 'algo wheel' that rotates order flow across multiple execution algorithms/brokers and tracks comparative execution quality.
+- **[BUILT]** `algo-wheel-broker-execution-quality-comparison` — Building an 'algo wheel' that rotates order flow across multiple execution algorithms/brokers and tracks comparative execution quality.
 - **[planned]** `conditional-order-logic-for-execution-triggers` — Building conditional execution logic (e.g. only begin slicing once a volume or volatility condition is met) rather than a purely time-triggered schedule.
 - **[planned]** `execution-cost-model-recalibration-cadence` — Defining how often the execution-cost model (informing slicing decisions) is recalibrated against realized TCA data.
 - **[planned]** `multi-order-netting-before-routing` — Netting multiple internal orders in the same instrument/direction before routing to market, to avoid unnecessarily crossing the spread against oneself.

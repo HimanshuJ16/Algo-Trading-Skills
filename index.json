@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:54.221572+00:00",
+  "generated_at": "2026-07-25T08:17:54.893940+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 332,
+  "total_skills": 333,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -126,6 +126,24 @@
       "license": "MIT",
       "path": "skills/algo-trading-disclosure-to-exchange-membership",
       "skill_md": "skills/algo-trading-disclosure-to-exchange-membership/SKILL.md"
+    },
+    {
+      "name": "algo-wheel-broker-execution-quality-comparison",
+      "description": "Implementation of algo wheel broker execution quality comparison.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/algo-wheel-broker-execution-quality-comparison",
+      "skill_md": "skills/algo-wheel-broker-execution-quality-comparison/SKILL.md"
     },
     {
       "name": "algorithmic-trading-firm-licensing-thresholds",
