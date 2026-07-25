@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:11:28.100938+00:00",
+  "generated_at": "2026-07-25T08:13:09.675612+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 257,
+  "total_skills": 258,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4499,6 +4499,25 @@
       "license": "Apache-2.0",
       "path": "skills/schwab-api-oauth-pkce-flow",
       "skill_md": "skills/schwab-api-oauth-pkce-flow/SKILL.md"
+    },
+    {
+      "name": "sec-rule-15c3-5-risk-controls-us",
+      "description": "Compliance controls for sec rule 15c3 5 risk controls us",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/sec-rule-15c3-5-risk-controls-us",
+      "skill_md": "skills/sec-rule-15c3-5-risk-controls-us/SKILL.md"
     },
     {
       "name": "secrets-rotation-without-bot-downtime",

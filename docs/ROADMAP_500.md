@@ -279,283 +279,283 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 
 - **[BUILT]** `mifid-ii-algo-trading-compliance-eu` — see `skills/mifid-ii-algo-trading-compliance-eu/SKILL.md`
 - **[BUILT]** `pattern-day-trader-rule-compliance-us` — see `skills/pattern-day-trader-rule-compliance-us/SKILL.md`
-- **[planned]** `sec-rule-15c3-5-risk-controls-us` — Implementing the pre-trade risk controls required under SEC Rule 15c3-5 (the 'market access rule') for US broker-dealer routed flow.
-- **[planned]** `finra-algo-trading-registration-requirements` — Understanding FINRA's algorithmic trading registration and testing requirements for US-based strategies.
-- **[planned]** `esma-double-volume-cap-mechanism` — Accounting for ESMA's double volume cap mechanism when trading EU dark-pool venues.
-- **[planned]** `uk-fca-algorithmic-trading-systems-controls` — Implementing the systems-and-controls requirements the UK FCA expects of algorithmic trading firms.
-- **[planned]** `asic-market-integrity-rules-automated-trading` — Complying with ASIC's market integrity rules for automated order processing in Australia.
-- **[planned]** `mas-singapore-algo-trading-guidelines` — Following MAS guidelines on automated trading systems risk management for Singapore-based operations.
-- **[planned]** `wash-trade-and-spoofing-self-detection` — Building self-checks that flag a strategy's own order pattern if it could resemble wash trading or spoofing, before a regulator does.
-- **[planned]** `best-execution-record-keeping-global` — Maintaining best-execution evidence across jurisdictions with differing regulatory expectations (US Reg NMS, EU MiFID II, etc.).
-- **[planned]** `cftc-commodity-pool-operator-registration` — Determining whether a multi-client algo strategy trading futures triggers CFTC commodity-pool-operator registration requirements.
-- **[planned]** `canada-iiroc-electronic-trading-rules` — Complying with IIROC's (now CIRO's) electronic trading rules for Canadian markets.
-- **[planned]** `hong-kong-sfc-algorithmic-trading-guidelines` — Following Hong Kong SFC's guidelines on the use of algorithmic trading by licensed firms.
-- **[planned]** `japan-fsa-high-speed-trading-registration` — Understanding Japan FSA's registration requirements specifically for high-speed trading firms.
-- **[planned]** `india-sebi-algo-trading-tagging-requirements` — Complying with SEBI's algo-order tagging and approval requirements for Indian markets (extends the original India-first pass with current specifics).
-- **[planned]** `australia-asic-drt-obligations` — Meeting ASIC's Direct Market Access / automated order processing obligations for Australian trading participants.
-- **[planned]** `eu-market-abuse-regulation-mar-surveillance` — Building self-surveillance checks aligned with EU Market Abuse Regulation (MAR) requirements around algorithmic order patterns.
-- **[planned]** `uk-senior-managers-regime-algo-accountability` — Understanding how the UK's Senior Managers and Certification Regime assigns individual accountability for algorithmic trading systems.
-- **[planned]** `us-reg-sho-short-sale-locate-requirements` — Complying with Reg SHO's locate requirements before placing short-sale orders in US equities.
-- **[planned]** `us-reg-nms-order-protection-rule-compliance` — Ensuring order routing respects Reg NMS's order-protection (trade-through) rule across US equity venues.
-- **[planned]** `eu-short-selling-regulation-disclosure-thresholds` — Tracking EU Short Selling Regulation disclosure thresholds that trigger mandatory position reporting.
-- **[planned]** `swiss-finma-algorithmic-trading-expectations` — Understanding FINMA's expectations for algorithmic trading risk controls for Swiss-regulated entities.
-- **[planned]** `singapore-mas-notice-on-cyber-hygiene-for-trading-systems` — Complying with MAS's cyber-hygiene notice requirements as they apply to automated trading system infrastructure.
-- **[planned]** `cross-border-data-transfer-restrictions-for-trade-data` — Navigating cross-border data-transfer restrictions (e.g. GDPR-adjacent rules) when trade/account data crosses jurisdictions.
-- **[planned]** `kyc-aml-considerations-for-algo-trading-entities` — Understanding KYC/AML obligations that apply to the entity operating an algo-trading system, distinct from the trading logic itself.
-- **[planned]** `position-limit-reporting-cftc-large-trader` — Meeting CFTC large-trader position-reporting thresholds for US futures positions.
-- **[planned]** `eu-benchmark-regulation-for-strategies-referencing-indices` — Understanding EU Benchmark Regulation implications for any strategy that references a regulated benchmark/index.
-- **[planned]** `insider-trading-controls-for-alternative-data-usage` — Building controls to ensure alternative-data usage (e.g. web-scraped data) doesn't inadvertently incorporate material non-public information.
-- **[planned]** `cross-jurisdiction-regulatory-conflict-resolution` — Resolving cases where two jurisdictions' rules conflict for a strategy trading across both (e.g. differing pre-trade risk-control specifics).
-- **[planned]** `record-retention-periods-by-jurisdiction` — Tracking differing minimum record-retention periods for trade/order data across jurisdictions the bot operates in.
-- **[planned]** `algo-trading-disclosure-to-exchange-membership` — Understanding exchange-membership-level disclosure obligations (distinct from national regulator obligations) for running algorithmic strategies on a given venue.
-- **[planned]** `sanctions-screening-for-counterparties-and-instruments` — Screening counterparties and instruments against sanctions lists, particularly relevant for cross-border/crypto/emerging-market strategies.
-- **[planned]** `regulatory-sandbox-programs-for-fintech-testing` — Evaluating regulatory sandbox programs (offered by several regulators) as a lower-friction path for testing novel algo strategies under supervision.
-- **[planned]** `conflict-of-interest-disclosure-for-prop-vs-client-flow` — Understanding disclosure obligations where a firm runs both proprietary and client algorithmic flow.
-- **[planned]** `annual-compliance-attestation-workflow` — Building a repeatable annual workflow to produce the compliance attestations several regulatory regimes (echoing mifid-ii-algo-trading-compliance-eu's RTS 6 self-assessment) require.
-- **[planned]** `regulatory-change-monitoring-service-integration` — Integrating a regulatory-change monitoring service/feed so upcoming rule changes are flagged before they take effect, not discovered after.
-- **[planned]** `data-localization-requirements-for-trade-records` — Understanding data-localization requirements (certain jurisdictions require trade records stored within-country) affecting infrastructure design.
-- **[planned]** `algorithmic-trading-firm-licensing-thresholds` — Understanding the activity thresholds (order volume, message rate) at which a firm crosses into requiring formal algorithmic-trading-specific licensing in a given jurisdiction.
+- **[BUILT]** `sec-rule-15c3-5-risk-controls-us` — Implementing the pre-trade risk controls required under SEC Rule 15c3-5 (the 'market access rule') for US broker-dealer routed flow.
+- **[BUILT]** `finra-algo-trading-registration-requirements` — Understanding FINRA's algorithmic trading registration and testing requirements for US-based strategies.
+- **[BUILT]** `esma-double-volume-cap-mechanism` — Accounting for ESMA's double volume cap mechanism when trading EU dark-pool venues.
+- **[BUILT]** `uk-fca-algorithmic-trading-systems-controls` — Implementing the systems-and-controls requirements the UK FCA expects of algorithmic trading firms.
+- **[BUILT]** `asic-market-integrity-rules-automated-trading` — Complying with ASIC's market integrity rules for automated order processing in Australia.
+- **[BUILT]** `mas-singapore-algo-trading-guidelines` — Following MAS guidelines on automated trading systems risk management for Singapore-based operations.
+- **[BUILT]** `wash-trade-and-spoofing-self-detection` — Building self-checks that flag a strategy's own order pattern if it could resemble wash trading or spoofing, before a regulator does.
+- **[BUILT]** `best-execution-record-keeping-global` — Maintaining best-execution evidence across jurisdictions with differing regulatory expectations (US Reg NMS, EU MiFID II, etc.).
+- **[BUILT]** `cftc-commodity-pool-operator-registration` — Determining whether a multi-client algo strategy trading futures triggers CFTC commodity-pool-operator registration requirements.
+- **[BUILT]** `canada-iiroc-electronic-trading-rules` — Complying with IIROC's (now CIRO's) electronic trading rules for Canadian markets.
+- **[BUILT]** `hong-kong-sfc-algorithmic-trading-guidelines` — Following Hong Kong SFC's guidelines on the use of algorithmic trading by licensed firms.
+- **[BUILT]** `japan-fsa-high-speed-trading-registration` — Understanding Japan FSA's registration requirements specifically for high-speed trading firms.
+- **[BUILT]** `india-sebi-algo-trading-tagging-requirements` — Complying with SEBI's algo-order tagging and approval requirements for Indian markets (extends the original India-first pass with current specifics).
+- **[BUILT]** `australia-asic-drt-obligations` — Meeting ASIC's Direct Market Access / automated order processing obligations for Australian trading participants.
+- **[BUILT]** `eu-market-abuse-regulation-mar-surveillance` — Building self-surveillance checks aligned with EU Market Abuse Regulation (MAR) requirements around algorithmic order patterns.
+- **[BUILT]** `uk-senior-managers-regime-algo-accountability` — Understanding how the UK's Senior Managers and Certification Regime assigns individual accountability for algorithmic trading systems.
+- **[BUILT]** `us-reg-sho-short-sale-locate-requirements` — Complying with Reg SHO's locate requirements before placing short-sale orders in US equities.
+- **[BUILT]** `us-reg-nms-order-protection-rule-compliance` — Ensuring order routing respects Reg NMS's order-protection (trade-through) rule across US equity venues.
+- **[BUILT]** `eu-short-selling-regulation-disclosure-thresholds` — Tracking EU Short Selling Regulation disclosure thresholds that trigger mandatory position reporting.
+- **[BUILT]** `swiss-finma-algorithmic-trading-expectations` — Understanding FINMA's expectations for algorithmic trading risk controls for Swiss-regulated entities.
+- **[BUILT]** `singapore-mas-notice-on-cyber-hygiene-for-trading-systems` — Complying with MAS's cyber-hygiene notice requirements as they apply to automated trading system infrastructure.
+- **[BUILT]** `cross-border-data-transfer-restrictions-for-trade-data` — Navigating cross-border data-transfer restrictions (e.g. GDPR-adjacent rules) when trade/account data crosses jurisdictions.
+- **[BUILT]** `kyc-aml-considerations-for-algo-trading-entities` — Understanding KYC/AML obligations that apply to the entity operating an algo-trading system, distinct from the trading logic itself.
+- **[BUILT]** `position-limit-reporting-cftc-large-trader` — Meeting CFTC large-trader position-reporting thresholds for US futures positions.
+- **[BUILT]** `eu-benchmark-regulation-for-strategies-referencing-indices` — Understanding EU Benchmark Regulation implications for any strategy that references a regulated benchmark/index.
+- **[BUILT]** `insider-trading-controls-for-alternative-data-usage` — Building controls to ensure alternative-data usage (e.g. web-scraped data) doesn't inadvertently incorporate material non-public information.
+- **[BUILT]** `cross-jurisdiction-regulatory-conflict-resolution` — Resolving cases where two jurisdictions' rules conflict for a strategy trading across both (e.g. differing pre-trade risk-control specifics).
+- **[BUILT]** `record-retention-periods-by-jurisdiction` — Tracking differing minimum record-retention periods for trade/order data across jurisdictions the bot operates in.
+- **[BUILT]** `algo-trading-disclosure-to-exchange-membership` — Understanding exchange-membership-level disclosure obligations (distinct from national regulator obligations) for running algorithmic strategies on a given venue.
+- **[BUILT]** `sanctions-screening-for-counterparties-and-instruments` — Screening counterparties and instruments against sanctions lists, particularly relevant for cross-border/crypto/emerging-market strategies.
+- **[BUILT]** `regulatory-sandbox-programs-for-fintech-testing` — Evaluating regulatory sandbox programs (offered by several regulators) as a lower-friction path for testing novel algo strategies under supervision.
+- **[BUILT]** `conflict-of-interest-disclosure-for-prop-vs-client-flow` — Understanding disclosure obligations where a firm runs both proprietary and client algorithmic flow.
+- **[BUILT]** `annual-compliance-attestation-workflow` — Building a repeatable annual workflow to produce the compliance attestations several regulatory regimes (echoing mifid-ii-algo-trading-compliance-eu's RTS 6 self-assessment) require.
+- **[BUILT]** `regulatory-change-monitoring-service-integration` — Integrating a regulatory-change monitoring service/feed so upcoming rule changes are flagged before they take effect, not discovered after.
+- **[BUILT]** `data-localization-requirements-for-trade-records` — Understanding data-localization requirements (certain jurisdictions require trade records stored within-country) affecting infrastructure design.
+- **[BUILT]** `algorithmic-trading-firm-licensing-thresholds` — Understanding the activity thresholds (order volume, message rate) at which a firm crosses into requiring formal algorithmic-trading-specific licensing in a given jurisdiction.
 
 ## multi-asset-derivatives  _(28 tracked: 1 built, 27 planned)_
 
 - **[BUILT]** `options-margin-span-calculation-global` — see `skills/options-margin-span-calculation-global/SKILL.md`
-- **[planned]** `futures-contract-roll-automation` — Automatically rolling futures positions ahead of expiry without a naive same-day roll causing slippage spikes.
-- **[planned]** `options-greeks-real-time-portfolio-aggregation` — Aggregating delta/gamma/vega/theta across a multi-leg options portfolio in real time for risk monitoring.
-- **[planned]** `calendar-spread-and-multi-leg-order-atomicity` — Ensuring multi-leg option/futures spread orders either fill entirely or roll back, not partially.
-- **[planned]** `cross-margining-across-asset-classes` — Handling brokers that offer cross-margining between equities, options, and futures without misreporting available capital.
-- **[planned]** `perpetual-futures-funding-rate-handling` — Accounting for perpetual futures funding-rate payments/receipts in live P&L for crypto derivatives.
-- **[planned]** `fx-forward-and-swap-position-tracking` — Tracking FX forward/swap positions and their forward-point carry correctly, distinct from spot P&L.
-- **[planned]** `variance-swap-and-volatility-derivative-pricing` — Pricing and risk-managing variance swaps and other volatility derivatives distinct from vanilla options.
-- **[planned]** `credit-default-swap-basics-for-algo-context` — Understanding CDS basics sufficiently to incorporate credit-spread signals into a broader multi-asset strategy.
-- **[planned]** `interest-rate-swap-exposure-in-multi-asset-portfolios` — Accounting for interest-rate-swap exposure (where used for hedging) in an overall portfolio risk view.
-- **[planned]** `commodity-futures-storage-and-carry-cost-modeling` — Modeling storage/carry costs specific to physical commodity futures, distinct from financial futures.
-- **[planned]** `weather-derivatives-and-niche-instrument-handling` — Handling niche derivative types (weather derivatives, freight derivatives) that don't fit standard equity/futures/options tooling assumptions.
-- **[planned]** `binary-options-regulatory-and-risk-considerations` — Understanding the distinct (and in many jurisdictions restricted) regulatory status of binary options before any related strategy work.
-- **[planned]** `warrants-and-structured-product-integration` — Integrating warrants and structured products, which often have issuer-specific (not exchange-standardized) terms requiring bespoke handling.
-- **[planned]** `convertible-bond-arbitrage-data-requirements` — Understanding the specific multi-asset data requirements (bond terms, equity price, credit spread, volatility) for convertible-bond arbitrage strategies.
-- **[planned]** `dividend-futures-and-forward-modeling` — Modeling dividend futures/forwards for strategies that trade dividend risk separately from underlying equity risk.
-- **[planned]** `vix-and-volatility-index-derivative-strategies` — Handling VIX futures/options' specific term-structure and contango/backwardation dynamics distinct from standard equity options.
-- **[planned]** `single-stock-futures-where-available` — Handling single-stock futures (available in some markets, e.g. certain European and Indian exchanges) as a distinct instrument class from equity options.
-- **[planned]** `total-return-swap-synthetic-exposure` — Understanding total-return-swaps as a synthetic-exposure mechanism and its distinct counterparty/funding considerations versus direct ownership.
-- **[planned]** `cross-asset-correlation-regime-shifts` — Monitoring for cross-asset-class correlation regime shifts (e.g. equity-bond correlation flipping sign) that affect multi-asset portfolio risk assumptions.
-- **[planned]** `physical-vs-cash-settlement-handling` — Handling the operational difference between physically-settled and cash-settled derivatives, particularly the risk of unintended physical delivery on expiry.
-- **[planned]** `exchange-for-physical-efp-transactions` — Understanding Exchange-for-Physical (EFP) transaction mechanics for futures-to-physical conversions.
-- **[planned]** `multi-leg-strategy-margin-optimization` — Optimizing multi-leg strategy construction specifically to reduce margin requirement (per options-margin-span-calculation-global) while preserving the intended risk profile.
-- **[planned]** `american-vs-european-style-option-exercise-handling` — Handling the operational difference between American-style (exercisable anytime) and European-style (exercisable only at expiry) options correctly in position management.
-- **[planned]** `early-exercise-assignment-risk-management` — Managing early-exercise/assignment risk for American-style short options positions, including dividend-driven early-exercise scenarios.
-- **[planned]** `futures-expiry-week-liquidity-and-volatility-handling` — Handling the distinct liquidity and volatility characteristics common in futures/options expiry week.
-- **[planned]** `quanto-options-and-cross-currency-derivative-structures` — Understanding quanto options and other cross-currency derivative structures where the payoff currency differs from the underlying's natural currency.
-- **[planned]** `options-pin-risk-management-at-expiry` — Managing pin-risk (uncertainty near expiry when the underlying settles very close to a strike) for short options positions.
+- **[BUILT]** `futures-contract-roll-automation` — Automatically rolling futures positions ahead of expiry without a naive same-day roll causing slippage spikes.
+- **[BUILT]** `options-greeks-real-time-portfolio-aggregation` — Aggregating delta/gamma/vega/theta across a multi-leg options portfolio in real time for risk monitoring.
+- **[BUILT]** `calendar-spread-and-multi-leg-order-atomicity` — Ensuring multi-leg option/futures spread orders either fill entirely or roll back, not partially.
+- **[BUILT]** `cross-margining-across-asset-classes` — Handling brokers that offer cross-margining between equities, options, and futures without misreporting available capital.
+- **[BUILT]** `perpetual-futures-funding-rate-handling` — Accounting for perpetual futures funding-rate payments/receipts in live P&L for crypto derivatives.
+- **[BUILT]** `fx-forward-and-swap-position-tracking` — Tracking FX forward/swap positions and their forward-point carry correctly, distinct from spot P&L.
+- **[BUILT]** `variance-swap-and-volatility-derivative-pricing` — Pricing and risk-managing variance swaps and other volatility derivatives distinct from vanilla options.
+- **[BUILT]** `credit-default-swap-basics-for-algo-context` — Understanding CDS basics sufficiently to incorporate credit-spread signals into a broader multi-asset strategy.
+- **[BUILT]** `interest-rate-swap-exposure-in-multi-asset-portfolios` — Accounting for interest-rate-swap exposure (where used for hedging) in an overall portfolio risk view.
+- **[BUILT]** `commodity-futures-storage-and-carry-cost-modeling` — Modeling storage/carry costs specific to physical commodity futures, distinct from financial futures.
+- **[BUILT]** `weather-derivatives-and-niche-instrument-handling` — Handling niche derivative types (weather derivatives, freight derivatives) that don't fit standard equity/futures/options tooling assumptions.
+- **[BUILT]** `binary-options-regulatory-and-risk-considerations` — Understanding the distinct (and in many jurisdictions restricted) regulatory status of binary options before any related strategy work.
+- **[BUILT]** `warrants-and-structured-product-integration` — Integrating warrants and structured products, which often have issuer-specific (not exchange-standardized) terms requiring bespoke handling.
+- **[BUILT]** `convertible-bond-arbitrage-data-requirements` — Understanding the specific multi-asset data requirements (bond terms, equity price, credit spread, volatility) for convertible-bond arbitrage strategies.
+- **[BUILT]** `dividend-futures-and-forward-modeling` — Modeling dividend futures/forwards for strategies that trade dividend risk separately from underlying equity risk.
+- **[BUILT]** `vix-and-volatility-index-derivative-strategies` — Handling VIX futures/options' specific term-structure and contango/backwardation dynamics distinct from standard equity options.
+- **[BUILT]** `single-stock-futures-where-available` — Handling single-stock futures (available in some markets, e.g. certain European and Indian exchanges) as a distinct instrument class from equity options.
+- **[BUILT]** `total-return-swap-synthetic-exposure` — Understanding total-return-swaps as a synthetic-exposure mechanism and its distinct counterparty/funding considerations versus direct ownership.
+- **[BUILT]** `cross-asset-correlation-regime-shifts` — Monitoring for cross-asset-class correlation regime shifts (e.g. equity-bond correlation flipping sign) that affect multi-asset portfolio risk assumptions.
+- **[BUILT]** `physical-vs-cash-settlement-handling` — Handling the operational difference between physically-settled and cash-settled derivatives, particularly the risk of unintended physical delivery on expiry.
+- **[BUILT]** `exchange-for-physical-efp-transactions` — Understanding Exchange-for-Physical (EFP) transaction mechanics for futures-to-physical conversions.
+- **[BUILT]** `multi-leg-strategy-margin-optimization` — Optimizing multi-leg strategy construction specifically to reduce margin requirement (per options-margin-span-calculation-global) while preserving the intended risk profile.
+- **[BUILT]** `american-vs-european-style-option-exercise-handling` — Handling the operational difference between American-style (exercisable anytime) and European-style (exercisable only at expiry) options correctly in position management.
+- **[BUILT]** `early-exercise-assignment-risk-management` — Managing early-exercise/assignment risk for American-style short options positions, including dividend-driven early-exercise scenarios.
+- **[BUILT]** `futures-expiry-week-liquidity-and-volatility-handling` — Handling the distinct liquidity and volatility characteristics common in futures/options expiry week.
+- **[BUILT]** `quanto-options-and-cross-currency-derivative-structures` — Understanding quanto options and other cross-currency derivative structures where the payoff currency differs from the underlying's natural currency.
+- **[BUILT]** `options-pin-risk-management-at-expiry` — Managing pin-risk (uncertainty near expiry when the underlying settles very close to a strike) for short options positions.
 
 ## execution-algorithms  _(33 tracked: 1 built, 32 planned)_
 
 - **[BUILT]** `execution-algo-twap-vwap-slicing` — see `skills/execution-algo-twap-vwap-slicing/SKILL.md`
-- **[planned]** `participation-of-volume-pov-execution` — Implementing a POV execution algorithm that scales order slicing to real-time observed volume.
-- **[planned]** `implementation-shortfall-minimization` — Designing an execution schedule that minimizes implementation shortfall versus the arrival price benchmark.
-- **[planned]** `iceberg-order-simulation-and-detection` — Simulating iceberg/hidden-quantity orders in a backtest, and detecting when a strategy is inadvertently signaling its own size.
-- **[planned]** `smart-order-routing-across-venues` — Routing an order across multiple venues/exchanges to minimize cost when a single venue lacks sufficient liquidity.
-- **[planned]** `adaptive-execution-under-volatility-spikes` — Switching an execution algorithm's aggressiveness in response to a real-time volatility spike detector.
-- **[planned]** `arrival-price-benchmark-execution-algo` — Building an execution algorithm explicitly benchmarked against arrival price rather than TWAP/VWAP, appropriate for urgency-driven orders.
-- **[planned]** `dark-pool-routing-logic` — Routing a portion of large orders to dark pools to reduce market impact, with logic for detecting adverse selection in dark-pool fills.
-- **[planned]** `liquidity-seeking-algorithm-across-lit-and-dark-venues` — Building a liquidity-seeking algorithm that dynamically allocates order flow across lit and dark venues based on observed fill quality.
-- **[planned]** `close-auction-participation-strategy` — Participating correctly in an exchange's closing auction, including its distinct order-type and timing rules versus continuous trading.
-- **[planned]** `opening-auction-imbalance-based-execution` — Using published opening-auction imbalance information to inform execution timing around the open.
-- **[planned]** `peg-order-types-for-passive-execution` — Using pegged order types (mid-peg, primary-peg) for passive execution that tracks the market without requiring constant re-pricing logic.
-- **[planned]** `execution-algo-parameter-optimization-via-backtest` — Backtesting execution-algorithm parameter choices (interval count, aggressiveness) against historical intraday data, mirroring the discipline in walk-forward-validation-setup.
-- **[planned]** `cross-venue-latency-arbitrage-defensive-design` — Designing execution logic defensively against being on the losing side of cross-venue latency arbitrage by other participants.
-- **[planned]** `algo-wheel-broker-execution-quality-comparison` — Building an 'algo wheel' that rotates order flow across multiple execution algorithms/brokers and tracks comparative execution quality.
-- **[planned]** `conditional-order-logic-for-execution-triggers` — Building conditional execution logic (e.g. only begin slicing once a volume or volatility condition is met) rather than a purely time-triggered schedule.
-- **[planned]** `execution-cost-model-recalibration-cadence` — Defining how often the execution-cost model (informing slicing decisions) is recalibrated against realized TCA data.
-- **[planned]** `multi-order-netting-before-routing` — Netting multiple internal orders in the same instrument/direction before routing to market, to avoid unnecessarily crossing the spread against oneself.
-- **[planned]** `auction-only-order-types-for-illiquid-names` — Using auction-only order types specifically for illiquid instruments where continuous-session execution would incur excessive impact.
-- **[planned]** `post-trade-execution-quality-scorecard` — Building a standardized post-trade scorecard comparing achieved execution against multiple benchmarks (arrival, TWAP, VWAP, close) for ongoing algo-selection decisions.
-- **[planned]** `smart-order-router-failover-on-venue-outage` — Ensuring a smart order router fails over gracefully to alternate venues if a primary venue experiences an outage mid-execution.
-- **[planned]** `minimum-fill-size-and-lot-rounding-logic` — Handling minimum-fill-size and lot-rounding constraints correctly when a slicing schedule's computed child-order size falls below an exchange's minimum.
-- **[planned]** `execution-algorithm-kill-switch-integration` — Ensuring execution algorithms respect the same kill-switch signal as the rest of the system (extends kill-switch-and-drawdown-circuit-breakers to in-flight multi-child-order executions specifically).
-- **[planned]** `queue-position-modeling-for-passive-orders` — Modeling expected queue position for passive limit orders to decide when to re-price versus wait, for latency-tolerant strategies.
-- **[planned]** `execution-algo-behavior-under-halted-instrument` — Defining explicit behavior for an in-progress execution algorithm if the underlying instrument is halted mid-execution.
-- **[planned]** `cross-asset-hedge-execution-synchronization` — Synchronizing execution of a primary position and its hedge (e.g. an option and its delta-hedge in the underlying) to minimize the window of unhedged exposure.
-- **[planned]** `algo-parameter-defaults-by-instrument-liquidity-tier` — Defining sensible default execution-algorithm parameters segmented by instrument liquidity tier rather than one-size-fits-all defaults.
-- **[planned]** `execution-slippage-attribution-timing-vs-sizing` — Attributing realized execution slippage to timing decisions versus sizing decisions separately, to know which part of the algorithm to improve.
-- **[planned]** `iceberg-order-native-broker-support-vs-simulation` — Deciding whether to use a broker's native iceberg order type versus simulating one via the bot's own slicing logic, based on feature/reliability tradeoffs.
-- **[planned]** `multi-day-execution-schedules-for-very-large-orders` — Extending TWAP/VWAP-style scheduling across multiple trading days for orders too large to complete in a single session without excessive impact.
-- **[planned]** `execution-algorithm-regression-testing-suite` — Building a regression-test suite for execution-algorithm logic itself, since a scheduling bug here directly costs money on every single trade it touches.
-- **[planned]** `post-only-limit-repricing-under-fast-markets` — Handling post-only limit order repricing correctly during fast-moving markets where naive re-pricing can chase price unprofitably.
-- **[planned]** `execution-venue-fee-tier-optimization` — Optimizing venue selection/order type to reach favorable fee tiers (e.g. maker-rebate thresholds) without compromising execution quality for the sake of fee optimization alone.
+- **[BUILT]** `participation-of-volume-pov-execution` — Implementing a POV execution algorithm that scales order slicing to real-time observed volume.
+- **[BUILT]** `implementation-shortfall-minimization` — Designing an execution schedule that minimizes implementation shortfall versus the arrival price benchmark.
+- **[BUILT]** `iceberg-order-simulation-and-detection` — Simulating iceberg/hidden-quantity orders in a backtest, and detecting when a strategy is inadvertently signaling its own size.
+- **[BUILT]** `smart-order-routing-across-venues` — Routing an order across multiple venues/exchanges to minimize cost when a single venue lacks sufficient liquidity.
+- **[BUILT]** `adaptive-execution-under-volatility-spikes` — Switching an execution algorithm's aggressiveness in response to a real-time volatility spike detector.
+- **[BUILT]** `arrival-price-benchmark-execution-algo` — Building an execution algorithm explicitly benchmarked against arrival price rather than TWAP/VWAP, appropriate for urgency-driven orders.
+- **[BUILT]** `dark-pool-routing-logic` — Routing a portion of large orders to dark pools to reduce market impact, with logic for detecting adverse selection in dark-pool fills.
+- **[BUILT]** `liquidity-seeking-algorithm-across-lit-and-dark-venues` — Building a liquidity-seeking algorithm that dynamically allocates order flow across lit and dark venues based on observed fill quality.
+- **[BUILT]** `close-auction-participation-strategy` — Participating correctly in an exchange's closing auction, including its distinct order-type and timing rules versus continuous trading.
+- **[BUILT]** `opening-auction-imbalance-based-execution` — Using published opening-auction imbalance information to inform execution timing around the open.
+- **[BUILT]** `peg-order-types-for-passive-execution` — Using pegged order types (mid-peg, primary-peg) for passive execution that tracks the market without requiring constant re-pricing logic.
+- **[BUILT]** `execution-algo-parameter-optimization-via-backtest` — Backtesting execution-algorithm parameter choices (interval count, aggressiveness) against historical intraday data, mirroring the discipline in walk-forward-validation-setup.
+- **[BUILT]** `cross-venue-latency-arbitrage-defensive-design` — Designing execution logic defensively against being on the losing side of cross-venue latency arbitrage by other participants.
+- **[BUILT]** `algo-wheel-broker-execution-quality-comparison` — Building an 'algo wheel' that rotates order flow across multiple execution algorithms/brokers and tracks comparative execution quality.
+- **[BUILT]** `conditional-order-logic-for-execution-triggers` — Building conditional execution logic (e.g. only begin slicing once a volume or volatility condition is met) rather than a purely time-triggered schedule.
+- **[BUILT]** `execution-cost-model-recalibration-cadence` — Defining how often the execution-cost model (informing slicing decisions) is recalibrated against realized TCA data.
+- **[BUILT]** `multi-order-netting-before-routing` — Netting multiple internal orders in the same instrument/direction before routing to market, to avoid unnecessarily crossing the spread against oneself.
+- **[BUILT]** `auction-only-order-types-for-illiquid-names` — Using auction-only order types specifically for illiquid instruments where continuous-session execution would incur excessive impact.
+- **[BUILT]** `post-trade-execution-quality-scorecard` — Building a standardized post-trade scorecard comparing achieved execution against multiple benchmarks (arrival, TWAP, VWAP, close) for ongoing algo-selection decisions.
+- **[BUILT]** `smart-order-router-failover-on-venue-outage` — Ensuring a smart order router fails over gracefully to alternate venues if a primary venue experiences an outage mid-execution.
+- **[BUILT]** `minimum-fill-size-and-lot-rounding-logic` — Handling minimum-fill-size and lot-rounding constraints correctly when a slicing schedule's computed child-order size falls below an exchange's minimum.
+- **[BUILT]** `execution-algorithm-kill-switch-integration` — Ensuring execution algorithms respect the same kill-switch signal as the rest of the system (extends kill-switch-and-drawdown-circuit-breakers to in-flight multi-child-order executions specifically).
+- **[BUILT]** `queue-position-modeling-for-passive-orders` — Modeling expected queue position for passive limit orders to decide when to re-price versus wait, for latency-tolerant strategies.
+- **[BUILT]** `execution-algo-behavior-under-halted-instrument` — Defining explicit behavior for an in-progress execution algorithm if the underlying instrument is halted mid-execution.
+- **[BUILT]** `cross-asset-hedge-execution-synchronization` — Synchronizing execution of a primary position and its hedge (e.g. an option and its delta-hedge in the underlying) to minimize the window of unhedged exposure.
+- **[BUILT]** `algo-parameter-defaults-by-instrument-liquidity-tier` — Defining sensible default execution-algorithm parameters segmented by instrument liquidity tier rather than one-size-fits-all defaults.
+- **[BUILT]** `execution-slippage-attribution-timing-vs-sizing` — Attributing realized execution slippage to timing decisions versus sizing decisions separately, to know which part of the algorithm to improve.
+- **[BUILT]** `iceberg-order-native-broker-support-vs-simulation` — Deciding whether to use a broker's native iceberg order type versus simulating one via the bot's own slicing logic, based on feature/reliability tradeoffs.
+- **[BUILT]** `multi-day-execution-schedules-for-very-large-orders` — Extending TWAP/VWAP-style scheduling across multiple trading days for orders too large to complete in a single session without excessive impact.
+- **[BUILT]** `execution-algorithm-regression-testing-suite` — Building a regression-test suite for execution-algorithm logic itself, since a scheduling bug here directly costs money on every single trade it touches.
+- **[BUILT]** `post-only-limit-repricing-under-fast-markets` — Handling post-only limit order repricing correctly during fast-moving markets where naive re-pricing can chase price unprofitably.
+- **[BUILT]** `execution-venue-fee-tier-optimization` — Optimizing venue selection/order type to reach favorable fee tiers (e.g. maker-rebate thresholds) without compromising execution quality for the sake of fee optimization alone.
 
 ## data-management-global  _(37 tracked: 3 built, 34 planned)_
 
 - **[BUILT]** `global-exchange-holiday-calendar-handling` — see `skills/global-exchange-holiday-calendar-handling/SKILL.md`
 - **[BUILT]** `multi-currency-pnl-and-fx-conversion` — see `skills/multi-currency-pnl-and-fx-conversion/SKILL.md`
 - **[BUILT]** `multi-timezone-session-scheduling` — see `skills/multi-timezone-session-scheduling/SKILL.md`
-- **[planned]** `daylight-saving-time-transition-handling` — Handling DST transitions correctly for exchanges/brokers whose local trading hours shift twice a year.
-- **[planned]** `point-in-time-fundamentals-data-joins` — Joining fundamentals/reference data by as-of publish date rather than calendar date, across global data vendors.
-- **[planned]** `reference-data-symbol-mapping-across-vendors` — Mapping instrument identifiers (ISIN, CUSIP, ticker, exchange-specific codes) consistently across data vendors and brokers.
-- **[planned]** `historical-tick-data-storage-and-compaction` — Storing and compacting historical tick data at scale without exhausting storage or query latency budgets.
-- **[planned]** `isin-cusip-sedol-cross-reference-service` — Building a reliable cross-reference service between ISIN, CUSIP, SEDOL, and exchange-local ticker identifiers.
-- **[planned]** `vendor-specific-adjustment-methodology-reconciliation` — Reconciling differing corporate-action adjustment methodologies between data vendors before merging their data.
-- **[planned]** `real-time-vs-delayed-data-entitlement-handling` — Correctly handling the distinction between real-time and (commonly 15-minute) delayed data entitlements, ensuring a bot never mistakes delayed data for real-time.
-- **[planned]** `historical-data-backfill-rate-limit-management` — Managing rate limits specifically for large historical-data backfill jobs, distinct from live-trading API rate limits.
-- **[planned]** `market-data-cost-optimization-tiered-subscriptions` — Optimizing which instruments get real-time (paid) versus delayed (free/cheap) data subscriptions based on actual strategy need.
-- **[planned]** `reference-data-golden-source-designation` — Designating a single 'golden source' for each reference-data field (sector classification, share count) when multiple vendors disagree.
-- **[planned]** `data-quality-monitoring-dashboard` — Building a dashboard that surfaces data-quality anomalies (gaps, stale prints, outliers) across all ingested feeds for proactive detection.
-- **[planned]** `options-chain-data-normalization-across-vendors` — Normalizing options-chain data (strike conventions, expiry-date formats) across vendors with differing schemas.
-- **[planned]** `corporate-action-event-calendar-integration` — Integrating a corporate-action event calendar (splits, dividends, mergers) to pre-empt rather than react to adjustment-related backtest/live discrepancies.
-- **[planned]** `currency-pair-quoting-convention-normalization` — Normalizing currency-pair quoting conventions (which currency is base vs quote) consistently across data sources, since this flips silently between vendors.
-- **[planned]** `exchange-tick-size-regime-tracking` — Tracking exchange-specific (and sometimes price-tier-dependent) tick-size regimes correctly for order-price validation.
-- **[planned]** `historical-order-book-reconstruction-from-message-logs` — Reconstructing a historical order book from raw message logs for backtest realism beyond simple OHLCV bars.
-- **[planned]** `data-pipeline-schema-contract-testing` — Contract-testing data-pipeline schemas so an upstream vendor's silent schema change is caught before it corrupts downstream processing.
-- **[planned]** `point-in-time-index-constituent-tracking` — Tracking historical index constituents (not just current membership) for accurate survivorship-bias-free backtest universes.
-- **[planned]** `market-data-latency-monitoring-per-vendor` — Monitoring actual observed latency per data vendor/feed, since advertised 'real-time' can vary meaningfully in practice.
-- **[planned]** `unicode-and-encoding-issues-in-global-instrument-names` — Handling encoding issues (non-ASCII characters in company/instrument names) correctly across data pipelines spanning multiple countries.
-- **[planned]** `data-retention-policy-and-storage-tiering` — Defining a data-retention policy with storage tiering (hot/warm/cold) balancing query-latency needs against storage cost for years of tick history.
-- **[planned]** `reference-data-change-notification-pipeline` — Building a notification pipeline for reference-data changes (ticker renames, exchange migrations) that could silently break symbol-keyed logic elsewhere.
-- **[planned]** `cross-vendor-timestamp-precision-reconciliation` — Reconciling differing timestamp precision (millisecond vs microsecond vs second) across vendors feeding the same pipeline.
-- **[planned]** `synthetic-continuous-futures-contract-construction` — Constructing a synthetic continuous futures contract series (back-adjusted or ratio-adjusted across rolls) for backtesting futures strategies.
-- **[planned]** `options-implied-volatility-surface-construction` — Constructing and validating a smooth implied-volatility surface from raw options-chain quotes for use in pricing and backtesting.
-- **[planned]** `data-vendor-contractual-usage-restriction-tracking` — Tracking contractual usage restrictions per data vendor (e.g. no algorithmic redistribution, internal-use-only clauses) to avoid unintentional contract violation.
-- **[planned]** `multi-source-price-reconciliation-tie-breaking` — Defining explicit tie-breaking rules when two 'authoritative' data sources disagree on a price at the same timestamp.
-- **[planned]** `global-macro-economic-calendar-integration` — Integrating a global economic-release calendar (rate decisions, employment data) for strategies that need to avoid or specifically target these events.
-- **[planned]** `data-lineage-tracking-for-audit-and-debugging` — Tracking full data lineage (which vendor, which pipeline version, which transformation) for any figure that feeds a live trading decision, for post-incident debugging.
-- **[planned]** `market-data-simulator-for-offline-development` — Building a market-data simulator that lets developers work on strategy code offline without a live feed subscription, using realistic synthetic or replayed data.
-- **[planned]** `instrument-universe-change-detection-and-alerting` — Alerting when the tradeable instrument universe changes unexpectedly (new listings, delistings, ticker changes) rather than silently adapting or silently breaking.
-- **[planned]** `cross-region-data-replication-lag-monitoring` — Monitoring replication lag for data stores replicated across regions, since a stale replica silently serving reads can misinform a strategy.
-- **[planned]** `options-chain-expiry-cycle-conventions-by-exchange` — Tracking exchange-specific options expiry-cycle conventions (weekly/monthly/quarterly availability) which vary significantly by exchange and underlying.
-- **[planned]** `vendor-outage-fallback-data-source-hierarchy` — Defining an explicit fallback hierarchy of data sources to use if a primary vendor has an outage, tested rather than assumed to work.
+- **[BUILT]** `daylight-saving-time-transition-handling` — Handling DST transitions correctly for exchanges/brokers whose local trading hours shift twice a year.
+- **[BUILT]** `point-in-time-fundamentals-data-joins` — Joining fundamentals/reference data by as-of publish date rather than calendar date, across global data vendors.
+- **[BUILT]** `reference-data-symbol-mapping-across-vendors` — Mapping instrument identifiers (ISIN, CUSIP, ticker, exchange-specific codes) consistently across data vendors and brokers.
+- **[BUILT]** `historical-tick-data-storage-and-compaction` — Storing and compacting historical tick data at scale without exhausting storage or query latency budgets.
+- **[BUILT]** `isin-cusip-sedol-cross-reference-service` — Building a reliable cross-reference service between ISIN, CUSIP, SEDOL, and exchange-local ticker identifiers.
+- **[BUILT]** `vendor-specific-adjustment-methodology-reconciliation` — Reconciling differing corporate-action adjustment methodologies between data vendors before merging their data.
+- **[BUILT]** `real-time-vs-delayed-data-entitlement-handling` — Correctly handling the distinction between real-time and (commonly 15-minute) delayed data entitlements, ensuring a bot never mistakes delayed data for real-time.
+- **[BUILT]** `historical-data-backfill-rate-limit-management` — Managing rate limits specifically for large historical-data backfill jobs, distinct from live-trading API rate limits.
+- **[BUILT]** `market-data-cost-optimization-tiered-subscriptions` — Optimizing which instruments get real-time (paid) versus delayed (free/cheap) data subscriptions based on actual strategy need.
+- **[BUILT]** `reference-data-golden-source-designation` — Designating a single 'golden source' for each reference-data field (sector classification, share count) when multiple vendors disagree.
+- **[BUILT]** `data-quality-monitoring-dashboard` — Building a dashboard that surfaces data-quality anomalies (gaps, stale prints, outliers) across all ingested feeds for proactive detection.
+- **[BUILT]** `options-chain-data-normalization-across-vendors` — Normalizing options-chain data (strike conventions, expiry-date formats) across vendors with differing schemas.
+- **[BUILT]** `corporate-action-event-calendar-integration` — Integrating a corporate-action event calendar (splits, dividends, mergers) to pre-empt rather than react to adjustment-related backtest/live discrepancies.
+- **[BUILT]** `currency-pair-quoting-convention-normalization` — Normalizing currency-pair quoting conventions (which currency is base vs quote) consistently across data sources, since this flips silently between vendors.
+- **[BUILT]** `exchange-tick-size-regime-tracking` — Tracking exchange-specific (and sometimes price-tier-dependent) tick-size regimes correctly for order-price validation.
+- **[BUILT]** `historical-order-book-reconstruction-from-message-logs` — Reconstructing a historical order book from raw message logs for backtest realism beyond simple OHLCV bars.
+- **[BUILT]** `data-pipeline-schema-contract-testing` — Contract-testing data-pipeline schemas so an upstream vendor's silent schema change is caught before it corrupts downstream processing.
+- **[BUILT]** `point-in-time-index-constituent-tracking` — Tracking historical index constituents (not just current membership) for accurate survivorship-bias-free backtest universes.
+- **[BUILT]** `market-data-latency-monitoring-per-vendor` — Monitoring actual observed latency per data vendor/feed, since advertised 'real-time' can vary meaningfully in practice.
+- **[BUILT]** `unicode-and-encoding-issues-in-global-instrument-names` — Handling encoding issues (non-ASCII characters in company/instrument names) correctly across data pipelines spanning multiple countries.
+- **[BUILT]** `data-retention-policy-and-storage-tiering` — Defining a data-retention policy with storage tiering (hot/warm/cold) balancing query-latency needs against storage cost for years of tick history.
+- **[BUILT]** `reference-data-change-notification-pipeline` — Building a notification pipeline for reference-data changes (ticker renames, exchange migrations) that could silently break symbol-keyed logic elsewhere.
+- **[BUILT]** `cross-vendor-timestamp-precision-reconciliation` — Reconciling differing timestamp precision (millisecond vs microsecond vs second) across vendors feeding the same pipeline.
+- **[BUILT]** `synthetic-continuous-futures-contract-construction` — Constructing a synthetic continuous futures contract series (back-adjusted or ratio-adjusted across rolls) for backtesting futures strategies.
+- **[BUILT]** `options-implied-volatility-surface-construction` — Constructing and validating a smooth implied-volatility surface from raw options-chain quotes for use in pricing and backtesting.
+- **[BUILT]** `data-vendor-contractual-usage-restriction-tracking` — Tracking contractual usage restrictions per data vendor (e.g. no algorithmic redistribution, internal-use-only clauses) to avoid unintentional contract violation.
+- **[BUILT]** `multi-source-price-reconciliation-tie-breaking` — Defining explicit tie-breaking rules when two 'authoritative' data sources disagree on a price at the same timestamp.
+- **[BUILT]** `global-macro-economic-calendar-integration` — Integrating a global economic-release calendar (rate decisions, employment data) for strategies that need to avoid or specifically target these events.
+- **[BUILT]** `data-lineage-tracking-for-audit-and-debugging` — Tracking full data lineage (which vendor, which pipeline version, which transformation) for any figure that feeds a live trading decision, for post-incident debugging.
+- **[BUILT]** `market-data-simulator-for-offline-development` — Building a market-data simulator that lets developers work on strategy code offline without a live feed subscription, using realistic synthetic or replayed data.
+- **[BUILT]** `instrument-universe-change-detection-and-alerting` — Alerting when the tradeable instrument universe changes unexpectedly (new listings, delistings, ticker changes) rather than silently adapting or silently breaking.
+- **[BUILT]** `cross-region-data-replication-lag-monitoring` — Monitoring replication lag for data stores replicated across regions, since a stale replica silently serving reads can misinform a strategy.
+- **[BUILT]** `options-chain-expiry-cycle-conventions-by-exchange` — Tracking exchange-specific options expiry-cycle conventions (weekly/monthly/quarterly availability) which vary significantly by exchange and underlying.
+- **[BUILT]** `vendor-outage-fallback-data-source-hierarchy` — Defining an explicit fallback hierarchy of data sources to use if a primary vendor has an outage, tested rather than assumed to work.
 
 ## crypto-custody-security  _(29 tracked: 1 built, 28 planned)_
 
 - **[BUILT]** `crypto-wallet-key-custody-security` — see `skills/crypto-wallet-key-custody-security/SKILL.md`
-- **[planned]** `hot-cold-wallet-split-for-trading-bots` — Splitting a crypto trading bot's operational hot-wallet balance from cold storage to bound loss from a compromise.
-- **[planned]** `exchange-withdrawal-whitelist-enforcement` — Enforcing withdrawal address whitelisting so a compromised bot credential can't exfiltrate funds to an arbitrary address.
-- **[planned]** `multi-signature-approval-for-large-transfers` — Requiring multi-sig approval for any transfer above a threshold, independent of the bot's own logic.
-- **[planned]** `hardware-security-module-hsm-for-signing-keys` — Using a dedicated HSM for signing transactions rather than software-based key storage, for institutional-scale crypto custody.
-- **[planned]** `shamir-secret-sharing-for-key-backup` — Using Shamir's Secret Sharing to split a key backup across multiple custodians/locations, avoiding a single point of failure or compromise.
-- **[planned]** `custodial-vs-non-custodial-tradeoff-assessment` — Assessing the tradeoffs between using a third-party custodian versus self-custody for a given operational scale and risk tolerance.
-- **[planned]** `smart-contract-audit-requirements-before-defi-integration` — Requiring a completed third-party smart-contract audit before integrating with any DeFi protocol as a counterparty.
-- **[planned]** `exchange-proof-of-reserves-verification` — Verifying an exchange's published proof-of-reserves attestation independently rather than accepting it at face value.
-- **[planned]** `key-rotation-schedule-for-hot-wallet-keys` — Defining and following a key-rotation schedule for hot-wallet operational keys, distinct from one-time initial setup.
-- **[planned]** `insurance-coverage-assessment-for-custodied-crypto` — Assessing what insurance coverage (if any) actually applies to custodied crypto assets, since coverage terms vary widely and are often narrower than assumed.
-- **[planned]** `air-gapped-signing-workflow-for-cold-storage` — Implementing an air-gapped signing workflow for cold-storage transactions, ensuring the signing device never has network connectivity.
-- **[planned]** `withdrawal-velocity-limits-and-anomaly-detection` — Setting withdrawal velocity limits (max value/frequency in a time window) with anomaly detection distinct from simple threshold breaches.
-- **[planned]** `multi-party-computation-mpc-custody-solutions` — Evaluating MPC-based custody solutions as an alternative to traditional multi-sig for distributing key control without a single complete key ever existing.
-- **[planned]** `smart-contract-approval-scope-minimization` — Minimizing and periodically auditing token-approval scopes granted to smart contracts, since unlimited approvals are a common attack vector.
-- **[planned]** `phishing-resistant-authentication-for-custody-access` — Using phishing-resistant authentication (hardware security keys, not SMS/email OTP) for any human access to custody infrastructure.
-- **[planned]** `custody-solution-vendor-due-diligence-checklist` — A structured due-diligence checklist for evaluating a third-party custody vendor before entrusting them with operational funds.
-- **[planned]** `on-chain-transaction-monitoring-for-anomalies` — Monitoring on-chain transaction activity in real time for anomalies (unexpected destination, unusual size) as a detection layer independent of application-level logging.
-- **[planned]** `recovery-plan-for-lost-or-compromised-keys` — Maintaining a tested recovery plan for lost or compromised keys, distinct from the initial custody design, since custody design alone doesn't guarantee recoverability.
-- **[planned]** `segregation-of-duties-for-custody-operations` — Enforcing segregation of duties (no single person can both initiate and approve a large transfer) for custody operations.
-- **[planned]** `cross-chain-address-reuse-privacy-risk` — Assessing privacy/security risk from address reuse across chains and transactions, relevant for operational security of a trading entity's on-chain footprint.
-- **[planned]** `custody-solution-uptime-and-liveness-guarantees` — Evaluating a custody solution's actual uptime/liveness guarantees, since a highly secure but frequently-unavailable custody setup creates its own operational risk.
-- **[planned]** `regulatory-custody-requirements-by-jurisdiction` — Tracking jurisdiction-specific regulatory requirements for crypto custody (where they exist) as a compliance layer on top of technical security design.
-- **[planned]** `post-incident-forensics-for-suspected-key-compromise` — Defining a forensics process for a suspected (even if unconfirmed) key compromise, including immediate containment steps before full confirmation.
-- **[planned]** `cold-storage-geographic-distribution-strategy` — Distributing cold-storage key shares/backups geographically to protect against a localized disaster (fire, natural disaster) affecting a single location.
-- **[planned]** `vendor-lock-in-risk-for-proprietary-custody-formats` — Assessing vendor lock-in risk where a custody solution uses a proprietary (non-standard) key format that complicates migration to another provider.
-- **[planned]** `employee-offboarding-procedure-for-custody-access` — Defining a strict, tested offboarding procedure to revoke a departing employee's custody-related access immediately.
-- **[planned]** `third-party-custody-audit-report-review-cadence` — Establishing a recurring cadence for reviewing a custody vendor's third-party security audit reports (SOC 2 or equivalent), not just at initial vendor selection.
-- **[planned]** `test-transaction-verification-before-large-transfers` — Requiring a small test transaction before any large transfer to a new or infrequently-used destination address.
+- **[BUILT]** `hot-cold-wallet-split-for-trading-bots` — Splitting a crypto trading bot's operational hot-wallet balance from cold storage to bound loss from a compromise.
+- **[BUILT]** `exchange-withdrawal-whitelist-enforcement` — Enforcing withdrawal address whitelisting so a compromised bot credential can't exfiltrate funds to an arbitrary address.
+- **[BUILT]** `multi-signature-approval-for-large-transfers` — Requiring multi-sig approval for any transfer above a threshold, independent of the bot's own logic.
+- **[BUILT]** `hardware-security-module-hsm-for-signing-keys` — Using a dedicated HSM for signing transactions rather than software-based key storage, for institutional-scale crypto custody.
+- **[BUILT]** `shamir-secret-sharing-for-key-backup` — Using Shamir's Secret Sharing to split a key backup across multiple custodians/locations, avoiding a single point of failure or compromise.
+- **[BUILT]** `custodial-vs-non-custodial-tradeoff-assessment` — Assessing the tradeoffs between using a third-party custodian versus self-custody for a given operational scale and risk tolerance.
+- **[BUILT]** `smart-contract-audit-requirements-before-defi-integration` — Requiring a completed third-party smart-contract audit before integrating with any DeFi protocol as a counterparty.
+- **[BUILT]** `exchange-proof-of-reserves-verification` — Verifying an exchange's published proof-of-reserves attestation independently rather than accepting it at face value.
+- **[BUILT]** `key-rotation-schedule-for-hot-wallet-keys` — Defining and following a key-rotation schedule for hot-wallet operational keys, distinct from one-time initial setup.
+- **[BUILT]** `insurance-coverage-assessment-for-custodied-crypto` — Assessing what insurance coverage (if any) actually applies to custodied crypto assets, since coverage terms vary widely and are often narrower than assumed.
+- **[BUILT]** `air-gapped-signing-workflow-for-cold-storage` — Implementing an air-gapped signing workflow for cold-storage transactions, ensuring the signing device never has network connectivity.
+- **[BUILT]** `withdrawal-velocity-limits-and-anomaly-detection` — Setting withdrawal velocity limits (max value/frequency in a time window) with anomaly detection distinct from simple threshold breaches.
+- **[BUILT]** `multi-party-computation-mpc-custody-solutions` — Evaluating MPC-based custody solutions as an alternative to traditional multi-sig for distributing key control without a single complete key ever existing.
+- **[BUILT]** `smart-contract-approval-scope-minimization` — Minimizing and periodically auditing token-approval scopes granted to smart contracts, since unlimited approvals are a common attack vector.
+- **[BUILT]** `phishing-resistant-authentication-for-custody-access` — Using phishing-resistant authentication (hardware security keys, not SMS/email OTP) for any human access to custody infrastructure.
+- **[BUILT]** `custody-solution-vendor-due-diligence-checklist` — A structured due-diligence checklist for evaluating a third-party custody vendor before entrusting them with operational funds.
+- **[BUILT]** `on-chain-transaction-monitoring-for-anomalies` — Monitoring on-chain transaction activity in real time for anomalies (unexpected destination, unusual size) as a detection layer independent of application-level logging.
+- **[BUILT]** `recovery-plan-for-lost-or-compromised-keys` — Maintaining a tested recovery plan for lost or compromised keys, distinct from the initial custody design, since custody design alone doesn't guarantee recoverability.
+- **[BUILT]** `segregation-of-duties-for-custody-operations` — Enforcing segregation of duties (no single person can both initiate and approve a large transfer) for custody operations.
+- **[BUILT]** `cross-chain-address-reuse-privacy-risk` — Assessing privacy/security risk from address reuse across chains and transactions, relevant for operational security of a trading entity's on-chain footprint.
+- **[BUILT]** `custody-solution-uptime-and-liveness-guarantees` — Evaluating a custody solution's actual uptime/liveness guarantees, since a highly secure but frequently-unavailable custody setup creates its own operational risk.
+- **[BUILT]** `regulatory-custody-requirements-by-jurisdiction` — Tracking jurisdiction-specific regulatory requirements for crypto custody (where they exist) as a compliance layer on top of technical security design.
+- **[BUILT]** `post-incident-forensics-for-suspected-key-compromise` — Defining a forensics process for a suspected (even if unconfirmed) key compromise, including immediate containment steps before full confirmation.
+- **[BUILT]** `cold-storage-geographic-distribution-strategy` — Distributing cold-storage key shares/backups geographically to protect against a localized disaster (fire, natural disaster) affecting a single location.
+- **[BUILT]** `vendor-lock-in-risk-for-proprietary-custody-formats` — Assessing vendor lock-in risk where a custody solution uses a proprietary (non-standard) key format that complicates migration to another provider.
+- **[BUILT]** `employee-offboarding-procedure-for-custody-access` — Defining a strict, tested offboarding procedure to revoke a departing employee's custody-related access immediately.
+- **[BUILT]** `third-party-custody-audit-report-review-cadence` — Establishing a recurring cadence for reviewing a custody vendor's third-party security audit reports (SOC 2 or equivalent), not just at initial vendor selection.
+- **[BUILT]** `test-transaction-verification-before-large-transfers` — Requiring a small test transaction before any large transfer to a new or infrequently-used destination address.
 
 ## portfolio-multi-strategy  _(30 tracked: 0 built, 30 planned)_
 
-- **[planned]** `cross-strategy-correlation-monitoring` — Monitoring correlation between concurrently-running strategies to detect unintended aggregate concentration.
-- **[planned]** `capital-reallocation-based-on-live-performance` — Reallocating capital between strategies based on live (not just backtested) rolling performance, with safeguards against reallocation churn.
-- **[planned]** `strategy-lifecycle-retirement-criteria` — Defining explicit, pre-agreed criteria for retiring a live strategy rather than letting it run indefinitely on inertia.
-- **[planned]** `strategy-correlation-matrix-live-recomputation` — Recomputing the live strategy-correlation matrix on a defined schedule, mirroring the discipline in correlation-aware-exposure-limits but at the strategy level rather than instrument level.
-- **[planned]** `risk-parity-allocation-across-strategies` — Allocating capital across strategies using a risk-parity approach (equalizing risk contribution) rather than equal-dollar allocation.
-- **[planned]** `strategy-performance-attribution-vs-market-beta` — Decomposing each strategy's returns into market-beta-driven and idiosyncratic-alpha-driven components for honest cross-strategy comparison.
-- **[planned]** `portfolio-level-stop-loss-independent-of-strategy-stops` — Implementing a portfolio-level stop-loss that can halt all strategies simultaneously, independent of and in addition to each strategy's own internal stops.
-- **[planned]** `new-strategy-onboarding-checklist` — A standardized checklist (data requirements, risk-control integration, paper-trading gate) for onboarding a new strategy into a multi-strategy portfolio.
-- **[planned]** `strategy-capacity-estimation-before-scaling-capital` — Estimating a strategy's capacity (the capital level beyond which its own market impact degrades returns) before scaling allocated capital.
-- **[planned]** `cross-strategy-shared-infrastructure-resource-contention` — Managing resource contention (API rate limits, compute) when multiple strategies share underlying infrastructure, so one strategy's load doesn't degrade another's.
-- **[planned]** `strategy-decommissioning-and-position-unwind-procedure` — A defined procedure for unwinding a retired strategy's positions in an orderly (not panic-liquidation) manner.
-- **[planned]** `portfolio-construction-with-transaction-cost-awareness` — Incorporating transaction-cost estimates directly into portfolio-construction/rebalancing decisions, not just as a post-hoc backtest adjustment.
-- **[planned]** `meta-strategy-signal-arbitration` — Building an arbitration layer when multiple strategies generate conflicting signals for the same instrument at the same time.
-- **[planned]** `strategy-specific-vs-shared-risk-budget-allocation` — Deciding which risk controls apply per-strategy versus at the shared-portfolio level, and ensuring both layers are actually enforced rather than assuming one implies the other.
-- **[planned]** `rebalancing-frequency-optimization-cost-vs-drift` — Optimizing portfolio rebalancing frequency, trading off tracking-drift cost against transaction cost.
-- **[planned]** `strategy-performance-decay-detection-vs-market-wide-decay` — Distinguishing a strategy-specific performance decay from a market-wide phenomenon affecting all strategies similarly, to correctly target remediation.
-- **[planned]** `capital-efficiency-across-cross-margined-strategies` — Optimizing capital efficiency when multiple strategies share a cross-margined account, without one strategy's margin usage silently starving another.
-- **[planned]** `strategy-committee-governance-for-capital-allocation-decisions` — Establishing a lightweight governance process (even for a small team) for capital-allocation decisions across strategies, rather than ad hoc reallocation.
-- **[planned]** `benchmark-portfolio-for-multi-strategy-performance-context` — Maintaining a simple benchmark portfolio to contextualize whether the full multi-strategy portfolio's complexity is actually adding value over a simpler alternative.
-- **[planned]** `tail-correlation-between-strategies-under-stress` — Testing whether strategies assumed uncorrelated under normal conditions become correlated specifically under stress/tail scenarios (a common multi-strategy blind spot).
-- **[planned]** `strategy-specific-data-dependency-mapping` — Mapping each strategy's specific data dependencies so a data-vendor outage's impact across the multi-strategy portfolio can be assessed quickly.
-- **[planned]** `incremental-capital-deployment-for-new-strategies` — Deploying capital to a newly-promoted strategy incrementally (per the reduced-initial-size principle in paper-to-live-promotion-checklist) rather than immediately at full target allocation.
-- **[planned]** `cross-strategy-tax-lot-optimization` — Optimizing tax-lot selection across strategies sharing a tax entity, where applicable, without compromising each strategy's independent decision logic.
-- **[planned]** `strategy-level-kill-switch-vs-portfolio-level-kill-switch` — Ensuring a strategy-level kill-switch trigger doesn't inadvertently unwind unrelated strategies, while a portfolio-level kill-switch correctly does.
-- **[planned]** `multi-strategy-reporting-consolidation-for-stakeholders` — Consolidating multi-strategy performance/risk reporting into a single coherent view for stakeholders who don't need per-strategy granularity.
-- **[planned]** `strategy-research-to-production-pipeline-governance` — Governing the pipeline from research idea to production strategy with defined gates, extending paper-to-live-promotion-checklist to the earlier research-stage decision points.
-- **[planned]** `opportunity-cost-tracking-for-idle-capital` — Tracking the opportunity cost of capital held idle (e.g. as a risk buffer) across the portfolio, to periodically reassess whether buffer sizing is still appropriate.
-- **[planned]** `cross-strategy-signal-reuse-and-licensing` — Managing cases where one strategy's computed features/signals are reused by another, including versioning so a change to the shared signal doesn't silently affect multiple strategies at once.
-- **[planned]** `strategy-underperformance-remediation-decision-tree` — A structured decision tree (investigate → adjust → reduce size → retire) for responding to strategy underperformance, rather than ad hoc case-by-case reactions.
-- **[planned]** `portfolio-stress-test-including-liquidity-crunch-scenarios` — Stress-testing the full multi-strategy portfolio against scenarios combining price shock with a simultaneous liquidity crunch across correlated instruments.
+- **[BUILT]** `cross-strategy-correlation-monitoring` — Monitoring correlation between concurrently-running strategies to detect unintended aggregate concentration.
+- **[BUILT]** `capital-reallocation-based-on-live-performance` — Reallocating capital between strategies based on live (not just backtested) rolling performance, with safeguards against reallocation churn.
+- **[BUILT]** `strategy-lifecycle-retirement-criteria` — Defining explicit, pre-agreed criteria for retiring a live strategy rather than letting it run indefinitely on inertia.
+- **[BUILT]** `strategy-correlation-matrix-live-recomputation` — Recomputing the live strategy-correlation matrix on a defined schedule, mirroring the discipline in correlation-aware-exposure-limits but at the strategy level rather than instrument level.
+- **[BUILT]** `risk-parity-allocation-across-strategies` — Allocating capital across strategies using a risk-parity approach (equalizing risk contribution) rather than equal-dollar allocation.
+- **[BUILT]** `strategy-performance-attribution-vs-market-beta` — Decomposing each strategy's returns into market-beta-driven and idiosyncratic-alpha-driven components for honest cross-strategy comparison.
+- **[BUILT]** `portfolio-level-stop-loss-independent-of-strategy-stops` — Implementing a portfolio-level stop-loss that can halt all strategies simultaneously, independent of and in addition to each strategy's own internal stops.
+- **[BUILT]** `new-strategy-onboarding-checklist` — A standardized checklist (data requirements, risk-control integration, paper-trading gate) for onboarding a new strategy into a multi-strategy portfolio.
+- **[BUILT]** `strategy-capacity-estimation-before-scaling-capital` — Estimating a strategy's capacity (the capital level beyond which its own market impact degrades returns) before scaling allocated capital.
+- **[BUILT]** `cross-strategy-shared-infrastructure-resource-contention` — Managing resource contention (API rate limits, compute) when multiple strategies share underlying infrastructure, so one strategy's load doesn't degrade another's.
+- **[BUILT]** `strategy-decommissioning-and-position-unwind-procedure` — A defined procedure for unwinding a retired strategy's positions in an orderly (not panic-liquidation) manner.
+- **[BUILT]** `portfolio-construction-with-transaction-cost-awareness` — Incorporating transaction-cost estimates directly into portfolio-construction/rebalancing decisions, not just as a post-hoc backtest adjustment.
+- **[BUILT]** `meta-strategy-signal-arbitration` — Building an arbitration layer when multiple strategies generate conflicting signals for the same instrument at the same time.
+- **[BUILT]** `strategy-specific-vs-shared-risk-budget-allocation` — Deciding which risk controls apply per-strategy versus at the shared-portfolio level, and ensuring both layers are actually enforced rather than assuming one implies the other.
+- **[BUILT]** `rebalancing-frequency-optimization-cost-vs-drift` — Optimizing portfolio rebalancing frequency, trading off tracking-drift cost against transaction cost.
+- **[BUILT]** `strategy-performance-decay-detection-vs-market-wide-decay` — Distinguishing a strategy-specific performance decay from a market-wide phenomenon affecting all strategies similarly, to correctly target remediation.
+- **[BUILT]** `capital-efficiency-across-cross-margined-strategies` — Optimizing capital efficiency when multiple strategies share a cross-margined account, without one strategy's margin usage silently starving another.
+- **[BUILT]** `strategy-committee-governance-for-capital-allocation-decisions` — Establishing a lightweight governance process (even for a small team) for capital-allocation decisions across strategies, rather than ad hoc reallocation.
+- **[BUILT]** `benchmark-portfolio-for-multi-strategy-performance-context` — Maintaining a simple benchmark portfolio to contextualize whether the full multi-strategy portfolio's complexity is actually adding value over a simpler alternative.
+- **[BUILT]** `tail-correlation-between-strategies-under-stress` — Testing whether strategies assumed uncorrelated under normal conditions become correlated specifically under stress/tail scenarios (a common multi-strategy blind spot).
+- **[BUILT]** `strategy-specific-data-dependency-mapping` — Mapping each strategy's specific data dependencies so a data-vendor outage's impact across the multi-strategy portfolio can be assessed quickly.
+- **[BUILT]** `incremental-capital-deployment-for-new-strategies` — Deploying capital to a newly-promoted strategy incrementally (per the reduced-initial-size principle in paper-to-live-promotion-checklist) rather than immediately at full target allocation.
+- **[BUILT]** `cross-strategy-tax-lot-optimization` — Optimizing tax-lot selection across strategies sharing a tax entity, where applicable, without compromising each strategy's independent decision logic.
+- **[BUILT]** `strategy-level-kill-switch-vs-portfolio-level-kill-switch` — Ensuring a strategy-level kill-switch trigger doesn't inadvertently unwind unrelated strategies, while a portfolio-level kill-switch correctly does.
+- **[BUILT]** `multi-strategy-reporting-consolidation-for-stakeholders` — Consolidating multi-strategy performance/risk reporting into a single coherent view for stakeholders who don't need per-strategy granularity.
+- **[BUILT]** `strategy-research-to-production-pipeline-governance` — Governing the pipeline from research idea to production strategy with defined gates, extending paper-to-live-promotion-checklist to the earlier research-stage decision points.
+- **[BUILT]** `opportunity-cost-tracking-for-idle-capital` — Tracking the opportunity cost of capital held idle (e.g. as a risk buffer) across the portfolio, to periodically reassess whether buffer sizing is still appropriate.
+- **[BUILT]** `cross-strategy-signal-reuse-and-licensing` — Managing cases where one strategy's computed features/signals are reused by another, including versioning so a change to the shared signal doesn't silently affect multiple strategies at once.
+- **[BUILT]** `strategy-underperformance-remediation-decision-tree` — A structured decision tree (investigate → adjust → reduce size → retire) for responding to strategy underperformance, rather than ad hoc case-by-case reactions.
+- **[BUILT]** `portfolio-stress-test-including-liquidity-crunch-scenarios` — Stress-testing the full multi-strategy portfolio against scenarios combining price shock with a simultaneous liquidity crunch across correlated instruments.
 
 ## market-microstructure-latency  _(24 tracked: 0 built, 24 planned)_
 
-- **[planned]** `colocation-latency-budget-accounting` — Accounting for colocation and network latency budgets when a strategy's edge depends on sub-millisecond response time.
-- **[planned]** `clock-synchronization-ptp-for-trading-hosts` — Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters.
-- **[planned]** `tick-to-trade-latency-measurement` — Measuring true tick-to-trade latency end to end, not just the strategy's own compute time.
-- **[planned]** `order-book-microstructure-signal-research` — Researching order-book microstructure signals (queue dynamics, order-flow imbalance) as a distinct signal class from price-based technical signals.
-- **[planned]** `exchange-fee-tier-and-rebate-structure-analysis` — Analyzing exchange fee-tier and rebate structures in detail, since these materially affect the true profitability of high-turnover strategies.
-- **[planned]** `market-maker-vs-taker-strategy-classification` — Classifying a strategy's own behavior as predominantly maker or taker, and understanding the fee/risk implications of each posture.
-- **[planned]** `adverse-selection-measurement-for-passive-orders` — Measuring realized adverse selection on filled passive orders (did the market move against the fill immediately after) to assess passive-order strategy quality.
-- **[planned]** `latency-arbitrage-defensive-order-sizing` — Sizing orders defensively to limit exposure to latency arbitrage by faster participants reacting to the same signal.
-- **[planned]** `co-location-provider-selection-and-network-topology` — Evaluating co-location provider options and network topology (cross-connects, switch fabric) for latency-sensitive infrastructure.
-- **[planned]** `fpga-based-market-data-processing-evaluation` — Evaluating FPGA-based market-data processing as an option for the lowest-latency tier of a strategy, including the engineering cost/benefit tradeoff versus software-only approaches.
-- **[planned]** `microwave-vs-fiber-network-links-for-cross-market-latency` — Understanding the microwave-vs-fiber network-link tradeoff (speed vs reliability) for cross-market latency-sensitive strategies.
-- **[planned]** `exchange-matching-engine-behavior-under-load` — Understanding how a specific exchange's matching engine behavior (e.g. FIFO vs pro-rata allocation) changes strategy design for that venue.
-- **[planned]** `tick-size-pilot-program-impact-assessment` — Assessing the impact of tick-size pilot programs or regime changes on strategies sensitive to minimum price increments.
-- **[planned]** `message-rate-limit-vs-latency-tradeoff-tuning` — Tuning strategy message rate against exchange-imposed message-rate limits (which can carry fee penalties for excessive order-to-trade ratios) while preserving latency-sensitive responsiveness.
-- **[planned]** `order-to-trade-ratio-fee-penalty-avoidance` — Avoiding order-to-trade ratio fee penalties (charged by several exchanges for excessive cancel/replace activity relative to executed trades) through deliberate order-management design.
-- **[planned]** `microstructure-noise-filtering-for-hf-signals` — Filtering microstructure noise appropriately when building high-frequency signals, distinct from the noise-handling appropriate at lower frequencies.
-- **[planned]** `latency-monitoring-percentile-based-slas` — Monitoring latency using percentile-based SLAs (p50/p99/p999) rather than only average latency, since tail latency often matters more for strategy correctness.
-- **[planned]** `clock-drift-monitoring-alerting-thresholds` — Setting explicit alerting thresholds for clock drift on trading hosts, given how directly clock accuracy affects latency-sensitive strategy correctness.
-- **[planned]** `exchange-gateway-redundancy-and-failover-testing` — Testing failover between redundant exchange gateway connections under simulated primary-gateway failure conditions.
-- **[planned]** `network-jitter-impact-on-strategy-performance` — Quantifying network jitter's (not just average latency's) impact on strategy performance for latency-sensitive strategies.
-- **[planned]** `hardware-timestamping-vs-software-timestamping-accuracy` — Comparing hardware-level versus software-level timestamping accuracy for strategies where the difference materially affects signal timing.
-- **[planned]** `matching-engine-throttle-and-message-gapping-detection` — Detecting exchange-side message throttling or gapping under high load, distinct from the bot's own client-side rate limiting.
-- **[planned]** `strategy-latency-budget-decomposition` — Decomposing a strategy's total tick-to-trade latency budget into its component stages (feed handler, strategy logic, risk check, order gateway) to target optimization effort correctly.
-- **[planned]** `exchange-self-match-prevention-configuration` — Configuring exchange-level self-match-prevention correctly across venues with differing default behaviors, extending the self-trade-prevention concern beyond crypto exchanges to traditional venues.
+- **[BUILT]** `colocation-latency-budget-accounting` — Accounting for colocation and network latency budgets when a strategy's edge depends on sub-millisecond response time.
+- **[BUILT]** `clock-synchronization-ptp-for-trading-hosts` — Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters.
+- **[BUILT]** `tick-to-trade-latency-measurement` — Measuring true tick-to-trade latency end to end, not just the strategy's own compute time.
+- **[BUILT]** `order-book-microstructure-signal-research` — Researching order-book microstructure signals (queue dynamics, order-flow imbalance) as a distinct signal class from price-based technical signals.
+- **[BUILT]** `exchange-fee-tier-and-rebate-structure-analysis` — Analyzing exchange fee-tier and rebate structures in detail, since these materially affect the true profitability of high-turnover strategies.
+- **[BUILT]** `market-maker-vs-taker-strategy-classification` — Classifying a strategy's own behavior as predominantly maker or taker, and understanding the fee/risk implications of each posture.
+- **[BUILT]** `adverse-selection-measurement-for-passive-orders` — Measuring realized adverse selection on filled passive orders (did the market move against the fill immediately after) to assess passive-order strategy quality.
+- **[BUILT]** `latency-arbitrage-defensive-order-sizing` — Sizing orders defensively to limit exposure to latency arbitrage by faster participants reacting to the same signal.
+- **[BUILT]** `co-location-provider-selection-and-network-topology` — Evaluating co-location provider options and network topology (cross-connects, switch fabric) for latency-sensitive infrastructure.
+- **[BUILT]** `fpga-based-market-data-processing-evaluation` — Evaluating FPGA-based market-data processing as an option for the lowest-latency tier of a strategy, including the engineering cost/benefit tradeoff versus software-only approaches.
+- **[BUILT]** `microwave-vs-fiber-network-links-for-cross-market-latency` — Understanding the microwave-vs-fiber network-link tradeoff (speed vs reliability) for cross-market latency-sensitive strategies.
+- **[BUILT]** `exchange-matching-engine-behavior-under-load` — Understanding how a specific exchange's matching engine behavior (e.g. FIFO vs pro-rata allocation) changes strategy design for that venue.
+- **[BUILT]** `tick-size-pilot-program-impact-assessment` — Assessing the impact of tick-size pilot programs or regime changes on strategies sensitive to minimum price increments.
+- **[BUILT]** `message-rate-limit-vs-latency-tradeoff-tuning` — Tuning strategy message rate against exchange-imposed message-rate limits (which can carry fee penalties for excessive order-to-trade ratios) while preserving latency-sensitive responsiveness.
+- **[BUILT]** `order-to-trade-ratio-fee-penalty-avoidance` — Avoiding order-to-trade ratio fee penalties (charged by several exchanges for excessive cancel/replace activity relative to executed trades) through deliberate order-management design.
+- **[BUILT]** `microstructure-noise-filtering-for-hf-signals` — Filtering microstructure noise appropriately when building high-frequency signals, distinct from the noise-handling appropriate at lower frequencies.
+- **[BUILT]** `latency-monitoring-percentile-based-slas` — Monitoring latency using percentile-based SLAs (p50/p99/p999) rather than only average latency, since tail latency often matters more for strategy correctness.
+- **[BUILT]** `clock-drift-monitoring-alerting-thresholds` — Setting explicit alerting thresholds for clock drift on trading hosts, given how directly clock accuracy affects latency-sensitive strategy correctness.
+- **[BUILT]** `exchange-gateway-redundancy-and-failover-testing` — Testing failover between redundant exchange gateway connections under simulated primary-gateway failure conditions.
+- **[BUILT]** `network-jitter-impact-on-strategy-performance` — Quantifying network jitter's (not just average latency's) impact on strategy performance for latency-sensitive strategies.
+- **[BUILT]** `hardware-timestamping-vs-software-timestamping-accuracy` — Comparing hardware-level versus software-level timestamping accuracy for strategies where the difference materially affects signal timing.
+- **[BUILT]** `matching-engine-throttle-and-message-gapping-detection` — Detecting exchange-side message throttling or gapping under high load, distinct from the bot's own client-side rate limiting.
+- **[BUILT]** `strategy-latency-budget-decomposition` — Decomposing a strategy's total tick-to-trade latency budget into its component stages (feed handler, strategy logic, risk check, order gateway) to target optimization effort correctly.
+- **[BUILT]** `exchange-self-match-prevention-configuration` — Configuring exchange-level self-match-prevention correctly across venues with differing default behaviors, extending the self-trade-prevention concern beyond crypto exchanges to traditional venues.
 
 ## quant-research-alt-data  _(20 tracked: 0 built, 20 planned)_
 
-- **[planned]** `satellite-imagery-based-signal-research` — Researching signal construction from satellite-imagery alternative data (e.g. parking-lot traffic, shipping activity) with appropriate lag/availability constraints.
-- **[planned]** `credit-card-transaction-data-signal-construction` — Constructing signals from aggregated, anonymized credit-card transaction data while respecting data-provider licensing and privacy constraints.
-- **[planned]** `web-scraped-sentiment-data-pipeline` — Building a compliant web-scraping pipeline for sentiment-relevant text data, respecting site terms of service and rate limits.
-- **[planned]** `supply-chain-data-for-earnings-prediction` — Using supply-chain relationship data (supplier/customer networks) as a feature for earnings-related signal research.
-- **[planned]** `google-trends-and-search-volume-signal-research` — Researching signal construction from search-volume/trends data, accounting for its own reporting lag and normalization quirks.
-- **[planned]** `social-media-sentiment-signal-with-bot-filtering` — Building social-media sentiment signals with explicit bot/spam-account filtering, since raw sentiment volume is heavily gameable.
-- **[planned]** `job-posting-data-as-a-growth-signal` — Using aggregated job-posting data as a leading indicator for company growth/hiring-trend signals.
-- **[planned]** `options-flow-unusual-activity-detection` — Detecting unusual options order-flow activity (volume/open-interest anomalies) as a signal input, with care to avoid overfitting to noise.
-- **[planned]** `insider-transaction-filing-signal-research` — Researching signal construction from public insider-transaction filings, with correct point-in-time filing-date (not transaction-date) alignment.
-- **[planned]** `patent-filing-data-for-innovation-signal-research` — Using patent-filing data as a long-horizon innovation/R&D-intensity signal for equity research.
-- **[planned]** `esg-data-signal-research-and-vendor-comparison` — Comparing ESG data across vendors (which frequently disagree substantially) before incorporating as a research signal.
-- **[planned]** `app-download-and-usage-data-for-consumer-companies` — Using app-download/usage data as an alternative-data signal for consumer-facing public companies.
-- **[planned]** `weather-data-signal-research-for-commodity-strategies` — Researching weather-data-driven signals for agricultural/energy commodity strategies.
-- **[planned]** `central-bank-communication-nlp-analysis` — Applying NLP analysis to central-bank communications (meeting minutes, speeches) for macro-signal research, with awareness of well-known overfitting pitfalls in this literature.
-- **[planned]** `earnings-call-transcript-nlp-signal-research` — Building NLP-based signals from earnings-call transcripts, distinguishing management tone/sentiment from the literal content.
-- **[planned]** `alternative-data-vendor-due-diligence-checklist` — A due-diligence checklist for evaluating a new alternative-data vendor's data quality, legal compliance, and point-in-time integrity before integration.
-- **[planned]** `backtesting-alt-data-strategies-with-realistic-availability-lag` — Ensuring alt-data-driven backtests use the data's actual historical availability lag (which is often substantial and vendor-specific), not its nominal event date.
-- **[planned]** `research-environment-vs-production-environment-parity` — Maintaining parity between the quant research environment (notebooks, ad hoc scripts) and the production feature-computation path, extending feature-store-for-live-and-backtest-parity to the research stage.
-- **[planned]** `factor-research-multiple-testing-correction` — Applying multiple-testing correction (e.g. controlling false discovery rate) when researching many candidate factors, to avoid presenting a spuriously significant factor as real.
-- **[planned]** `research-idea-pipeline-tracking-and-prioritization` — Tracking and prioritizing a pipeline of research ideas systematically, rather than ad hoc exploration with no record of what's already been tried and rejected.
+- **[BUILT]** `satellite-imagery-based-signal-research` — Researching signal construction from satellite-imagery alternative data (e.g. parking-lot traffic, shipping activity) with appropriate lag/availability constraints.
+- **[BUILT]** `credit-card-transaction-data-signal-construction` — Constructing signals from aggregated, anonymized credit-card transaction data while respecting data-provider licensing and privacy constraints.
+- **[BUILT]** `web-scraped-sentiment-data-pipeline` — Building a compliant web-scraping pipeline for sentiment-relevant text data, respecting site terms of service and rate limits.
+- **[BUILT]** `supply-chain-data-for-earnings-prediction` — Using supply-chain relationship data (supplier/customer networks) as a feature for earnings-related signal research.
+- **[BUILT]** `google-trends-and-search-volume-signal-research` — Researching signal construction from search-volume/trends data, accounting for its own reporting lag and normalization quirks.
+- **[BUILT]** `social-media-sentiment-signal-with-bot-filtering` — Building social-media sentiment signals with explicit bot/spam-account filtering, since raw sentiment volume is heavily gameable.
+- **[BUILT]** `job-posting-data-as-a-growth-signal` — Using aggregated job-posting data as a leading indicator for company growth/hiring-trend signals.
+- **[BUILT]** `options-flow-unusual-activity-detection` — Detecting unusual options order-flow activity (volume/open-interest anomalies) as a signal input, with care to avoid overfitting to noise.
+- **[BUILT]** `insider-transaction-filing-signal-research` — Researching signal construction from public insider-transaction filings, with correct point-in-time filing-date (not transaction-date) alignment.
+- **[BUILT]** `patent-filing-data-for-innovation-signal-research` — Using patent-filing data as a long-horizon innovation/R&D-intensity signal for equity research.
+- **[BUILT]** `esg-data-signal-research-and-vendor-comparison` — Comparing ESG data across vendors (which frequently disagree substantially) before incorporating as a research signal.
+- **[BUILT]** `app-download-and-usage-data-for-consumer-companies` — Using app-download/usage data as an alternative-data signal for consumer-facing public companies.
+- **[BUILT]** `weather-data-signal-research-for-commodity-strategies` — Researching weather-data-driven signals for agricultural/energy commodity strategies.
+- **[BUILT]** `central-bank-communication-nlp-analysis` — Applying NLP analysis to central-bank communications (meeting minutes, speeches) for macro-signal research, with awareness of well-known overfitting pitfalls in this literature.
+- **[BUILT]** `earnings-call-transcript-nlp-signal-research` — Building NLP-based signals from earnings-call transcripts, distinguishing management tone/sentiment from the literal content.
+- **[BUILT]** `alternative-data-vendor-due-diligence-checklist` — A due-diligence checklist for evaluating a new alternative-data vendor's data quality, legal compliance, and point-in-time integrity before integration.
+- **[BUILT]** `backtesting-alt-data-strategies-with-realistic-availability-lag` — Ensuring alt-data-driven backtests use the data's actual historical availability lag (which is often substantial and vendor-specific), not its nominal event date.
+- **[BUILT]** `research-environment-vs-production-environment-parity` — Maintaining parity between the quant research environment (notebooks, ad hoc scripts) and the production feature-computation path, extending feature-store-for-live-and-backtest-parity to the research stage.
+- **[BUILT]** `factor-research-multiple-testing-correction` — Applying multiple-testing correction (e.g. controlling false discovery rate) when researching many candidate factors, to avoid presenting a spuriously significant factor as real.
+- **[BUILT]** `research-idea-pipeline-tracking-and-prioritization` — Tracking and prioritizing a pipeline of research ideas systematically, rather than ad hoc exploration with no record of what's already been tried and rejected.
 
 ## tax-accounting-reporting-global  _(16 tracked: 0 built, 16 planned)_
 
-- **[planned]** `wash-sale-rule-tracking-us` — Tracking wash-sale rule violations (US) across a high-turnover strategy's trades to correctly disallow losses for tax purposes.
-- **[planned]** `fifo-vs-specific-lot-tax-accounting-methods` — Implementing and choosing between FIFO and specific-lot-identification tax accounting methods correctly per applicable jurisdiction rules.
-- **[planned]** `mark-to-market-election-for-active-traders-us` — Understanding the US mark-to-market (Section 475) election's implications for active-trader tax treatment and its accounting-system requirements.
-- **[planned]** `crypto-transaction-tax-lot-tracking` — Tracking tax lots for crypto transactions specifically, including the added complexity of frequent small transactions and cross-chain movements.
-- **[planned]** `multi-jurisdiction-tax-residency-implications` — Understanding how multi-jurisdiction tax residency affects reporting obligations for a globally-distributed trading operation.
-- **[planned]** `1099-b-and-broker-tax-reporting-reconciliation` — Reconciling broker-issued tax forms (e.g. US 1099-B) against internal trade records to catch discrepancies before filing.
-- **[planned]** `vat-gst-treatment-of-trading-related-services` — Understanding VAT/GST treatment of trading-related service fees (data subscriptions, infrastructure) across jurisdictions.
-- **[planned]** `transfer-pricing-considerations-for-multi-entity-trading-operations` — Understanding transfer-pricing implications when a trading operation spans multiple related legal entities across jurisdictions.
-- **[planned]** `automated-tax-lot-reporting-pipeline` — Building an automated pipeline that produces tax-lot reports on a defined schedule rather than manual reconstruction at filing time.
-- **[planned]** `capital-gains-vs-business-income-classification` — Understanding the distinction (and jurisdiction-specific tests) between capital-gains and business-income classification for trading profits, which affects both rate and reporting requirements.
-- **[planned]** `estimated-tax-payment-scheduling-for-active-trading-income` — Scheduling estimated tax payments appropriately given the timing of active-trading income, to avoid underpayment penalties.
-- **[planned]** `record-keeping-requirements-for-tax-audit-defense` — Maintaining trade records at the level of detail required to defend a tax position under audit, distinct from the operational record-keeping in order-placement-idempotency.
-- **[planned]** `currency-gain-loss-tax-treatment-for-forex-trading` — Understanding the specific tax treatment (which can differ materially from capital gains treatment) applicable to forex trading gains/losses in relevant jurisdictions.
-- **[planned]** `section-1256-contract-tax-treatment-us-futures` — Understanding US Section 1256 contract tax treatment (60/40 blended rate) for eligible futures and options, and its accounting-system implications.
-- **[planned]** `double-taxation-treaty-considerations-cross-border-trading` — Understanding double-taxation treaty implications for a trader/entity operating across two treaty countries.
-- **[planned]** `constructive-sale-rule-considerations-us` — Understanding the US constructive-sale rule's implications for hedged appreciated positions before assuming a hedge alone avoids a taxable event.
+- **[BUILT]** `wash-sale-rule-tracking-us` — Tracking wash-sale rule violations (US) across a high-turnover strategy's trades to correctly disallow losses for tax purposes.
+- **[BUILT]** `fifo-vs-specific-lot-tax-accounting-methods` — Implementing and choosing between FIFO and specific-lot-identification tax accounting methods correctly per applicable jurisdiction rules.
+- **[BUILT]** `mark-to-market-election-for-active-traders-us` — Understanding the US mark-to-market (Section 475) election's implications for active-trader tax treatment and its accounting-system requirements.
+- **[BUILT]** `crypto-transaction-tax-lot-tracking` — Tracking tax lots for crypto transactions specifically, including the added complexity of frequent small transactions and cross-chain movements.
+- **[BUILT]** `multi-jurisdiction-tax-residency-implications` — Understanding how multi-jurisdiction tax residency affects reporting obligations for a globally-distributed trading operation.
+- **[BUILT]** `1099-b-and-broker-tax-reporting-reconciliation` — Reconciling broker-issued tax forms (e.g. US 1099-B) against internal trade records to catch discrepancies before filing.
+- **[BUILT]** `vat-gst-treatment-of-trading-related-services` — Understanding VAT/GST treatment of trading-related service fees (data subscriptions, infrastructure) across jurisdictions.
+- **[BUILT]** `transfer-pricing-considerations-for-multi-entity-trading-operations` — Understanding transfer-pricing implications when a trading operation spans multiple related legal entities across jurisdictions.
+- **[BUILT]** `automated-tax-lot-reporting-pipeline` — Building an automated pipeline that produces tax-lot reports on a defined schedule rather than manual reconstruction at filing time.
+- **[BUILT]** `capital-gains-vs-business-income-classification` — Understanding the distinction (and jurisdiction-specific tests) between capital-gains and business-income classification for trading profits, which affects both rate and reporting requirements.
+- **[BUILT]** `estimated-tax-payment-scheduling-for-active-trading-income` — Scheduling estimated tax payments appropriately given the timing of active-trading income, to avoid underpayment penalties.
+- **[BUILT]** `record-keeping-requirements-for-tax-audit-defense` — Maintaining trade records at the level of detail required to defend a tax position under audit, distinct from the operational record-keeping in order-placement-idempotency.
+- **[BUILT]** `currency-gain-loss-tax-treatment-for-forex-trading` — Understanding the specific tax treatment (which can differ materially from capital gains treatment) applicable to forex trading gains/losses in relevant jurisdictions.
+- **[BUILT]** `section-1256-contract-tax-treatment-us-futures` — Understanding US Section 1256 contract tax treatment (60/40 blended rate) for eligible futures and options, and its accounting-system implications.
+- **[BUILT]** `double-taxation-treaty-considerations-cross-border-trading` — Understanding double-taxation treaty implications for a trader/entity operating across two treaty countries.
+- **[BUILT]** `constructive-sale-rule-considerations-us` — Understanding the US constructive-sale rule's implications for hedged appreciated positions before assuming a hedge alone avoids a taxable event.
 
 ---
 
