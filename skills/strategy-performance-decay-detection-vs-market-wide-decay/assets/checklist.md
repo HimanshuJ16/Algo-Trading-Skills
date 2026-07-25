@@ -1,0 +1,1 @@
+# Checklist for strategy-performance-decay-detection-vs-market-wide-decay

@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:15.064390+00:00",
+  "generated_at": "2026-07-25T08:25:15.470705+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 433,
+  "total_skills": 434,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5249,6 +5249,24 @@
       "license": "Apache-2.0",
       "path": "skills/multi-strategy-capital-allocation-limits",
       "skill_md": "skills/multi-strategy-capital-allocation-limits/SKILL.md"
+    },
+    {
+      "name": "multi-strategy-reporting-consolidation-for-stakeholders",
+      "description": "Skill for multi strategy reporting consolidation for stakeholders",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/multi-strategy-reporting-consolidation-for-stakeholders",
+      "skill_md": "skills/multi-strategy-reporting-consolidation-for-stakeholders/SKILL.md"
     },
     {
       "name": "multi-timeframe-backtest-consistency-checks",
