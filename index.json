@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:36.539899+00:00",
+  "generated_at": "2026-07-25T08:20:37.235195+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 359,
+  "total_skills": 360,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3211,6 +3211,24 @@
       "license": "Apache-2.0",
       "path": "skills/headless-broker-auth-patterns",
       "skill_md": "skills/headless-broker-auth-patterns/SKILL.md"
+    },
+    {
+      "name": "historical-data-backfill-rate-limit-management",
+      "description": "Implementation for historical-data-backfill-rate-limit-management",
+      "domain": "data-management-global",
+      "subdomain": "data",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/historical-data-backfill-rate-limit-management",
+      "skill_md": "skills/historical-data-backfill-rate-limit-management/SKILL.md"
     },
     {
       "name": "historical-tick-data-storage-and-compaction",
