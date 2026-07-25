@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:06.348669+00:00",
+  "generated_at": "2026-07-25T08:07:07.110569+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 201,
+  "total_skills": 202,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1314,6 +1314,24 @@
       "license": "Apache-2.0",
       "path": "skills/demo-account-realism-gap-assessment",
       "skill_md": "skills/demo-account-realism-gap-assessment/SKILL.md"
+    },
+    {
+      "name": "Dep Vuln Scanning",
+      "description": "A skill to handle Dep Vuln Scanning in algo-trading",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment-ops"
+      ],
+      "brokers_frameworks": [
+        "aws",
+        "gcp"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/dependency-vulnerability-scanning-in-ci",
+      "skill_md": "skills/dependency-vulnerability-scanning-in-ci/SKILL.md"
     },
     {
       "name": "deployment-freeze-windows-around-market-events",
