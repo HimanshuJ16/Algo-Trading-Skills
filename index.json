@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:59:11.549439+00:00",
+  "generated_at": "2026-07-25T07:59:12.174424+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 168,
+  "total_skills": 169,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -841,6 +841,22 @@
       "license": "Apache-2.0",
       "path": "skills/cold-start-handling-for-newly-listed-instruments",
       "skill_md": "skills/cold-start-handling-for-newly-listed-instruments/SKILL.md"
+    },
+    {
+      "name": "concentration-risk-single-name-limits",
+      "description": "Capping single-instrument exposure",
+      "domain": "risk-management",
+      "subdomain": "risk",
+      "tags": [
+        "risk",
+        "management"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/concentration-risk-single-name-limits",
+      "skill_md": "skills/concentration-risk-single-name-limits/SKILL.md"
     },
     {
       "name": "concept-drift-vs-staleness-differentiation",
