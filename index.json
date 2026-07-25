@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:11.353569+00:00",
+  "generated_at": "2026-07-25T08:25:11.810423+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 426,
+  "total_skills": 427,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5890,6 +5890,24 @@
       "license": "MIT",
       "path": "skills/point-in-time-index-constituent-tracking",
       "skill_md": "skills/point-in-time-index-constituent-tracking/SKILL.md"
+    },
+    {
+      "name": "portfolio-construction-with-transaction-cost-awareness",
+      "description": "Skill implementation for portfolio-construction-with-transaction-cost-awareness",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Skill Management",
+      "tags": [
+        "algo-trading",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/portfolio-construction-with-transaction-cost-awareness",
+      "skill_md": "skills/portfolio-construction-with-transaction-cost-awareness/SKILL.md"
     },
     {
       "name": "portfolio-level-stop-loss-independent-of-strategy-stops",
