@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:50:41.192464+00:00",
+  "generated_at": "2026-07-25T02:51:09.287567+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 81,
+  "total_skills": 82,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1183,6 +1183,29 @@
       "license": "Apache-2.0",
       "path": "skills/pattern-day-trader-rule-compliance-us",
       "skill_md": "skills/pattern-day-trader-rule-compliance-us/SKILL.md"
+    },
+    {
+      "name": "post-only-and-maker-taker-fee-optimization",
+      "description": "Use when deploying order execution algorithms to exchanges or brokers with maker-taker fee structures to inject Post-Only order flags, guarantee maker fee tiers, handle spread-crossing order cancellations, and quantify net transaction fee savings.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "post-only",
+        "maker-taker",
+        "fee-optimization",
+        "liquidity-provider",
+        "execution-cost"
+      ],
+      "brokers_frameworks": [
+        "Exchange Fee Optimizer",
+        "Python Trading Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/post-only-and-maker-taker-fee-optimization",
+      "skill_md": "skills/post-only-and-maker-taker-fee-optimization/SKILL.md"
     },
     {
       "name": "producer-consumer-tick-pipeline",
