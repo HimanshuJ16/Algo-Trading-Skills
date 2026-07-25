@@ -169,11 +169,11 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `concentration-risk-single-name-limits` — Capping exposure to any single instrument independent of sector-correlation clustering, as a simpler complementary control.
 - **[BUILT]** `risk-limit-breach-escalation-matrix` — Defining a graduated escalation matrix (warn → reduce → halt → force-flatten) rather than a single binary breach/no-breach risk response.
 - **[BUILT]** `scenario-based-stress-testing-custom-shocks` — Building custom stress-test scenarios beyond historical replay (e.g. a hypothetical rate-shock scenario) for forward-looking tail-risk assessment.
-- **[planned]** `risk-budget-allocation-across-time-horizons` — Allocating a portfolio's risk budget explicitly across different holding-period buckets (intraday, swing, position) to avoid unintentional horizon concentration.
-- **[planned]** `real-time-greeks-recalculation-on-market-moves` — Recalculating portfolio Greeks in real time as the market moves, rather than only at fixed intervals, for options-heavy portfolios.
-- **[planned]** `risk-control-bypass-audit-logging` — Logging and periodically auditing every instance any risk control was manually overridden, to detect a pattern of risk-control erosion over time.
-- **[planned]** `position-limit-breach-simulation-fire-drills` — Running scheduled 'fire drill' simulations of risk-limit breaches in a paper environment to keep incident-response muscle memory current.
-- **[planned]** `cross-account-aggregate-risk-view` — Aggregating risk exposure across multiple accounts/entities under common control, since per-account limits alone can understate true aggregate risk.
+- **[BUILT]** `risk-budget-allocation-across-time-horizons` — Allocating a portfolio's risk budget explicitly across different holding-period buckets (intraday, swing, position) to avoid unintentional horizon concentration.
+- **[BUILT]** `real-time-greeks-recalculation-on-market-moves` — Recalculating portfolio Greeks in real time as the market moves, rather than only at fixed intervals, for options-heavy portfolios.
+- **[BUILT]** `risk-control-bypass-audit-logging` — Logging and periodically auditing every instance any risk control was manually overridden, to detect a pattern of risk-control erosion over time.
+- **[BUILT]** `position-limit-breach-simulation-fire-drills` — Running scheduled 'fire drill' simulations of risk-limit breaches in a paper environment to keep incident-response muscle memory current.
+- **[BUILT]** `cross-account-aggregate-risk-view` — Aggregating risk exposure across multiple accounts/entities under common control, since per-account limits alone can understate true aggregate risk.
 - **[planned]** `dynamic-position-sizing-based-on-realized-volatility` — Scaling position size inversely to recent realized volatility (vol-targeting) rather than a fixed size regardless of current market conditions.
 - **[planned]** `risk-control-latency-budget` — Bounding how quickly a risk control must detect and act on a breach, since a technically-correct but slow-to-fire control provides weaker protection than its design implies.
 - **[planned]** `counterparty-credit-risk-for-otc-derivatives` — Assessing counterparty credit risk explicitly for any OTC (non-exchange-cleared) derivative position.
