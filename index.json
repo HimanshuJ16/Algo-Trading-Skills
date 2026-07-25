@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:16.118618+00:00",
+  "generated_at": "2026-07-25T08:25:16.542201+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 435,
+  "total_skills": 436,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7468,6 +7468,24 @@
       "license": "MIT",
       "path": "skills/strategy-performance-decay-detection-vs-market-wide-decay",
       "skill_md": "skills/strategy-performance-decay-detection-vs-market-wide-decay/SKILL.md"
+    },
+    {
+      "name": "strategy-research-to-production-pipeline-governance",
+      "description": "Skill for strategy research to production pipeline governance",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-research-to-production-pipeline-governance",
+      "skill_md": "skills/strategy-research-to-production-pipeline-governance/SKILL.md"
     },
     {
       "name": "strategy-specific-data-dependency-mapping",
