@@ -37,7 +37,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `multi-broker-consolidated-position-view` — Building a consolidated, reconciled view of positions held across multiple brokers for a single strategy's risk accounting.
 - **[BUILT]** `broker-api-deprecation-notice-monitoring` — Monitoring broker developer-changelog feeds for API deprecation notices before they break a live bot.
 - **[BUILT]** `sandbox-credential-leakage-prevention` — Preventing sandbox/test credentials from ever being reachable by code paths that could route to production.
-- **[planned]** `broker-side-order-throttle-detection` — Detecting when a broker silently throttles or delays order acknowledgment during high-volume periods, distinct from a client-side rate limit.
+- **[BUILT]** `broker-side-order-throttle-detection` — Detecting when a broker silently throttles or delays order acknowledgment during high-volume periods, distinct from a client-side rate limit.
 - **[planned]** `post-only-and-maker-taker-fee-optimization` — Using post-only order flags to ensure maker (not taker) fee tier on brokers/exchanges with maker-taker fee schedules.
 - **[planned]** `broker-margin-interest-accrual-tracking` — Tracking accrued margin interest explicitly as a cost, since it compounds and is frequently omitted from naive P&L tracking.
 - **[planned]** `regional-broker-data-residency-constraints` — Handling data-residency requirements that affect which cloud region a bot connecting to a specific national broker must run in.

@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:49:59.972052+00:00",
+  "generated_at": "2026-07-25T02:50:41.192464+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 80,
+  "total_skills": 81,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -251,6 +251,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-order-type-capability-matrix",
       "skill_md": "skills/broker-order-type-capability-matrix/SKILL.md"
+    },
+    {
+      "name": "broker-side-order-throttle-detection",
+      "description": "Use when operating high-frequency or high-volume trading bots to measure order acknowledgment round-trip latency (ACK RTT), detect silent broker-side order throttling during market volatility, and dynamically back off order dispatch before order queues overflow.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "order-throttle",
+        "latency-monitoring",
+        "ack-rtt",
+        "silent-throttling",
+        "backoff"
+      ],
+      "brokers_frameworks": [
+        "Broker Throttle Detector",
+        "Python High-Frequency Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-side-order-throttle-detection",
+      "skill_md": "skills/broker-side-order-throttle-detection/SKILL.md"
     },
     {
       "name": "broker-status-page-monitoring-integration",
