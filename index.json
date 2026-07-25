@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:58.657726+00:00",
+  "generated_at": "2026-07-25T08:13:59.371050+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 291,
+  "total_skills": 292,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1658,6 +1658,23 @@
       "license": "Apache-2.0",
       "path": "skills/crypto-wallet-key-custody-security",
       "skill_md": "skills/crypto-wallet-key-custody-security/SKILL.md"
+    },
+    {
+      "name": "data-localization-requirements-for-trade-records",
+      "description": "Compliance controls and workflows for data localization requirements for trade records",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/data-localization-requirements-for-trade-records",
+      "skill_md": "skills/data-localization-requirements-for-trade-records/SKILL.md"
     },
     {
       "name": "data-vendor-cross-validation-for-backtests",
