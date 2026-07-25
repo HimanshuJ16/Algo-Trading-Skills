@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:53.460408+00:00",
+  "generated_at": "2026-07-25T08:17:54.221572+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 331,
+  "total_skills": 332,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1815,6 +1815,24 @@
       "license": "Apache-2.0",
       "path": "skills/cross-validation-of-commission-schedules-over-time",
       "skill_md": "skills/cross-validation-of-commission-schedules-over-time/SKILL.md"
+    },
+    {
+      "name": "cross-venue-latency-arbitrage-defensive-design",
+      "description": "Implementation of cross venue latency arbitrage defensive design.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/cross-venue-latency-arbitrage-defensive-design",
+      "skill_md": "skills/cross-venue-latency-arbitrage-defensive-design/SKILL.md"
     },
     {
       "name": "crypto-exchange-api-integration",
