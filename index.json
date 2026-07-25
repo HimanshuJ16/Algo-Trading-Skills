@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:14.377447+00:00",
+  "generated_at": "2026-07-25T08:25:15.064390+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 432,
+  "total_skills": 433,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6330,6 +6330,24 @@
       "license": "MIT",
       "path": "skills/real-time-vs-delayed-data-entitlement-handling",
       "skill_md": "skills/real-time-vs-delayed-data-entitlement-handling/SKILL.md"
+    },
+    {
+      "name": "rebalancing-frequency-optimization-cost-vs-drift",
+      "description": "Skill implementation for rebalancing-frequency-optimization-cost-vs-drift",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Skill Management",
+      "tags": [
+        "algo-trading",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/rebalancing-frequency-optimization-cost-vs-drift",
+      "skill_md": "skills/rebalancing-frequency-optimization-cost-vs-drift/SKILL.md"
     },
     {
       "name": "record-retention-periods-by-jurisdiction",
