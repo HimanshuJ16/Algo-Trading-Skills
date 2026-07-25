@@ -2,8 +2,9 @@ import unittest
 import sys
 import os
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
-from skills.eu-benchmark-regulation-for-strategies-referencing-indices.scripts.eu_benchmark_regulation_for_strategies_referencing_indices import EuBenchmarkRegulationForStrategiesReferencingIndicesEngine
+# Add the script dir to path so we can import the module
+sys.path.insert(0, os.path.dirname(__file__))
+from eu_benchmark_regulation_for_strategies_referencing_indices import EuBenchmarkRegulationForStrategiesReferencingIndicesEngine
 
 class TestEuBenchmarkRegulationForStrategiesReferencingIndices(unittest.TestCase):
     def setUp(self):
