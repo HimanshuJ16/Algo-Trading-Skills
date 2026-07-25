@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:51.729701+00:00",
+  "generated_at": "2026-07-25T07:50:15.566452+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 156,
+  "total_skills": 157,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1855,6 +1855,29 @@
       "license": "MIT",
       "path": "skills/model-inference-latency-budget-for-live-trading",
       "skill_md": "skills/model-inference-latency-budget-for-live-trading/SKILL.md"
+    },
+    {
+      "name": "model-monitoring-dashboard-for-non-technical-stakeholders",
+      "description": "Use when deploying ML trading models to aggregate complex model health metrics (accuracy, staleness, concept drift, feature drift) into a non-technical traffic light (GREEN, AMBER, RED) health dashboard.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "monitoring-dashboard",
+        "model-health",
+        "non-technical",
+        "traffic-light",
+        "risk-reporting"
+      ],
+      "brokers_frameworks": [
+        "Model Monitoring Dashboard Engine",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/model-monitoring-dashboard-for-non-technical-stakeholders",
+      "skill_md": "skills/model-monitoring-dashboard-for-non-technical-stakeholders/SKILL.md"
     },
     {
       "name": "model-serving-infrastructure-ab-testing",
