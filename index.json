@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:24.839096+00:00",
+  "generated_at": "2026-07-25T08:18:25.554107+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 344,
+  "total_skills": 345,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5972,6 +5972,25 @@
       "license": "MIT",
       "path": "skills/smart-order-router-failover-on-venue-outage",
       "skill_md": "skills/smart-order-router-failover-on-venue-outage/SKILL.md"
+    },
+    {
+      "name": "smart-order-routing-across-venues",
+      "description": "Execution algorithm for smart order routing across venues",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/smart-order-routing-across-venues",
+      "skill_md": "skills/smart-order-routing-across-venues/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",
