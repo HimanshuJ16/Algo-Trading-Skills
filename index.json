@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:38:38.543284+00:00",
+  "generated_at": "2026-07-25T02:40:12.136161+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 70,
+  "total_skills": 71,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -135,6 +135,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
       "skill_md": "skills/broker-agnostic-adapter-interface/SKILL.md"
+    },
+    {
+      "name": "broker-failover-secondary-account-routing",
+      "description": "Use when building high-availability trading systems to route order flow automatically to a secondary broker account if the primary broker suffers connection degradation, rate limiting, or session outages mid-session.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "failover",
+        "high-availability",
+        "secondary-broker",
+        "order-routing",
+        "resilience"
+      ],
+      "brokers_frameworks": [
+        "Multi-Broker Adapter",
+        "Python Custom Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-failover-secondary-account-routing",
+      "skill_md": "skills/broker-failover-secondary-account-routing/SKILL.md"
     },
     {
       "name": "clock-skew-correction-for-tick-timestamps",
