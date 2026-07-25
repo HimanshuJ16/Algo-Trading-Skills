@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:39.656612+00:00",
+  "generated_at": "2026-07-25T13:19:40.637448+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 501,
+  "total_skills": 502,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -7497,6 +7497,23 @@
       "license": "MIT",
       "path": "skills/reproducible-ml-training-pipelines",
       "skill_md": "skills/reproducible-ml-training-pipelines/SKILL.md"
+    },
+    {
+      "name": "research-environment-vs-production-environment-parity",
+      "description": "Skill for research environment vs production environment parity",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/research-environment-vs-production-environment-parity",
+      "skill_md": "skills/research-environment-vs-production-environment-parity/SKILL.md"
     },
     {
       "name": "risk-adjusted-performance-attribution-per-strategy",
