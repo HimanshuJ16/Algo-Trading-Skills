@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:02.627650+00:00",
+  "generated_at": "2026-07-25T08:29:03.443867+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 466,
+  "total_skills": 467,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7846,6 +7846,24 @@
       "license": "MIT",
       "path": "skills/strategy-decommissioning-and-position-unwind-procedure",
       "skill_md": "skills/strategy-decommissioning-and-position-unwind-procedure/SKILL.md"
+    },
+    {
+      "name": "strategy-latency-budget-decomposition",
+      "description": "Skill for strategy latency budget decomposition",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "latency",
+        "microstructure"
+      ],
+      "brokers_frameworks": [
+        "ccxt"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-latency-budget-decomposition",
+      "skill_md": "skills/strategy-latency-budget-decomposition/SKILL.md"
     },
     {
       "name": "strategy-level-kill-switch-vs-portfolio-level-kill-switch",
