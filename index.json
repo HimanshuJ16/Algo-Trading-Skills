@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:09:11.571992+00:00",
+  "generated_at": "2026-07-25T03:11:25.374268+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 100,
+  "total_skills": 101,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1984,6 +1984,29 @@
       "license": "Apache-2.0",
       "path": "skills/tick-buffering-burst-handling",
       "skill_md": "skills/tick-buffering-burst-handling/SKILL.md"
+    },
+    {
+      "name": "tick-data-schema-versioning",
+      "description": "Use when deploying distributed tick processing pipelines to attach explicit schema version headers (v1, v2, v3), execute backward/forward schema migration adapters, and prevent deserialization crashes across consumer microservices.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "schema-versioning",
+        "migration-adapters",
+        "backward-compatibility",
+        "event-schema",
+        "serialization"
+      ],
+      "brokers_frameworks": [
+        "Tick Schema Versioner",
+        "Python Real-Time Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/tick-data-schema-versioning",
+      "skill_md": "skills/tick-data-schema-versioning/SKILL.md"
     },
     {
       "name": "token-lifecycle-live-probing",
