@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:09.675612+00:00",
+  "generated_at": "2026-07-25T08:13:10.413848+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 258,
+  "total_skills": 259,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2079,6 +2079,25 @@
       "license": "Apache-2.0",
       "path": "skills/feed-handler-cpu-pinning-and-numa-awareness",
       "skill_md": "skills/feed-handler-cpu-pinning-and-numa-awareness/SKILL.md"
+    },
+    {
+      "name": "finra-algo-trading-registration-requirements",
+      "description": "Compliance controls for finra algo trading registration requirements",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/finra-algo-trading-registration-requirements",
+      "skill_md": "skills/finra-algo-trading-registration-requirements/SKILL.md"
     },
     {
       "name": "fix-protocol-session-management-across-venues",
