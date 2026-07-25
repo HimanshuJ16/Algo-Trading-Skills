@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:05.557608+00:00",
+  "generated_at": "2026-07-25T08:07:06.348669+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 200,
+  "total_skills": 201,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1249,6 +1249,24 @@
       "license": "Apache-2.0",
       "path": "skills/data-vendor-cross-validation-for-backtests",
       "skill_md": "skills/data-vendor-cross-validation-for-backtests/SKILL.md"
+    },
+    {
+      "name": "PITR Testing",
+      "description": "A skill to handle PITR Testing in algo-trading",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment-ops"
+      ],
+      "brokers_frameworks": [
+        "aws",
+        "gcp"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/database-backup-and-point-in-time-restore-testing",
+      "skill_md": "skills/database-backup-and-point-in-time-restore-testing/SKILL.md"
     },
     {
       "name": "degiro-unofficial-api-risk-assessment",
