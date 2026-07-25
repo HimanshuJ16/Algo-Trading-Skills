@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:16.791144+00:00",
+  "generated_at": "2026-07-25T08:24:17.592743+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 412,
+  "total_skills": 413,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4073,6 +4073,23 @@
       "license": "Apache-2.0",
       "path": "skills/kafka-based-tick-distribution-at-scale",
       "skill_md": "skills/kafka-based-tick-distribution-at-scale/SKILL.md"
+    },
+    {
+      "name": "key-rotation-schedule-for-hot-wallet-keys",
+      "description": "Skill for key rotation schedule for hot wallet keys",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/key-rotation-schedule-for-hot-wallet-keys",
+      "skill_md": "skills/key-rotation-schedule-for-hot-wallet-keys/SKILL.md"
     },
     {
       "name": "kill-switch-and-drawdown-circuit-breakers",
