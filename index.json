@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:29.801745+00:00",
+  "generated_at": "2026-07-25T08:18:30.611386+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 350,
+  "total_skills": 351,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4711,6 +4711,25 @@
       "license": "Apache-2.0",
       "path": "skills/online-learning-for-adaptive-signal-models",
       "skill_md": "skills/online-learning-for-adaptive-signal-models/SKILL.md"
+    },
+    {
+      "name": "opening-auction-imbalance-based-execution",
+      "description": "Execution algorithm for opening auction imbalance based execution",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/opening-auction-imbalance-based-execution",
+      "skill_md": "skills/opening-auction-imbalance-based-execution/SKILL.md"
     },
     {
       "name": "options-backtesting-with-realistic-iv-surface",
