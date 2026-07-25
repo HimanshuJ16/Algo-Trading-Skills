@@ -5,18 +5,18 @@
 ### A structured algorithmic trading skills library for AI coding agents
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](LICENSE)
-[![Skills Built](https://img.shields.io/badge/skills_built-28-brightgreen?style=flat-square)](#whats-inside--12-categories)
-[![Roadmap](https://img.shields.io/badge/roadmap-500-orange?style=flat-square)](docs/ROADMAP_500.md)
-[![Domains](https://img.shields.io/badge/domains-12-9cf?style=flat-square)](#whats-inside--12-categories)
+[![Skills Built](https://img.shields.io/badge/skills_built-28-brightgreen?style=flat-square)](#whats-inside--16-categories)
+[![Roadmap](https://img.shields.io/badge/roadmap-502_tracked-orange?style=flat-square)](docs/ROADMAP_500.md)
+[![Domains](https://img.shields.io/badge/domains-16-9cf?style=flat-square)](#whats-inside--16-categories)
 [![Platforms](https://img.shields.io/badge/platforms-6%2B-blueviolet?style=flat-square)](#compatible-platforms)
 [![agentskills.io](https://img.shields.io/badge/standard-agentskills.io-ff6600?style=flat-square)](https://agentskills.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-**28 production-grade algorithmic trading skills built (of a 500-skill global roadmap) · 12 engineering domains · broker/exchange coverage spanning India (Fyers, Zerodha Kite, ICICI Breeze, Upstox), US (Alpaca, IBKR), global crypto (Binance, Coinbase, Kraken), and forex (OANDA, MT5) · agentskills.io standard**
+**28 production-grade algorithmic trading skills built · 502 skills tracked across a global research roadmap spanning 16 engineering domains · broker/exchange coverage spanning India (Fyers, Zerodha Kite, ICICI Breeze, Upstox), US (Alpaca, IBKR, Schwab, TradeStation), global crypto (Binance, Coinbase, Kraken, Deribit), forex (OANDA, MT5), and dozens more venues in the roadmap · agentskills.io standard**
 
-> **Status note:** this repo is mid-expansion from an India-first initial pass to global coverage. 28 skills currently have the full `SKILL.md` + `references/` + `scripts/` + `assets/` structure and pass `tools/validate_skills.py`. A further ~470 are tracked as titled, scoped entries in [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md) — a prioritized backlog, not finished work. See [Contributing](#contributing) if you want to help build one out.
+> **Status note:** this repo is mid-expansion from an India-first initial pass to global coverage. 28 skills currently have the full `SKILL.md` + `references/` + `scripts/` + `assets/` structure and pass `tools/validate_skills.py`. A further 474 are tracked as titled, scoped entries in [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md) — a prioritized research backlog covering global exchanges, regulatory regimes, execution algorithms, custody, and more, not finished work. Broker/regulatory specifics in planned entries should be verified against current sources before being built out into a real skill. See [Contributing](#contributing) if you want to help.
 
-[Get Started](#quick-start) · [What's Inside](#whats-inside--6-categories) · [Skill Anatomy](#skill-anatomy) · [Platforms](#compatible-platforms) · [Contributing](#contributing)
+[Get Started](#quick-start) · [What's Inside](#whats-inside--16-categories) · [Skill Anatomy](#skill-anatomy) · [Platforms](#compatible-platforms) · [Contributing](#contributing)
 
 ---
 
@@ -38,32 +38,35 @@ Cybersecurity has [Anthropic-Cybersecurity-Skills](https://github.com/mukul975/A
 
 This is a first pass at that resource for trading: not hundreds of skills, but 18 that are each deep enough to prevent a specific, named class of production bug. Quality over volume — every skill here answers yes to: *would this have actually prevented a real production bug, and is it specific enough for an agent to follow step-by-step rather than nod along with generic advice?*
 
-## What's inside — 12 categories
+## What's inside — 16 categories
 
-The first 6 categories are the original India-first pass; the next 6 extend the
+The first 6 categories are the original India-first pass; the next 10 extend the
 same quality bar to global markets — crypto exchanges, forex brokers, multi-currency
 and multi-timezone data handling, non-Indian regulatory regimes, multi-asset
-derivatives, and execution algorithms.
+derivatives, execution algorithms, custody/security, cross-strategy portfolio
+management, market microstructure, alternative-data research, and tax/accounting.
 
-| Domain | Built | Roadmap target | Key coverage |
+| Domain | Built | Tracked (built+planned) | Key coverage |
 |---|---|---|---|
-| [`broker-integration`](skills/) | 4 | 35 | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting |
+| [`broker-integration`](skills/) | 4 | 36 | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting |
 | [`real-time-architecture`](skills/) | 4 | 30 | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket reconnection without duplicate subscriptions |
 | [`backtesting-methodology`](skills/) | 3 | 30 | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation |
-| [`financial-ml`](skills/) | 3 | 40 | Leakage-free feature engineering, offline-train/online-infer deployment without train/serve skew, live model staleness detection |
-| [`risk-management`](skills/) | 2 | 40 | Kill switches and drawdown circuit breakers, correlation-aware exposure limits |
+| [`financial-ml`](skills/) | 3 | 38 | Leakage-free feature engineering, offline-train/online-infer deployment without train/serve skew, live model staleness detection |
+| [`risk-management`](skills/) | 2 | 39 | Kill switches and drawdown circuit breakers, correlation-aware exposure limits |
 | [`deployment-ops`](skills/) | 2 | 30 | systemd process supervision, the paper-to-live promotion gate |
-| [`global-market-integration`](skills/) | 2 | 45 | Crypto exchange APIs (Binance/Coinbase/Kraken), forex brokers (OANDA/MT5) |
-| [`regulatory-compliance-global`](skills/) | 2 | 40 | US Pattern Day Trader rule, EU MiFID II/RTS 6 algo-trading requirements |
-| [`multi-asset-derivatives`](skills/) | 1 | 45 | Options/futures SPAN-style margin estimation |
-| [`execution-algorithms`](skills/) | 1 | 35 | TWAP/VWAP order slicing |
-| [`data-management-global`](skills/) | 3 | 40 | Global exchange holiday calendars, multi-timezone/DST-safe scheduling, multi-currency P&L |
-| [`crypto-custody-security`](skills/) | 1 | 30 | Crypto wallet/API-key custody and permission scoping |
+| [`global-market-integration`](skills/) | 2 | 44 | Crypto exchange APIs (Binance/Coinbase/Kraken), forex brokers (OANDA/MT5), dozens of global venues in roadmap |
+| [`regulatory-compliance-global`](skills/) | 2 | 38 | US Pattern Day Trader rule, EU MiFID II/RTS 6, and a global regulatory roadmap (CFTC, IIROC, SFC, FSA, SEBI, ASIC, MAS, FINMA...) |
+| [`multi-asset-derivatives`](skills/) | 1 | 28 | Options/futures SPAN-style margin estimation |
+| [`execution-algorithms`](skills/) | 1 | 33 | TWAP/VWAP order slicing |
+| [`data-management-global`](skills/) | 3 | 37 | Global exchange holiday calendars, multi-timezone/DST-safe scheduling, multi-currency P&L |
+| [`crypto-custody-security`](skills/) | 1 | 29 | Crypto wallet/API-key custody and permission scoping |
 | `portfolio-multi-strategy` | 0 | 30 | *(planned — see roadmap)* |
-| `market-microstructure-latency` | 0 | 30 | *(planned — see roadmap)* |
+| `market-microstructure-latency` | 0 | 24 | *(planned — see roadmap)* |
+| `quant-research-alt-data` | 0 | 20 | *(planned — see roadmap)* |
+| `tax-accounting-reporting-global` | 0 | 16 | *(planned — see roadmap)* |
 
-Full indexed list with build status: [`index.json`](index.json). Full 500-skill
-backlog with one-line scope for every planned skill: [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md).
+Full indexed list with build status: [`index.json`](index.json). Full 502-entry
+roadmap with one-line scope for every planned skill: [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md).
 
 ### The 28 built skills
 
@@ -119,7 +122,7 @@ scanning `SKILL.md` frontmatter.
 Each skill costs roughly 30–50 tokens to scan (frontmatter only) and 500–1,500
 tokens to fully load (complete workflow in `SKILL.md`, more in `references/` if
 needed). This progressive-disclosure structure — mirrored from the anatomy
-below — lets an agent search all 18 skills without blowing its context window.
+below — lets an agent search all 28 built skills (and 502 tracked overall) without blowing its context window.
 
 ```
 User prompt: "My Fyers bot's live orders keep getting placed twice after a timeout"

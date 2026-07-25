@@ -7,6 +7,21 @@ real production bug building a trading bot, that's exactly what belongs here.
 
 ## Before you start
 
+Check [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md) first — it's a 502-entry backlog
+of titled, scoped skills covering global brokers, exchanges, regulatory regimes,
+execution algorithms, custody, and more. Most contributions should pick up an
+existing `[planned]` entry there rather than proposing something entirely new,
+since the scoping work (deciding it's worth a skill, picking a category, writing
+a one-line description) is already done. When you build one out:
+
+1. Do the research — verify the broker/exchange/regulatory specifics against
+   current, authoritative sources (broker docs, exchange rulebooks, regulator
+   publications). Roadmap entries were scoped from general domain knowledge, not
+   verified against live documentation, so this step matters.
+2. Follow the full structure in `docs/skill-anatomy.md` when building it out.
+3. Flip the entry's status from `planned` to `built` in `index.json` and remove
+   its `[planned]` line from `docs/ROADMAP_500.md` once it's built and validated.
+
 Open an issue first for:
 - New category proposals or structural changes to the repo layout
 - Larger multi-skill additions
