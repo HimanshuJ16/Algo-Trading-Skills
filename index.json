@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:43:47.482242+00:00",
+  "generated_at": "2026-07-25T02:44:53.556434+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 74,
+  "total_skills": 75,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -181,6 +181,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-failover-secondary-account-routing",
       "skill_md": "skills/broker-failover-secondary-account-routing/SKILL.md"
+    },
+    {
+      "name": "broker-order-type-capability-matrix",
+      "description": "Use when building multi-broker quantitative trading systems to maintain a capability matrix of native order types (Bracket, OCO, Trailing Stop, Iceberg, PEG) supported by each broker, and synthesize software-emulated order triggers when native support is missing.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "order-types",
+        "capability-matrix",
+        "bracket-orders",
+        "oco-orders",
+        "synthetic-orders"
+      ],
+      "brokers_frameworks": [
+        "Multi-Broker Capability Matrix",
+        "Python Order Synthesizer"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-order-type-capability-matrix",
+      "skill_md": "skills/broker-order-type-capability-matrix/SKILL.md"
     },
     {
       "name": "clock-skew-correction-for-tick-timestamps",
