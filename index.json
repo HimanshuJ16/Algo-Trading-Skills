@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:27.124454+00:00",
+  "generated_at": "2026-07-25T08:10:27.481250+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 236,
+  "total_skills": 238,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2357,6 +2357,23 @@
       "skill_md": "skills/intraday-vs-eod-backtest-granularity-tradeoffs/SKILL.md"
     },
     {
+      "name": "japan-exchange-group-jpx-api-integration",
+      "description": "Integration for japan-exchange-group-jpx-api-integration",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
+      "tags": [
+        "japan-exchange-group-jpx-api-integration"
+      ],
+      "brokers_frameworks": [
+        "Custom"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/japan-exchange-group-jpx-api-integration",
+      "skill_md": "skills/japan-exchange-group-jpx-api-integration/SKILL.md"
+    },
+    {
       "name": "kafka-based-tick-distribution-at-scale",
       "description": "Use when building high-throughput distributed market data ingestion pipelines (50k+ ticks/sec) using Apache Kafka to partition tick events by symbol, balance consumer group loads, configure producer batching, and commit offset checkpoints cleanly.",
       "domain": "algorithmic-trading",
@@ -3548,6 +3565,23 @@
       "license": "Apache-2.0",
       "path": "skills/post-only-and-maker-taker-fee-optimization",
       "skill_md": "skills/post-only-and-maker-taker-fee-optimization/SKILL.md"
+    },
+    {
+      "name": "prime-brokerage-multi-venue-consolidation",
+      "description": "Integration or workflow skill for prime-brokerage-multi-venue-consolidation.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "prime-brokerage-multi-venue-consolidation"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/prime-brokerage-multi-venue-consolidation",
+      "skill_md": "skills/prime-brokerage-multi-venue-consolidation/SKILL.md"
     },
     {
       "name": "producer-consumer-tick-pipeline",
