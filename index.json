@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:23.677200+00:00",
+  "generated_at": "2026-07-25T08:10:24.287563+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 224,
+  "total_skills": 226,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1480,6 +1480,23 @@
       "skill_md": "skills/deployment-freeze-windows-around-market-events/SKILL.md"
     },
     {
+      "name": "deribit-crypto-options-api",
+      "description": "Integration or workflow skill for deribit-crypto-options-api.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "deribit-crypto-options-api"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/deribit-crypto-options-api",
+      "skill_md": "skills/deribit-crypto-options-api/SKILL.md"
+    },
+    {
       "name": "disaster-recovery-runbook-for-full-region-outage",
       "description": "Deployment ops skill for disaster-recovery-runbook-for-full-region-outage",
       "domain": "deployment-ops",
@@ -2675,6 +2692,23 @@
       "license": "Apache-2.0",
       "path": "skills/monte-carlo-strategy-robustness-testing",
       "skill_md": "skills/monte-carlo-strategy-robustness-testing/SKILL.md"
+    },
+    {
+      "name": "mt5-python-bridge-for-forex-bots",
+      "description": "Integration for mt5-python-bridge-for-forex-bots",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
+      "tags": [
+        "mt5-python-bridge-for-forex-bots"
+      ],
+      "brokers_frameworks": [
+        "Custom"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/mt5-python-bridge-for-forex-bots",
+      "skill_md": "skills/mt5-python-bridge-for-forex-bots/SKILL.md"
     },
     {
       "name": "multi-account-same-strategy-fan-out",
