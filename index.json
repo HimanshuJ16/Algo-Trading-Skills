@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:52.807919+00:00",
+  "generated_at": "2026-07-25T08:10:53.462418+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 248,
+  "total_skills": 249,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4627,6 +4627,23 @@
       "license": "MIT",
       "path": "skills/tail-risk-hedging-with-options",
       "skill_md": "skills/tail-risk-hedging-with-options/SKILL.md"
+    },
+    {
+      "name": "tase-israel-exchange-api",
+      "description": "Integration or workflow skill for tase-israel-exchange-api.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "tase-israel-exchange-api"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/tase-israel-exchange-api",
+      "skill_md": "skills/tase-israel-exchange-api/SKILL.md"
     },
     {
       "name": "tastytrade-api-integration",
