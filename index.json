@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:01:06.914298+00:00",
+  "generated_at": "2026-07-25T03:02:16.885647+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 93,
+  "total_skills": 94,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1187,6 +1187,29 @@
       "license": "Apache-2.0",
       "path": "skills/multi-exchange-feed-normalization",
       "skill_md": "skills/multi-exchange-feed-normalization/SKILL.md"
+    },
+    {
+      "name": "multi-region-active-active-tick-ingestion",
+      "description": "Use when deploying multi-region high-availability market data infrastructure to ingest active-active parallel tick streams from redundant cloud regions, deduplicating ticks by signature, and arbitrating lowest-latency message arrival.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "active-active",
+        "multi-region",
+        "deduplication",
+        "latency-arbitration",
+        "high-availability"
+      ],
+      "brokers_frameworks": [
+        "Active-Active Ingest Engine",
+        "Python Async Real-Time"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-region-active-active-tick-ingestion",
+      "skill_md": "skills/multi-region-active-active-tick-ingestion/SKILL.md"
     },
     {
       "name": "multi-region-failover-for-broker-connectivity",
