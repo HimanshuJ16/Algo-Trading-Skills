@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:37.290826+00:00",
+  "generated_at": "2026-07-25T08:23:38.268103+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 392,
+  "total_skills": 393,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2556,6 +2556,26 @@
       "license": "MIT",
       "path": "skills/emergency-manual-override-access-control",
       "skill_md": "skills/emergency-manual-override-access-control/SKILL.md"
+    },
+    {
+      "name": "employee-offboarding-procedure-for-custody-access",
+      "description": "Skill to handle employee offboarding procedure for custody access.",
+      "domain": "Crypto Custody",
+      "subdomain": "Security",
+      "tags": [
+        "security",
+        "crypto",
+        "custody",
+        "employee"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/employee-offboarding-procedure-for-custody-access",
+      "skill_md": "skills/employee-offboarding-procedure-for-custody-access/SKILL.md"
     },
     {
       "name": "ensemble-signal-combination-without-overfitting",
