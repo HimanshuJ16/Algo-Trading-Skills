@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:54.049349+00:00",
+  "generated_at": "2026-07-25T08:16:54.702262+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 304,
+  "total_skills": 305,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -642,6 +642,23 @@
       "license": "MIT",
       "path": "skills/binance-futures-testnet-to-mainnet-promotion",
       "skill_md": "skills/binance-futures-testnet-to-mainnet-promotion/SKILL.md"
+    },
+    {
+      "name": "binary-options-regulatory-and-risk-considerations",
+      "description": "Skill for binary options regulatory and risk considerations",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Exotics",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/binary-options-regulatory-and-risk-considerations",
+      "skill_md": "skills/binary-options-regulatory-and-risk-considerations/SKILL.md"
     },
     {
       "name": "binary-protocol-parsing-for-low-latency-feeds",
