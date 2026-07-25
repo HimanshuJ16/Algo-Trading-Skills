@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:52.151882+00:00",
+  "generated_at": "2026-07-25T08:16:53.421861+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 302,
+  "total_skills": 303,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1314,6 +1314,23 @@
       "license": "Apache-2.0",
       "path": "skills/cold-start-handling-for-newly-listed-instruments",
       "skill_md": "skills/cold-start-handling-for-newly-listed-instruments/SKILL.md"
+    },
+    {
+      "name": "commodity-futures-storage-and-carry-cost-modeling",
+      "description": "Skill for commodity futures storage and carry cost modeling",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Commodities",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/commodity-futures-storage-and-carry-cost-modeling",
+      "skill_md": "skills/commodity-futures-storage-and-carry-cost-modeling/SKILL.md"
     },
     {
       "name": "concentration-risk-single-name-limits",
