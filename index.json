@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:16.542201+00:00",
+  "generated_at": "2026-07-25T08:25:17.284371+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 436,
+  "total_skills": 437,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1216,6 +1216,24 @@
       "license": "MIT",
       "path": "skills/capacity-planning-for-symbol-universe-growth",
       "skill_md": "skills/capacity-planning-for-symbol-universe-growth/SKILL.md"
+    },
+    {
+      "name": "capital-efficiency-across-cross-margined-strategies",
+      "description": "Skill implementation for capital-efficiency-across-cross-margined-strategies",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Skill Management",
+      "tags": [
+        "algo-trading",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/capital-efficiency-across-cross-margined-strategies",
+      "skill_md": "skills/capital-efficiency-across-cross-margined-strategies/SKILL.md"
     },
     {
       "name": "capital-preservation-mode-for-degraded-conditions",
