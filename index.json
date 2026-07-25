@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:58.897832+00:00",
+  "generated_at": "2026-07-25T08:16:59.109957+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 315,
+  "total_skills": 316,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5766,6 +5766,23 @@
       "license": "Apache-2.0",
       "path": "skills/token-lifecycle-live-probing",
       "skill_md": "skills/token-lifecycle-live-probing/SKILL.md"
+    },
+    {
+      "name": "total-return-swap-synthetic-exposure",
+      "description": "Skill for total return swap synthetic exposure",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Swaps",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/total-return-swap-synthetic-exposure",
+      "skill_md": "skills/total-return-swap-synthetic-exposure/SKILL.md"
     },
     {
       "name": "tradestation-websocket-order-updates",
