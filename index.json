@@ -1,10 +1,26 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:12.195092+00:00",
+  "generated_at": "2026-07-25T13:19:13.010596+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 487,
+  "total_skills": 488,
   "skills": [
+    {
+      "name": "1099-b-and-broker-tax-reporting-reconciliation",
+      "description": "Implementation for 1099-b-and-broker-tax-reporting-reconciliation",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/1099-b-and-broker-tax-reporting-reconciliation",
+      "skill_md": "skills/1099-b-and-broker-tax-reporting-reconciliation/SKILL.md"
+    },
     {
       "name": "adaptive-batch-size-tuning-under-load",
       "description": "Use when writing market data or order logs to downstream databases (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch sizes and flush timeouts based on queue pressure and sink write latency.",
