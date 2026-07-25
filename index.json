@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:59.371050+00:00",
+  "generated_at": "2026-07-25T08:14:00.106108+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 292,
+  "total_skills": 293,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -108,6 +108,23 @@
       "license": "MIT",
       "path": "skills/algo-trading-disclosure-to-exchange-membership",
       "skill_md": "skills/algo-trading-disclosure-to-exchange-membership/SKILL.md"
+    },
+    {
+      "name": "algorithmic-trading-firm-licensing-thresholds",
+      "description": "Compliance controls and workflows for algorithmic trading firm licensing thresholds",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/algorithmic-trading-firm-licensing-thresholds",
+      "skill_md": "skills/algorithmic-trading-firm-licensing-thresholds/SKILL.md"
     },
     {
       "name": "alpaca-paper-live-key-separation",
