@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:13.010596+00:00",
+  "generated_at": "2026-07-25T13:19:13.878258+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 488,
+  "total_skills": 489,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -8955,6 +8955,22 @@
       "license": "MIT",
       "path": "skills/variance-swap-and-volatility-derivative-pricing",
       "skill_md": "skills/variance-swap-and-volatility-derivative-pricing/SKILL.md"
+    },
+    {
+      "name": "vat-gst-treatment-of-trading-related-services",
+      "description": "Implementation for vat-gst-treatment-of-trading-related-services",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/vat-gst-treatment-of-trading-related-services",
+      "skill_md": "skills/vat-gst-treatment-of-trading-related-services/SKILL.md"
     },
     {
       "name": "vectorized-vs-event-driven-backtest-tradeoffs",
