@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:32.208455+00:00",
+  "generated_at": "2026-07-25T08:20:32.988091+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 353,
+  "total_skills": 354,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5049,6 +5049,24 @@
       "license": "Apache-2.0",
       "path": "skills/point-in-time-database-for-ml-training-data",
       "skill_md": "skills/point-in-time-database-for-ml-training-data/SKILL.md"
+    },
+    {
+      "name": "point-in-time-fundamentals-data-joins",
+      "description": "Implementation for point-in-time-fundamentals-data-joins",
+      "domain": "data-management-global",
+      "subdomain": "data",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/point-in-time-fundamentals-data-joins",
+      "skill_md": "skills/point-in-time-fundamentals-data-joins/SKILL.md"
     },
     {
       "name": "position-limit-breach-simulation-fire-drills",
