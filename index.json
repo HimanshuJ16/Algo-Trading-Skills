@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:10.093424+00:00",
+  "generated_at": "2026-07-25T08:07:10.448863+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 207,
+  "total_skills": 208,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1449,6 +1449,21 @@
       "license": "Apache-2.0",
       "path": "skills/ensemble-signal-combination-without-overfitting",
       "skill_md": "skills/ensemble-signal-combination-without-overfitting/SKILL.md"
+    },
+    {
+      "name": "environment-parity-dev-staging-production",
+      "description": "Skill for environment-parity-dev-staging-production",
+      "domain": "deployment-ops",
+      "subdomain": "deployment",
+      "tags": [
+        "environment-parity-dev-staging-production"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/environment-parity-dev-staging-production",
+      "skill_md": "skills/environment-parity-dev-staging-production/SKILL.md"
     },
     {
       "name": "etrade-oauth1-signature-flow",
