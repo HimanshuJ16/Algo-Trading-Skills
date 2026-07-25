@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:43.082387+00:00",
+  "generated_at": "2026-07-25T07:49:43.799286+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 153,
+  "total_skills": 154,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -372,6 +372,24 @@
       "license": "Apache-2.0",
       "path": "skills/backtest-vs-live-performance-divergence-tracking",
       "skill_md": "skills/backtest-vs-live-performance-divergence-tracking/SKILL.md"
+    },
+    {
+      "name": "backtesting-ml-models-against-transaction-costs",
+      "description": "Skill for backtesting ml models against transaction costs",
+      "domain": "Financial ML",
+      "subdomain": "Backtesting",
+      "tags": [
+        "ml",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/backtesting-ml-models-against-transaction-costs",
+      "skill_md": "skills/backtesting-ml-models-against-transaction-costs/SKILL.md"
     },
     {
       "name": "benchmark-relative-performance-attribution",
