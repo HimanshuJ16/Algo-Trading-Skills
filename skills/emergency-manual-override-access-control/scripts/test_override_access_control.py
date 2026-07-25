@@ -1,9 +1,12 @@
 import unittest
 import sys
 import os
+import importlib
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-from override_access_control import OverrideAccessControlEngine, Result
+module = importlib.import_module("override_access_control")
+OverrideAccessControlEngine = getattr(module, "OverrideAccessControlEngine")
+Result = getattr(module, "Result")
 
 class TestOverrideAccessControlEngine(unittest.TestCase):
     def setUp(self):

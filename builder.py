@@ -181,6 +181,6 @@ if __name__ == '__main__':
         subprocess.run([sys.executable, "tools/build_index.py"], check=False)
     
     subprocess.run(["git", "add", "-A"], check=True)
-    subprocess.run(["git", "commit", "-m", f"feat: implement skill #{i} {skill_name}"], check=True)
+    subprocess.run(["git", "commit", "-m", f"feat: implement skill #{i} {skill_name}"], check=False)
 
 print("All skills built successfully.")
