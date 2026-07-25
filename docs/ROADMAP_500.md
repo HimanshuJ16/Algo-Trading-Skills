@@ -438,7 +438,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `insurance-coverage-assessment-for-custodied-crypto` — Assessing what insurance coverage (if any) actually applies to custodied crypto assets, since coverage terms vary widely and are often narrower than assumed.
 - **[BUILT]** `air-gapped-signing-workflow-for-cold-storage` — Implementing an air-gapped signing workflow for cold-storage transactions, ensuring the signing device never has network connectivity.
 - **[BUILT]** `withdrawal-velocity-limits-and-anomaly-detection` — Setting withdrawal velocity limits (max value/frequency in a time window) with anomaly detection distinct from simple threshold breaches.
-- **[planned]** `multi-party-computation-mpc-custody-solutions` — Evaluating MPC-based custody solutions as an alternative to traditional multi-sig for distributing key control without a single complete key ever existing.
+- **[BUILT]** `multi-party-computation-mpc-custody-solutions` — Evaluating MPC-based custody solutions as an alternative to traditional multi-sig for distributing key control without a single complete key ever existing.
 - **[planned]** `smart-contract-approval-scope-minimization` — Minimizing and periodically auditing token-approval scopes granted to smart contracts, since unlimited approvals are a common attack vector.
 - **[planned]** `phishing-resistant-authentication-for-custody-access` — Using phishing-resistant authentication (hardware security keys, not SMS/email OTP) for any human access to custody infrastructure.
 - **[planned]** `custody-solution-vendor-due-diligence-checklist` — A structured due-diligence checklist for evaluating a third-party custody vendor before entrusting them with operational funds.
@@ -560,3 +560,4 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 ---
 
 **Grand total: 504 skills tracked (293 built, 211 planned) across 16 categories.**
+  
