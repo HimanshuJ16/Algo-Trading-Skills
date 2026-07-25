@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:47.502247+00:00",
+  "generated_at": "2026-07-25T08:20:48.347458+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 373,
+  "total_skills": 374,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5007,6 +5007,24 @@
       "license": "MIT",
       "path": "skills/options-chain-data-normalization-across-vendors",
       "skill_md": "skills/options-chain-data-normalization-across-vendors/SKILL.md"
+    },
+    {
+      "name": "options-chain-expiry-cycle-conventions-by-exchange",
+      "description": "Implementation of options-chain-expiry-cycle-conventions-by-exchange",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/options-chain-expiry-cycle-conventions-by-exchange",
+      "skill_md": "skills/options-chain-expiry-cycle-conventions-by-exchange/SKILL.md"
     },
     {
       "name": "options-greeks-real-time-portfolio-aggregation",
