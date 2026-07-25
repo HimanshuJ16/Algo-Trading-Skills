@@ -98,7 +98,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `data-vendor-cross-validation-for-backtests` — Cross-validating historical price data against a second vendor to catch vendor-specific data errors before they corrupt a backtest.
 - **[BUILT]** `adjusted-vs-unadjusted-price-series-pitfalls` — Explicitly deciding and documenting when a backtest should use split/dividend-adjusted vs unadjusted price series, since mixing them silently corrupts signals.
 - **[BUILT]** `backtest-parameter-sensitivity-analysis` — Testing how sensitive a strategy's backtested performance is to small parameter changes, to detect an overfit 'sweet spot' versus a genuinely robust setting.
-- **[planned]** `multi-timeframe-backtest-consistency-checks` — Verifying a strategy's signals are consistent when computed from a higher-resolution timeframe versus resampled lower-resolution data.
+- **[BUILT]** `multi-timeframe-backtest-consistency-checks` — Verifying a strategy's signals are consistent when computed from a higher-resolution timeframe versus resampled lower-resolution data.
 - **[planned]** `short-selling-borrow-cost-and-availability-modeling` — Modeling stock-borrow cost and availability constraints in a backtest for any strategy that shorts equities.
 - **[planned]** `backtest-infrastructure-cost-budgeting` — Budgeting compute/storage cost for large-scale backtesting (parameter sweeps, walk-forward across many instruments) before it becomes a surprise cloud bill.
 - **[planned]** `benchmark-selection-for-strategy-evaluation` — Choosing an appropriate benchmark (not just a broad index) against which to evaluate a strategy's risk-adjusted performance.

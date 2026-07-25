@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:38:16.567228+00:00",
+  "generated_at": "2026-07-25T07:39:49.323481+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 116,
+  "total_skills": 117,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1608,6 +1608,28 @@
       "license": "Apache-2.0",
       "path": "skills/multi-strategy-capital-allocation-limits",
       "skill_md": "skills/multi-strategy-capital-allocation-limits/SKILL.md"
+    },
+    {
+      "name": "multi-timeframe-backtest-consistency-checks",
+      "description": "Use when verifying that a strategy's signals computed from higher-resolution data (e.g. 1-min bars) produce consistent results when compared against resampled lower-resolution data (e.g. 5-min, 15-min bars).",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "multi-timeframe",
+        "resampling",
+        "signal-consistency",
+        "data-resolution"
+      ],
+      "brokers_frameworks": [
+        "Timeframe Consistency Checker",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/multi-timeframe-backtest-consistency-checks",
+      "skill_md": "skills/multi-timeframe-backtest-consistency-checks/SKILL.md"
     },
     {
       "name": "multi-timezone-session-scheduling",
