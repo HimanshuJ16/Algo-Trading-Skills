@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:09.729812+00:00",
+  "generated_at": "2026-07-25T13:19:10.570876+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 484,
+  "total_skills": 485,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4880,6 +4880,22 @@
       "license": "Apache-2.0",
       "path": "skills/margin-utilization-circuit-breaker",
       "skill_md": "skills/margin-utilization-circuit-breaker/SKILL.md"
+    },
+    {
+      "name": "mark-to-market-election-for-active-traders-us",
+      "description": "Implementation for mark-to-market-election-for-active-traders-us",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/mark-to-market-election-for-active-traders-us",
+      "skill_md": "skills/mark-to-market-election-for-active-traders-us/SKILL.md"
     },
     {
       "name": "market-data-cost-optimization-tiered-subscriptions",
