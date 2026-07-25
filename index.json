@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:42:34.824644+00:00",
+  "generated_at": "2026-07-25T02:43:47.482242+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 73,
+  "total_skills": 74,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -336,6 +336,29 @@
       "license": "Apache-2.0",
       "path": "skills/degiro-unofficial-api-risk-assessment",
       "skill_md": "skills/degiro-unofficial-api-risk-assessment/SKILL.md"
+    },
+    {
+      "name": "demo-account-realism-gap-assessment",
+      "description": "Use when evaluating trading performance on paper/demo broker accounts to systematically compare fill latency, slippage, queue depth, and partial fill rates against live production executions, calculating a realism reliability index.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "demo-account",
+        "paper-trading",
+        "realism-gap",
+        "slippage-analysis",
+        "execution-fidelity"
+      ],
+      "brokers_frameworks": [
+        "Broker Environment Assessor",
+        "Python Analytics"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/demo-account-realism-gap-assessment",
+      "skill_md": "skills/demo-account-realism-gap-assessment/SKILL.md"
     },
     {
       "name": "ensemble-signal-combination-without-overfitting",
