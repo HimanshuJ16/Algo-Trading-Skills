@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:53.427295+00:00",
+  "generated_at": "2026-07-25T08:13:54.089644+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 284,
+  "total_skills": 285,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4332,6 +4332,23 @@
       "license": "MIT",
       "path": "skills/real-time-var-backtesting-kupiec-test",
       "skill_md": "skills/real-time-var-backtesting-kupiec-test/SKILL.md"
+    },
+    {
+      "name": "record-retention-periods-by-jurisdiction",
+      "description": "Compliance controls and workflows for record retention periods by jurisdiction",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/record-retention-periods-by-jurisdiction",
+      "skill_md": "skills/record-retention-periods-by-jurisdiction/SKILL.md"
     },
     {
       "name": "redis-streams-multi-consumer-tick-fanout",
