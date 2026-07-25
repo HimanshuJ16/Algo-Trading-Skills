@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:44.351644+00:00",
+  "generated_at": "2026-07-25T08:20:45.153274+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 369,
+  "total_skills": 370,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2000,6 +2000,24 @@
       "license": "MIT",
       "path": "skills/dark-pool-routing-logic",
       "skill_md": "skills/dark-pool-routing-logic/SKILL.md"
+    },
+    {
+      "name": "data-lineage-tracking-for-audit-and-debugging",
+      "description": "Implementation of data-lineage-tracking-for-audit-and-debugging",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/data-lineage-tracking-for-audit-and-debugging",
+      "skill_md": "skills/data-lineage-tracking-for-audit-and-debugging/SKILL.md"
     },
     {
       "name": "data-localization-requirements-for-trade-records",
