@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:28.112905+00:00",
+  "generated_at": "2026-07-25T08:10:39.727031+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 240,
+  "total_skills": 243,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2616,6 +2616,23 @@
       "skill_md": "skills/margin-utilization-circuit-breaker/SKILL.md"
     },
     {
+      "name": "market-data-entitlement-and-licensing-per-venue",
+      "description": "Integration or workflow skill for market-data-entitlement-and-licensing-per-venue.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "market-data-entitlement-and-licensing-per-venue"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/market-data-entitlement-and-licensing-per-venue",
+      "skill_md": "skills/market-data-entitlement-and-licensing-per-venue/SKILL.md"
+    },
+    {
       "name": "market-data-feed-arbitration-across-vendors",
       "description": "Use when consuming redundant market data streams from dual data vendors (e.g. Bloomberg and Refinitiv) to execute real-time feed arbitration, detect price divergence spikes, filter bad ticks, and fail over seamlessly when one vendor feed becomes stale.",
       "domain": "algorithmic-trading",
@@ -3221,6 +3238,23 @@
       "skill_md": "skills/multi-year-regime-coverage-requirement/SKILL.md"
     },
     {
+      "name": "nasdaq-totalview-itch-feed-parsing",
+      "description": "Integration for nasdaq-totalview-itch-feed-parsing",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
+      "tags": [
+        "nasdaq-totalview-itch-feed-parsing"
+      ],
+      "brokers_frameworks": [
+        "Custom"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/nasdaq-totalview-itch-feed-parsing",
+      "skill_md": "skills/nasdaq-totalview-itch-feed-parsing/SKILL.md"
+    },
+    {
       "name": "network-interface-level-tick-timestamping",
       "description": "Use when operating low-latency feed handlers (Solarflare Onload, PTP hardware NICs, kernel-bypass) to extract hardware network interface packet timestamps (SO_TIMESTAMPING), bypassing OS kernel queueing jitter.",
       "domain": "algorithmic-trading",
@@ -3275,6 +3309,23 @@
       "license": "MIT",
       "path": "skills/new-zealand-exchange-nzx-api",
       "skill_md": "skills/new-zealand-exchange-nzx-api/SKILL.md"
+    },
+    {
+      "name": "nyse-arca-integrated-feed-handling",
+      "description": "Integration for nyse-arca-integrated-feed-handling",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
+      "tags": [
+        "nyse-arca-integrated-feed-handling"
+      ],
+      "brokers_frameworks": [
+        "Custom"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/nyse-arca-integrated-feed-handling",
+      "skill_md": "skills/nyse-arca-integrated-feed-handling/SKILL.md"
     },
     {
       "name": "offline-train-online-infer-deployment",

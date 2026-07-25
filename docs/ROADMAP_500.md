@@ -244,8 +244,8 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `australian-securities-exchange-asx-api` — Handling ASX's API and T+2 settlement conventions for an Australian equities bot.
 - **[BUILT]** `japan-exchange-group-jpx-api-integration` — Integrating with JPX/Tokyo Stock Exchange APIs, including their distinct trading-hour and tick-size rules.
 - **[BUILT]** `cboe-options-exchange-api-integration` — Integrating with Cboe's options exchange API and its specific complex-order-book conventions.
-- **[planned]** `nasdaq-totalview-itch-feed-parsing` — Parsing NASDAQ's TotalView-ITCH binary market-data feed for full order-book reconstruction.
-- **[planned]** `nyse-arca-integrated-feed-handling` — Handling NYSE Arca's integrated feed for consolidated US equities data.
+- **[BUILT]** `nasdaq-totalview-itch-feed-parsing` — Parsing NASDAQ's TotalView-ITCH binary market-data feed for full order-book reconstruction.
+- **[BUILT]** `nyse-arca-integrated-feed-handling` — Handling NYSE Arca's integrated feed for consolidated US equities data.
 - **[planned]** `lse-millennium-exchange-api` — Integrating with the London Stock Exchange's Millennium Exchange trading platform API.
 - **[planned]** `deutsche-borse-xetra-api-integration` — Integrating with Deutsche Börse's Xetra trading system for German/European equities.
 - **[planned]** `euronext-optiq-market-data-integration` — Integrating with Euronext's Optiq market-data and trading platform across its pan-European venues.
