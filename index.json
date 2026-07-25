@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:28.124079+00:00",
+  "generated_at": "2026-07-25T08:28:28.910984+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 455,
+  "total_skills": 456,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5939,6 +5939,24 @@
       "license": "Apache-2.0",
       "path": "skills/order-book-imbalance-signal-pipeline",
       "skill_md": "skills/order-book-imbalance-signal-pipeline/SKILL.md"
+    },
+    {
+      "name": "order-book-microstructure-signal-research",
+      "description": "Skill for order-book-microstructure-signal-research",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "trading",
+        "latency"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/order-book-microstructure-signal-research",
+      "skill_md": "skills/order-book-microstructure-signal-research/SKILL.md"
     },
     {
       "name": "order-placement-idempotency",
