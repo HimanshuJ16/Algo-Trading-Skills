@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:50.042306+00:00",
+  "generated_at": "2026-07-25T08:23:50.515093+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 396,
+  "total_skills": 397,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7665,6 +7665,25 @@
       "license": "Apache-2.0",
       "path": "skills/websocket-reconnection-with-state-recovery",
       "skill_md": "skills/websocket-reconnection-with-state-recovery/SKILL.md"
+    },
+    {
+      "name": "withdrawal-velocity-limits-and-anomaly-detection",
+      "description": "Implementation for withdrawal-velocity-limits-and-anomaly-detection",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/withdrawal-velocity-limits-and-anomaly-detection",
+      "skill_md": "skills/withdrawal-velocity-limits-and-anomaly-detection/SKILL.md"
     },
     {
       "name": "zero-downtime-database-schema-migrations",
