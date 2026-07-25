@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:24.454051+00:00",
+  "generated_at": "2026-07-25T08:29:52.376290+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 468,
+  "total_skills": 469,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7462,6 +7462,24 @@
       "license": "Apache-2.0",
       "path": "skills/sandbox-vs-production-endpoint-drift",
       "skill_md": "skills/sandbox-vs-production-endpoint-drift/SKILL.md"
+    },
+    {
+      "name": "satellite-imagery-based-signal-research",
+      "description": "A quant research alternative data skill for satellite-imagery-based-signal-research.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/satellite-imagery-based-signal-research",
+      "skill_md": "skills/satellite-imagery-based-signal-research/SKILL.md"
     },
     {
       "name": "saxo-bank-openapi-integration",
