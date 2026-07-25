@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:35.833847+00:00",
+  "generated_at": "2026-07-25T08:20:36.539899+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 358,
+  "total_skills": 359,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5413,6 +5413,24 @@
       "license": "MIT",
       "path": "skills/real-time-var-backtesting-kupiec-test",
       "skill_md": "skills/real-time-var-backtesting-kupiec-test/SKILL.md"
+    },
+    {
+      "name": "real-time-vs-delayed-data-entitlement-handling",
+      "description": "Implementation for real-time-vs-delayed-data-entitlement-handling",
+      "domain": "data-management-global",
+      "subdomain": "data",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/real-time-vs-delayed-data-entitlement-handling",
+      "skill_md": "skills/real-time-vs-delayed-data-entitlement-handling/SKILL.md"
     },
     {
       "name": "record-retention-periods-by-jurisdiction",
