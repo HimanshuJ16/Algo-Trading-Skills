@@ -68,7 +68,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `feed-handler-cpu-pinning-and-numa-awareness` — Pinning feed-handler processes to specific CPU cores and NUMA nodes to reduce jitter in latency-sensitive pipelines.
 - **[BUILT]** `market-data-replay-harness-for-integration-testing` — Building a deterministic tick-replay harness to integration-test the full pipeline against a recorded historical session.
 - **[BUILT]** `adaptive-batch-size-tuning-under-load` — Dynamically tuning batch sizes for downstream writes (DB, message queue) based on observed load rather than a fixed constant.
-- **[planned]** `graceful-shutdown-draining-in-flight-ticks` — Draining in-flight ticks from queues cleanly on a planned shutdown/deploy, rather than dropping whatever's mid-flight.
+- **[BUILT]** `graceful-shutdown-draining-in-flight-ticks` — Draining in-flight ticks from queues cleanly on a planned shutdown/deploy, rather than dropping whatever's mid-flight.
 - **[planned]** `exchange-multicast-feed-handling` — Handling raw multicast market-data feeds (common at co-located exchange gateways) including gap-fill/retransmission request logic.
 - **[planned]** `tick-data-schema-versioning` — Versioning the internal tick schema so a schema change can roll out without breaking already-deployed consumers mid-migration.
 - **[planned]** `consumer-group-rebalance-safety` — Ensuring a Kafka/Redis-Streams consumer-group rebalance event doesn't cause duplicate or dropped tick processing during the rebalance window.
