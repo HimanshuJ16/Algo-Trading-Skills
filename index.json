@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:16.596918+00:00",
+  "generated_at": "2026-07-25T08:13:32.568993+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 269,
+  "total_skills": 271,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1899,6 +1899,23 @@
       "skill_md": "skills/etrade-oauth1-signature-flow/SKILL.md"
     },
     {
+      "name": "eu-benchmark-regulation-for-strategies-referencing-indices",
+      "description": "Compliance controls and workflows for eu benchmark regulation for strategies referencing indices",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/eu-benchmark-regulation-for-strategies-referencing-indices",
+      "skill_md": "skills/eu-benchmark-regulation-for-strategies-referencing-indices/SKILL.md"
+    },
+    {
       "name": "eurex-market-data-and-order-api",
       "description": "Integration for eurex-market-data-and-order-api",
       "domain": "global-market-integration",
@@ -2567,6 +2584,25 @@
       "license": "MIT",
       "path": "skills/immutable-infrastructure-for-trading-bots",
       "skill_md": "skills/immutable-infrastructure-for-trading-bots/SKILL.md"
+    },
+    {
+      "name": "india-sebi-algo-trading-tagging-requirements",
+      "description": "Compliance tool for india sebi algo trading tagging requirements",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/india-sebi-algo-trading-tagging-requirements",
+      "skill_md": "skills/india-sebi-algo-trading-tagging-requirements/SKILL.md"
     },
     {
       "name": "infrastructure-as-code-for-trading-hosts",

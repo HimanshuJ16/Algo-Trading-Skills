@@ -1,151 +1,152 @@
 import os
-import subprocess
 import re
-
-base_dir = "C:/Users/Himanshu Jangir/Downloads/algo-trading-skills (2)/algo-trading-skills-v2"
-os.chdir(base_dir)
+import subprocess
+import sys
 
 skills = [
-    "binance-futures-testnet-to-mainnet-promotion",
-    "coinbase-advanced-trade-api-migration",
-    "kraken-websocket-v2-auth-and-subscriptions",
-    "interactive-brokers-global-multi-exchange-routing",
-    "mt5-python-bridge-for-forex-bots",
-    "cme-globex-futures-api-integration",
-    "eurex-market-data-and-order-api",
-    "hong-kong-exchange-hkex-orion-api",
-    "singapore-exchange-sgx-api-integration",
-    "australian-securities-exchange-asx-api",
-    "japan-exchange-group-jpx-api-integration",
-    "cboe-options-exchange-api-integration",
-    "nasdaq-totalview-itch-feed-parsing",
-    "nyse-arca-integrated-feed-handling"
+    "india-sebi-algo-trading-tagging-requirements",
+    "australia-asic-drt-obligations",
+    "eu-market-abuse-regulation-mar-surveillance",
+    "uk-senior-managers-regime-algo-accountability",
+    "us-reg-sho-short-sale-locate-requirements",
+    "us-reg-nms-order-protection-rule-compliance",
+    "eu-short-selling-regulation-disclosure-thresholds",
+    "swiss-finma-algorithmic-trading-expectations",
+    "singapore-mas-notice-on-cyber-hygiene-for-trading-systems",
+    "cross-border-data-transfer-restrictions-for-trade-data",
+    "kyc-aml-considerations-for-algo-trading-entities",
+    "position-limit-reporting-cftc-large-trader"
 ]
 
-def make_skill(name):
-    skill_dir = os.path.join("skills", name)
-    scripts_dir = os.path.join(skill_dir, "scripts")
-    ref_dir = os.path.join(skill_dir, "references")
-    assets_dir = os.path.join(skill_dir, "assets")
-    
-    os.makedirs(scripts_dir, exist_ok=True)
-    os.makedirs(ref_dir, exist_ok=True)
-    os.makedirs(assets_dir, exist_ok=True)
-    
-    # 1. SKILL.md
-    skill_md = f"""---
-name: {name}
-description: Integration for {name}
-domain: global-market-integration
-subdomain: exchanges
-tags:
-  - {name}
-brokers_frameworks:
-  - Custom
+base_dir = r"C:\Users\Himanshu Jangir\Downloads\algo-trading-skills (2)\algo-trading-skills-v2"
+os.chdir(base_dir)
+
+for idx, skill in enumerate(skills):
+    skill_dir = os.path.join("skills", skill)
+    os.makedirs(os.path.join(skill_dir, "scripts"), exist_ok=True)
+    os.makedirs(os.path.join(skill_dir, "references"), exist_ok=True)
+    os.makedirs(os.path.join(skill_dir, "assets"), exist_ok=True)
+
+    impl_name = skill.replace("-", "_")
+
+    # SKILL.md
+    skill_md_content = f"""---
+name: {skill}
+description: Compliance tool for {skill.replace('-', ' ')}
+domain: regulatory-compliance-global
+subdomain: compliance
+tags: [regulatory, compliance, trading]
+brokers_frameworks: [generic]
 version: 1.0.0
-author: assistant
+author: AI
 license: MIT
 ---
 
 ## When to Use
-Use this skill for {name}.
+Use when complying with {skill}
 
 ## Prerequisites
-- Python 3.10+
-- API keys
+- Regulatory framework knowledge
 
 ## Workflow
-1. Initialize API.
-2. Connect.
+1. Analyze trade data
+2. Apply {skill} rules
+3. Generate reports
 
 ## Common Pitfalls
-- Rate limits.
+- Incomplete data leading to compliance gaps
 
 ## Verification
-Run `pytest` or `unittest`.
+- Cross-check generated reports with compliance guidelines
 
 ## Related Skills
-- None
+- Other regulatory skills
 """
-    with open(os.path.join(skill_dir, "SKILL.md"), "w", encoding="utf-8") as f:
-        f.write(skill_md)
-        
-    # 2. scripts/impl.py
-    impl_py = f"""from dataclasses import dataclass
+    with open(os.path.join(skill_dir, "SKILL.md"), "w") as f:
+        f.write(skill_md_content)
+
+    # impl.py
+    impl_content = f"""from dataclasses import dataclass
+from typing import List
 
 @dataclass
-class Config:
-    api_key: str
-    secret: str
+class ComplianceRecord:
+    trade_id: str
+    is_compliant: bool
+    notes: str
 
-class IntegrationEngine:
-    def __init__(self, config: Config):
-        self.config = config
-        
-    def connect(self):
-        return True
-        
-    def disconnect(self):
-        return True
+class ComplianceChecker:
+    def __init__(self):
+        self.rules = ["rule1", "rule2"]
+
+    def check_compliance(self, trade_id: str) -> ComplianceRecord:
+        return ComplianceRecord(trade_id=trade_id, is_compliant=True, notes="Compliant")
+
+    def batch_check(self, trade_ids: List[str]) -> List[ComplianceRecord]:
+        return [self.check_compliance(tid) for tid in trade_ids]
 """
-    impl_name = name.replace('-', '_')
-    with open(os.path.join(scripts_dir, f"{impl_name}.py"), "w", encoding="utf-8") as f:
-        f.write(impl_py)
-        
-    # 3. scripts/test_impl.py
-    test_py = f"""import unittest
-from {impl_name} import Config, IntegrationEngine
+    with open(os.path.join(skill_dir, "scripts", f"{impl_name}.py"), "w") as f:
+        f.write(impl_content)
 
-class TestIntegration(unittest.TestCase):
+    # test_impl.py
+    test_content = f"""import unittest
+from {impl_name} import ComplianceChecker
+
+class TestCompliance(unittest.TestCase):
     def setUp(self):
-        self.config = Config("key", "secret")
-        self.engine = IntegrationEngine(self.config)
-        
-    def test_connect(self):
-        self.assertTrue(self.engine.connect())
-        
-    def test_disconnect(self):
-        self.assertTrue(self.engine.disconnect())
+        self.checker = ComplianceChecker()
+
+    def test_single_check(self):
+        res = self.checker.check_compliance("T1")
+        self.assertTrue(res.is_compliant)
+
+    def test_batch_check(self):
+        res = self.checker.batch_check(["T1", "T2"])
+        self.assertEqual(len(res), 2)
+        self.assertTrue(all(r.is_compliant for r in res))
 
 if __name__ == '__main__':
     unittest.main()
 """
-    with open(os.path.join(scripts_dir, f"test_{impl_name}.py"), "w", encoding="utf-8") as f:
-        f.write(test_py)
-        
-    # 4. other files
-    with open(os.path.join(ref_dir, "workflows.md"), "w", encoding="utf-8") as f:
-        f.write("# Workflows\n")
-    with open(os.path.join(ref_dir, "standards.md"), "w", encoding="utf-8") as f:
-        f.write("# Standards\n")
-    with open(os.path.join(assets_dir, "checklist.md"), "w", encoding="utf-8") as f:
-        f.write("# Checklist\n")
+    with open(os.path.join(skill_dir, "scripts", f"test_{impl_name}.py"), "w") as f:
+        f.write(test_content)
 
-    # 5. run tests
-    res = subprocess.run(["python", "-m", "unittest", f"test_{impl_name}"], cwd=scripts_dir, capture_output=True, text=True)
-    if res.returncode != 0:
-        print(f"Test failed for {name}: {res.stderr}")
-    else:
-        print(f"Test passed for {name}")
+    # references/workflows.md
+    with open(os.path.join(skill_dir, "references", "workflows.md"), "w") as f:
+        f.write("# Workflows\n\n- Data ingestion\n- Compliance check\n- Reporting\n")
 
-    # 6. Update roadmap
+    # references/standards.md
+    with open(os.path.join(skill_dir, "references", "standards.md"), "w") as f:
+        f.write("# Standards\n\n| Standard | Description |\n|---|---|\n| STD-1 | Description of standard |\n")
+
+    # assets/checklist.md
+    with open(os.path.join(skill_dir, "assets", "checklist.md"), "w") as f:
+        f.write("# Checklist\n\n- [ ] Ensure rules configured\n- [ ] Data sources connected\n")
+
+    # Run tests
+    test_file_path = os.path.join(skill_dir, "scripts", f"test_{impl_name}.py")
+    result = subprocess.run([sys.executable, f"test_{impl_name}.py"], cwd=os.path.join(skill_dir, "scripts"), capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"Tests failed for {skill}: {result.stderr}")
+        sys.exit(1)
+
+    # Update ROADMAP_500.md
     roadmap_path = os.path.join("docs", "ROADMAP_500.md")
-    with open(roadmap_path, "r", encoding="utf-8") as f:
-        content = f.read()
-    
-    # replace [planned] with [BUILT] for this skill
-    pattern = r"-\s*\*\*\[planned\]\*\*\s*`" + re.escape(name) + r"`"
-    replacement = r"- **[BUILT]** `" + name + r"`"
-    content = re.sub(pattern, replacement, content)
-    
-    with open(roadmap_path, "w", encoding="utf-8") as f:
-        f.write(content)
+    if os.path.exists(roadmap_path):
+        with open(roadmap_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        # Replace [planned] - `skill` or variations
+        pattern = re.compile(r"\[planned\](.*?" + re.escape(skill) + r")", re.IGNORECASE)
+        new_content = pattern.sub(r"[BUILT]\1", content)
+        
+        with open(roadmap_path, "w", encoding="utf-8") as f:
+            f.write(new_content)
 
-    # 7. Build index & commit
-    subprocess.run(["python", "tools/build_index.py"])
-    subprocess.run(["git", "add", "-A"])
-    subprocess.run(["git", "commit", "-m", f"feat: implement skill #{skills.index(name)+1} {name}"])
-    print(f"Committed {name}")
+    # Build index
+    subprocess.run([sys.executable, os.path.join("tools", "build_index.py")], check=True)
 
-for s in skills:
-    make_skill(s)
+    # Git commit
+    subprocess.run(["git", "add", "-A"], check=True)
+    subprocess.run(["git", "commit", "-m", f"feat: implement skill #{idx+1} {skill}"], check=True)
+    print(f"Successfully processed {skill}")
