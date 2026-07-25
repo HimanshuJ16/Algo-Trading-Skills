@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:56.590357+00:00",
+  "generated_at": "2026-07-25T08:24:10.894044+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 404,
+  "total_skills": 405,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3617,6 +3617,23 @@
       "license": "MIT",
       "path": "skills/hong-kong-sfc-algorithmic-trading-guidelines",
       "skill_md": "skills/hong-kong-sfc-algorithmic-trading-guidelines/SKILL.md"
+    },
+    {
+      "name": "hot-cold-wallet-split-for-trading-bots",
+      "description": "Skill for hot cold wallet split for trading bots",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/hot-cold-wallet-split-for-trading-bots",
+      "skill_md": "skills/hot-cold-wallet-split-for-trading-bots/SKILL.md"
     },
     {
       "name": "hyperparameter-tuning-without-target-leakage",

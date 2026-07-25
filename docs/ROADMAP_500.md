@@ -426,7 +426,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 ## crypto-custody-security  _(29 tracked: 1 built, 28 planned)_
 
 - **[BUILT]** `crypto-wallet-key-custody-security` — see `skills/crypto-wallet-key-custody-security/SKILL.md`
-- **[planned]** `hot-cold-wallet-split-for-trading-bots` — Splitting a crypto trading bot's operational hot-wallet balance from cold storage to bound loss from a compromise.
+- **[BUILT]** `hot-cold-wallet-split-for-trading-bots` — Splitting a crypto trading bot's operational hot-wallet balance from cold storage to bound loss from a compromise.
 - **[planned]** `exchange-withdrawal-whitelist-enforcement` — Enforcing withdrawal address whitelisting so a compromised bot credential can't exfiltrate funds to an arbitrary address.
 - **[planned]** `multi-signature-approval-for-large-transfers` — Requiring multi-sig approval for any transfer above a threshold, independent of the bot's own logic.
 - **[planned]** `hardware-security-module-hsm-for-signing-keys` — Using a dedicated HSM for signing transactions rather than software-based key storage, for institutional-scale crypto custody.
