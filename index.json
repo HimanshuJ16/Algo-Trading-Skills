@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:02:45.781211+00:00",
+  "generated_at": "2026-07-25T03:04:15.214912+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 95,
+  "total_skills": 96,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -732,6 +732,29 @@
       "license": "Apache-2.0",
       "path": "skills/feature-store-for-live-and-backtest-parity",
       "skill_md": "skills/feature-store-for-live-and-backtest-parity/SKILL.md"
+    },
+    {
+      "name": "feed-handler-cpu-pinning-and-numa-awareness",
+      "description": "Use when deploying ultra-low-latency feed handlers and strategy execution loops to pin worker processes to dedicated CPU cores and enforce NUMA node memory locality, eliminating OS context switching and cross-socket bus latency.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "cpu-pinning",
+        "numa-awareness",
+        "cpu-affinity",
+        "low-latency",
+        "os-optimization"
+      ],
+      "brokers_frameworks": [
+        "CPU Affinity Manager",
+        "Python psutil"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/feed-handler-cpu-pinning-and-numa-awareness",
+      "skill_md": "skills/feed-handler-cpu-pinning-and-numa-awareness/SKILL.md"
     },
     {
       "name": "forex-broker-integration-oanda-mt5",
