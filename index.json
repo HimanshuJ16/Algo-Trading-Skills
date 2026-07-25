@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:20.680621+00:00",
+  "generated_at": "2026-07-25T13:19:21.494065+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 497,
+  "total_skills": 498,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -1830,6 +1830,22 @@
       "license": "MIT",
       "path": "skills/conflict-of-interest-disclosure-for-prop-vs-client-flow",
       "skill_md": "skills/conflict-of-interest-disclosure-for-prop-vs-client-flow/SKILL.md"
+    },
+    {
+      "name": "constructive-sale-rule-considerations-us",
+      "description": "Implementation for constructive-sale-rule-considerations-us",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/constructive-sale-rule-considerations-us",
+      "skill_md": "skills/constructive-sale-rule-considerations-us/SKILL.md"
     },
     {
       "name": "consumer-group-rebalance-safety",
