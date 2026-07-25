@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:07.110569+00:00",
+  "generated_at": "2026-07-25T08:07:07.842553+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 202,
+  "total_skills": 203,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -970,6 +970,24 @@
       "license": "MIT",
       "path": "skills/concept-drift-vs-staleness-differentiation",
       "skill_md": "skills/concept-drift-vs-staleness-differentiation/SKILL.md"
+    },
+    {
+      "name": "Config Drift Detection",
+      "description": "A skill to handle Config Drift Detection in algo-trading",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment-ops"
+      ],
+      "brokers_frameworks": [
+        "aws",
+        "gcp"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/configuration-drift-detection-across-environments",
+      "skill_md": "skills/configuration-drift-detection-across-environments/SKILL.md"
     },
     {
       "name": "consumer-group-rebalance-safety",
