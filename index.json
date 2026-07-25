@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:58:17.675691+00:00",
+  "generated_at": "2026-07-25T07:58:18.546979+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 164,
+  "total_skills": 165,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2582,6 +2582,25 @@
       "license": "Apache-2.0",
       "path": "skills/point-in-time-database-for-ml-training-data",
       "skill_md": "skills/point-in-time-database-for-ml-training-data/SKILL.md"
+    },
+    {
+      "name": "position-limit-breach-simulation-fire-drills",
+      "description": "Fire drill breach simulations in paper trading.",
+      "domain": "risk-management",
+      "subdomain": "simulation",
+      "tags": [
+        "risk",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "ccxt",
+        "interactive-brokers"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/position-limit-breach-simulation-fire-drills",
+      "skill_md": "skills/position-limit-breach-simulation-fire-drills/SKILL.md"
     },
     {
       "name": "post-only-and-maker-taker-fee-optimization",
