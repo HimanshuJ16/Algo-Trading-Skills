@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:33:03.314615+00:00",
+  "generated_at": "2026-07-25T07:36:50.687331+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 114,
+  "total_skills": 115,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -50,6 +50,29 @@
       "license": "Apache-2.0",
       "path": "skills/adaptive-sampling-under-extreme-tick-rates",
       "skill_md": "skills/adaptive-sampling-under-extreme-tick-rates/SKILL.md"
+    },
+    {
+      "name": "adjusted-vs-unadjusted-price-series-pitfalls",
+      "description": "Use when preparing historical price data for backtesting to detect and handle split/dividend-adjusted vs unadjusted price series, preventing silent signal corruption from mixing adjustment types.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "price-adjustment",
+        "stock-splits",
+        "dividends",
+        "data-integrity",
+        "corporate-actions"
+      ],
+      "brokers_frameworks": [
+        "Price Adjustment Auditor",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/adjusted-vs-unadjusted-price-series-pitfalls",
+      "skill_md": "skills/adjusted-vs-unadjusted-price-series-pitfalls/SKILL.md"
     },
     {
       "name": "alpaca-paper-live-key-separation",
