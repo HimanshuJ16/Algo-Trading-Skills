@@ -491,7 +491,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 ## market-microstructure-latency  _(24 tracked: 0 built, 24 planned)_
 
 - **[BUILT]** `colocation-latency-budget-accounting` — Accounting for colocation and network latency budgets when a strategy's edge depends on sub-millisecond response time.
-- **[planned]** `clock-synchronization-ptp-for-trading-hosts` — Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters.
+- **[BUILT]** `clock-synchronization-ptp-for-trading-hosts` — Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters.
 - **[planned]** `tick-to-trade-latency-measurement` — Measuring true tick-to-trade latency end to end, not just the strategy's own compute time.
 - **[planned]** `order-book-microstructure-signal-research` — Researching order-book microstructure signals (queue dynamics, order-flow imbalance) as a distinct signal class from price-based technical signals.
 - **[planned]** `exchange-fee-tier-and-rebate-structure-analysis` — Analyzing exchange fee-tier and rebate structures in detail, since these materially affect the true profitability of high-turnover strategies.

@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:26.423179+00:00",
+  "generated_at": "2026-07-25T08:28:27.244849+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 453,
+  "total_skills": 454,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1442,6 +1442,24 @@
       "license": "Apache-2.0",
       "path": "skills/clock-skew-correction-for-tick-timestamps",
       "skill_md": "skills/clock-skew-correction-for-tick-timestamps/SKILL.md"
+    },
+    {
+      "name": "clock-synchronization-ptp-for-trading-hosts",
+      "description": "Skill for clock-synchronization-ptp-for-trading-hosts",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "trading",
+        "latency"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/clock-synchronization-ptp-for-trading-hosts",
+      "skill_md": "skills/clock-synchronization-ptp-for-trading-hosts/SKILL.md"
     },
     {
       "name": "close-auction-participation-strategy",
