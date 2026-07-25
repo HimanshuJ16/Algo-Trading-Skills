@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:00.977173+00:00",
+  "generated_at": "2026-07-25T08:17:01.757902+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 319,
+  "total_skills": 320,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3080,6 +3080,24 @@
       "license": "MIT",
       "path": "skills/interactive-brokers-global-multi-exchange-routing",
       "skill_md": "skills/interactive-brokers-global-multi-exchange-routing/SKILL.md"
+    },
+    {
+      "name": "interest-rate-swap-exposure-in-multi-asset-portfolios",
+      "description": "Automation and handling of interest rate swap exposure in multi asset portfolios.",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "derivatives-trading",
+      "tags": [
+        "interest-rate-swap-exposure-in-multi-asset-portfolios",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/interest-rate-swap-exposure-in-multi-asset-portfolios",
+      "skill_md": "skills/interest-rate-swap-exposure-in-multi-asset-portfolios/SKILL.md"
     },
     {
       "name": "intraday-vs-eod-backtest-granularity-tradeoffs",
