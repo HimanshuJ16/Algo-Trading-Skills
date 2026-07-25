@@ -225,7 +225,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `capacity-planning-for-symbol-universe-growth` — Forward capacity-planning infrastructure scaling as the traded symbol universe grows, rather than reactively scaling after hitting a limit.
 - **[BUILT]** `zero-downtime-database-schema-migrations` — Performing database schema migrations for a live trading system's state store without requiring a trading-hours outage.
 - **[BUILT]** `dependency-pinning-and-reproducible-builds` — Pinning exact dependency versions and building reproducibly, so 'it worked yesterday' incidents from a silent dependency update don't happen.
-- **[planned]** `audit-logging-for-configuration-changes` — Logging every configuration change (risk limits, strategy parameters) with who/when/what-changed, independent of code-deployment logs.
+- **[BUILT]** `audit-logging-for-configuration-changes` — Logging every configuration change (risk limits, strategy parameters) with who/when/what-changed, independent of code-deployment logs.
 - **[planned]** `network-segmentation-for-trading-infrastructure` — Segmenting trading infrastructure network access so a compromised non-critical service (e.g. dashboard) can't reach order-placement infrastructure.
 
 ## global-market-integration  _(44 tracked: 2 built, 42 planned)_
