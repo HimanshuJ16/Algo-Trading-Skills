@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:37:52.828249+00:00",
+  "generated_at": "2026-07-25T02:38:38.543284+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 69,
+  "total_skills": 70,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1270,6 +1270,30 @@
       "license": "Apache-2.0",
       "path": "skills/systemd-supervision-for-trading-bots",
       "skill_md": "skills/systemd-supervision-for-trading-bots/SKILL.md"
+    },
+    {
+      "name": "tastytrade-api-integration",
+      "description": "Use when connecting to Tastytrade (Tastyworks) API for options and futures trading to handle session token auth, option chain OCC ticker resolution, multi-leg complex option order construction, and account position tracking.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "tastytrade",
+        "tastyworks",
+        "options-trading",
+        "multi-leg-orders",
+        "futures"
+      ],
+      "brokers_frameworks": [
+        "Tastytrade API",
+        "Python requests",
+        "tastytrade-sdk"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/tastytrade-api-integration",
+      "skill_md": "skills/tastytrade-api-integration/SKILL.md"
     },
     {
       "name": "tick-buffering-burst-handling",
