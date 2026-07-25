@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:57.577444+00:00",
+  "generated_at": "2026-07-25T08:17:58.282870+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 337,
+  "total_skills": 338,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4921,6 +4921,24 @@
       "license": "MIT",
       "path": "skills/post-only-limit-repricing-under-fast-markets",
       "skill_md": "skills/post-only-limit-repricing-under-fast-markets/SKILL.md"
+    },
+    {
+      "name": "post-trade-execution-quality-scorecard",
+      "description": "Implementation of post trade execution quality scorecard.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/post-trade-execution-quality-scorecard",
+      "skill_md": "skills/post-trade-execution-quality-scorecard/SKILL.md"
     },
     {
       "name": "prime-brokerage-multi-venue-consolidation",
