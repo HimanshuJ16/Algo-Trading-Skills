@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:56.126445+00:00",
+  "generated_at": "2026-07-25T08:16:56.589916+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 308,
+  "total_skills": 309,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4190,6 +4190,24 @@
       "license": "Apache-2.0",
       "path": "skills/options-backtesting-with-realistic-iv-surface",
       "skill_md": "skills/options-backtesting-with-realistic-iv-surface/SKILL.md"
+    },
+    {
+      "name": "options-greeks-real-time-portfolio-aggregation",
+      "description": "Automation and handling of options greeks real time portfolio aggregation.",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "derivatives-trading",
+      "tags": [
+        "options-greeks-real-time-portfolio-aggregation",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/options-greeks-real-time-portfolio-aggregation",
+      "skill_md": "skills/options-greeks-real-time-portfolio-aggregation/SKILL.md"
     },
     {
       "name": "options-margin-span-calculation-global",
