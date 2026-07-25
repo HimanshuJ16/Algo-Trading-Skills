@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:52:18.698830+00:00",
+  "generated_at": "2026-07-25T07:54:30.093683+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 159,
+  "total_skills": 160,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1519,6 +1519,29 @@
       "license": "MIT",
       "path": "skills/gradient-boosted-tree-vs-neural-net-tradeoffs",
       "skill_md": "skills/gradient-boosted-tree-vs-neural-net-tradeoffs/SKILL.md"
+    },
+    {
+      "name": "greeks-based-portfolio-hedging-automation",
+      "description": "Use when managing options or multi-asset portfolios to aggregate net portfolio Greeks (Delta, Vega), evaluate risk tolerance breaches, and automatically generate rebalancing hedge orders to maintain delta/vega neutrality.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "options-hedging",
+        "portfolio-greeks",
+        "delta-neutral",
+        "vega-hedging",
+        "automated-rebalancing"
+      ],
+      "brokers_frameworks": [
+        "Greeks Hedging Engine",
+        "Python NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/greeks-based-portfolio-hedging-automation",
+      "skill_md": "skills/greeks-based-portfolio-hedging-automation/SKILL.md"
     },
     {
       "name": "grpc-streaming-for-internal-service-communication",
