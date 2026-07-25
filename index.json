@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:51.007361+00:00",
+  "generated_at": "2026-07-25T08:10:51.630001+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 245,
+  "total_skills": 246,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1751,6 +1751,23 @@
       "license": "MIT",
       "path": "skills/eurex-market-data-and-order-api",
       "skill_md": "skills/eurex-market-data-and-order-api/SKILL.md"
+    },
+    {
+      "name": "euronext-optiq-market-data-integration",
+      "description": "Integration or workflow skill for euronext-optiq-market-data-integration.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "euronext-optiq-market-data-integration"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/euronext-optiq-market-data-integration",
+      "skill_md": "skills/euronext-optiq-market-data-integration/SKILL.md"
     },
     {
       "name": "exchange-multicast-feed-handling",
