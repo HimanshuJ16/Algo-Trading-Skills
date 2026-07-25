@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:19.031504+00:00",
+  "generated_at": "2026-07-25T08:25:20.106399+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 442,
+  "total_skills": 444,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6074,6 +6074,24 @@
       "skill_md": "skills/portfolio-level-stop-loss-independent-of-strategy-stops/SKILL.md"
     },
     {
+      "name": "portfolio-stress-test-including-liquidity-crunch-scenarios",
+      "description": "Skill for portfolio stress test including liquidity crunch scenarios",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/portfolio-stress-test-including-liquidity-crunch-scenarios",
+      "skill_md": "skills/portfolio-stress-test-including-liquidity-crunch-scenarios/SKILL.md"
+    },
+    {
       "name": "position-limit-breach-simulation-fire-drills",
       "description": "Fire drill breach simulations in paper trading.",
       "domain": "risk-management",
@@ -7797,6 +7815,24 @@
       "license": "Apache-2.0",
       "path": "skills/systemd-supervision-for-trading-bots",
       "skill_md": "skills/systemd-supervision-for-trading-bots/SKILL.md"
+    },
+    {
+      "name": "tail-correlation-between-strategies-under-stress",
+      "description": "Skill implementation for tail-correlation-between-strategies-under-stress",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Skill Management",
+      "tags": [
+        "algo-trading",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/tail-correlation-between-strategies-under-stress",
+      "skill_md": "skills/tail-correlation-between-strategies-under-stress/SKILL.md"
     },
     {
       "name": "tail-risk-hedging-with-options",
