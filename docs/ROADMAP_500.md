@@ -134,7 +134,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `synthetic-labels-from-triple-barrier-method` — Constructing ML labels via the triple-barrier method (profit-take/stop-loss/time-limit) rather than naive fixed-horizon return labels.
 - **[BUILT]** `sample-weighting-for-overlapping-labels` — Weighting training samples to account for overlapping label windows (a known issue in financial ML where adjacent labels aren't independent).
 - **[BUILT]** `model-card-documentation-for-trading-models` — Maintaining a 'model card' (training data range, known limitations, intended use) for every live trading model, mirroring ML-ops best practice.
-- **[planned]** `gradient-boosted-tree-vs-neural-net-tradeoffs` — Choosing between gradient-boosted trees and neural architectures for tabular financial data based on data volume and interpretability needs.
+- **[BUILT]** `gradient-boosted-tree-vs-neural-net-tradeoffs` — Choosing between gradient-boosted trees and neural architectures for tabular financial data based on data volume and interpretability needs.
 - **[planned]** `adversarial-robustness-of-trading-signals` — Testing whether a trading signal model is unduly sensitive to small, plausible input perturbations (a financial-ML analogue of adversarial robustness testing).
 - **[planned]** `feature-selection-stability-across-folds` — Verifying that feature selection is stable across walk-forward folds, rather than selecting a different feature set each fold (a sign of overfitting to fold-specific noise).
 - **[planned]** `multi-model-ensemble-weight-decay` — Decaying the weight given to an underperforming model within an ensemble gradually rather than an abrupt on/off switch.
