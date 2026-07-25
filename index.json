@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:09.636182+00:00",
+  "generated_at": "2026-07-25T08:07:10.093424+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 206,
+  "total_skills": 207,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1755,6 +1755,24 @@
       "license": "Apache-2.0",
       "path": "skills/global-exchange-holiday-calendar-handling",
       "skill_md": "skills/global-exchange-holiday-calendar-handling/SKILL.md"
+    },
+    {
+      "name": "Graceful Degradation",
+      "description": "A skill to handle Graceful Degradation in algo-trading",
+      "domain": "deployment-ops",
+      "subdomain": "operations",
+      "tags": [
+        "deployment-ops"
+      ],
+      "brokers_frameworks": [
+        "aws",
+        "gcp"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/graceful-degradation-priority-during-partial-outage",
+      "skill_md": "skills/graceful-degradation-priority-during-partial-outage/SKILL.md"
     },
     {
       "name": "graceful-degradation-to-polling-fallback",
