@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:38.768657+00:00",
+  "generated_at": "2026-07-25T08:13:39.476469+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 280,
+  "total_skills": 281,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2862,6 +2862,25 @@
       "license": "MIT",
       "path": "skills/kraken-websocket-v2-auth-and-subscriptions",
       "skill_md": "skills/kraken-websocket-v2-auth-and-subscriptions/SKILL.md"
+    },
+    {
+      "name": "kyc-aml-considerations-for-algo-trading-entities",
+      "description": "Compliance tool for kyc aml considerations for algo trading entities",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/kyc-aml-considerations-for-algo-trading-entities",
+      "skill_md": "skills/kyc-aml-considerations-for-algo-trading-entities/SKILL.md"
     },
     {
       "name": "label-noise-estimation-in-financial-targets",
