@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:52.126845+00:00",
+  "generated_at": "2026-07-25T08:23:53.055659+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 399,
+  "total_skills": 400,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5540,6 +5540,25 @@
       "license": "MIT",
       "path": "skills/philippine-stock-exchange-api",
       "skill_md": "skills/philippine-stock-exchange-api/SKILL.md"
+    },
+    {
+      "name": "phishing-resistant-authentication-for-custody-access",
+      "description": "Implementation for phishing-resistant-authentication-for-custody-access",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/phishing-resistant-authentication-for-custody-access",
+      "skill_md": "skills/phishing-resistant-authentication-for-custody-access/SKILL.md"
     },
     {
       "name": "physical-vs-cash-settlement-handling",
