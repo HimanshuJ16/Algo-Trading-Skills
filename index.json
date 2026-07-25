@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:59:28.841736+00:00",
+  "generated_at": "2026-07-25T08:01:34.409923+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 171,
+  "total_skills": 172,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1160,6 +1160,29 @@
       "license": "Apache-2.0",
       "path": "skills/demo-account-realism-gap-assessment",
       "skill_md": "skills/demo-account-realism-gap-assessment/SKILL.md"
+    },
+    {
+      "name": "dynamic-position-sizing-based-on-realized-volatility",
+      "description": "Use when calculating portfolio position sizes to scale allocations inversely to recent realized volatility (volatility targeting), maintaining constant risk exposure across calm and volatile market regimes.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "volatility-targeting",
+        "realized-volatility",
+        "position-sizing",
+        "riskmetrics-ema",
+        "vol-scaling"
+      ],
+      "brokers_frameworks": [
+        "Realized Volatility Position Sizer",
+        "Python NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/dynamic-position-sizing-based-on-realized-volatility",
+      "skill_md": "skills/dynamic-position-sizing-based-on-realized-volatility/SKILL.md"
     },
     {
       "name": "ensemble-signal-combination-without-overfitting",

@@ -174,7 +174,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `risk-control-bypass-audit-logging` — Logging and periodically auditing every instance any risk control was manually overridden, to detect a pattern of risk-control erosion over time.
 - **[BUILT]** `position-limit-breach-simulation-fire-drills` — Running scheduled 'fire drill' simulations of risk-limit breaches in a paper environment to keep incident-response muscle memory current.
 - **[BUILT]** `cross-account-aggregate-risk-view` — Aggregating risk exposure across multiple accounts/entities under common control, since per-account limits alone can understate true aggregate risk.
-- **[planned]** `dynamic-position-sizing-based-on-realized-volatility` — Scaling position size inversely to recent realized volatility (vol-targeting) rather than a fixed size regardless of current market conditions.
+- **[BUILT]** `dynamic-position-sizing-based-on-realized-volatility` — Scaling position size inversely to recent realized volatility (vol-targeting) rather than a fixed size regardless of current market conditions.
 - **[planned]** `risk-control-latency-budget` — Bounding how quickly a risk control must detect and act on a breach, since a technically-correct but slow-to-fire control provides weaker protection than its design implies.
 - **[planned]** `counterparty-credit-risk-for-otc-derivatives` — Assessing counterparty credit risk explicitly for any OTC (non-exchange-cleared) derivative position.
 - **[planned]** `black-swan-playbook-for-halted-markets` — Defining an explicit playbook for what the bot should do if the underlying market is halted mid-position (not just if the bot's own connectivity fails).
