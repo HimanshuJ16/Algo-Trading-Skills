@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:18:47.921829+00:00",
+  "generated_at": "2026-07-25T03:20:58.811267+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 110,
+  "total_skills": 111,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -109,6 +109,31 @@
       "license": "Apache-2.0",
       "path": "skills/backpressure-drop-degrade-policy",
       "skill_md": "skills/backpressure-drop-degrade-policy/SKILL.md"
+    },
+    {
+      "name": "backtest-determinism-and-reproducibility",
+      "description": "Use when designing backtest execution frameworks to enforce deterministic random seeding, sort input data streams strictly, eliminate async race conditions, and verify bit-identical P&L results via cryptographic audit checksums.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "reproducibility",
+        "determinism",
+        "random-seed",
+        "bit-identical",
+        "audit-checksum",
+        "regression-testing"
+      ],
+      "brokers_frameworks": [
+        "Determinism Reproducibility Engine",
+        "Python NumPy",
+        "Random"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/backtest-determinism-and-reproducibility",
+      "skill_md": "skills/backtest-determinism-and-reproducibility/SKILL.md"
     },
     {
       "name": "benchmark-relative-performance-attribution",
