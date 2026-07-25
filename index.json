@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:23.190368+00:00",
+  "generated_at": "2026-07-25T08:18:24.082259+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 342,
+  "total_skills": 343,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3262,6 +3262,25 @@
       "license": "MIT",
       "path": "skills/immutable-infrastructure-for-trading-bots",
       "skill_md": "skills/immutable-infrastructure-for-trading-bots/SKILL.md"
+    },
+    {
+      "name": "implementation-shortfall-minimization",
+      "description": "Execution algorithm for implementation shortfall minimization",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/implementation-shortfall-minimization",
+      "skill_md": "skills/implementation-shortfall-minimization/SKILL.md"
     },
     {
       "name": "india-sebi-algo-trading-tagging-requirements",
