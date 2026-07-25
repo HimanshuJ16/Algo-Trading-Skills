@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:56.232859+00:00",
+  "generated_at": "2026-07-25T08:17:56.903937+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 335,
+  "total_skills": 336,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4210,6 +4210,24 @@
       "license": "MIT",
       "path": "skills/multi-model-ensemble-weight-decay",
       "skill_md": "skills/multi-model-ensemble-weight-decay/SKILL.md"
+    },
+    {
+      "name": "multi-order-netting-before-routing",
+      "description": "Implementation of multi order netting before routing.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/multi-order-netting-before-routing",
+      "skill_md": "skills/multi-order-netting-before-routing/SKILL.md"
     },
     {
       "name": "multi-region-active-active-tick-ingestion",

@@ -366,7 +366,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `algo-wheel-broker-execution-quality-comparison` — Building an 'algo wheel' that rotates order flow across multiple execution algorithms/brokers and tracks comparative execution quality.
 - **[BUILT]** `conditional-order-logic-for-execution-triggers` — Building conditional execution logic (e.g. only begin slicing once a volume or volatility condition is met) rather than a purely time-triggered schedule.
 - **[BUILT]** `execution-cost-model-recalibration-cadence` — Defining how often the execution-cost model (informing slicing decisions) is recalibrated against realized TCA data.
-- **[planned]** `multi-order-netting-before-routing` — Netting multiple internal orders in the same instrument/direction before routing to market, to avoid unnecessarily crossing the spread against oneself.
+- **[BUILT]** `multi-order-netting-before-routing` — Netting multiple internal orders in the same instrument/direction before routing to market, to avoid unnecessarily crossing the spread against oneself.
 - **[planned]** `auction-only-order-types-for-illiquid-names` — Using auction-only order types specifically for illiquid instruments where continuous-session execution would incur excessive impact.
 - **[planned]** `post-trade-execution-quality-scorecard` — Building a standardized post-trade scorecard comparing achieved execution against multiple benchmarks (arrival, TWAP, VWAP, close) for ongoing algo-selection decisions.
 - **[planned]** `smart-order-router-failover-on-venue-outage` — Ensuring a smart order router fails over gracefully to alternate venues if a primary venue experiences an outage mid-execution.
