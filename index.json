@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:43.799286+00:00",
+  "generated_at": "2026-07-25T07:49:44.425792+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 154,
+  "total_skills": 155,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -737,6 +737,24 @@
       "license": "Apache-2.0",
       "path": "skills/broker-status-page-monitoring-integration",
       "skill_md": "skills/broker-status-page-monitoring-integration/SKILL.md"
+    },
+    {
+      "name": "categorical-feature-encoding-for-instrument-identity",
+      "description": "Skill for categorical feature encoding for instrument identity",
+      "domain": "Financial ML",
+      "subdomain": "Feature Engineering",
+      "tags": [
+        "ml",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/categorical-feature-encoding-for-instrument-identity",
+      "skill_md": "skills/categorical-feature-encoding-for-instrument-identity/SKILL.md"
     },
     {
       "name": "circuit-breaker-for-downstream-service-calls",
