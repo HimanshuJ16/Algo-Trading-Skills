@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:42.914996+00:00",
+  "generated_at": "2026-07-25T08:20:43.616089+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 367,
+  "total_skills": 368,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4588,6 +4588,24 @@
       "license": "Apache-2.0",
       "path": "skills/multi-region-failover-for-broker-connectivity",
       "skill_md": "skills/multi-region-failover-for-broker-connectivity/SKILL.md"
+    },
+    {
+      "name": "multi-source-price-reconciliation-tie-breaking",
+      "description": "Implementation of multi-source-price-reconciliation-tie-breaking",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "Agent",
+      "license": "MIT",
+      "path": "skills/multi-source-price-reconciliation-tie-breaking",
+      "skill_md": "skills/multi-source-price-reconciliation-tie-breaking/SKILL.md"
     },
     {
       "name": "multi-strategy-capital-allocation-limits",
