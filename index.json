@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:03:33.843600+00:00",
+  "generated_at": "2026-07-25T08:04:57.011963+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 176,
+  "total_skills": 177,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1819,6 +1819,25 @@
       "license": "MIT",
       "path": "skills/label-noise-estimation-in-financial-targets",
       "skill_md": "skills/label-noise-estimation-in-financial-targets/SKILL.md"
+    },
+    {
+      "name": "leverage-limit-enforcement-across-instruments",
+      "description": "Normalized leverage across options, futures, equities.",
+      "domain": "risk-management",
+      "subdomain": "compliance",
+      "tags": [
+        "risk",
+        "compliance",
+        "automation"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/leverage-limit-enforcement-across-instruments",
+      "skill_md": "skills/leverage-limit-enforcement-across-instruments/SKILL.md"
     },
     {
       "name": "liquidity-adjusted-position-sizing",
