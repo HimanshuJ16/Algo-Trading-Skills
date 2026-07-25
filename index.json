@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:37.382594+00:00",
+  "generated_at": "2026-07-25T08:13:38.091186+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 278,
+  "total_skills": 279,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4883,6 +4883,25 @@
       "license": "MIT",
       "path": "skills/singapore-exchange-sgx-api-integration",
       "skill_md": "skills/singapore-exchange-sgx-api-integration/SKILL.md"
+    },
+    {
+      "name": "singapore-mas-notice-on-cyber-hygiene-for-trading-systems",
+      "description": "Compliance tool for singapore mas notice on cyber hygiene for trading systems",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/singapore-mas-notice-on-cyber-hygiene-for-trading-systems",
+      "skill_md": "skills/singapore-mas-notice-on-cyber-hygiene-for-trading-systems/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",
