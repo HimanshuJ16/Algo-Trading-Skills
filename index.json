@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:30:03.263656+00:00",
+  "generated_at": "2026-07-25T08:30:04.617650+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 477,
+  "total_skills": 478,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6320,6 +6320,24 @@
       "license": "MIT",
       "path": "skills/participation-of-volume-pov-execution",
       "skill_md": "skills/participation-of-volume-pov-execution/SKILL.md"
+    },
+    {
+      "name": "patent-filing-data-for-innovation-signal-research",
+      "description": "A quant research alternative data skill for patent-filing-data-for-innovation-signal-research.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/patent-filing-data-for-innovation-signal-research",
+      "skill_md": "skills/patent-filing-data-for-innovation-signal-research/SKILL.md"
     },
     {
       "name": "pattern-day-trader-rule-compliance-us",
