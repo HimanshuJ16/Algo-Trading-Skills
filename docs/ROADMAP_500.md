@@ -411,17 +411,17 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `data-retention-policy-and-storage-tiering` — Defining a data-retention policy with storage tiering (hot/warm/cold) balancing query-latency needs against storage cost for years of tick history.
 - **[BUILT]** `reference-data-change-notification-pipeline` — Building a notification pipeline for reference-data changes (ticker renames, exchange migrations) that could silently break symbol-keyed logic elsewhere.
 - **[BUILT]** `cross-vendor-timestamp-precision-reconciliation` — Reconciling differing timestamp precision (millisecond vs microsecond vs second) across vendors feeding the same pipeline.
-- **[planned]** `synthetic-continuous-futures-contract-construction` — Constructing a synthetic continuous futures contract series (back-adjusted or ratio-adjusted across rolls) for backtesting futures strategies.
-- **[planned]** `options-implied-volatility-surface-construction` — Constructing and validating a smooth implied-volatility surface from raw options-chain quotes for use in pricing and backtesting.
-- **[planned]** `data-vendor-contractual-usage-restriction-tracking` — Tracking contractual usage restrictions per data vendor (e.g. no algorithmic redistribution, internal-use-only clauses) to avoid unintentional contract violation.
-- **[planned]** `multi-source-price-reconciliation-tie-breaking` — Defining explicit tie-breaking rules when two 'authoritative' data sources disagree on a price at the same timestamp.
-- **[planned]** `global-macro-economic-calendar-integration` — Integrating a global economic-release calendar (rate decisions, employment data) for strategies that need to avoid or specifically target these events.
-- **[planned]** `data-lineage-tracking-for-audit-and-debugging` — Tracking full data lineage (which vendor, which pipeline version, which transformation) for any figure that feeds a live trading decision, for post-incident debugging.
-- **[planned]** `market-data-simulator-for-offline-development` — Building a market-data simulator that lets developers work on strategy code offline without a live feed subscription, using realistic synthetic or replayed data.
-- **[planned]** `instrument-universe-change-detection-and-alerting` — Alerting when the tradeable instrument universe changes unexpectedly (new listings, delistings, ticker changes) rather than silently adapting or silently breaking.
-- **[planned]** `cross-region-data-replication-lag-monitoring` — Monitoring replication lag for data stores replicated across regions, since a stale replica silently serving reads can misinform a strategy.
-- **[planned]** `options-chain-expiry-cycle-conventions-by-exchange` — Tracking exchange-specific options expiry-cycle conventions (weekly/monthly/quarterly availability) which vary significantly by exchange and underlying.
-- **[planned]** `vendor-outage-fallback-data-source-hierarchy` — Defining an explicit fallback hierarchy of data sources to use if a primary vendor has an outage, tested rather than assumed to work.
+- **[BUILT]** `synthetic-continuous-futures-contract-construction` — Constructing a synthetic continuous futures contract series (back-adjusted or ratio-adjusted across rolls) for backtesting futures strategies.
+- **[BUILT]** `options-implied-volatility-surface-construction` — Constructing and validating a smooth implied-volatility surface from raw options-chain quotes for use in pricing and backtesting.
+- **[BUILT]** `data-vendor-contractual-usage-restriction-tracking` — Tracking contractual usage restrictions per data vendor (e.g. no algorithmic redistribution, internal-use-only clauses) to avoid unintentional contract violation.
+- **[BUILT]** `multi-source-price-reconciliation-tie-breaking` — Defining explicit tie-breaking rules when two 'authoritative' data sources disagree on a price at the same timestamp.
+- **[BUILT]** `global-macro-economic-calendar-integration` — Integrating a global economic-release calendar (rate decisions, employment data) for strategies that need to avoid or specifically target these events.
+- **[BUILT]** `data-lineage-tracking-for-audit-and-debugging` — Tracking full data lineage (which vendor, which pipeline version, which transformation) for any figure that feeds a live trading decision, for post-incident debugging.
+- **[BUILT]** `market-data-simulator-for-offline-development` — Building a market-data simulator that lets developers work on strategy code offline without a live feed subscription, using realistic synthetic or replayed data.
+- **[BUILT]** `instrument-universe-change-detection-and-alerting` — Alerting when the tradeable instrument universe changes unexpectedly (new listings, delistings, ticker changes) rather than silently adapting or silently breaking.
+- **[BUILT]** `cross-region-data-replication-lag-monitoring` — Monitoring replication lag for data stores replicated across regions, since a stale replica silently serving reads can misinform a strategy.
+- **[BUILT]** `options-chain-expiry-cycle-conventions-by-exchange` — Tracking exchange-specific options expiry-cycle conventions (weekly/monthly/quarterly availability) which vary significantly by exchange and underlying.
+- **[BUILT]** `vendor-outage-fallback-data-source-hierarchy` — Defining an explicit fallback hierarchy of data sources to use if a primary vendor has an outage, tested rather than assumed to work.
 
 ## crypto-custody-security  _(29 tracked: 1 built, 28 planned)_
 
