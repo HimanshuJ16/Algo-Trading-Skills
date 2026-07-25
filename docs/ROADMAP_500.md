@@ -89,7 +89,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `monte-carlo-strategy-robustness-testing` — Randomizing trade sequence/entry timing to test whether a strategy's edge survives reasonable perturbation.
 - **[BUILT]** `multi-asset-backtest-currency-normalization` — Backtesting a multi-currency portfolio without silently mixing P&L across currencies.
 - **[BUILT]** `benchmark-relative-performance-attribution` — Attributing backtest outperformance to specific factors rather than reporting only raw returns.
-- **[planned]** `vectorized-vs-event-driven-backtest-tradeoffs` — Choosing between a fast vectorized backtest engine and a slower but more realistic event-driven engine based on strategy characteristics.
+- **[BUILT]** `vectorized-vs-event-driven-backtest-tradeoffs` — Choosing between a fast vectorized backtest engine and a slower but more realistic event-driven engine based on strategy characteristics.
 - **[planned]** `multi-year-regime-coverage-requirement` — Requiring backtest data to span multiple distinct market regimes (bull, bear, high-vol, low-vol) before trusting reported performance.
 - **[planned]** `transaction-cost-analysis-tca-integration` — Integrating post-trade transaction-cost-analysis (TCA) reports into the backtest validation loop to calibrate slippage assumptions.
 - **[planned]** `backtest-determinism-and-reproducibility` — Ensuring a backtest produces bit-identical results on repeated runs (fixed random seeds, deterministic data ordering) for reliable comparison across code changes.

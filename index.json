@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:15:37.381814+00:00",
+  "generated_at": "2026-07-25T03:16:47.819873+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 107,
+  "total_skills": 108,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2240,6 +2240,30 @@
       "license": "Apache-2.0",
       "path": "skills/value-at-risk-var-live-monitoring",
       "skill_md": "skills/value-at-risk-var-live-monitoring/SKILL.md"
+    },
+    {
+      "name": "vectorized-vs-event-driven-backtest-tradeoffs",
+      "description": "Use when selecting backtesting engine architecture to evaluate strategy characteristics, run fast vectorized matrix backtests for initial parameter discovery, and cross-validate against high-fidelity event-driven backtest engines to measure execution drag.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "vectorized-backtest",
+        "event-driven-backtest",
+        "tradeoff-analysis",
+        "execution-drag",
+        "performance-parity"
+      ],
+      "brokers_frameworks": [
+        "Dual Engine Backtest Selector",
+        "NumPy",
+        "Pandas"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/vectorized-vs-event-driven-backtest-tradeoffs",
+      "skill_md": "skills/vectorized-vs-event-driven-backtest-tradeoffs/SKILL.md"
     },
     {
       "name": "walk-forward-optimization-window-management",
