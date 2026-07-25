@@ -488,7 +488,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `strategy-underperformance-remediation-decision-tree` — A structured decision tree (investigate → adjust → reduce size → retire) for responding to strategy underperformance, rather than ad hoc case-by-case reactions.
 - **[BUILT]** `portfolio-stress-test-including-liquidity-crunch-scenarios` — Stress-testing the full multi-strategy portfolio against scenarios combining price shock with a simultaneous liquidity crunch across correlated instruments.
 
-## market-microstructure-latency  _(24 tracked: 0 built, 24 planned)_
+## market-microstructure-latency  _(24 tracked: 24 built, 0 planned)_
 
 - **[BUILT]** `colocation-latency-budget-accounting` — Accounting for colocation and network latency budgets when a strategy's edge depends on sub-millisecond response time.
 - **[BUILT]** `clock-synchronization-ptp-for-trading-hosts` — Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters.
@@ -498,14 +498,14 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `market-maker-vs-taker-strategy-classification` — Classifying a strategy's own behavior as predominantly maker or taker, and understanding the fee/risk implications of each posture.
 - **[BUILT]** `adverse-selection-measurement-for-passive-orders` — Measuring realized adverse selection on filled passive orders (did the market move against the fill immediately after) to assess passive-order strategy quality.
 - **[BUILT]** `latency-arbitrage-defensive-order-sizing` — Sizing orders defensively to limit exposure to latency arbitrage by faster participants reacting to the same signal.
-- **[planned]** `co-location-provider-selection-and-network-topology` — Evaluating co-location provider options and network topology (cross-connects, switch fabric) for latency-sensitive infrastructure.
-- **[planned]** `fpga-based-market-data-processing-evaluation` — Evaluating FPGA-based market-data processing as an option for the lowest-latency tier of a strategy, including the engineering cost/benefit tradeoff versus software-only approaches.
-- **[planned]** `microwave-vs-fiber-network-links-for-cross-market-latency` — Understanding the microwave-vs-fiber network-link tradeoff (speed vs reliability) for cross-market latency-sensitive strategies.
-- **[planned]** `exchange-matching-engine-behavior-under-load` — Understanding how a specific exchange's matching engine behavior (e.g. FIFO vs pro-rata allocation) changes strategy design for that venue.
-- **[planned]** `tick-size-pilot-program-impact-assessment` — Assessing the impact of tick-size pilot programs or regime changes on strategies sensitive to minimum price increments.
-- **[planned]** `message-rate-limit-vs-latency-tradeoff-tuning` — Tuning strategy message rate against exchange-imposed message-rate limits (which can carry fee penalties for excessive order-to-trade ratios) while preserving latency-sensitive responsiveness.
-- **[planned]** `order-to-trade-ratio-fee-penalty-avoidance` — Avoiding order-to-trade ratio fee penalties (charged by several exchanges for excessive cancel/replace activity relative to executed trades) through deliberate order-management design.
-- **[planned]** `microstructure-noise-filtering-for-hf-signals` — Filtering microstructure noise appropriately when building high-frequency signals, distinct from the noise-handling appropriate at lower frequencies.
+- **[BUILT]** `co-location-provider-selection-and-network-topology` — Evaluating co-location provider options and network topology (cross-connects, switch fabric) for latency-sensitive infrastructure.
+- **[BUILT]** `fpga-based-market-data-processing-evaluation` — Evaluating FPGA-based market-data processing as an option for the lowest-latency tier of a strategy, including the engineering cost/benefit tradeoff versus software-only approaches.
+- **[BUILT]** `microwave-vs-fiber-network-links-for-cross-market-latency` — Understanding the microwave-vs-fiber network-link tradeoff (speed vs reliability) for cross-market latency-sensitive strategies.
+- **[BUILT]** `exchange-matching-engine-behavior-under-load` — Understanding how a specific exchange's matching engine behavior (e.g. FIFO vs pro-rata allocation) changes strategy design for that venue.
+- **[BUILT]** `tick-size-pilot-program-impact-assessment` — Assessing the impact of tick-size pilot programs or regime changes on strategies sensitive to minimum price increments.
+- **[BUILT]** `message-rate-limit-vs-latency-tradeoff-tuning` — Tuning strategy message rate against exchange-imposed message-rate limits (which can carry fee penalties for excessive order-to-trade ratios) while preserving latency-sensitive responsiveness.
+- **[BUILT]** `order-to-trade-ratio-fee-penalty-avoidance` — Avoiding order-to-trade ratio fee penalties (charged by several exchanges for excessive cancel/replace activity relative to executed trades) through deliberate order-management design.
+- **[BUILT]** `microstructure-noise-filtering-for-hf-signals` — Filtering microstructure noise appropriately when building high-frequency signals, distinct from the noise-handling appropriate at lower frequencies.
 - **[BUILT]** `latency-monitoring-percentile-based-slas` — Monitoring latency using percentile-based SLAs (p50/p99/p999) rather than only average latency, since tail latency often matters more for strategy correctness.
 - **[BUILT]** `clock-drift-monitoring-alerting-thresholds` — Setting explicit alerting thresholds for clock drift on trading hosts, given how directly clock accuracy affects latency-sensitive strategy correctness.
 - **[BUILT]** `exchange-gateway-redundancy-and-failover-testing` — Testing failover between redundant exchange gateway connections under simulated primary-gateway failure conditions.
