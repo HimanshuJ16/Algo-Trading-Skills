@@ -408,7 +408,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `point-in-time-index-constituent-tracking` — Tracking historical index constituents (not just current membership) for accurate survivorship-bias-free backtest universes.
 - **[BUILT]** `market-data-latency-monitoring-per-vendor` — Monitoring actual observed latency per data vendor/feed, since advertised 'real-time' can vary meaningfully in practice.
 - **[BUILT]** `unicode-and-encoding-issues-in-global-instrument-names` — Handling encoding issues (non-ASCII characters in company/instrument names) correctly across data pipelines spanning multiple countries.
-- **[planned]** `data-retention-policy-and-storage-tiering` — Defining a data-retention policy with storage tiering (hot/warm/cold) balancing query-latency needs against storage cost for years of tick history.
+- **[BUILT]** `data-retention-policy-and-storage-tiering` — Defining a data-retention policy with storage tiering (hot/warm/cold) balancing query-latency needs against storage cost for years of tick history.
 - **[planned]** `reference-data-change-notification-pipeline` — Building a notification pipeline for reference-data changes (ticker renames, exchange migrations) that could silently break symbol-keyed logic elsewhere.
 - **[planned]** `cross-vendor-timestamp-precision-reconciliation` — Reconciling differing timestamp precision (millisecond vs microsecond vs second) across vendors feeding the same pipeline.
 - **[planned]** `synthetic-continuous-futures-contract-construction` — Constructing a synthetic continuous futures contract series (back-adjusted or ratio-adjusted across rolls) for backtesting futures strategies.

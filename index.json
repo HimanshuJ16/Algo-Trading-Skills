@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:54.711797+00:00",
+  "generated_at": "2026-07-25T08:20:55.556119+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 383,
+  "total_skills": 384,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2125,6 +2125,24 @@
       "license": "MIT",
       "path": "skills/data-quality-monitoring-dashboard",
       "skill_md": "skills/data-quality-monitoring-dashboard/SKILL.md"
+    },
+    {
+      "name": "data-retention-policy-and-storage-tiering",
+      "description": "Implementation of data-retention-policy-and-storage-tiering",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/data-retention-policy-and-storage-tiering",
+      "skill_md": "skills/data-retention-policy-and-storage-tiering/SKILL.md"
     },
     {
       "name": "data-vendor-contractual-usage-restriction-tracking",
