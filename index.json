@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:06.120197+00:00",
+  "generated_at": "2026-07-25T13:19:07.019503+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 479,
+  "total_skills": 480,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -313,6 +313,23 @@
       "license": "Apache-2.0",
       "path": "skills/api-key-least-privilege-audit-tool",
       "skill_md": "skills/api-key-least-privilege-audit-tool/SKILL.md"
+    },
+    {
+      "name": "app-download-and-usage-data-for-consumer-companies",
+      "description": "Skill for app download and usage data for consumer companies",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/app-download-and-usage-data-for-consumer-companies",
+      "skill_md": "skills/app-download-and-usage-data-for-consumer-companies/SKILL.md"
     },
     {
       "name": "arrival-price-benchmark-execution-algo",
