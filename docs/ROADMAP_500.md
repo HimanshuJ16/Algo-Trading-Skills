@@ -358,7 +358,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `arrival-price-benchmark-execution-algo` — Building an execution algorithm explicitly benchmarked against arrival price rather than TWAP/VWAP, appropriate for urgency-driven orders.
 - **[BUILT]** `dark-pool-routing-logic` — Routing a portion of large orders to dark pools to reduce market impact, with logic for detecting adverse selection in dark-pool fills.
 - **[BUILT]** `liquidity-seeking-algorithm-across-lit-and-dark-venues` — Building a liquidity-seeking algorithm that dynamically allocates order flow across lit and dark venues based on observed fill quality.
-- **[planned]** `close-auction-participation-strategy` — Participating correctly in an exchange's closing auction, including its distinct order-type and timing rules versus continuous trading.
+- **[BUILT]** `close-auction-participation-strategy` — Participating correctly in an exchange's closing auction, including its distinct order-type and timing rules versus continuous trading.
 - **[planned]** `opening-auction-imbalance-based-execution` — Using published opening-auction imbalance information to inform execution timing around the open.
 - **[planned]** `peg-order-types-for-passive-execution` — Using pegged order types (mid-peg, primary-peg) for passive execution that tracks the market without requiring constant re-pricing logic.
 - **[BUILT]** `execution-algo-parameter-optimization-via-backtest` — Backtesting execution-algorithm parameter choices (interval count, aggressiveness) against historical intraday data, mirroring the discipline in walk-forward-validation-setup.
