@@ -402,7 +402,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `options-chain-data-normalization-across-vendors` — Normalizing options-chain data (strike conventions, expiry-date formats) across vendors with differing schemas.
 - **[BUILT]** `corporate-action-event-calendar-integration` — Integrating a corporate-action event calendar (splits, dividends, mergers) to pre-empt rather than react to adjustment-related backtest/live discrepancies.
 - **[BUILT]** `currency-pair-quoting-convention-normalization` — Normalizing currency-pair quoting conventions (which currency is base vs quote) consistently across data sources, since this flips silently between vendors.
-- **[planned]** `exchange-tick-size-regime-tracking` — Tracking exchange-specific (and sometimes price-tier-dependent) tick-size regimes correctly for order-price validation.
+- **[BUILT]** `exchange-tick-size-regime-tracking` — Tracking exchange-specific (and sometimes price-tier-dependent) tick-size regimes correctly for order-price validation.
 - **[planned]** `historical-order-book-reconstruction-from-message-logs` — Reconstructing a historical order book from raw message logs for backtest realism beyond simple OHLCV bars.
 - **[planned]** `data-pipeline-schema-contract-testing` — Contract-testing data-pipeline schemas so an upstream vendor's silent schema change is caught before it corrupts downstream processing.
 - **[planned]** `point-in-time-index-constituent-tracking` — Tracking historical index constituents (not just current membership) for accurate survivorship-bias-free backtest universes.

@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:49.948972+00:00",
+  "generated_at": "2026-07-25T08:20:50.726200+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 377,
+  "total_skills": 378,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2654,6 +2654,24 @@
       "license": "Apache-2.0",
       "path": "skills/exchange-multicast-feed-handling",
       "skill_md": "skills/exchange-multicast-feed-handling/SKILL.md"
+    },
+    {
+      "name": "exchange-tick-size-regime-tracking",
+      "description": "Implementation of exchange-tick-size-regime-tracking",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/exchange-tick-size-regime-tracking",
+      "skill_md": "skills/exchange-tick-size-regime-tracking/SKILL.md"
     },
     {
       "name": "execution-algo-behavior-under-halted-instrument",
