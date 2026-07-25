@@ -61,7 +61,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `grpc-streaming-for-internal-service-communication` — Using gRPC streaming between internal trading services instead of REST polling for lower-latency internal data flow.
 - **[BUILT]** `market-data-feed-arbitration-across-vendors` — Arbitrating between two redundant market-data feed vendors when they disagree, to avoid acting on a bad tick from either.
 - **[BUILT]** `sequence-number-gap-detection-for-feeds` — Detecting sequence-number gaps in an exchange feed indicating dropped messages, distinct from a full disconnect.
-- **[planned]** `binary-protocol-parsing-for-low-latency-feeds` — Parsing binary exchange protocols (FIX/FAST, ITCH, proprietary binary feeds) instead of JSON/REST for latency-sensitive strategies.
+- **[BUILT]** `binary-protocol-parsing-for-low-latency-feeds` — Parsing binary exchange protocols (FIX/FAST, ITCH, proprietary binary feeds) instead of JSON/REST for latency-sensitive strategies.
 - **[planned]** `circuit-breaker-for-downstream-service-calls` — Applying a circuit-breaker pattern to calls from the strategy engine to downstream services (DB, risk module) so a slow downstream doesn't cascade into missed ticks.
 - **[planned]** `multi-region-active-active-tick-ingestion` — Running tick ingestion active-active across two regions/hosts to eliminate a single point of failure in the ingestion layer.
 - **[planned]** `memory-mapped-ring-buffer-for-ultra-low-latency` — Using a memory-mapped ring buffer instead of a language-level queue for the lowest-latency tier of tick processing.

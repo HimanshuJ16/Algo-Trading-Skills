@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:59:54.115934+00:00",
+  "generated_at": "2026-07-25T03:00:35.942268+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 91,
+  "total_skills": 92,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -87,6 +87,29 @@
       "license": "Apache-2.0",
       "path": "skills/benchmark-relative-performance-attribution",
       "skill_md": "skills/benchmark-relative-performance-attribution/SKILL.md"
+    },
+    {
+      "name": "binary-protocol-parsing-for-low-latency-feeds",
+      "description": "Use when connecting to high-frequency binary market data feeds (NASDAQ ITCH, CME MDP 3.0, FIX/FAST, SBE) to unpack binary structs with sub-microsecond zero-copy parsers, decoding price scaling and orderbook messages without JSON text overhead.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "binary-parsing",
+        "itch-protocol",
+        "low-latency",
+        "cme-mdp",
+        "struct-unpack"
+      ],
+      "brokers_frameworks": [
+        "Binary Feed Parser",
+        "Python Struct Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/binary-protocol-parsing-for-low-latency-feeds",
+      "skill_md": "skills/binary-protocol-parsing-for-low-latency-feeds/SKILL.md"
     },
     {
       "name": "blue-green-deployment-for-live-strategy-updates",
