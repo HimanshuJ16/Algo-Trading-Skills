@@ -123,15 +123,15 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `reinforcement-learning-safety-constraints-for-execution` — Constraining an RL-based execution agent so it cannot learn to violate risk limits.
 - **[BUILT]** `explainability-for-live-trading-signals` — Generating human-readable explanations for why a live ML signal fired, for post-hoc audit and trust-building.
 - **[BUILT]** `online-learning-for-adaptive-signal-models` — Using online/incremental learning so a model updates continuously rather than requiring full batch retraining.
-- **[planned]** `cross-sectional-vs-time-series-model-design` — Choosing between a cross-sectional model (ranking instruments against each other) and a pure time-series model based on the strategy's structure.
-- **[planned]** `alternative-data-feature-integration` — Integrating alternative data (satellite imagery, web-scraped sentiment, credit-card transaction data) as ML features with appropriate lag/availability handling.
-- **[planned]** `model-versioning-and-rollback` — Versioning deployed models so a newly-detected staleness or bug can trigger an immediate rollback to the last-known-good version.
-- **[planned]** `hyperparameter-tuning-without-target-leakage` — Tuning hyperparameters using only the training/validation split, never touching held-out walk-forward test folds.
-- **[planned]** `multi-horizon-forecasting-architecture` — Designing a model architecture that forecasts multiple horizons (1-bar, 5-bar, 20-bar) consistently rather than training separate unrelated models.
-- **[planned]** `class-imbalance-handling-for-rare-signal-events` — Handling severe class imbalance (e.g. rare large-move events) without simply inflating false positive rate via naive oversampling.
-- **[planned]** `feature-importance-drift-monitoring` — Monitoring whether a model's feature-importance ranking shifts over time, as an early regime-change indicator distinct from accuracy-based staleness detection.
-- **[planned]** `model-inference-latency-budget-for-live-trading` — Bounding and monitoring ML inference latency so a slow model doesn't become the bottleneck in a latency-sensitive strategy.
-- **[planned]** `synthetic-labels-from-triple-barrier-method` — Constructing ML labels via the triple-barrier method (profit-take/stop-loss/time-limit) rather than naive fixed-horizon return labels.
+- **[BUILT]** `cross-sectional-vs-time-series-model-design` — Choosing between a cross-sectional model (ranking instruments against each other) and a pure time-series model based on the strategy's structure.
+- **[BUILT]** `alternative-data-feature-integration` — Integrating alternative data (satellite imagery, web-scraped sentiment, credit-card transaction data) as ML features with appropriate lag/availability handling.
+- **[BUILT]** `model-versioning-and-rollback` — Versioning deployed models so a newly-detected staleness or bug can trigger an immediate rollback to the last-known-good version.
+- **[BUILT]** `hyperparameter-tuning-without-target-leakage` — Tuning hyperparameters using only the training/validation split, never touching held-out walk-forward test folds.
+- **[BUILT]** `multi-horizon-forecasting-architecture` — Designing a model architecture that forecasts multiple horizons (1-bar, 5-bar, 20-bar) consistently rather than training separate unrelated models.
+- **[BUILT]** `class-imbalance-handling-for-rare-signal-events` — Handling severe class imbalance (e.g. rare large-move events) without simply inflating false positive rate via naive oversampling.
+- **[BUILT]** `feature-importance-drift-monitoring` — Monitoring whether a model's feature-importance ranking shifts over time, as an early regime-change indicator distinct from accuracy-based staleness detection.
+- **[BUILT]** `model-inference-latency-budget-for-live-trading` — Bounding and monitoring ML inference latency so a slow model doesn't become the bottleneck in a latency-sensitive strategy.
+- **[BUILT]** `synthetic-labels-from-triple-barrier-method` — Constructing ML labels via the triple-barrier method (profit-take/stop-loss/time-limit) rather than naive fixed-horizon return labels.
 - **[BUILT]** `sample-weighting-for-overlapping-labels` — Weighting training samples to account for overlapping label windows (a known issue in financial ML where adjacent labels aren't independent).
 - **[BUILT]** `model-card-documentation-for-trading-models` — Maintaining a 'model card' (training data range, known limitations, intended use) for every live trading model, mirroring ML-ops best practice.
 - **[BUILT]** `gradient-boosted-tree-vs-neural-net-tradeoffs` — Choosing between gradient-boosted trees and neural architectures for tabular financial data based on data volume and interpretability needs.
