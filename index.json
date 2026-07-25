@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:57.809237+00:00",
+  "generated_at": "2026-07-25T08:29:59.123571+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 473,
+  "total_skills": 474,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7842,6 +7842,24 @@
       "license": "MIT",
       "path": "skills/smart-order-routing-across-venues",
       "skill_md": "skills/smart-order-routing-across-venues/SKILL.md"
+    },
+    {
+      "name": "social-media-sentiment-signal-with-bot-filtering",
+      "description": "A quant research alternative data skill for social-media-sentiment-signal-with-bot-filtering.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/social-media-sentiment-signal-with-bot-filtering",
+      "skill_md": "skills/social-media-sentiment-signal-with-bot-filtering/SKILL.md"
     },
     {
       "name": "strategy-capacity-estimation-before-scaling-capital",
