@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:39.476469+00:00",
+  "generated_at": "2026-07-25T08:13:40.198516+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 281,
+  "total_skills": 282,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4079,6 +4079,25 @@
       "license": "MIT",
       "path": "skills/position-limit-breach-simulation-fire-drills",
       "skill_md": "skills/position-limit-breach-simulation-fire-drills/SKILL.md"
+    },
+    {
+      "name": "position-limit-reporting-cftc-large-trader",
+      "description": "Compliance tool for position limit reporting cftc large trader",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/position-limit-reporting-cftc-large-trader",
+      "skill_md": "skills/position-limit-reporting-cftc-large-trader/SKILL.md"
     },
     {
       "name": "post-breach-root-cause-analysis-template",
