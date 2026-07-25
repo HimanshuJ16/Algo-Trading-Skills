@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:30:04.617650+00:00",
+  "generated_at": "2026-07-25T13:19:06.120197+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 478,
+  "total_skills": 479,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2908,6 +2908,23 @@
       "license": "MIT",
       "path": "skills/environment-parity-dev-staging-production",
       "skill_md": "skills/environment-parity-dev-staging-production/SKILL.md"
+    },
+    {
+      "name": "esg-data-signal-research-and-vendor-comparison",
+      "description": "Skill for esg data signal research and vendor comparison",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/esg-data-signal-research-and-vendor-comparison",
+      "skill_md": "skills/esg-data-signal-research-and-vendor-comparison/SKILL.md"
     },
     {
       "name": "esma-double-volume-cap-mechanism",

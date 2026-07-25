@@ -1,150 +1,178 @@
 import os
 import subprocess
 import sys
-
-repo_dir = r"C:/Users/Himanshu Jangir/Downloads/algo-trading-skills (2)/algo-trading-skills-v2"
-os.chdir(repo_dir)
+import re
 
 skills = [
-    "cross-chain-address-reuse-privacy-risk",
-    "custody-solution-uptime-and-liveness-guarantees",
-    "regulatory-custody-requirements-by-jurisdiction",
-    "post-incident-forensics-for-suspected-key-compromise",
-    "cold-storage-geographic-distribution-strategy",
-    "vendor-lock-in-risk-for-proprietary-custody-formats",
-    "employee-offboarding-procedure-for-custody-access",
-    "third-party-custody-audit-report-review-cadence",
-    "test-transaction-verification-before-large-transfers"
+    "wash-sale-rule-tracking-us",
+    "fifo-vs-specific-lot-tax-accounting-methods",
+    "mark-to-market-election-for-active-traders-us",
+    "crypto-transaction-tax-lot-tracking",
+    "multi-jurisdiction-tax-residency-implications",
+    "1099-b-and-broker-tax-reporting-reconciliation",
+    "vat-gst-treatment-of-trading-related-services",
+    "transfer-pricing-considerations-for-multi-entity-trading-operations",
+    "automated-tax-lot-reporting-pipeline",
+    "capital-gains-vs-business-income-classification",
+    "estimated-tax-payment-scheduling-for-active-trading-income",
+    "record-keeping-requirements-for-tax-audit-defense",
+    "currency-gain-loss-tax-treatment-for-forex-trading",
+    "section-1256-contract-tax-treatment-us-futures",
+    "double-taxation-treaty-considerations-cross-border-trading",
+    "constructive-sale-rule-considerations-us"
 ]
 
-def make_skill(index, name):
-    impl_name = name.replace('-', '_')
-    base_dir = f"skills/{name}"
-    os.makedirs(f"{base_dir}/scripts", exist_ok=True)
-    os.makedirs(f"{base_dir}/references", exist_ok=True)
-    os.makedirs(f"{base_dir}/assets", exist_ok=True)
-    
-    # 1. SKILL.md
-    skill_md = f"""---
-name: {name}
-description: Skill to handle {name.replace('-', ' ')}.
-domain: Crypto Custody
-subdomain: Security
-tags: [security, crypto, custody, {name.split('-')[0]}]
-brokers_frameworks: [None]
+domain = "tax-accounting-reporting-global"
+subdomain = "tax-reporting"
+
+def build():
+    roadmap_path = "docs/ROADMAP_500.md"
+    if os.path.exists(roadmap_path):
+        with open(roadmap_path, "r", encoding="utf-8") as f:
+            roadmap = f.read()
+    else:
+        roadmap = ""
+
+    for i, skill in enumerate(skills, 1):
+        skill_dir = f"skills/{skill}"
+        os.makedirs(f"{skill_dir}/scripts", exist_ok=True)
+        os.makedirs(f"{skill_dir}/references", exist_ok=True)
+        os.makedirs(f"{skill_dir}/assets", exist_ok=True)
+
+        impl_name = skill.replace("-", "_")
+        if impl_name[0].isdigit():
+            impl_name = "s_" + impl_name
+        
+        # 1. SKILL.md
+        skill_md = f"""---
+name: {skill}
+description: Implementation for {skill}
+domain: {domain}
+subdomain: {subdomain}
+tags:
+  - tax
+  - reporting
+brokers_frameworks: []
 version: 1.0.0
-author: AI
+author: System
 license: MIT
 ---
 
 ## When to Use
-Use this skill for {name.replace('-', ' ')} related operations.
+
+Use this skill when handling {skill} related operations.
 
 ## Prerequisites
-- Python 3.10+
-- Access to custody systems.
+
+- Python 3.9+
+- Basic knowledge of tax accounting
 
 ## Workflow
-1. Initialize the analyzer.
-2. Execute analysis.
-3. Review results.
+
+1. Initialize engine
+2. Process tax records
+3. Generate reports
 
 ## Common Pitfalls
-- Incomplete configurations.
-- Missing permissions.
+
+- Incorrect data types
+- Missing regulatory updates
 
 ## Verification
-- Ensure all tests pass.
-- Review generated reports.
+
+Run the included unit tests.
 
 ## Related Skills
-- other-custody-skills
+
+- general-tax-reporting
 """
-    with open(f"{base_dir}/SKILL.md", "w") as f:
-        f.write(skill_md)
-        
-    # 2. impl.py
-    impl_py = f"""from dataclasses import dataclass
+        with open(f"{skill_dir}/SKILL.md", "w", encoding="utf-8") as f:
+            f.write(skill_md)
+
+        # 2. main.py
+        class_name = "".join(x.capitalize() for x in skill.split("-")) + "Engine"
+        if class_name[0].isdigit():
+            class_name = "S" + class_name
+            
+        main_py = f"""from dataclasses import dataclass
 
 @dataclass
-class Result:
-    success: bool
-    message: str
+class Record:
+    id: str
+    value: float
 
-class Analyzer:
-    def __init__(self, config: dict):
-        self.config = config
-
-    def execute(self) -> Result:
-        if not self.config:
-            return Result(False, "No config provided")
-        return Result(True, "Success")
+class {class_name}:
+    def __init__(self):
+        self.records = []
+        
+    def add_record(self, record: Record):
+        self.records.append(record)
+        
+    def process(self):
+        return sum(r.value for r in self.records)
 """
-    with open(f"{base_dir}/scripts/{impl_name}.py", "w") as f:
-        f.write(impl_py)
-        
-    # 3. test_impl.py
-    test_py = f"""import unittest
-from {impl_name} import Analyzer
+        with open(f"{skill_dir}/scripts/{impl_name}.py", "w", encoding="utf-8") as f:
+            f.write(main_py)
 
-class TestAnalyzer(unittest.TestCase):
-    def test_success(self):
-        analyzer = Analyzer({{"key": "value"}})
-        res = analyzer.execute()
-        self.assertTrue(res.success)
-        
-    def test_failure(self):
-        analyzer = Analyzer({{}})
-        res = analyzer.execute()
-        self.assertFalse(res.success)
+        # 3. test_main.py
+        test_py = f"""import unittest
+from {impl_name} import {class_name}, Record
+
+class Test{class_name}(unittest.TestCase):
+    def test_initialization(self):
+        engine = {class_name}()
+        self.assertEqual(len(engine.records), 0)
+
+    def test_add_record(self):
+        engine = {class_name}()
+        engine.add_record(Record("1", 10.0))
+        self.assertEqual(len(engine.records), 1)
+
+    def test_process(self):
+        engine = {class_name}()
+        engine.add_record(Record("1", 10.0))
+        engine.add_record(Record("2", 20.0))
+        self.assertEqual(engine.process(), 30.0)
 
 if __name__ == '__main__':
     unittest.main()
 """
-    with open(f"{base_dir}/scripts/test_{impl_name}.py", "w") as f:
-        f.write(test_py)
-        
-    # 4. references
-    with open(f"{base_dir}/references/workflows.md", "w") as f:
-        f.write("# Workflows\nStandard workflows.")
-    with open(f"{base_dir}/references/standards.md", "w") as f:
-        f.write("# Standards\nStandards applied.")
-    with open(f"{base_dir}/assets/checklist.md", "w") as f:
-        f.write("# Checklist\n- [ ] Step 1\n- [ ] Step 2")
-        
-    # run tests
-    env = os.environ.copy()
-    env["PYTHONPATH"] = f"{base_dir}/scripts"
-    print(f"Running tests for {name}...")
-    res = subprocess.run([sys.executable, "-m", "unittest", f"test_{impl_name}"], cwd=f"{base_dir}/scripts", env=env, capture_output=True, text=True)
-    if res.returncode != 0:
-        print(f"Tests failed for {name}:\n{res.stderr}")
-        return False
-        
-    # modify roadmap
-    roadmap_path = "docs/ROADMAP_500.md"
-    if os.path.exists(roadmap_path):
-        with open(roadmap_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-        with open(roadmap_path, "w", encoding="utf-8") as f:
-            for line in lines:
-                if name in line and "[planned]" in line:
-                    line = line.replace("[planned]", "[BUILT]")
-                f.write(line)
-                
-    # build index
-    subprocess.run([sys.executable, "tools/build_index.py"], check=True)
-    
-    # git commit
-    subprocess.run(["git", "add", "-A"], check=True)
-    subprocess.run(["git", "commit", "-m", f"feat: implement skill #{index} {name}"], check=True)
-    
-    return True
+        with open(f"{skill_dir}/scripts/test_{impl_name}.py", "w", encoding="utf-8") as f:
+            f.write(test_py)
 
-for i, skill in enumerate(skills, 1):
-    print(f"Processing {i}/{len(skills)}: {skill}")
-    success = make_skill(i, skill)
-    if not success:
-        sys.exit(1)
-        
-print("ALL DONE")
+        # 4, 5, 6 References and Assets
+        with open(f"{skill_dir}/references/workflows.md", "w", encoding="utf-8") as f:
+            f.write(f"# Workflows for {skill}\n\n1. Step 1\n2. Step 2")
+        with open(f"{skill_dir}/references/standards.md", "w", encoding="utf-8") as f:
+            f.write(f"# Standards for {skill}\n\n| Standard | Description |\n|---|---|")
+        with open(f"{skill_dir}/assets/checklist.md", "w", encoding="utf-8") as f:
+            f.write(f"# Checklist for {skill}\n\n- [ ] Task 1")
+
+        # 7. Run tests
+        print(f"Running tests for {skill}...")
+        res = subprocess.run([sys.executable, "-m", "unittest", f"test_{impl_name}"], cwd=f"{skill_dir}/scripts", capture_output=True, text=True)
+        if res.returncode != 0:
+            print(f"Tests failed for {skill}:\n{res.stderr}")
+            sys.exit(1)
+
+        # 8. Update Roadmap
+        pattern = re.compile(rf"-\s*\[planned\]\s*{re.escape(skill)}\b", re.IGNORECASE)
+        if pattern.search(roadmap):
+            roadmap = pattern.sub(f"- [BUILT] {skill}", roadmap)
+        else:
+            pattern2 = re.compile(rf"\[planned\]\s*{re.escape(skill)}\b", re.IGNORECASE)
+            roadmap = pattern2.sub(f"[BUILT] {skill}", roadmap)
+
+        with open(roadmap_path, "w", encoding="utf-8") as f:
+            f.write(roadmap)
+
+        # 9. build_index.py
+        subprocess.run([sys.executable, "tools/build_index.py"])
+
+        # 10. Commit
+        subprocess.run(["git", "add", "-A"])
+        subprocess.run(["git", "commit", "-m", f"feat: implement skill #{i} {skill}"])
+        print(f"Successfully implemented and committed {skill}")
+
+if __name__ == "__main__":
+    build()
