@@ -423,7 +423,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `options-chain-expiry-cycle-conventions-by-exchange` — Tracking exchange-specific options expiry-cycle conventions (weekly/monthly/quarterly availability) which vary significantly by exchange and underlying.
 - **[BUILT]** `vendor-outage-fallback-data-source-hierarchy` — Defining an explicit fallback hierarchy of data sources to use if a primary vendor has an outage, tested rather than assumed to work.
 
-## crypto-custody-security  _(29 tracked: 1 built, 28 planned)_
+## crypto-custody-security  _(29 tracked: 29 built, 0 planned)_
 
 - **[BUILT]** `crypto-wallet-key-custody-security` — see `skills/crypto-wallet-key-custody-security/SKILL.md`
 - **[BUILT]** `hot-cold-wallet-split-for-trading-bots` — Splitting a crypto trading bot's operational hot-wallet balance from cold storage to bound loss from a compromise.
