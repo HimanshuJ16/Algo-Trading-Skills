@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:32.568993+00:00",
+  "generated_at": "2026-07-25T08:13:33.285128+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 271,
+  "total_skills": 272,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -186,6 +186,25 @@
       "license": "MIT",
       "path": "skills/audit-logging-for-configuration-changes",
       "skill_md": "skills/audit-logging-for-configuration-changes/SKILL.md"
+    },
+    {
+      "name": "australia-asic-drt-obligations",
+      "description": "Compliance tool for australia asic drt obligations",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/australia-asic-drt-obligations",
+      "skill_md": "skills/australia-asic-drt-obligations/SKILL.md"
     },
     {
       "name": "australian-securities-exchange-asx-api",
