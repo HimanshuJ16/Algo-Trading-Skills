@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:27.244849+00:00",
+  "generated_at": "2026-07-25T08:28:28.124079+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 454,
+  "total_skills": 455,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -8149,6 +8149,24 @@
       "license": "MIT",
       "path": "skills/tick-size-pilot-program-impact-assessment",
       "skill_md": "skills/tick-size-pilot-program-impact-assessment/SKILL.md"
+    },
+    {
+      "name": "tick-to-trade-latency-measurement",
+      "description": "Skill for tick-to-trade-latency-measurement",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "trading",
+        "latency"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/tick-to-trade-latency-measurement",
+      "skill_md": "skills/tick-to-trade-latency-measurement/SKILL.md"
     },
     {
       "name": "token-lifecycle-live-probing",

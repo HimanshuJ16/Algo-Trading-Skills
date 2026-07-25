@@ -492,7 +492,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 
 - **[BUILT]** `colocation-latency-budget-accounting` — Accounting for colocation and network latency budgets when a strategy's edge depends on sub-millisecond response time.
 - **[BUILT]** `clock-synchronization-ptp-for-trading-hosts` — Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters.
-- **[planned]** `tick-to-trade-latency-measurement` — Measuring true tick-to-trade latency end to end, not just the strategy's own compute time.
+- **[BUILT]** `tick-to-trade-latency-measurement` — Measuring true tick-to-trade latency end to end, not just the strategy's own compute time.
 - **[planned]** `order-book-microstructure-signal-research` — Researching order-book microstructure signals (queue dynamics, order-flow imbalance) as a distinct signal class from price-based technical signals.
 - **[planned]** `exchange-fee-tier-and-rebate-structure-analysis` — Analyzing exchange fee-tier and rebate structures in detail, since these materially affect the true profitability of high-turnover strategies.
 - **[planned]** `market-maker-vs-taker-strategy-classification` — Classifying a strategy's own behavior as predominantly maker or taker, and understanding the fee/risk implications of each posture.
