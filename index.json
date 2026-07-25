@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:19.861210+00:00",
+  "generated_at": "2026-07-25T13:19:20.680621+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 496,
+  "total_skills": 497,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -2887,6 +2887,22 @@
       "license": "MIT",
       "path": "skills/dividend-futures-and-forward-modeling",
       "skill_md": "skills/dividend-futures-and-forward-modeling/SKILL.md"
+    },
+    {
+      "name": "double-taxation-treaty-considerations-cross-border-trading",
+      "description": "Implementation for double-taxation-treaty-considerations-cross-border-trading",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/double-taxation-treaty-considerations-cross-border-trading",
+      "skill_md": "skills/double-taxation-treaty-considerations-cross-border-trading/SKILL.md"
     },
     {
       "name": "dubai-financial-market-dfm-api",
