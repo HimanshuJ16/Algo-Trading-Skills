@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:02:55.400251+00:00",
+  "generated_at": "2026-07-25T08:03:33.843600+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 175,
+  "total_skills": 176,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3024,6 +3024,29 @@
       "license": "MIT",
       "path": "skills/risk-limit-breach-escalation-matrix",
       "skill_md": "skills/risk-limit-breach-escalation-matrix/SKILL.md"
+    },
+    {
+      "name": "risk-metric-recalculation-frequency-tuning",
+      "description": "Use when engineering risk monitoring architecture to tune and schedule differential recalculation frequencies across risk metrics (real-time tick checks vs periodic VaR/Greeks/stress tests), optimizing compute budget without compromising risk protection.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "risk-cadence",
+        "recalculation-frequency",
+        "compute-efficiency",
+        "event-driven-risk",
+        "var-tuning"
+      ],
+      "brokers_frameworks": [
+        "Risk Metric Frequency Tuner Engine",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/risk-metric-recalculation-frequency-tuning",
+      "skill_md": "skills/risk-metric-recalculation-frequency-tuning/SKILL.md"
     },
     {
       "name": "robinhood-unofficial-api-integration",
