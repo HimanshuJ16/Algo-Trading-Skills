@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:01:34.409923+00:00",
+  "generated_at": "2026-07-25T08:02:03.767741+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 172,
+  "total_skills": 173,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2938,6 +2938,28 @@
       "license": "MIT",
       "path": "skills/risk-control-bypass-audit-logging",
       "skill_md": "skills/risk-control-bypass-audit-logging/SKILL.md"
+    },
+    {
+      "name": "risk-control-latency-budget",
+      "description": "Use when engineering live risk management controls to profile, bound, and audit total risk evaluation latency (ingestion + evaluation + order transmission), ensuring slow risk controls do not fail during fast market crashes.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
+      "tags": [
+        "risk-management",
+        "latency-budget",
+        "risk-control-sla",
+        "circuit-breaker-latency",
+        "performance-profiling"
+      ],
+      "brokers_frameworks": [
+        "Risk Control Latency Budgeter",
+        "Python"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/risk-control-latency-budget",
+      "skill_md": "skills/risk-control-latency-budget/SKILL.md"
     },
     {
       "name": "risk-limit-breach-escalation-matrix",
