@@ -108,7 +108,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `intraday-vs-eod-backtest-granularity-tradeoffs` — Choosing appropriate data granularity (tick, minute, EOD) for a backtest based on the strategy's actual holding period and decision frequency.
 - **[BUILT]** `backtest-database-schema-for-point-in-time-queries` — Designing a database schema that natively supports point-in-time queries to make lookahead-bias mistakes structurally harder to introduce.
 - **[BUILT]** `cross-validation-of-commission-schedules-over-time` — Modeling historical changes in a broker's commission schedule over the backtest period rather than applying today's rates retroactively.
-- **[planned]** `backtest-outlier-and-bad-tick-filtering` — Filtering historical data for clearly erroneous prints (bad ticks, stale quotes) before they distort backtested signal computation.
+- **[BUILT]** `backtest-outlier-and-bad-tick-filtering` — Filtering historical data for clearly erroneous prints (bad ticks, stale quotes) before they distort backtested signal computation.
 - **[planned]** `walk-forward-hyperparameter-search-budget` — Bounding the hyperparameter search space in walk-forward validation to avoid indirect overfitting via excessive search itself.
 - **[planned]** `backtest-audit-trail-for-regulatory-review` — Maintaining a backtest audit trail (data version, code version, parameters) sufficient to reproduce results if ever required for regulatory review.
 
