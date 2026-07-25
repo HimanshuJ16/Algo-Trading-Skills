@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:52:49.060471+00:00",
+  "generated_at": "2026-07-25T02:54:04.708984+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 85,
+  "total_skills": 86,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -158,6 +158,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
       "skill_md": "skills/broker-agnostic-adapter-interface/SKILL.md"
+    },
+    {
+      "name": "broker-api-changelog-diffing-tool",
+      "description": "Use when updating broker SDKs or API integrations to automatically diff release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals, renamed parameters, and type mutations before production deployment.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "api-changelog",
+        "schema-diffing",
+        "openapi",
+        "breaking-changes",
+        "ci-cd-security"
+      ],
+      "brokers_frameworks": [
+        "Schema Diffing Engine",
+        "Python OpenAPI Parser"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-api-changelog-diffing-tool",
+      "skill_md": "skills/broker-api-changelog-diffing-tool/SKILL.md"
     },
     {
       "name": "broker-api-deprecation-notice-monitoring",
