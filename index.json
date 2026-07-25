@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:13.940476+00:00",
+  "generated_at": "2026-07-25T08:25:14.377447+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 431,
+  "total_skills": 432,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7356,6 +7356,24 @@
       "license": "MIT",
       "path": "skills/strategy-decommissioning-and-position-unwind-procedure",
       "skill_md": "skills/strategy-decommissioning-and-position-unwind-procedure/SKILL.md"
+    },
+    {
+      "name": "strategy-level-kill-switch-vs-portfolio-level-kill-switch",
+      "description": "Skill for strategy level kill switch vs portfolio level kill switch",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-level-kill-switch-vs-portfolio-level-kill-switch",
+      "skill_md": "skills/strategy-level-kill-switch-vs-portfolio-level-kill-switch/SKILL.md"
     },
     {
       "name": "strategy-lifecycle-retirement-criteria",
