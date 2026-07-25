@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:58.390091+00:00",
+  "generated_at": "2026-07-25T08:16:58.897832+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 314,
+  "total_skills": 315,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4405,6 +4405,24 @@
       "license": "Apache-2.0",
       "path": "skills/pattern-day-trader-rule-compliance-us",
       "skill_md": "skills/pattern-day-trader-rule-compliance-us/SKILL.md"
+    },
+    {
+      "name": "perpetual-futures-funding-rate-handling",
+      "description": "Automation and handling of perpetual futures funding rate handling.",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "derivatives-trading",
+      "tags": [
+        "perpetual-futures-funding-rate-handling",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/perpetual-futures-funding-rate-handling",
+      "skill_md": "skills/perpetual-futures-funding-rate-handling/SKILL.md"
     },
     {
       "name": "philippine-stock-exchange-api",
