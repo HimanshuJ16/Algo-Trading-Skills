@@ -439,7 +439,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `air-gapped-signing-workflow-for-cold-storage` — Implementing an air-gapped signing workflow for cold-storage transactions, ensuring the signing device never has network connectivity.
 - **[BUILT]** `withdrawal-velocity-limits-and-anomaly-detection` — Setting withdrawal velocity limits (max value/frequency in a time window) with anomaly detection distinct from simple threshold breaches.
 - **[BUILT]** `multi-party-computation-mpc-custody-solutions` — Evaluating MPC-based custody solutions as an alternative to traditional multi-sig for distributing key control without a single complete key ever existing.
-- **[planned]** `smart-contract-approval-scope-minimization` — Minimizing and periodically auditing token-approval scopes granted to smart contracts, since unlimited approvals are a common attack vector.
+- **[BUILT]** `smart-contract-approval-scope-minimization` — Minimizing and periodically auditing token-approval scopes granted to smart contracts, since unlimited approvals are a common attack vector.
 - **[planned]** `phishing-resistant-authentication-for-custody-access` — Using phishing-resistant authentication (hardware security keys, not SMS/email OTP) for any human access to custody infrastructure.
 - **[planned]** `custody-solution-vendor-due-diligence-checklist` — A structured due-diligence checklist for evaluating a third-party custody vendor before entrusting them with operational funds.
 - **[planned]** `on-chain-transaction-monitoring-for-anomalies` — Monitoring on-chain transaction activity in real time for anomalies (unexpected destination, unusual size) as a detection layer independent of application-level logging.
@@ -560,3 +560,4 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 ---
 
 **Grand total: 504 skills tracked (293 built, 211 planned) across 16 categories.**
+  
