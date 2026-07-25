@@ -515,48 +515,48 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `strategy-latency-budget-decomposition` — Decomposing a strategy's total tick-to-trade latency budget into its component stages (feed handler, strategy logic, risk check, order gateway) to target optimization effort correctly.
 - **[BUILT]** `exchange-self-match-prevention-configuration` — Configuring exchange-level self-match-prevention correctly across venues with differing default behaviors, extending the self-trade-prevention concern beyond crypto exchanges to traditional venues.
 
-## quant-research-alt-data  _(20 tracked: 0 built, 20 planned)_
+## quant-research-alt-data  _(20 tracked: 20 built, 0 planned)_
 
-- **[planned]** `satellite-imagery-based-signal-research` — Researching signal construction from satellite-imagery alternative data (e.g. parking-lot traffic, shipping activity) with appropriate lag/availability constraints.
-- **[planned]** `credit-card-transaction-data-signal-construction` — Constructing signals from aggregated, anonymized credit-card transaction data while respecting data-provider licensing and privacy constraints.
-- **[planned]** `web-scraped-sentiment-data-pipeline` — Building a compliant web-scraping pipeline for sentiment-relevant text data, respecting site terms of service and rate limits.
-- **[planned]** `supply-chain-data-for-earnings-prediction` — Using supply-chain relationship data (supplier/customer networks) as a feature for earnings-related signal research.
-- **[planned]** `google-trends-and-search-volume-signal-research` — Researching signal construction from search-volume/trends data, accounting for its own reporting lag and normalization quirks.
-- **[planned]** `social-media-sentiment-signal-with-bot-filtering` — Building social-media sentiment signals with explicit bot/spam-account filtering, since raw sentiment volume is heavily gameable.
-- **[planned]** `job-posting-data-as-a-growth-signal` — Using aggregated job-posting data as a leading indicator for company growth/hiring-trend signals.
-- **[planned]** `options-flow-unusual-activity-detection` — Detecting unusual options order-flow activity (volume/open-interest anomalies) as a signal input, with care to avoid overfitting to noise.
-- **[planned]** `insider-transaction-filing-signal-research` — Researching signal construction from public insider-transaction filings, with correct point-in-time filing-date (not transaction-date) alignment.
-- **[planned]** `patent-filing-data-for-innovation-signal-research` — Using patent-filing data as a long-horizon innovation/R&D-intensity signal for equity research.
-- **[planned]** `esg-data-signal-research-and-vendor-comparison` — Comparing ESG data across vendors (which frequently disagree substantially) before incorporating as a research signal.
-- **[planned]** `app-download-and-usage-data-for-consumer-companies` — Using app-download/usage data as an alternative-data signal for consumer-facing public companies.
-- **[planned]** `weather-data-signal-research-for-commodity-strategies` — Researching weather-data-driven signals for agricultural/energy commodity strategies.
-- **[planned]** `central-bank-communication-nlp-analysis` — Applying NLP analysis to central-bank communications (meeting minutes, speeches) for macro-signal research, with awareness of well-known overfitting pitfalls in this literature.
-- **[planned]** `earnings-call-transcript-nlp-signal-research` — Building NLP-based signals from earnings-call transcripts, distinguishing management tone/sentiment from the literal content.
-- **[planned]** `alternative-data-vendor-due-diligence-checklist` — A due-diligence checklist for evaluating a new alternative-data vendor's data quality, legal compliance, and point-in-time integrity before integration.
-- **[planned]** `backtesting-alt-data-strategies-with-realistic-availability-lag` — Ensuring alt-data-driven backtests use the data's actual historical availability lag (which is often substantial and vendor-specific), not its nominal event date.
-- **[planned]** `research-environment-vs-production-environment-parity` — Maintaining parity between the quant research environment (notebooks, ad hoc scripts) and the production feature-computation path, extending feature-store-for-live-and-backtest-parity to the research stage.
-- **[planned]** `factor-research-multiple-testing-correction` — Applying multiple-testing correction (e.g. controlling false discovery rate) when researching many candidate factors, to avoid presenting a spuriously significant factor as real.
-- **[planned]** `research-idea-pipeline-tracking-and-prioritization` — Tracking and prioritizing a pipeline of research ideas systematically, rather than ad hoc exploration with no record of what's already been tried and rejected.
+- **[BUILT]** `satellite-imagery-based-signal-research` — Researching signal construction from satellite-imagery alternative data (e.g. parking-lot traffic, shipping activity) with appropriate lag/availability constraints.
+- **[BUILT]** `credit-card-transaction-data-signal-construction` — Constructing signals from aggregated, anonymized credit-card transaction data while respecting data-provider licensing and privacy constraints.
+- **[BUILT]** `web-scraped-sentiment-data-pipeline` — Building a compliant web-scraping pipeline for sentiment-relevant text data, respecting site terms of service and rate limits.
+- **[BUILT]** `supply-chain-data-for-earnings-prediction` — Using supply-chain relationship data (supplier/customer networks) as a feature for earnings-related signal research.
+- **[BUILT]** `google-trends-and-search-volume-signal-research` — Researching signal construction from search-volume/trends data, accounting for its own reporting lag and normalization quirks.
+- **[BUILT]** `social-media-sentiment-signal-with-bot-filtering` — Building social-media sentiment signals with explicit bot/spam-account filtering, since raw sentiment volume is heavily gameable.
+- **[BUILT]** `job-posting-data-as-a-growth-signal` — Using aggregated job-posting data as a leading indicator for company growth/hiring-trend signals.
+- **[BUILT]** `options-flow-unusual-activity-detection` — Detecting unusual options order-flow activity (volume/open-interest anomalies) as a signal input, with care to avoid overfitting to noise.
+- **[BUILT]** `insider-transaction-filing-signal-research` — Researching signal construction from public insider-transaction filings, with correct point-in-time filing-date (not transaction-date) alignment.
+- **[BUILT]** `patent-filing-data-for-innovation-signal-research` — Using patent-filing data as a long-horizon innovation/R&D-intensity signal for equity research.
+- **[BUILT]** `esg-data-signal-research-and-vendor-comparison` — Comparing ESG data across vendors (which frequently disagree substantially) before incorporating as a research signal.
+- **[BUILT]** `app-download-and-usage-data-for-consumer-companies` — Using app-download/usage data as an alternative-data signal for consumer-facing public companies.
+- **[BUILT]** `weather-data-signal-research-for-commodity-strategies` — Researching weather-data-driven signals for agricultural/energy commodity strategies.
+- **[BUILT]** `central-bank-communication-nlp-analysis` — Applying NLP analysis to central-bank communications (meeting minutes, speeches) for macro-signal research, with awareness of well-known overfitting pitfalls in this literature.
+- **[BUILT]** `earnings-call-transcript-nlp-signal-research` — Building NLP-based signals from earnings-call transcripts, distinguishing management tone/sentiment from the literal content.
+- **[BUILT]** `alternative-data-vendor-due-diligence-checklist` — A due-diligence checklist for evaluating a new alternative-data vendor's data quality, legal compliance, and point-in-time integrity before integration.
+- **[BUILT]** `backtesting-alt-data-strategies-with-realistic-availability-lag` — Ensuring alt-data-driven backtests use the data's actual historical availability lag (which is often substantial and vendor-specific), not its nominal event date.
+- **[BUILT]** `research-environment-vs-production-environment-parity` — Maintaining parity between the quant research environment (notebooks, ad hoc scripts) and the production feature-computation path, extending feature-store-for-live-and-backtest-parity to the research stage.
+- **[BUILT]** `factor-research-multiple-testing-correction` — Applying multiple-testing correction (e.g. controlling false discovery rate) when researching many candidate factors, to avoid presenting a spuriously significant factor as real.
+- **[BUILT]** `research-idea-pipeline-tracking-and-prioritization` — Tracking and prioritizing a pipeline of research ideas systematically, rather than ad hoc exploration with no record of what's already been tried and rejected.
 
-## tax-accounting-reporting-global  _(16 tracked: 0 built, 16 planned)_
+## tax-accounting-reporting-global  _(16 tracked: 16 built, 0 planned)_
 
-- **[planned]** `wash-sale-rule-tracking-us` — Tracking wash-sale rule violations (US) across a high-turnover strategy's trades to correctly disallow losses for tax purposes.
-- **[planned]** `fifo-vs-specific-lot-tax-accounting-methods` — Implementing and choosing between FIFO and specific-lot-identification tax accounting methods correctly per applicable jurisdiction rules.
-- **[planned]** `mark-to-market-election-for-active-traders-us` — Understanding the US mark-to-market (Section 475) election's implications for active-trader tax treatment and its accounting-system requirements.
-- **[planned]** `crypto-transaction-tax-lot-tracking` — Tracking tax lots for crypto transactions specifically, including the added complexity of frequent small transactions and cross-chain movements.
-- **[planned]** `multi-jurisdiction-tax-residency-implications` — Understanding how multi-jurisdiction tax residency affects reporting obligations for a globally-distributed trading operation.
-- **[planned]** `1099-b-and-broker-tax-reporting-reconciliation` — Reconciling broker-issued tax forms (e.g. US 1099-B) against internal trade records to catch discrepancies before filing.
-- **[planned]** `vat-gst-treatment-of-trading-related-services` — Understanding VAT/GST treatment of trading-related service fees (data subscriptions, infrastructure) across jurisdictions.
-- **[planned]** `transfer-pricing-considerations-for-multi-entity-trading-operations` — Understanding transfer-pricing implications when a trading operation spans multiple related legal entities across jurisdictions.
-- **[planned]** `automated-tax-lot-reporting-pipeline` — Building an automated pipeline that produces tax-lot reports on a defined schedule rather than manual reconstruction at filing time.
-- **[planned]** `capital-gains-vs-business-income-classification` — Understanding the distinction (and jurisdiction-specific tests) between capital-gains and business-income classification for trading profits, which affects both rate and reporting requirements.
-- **[planned]** `estimated-tax-payment-scheduling-for-active-trading-income` — Scheduling estimated tax payments appropriately given the timing of active-trading income, to avoid underpayment penalties.
-- **[planned]** `record-keeping-requirements-for-tax-audit-defense` — Maintaining trade records at the level of detail required to defend a tax position under audit, distinct from the operational record-keeping in order-placement-idempotency.
-- **[planned]** `currency-gain-loss-tax-treatment-for-forex-trading` — Understanding the specific tax treatment (which can differ materially from capital gains treatment) applicable to forex trading gains/losses in relevant jurisdictions.
-- **[planned]** `section-1256-contract-tax-treatment-us-futures` — Understanding US Section 1256 contract tax treatment (60/40 blended rate) for eligible futures and options, and its accounting-system implications.
-- **[planned]** `double-taxation-treaty-considerations-cross-border-trading` — Understanding double-taxation treaty implications for a trader/entity operating across two treaty countries.
-- **[planned]** `constructive-sale-rule-considerations-us` — Understanding the US constructive-sale rule's implications for hedged appreciated positions before assuming a hedge alone avoids a taxable event.
+- **[BUILT]** `wash-sale-rule-tracking-us` — Tracking wash-sale rule violations (US) across a high-turnover strategy's trades to correctly disallow losses for tax purposes.
+- **[BUILT]** `fifo-vs-specific-lot-tax-accounting-methods` — Implementing and choosing between FIFO and specific-lot-identification tax accounting methods correctly per applicable jurisdiction rules.
+- **[BUILT]** `mark-to-market-election-for-active-traders-us` — Understanding the US mark-to-market (Section 475) election's implications for active-trader tax treatment and its accounting-system requirements.
+- **[BUILT]** `crypto-transaction-tax-lot-tracking` — Tracking tax lots for crypto transactions specifically, including the added complexity of frequent small transactions and cross-chain movements.
+- **[BUILT]** `multi-jurisdiction-tax-residency-implications` — Understanding how multi-jurisdiction tax residency affects reporting obligations for a globally-distributed trading operation.
+- **[BUILT]** `1099-b-and-broker-tax-reporting-reconciliation` — Reconciling broker-issued tax forms (e.g. US 1099-B) against internal trade records to catch discrepancies before filing.
+- **[BUILT]** `vat-gst-treatment-of-trading-related-services` — Understanding VAT/GST treatment of trading-related service fees (data subscriptions, infrastructure) across jurisdictions.
+- **[BUILT]** `transfer-pricing-considerations-for-multi-entity-trading-operations` — Understanding transfer-pricing implications when a trading operation spans multiple related legal entities across jurisdictions.
+- **[BUILT]** `automated-tax-lot-reporting-pipeline` — Building an automated pipeline that produces tax-lot reports on a defined schedule rather than manual reconstruction at filing time.
+- **[BUILT]** `capital-gains-vs-business-income-classification` — Understanding the distinction (and jurisdiction-specific tests) between capital-gains and business-income classification for trading profits, which affects both rate and reporting requirements.
+- **[BUILT]** `estimated-tax-payment-scheduling-for-active-trading-income` — Scheduling estimated tax payments appropriately given the timing of active-trading income, to avoid underpayment penalties.
+- **[BUILT]** `record-keeping-requirements-for-tax-audit-defense` — Maintaining trade records at the level of detail required to defend a tax position under audit, distinct from the operational record-keeping in order-placement-idempotency.
+- **[BUILT]** `currency-gain-loss-tax-treatment-for-forex-trading` — Understanding the specific tax treatment (which can differ materially from capital gains treatment) applicable to forex trading gains/losses in relevant jurisdictions.
+- **[BUILT]** `section-1256-contract-tax-treatment-us-futures` — Understanding US Section 1256 contract tax treatment (60/40 blended rate) for eligible futures and options, and its accounting-system implications.
+- **[BUILT]** `double-taxation-treaty-considerations-cross-border-trading` — Understanding double-taxation treaty implications for a trader/entity operating across two treaty countries.
+- **[BUILT]** `constructive-sale-rule-considerations-us` — Understanding the US constructive-sale rule's implications for hedged appreciated positions before assuming a hedge alone avoids a taxable event.
 
 ---
 
-**Grand total: 504 skills tracked (293 built, 211 planned) across 16 categories.**
+**Grand total: 504 skills tracked (504 built, 0 planned) across 16 categories.**
