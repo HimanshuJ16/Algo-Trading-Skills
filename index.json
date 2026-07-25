@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:09.269269+00:00",
+  "generated_at": "2026-07-25T08:25:10.149145+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 423,
+  "total_skills": 424,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2039,6 +2039,26 @@
       "license": "MIT",
       "path": "skills/cross-strategy-correlation-monitoring",
       "skill_md": "skills/cross-strategy-correlation-monitoring/SKILL.md"
+    },
+    {
+      "name": "cross-strategy-shared-infrastructure-resource-contention",
+      "description": "Skill for cross-strategy-shared-infrastructure-resource-contention in portfolio multi strategy.",
+      "domain": "Portfolio Management",
+      "subdomain": "Multi Strategy",
+      "tags": [
+        "portfolio",
+        "strategy",
+        "cross"
+      ],
+      "brokers_frameworks": [
+        "Backtrader",
+        "QuantConnect"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-strategy-shared-infrastructure-resource-contention",
+      "skill_md": "skills/cross-strategy-shared-infrastructure-resource-contention/SKILL.md"
     },
     {
       "name": "cross-validation-of-commission-schedules-over-time",
