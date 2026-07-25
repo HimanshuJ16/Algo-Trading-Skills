@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:58:16.373641+00:00",
+  "generated_at": "2026-07-25T07:58:17.027079+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 162,
+  "total_skills": 163,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2675,6 +2675,25 @@
       "license": "Apache-2.0",
       "path": "skills/questrade-api-rate-limit-and-account-types",
       "skill_md": "skills/questrade-api-rate-limit-and-account-types/SKILL.md"
+    },
+    {
+      "name": "real-time-greeks-recalculation-on-market-moves",
+      "description": "Real-time Greeks recalculation on tick/price shifts.",
+      "domain": "risk-management",
+      "subdomain": "greeks",
+      "tags": [
+        "risk",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "ccxt",
+        "interactive-brokers"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/real-time-greeks-recalculation-on-market-moves",
+      "skill_md": "skills/real-time-greeks-recalculation-on-market-moves/SKILL.md"
     },
     {
       "name": "redis-streams-multi-consumer-tick-fanout",
