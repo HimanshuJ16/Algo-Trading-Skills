@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:19.017655+00:00",
+  "generated_at": "2026-07-25T13:19:19.861210+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 495,
+  "total_skills": 496,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -7902,6 +7902,22 @@
       "license": "Apache-2.0",
       "path": "skills/secrets-rotation-without-bot-downtime",
       "skill_md": "skills/secrets-rotation-without-bot-downtime/SKILL.md"
+    },
+    {
+      "name": "section-1256-contract-tax-treatment-us-futures",
+      "description": "Implementation for section-1256-contract-tax-treatment-us-futures",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/section-1256-contract-tax-treatment-us-futures",
+      "skill_md": "skills/section-1256-contract-tax-treatment-us-futures/SKILL.md"
     },
     {
       "name": "segregation-of-duties-for-custody-operations",
