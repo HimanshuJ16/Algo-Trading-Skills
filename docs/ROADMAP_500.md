@@ -100,12 +100,12 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `backtest-parameter-sensitivity-analysis` — Testing how sensitive a strategy's backtested performance is to small parameter changes, to detect an overfit 'sweet spot' versus a genuinely robust setting.
 - **[BUILT]** `multi-timeframe-backtest-consistency-checks` — Verifying a strategy's signals are consistent when computed from a higher-resolution timeframe versus resampled lower-resolution data.
 - **[BUILT]** `short-selling-borrow-cost-and-availability-modeling` — Modeling stock-borrow cost and availability constraints in a backtest for any strategy that shorts equities.
-- **[planned]** `backtest-infrastructure-cost-budgeting` — Budgeting compute/storage cost for large-scale backtesting (parameter sweeps, walk-forward across many instruments) before it becomes a surprise cloud bill.
-- **[planned]** `benchmark-selection-for-strategy-evaluation` — Choosing an appropriate benchmark (not just a broad index) against which to evaluate a strategy's risk-adjusted performance.
+- **[BUILT]** `backtest-infrastructure-cost-budgeting` — Budgeting compute/storage cost for large-scale backtesting (parameter sweeps, walk-forward across many instruments) before it becomes a surprise cloud bill.
+- **[BUILT]** `benchmark-selection-for-strategy-evaluation` — Choosing an appropriate benchmark (not just a broad index) against which to evaluate a strategy's risk-adjusted performance.
 - **[BUILT]** `backtest-look-ahead-in-universe-selection` — Auditing for lookahead bias specifically in universe-selection logic (e.g. 'top 50 by market cap today' applied retroactively), distinct from lookahead in signal computation.
 - **[BUILT]** `synthetic-data-generation-for-backtest-augmentation` — Generating synthetic price paths (e.g. via GANs or bootstrap resampling) to augment limited historical data for backtest robustness testing.
 - **[BUILT]** `backtest-reporting-standardized-tearsheet` — Producing a standardized performance tearsheet (drawdown, Sharpe, Sortino, hit rate, etc.) so strategies are compared on a consistent basis.
-- **[planned]** `intraday-vs-eod-backtest-granularity-tradeoffs` — Choosing appropriate data granularity (tick, minute, EOD) for a backtest based on the strategy's actual holding period and decision frequency.
+- **[BUILT]** `intraday-vs-eod-backtest-granularity-tradeoffs` — Choosing appropriate data granularity (tick, minute, EOD) for a backtest based on the strategy's actual holding period and decision frequency.
 - **[planned]** `backtest-database-schema-for-point-in-time-queries` — Designing a database schema that natively supports point-in-time queries to make lookahead-bias mistakes structurally harder to introduce.
 - **[planned]** `cross-validation-of-commission-schedules-over-time` — Modeling historical changes in a broker's commission schedule over the backtest period rather than applying today's rates retroactively.
 - **[planned]** `backtest-outlier-and-bad-tick-filtering` — Filtering historical data for clearly erroneous prints (bad ticks, stale quotes) before they distort backtested signal computation.
