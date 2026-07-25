@@ -82,6 +82,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `execution-realistic-simulation` — see `skills/execution-realistic-simulation/SKILL.md`
 - **[BUILT]** `lookahead-bias-elimination` — see `skills/lookahead-bias-elimination/SKILL.md`
 - **[BUILT]** `walk-forward-validation-setup` — see `skills/walk-forward-validation-setup/SKILL.md`
+- **[BUILT]** `walk-forward-optimization-window-management` — Generating rolling or anchored in-sample/out-of-sample time windows, enforcing zero lookahead leakage, and calculating Walk-Forward Efficiency (WFE).
 - **[BUILT]** `survivorship-bias-free-universe-construction` — Building historical instrument universes that include delisted/defunct symbols, not just current constituents.
 - **[BUILT]** `corporate-action-adjusted-backtesting` — Correctly applying splits, dividends, and mergers to historical price series without double-adjusting.
 - **[BUILT]** `monte-carlo-strategy-robustness-testing` — Randomizing trade sequence/entry timing to test whether a strategy's edge survives reasonable perturbation.
