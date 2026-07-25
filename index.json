@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:37.882472+00:00",
+  "generated_at": "2026-07-25T13:19:38.773208+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 499,
+  "total_skills": 500,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -271,6 +271,23 @@
       "license": "MIT",
       "path": "skills/alternative-data-feature-integration",
       "skill_md": "skills/alternative-data-feature-integration/SKILL.md"
+    },
+    {
+      "name": "alternative-data-vendor-due-diligence-checklist",
+      "description": "Skill for alternative data vendor due diligence checklist",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/alternative-data-vendor-due-diligence-checklist",
+      "skill_md": "skills/alternative-data-vendor-due-diligence-checklist/SKILL.md"
     },
     {
       "name": "american-vs-european-style-option-exercise-handling",
