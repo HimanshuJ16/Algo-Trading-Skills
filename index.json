@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:05:24.289994+00:00",
+  "generated_at": "2026-07-25T08:05:24.915923+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 190,
+  "total_skills": 191,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3169,6 +3169,24 @@
       "license": "MIT",
       "path": "skills/risk-control-configuration-change-approval-workflow",
       "skill_md": "skills/risk-control-configuration-change-approval-workflow/SKILL.md"
+    },
+    {
+      "name": "risk-control-dependency-mapping",
+      "description": "Blast radius mapping for risk control feed dependencies.",
+      "domain": "risk-management",
+      "subdomain": "risk-controls",
+      "tags": [
+        "risk",
+        "controls"
+      ],
+      "brokers_frameworks": [
+        "Any"
+      ],
+      "version": "1.0.0",
+      "author": "AI Builder",
+      "license": "MIT",
+      "path": "skills/risk-control-dependency-mapping",
+      "skill_md": "skills/risk-control-dependency-mapping/SKILL.md"
     },
     {
       "name": "risk-control-latency-budget",
