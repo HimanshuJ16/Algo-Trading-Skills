@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:30.611386+00:00",
+  "generated_at": "2026-07-25T08:18:31.513824+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 351,
+  "total_skills": 352,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4936,6 +4936,25 @@
       "license": "Apache-2.0",
       "path": "skills/pattern-day-trader-rule-compliance-us",
       "skill_md": "skills/pattern-day-trader-rule-compliance-us/SKILL.md"
+    },
+    {
+      "name": "peg-order-types-for-passive-execution",
+      "description": "Execution algorithm for peg order types for passive execution",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/peg-order-types-for-passive-execution",
+      "skill_md": "skills/peg-order-types-for-passive-execution/SKILL.md"
     },
     {
       "name": "perpetual-futures-funding-rate-handling",
