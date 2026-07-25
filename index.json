@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:35.111463+00:00",
+  "generated_at": "2026-07-25T08:23:35.801892+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 389,
+  "total_skills": 390,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5596,6 +5596,26 @@
       "license": "MIT",
       "path": "skills/post-breach-root-cause-analysis-template",
       "skill_md": "skills/post-breach-root-cause-analysis-template/SKILL.md"
+    },
+    {
+      "name": "post-incident-forensics-for-suspected-key-compromise",
+      "description": "Skill to handle post incident forensics for suspected key compromise.",
+      "domain": "Crypto Custody",
+      "subdomain": "Security",
+      "tags": [
+        "security",
+        "crypto",
+        "custody",
+        "post"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/post-incident-forensics-for-suspected-key-compromise",
+      "skill_md": "skills/post-incident-forensics-for-suspected-key-compromise/SKILL.md"
     },
     {
       "name": "post-mortem-culture-and-blameless-review-process",
