@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:50:15.566452+00:00",
+  "generated_at": "2026-07-25T07:50:39.076313+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 157,
+  "total_skills": 158,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2559,6 +2559,29 @@
       "license": "Apache-2.0",
       "path": "skills/producer-consumer-tick-pipeline",
       "skill_md": "skills/producer-consumer-tick-pipeline/SKILL.md"
+    },
+    {
+      "name": "quantile-regression-for-uncertainty-aware-signals",
+      "description": "Use when training ML signal generation models to predict conditional return quantiles (e.g. 10th, 50th, 90th percentiles) rather than single point forecasts, enabling uncertainty-aware confidence-scaled position sizing.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
+      "tags": [
+        "financial-ml",
+        "quantile-regression",
+        "uncertainty-estimation",
+        "pinball-loss",
+        "confidence-scaling",
+        "position-sizing"
+      ],
+      "brokers_frameworks": [
+        "Quantile Regression Signal Engine",
+        "Python NumPy"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/quantile-regression-for-uncertainty-aware-signals",
+      "skill_md": "skills/quantile-regression-for-uncertainty-aware-signals/SKILL.md"
     },
     {
       "name": "questrade-api-rate-limit-and-account-types",
