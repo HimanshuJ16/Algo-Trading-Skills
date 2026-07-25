@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:38.676072+00:00",
+  "generated_at": "2026-07-25T08:20:39.356282+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 362,
+  "total_skills": 363,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2017,6 +2017,24 @@
       "license": "MIT",
       "path": "skills/data-localization-requirements-for-trade-records",
       "skill_md": "skills/data-localization-requirements-for-trade-records/SKILL.md"
+    },
+    {
+      "name": "data-quality-monitoring-dashboard",
+      "description": "Implementation for data-quality-monitoring-dashboard",
+      "domain": "data-management-global",
+      "subdomain": "data",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/data-quality-monitoring-dashboard",
+      "skill_md": "skills/data-quality-monitoring-dashboard/SKILL.md"
     },
     {
       "name": "data-vendor-cross-validation-for-backtests",
