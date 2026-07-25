@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:41.636415+00:00",
+  "generated_at": "2026-07-25T13:19:42.558555+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 503,
+  "total_skills": 504,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -7531,6 +7531,23 @@
       "license": "MIT",
       "path": "skills/research-environment-vs-production-environment-parity",
       "skill_md": "skills/research-environment-vs-production-environment-parity/SKILL.md"
+    },
+    {
+      "name": "research-idea-pipeline-tracking-and-prioritization",
+      "description": "Skill for research idea pipeline tracking and prioritization",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/research-idea-pipeline-tracking-and-prioritization",
+      "skill_md": "skills/research-idea-pipeline-tracking-and-prioritization/SKILL.md"
     },
     {
       "name": "risk-adjusted-performance-attribution-per-strategy",
