@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:34.385106+00:00",
+  "generated_at": "2026-07-25T08:23:35.111463+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 388,
+  "total_skills": 389,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6043,6 +6043,26 @@
       "license": "MIT",
       "path": "skills/regulatory-change-monitoring-service-integration",
       "skill_md": "skills/regulatory-change-monitoring-service-integration/SKILL.md"
+    },
+    {
+      "name": "regulatory-custody-requirements-by-jurisdiction",
+      "description": "Skill to handle regulatory custody requirements by jurisdiction.",
+      "domain": "Crypto Custody",
+      "subdomain": "Security",
+      "tags": [
+        "security",
+        "crypto",
+        "custody",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/regulatory-custody-requirements-by-jurisdiction",
+      "skill_md": "skills/regulatory-custody-requirements-by-jurisdiction/SKILL.md"
     },
     {
       "name": "regulatory-sandbox-programs-for-fintech-testing",
