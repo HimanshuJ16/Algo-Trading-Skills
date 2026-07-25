@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:54.724096+00:00",
+  "generated_at": "2026-07-25T08:10:55.376596+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 251,
+  "total_skills": 252,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4460,6 +4460,23 @@
       "license": "Apache-2.0",
       "path": "skills/sequence-number-gap-detection-for-feeds",
       "skill_md": "skills/sequence-number-gap-detection-for-feeds/SKILL.md"
+    },
+    {
+      "name": "shanghai-shenzhen-connect-programs",
+      "description": "Integration or workflow skill for shanghai-shenzhen-connect-programs.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "shanghai-shenzhen-connect-programs"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/shanghai-shenzhen-connect-programs",
+      "skill_md": "skills/shanghai-shenzhen-connect-programs/SKILL.md"
     },
     {
       "name": "short-selling-borrow-cost-and-availability-modeling",
