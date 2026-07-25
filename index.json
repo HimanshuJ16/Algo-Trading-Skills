@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:03.385544+00:00",
+  "generated_at": "2026-07-25T08:25:04.218965+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 416,
+  "total_skills": 417,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7146,6 +7146,26 @@
       "license": "MIT",
       "path": "skills/smart-order-routing-across-venues",
       "skill_md": "skills/smart-order-routing-across-venues/SKILL.md"
+    },
+    {
+      "name": "strategy-lifecycle-retirement-criteria",
+      "description": "Skill for strategy-lifecycle-retirement-criteria in portfolio multi strategy.",
+      "domain": "Portfolio Management",
+      "subdomain": "Multi Strategy",
+      "tags": [
+        "portfolio",
+        "strategy",
+        "strategy"
+      ],
+      "brokers_frameworks": [
+        "Backtrader",
+        "QuantConnect"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-lifecycle-retirement-criteria",
+      "skill_md": "skills/strategy-lifecycle-retirement-criteria/SKILL.md"
     },
     {
       "name": "stress-testing-against-historical-crash-scenarios",
