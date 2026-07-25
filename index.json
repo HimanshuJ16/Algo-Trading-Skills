@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:04.218965+00:00",
+  "generated_at": "2026-07-25T08:25:05.047088+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 417,
+  "total_skills": 418,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7146,6 +7146,26 @@
       "license": "MIT",
       "path": "skills/smart-order-routing-across-venues",
       "skill_md": "skills/smart-order-routing-across-venues/SKILL.md"
+    },
+    {
+      "name": "strategy-correlation-matrix-live-recomputation",
+      "description": "Skill for strategy-correlation-matrix-live-recomputation in portfolio multi strategy.",
+      "domain": "Portfolio Management",
+      "subdomain": "Multi Strategy",
+      "tags": [
+        "portfolio",
+        "strategy",
+        "strategy"
+      ],
+      "brokers_frameworks": [
+        "Backtrader",
+        "QuantConnect"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-correlation-matrix-live-recomputation",
+      "skill_md": "skills/strategy-correlation-matrix-live-recomputation/SKILL.md"
     },
     {
       "name": "strategy-lifecycle-retirement-criteria",
