@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:51.697291+00:00",
+  "generated_at": "2026-07-25T08:23:52.126845+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 398,
+  "total_skills": 399,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6785,6 +6785,25 @@
       "license": "MIT",
       "path": "skills/single-stock-futures-where-available",
       "skill_md": "skills/single-stock-futures-where-available/SKILL.md"
+    },
+    {
+      "name": "smart-contract-approval-scope-minimization",
+      "description": "Implementation for smart-contract-approval-scope-minimization",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/smart-contract-approval-scope-minimization",
+      "skill_md": "skills/smart-contract-approval-scope-minimization/SKILL.md"
     },
     {
       "name": "smart-order-router-failover-on-venue-outage",
