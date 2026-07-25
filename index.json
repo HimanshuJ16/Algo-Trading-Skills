@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:56.411765+00:00",
+  "generated_at": "2026-07-25T08:20:57.343246+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 385,
+  "total_skills": 386,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1962,6 +1962,24 @@
       "license": "Apache-2.0",
       "path": "skills/cross-validation-of-commission-schedules-over-time",
       "skill_md": "skills/cross-validation-of-commission-schedules-over-time/SKILL.md"
+    },
+    {
+      "name": "cross-vendor-timestamp-precision-reconciliation",
+      "description": "Implementation of cross-vendor-timestamp-precision-reconciliation",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-vendor-timestamp-precision-reconciliation",
+      "skill_md": "skills/cross-vendor-timestamp-precision-reconciliation/SKILL.md"
     },
     {
       "name": "cross-venue-latency-arbitrage-defensive-design",
