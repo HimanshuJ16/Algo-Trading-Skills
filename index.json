@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:49.268655+00:00",
+  "generated_at": "2026-07-25T08:23:49.740171+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 395,
+  "total_skills": 396,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -110,6 +110,25 @@
       "license": "MIT",
       "path": "skills/adversarial-robustness-of-trading-signals",
       "skill_md": "skills/adversarial-robustness-of-trading-signals/SKILL.md"
+    },
+    {
+      "name": "air-gapped-signing-workflow-for-cold-storage",
+      "description": "Implementation for air-gapped-signing-workflow-for-cold-storage",
+      "domain": "Crypto",
+      "subdomain": "Custody Security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/air-gapped-signing-workflow-for-cold-storage",
+      "skill_md": "skills/air-gapped-signing-workflow-for-cold-storage/SKILL.md"
     },
     {
       "name": "algo-parameter-defaults-by-instrument-liquidity-tier",
