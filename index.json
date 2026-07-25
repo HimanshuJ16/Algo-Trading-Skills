@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:34.460441+00:00",
+  "generated_at": "2026-07-25T08:20:35.149100+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 356,
+  "total_skills": 357,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3523,6 +3523,24 @@
       "license": "Apache-2.0",
       "path": "skills/intraday-vs-eod-backtest-granularity-tradeoffs",
       "skill_md": "skills/intraday-vs-eod-backtest-granularity-tradeoffs/SKILL.md"
+    },
+    {
+      "name": "isin-cusip-sedol-cross-reference-service",
+      "description": "Implementation for isin-cusip-sedol-cross-reference-service",
+      "domain": "data-management-global",
+      "subdomain": "data",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/isin-cusip-sedol-cross-reference-service",
+      "skill_md": "skills/isin-cusip-sedol-cross-reference-service/SKILL.md"
     },
     {
       "name": "japan-exchange-group-jpx-api-integration",
