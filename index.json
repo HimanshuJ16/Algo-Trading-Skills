@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:57.233956+00:00",
+  "generated_at": "2026-07-25T08:13:57.912730+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 289,
+  "total_skills": 290,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -146,6 +146,23 @@
       "license": "MIT",
       "path": "skills/alternative-data-feature-integration",
       "skill_md": "skills/alternative-data-feature-integration/SKILL.md"
+    },
+    {
+      "name": "annual-compliance-attestation-workflow",
+      "description": "Compliance controls and workflows for annual compliance attestation workflow",
+      "domain": "regulatory-compliance",
+      "subdomain": "global",
+      "tags": [
+        "compliance",
+        "regulatory",
+        "trading"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/annual-compliance-attestation-workflow",
+      "skill_md": "skills/annual-compliance-attestation-workflow/SKILL.md"
     },
     {
       "name": "api-key-least-privilege-audit-tool",
