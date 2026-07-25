@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:37.948066+00:00",
+  "generated_at": "2026-07-25T08:20:38.676072+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 361,
+  "total_skills": 362,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5506,6 +5506,24 @@
       "license": "Apache-2.0",
       "path": "skills/redis-streams-multi-consumer-tick-fanout",
       "skill_md": "skills/redis-streams-multi-consumer-tick-fanout/SKILL.md"
+    },
+    {
+      "name": "reference-data-golden-source-designation",
+      "description": "Implementation for reference-data-golden-source-designation",
+      "domain": "data-management-global",
+      "subdomain": "data",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/reference-data-golden-source-designation",
+      "skill_md": "skills/reference-data-golden-source-designation/SKILL.md"
     },
     {
       "name": "reference-data-symbol-mapping-across-vendors",
