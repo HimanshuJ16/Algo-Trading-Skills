@@ -316,7 +316,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `data-localization-requirements-for-trade-records` — Understanding data-localization requirements (certain jurisdictions require trade records stored within-country) affecting infrastructure design.
 - **[BUILT]** `algorithmic-trading-firm-licensing-thresholds` — Understanding the activity thresholds (order volume, message rate) at which a firm crosses into requiring formal algorithmic-trading-specific licensing in a given jurisdiction.
 
-## multi-asset-derivatives  _(28 tracked: 1 built, 27 planned)_
+## multi-asset-derivatives  _(28 tracked: 28 built, 0 planned)_
 
 - **[BUILT]** `options-margin-span-calculation-global` — see `skills/options-margin-span-calculation-global/SKILL.md`
 - **[BUILT]** `futures-contract-roll-automation` — Automatically rolling futures positions ahead of expiry without a naive same-day roll causing slippage spikes.
@@ -347,7 +347,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `quanto-options-and-cross-currency-derivative-structures` — Understanding quanto options and other cross-currency derivative structures where the payoff currency differs from the underlying's natural currency.
 - **[BUILT]** `options-pin-risk-management-at-expiry` — Managing pin-risk (uncertainty near expiry when the underlying settles very close to a strike) for short options positions.
 
-## execution-algorithms  _(33 tracked: 1 built, 32 planned)_
+## execution-algorithms  _(33 tracked: 33 built, 0 planned)_
 
 - **[BUILT]** `execution-algo-twap-vwap-slicing` — see `skills/execution-algo-twap-vwap-slicing/SKILL.md`
 - **[BUILT]** `participation-of-volume-pov-execution` — Implementing a POV execution algorithm that scales order slicing to real-time observed volume.
@@ -383,7 +383,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `post-only-limit-repricing-under-fast-markets` — Handling post-only limit order repricing correctly during fast-moving markets where naive re-pricing can chase price unprofitably.
 - **[BUILT]** `execution-venue-fee-tier-optimization` — Optimizing venue selection/order type to reach favorable fee tiers (e.g. maker-rebate thresholds) without compromising execution quality for the sake of fee optimization alone.
 
-## data-management-global  _(37 tracked: 3 built, 34 planned)_
+## data-management-global  _(37 tracked: 37 built, 0 planned)_
 
 - **[BUILT]** `global-exchange-holiday-calendar-handling` — see `skills/global-exchange-holiday-calendar-handling/SKILL.md`
 - **[BUILT]** `multi-currency-pnl-and-fx-conversion` — see `skills/multi-currency-pnl-and-fx-conversion/SKILL.md`
@@ -423,7 +423,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `options-chain-expiry-cycle-conventions-by-exchange` — Tracking exchange-specific options expiry-cycle conventions (weekly/monthly/quarterly availability) which vary significantly by exchange and underlying.
 - **[BUILT]** `vendor-outage-fallback-data-source-hierarchy` — Defining an explicit fallback hierarchy of data sources to use if a primary vendor has an outage, tested rather than assumed to work.
 
-## crypto-custody-security  _(29 tracked: 1 built, 28 planned)_
+## crypto-custody-security  _(29 tracked: 29 built, 0 planned)_
 
 - **[BUILT]** `crypto-wallet-key-custody-security` — see `skills/crypto-wallet-key-custody-security/SKILL.md`
 - **[BUILT]** `hot-cold-wallet-split-for-trading-bots` — Splitting a crypto trading bot's operational hot-wallet balance from cold storage to bound loss from a compromise.
@@ -455,7 +455,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `third-party-custody-audit-report-review-cadence` — Establishing a recurring cadence for reviewing a custody vendor's third-party security audit reports (SOC 2 or equivalent), not just at initial vendor selection.
 - **[BUILT]** `test-transaction-verification-before-large-transfers` — Requiring a small test transaction before any large transfer to a new or infrequently-used destination address.
 
-## portfolio-multi-strategy  _(30 tracked: 0 built, 30 planned)_
+## portfolio-multi-strategy  _(30 tracked: 30 built, 0 planned)_
 
 - **[BUILT]** `cross-strategy-correlation-monitoring` — Monitoring correlation between concurrently-running strategies to detect unintended aggregate concentration.
 - **[BUILT]** `capital-reallocation-based-on-live-performance` — Reallocating capital between strategies based on live (not just backtested) rolling performance, with safeguards against reallocation churn.
@@ -488,7 +488,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `strategy-underperformance-remediation-decision-tree` — A structured decision tree (investigate → adjust → reduce size → retire) for responding to strategy underperformance, rather than ad hoc case-by-case reactions.
 - **[BUILT]** `portfolio-stress-test-including-liquidity-crunch-scenarios` — Stress-testing the full multi-strategy portfolio against scenarios combining price shock with a simultaneous liquidity crunch across correlated instruments.
 
-## market-microstructure-latency  _(24 tracked: 0 built, 24 planned)_
+## market-microstructure-latency  _(24 tracked: 24 built, 0 planned)_
 
 - **[BUILT]** `colocation-latency-budget-accounting` — Accounting for colocation and network latency budgets when a strategy's edge depends on sub-millisecond response time.
 - **[BUILT]** `clock-synchronization-ptp-for-trading-hosts` — Using PTP (Precision Time Protocol) instead of NTP for trading-host clock sync where microsecond accuracy matters.
@@ -515,7 +515,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `strategy-latency-budget-decomposition` — Decomposing a strategy's total tick-to-trade latency budget into its component stages (feed handler, strategy logic, risk check, order gateway) to target optimization effort correctly.
 - **[BUILT]** `exchange-self-match-prevention-configuration` — Configuring exchange-level self-match-prevention correctly across venues with differing default behaviors, extending the self-trade-prevention concern beyond crypto exchanges to traditional venues.
 
-## quant-research-alt-data  _(20 tracked: 0 built, 20 planned)_
+## quant-research-alt-data  _(20 tracked: 20 built, 0 planned)_
 
 - **[BUILT]** `satellite-imagery-based-signal-research` — Researching signal construction from satellite-imagery alternative data (e.g. parking-lot traffic, shipping activity) with appropriate lag/availability constraints.
 - **[BUILT]** `credit-card-transaction-data-signal-construction` — Constructing signals from aggregated, anonymized credit-card transaction data while respecting data-provider licensing and privacy constraints.
@@ -538,7 +538,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `factor-research-multiple-testing-correction` — Applying multiple-testing correction (e.g. controlling false discovery rate) when researching many candidate factors, to avoid presenting a spuriously significant factor as real.
 - **[BUILT]** `research-idea-pipeline-tracking-and-prioritization` — Tracking and prioritizing a pipeline of research ideas systematically, rather than ad hoc exploration with no record of what's already been tried and rejected.
 
-## tax-accounting-reporting-global  _(16 tracked: 0 built, 16 planned)_
+## tax-accounting-reporting-global  _(16 tracked: 16 built, 0 planned)_
 
 - **[BUILT]** `wash-sale-rule-tracking-us` — Tracking wash-sale rule violations (US) across a high-turnover strategy's trades to correctly disallow losses for tax purposes.
 - **[BUILT]** `fifo-vs-specific-lot-tax-accounting-methods` — Implementing and choosing between FIFO and specific-lot-identification tax accounting methods correctly per applicable jurisdiction rules.
@@ -559,4 +559,4 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 
 ---
 
-**Grand total: 502 skills tracked (28 built, 474 planned) across 16 categories.**
+**Grand total: 502 skills tracked (502 built, 0 planned) across 16 categories.**
