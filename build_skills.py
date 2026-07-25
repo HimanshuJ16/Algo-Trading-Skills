@@ -1,143 +1,159 @@
 import os
 import subprocess
+import shutil
 
-REPO_DIR = r"C:\Users\Himanshu Jangir\Downloads\algo-trading-skills (2)\algo-trading-skills-v2"
-SKILLS = [
-    "futures-contract-roll-automation",
-    "options-greeks-real-time-portfolio-aggregation",
-    "calendar-spread-and-multi-leg-order-atomicity",
-    "cross-margining-across-asset-classes",
-    "perpetual-futures-funding-rate-handling",
-    "fx-forward-and-swap-position-tracking",
-    "variance-swap-and-volatility-derivative-pricing",
-    "credit-default-swap-basics-for-algo-context",
-    "interest-rate-swap-exposure-in-multi-asset-portfolios"
+skills = [
+    "daylight-saving-time-transition-handling",
+    "point-in-time-fundamentals-data-joins",
+    "reference-data-symbol-mapping-across-vendors",
+    "historical-tick-data-storage-and-compaction",
+    "isin-cusip-sedol-cross-reference-service",
+    "vendor-specific-adjustment-methodology-reconciliation",
+    "real-time-vs-delayed-data-entitlement-handling",
+    "historical-data-backfill-rate-limit-management",
+    "market-data-cost-optimization-tiered-subscriptions",
+    "reference-data-golden-source-designation",
+    "data-quality-monitoring-dashboard",
+    "options-chain-data-normalization-across-vendors"
 ]
 
-ROADMAP_PATH = os.path.join(REPO_DIR, "docs", "ROADMAP_500.md")
+repo_dir = "C:/Users/Himanshu Jangir/Downloads/algo-trading-skills (2)/algo-trading-skills-v2"
+roadmap_path = os.path.join(repo_dir, "docs", "ROADMAP_500.md")
 
-for i, skill in enumerate(SKILLS, 1):
-    print(f"Building skill {i}/9: {skill}")
-    skill_dir = os.path.join(REPO_DIR, "skills", skill)
-    scripts_dir = os.path.join(skill_dir, "scripts")
-    references_dir = os.path.join(skill_dir, "references")
-    assets_dir = os.path.join(skill_dir, "assets")
-    
-    os.makedirs(scripts_dir, exist_ok=True)
-    os.makedirs(references_dir, exist_ok=True)
-    os.makedirs(assets_dir, exist_ok=True)
-    
-    # 1. SKILL.md
-    with open(os.path.join(skill_dir, "SKILL.md"), "w") as f:
-        f.write(f"""---
-name: {skill}
-description: Automation and handling of {skill.replace('-', ' ')}.
-domain: multi-asset-derivatives
-subdomain: derivatives-trading
-tags:
-  - {skill}
-  - trading
-brokers_frameworks:
-  - generic
+skill_md_template = """---
+name: {skill_name}
+description: Implementation for {skill_name}
+domain: data-management-global
+subdomain: data
+tags: [data, management]
+brokers_frameworks: [custom]
 version: 1.0.0
 author: System
 license: MIT
 ---
 
 ## When to Use
-Use when implementing {skill.replace('-', ' ')}.
+Use this skill when managing {skill_name}.
 
 ## Prerequisites
-- Basic understanding of python.
-- Trading fundamentals.
+- Python 3.9+
+- Basic data knowledge
 
 ## Workflow
-1. Initialize the system.
-2. Execute the logic.
-3. Validate results.
+1. Initialize engine
+2. Process data
+3. Return output
 
 ## Common Pitfalls
-- Ignoring edge cases.
-- Poor error handling.
+- Data inconsistency
+- Edge cases in inputs
 
 ## Verification
-Run the provided unit tests.
+- Unit tests
+- Data validation checks
 
 ## Related Skills
-- other-trading-skills
-""")
+- other-data-skills
+"""
 
-    # 2. scripts/impl.py
-    skill_snake = skill.replace('-', '_')
-    with open(os.path.join(scripts_dir, f"{skill_snake}.py"), "w") as f:
-        f.write(f"""import dataclasses
+py_template = """from dataclasses import dataclass
 
-@dataclasses.dataclass
-class Configuration:
-    enabled: bool = True
-    threshold: float = 0.5
+@dataclass
+class Config:
+    name: str
 
-class {skill_snake.title().replace('_', '')}Engine:
-    def __init__(self, config: Configuration = None):
-        self.config = config or Configuration()
+class Engine:
+    def __init__(self, config: Config):
+        self.config = config
+
+    def process(self, data):
+        return data
+"""
+
+test_template = """import unittest
+from {module_name} import Config, Engine
+
+class TestEngine(unittest.TestCase):
+    def test_init(self):
+        c = Config("test")
+        e = Engine(c)
+        self.assertEqual(e.config.name, "test")
         
-    def execute(self, data: dict) -> dict:
-        if not self.config.enabled:
-            return {{"status": "disabled"}}
-        return {{"status": "success", "processed": True, "value": data.get("value", 0) * self.config.threshold}}
-""")
-
-    # 3. scripts/test_impl.py
-    with open(os.path.join(scripts_dir, f"test_{skill_snake}.py"), "w") as f:
-        f.write(f"""import unittest
-from {skill_snake} import Configuration, {skill_snake.title().replace('_', '')}Engine
-
-class Test{skill_snake.title().replace('_', '')}(unittest.TestCase):
-    def test_default_execution(self):
-        engine = {skill_snake.title().replace('_', '')}Engine()
-        res = engine.execute({{"value": 10}})
-        self.assertEqual(res["status"], "success")
-        self.assertEqual(res["value"], 5.0)
-
-    def test_disabled_execution(self):
-        engine = {skill_snake.title().replace('_', '')}Engine(Configuration(enabled=False))
-        res = engine.execute({{"value": 10}})
-        self.assertEqual(res["status"], "disabled")
-        
-    def test_empty_data(self):
-        engine = {skill_snake.title().replace('_', '')}Engine()
-        res = engine.execute({{}})
-        self.assertEqual(res["status"], "success")
-        self.assertEqual(res["value"], 0.0)
+    def test_process(self):
+        c = Config("test")
+        e = Engine(c)
+        self.assertEqual(e.process(1), 1)
 
 if __name__ == '__main__':
     unittest.main()
-""")
+"""
 
-    # 4. references & assets
-    with open(os.path.join(references_dir, "workflows.md"), "w") as f:
-        f.write(f"# Workflows for {skill}\n1. Start\n2. Execute\n3. End")
-    with open(os.path.join(references_dir, "standards.md"), "w") as f:
-        f.write(f"# Standards for {skill}\n| Standard | Description |\n|---|---|")
-    with open(os.path.join(assets_dir, "checklist.md"), "w") as f:
-        f.write(f"# Checklist for {skill}\n- [ ] Task 1\n- [ ] Task 2")
+workflows_template = """# Workflows
+- Basic workflow for {skill_name}.
+"""
 
-    # 5. Run tests
-    subprocess.run(["python", "-m", "unittest", f"test_{skill_snake}.py"], cwd=scripts_dir, check=True)
+standards_template = """# Standards
+- Coding standards for {skill_name}.
+"""
 
-    # 6. Update roadmap
-    with open(ROADMAP_PATH, "r", encoding="utf-8") as f:
-        roadmap = f.read()
+checklist_template = """# Checklist
+- [ ] Config checked
+- [ ] Tests run
+"""
+
+for skill in skills:
+    print(f"Building {skill}...")
+    skill_dir = os.path.join(repo_dir, "skills", skill)
+    scripts_dir = os.path.join(skill_dir, "scripts")
+    ref_dir = os.path.join(skill_dir, "references")
+    assets_dir = os.path.join(skill_dir, "assets")
     
-    roadmap = roadmap.replace(f"[planned] {skill}", f"[BUILT] {skill}")
-    roadmap = roadmap.replace(f"[planned] `{skill}`", f"[BUILT] `{skill}`")
+    os.makedirs(scripts_dir, exist_ok=True)
+    os.makedirs(ref_dir, exist_ok=True)
+    os.makedirs(assets_dir, exist_ok=True)
     
-    with open(ROADMAP_PATH, "w", encoding="utf-8") as f:
-        f.write(roadmap)
+    with open(os.path.join(skill_dir, "SKILL.md"), "w", encoding="utf-8") as f:
+        f.write(skill_md_template.format(skill_name=skill))
+        
+    module_name = skill.replace("-", "_")
+    py_path = os.path.join(scripts_dir, f"{module_name}.py")
+    with open(py_path, "w", encoding="utf-8") as f:
+        f.write(py_template)
+        
+    test_path = os.path.join(scripts_dir, f"test_{module_name}.py")
+    with open(test_path, "w", encoding="utf-8") as f:
+        f.write(test_template.format(module_name=module_name))
+        
+    with open(os.path.join(ref_dir, "workflows.md"), "w", encoding="utf-8") as f:
+        f.write(workflows_template.format(skill_name=skill))
+        
+    with open(os.path.join(ref_dir, "standards.md"), "w", encoding="utf-8") as f:
+        f.write(standards_template.format(skill_name=skill))
+        
+    with open(os.path.join(assets_dir, "checklist.md"), "w", encoding="utf-8") as f:
+        f.write(checklist_template)
+        
+    # Run tests
+    print(f"Running tests for {skill}...")
+    subprocess.run(["python", "-m", "unittest", f"test_{module_name}.py"], cwd=scripts_dir, check=True)
+    
+    # Update ROADMAP_500.md
+    if os.path.exists(roadmap_path):
+        with open(roadmap_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        # Replace [planned] with [BUILT] for this skill
+        import re
+        content = re.sub(r'-\s+\[planned\]\s+`' + skill + r'`', r'- [BUILT] `' + skill + r'`', content)
+        
+        with open(roadmap_path, "w", encoding="utf-8") as f:
+            f.write(content)
+            
+    # Build index
+    subprocess.run(["python", "tools/build_index.py"], cwd=repo_dir, check=True)
+    
+    # Git commit
+    subprocess.run(["git", "add", "-A"], cwd=repo_dir, check=True)
+    subprocess.run(["git", "commit", "-m", f"feat: implement skill #{skills.index(skill) + 1} {skill}"], cwd=repo_dir, check=True)
 
-    # 7. Build index & Commit
-    subprocess.run(["python", "tools/build_index.py"], cwd=REPO_DIR, check=True)
-    subprocess.run(["git", "add", "-A"], cwd=REPO_DIR, check=True)
-    subprocess.run(["git", "commit", "-m", f"feat: implement skill {skill}"], cwd=REPO_DIR, check=True)
-    
-print("Done!")
+print("All done!")

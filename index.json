@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:07.926048+00:00",
+  "generated_at": "2026-07-25T08:20:32.208455+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 352,
+  "total_skills": 353,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2058,6 +2058,24 @@
       "license": "MIT",
       "path": "skills/database-backup-and-point-in-time-restore-testing",
       "skill_md": "skills/database-backup-and-point-in-time-restore-testing/SKILL.md"
+    },
+    {
+      "name": "daylight-saving-time-transition-handling",
+      "description": "Implementation for daylight-saving-time-transition-handling",
+      "domain": "data-management-global",
+      "subdomain": "data",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/daylight-saving-time-transition-handling",
+      "skill_md": "skills/daylight-saving-time-transition-handling/SKILL.md"
     },
     {
       "name": "decentralized-exchange-dex-integration-uniswap-style",
