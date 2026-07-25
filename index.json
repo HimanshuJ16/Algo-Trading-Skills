@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:33.751218+00:00",
+  "generated_at": "2026-07-25T08:20:34.460441+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 355,
+  "total_skills": 356,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3211,6 +3211,24 @@
       "license": "Apache-2.0",
       "path": "skills/headless-broker-auth-patterns",
       "skill_md": "skills/headless-broker-auth-patterns/SKILL.md"
+    },
+    {
+      "name": "historical-tick-data-storage-and-compaction",
+      "description": "Implementation for historical-tick-data-storage-and-compaction",
+      "domain": "data-management-global",
+      "subdomain": "data",
+      "tags": [
+        "data",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/historical-tick-data-storage-and-compaction",
+      "skill_md": "skills/historical-tick-data-storage-and-compaction/SKILL.md"
     },
     {
       "name": "hong-kong-exchange-hkex-orion-api",
