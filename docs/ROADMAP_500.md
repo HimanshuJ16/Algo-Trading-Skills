@@ -203,14 +203,14 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `secrets-rotation-without-bot-downtime` — Rotating broker API keys/secrets on a schedule without requiring a full bot restart.
 - **[BUILT]** `multi-region-failover-for-broker-connectivity` — Failing over to a backup network path/region if the primary connection to a broker degrades.
 - **[BUILT]** `structured-logging-for-post-incident-forensics` — Designing log schemas that make a post-incident timeline reconstruction possible without guesswork.
-- **[planned]** `infrastructure-as-code-for-trading-hosts` — Managing trading-host infrastructure via IaC (Terraform/Ansible) rather than manually-configured servers, for reproducible disaster recovery.
-- **[planned]** `canary-releases-for-strategy-code-changes` — Deploying a strategy code change to a canary instance trading minimal size before full rollout.
-- **[planned]** `chaos-engineering-for-trading-infrastructure` — Deliberately injecting failures (killed processes, network partitions) in a controlled environment to validate resilience assumptions.
-- **[planned]** `centralized-secrets-management-vault-integration` — Integrating a dedicated secrets-management system (HashiCorp Vault or cloud KMS equivalent) rather than environment-variable-based secrets.
-- **[planned]** `deployment-freeze-windows-around-market-events` — Defining deployment freeze windows around high-risk market events (major economic releases, expiry days) to avoid deploying changes during peak-risk periods.
-- **[planned]** `immutable-infrastructure-for-trading-bots` — Using immutable server images (rebuild-and-replace rather than patch-in-place) to eliminate configuration drift across bot instances.
-- **[planned]** `disaster-recovery-runbook-for-full-region-outage` — A tested runbook for recovering trading operations after a full cloud-region outage, distinct from single-process crash recovery.
-- **[planned]** `log-aggregation-and-centralized-observability` — Centralizing logs from all bot components (relay, strategy engine, risk module) into one searchable system rather than per-host log files.
+- **[BUILT]** `infrastructure-as-code-for-trading-hosts` — Managing trading-host infrastructure via IaC (Terraform/Ansible) rather than manually-configured servers, for reproducible disaster recovery.
+- **[BUILT]** `canary-releases-for-strategy-code-changes` — Deploying a strategy code change to a canary instance trading minimal size before full rollout.
+- **[BUILT]** `chaos-engineering-for-trading-infrastructure` — Deliberately injecting failures (killed processes, network partitions) in a controlled environment to validate resilience assumptions.
+- **[BUILT]** `centralized-secrets-management-vault-integration` — Integrating a dedicated secrets-management system (HashiCorp Vault or cloud KMS equivalent) rather than environment-variable-based secrets.
+- **[BUILT]** `deployment-freeze-windows-around-market-events` — Defining deployment freeze windows around high-risk market events (major economic releases, expiry days) to avoid deploying changes during peak-risk periods.
+- **[BUILT]** `immutable-infrastructure-for-trading-bots` — Using immutable server images (rebuild-and-replace rather than patch-in-place) to eliminate configuration drift across bot instances.
+- **[BUILT]** `disaster-recovery-runbook-for-full-region-outage` — A tested runbook for recovering trading operations after a full cloud-region outage, distinct from single-process crash recovery.
+- **[BUILT]** `log-aggregation-and-centralized-observability` — Centralizing logs from all bot components (relay, strategy engine, risk module) into one searchable system rather than per-host log files.
 - **[planned]** `cost-monitoring-for-cloud-trading-infrastructure` — Monitoring and alerting on cloud infrastructure cost anomalies, since a bug (e.g. a retry storm) can spike costs before it's caught any other way.
 - **[planned]** `database-backup-and-point-in-time-restore-testing` — Regularly testing that database backups can actually be restored to a specific point in time, not just that backups are being taken.
 - **[planned]** `dependency-vulnerability-scanning-in-ci` — Scanning third-party dependencies for known vulnerabilities as part of CI, given a trading bot's dependency tree is a real attack surface.
