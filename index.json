@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:13:09.480400+00:00",
+  "generated_at": "2026-07-25T03:13:46.192845+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 103,
+  "total_skills": 104,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1463,6 +1463,30 @@
       "license": "Apache-2.0",
       "path": "skills/multi-timezone-session-scheduling",
       "skill_md": "skills/multi-timezone-session-scheduling/SKILL.md"
+    },
+    {
+      "name": "network-interface-level-tick-timestamping",
+      "description": "Use when operating low-latency feed handlers (Solarflare Onload, PTP hardware NICs, kernel-bypass) to extract hardware network interface packet timestamps (SO_TIMESTAMPING), bypassing OS kernel queueing jitter.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "nic-timestamping",
+        "kernel-bypass",
+        "solarflare",
+        "hardware-clock",
+        "so-timestamping",
+        "low-latency"
+      ],
+      "brokers_frameworks": [
+        "NIC Hardware Timestamper",
+        "Python Socket Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/network-interface-level-tick-timestamping",
+      "skill_md": "skills/network-interface-level-tick-timestamping/SKILL.md"
     },
     {
       "name": "offline-train-online-infer-deployment",
