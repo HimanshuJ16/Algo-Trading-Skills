@@ -56,6 +56,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `multi-exchange-feed-normalization` — Normalizing tick schemas across multiple exchanges/brokers into one internal representation.
 - **[BUILT]** `graceful-degradation-to-polling-fallback` — Falling back to REST polling when a WebSocket feed is degraded, without duplicating or missing data at the handover.
 - **[BUILT]** `order-book-depth-processing-l2-l3` — Processing L2/L3 order book updates without introducing race conditions between bid/ask update messages.
+- **[BUILT]** `websocket-reconnection-with-state-recovery` — Automatic WS reconnect with exponential backoff + jitter, re-subscribing channels and fetching missing sequence IDs via REST.
 - **[planned]** `kafka-based-tick-distribution-at-scale` — Using Kafka instead of Redis pub-sub for tick distribution when consumer count or retention requirements grow beyond Redis's sweet spot.
 - **[planned]** `grpc-streaming-for-internal-service-communication` — Using gRPC streaming between internal trading services instead of REST polling for lower-latency internal data flow.
 - **[planned]** `market-data-feed-arbitration-across-vendors` — Arbitrating between two redundant market-data feed vendors when they disagree, to avoid acting on a bad tick from either.

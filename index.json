@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:54:04.708984+00:00",
+  "generated_at": "2026-07-25T02:56:03.187677+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 86,
+  "total_skills": 87,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1856,6 +1856,29 @@
       "license": "Apache-2.0",
       "path": "skills/websocket-reconnect-without-duplicate-subscriptions",
       "skill_md": "skills/websocket-reconnect-without-duplicate-subscriptions/SKILL.md"
+    },
+    {
+      "name": "websocket-reconnection-with-state-recovery",
+      "description": "Use when managing real-time market data or order update WebSocket streams to execute automatic reconnection with exponential backoff and randomized jitter, re-subscribe active symbol channels, and perform REST sequence gap-filling to prevent missed tick data.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "websocket",
+        "reconnection",
+        "exponential-backoff",
+        "state-recovery",
+        "gap-fill"
+      ],
+      "brokers_frameworks": [
+        "WebSocket Manager",
+        "Python Async Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/websocket-reconnection-with-state-recovery",
+      "skill_md": "skills/websocket-reconnection-with-state-recovery/SKILL.md"
     },
     {
       "name": "zerodha-kite-postback-webhook-verification",
