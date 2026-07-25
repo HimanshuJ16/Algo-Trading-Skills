@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:56.903937+00:00",
+  "generated_at": "2026-07-25T08:17:57.577444+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 336,
+  "total_skills": 337,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -276,6 +276,24 @@
       "license": "MIT",
       "path": "skills/asic-market-integrity-rules-automated-trading",
       "skill_md": "skills/asic-market-integrity-rules-automated-trading/SKILL.md"
+    },
+    {
+      "name": "auction-only-order-types-for-illiquid-names",
+      "description": "Implementation of auction only order types for illiquid names.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/auction-only-order-types-for-illiquid-names",
+      "skill_md": "skills/auction-only-order-types-for-illiquid-names/SKILL.md"
     },
     {
       "name": "audit-logging-for-configuration-changes",
