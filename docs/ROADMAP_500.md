@@ -511,7 +511,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `exchange-gateway-redundancy-and-failover-testing` — Testing failover between redundant exchange gateway connections under simulated primary-gateway failure conditions.
 - **[BUILT]** `network-jitter-impact-on-strategy-performance` — Quantifying network jitter's (not just average latency's) impact on strategy performance for latency-sensitive strategies.
 - **[BUILT]** `hardware-timestamping-vs-software-timestamping-accuracy` — Comparing hardware-level versus software-level timestamping accuracy for strategies where the difference materially affects signal timing.
-- **[planned]** `matching-engine-throttle-and-message-gapping-detection` — Detecting exchange-side message throttling or gapping under high load, distinct from the bot's own client-side rate limiting.
+- **[BUILT]** `matching-engine-throttle-and-message-gapping-detection` — Detecting exchange-side message throttling or gapping under high load, distinct from the bot's own client-side rate limiting.
 - **[planned]** `strategy-latency-budget-decomposition` — Decomposing a strategy's total tick-to-trade latency budget into its component stages (feed handler, strategy logic, risk check, order gateway) to target optimization effort correctly.
 - **[planned]** `exchange-self-match-prevention-configuration` — Configuring exchange-level self-match-prevention correctly across venues with differing default behaviors, extending the self-trade-prevention concern beyond crypto exchanges to traditional venues.
 

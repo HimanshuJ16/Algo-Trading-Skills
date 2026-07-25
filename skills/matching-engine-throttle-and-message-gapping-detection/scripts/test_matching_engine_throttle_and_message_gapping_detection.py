@@ -1,0 +1,14 @@
+import unittest
+from matching_engine_throttle_and_message_gapping_detection import Config, Engine
+
+class TestEngine(unittest.TestCase):
+    def test_process_true(self):
+        engine = Engine(Config(threshold=1.0))
+        self.assertTrue(engine.process(2.0))
+        
+    def test_process_false(self):
+        engine = Engine(Config(threshold=1.0))
+        self.assertFalse(engine.process(0.5))
+
+if __name__ == '__main__':
+    unittest.main()
