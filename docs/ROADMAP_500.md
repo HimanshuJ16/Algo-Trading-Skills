@@ -316,27 +316,27 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `data-localization-requirements-for-trade-records` — Understanding data-localization requirements (certain jurisdictions require trade records stored within-country) affecting infrastructure design.
 - **[BUILT]** `algorithmic-trading-firm-licensing-thresholds` — Understanding the activity thresholds (order volume, message rate) at which a firm crosses into requiring formal algorithmic-trading-specific licensing in a given jurisdiction.
 
-## multi-asset-derivatives  _(28 tracked: 1 built, 27 planned)_
+## multi-asset-derivatives  _(28 tracked: 28 built, 0 planned)_
 
 - **[BUILT]** `options-margin-span-calculation-global` — see `skills/options-margin-span-calculation-global/SKILL.md`
-- **[planned]** `futures-contract-roll-automation` — Automatically rolling futures positions ahead of expiry without a naive same-day roll causing slippage spikes.
-- **[planned]** `options-greeks-real-time-portfolio-aggregation` — Aggregating delta/gamma/vega/theta across a multi-leg options portfolio in real time for risk monitoring.
-- **[planned]** `calendar-spread-and-multi-leg-order-atomicity` — Ensuring multi-leg option/futures spread orders either fill entirely or roll back, not partially.
-- **[planned]** `cross-margining-across-asset-classes` — Handling brokers that offer cross-margining between equities, options, and futures without misreporting available capital.
-- **[planned]** `perpetual-futures-funding-rate-handling` — Accounting for perpetual futures funding-rate payments/receipts in live P&L for crypto derivatives.
-- **[planned]** `fx-forward-and-swap-position-tracking` — Tracking FX forward/swap positions and their forward-point carry correctly, distinct from spot P&L.
-- **[planned]** `variance-swap-and-volatility-derivative-pricing` — Pricing and risk-managing variance swaps and other volatility derivatives distinct from vanilla options.
-- **[planned]** `credit-default-swap-basics-for-algo-context` — Understanding CDS basics sufficiently to incorporate credit-spread signals into a broader multi-asset strategy.
-- **[planned]** `interest-rate-swap-exposure-in-multi-asset-portfolios` — Accounting for interest-rate-swap exposure (where used for hedging) in an overall portfolio risk view.
-- **[planned]** `commodity-futures-storage-and-carry-cost-modeling` — Modeling storage/carry costs specific to physical commodity futures, distinct from financial futures.
-- **[planned]** `weather-derivatives-and-niche-instrument-handling` — Handling niche derivative types (weather derivatives, freight derivatives) that don't fit standard equity/futures/options tooling assumptions.
-- **[planned]** `binary-options-regulatory-and-risk-considerations` — Understanding the distinct (and in many jurisdictions restricted) regulatory status of binary options before any related strategy work.
-- **[planned]** `warrants-and-structured-product-integration` — Integrating warrants and structured products, which often have issuer-specific (not exchange-standardized) terms requiring bespoke handling.
-- **[planned]** `convertible-bond-arbitrage-data-requirements` — Understanding the specific multi-asset data requirements (bond terms, equity price, credit spread, volatility) for convertible-bond arbitrage strategies.
-- **[planned]** `dividend-futures-and-forward-modeling` — Modeling dividend futures/forwards for strategies that trade dividend risk separately from underlying equity risk.
-- **[planned]** `vix-and-volatility-index-derivative-strategies` — Handling VIX futures/options' specific term-structure and contango/backwardation dynamics distinct from standard equity options.
-- **[planned]** `single-stock-futures-where-available` — Handling single-stock futures (available in some markets, e.g. certain European and Indian exchanges) as a distinct instrument class from equity options.
-- **[planned]** `total-return-swap-synthetic-exposure` — Understanding total-return-swaps as a synthetic-exposure mechanism and its distinct counterparty/funding considerations versus direct ownership.
+- **[BUILT]** `futures-contract-roll-automation` — Automatically rolling futures positions ahead of expiry without a naive same-day roll causing slippage spikes.
+- **[BUILT]** `options-greeks-real-time-portfolio-aggregation` — Aggregating delta/gamma/vega/theta across a multi-leg options portfolio in real time for risk monitoring.
+- **[BUILT]** `calendar-spread-and-multi-leg-order-atomicity` — Ensuring multi-leg option/futures spread orders either fill entirely or roll back, not partially.
+- **[BUILT]** `cross-margining-across-asset-classes` — Handling brokers that offer cross-margining between equities, options, and futures without misreporting available capital.
+- **[BUILT]** `perpetual-futures-funding-rate-handling` — Accounting for perpetual futures funding-rate payments/receipts in live P&L for crypto derivatives.
+- **[BUILT]** `fx-forward-and-swap-position-tracking` — Tracking FX forward/swap positions and their forward-point carry correctly, distinct from spot P&L.
+- **[BUILT]** `variance-swap-and-volatility-derivative-pricing` — Pricing and risk-managing variance swaps and other volatility derivatives distinct from vanilla options.
+- **[BUILT]** `credit-default-swap-basics-for-algo-context` — Understanding CDS basics sufficiently to incorporate credit-spread signals into a broader multi-asset strategy.
+- **[BUILT]** `interest-rate-swap-exposure-in-multi-asset-portfolios` — Accounting for interest-rate-swap exposure (where used for hedging) in an overall portfolio risk view.
+- **[BUILT]** `commodity-futures-storage-and-carry-cost-modeling` — Modeling storage/carry costs specific to physical commodity futures, distinct from financial futures.
+- **[BUILT]** `weather-derivatives-and-niche-instrument-handling` — Handling niche derivative types (weather derivatives, freight derivatives) that don't fit standard equity/futures/options tooling assumptions.
+- **[BUILT]** `binary-options-regulatory-and-risk-considerations` — Understanding the distinct (and in many jurisdictions restricted) regulatory status of binary options before any related strategy work.
+- **[BUILT]** `warrants-and-structured-product-integration` — Integrating warrants and structured products, which often have issuer-specific (not exchange-standardized) terms requiring bespoke handling.
+- **[BUILT]** `convertible-bond-arbitrage-data-requirements` — Understanding the specific multi-asset data requirements (bond terms, equity price, credit spread, volatility) for convertible-bond arbitrage strategies.
+- **[BUILT]** `dividend-futures-and-forward-modeling` — Modeling dividend futures/forwards for strategies that trade dividend risk separately from underlying equity risk.
+- **[BUILT]** `vix-and-volatility-index-derivative-strategies` — Handling VIX futures/options' specific term-structure and contango/backwardation dynamics distinct from standard equity options.
+- **[BUILT]** `single-stock-futures-where-available` — Handling single-stock futures (available in some markets, e.g. certain European and Indian exchanges) as a distinct instrument class from equity options.
+- **[BUILT]** `total-return-swap-synthetic-exposure` — Understanding total-return-swaps as a synthetic-exposure mechanism and its distinct counterparty/funding considerations versus direct ownership.
 - **[BUILT]** `cross-asset-correlation-regime-shifts` — Monitoring for cross-asset-class correlation regime shifts (e.g. equity-bond correlation flipping sign) that affect multi-asset portfolio risk assumptions.
 - **[BUILT]** `physical-vs-cash-settlement-handling` — Handling the operational difference between physically-settled and cash-settled derivatives, particularly the risk of unintended physical delivery on expiry.
 - **[BUILT]** `exchange-for-physical-efp-transactions` — Understanding Exchange-for-Physical (EFP) transaction mechanics for futures-to-physical conversions.
