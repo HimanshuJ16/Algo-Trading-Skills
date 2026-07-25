@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:28:33.169086+00:00",
+  "generated_at": "2026-07-25T07:30:55.862966+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 112,
+  "total_skills": 113,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -134,6 +134,29 @@
       "license": "Apache-2.0",
       "path": "skills/backtest-determinism-and-reproducibility",
       "skill_md": "skills/backtest-determinism-and-reproducibility/SKILL.md"
+    },
+    {
+      "name": "backtest-vs-live-performance-divergence-tracking",
+      "description": "Use when monitoring promoted strategies to systematically measure, decompose, and alert on divergence between backtested (hypothetical) performance and realized live trading performance across Sharpe ratio, drawdown, fill rate, and slippage dimensions.",
+      "domain": "algorithmic-trading",
+      "subdomain": "backtesting-methodology",
+      "tags": [
+        "backtesting-methodology",
+        "backtest-live-divergence",
+        "performance-tracking",
+        "strategy-monitoring",
+        "slippage-drift",
+        "sharpe-decay"
+      ],
+      "brokers_frameworks": [
+        "Divergence Tracking Engine",
+        "Python Statistics"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/backtest-vs-live-performance-divergence-tracking",
+      "skill_md": "skills/backtest-vs-live-performance-divergence-tracking/SKILL.md"
     },
     {
       "name": "benchmark-relative-performance-attribution",
