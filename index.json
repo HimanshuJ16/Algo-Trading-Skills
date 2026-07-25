@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:10.413848+00:00",
+  "generated_at": "2026-07-25T08:13:11.038774+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 259,
+  "total_skills": 260,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1779,6 +1779,25 @@
       "license": "MIT",
       "path": "skills/environment-parity-dev-staging-production",
       "skill_md": "skills/environment-parity-dev-staging-production/SKILL.md"
+    },
+    {
+      "name": "esma-double-volume-cap-mechanism",
+      "description": "Compliance controls for esma double volume cap mechanism",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/esma-double-volume-cap-mechanism",
+      "skill_md": "skills/esma-double-volume-cap-mechanism/SKILL.md"
     },
     {
       "name": "etrade-oauth1-signature-flow",
