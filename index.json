@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:27.864302+00:00",
+  "generated_at": "2026-07-25T07:49:29.111306+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 137,
+  "total_skills": 146,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -94,6 +94,23 @@
       "license": "Apache-2.0",
       "path": "skills/alpaca-paper-live-key-separation",
       "skill_md": "skills/alpaca-paper-live-key-separation/SKILL.md"
+    },
+    {
+      "name": "alternative-data-feature-integration",
+      "description": "Implementation for alternative-data-feature-integration",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/alternative-data-feature-integration",
+      "skill_md": "skills/alternative-data-feature-integration/SKILL.md"
     },
     {
       "name": "api-key-least-privilege-audit-tool",
@@ -709,6 +726,23 @@
       "skill_md": "skills/circuit-breaker-for-downstream-service-calls/SKILL.md"
     },
     {
+      "name": "class-imbalance-handling-for-rare-signal-events",
+      "description": "Implementation for class-imbalance-handling-for-rare-signal-events",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/class-imbalance-handling-for-rare-signal-events",
+      "skill_md": "skills/class-imbalance-handling-for-rare-signal-events/SKILL.md"
+    },
+    {
       "name": "clock-skew-correction-for-tick-timestamps",
       "description": "Use when processing market data feeds to dynamically estimate and correct local clock drift against exchange matching engine timestamps using EWMA filtering and network jitter rejection",
       "domain": "algorithmic-trading",
@@ -868,6 +902,23 @@
       "license": "Apache-2.0",
       "path": "skills/cross-datacenter-clock-sync-validation",
       "skill_md": "skills/cross-datacenter-clock-sync-validation/SKILL.md"
+    },
+    {
+      "name": "cross-sectional-vs-time-series-model-design",
+      "description": "Implementation for cross-sectional-vs-time-series-model-design",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-sectional-vs-time-series-model-design",
+      "skill_md": "skills/cross-sectional-vs-time-series-model-design/SKILL.md"
     },
     {
       "name": "cross-validation-of-commission-schedules-over-time",
@@ -1159,6 +1210,23 @@
       "skill_md": "skills/feature-engineering-without-leakage/SKILL.md"
     },
     {
+      "name": "feature-importance-drift-monitoring",
+      "description": "Implementation for feature-importance-drift-monitoring",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/feature-importance-drift-monitoring",
+      "skill_md": "skills/feature-importance-drift-monitoring/SKILL.md"
+    },
+    {
       "name": "feature-store-for-live-and-backtest-parity",
       "description": "Use when building ML feature pipelines to implement a single shared feature computation engine guaranteeing bit-for-bit parity between offline batch backtesting and online live streaming inference",
       "domain": "algorithmic-trading",
@@ -1365,6 +1433,23 @@
       "license": "Apache-2.0",
       "path": "skills/headless-broker-auth-patterns",
       "skill_md": "skills/headless-broker-auth-patterns/SKILL.md"
+    },
+    {
+      "name": "hyperparameter-tuning-without-target-leakage",
+      "description": "Implementation for hyperparameter-tuning-without-target-leakage",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/hyperparameter-tuning-without-target-leakage",
+      "skill_md": "skills/hyperparameter-tuning-without-target-leakage/SKILL.md"
     },
     {
       "name": "ibkr-tws-gateway-headless-launch",
@@ -1624,6 +1709,23 @@
       "skill_md": "skills/mifid-ii-algo-trading-compliance-eu/SKILL.md"
     },
     {
+      "name": "model-inference-latency-budget-for-live-trading",
+      "description": "Implementation for model-inference-latency-budget-for-live-trading",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/model-inference-latency-budget-for-live-trading",
+      "skill_md": "skills/model-inference-latency-budget-for-live-trading/SKILL.md"
+    },
+    {
       "name": "model-serving-infrastructure-ab-testing",
       "description": "Skill for model-serving-infrastructure-ab-testing",
       "domain": "financial-ml",
@@ -1656,6 +1758,23 @@
       "license": "Apache-2.0",
       "path": "skills/model-staleness-detection",
       "skill_md": "skills/model-staleness-detection/SKILL.md"
+    },
+    {
+      "name": "model-versioning-and-rollback",
+      "description": "Implementation for model-versioning-and-rollback",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/model-versioning-and-rollback",
+      "skill_md": "skills/model-versioning-and-rollback/SKILL.md"
     },
     {
       "name": "monte-carlo-strategy-robustness-testing",
@@ -1815,6 +1934,23 @@
       "license": "Apache-2.0",
       "path": "skills/multi-exchange-feed-normalization",
       "skill_md": "skills/multi-exchange-feed-normalization/SKILL.md"
+    },
+    {
+      "name": "multi-horizon-forecasting-architecture",
+      "description": "Implementation for multi-horizon-forecasting-architecture",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/multi-horizon-forecasting-architecture",
+      "skill_md": "skills/multi-horizon-forecasting-architecture/SKILL.md"
     },
     {
       "name": "multi-region-active-active-tick-ingestion",
@@ -2644,6 +2780,23 @@
       "license": "Apache-2.0",
       "path": "skills/synthetic-data-generation-for-backtest-augmentation",
       "skill_md": "skills/synthetic-data-generation-for-backtest-augmentation/SKILL.md"
+    },
+    {
+      "name": "synthetic-labels-from-triple-barrier-method",
+      "description": "Implementation for synthetic-labels-from-triple-barrier-method",
+      "domain": "financial-ml",
+      "subdomain": "execution",
+      "tags": [
+        "machine-learning"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/synthetic-labels-from-triple-barrier-method",
+      "skill_md": "skills/synthetic-labels-from-triple-barrier-method/SKILL.md"
     },
     {
       "name": "systemd-supervision-for-trading-bots",
