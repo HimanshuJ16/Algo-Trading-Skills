@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:41:23.558696+00:00",
+  "generated_at": "2026-07-25T02:42:34.824644+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 72,
+  "total_skills": 73,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -135,6 +135,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
       "skill_md": "skills/broker-agnostic-adapter-interface/SKILL.md"
+    },
+    {
+      "name": "broker-api-versioning-migration-playbook",
+      "description": "Use when migrating a live trading system between broker API versions (e.g. V1 to V2 REST/WebSocket APIs) to execute zero-downtime version migration using shadow traffic validation, payload translation layers, and canary traffic cutovers.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "api-versioning",
+        "migration-playbook",
+        "zero-downtime",
+        "canary-deployment",
+        "shadow-traffic"
+      ],
+      "brokers_frameworks": [
+        "Broker API Adapters",
+        "Python Custom Migrator"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-api-versioning-migration-playbook",
+      "skill_md": "skills/broker-api-versioning-migration-playbook/SKILL.md"
     },
     {
       "name": "broker-failover-secondary-account-routing",
