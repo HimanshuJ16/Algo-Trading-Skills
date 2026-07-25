@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:55.547546+00:00",
+  "generated_at": "2026-07-25T08:17:56.232859+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 334,
+  "total_skills": 335,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2503,6 +2503,24 @@
       "license": "MIT",
       "path": "skills/execution-algorithm-regression-testing-suite",
       "skill_md": "skills/execution-algorithm-regression-testing-suite/SKILL.md"
+    },
+    {
+      "name": "execution-cost-model-recalibration-cadence",
+      "description": "Implementation of execution cost model recalibration cadence.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/execution-cost-model-recalibration-cadence",
+      "skill_md": "skills/execution-cost-model-recalibration-cadence/SKILL.md"
     },
     {
       "name": "execution-realistic-simulation",
