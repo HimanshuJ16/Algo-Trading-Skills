@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:52.376290+00:00",
+  "generated_at": "2026-07-25T08:29:53.763456+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 469,
+  "total_skills": 470,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1920,6 +1920,24 @@
       "license": "Apache-2.0",
       "path": "skills/counterparty-credit-risk-for-otc-derivatives",
       "skill_md": "skills/counterparty-credit-risk-for-otc-derivatives/SKILL.md"
+    },
+    {
+      "name": "credit-card-transaction-data-signal-construction",
+      "description": "A quant research alternative data skill for credit-card-transaction-data-signal-construction.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/credit-card-transaction-data-signal-construction",
+      "skill_md": "skills/credit-card-transaction-data-signal-construction/SKILL.md"
     },
     {
       "name": "credit-default-swap-basics-for-algo-context",
