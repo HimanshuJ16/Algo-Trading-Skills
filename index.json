@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:15.374404+00:00",
+  "generated_at": "2026-07-25T08:13:15.992601+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 267,
+  "total_skills": 268,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2457,6 +2457,25 @@
       "license": "MIT",
       "path": "skills/hong-kong-exchange-hkex-orion-api",
       "skill_md": "skills/hong-kong-exchange-hkex-orion-api/SKILL.md"
+    },
+    {
+      "name": "hong-kong-sfc-algorithmic-trading-guidelines",
+      "description": "Compliance controls for hong kong sfc algorithmic trading guidelines",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/hong-kong-sfc-algorithmic-trading-guidelines",
+      "skill_md": "skills/hong-kong-sfc-algorithmic-trading-guidelines/SKILL.md"
     },
     {
       "name": "hyperparameter-tuning-without-target-leakage",
