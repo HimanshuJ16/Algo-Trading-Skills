@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:12.583740+00:00",
+  "generated_at": "2026-07-25T08:07:13.308141+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 212,
+  "total_skills": 213,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1362,6 +1362,21 @@
       "license": "Apache-2.0",
       "path": "skills/demo-account-realism-gap-assessment",
       "skill_md": "skills/demo-account-realism-gap-assessment/SKILL.md"
+    },
+    {
+      "name": "dependency-pinning-and-reproducible-builds",
+      "description": "Skill for dependency-pinning-and-reproducible-builds",
+      "domain": "deployment-ops",
+      "subdomain": "deployment",
+      "tags": [
+        "dependency-pinning-and-reproducible-builds"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/dependency-pinning-and-reproducible-builds",
+      "skill_md": "skills/dependency-pinning-and-reproducible-builds/SKILL.md"
     },
     {
       "name": "Dep Vuln Scanning",
