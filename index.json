@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:53.763456+00:00",
+  "generated_at": "2026-07-25T08:29:55.085714+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 470,
+  "total_skills": 471,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -8910,6 +8910,24 @@
       "license": "MIT",
       "path": "skills/weather-derivatives-and-niche-instrument-handling",
       "skill_md": "skills/weather-derivatives-and-niche-instrument-handling/SKILL.md"
+    },
+    {
+      "name": "web-scraped-sentiment-data-pipeline",
+      "description": "A quant research alternative data skill for web-scraped-sentiment-data-pipeline.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/web-scraped-sentiment-data-pipeline",
+      "skill_md": "skills/web-scraped-sentiment-data-pipeline/SKILL.md"
     },
     {
       "name": "webhook-based-order-fill-notifications",
