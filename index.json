@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:20:53.877490+00:00",
+  "generated_at": "2026-07-25T08:20:54.711797+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 382,
+  "total_skills": 383,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7029,6 +7029,24 @@
       "license": "MIT",
       "path": "skills/uk-senior-managers-regime-algo-accountability",
       "skill_md": "skills/uk-senior-managers-regime-algo-accountability/SKILL.md"
+    },
+    {
+      "name": "unicode-and-encoding-issues-in-global-instrument-names",
+      "description": "Implementation of unicode-and-encoding-issues-in-global-instrument-names",
+      "domain": "Data Management",
+      "subdomain": "Global",
+      "tags": [
+        "data",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/unicode-and-encoding-issues-in-global-instrument-names",
+      "skill_md": "skills/unicode-and-encoding-issues-in-global-instrument-names/SKILL.md"
     },
     {
       "name": "upstox-oauth-refresh-token-rotation",
