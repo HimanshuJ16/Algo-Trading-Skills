@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:41:12.677829+00:00",
+  "generated_at": "2026-07-25T07:41:46.796482+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 120,
+  "total_skills": 121,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2321,6 +2321,25 @@
       "license": "Apache-2.0",
       "path": "skills/survivorship-bias-free-universe-construction",
       "skill_md": "skills/survivorship-bias-free-universe-construction/SKILL.md"
+    },
+    {
+      "name": "synthetic-data-generation-for-backtest-augmentation",
+      "description": "Generating synthetic price paths to augment limited historical data for backtest robustness testing.",
+      "domain": "Data",
+      "subdomain": "Augmentation",
+      "tags": [
+        "Synthetic Data",
+        "GBM",
+        "Bootstrap"
+      ],
+      "brokers_frameworks": [
+        "General"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/synthetic-data-generation-for-backtest-augmentation",
+      "skill_md": "skills/synthetic-data-generation-for-backtest-augmentation/SKILL.md"
     },
     {
       "name": "systemd-supervision-for-trading-bots",
