@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:10.570876+00:00",
+  "generated_at": "2026-07-25T13:19:11.377522+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 485,
+  "total_skills": 486,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2351,6 +2351,22 @@
       "license": "Apache-2.0",
       "path": "skills/crypto-exchange-api-integration",
       "skill_md": "skills/crypto-exchange-api-integration/SKILL.md"
+    },
+    {
+      "name": "crypto-transaction-tax-lot-tracking",
+      "description": "Implementation for crypto-transaction-tax-lot-tracking",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/crypto-transaction-tax-lot-tracking",
+      "skill_md": "skills/crypto-transaction-tax-lot-tracking/SKILL.md"
     },
     {
       "name": "crypto-wallet-key-custody-security",
