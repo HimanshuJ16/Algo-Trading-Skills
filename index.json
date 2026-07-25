@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:04:58.087181+00:00",
+  "generated_at": "2026-07-25T08:04:58.600340+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 179,
+  "total_skills": 180,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3046,6 +3046,25 @@
       "license": "Apache-2.0",
       "path": "skills/risk-control-latency-budget",
       "skill_md": "skills/risk-control-latency-budget/SKILL.md"
+    },
+    {
+      "name": "risk-control-unit-testing-framework",
+      "description": "Specialized unit test harness for risk rules.",
+      "domain": "risk-management",
+      "subdomain": "compliance",
+      "tags": [
+        "risk",
+        "compliance",
+        "automation"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/risk-control-unit-testing-framework",
+      "skill_md": "skills/risk-control-unit-testing-framework/SKILL.md"
     },
     {
       "name": "risk-limit-breach-escalation-matrix",
