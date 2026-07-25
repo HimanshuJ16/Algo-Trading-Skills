@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:11.699977+00:00",
+  "generated_at": "2026-07-25T08:24:12.532138+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 406,
+  "total_skills": 407,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4993,6 +4993,23 @@
       "license": "Apache-2.0",
       "path": "skills/multi-region-failover-for-broker-connectivity",
       "skill_md": "skills/multi-region-failover-for-broker-connectivity/SKILL.md"
+    },
+    {
+      "name": "multi-signature-approval-for-large-transfers",
+      "description": "Skill for multi signature approval for large transfers",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/multi-signature-approval-for-large-transfers",
+      "skill_md": "skills/multi-signature-approval-for-large-transfers/SKILL.md"
     },
     {
       "name": "multi-source-price-reconciliation-tie-breaking",
