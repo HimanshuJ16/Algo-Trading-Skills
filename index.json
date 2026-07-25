@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:54.086583+00:00",
+  "generated_at": "2026-07-25T08:10:54.724096+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 250,
+  "total_skills": 251,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4644,6 +4644,23 @@
       "license": "MIT",
       "path": "skills/tail-risk-hedging-with-options",
       "skill_md": "skills/tail-risk-hedging-with-options/SKILL.md"
+    },
+    {
+      "name": "taiwan-stock-exchange-twse-api",
+      "description": "Integration or workflow skill for taiwan-stock-exchange-twse-api.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "taiwan-stock-exchange-twse-api"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/taiwan-stock-exchange-twse-api",
+      "skill_md": "skills/taiwan-stock-exchange-twse-api/SKILL.md"
     },
     {
       "name": "tase-israel-exchange-api",
