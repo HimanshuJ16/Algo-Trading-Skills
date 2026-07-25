@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:07:11.937353+00:00",
+  "generated_at": "2026-07-25T08:07:12.583740+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 211,
+  "total_skills": 212,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4371,6 +4371,21 @@
       "license": "Apache-2.0",
       "path": "skills/websocket-reconnection-with-state-recovery",
       "skill_md": "skills/websocket-reconnection-with-state-recovery/SKILL.md"
+    },
+    {
+      "name": "zero-downtime-database-schema-migrations",
+      "description": "Skill for zero-downtime-database-schema-migrations",
+      "domain": "deployment-ops",
+      "subdomain": "deployment",
+      "tags": [
+        "zero-downtime-database-schema-migrations"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/zero-downtime-database-schema-migrations",
+      "skill_md": "skills/zero-downtime-database-schema-migrations/SKILL.md"
     },
     {
       "name": "zerodha-kite-postback-webhook-verification",
