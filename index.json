@@ -1,10 +1,33 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:05:40.162544+00:00",
+  "generated_at": "2026-07-25T03:07:05.632046+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 97,
+  "total_skills": 98,
   "skills": [
+    {
+      "name": "adaptive-batch-size-tuning-under-load",
+      "description": "Use when writing market data or order logs to downstream databases (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch sizes and flush timeouts based on queue pressure and sink write latency.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "adaptive-batching",
+        "dynamic-tuning",
+        "throughput-optimization",
+        "database-sink",
+        "load-balancing"
+      ],
+      "brokers_frameworks": [
+        "Adaptive Batch Tuner",
+        "Python Real-Time Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/adaptive-batch-size-tuning-under-load",
+      "skill_md": "skills/adaptive-batch-size-tuning-under-load/SKILL.md"
+    },
     {
       "name": "alpaca-paper-live-key-separation",
       "description": "Use when connecting a bot to Alpaca Trading API to strictly segregate paper and live credentials, enforce base URL endpoint matching, validate account environment flags, and prevent accidental live capital loss",
