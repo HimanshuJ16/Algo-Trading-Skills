@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:12.532138+00:00",
+  "generated_at": "2026-07-25T08:24:13.332856+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 407,
+  "total_skills": 408,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3519,6 +3519,23 @@
       "license": "Apache-2.0",
       "path": "skills/grpc-streaming-for-internal-service-communication",
       "skill_md": "skills/grpc-streaming-for-internal-service-communication/SKILL.md"
+    },
+    {
+      "name": "hardware-security-module-hsm-for-signing-keys",
+      "description": "Skill for hardware security module hsm for signing keys",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/hardware-security-module-hsm-for-signing-keys",
+      "skill_md": "skills/hardware-security-module-hsm-for-signing-keys/SKILL.md"
     },
     {
       "name": "headless-broker-auth-patterns",

@@ -429,7 +429,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `hot-cold-wallet-split-for-trading-bots` — Splitting a crypto trading bot's operational hot-wallet balance from cold storage to bound loss from a compromise.
 - **[BUILT]** `exchange-withdrawal-whitelist-enforcement` — Enforcing withdrawal address whitelisting so a compromised bot credential can't exfiltrate funds to an arbitrary address.
 - **[BUILT]** `multi-signature-approval-for-large-transfers` — Requiring multi-sig approval for any transfer above a threshold, independent of the bot's own logic.
-- **[planned]** `hardware-security-module-hsm-for-signing-keys` — Using a dedicated HSM for signing transactions rather than software-based key storage, for institutional-scale crypto custody.
+- **[BUILT]** `hardware-security-module-hsm-for-signing-keys` — Using a dedicated HSM for signing transactions rather than software-based key storage, for institutional-scale crypto custody.
 - **[planned]** `shamir-secret-sharing-for-key-backup` — Using Shamir's Secret Sharing to split a key backup across multiple custodians/locations, avoiding a single point of failure or compromise.
 - **[planned]** `custodial-vs-non-custodial-tradeoff-assessment` — Assessing the tradeoffs between using a third-party custodian versus self-custody for a given operational scale and risk tolerance.
 - **[planned]** `smart-contract-audit-requirements-before-defi-integration` — Requiring a completed third-party smart-contract audit before integrating with any DeFi protocol as a counterparty.
