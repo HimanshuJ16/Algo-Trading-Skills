@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:04:58.600340+00:00",
+  "generated_at": "2026-07-25T08:04:59.197734+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 180,
+  "total_skills": 181,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -761,6 +761,25 @@
       "license": "Apache-2.0",
       "path": "skills/broker-status-page-monitoring-integration",
       "skill_md": "skills/broker-status-page-monitoring-integration/SKILL.md"
+    },
+    {
+      "name": "capital-preservation-mode-for-degraded-conditions",
+      "description": "Degraded condition mode with scaled risk appetite.",
+      "domain": "risk-management",
+      "subdomain": "compliance",
+      "tags": [
+        "risk",
+        "compliance",
+        "automation"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/capital-preservation-mode-for-degraded-conditions",
+      "skill_md": "skills/capital-preservation-mode-for-degraded-conditions/SKILL.md"
     },
     {
       "name": "categorical-feature-encoding-for-instrument-identity",
