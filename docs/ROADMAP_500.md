@@ -370,7 +370,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `auction-only-order-types-for-illiquid-names` — Using auction-only order types specifically for illiquid instruments where continuous-session execution would incur excessive impact.
 - **[BUILT]** `post-trade-execution-quality-scorecard` — Building a standardized post-trade scorecard comparing achieved execution against multiple benchmarks (arrival, TWAP, VWAP, close) for ongoing algo-selection decisions.
 - **[BUILT]** `smart-order-router-failover-on-venue-outage` — Ensuring a smart order router fails over gracefully to alternate venues if a primary venue experiences an outage mid-execution.
-- **[planned]** `minimum-fill-size-and-lot-rounding-logic` — Handling minimum-fill-size and lot-rounding constraints correctly when a slicing schedule's computed child-order size falls below an exchange's minimum.
+- **[BUILT]** `minimum-fill-size-and-lot-rounding-logic` — Handling minimum-fill-size and lot-rounding constraints correctly when a slicing schedule's computed child-order size falls below an exchange's minimum.
 - **[planned]** `execution-algorithm-kill-switch-integration` — Ensuring execution algorithms respect the same kill-switch signal as the rest of the system (extends kill-switch-and-drawdown-circuit-breakers to in-flight multi-child-order executions specifically).
 - **[planned]** `queue-position-modeling-for-passive-orders` — Modeling expected queue position for passive limit orders to decide when to re-price versus wait, for latency-tolerant strategies.
 - **[planned]** `execution-algo-behavior-under-halted-instrument` — Defining explicit behavior for an in-progress execution algorithm if the underlying instrument is halted mid-execution.

@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:59.062316+00:00",
+  "generated_at": "2026-07-25T08:17:59.752541+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 339,
+  "total_skills": 340,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3819,6 +3819,24 @@
       "license": "Apache-2.0",
       "path": "skills/mifid-ii-algo-trading-compliance-eu",
       "skill_md": "skills/mifid-ii-algo-trading-compliance-eu/SKILL.md"
+    },
+    {
+      "name": "minimum-fill-size-and-lot-rounding-logic",
+      "description": "Implementation of minimum fill size and lot rounding logic.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/minimum-fill-size-and-lot-rounding-logic",
+      "skill_md": "skills/minimum-fill-size-and-lot-rounding-logic/SKILL.md"
     },
     {
       "name": "model-card-documentation-for-trading-models",
