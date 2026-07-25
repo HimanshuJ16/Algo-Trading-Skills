@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:13.332856+00:00",
+  "generated_at": "2026-07-25T08:24:14.292724+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 408,
+  "total_skills": 409,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6857,6 +6857,23 @@
       "license": "Apache-2.0",
       "path": "skills/sequence-number-gap-detection-for-feeds",
       "skill_md": "skills/sequence-number-gap-detection-for-feeds/SKILL.md"
+    },
+    {
+      "name": "shamir-secret-sharing-for-key-backup",
+      "description": "Skill for shamir secret sharing for key backup",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/shamir-secret-sharing-for-key-backup",
+      "skill_md": "skills/shamir-secret-sharing-for-key-backup/SKILL.md"
     },
     {
       "name": "shanghai-shenzhen-connect-programs",
