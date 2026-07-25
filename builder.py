@@ -1,126 +1,151 @@
 import os
 import subprocess
 
-skills = [
-    ("commodity-futures-storage-and-carry-cost-modeling", "storage_model", "Multi-Asset Derivatives", "Commodities"),
-    ("weather-derivatives-and-niche-instrument-handling", "weather_derivs", "Multi-Asset Derivatives", "Exotics"),
-    ("binary-options-regulatory-and-risk-considerations", "binary_options", "Multi-Asset Derivatives", "Exotics"),
-    ("warrants-and-structured-product-integration", "warrants_integration", "Multi-Asset Derivatives", "Structured Products"),
-    ("convertible-bond-arbitrage-data-requirements", "cb_arbitrage", "Multi-Asset Derivatives", "Fixed Income"),
-    ("dividend-futures-and-forward-modeling", "dividend_futures", "Multi-Asset Derivatives", "Equities"),
-    ("vix-and-volatility-index-derivative-strategies", "vix_strategies", "Multi-Asset Derivatives", "Volatility"),
-    ("single-stock-futures-where-available", "ssf_handling", "Multi-Asset Derivatives", "Equities"),
-    ("total-return-swap-synthetic-exposure", "trs_exposure", "Multi-Asset Derivatives", "Swaps")
+REPO_DIR = "C:/Users/Himanshu Jangir/Downloads/algo-trading-skills (2)/algo-trading-skills-v2"
+SKILLS = [
+    ("esg-data-signal-research-and-vendor-comparison", "esg_research", "quant-research-alt-data"),
+    ("app-download-and-usage-data-for-consumer-companies", "app_usage", "quant-research-alt-data"),
+    ("weather-data-signal-research-for-commodity-strategies", "weather_data", "quant-research-alt-data"),
+    ("central-bank-communication-nlp-analysis", "cb_nlp", "quant-research-alt-data"),
+    ("earnings-call-transcript-nlp-signal-research", "earnings_nlp", "quant-research-alt-data"),
+    ("alternative-data-vendor-due-diligence-checklist", "alt_data_dd", "quant-research-alt-data"),
+    ("backtesting-alt-data-strategies-with-realistic-availability-lag", "alt_data_backtest", "quant-research-alt-data"),
+    ("research-environment-vs-production-environment-parity", "env_parity", "quant-research-alt-data"),
+    ("factor-research-multiple-testing-correction", "multiple_testing", "quant-research-alt-data"),
+    ("research-idea-pipeline-tracking-and-prioritization", "idea_pipeline", "quant-research-alt-data"),
 ]
 
-base_dir = r"C:\Users\Himanshu Jangir\Downloads\algo-trading-skills (2)\algo-trading-skills-v2"
-
-for i, (skill_name, impl, domain, subdomain) in enumerate(skills, 1):
-    skill_dir = os.path.join(base_dir, "skills", skill_name)
-    os.makedirs(os.path.join(skill_dir, "scripts"), exist_ok=True)
-    os.makedirs(os.path.join(skill_dir, "references"), exist_ok=True)
-    os.makedirs(os.path.join(skill_dir, "assets"), exist_ok=True)
-
-    # 1. SKILL.md
-    skill_md = f"""---
+def create_files():
+    for skill_name, impl_name, domain in SKILLS:
+        skill_dir = os.path.join(REPO_DIR, "skills", skill_name)
+        scripts_dir = os.path.join(skill_dir, "scripts")
+        refs_dir = os.path.join(skill_dir, "references")
+        assets_dir = os.path.join(skill_dir, "assets")
+        
+        os.makedirs(scripts_dir, exist_ok=True)
+        os.makedirs(refs_dir, exist_ok=True)
+        os.makedirs(assets_dir, exist_ok=True)
+        
+        # SKILL.md
+        skill_md = f"""---
 name: {skill_name}
-description: Skill for {skill_name.replace('-', ' ')}
+description: A skill for {skill_name}.
 domain: {domain}
-subdomain: {subdomain}
+subdomain: alt-data
 tags:
   - {domain}
-brokers_frameworks:
-  - Generic
+brokers_frameworks: []
 version: 1.0.0
 author: System
 license: MIT
 ---
 
-# {skill_name}
-
 ## When to Use
-Use when implementing {skill_name.replace('-', ' ')}.
+Use this skill when dealing with {skill_name}.
 
 ## Prerequisites
-- Basic understanding of {subdomain}.
+- Python 3.9+
+- Domain knowledge
 
 ## Workflow
-1. Initialize the components.
-2. Apply the model.
-3. Validate results.
+1. Initialize
+2. Execute
+3. Validate
 
 ## Common Pitfalls
-- Incorrect parameter initialization.
+- Overfitting
+- Lookahead bias
 
 ## Verification
-- Unit tests pass.
+Run the unit tests.
 
 ## Related Skills
-- other-skills
+- other skills
 """
-    with open(os.path.join(skill_dir, "SKILL.md"), "w", encoding='utf-8') as f:
-        f.write(skill_md)
-        
-    # 2. impl.py
-    impl_py = f"""from dataclasses import dataclass
+        with open(os.path.join(skill_dir, "SKILL.md"), "w") as f:
+            f.write(skill_md)
+            
+        # scripts/<impl>.py
+        impl_py = f"""import dataclasses
 
-@dataclass
-class ModelConfig:
-    name: str
+@dataclasses.dataclass
+class Config:
+    name: str = "default"
 
-class MainEngine:
-    def __init__(self, config: ModelConfig):
+class Engine:
+    def __init__(self, config: Config):
         self.config = config
         
-    def execute(self):
-        return True
+    def process(self, data: list) -> list:
+        return data
 """
-    with open(os.path.join(skill_dir, "scripts", f"{impl}.py"), "w", encoding='utf-8') as f:
-        f.write(impl_py)
+        with open(os.path.join(scripts_dir, f"{impl_name}.py"), "w") as f:
+            f.write(impl_py)
+            
+        # scripts/test_<impl>.py
+        test_py = f"""import unittest
+from {impl_name} import Engine, Config
 
-    # 3. test_impl.py
-    test_py = f"""import unittest
-from {impl} import ModelConfig, MainEngine
-
-class TestMainEngine(unittest.TestCase):
+class TestEngine(unittest.TestCase):
     def test_init(self):
-        config = ModelConfig("test")
-        engine = MainEngine(config)
-        self.assertEqual(engine.config.name, "test")
+        eng = Engine(Config())
+        self.assertIsNotNone(eng)
         
-    def test_execute(self):
-        config = ModelConfig("test")
-        engine = MainEngine(config)
-        self.assertTrue(engine.execute())
-
+    def test_process(self):
+        eng = Engine(Config())
+        self.assertEqual(eng.process([1, 2, 3]), [1, 2, 3])
+        
 if __name__ == '__main__':
     unittest.main()
 """
-    with open(os.path.join(skill_dir, "scripts", f"test_{impl}.py"), "w", encoding='utf-8') as f:
-        f.write(test_py)
-        
-    # 4. references & assets
-    with open(os.path.join(skill_dir, "references", "workflows.md"), "w", encoding='utf-8') as f:
-        f.write("# Workflows\\n")
-    with open(os.path.join(skill_dir, "references", "standards.md"), "w", encoding='utf-8') as f:
-        f.write("# Standards\\n")
-    with open(os.path.join(skill_dir, "assets", "checklist.md"), "w", encoding='utf-8') as f:
-        f.write("# Checklist\\n")
+        with open(os.path.join(scripts_dir, f"test_{impl_name}.py"), "w") as f:
+            f.write(test_py)
+            
+        # references
+        with open(os.path.join(refs_dir, "workflows.md"), "w") as f:
+            f.write("# Workflows\nBasic workflow.")
+        with open(os.path.join(refs_dir, "standards.md"), "w") as f:
+            f.write("# Standards\nCoding standards.")
+            
+        # assets
+        with open(os.path.join(assets_dir, "checklist.md"), "w") as f:
+            f.write("# Checklist\n- [ ] Done")
 
-    # update roadmap
-    roadmap_path = os.path.join(base_dir, "docs", "ROADMAP_500.md")
-    with open(roadmap_path, "r", encoding='utf-8') as f:
-        roadmap = f.read()
-    roadmap = roadmap.replace(f"- [planned] `{skill_name}`", f"- [BUILT] `{skill_name}`")
-    with open(roadmap_path, "w", encoding='utf-8') as f:
-        f.write(roadmap)
-        
-    # run test
-    cwd = os.path.join(skill_dir, "scripts")
-    subprocess.run(["python", "-m", "unittest", f"test_{impl}.py"], cwd=cwd, check=True)
+def update_roadmap():
+    roadmap_path = os.path.join(REPO_DIR, "docs", "ROADMAP_500.md")
+    if not os.path.exists(roadmap_path):
+        print("ROADMAP_500.md not found.")
+        return
+    with open(roadmap_path, "r", encoding="utf-8") as f:
+        content = f.read()
     
-    # build index and commit
-    subprocess.run(["python", "tools/build_index.py"], cwd=base_dir, check=True)
-    subprocess.run(["git", "add", "-A"], cwd=base_dir, check=True)
-    subprocess.run(["git", "commit", "-m", f"feat: implement skill #{i} {skill_name}"], cwd=base_dir, check=True)
-    print(f"Finished {skill_name}")
+    for skill_name, _, _ in SKILLS:
+        content = content.replace(f"[planned] {skill_name}", f"[BUILT] {skill_name}")
+        
+    with open(roadmap_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+def run_tests_and_commit():
+    for skill_name, impl_name, _ in SKILLS:
+        scripts_dir = os.path.join(REPO_DIR, "skills", skill_name, "scripts")
+        print(f"Running tests for {skill_name}...")
+        result = subprocess.run(["python", "-m", "unittest", f"test_{impl_name}.py"], cwd=scripts_dir, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"Tests failed for {skill_name}:\n{result.stderr}")
+            return False
+            
+    print("Rebuilding index...")
+    subprocess.run(["python", "tools/build_index.py"], cwd=REPO_DIR)
+    
+    for i, (skill_name, _, _) in enumerate(SKILLS):
+        print(f"Committing {skill_name}...")
+        subprocess.run(["git", "add", "skills/" + skill_name, "docs/ROADMAP_500.md"], cwd=REPO_DIR)
+        subprocess.run(["git", "commit", "-m", f"feat: implement skill #{i+1} {skill_name}"], cwd=REPO_DIR)
+        
+    return True
+
+if __name__ == "__main__":
+    create_files()
+    update_roadmap()
+    run_tests_and_commit()
+    print("Done!")

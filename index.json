@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:29:59.123571+00:00",
+  "generated_at": "2026-07-25T08:30:00.557018+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 474,
+  "total_skills": 475,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4427,6 +4427,24 @@
       "license": "MIT",
       "path": "skills/japan-fsa-high-speed-trading-registration",
       "skill_md": "skills/japan-fsa-high-speed-trading-registration/SKILL.md"
+    },
+    {
+      "name": "job-posting-data-as-a-growth-signal",
+      "description": "A quant research alternative data skill for job-posting-data-as-a-growth-signal.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/job-posting-data-as-a-growth-signal",
+      "skill_md": "skills/job-posting-data-as-a-growth-signal/SKILL.md"
     },
     {
       "name": "jse-south-africa-api-integration",
