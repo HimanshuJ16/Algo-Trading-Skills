@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:36.689098+00:00",
+  "generated_at": "2026-07-25T08:13:37.382594+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 277,
+  "total_skills": 278,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4955,6 +4955,25 @@
       "license": "Apache-2.0",
       "path": "skills/survivorship-bias-free-universe-construction",
       "skill_md": "skills/survivorship-bias-free-universe-construction/SKILL.md"
+    },
+    {
+      "name": "swiss-finma-algorithmic-trading-expectations",
+      "description": "Compliance tool for swiss finma algorithmic trading expectations",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/swiss-finma-algorithmic-trading-expectations",
+      "skill_md": "skills/swiss-finma-algorithmic-trading-expectations/SKILL.md"
     },
     {
       "name": "synthetic-data-generation-for-backtest-augmentation",
