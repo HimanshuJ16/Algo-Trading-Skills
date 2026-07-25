@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:24.287563+00:00",
+  "generated_at": "2026-07-25T08:10:24.790250+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 226,
+  "total_skills": 228,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -810,6 +810,23 @@
       "skill_md": "skills/broker-status-page-monitoring-integration/SKILL.md"
     },
     {
+      "name": "bybit-derivatives-api-integration",
+      "description": "Integration or workflow skill for bybit-derivatives-api-integration.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "bybit-derivatives-api-integration"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/bybit-derivatives-api-integration",
+      "skill_md": "skills/bybit-derivatives-api-integration/SKILL.md"
+    },
+    {
       "name": "canary-releases-for-strategy-code-changes",
       "description": "Deployment ops skill for canary-releases-for-strategy-code-changes",
       "domain": "deployment-ops",
@@ -974,6 +991,23 @@
       "license": "Apache-2.0",
       "path": "skills/clock-skew-correction-for-tick-timestamps",
       "skill_md": "skills/clock-skew-correction-for-tick-timestamps/SKILL.md"
+    },
+    {
+      "name": "cme-globex-futures-api-integration",
+      "description": "Integration for cme-globex-futures-api-integration",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
+      "tags": [
+        "cme-globex-futures-api-integration"
+      ],
+      "brokers_frameworks": [
+        "Custom"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/cme-globex-futures-api-integration",
+      "skill_md": "skills/cme-globex-futures-api-integration/SKILL.md"
     },
     {
       "name": "cme-group-fix-api-for-futures",

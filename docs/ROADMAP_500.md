@@ -237,7 +237,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `kraken-websocket-v2-auth-and-subscriptions` — Authenticating and subscribing to Kraken's WebSocket v2 private feeds for order/fill updates.
 - **[BUILT]** `interactive-brokers-global-multi-exchange-routing` — Routing orders correctly across IBKR's many supported global exchanges (LSE, HKEX, ASX, etc.) with correct contract specification.
 - **[BUILT]** `mt5-python-bridge-for-forex-bots` — Bridging MetaTrader 5's native environment to a Python strategy engine reliably.
-- **[planned]** `cme-globex-futures-api-integration` — Integrating with CME Globex for futures order routing and market data.
+- **[BUILT]** `cme-globex-futures-api-integration` — Integrating with CME Globex for futures order routing and market data.
 - **[planned]** `eurex-market-data-and-order-api` — Handling Eurex-specific contract specs and API quirks for European derivatives.
 - **[planned]** `hong-kong-exchange-hkex-orion-api` — Integrating with HKEX's Orion trading API and its specific session/lot-size conventions.
 - **[planned]** `singapore-exchange-sgx-api-integration` — Integrating with SGX's API for Singapore-listed derivatives and equities.
