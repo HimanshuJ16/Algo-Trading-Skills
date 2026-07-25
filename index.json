@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:17.284371+00:00",
+  "generated_at": "2026-07-25T08:25:18.368800+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 437,
+  "total_skills": 440,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2077,6 +2077,24 @@
       "license": "MIT",
       "path": "skills/cross-strategy-shared-infrastructure-resource-contention",
       "skill_md": "skills/cross-strategy-shared-infrastructure-resource-contention/SKILL.md"
+    },
+    {
+      "name": "cross-strategy-signal-reuse-and-licensing",
+      "description": "Skill for cross strategy signal reuse and licensing",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-strategy-signal-reuse-and-licensing",
+      "skill_md": "skills/cross-strategy-signal-reuse-and-licensing/SKILL.md"
     },
     {
       "name": "cross-strategy-tax-lot-optimization",
@@ -5572,6 +5590,24 @@
       "skill_md": "skills/opening-auction-imbalance-based-execution/SKILL.md"
     },
     {
+      "name": "opportunity-cost-tracking-for-idle-capital",
+      "description": "Skill for opportunity cost tracking for idle capital",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Operations",
+      "tags": [
+        "multi-strategy",
+        "portfolio"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/opportunity-cost-tracking-for-idle-capital",
+      "skill_md": "skills/opportunity-cost-tracking-for-idle-capital/SKILL.md"
+    },
+    {
       "name": "options-backtesting-with-realistic-iv-surface",
       "description": "Use when backtesting options strategies (straddles, vertical spreads, iron condors) to interpolate dynamic 3D implied volatility (IV) surfaces across strike moneyness and term structure, avoiding flat IV mispricing errors.",
       "domain": "algorithmic-trading",
@@ -7372,6 +7408,24 @@
       "license": "MIT",
       "path": "skills/strategy-capacity-estimation-before-scaling-capital",
       "skill_md": "skills/strategy-capacity-estimation-before-scaling-capital/SKILL.md"
+    },
+    {
+      "name": "strategy-committee-governance-for-capital-allocation-decisions",
+      "description": "Skill implementation for strategy-committee-governance-for-capital-allocation-decisions",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Skill Management",
+      "tags": [
+        "algo-trading",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/strategy-committee-governance-for-capital-allocation-decisions",
+      "skill_md": "skills/strategy-committee-governance-for-capital-allocation-decisions/SKILL.md"
     },
     {
       "name": "strategy-correlation-matrix-live-recomputation",
