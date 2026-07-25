@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:00.551875+00:00",
+  "generated_at": "2026-07-25T08:18:23.190368+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 341,
+  "total_skills": 342,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4747,6 +4747,25 @@
       "license": "Apache-2.0",
       "path": "skills/paper-to-live-promotion-checklist",
       "skill_md": "skills/paper-to-live-promotion-checklist/SKILL.md"
+    },
+    {
+      "name": "participation-of-volume-pov-execution",
+      "description": "Execution algorithm for participation of volume pov execution",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/participation-of-volume-pov-execution",
+      "skill_md": "skills/participation-of-volume-pov-execution/SKILL.md"
     },
     {
       "name": "pattern-day-trader-rule-compliance-us",
