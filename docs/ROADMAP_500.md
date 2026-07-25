@@ -239,7 +239,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `mt5-python-bridge-for-forex-bots` — Bridging MetaTrader 5's native environment to a Python strategy engine reliably.
 - **[BUILT]** `cme-globex-futures-api-integration` — Integrating with CME Globex for futures order routing and market data.
 - **[BUILT]** `eurex-market-data-and-order-api` — Handling Eurex-specific contract specs and API quirks for European derivatives.
-- **[planned]** `hong-kong-exchange-hkex-orion-api` — Integrating with HKEX's Orion trading API and its specific session/lot-size conventions.
+- **[BUILT]** `hong-kong-exchange-hkex-orion-api` — Integrating with HKEX's Orion trading API and its specific session/lot-size conventions.
 - **[planned]** `singapore-exchange-sgx-api-integration` — Integrating with SGX's API for Singapore-listed derivatives and equities.
 - **[planned]** `australian-securities-exchange-asx-api` — Handling ASX's API and T+2 settlement conventions for an Australian equities bot.
 - **[planned]** `japan-exchange-group-jpx-api-integration` — Integrating with JPX/Tokyo Stock Exchange APIs, including their distinct trading-hour and tick-size rules.
