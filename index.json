@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:30:00.557018+00:00",
+  "generated_at": "2026-07-25T08:30:01.980874+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 475,
+  "total_skills": 476,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -6069,6 +6069,24 @@
       "license": "MIT",
       "path": "skills/options-chain-expiry-cycle-conventions-by-exchange",
       "skill_md": "skills/options-chain-expiry-cycle-conventions-by-exchange/SKILL.md"
+    },
+    {
+      "name": "options-flow-unusual-activity-detection",
+      "description": "A quant research alternative data skill for options-flow-unusual-activity-detection.",
+      "domain": "quant-research-alt-data",
+      "subdomain": "alt-data",
+      "tags": [
+        "alt-data",
+        "quant-research"
+      ],
+      "brokers_frameworks": [
+        "none"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/options-flow-unusual-activity-detection",
+      "skill_md": "skills/options-flow-unusual-activity-detection/SKILL.md"
     },
     {
       "name": "options-greeks-real-time-portfolio-aggregation",
