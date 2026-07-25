@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:11.377522+00:00",
+  "generated_at": "2026-07-25T13:19:12.195092+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 486,
+  "total_skills": 487,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5609,6 +5609,22 @@
       "license": "MIT",
       "path": "skills/multi-horizon-forecasting-architecture",
       "skill_md": "skills/multi-horizon-forecasting-architecture/SKILL.md"
+    },
+    {
+      "name": "multi-jurisdiction-tax-residency-implications",
+      "description": "Implementation for multi-jurisdiction-tax-residency-implications",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/multi-jurisdiction-tax-residency-implications",
+      "skill_md": "skills/multi-jurisdiction-tax-residency-implications/SKILL.md"
     },
     {
       "name": "multi-leg-strategy-margin-optimization",
