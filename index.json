@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:17.313980+00:00",
+  "generated_at": "2026-07-25T13:19:18.192628+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 493,
+  "total_skills": 494,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -7107,6 +7107,22 @@
       "license": "MIT",
       "path": "skills/rebalancing-frequency-optimization-cost-vs-drift",
       "skill_md": "skills/rebalancing-frequency-optimization-cost-vs-drift/SKILL.md"
+    },
+    {
+      "name": "record-keeping-requirements-for-tax-audit-defense",
+      "description": "Implementation for record-keeping-requirements-for-tax-audit-defense",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reporting"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/record-keeping-requirements-for-tax-audit-defense",
+      "skill_md": "skills/record-keeping-requirements-for-tax-audit-defense/SKILL.md"
     },
     {
       "name": "record-retention-periods-by-jurisdiction",
