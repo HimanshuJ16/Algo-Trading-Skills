@@ -452,7 +452,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `cold-storage-geographic-distribution-strategy` — Distributing cold-storage key shares/backups geographically to protect against a localized disaster (fire, natural disaster) affecting a single location.
 - **[BUILT]** `vendor-lock-in-risk-for-proprietary-custody-formats` — Assessing vendor lock-in risk where a custody solution uses a proprietary (non-standard) key format that complicates migration to another provider.
 - **[BUILT]** `employee-offboarding-procedure-for-custody-access` — Defining a strict, tested offboarding procedure to revoke a departing employee's custody-related access immediately.
-- **[planned]** `third-party-custody-audit-report-review-cadence` — Establishing a recurring cadence for reviewing a custody vendor's third-party security audit reports (SOC 2 or equivalent), not just at initial vendor selection.
+- **[BUILT]** `third-party-custody-audit-report-review-cadence` — Establishing a recurring cadence for reviewing a custody vendor's third-party security audit reports (SOC 2 or equivalent), not just at initial vendor selection.
 - **[planned]** `test-transaction-verification-before-large-transfers` — Requiring a small test transaction before any large transfer to a new or infrequently-used destination address.
 
 ## portfolio-multi-strategy  _(30 tracked: 0 built, 30 planned)_
