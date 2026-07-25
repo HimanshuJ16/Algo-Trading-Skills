@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T13:19:40.637448+00:00",
+  "generated_at": "2026-07-25T13:19:41.636415+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 502,
+  "total_skills": 503,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
@@ -3633,6 +3633,23 @@
       "license": "MIT",
       "path": "skills/explainable-boosting-machines-for-regulated-signals",
       "skill_md": "skills/explainable-boosting-machines-for-regulated-signals/SKILL.md"
+    },
+    {
+      "name": "factor-research-multiple-testing-correction",
+      "description": "Skill for factor research multiple testing correction",
+      "domain": "quant-research-alt-data",
+      "subdomain": "Alternative Data",
+      "tags": [
+        "alt-data",
+        "python",
+        "research"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/factor-research-multiple-testing-correction",
+      "skill_md": "skills/factor-research-multiple-testing-correction/SKILL.md"
     },
     {
       "name": "feature-engineering-cost-benefit-tracking",
