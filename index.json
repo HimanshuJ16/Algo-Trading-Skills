@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:12.266644+00:00",
+  "generated_at": "2026-07-25T08:13:12.885786+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 262,
+  "total_skills": 263,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2911,6 +2911,25 @@
       "license": "Apache-2.0",
       "path": "skills/market-data-snapshot-plus-delta-reconciliation",
       "skill_md": "skills/market-data-snapshot-plus-delta-reconciliation/SKILL.md"
+    },
+    {
+      "name": "mas-singapore-algo-trading-guidelines",
+      "description": "Compliance controls for mas singapore algo trading guidelines",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/mas-singapore-algo-trading-guidelines",
+      "skill_md": "skills/mas-singapore-algo-trading-guidelines/SKILL.md"
     },
     {
       "name": "memory-mapped-ring-buffer-for-ultra-low-latency",
