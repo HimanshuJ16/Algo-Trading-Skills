@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:49:39.506023+00:00",
+  "generated_at": "2026-07-25T07:49:40.161367+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 148,
+  "total_skills": 149,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1730,6 +1730,24 @@
       "license": "Apache-2.0",
       "path": "skills/mifid-ii-algo-trading-compliance-eu",
       "skill_md": "skills/mifid-ii-algo-trading-compliance-eu/SKILL.md"
+    },
+    {
+      "name": "model-card-documentation-for-trading-models",
+      "description": "Skill for model card documentation for trading models",
+      "domain": "Financial ML",
+      "subdomain": "Documentation",
+      "tags": [
+        "ml",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "scikit-learn"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/model-card-documentation-for-trading-models",
+      "skill_md": "skills/model-card-documentation-for-trading-models/SKILL.md"
     },
     {
       "name": "model-inference-latency-budget-for-live-trading",
