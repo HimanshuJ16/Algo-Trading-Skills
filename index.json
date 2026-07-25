@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-24T16:09:42.644462+00:00",
+  "generated_at": "2026-07-25T02:04:27.489380+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 63,
+  "total_skills": 64,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -1085,6 +1085,31 @@
       "license": "Apache-2.0",
       "path": "skills/stress-testing-against-historical-crash-scenarios",
       "skill_md": "skills/stress-testing-against-historical-crash-scenarios/SKILL.md"
+    },
+    {
+      "name": "structured-logging-for-post-incident-forensics",
+      "description": "Use when designing log schemas for trading systems that enable post-incident timeline reconstruction without guesswork, using structured JSON log events with correlation IDs, sequence numbers, and standardized event types.",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
+      "tags": [
+        "deployment",
+        "logging",
+        "forensics",
+        "incident-response",
+        "structured-logs",
+        "observability"
+      ],
+      "brokers_frameworks": [
+        "Python logging",
+        "JSON",
+        "ELK Stack",
+        "Datadog"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/structured-logging-for-post-incident-forensics",
+      "skill_md": "skills/structured-logging-for-post-incident-forensics/SKILL.md"
     },
     {
       "name": "survivorship-bias-free-universe-construction",
