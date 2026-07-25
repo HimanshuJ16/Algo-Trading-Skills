@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:14.085839+00:00",
+  "generated_at": "2026-07-25T08:13:14.685133+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 265,
+  "total_skills": 266,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1034,6 +1034,25 @@
       "license": "MIT",
       "path": "skills/centralized-secrets-management-vault-integration",
       "skill_md": "skills/centralized-secrets-management-vault-integration/SKILL.md"
+    },
+    {
+      "name": "cftc-commodity-pool-operator-registration",
+      "description": "Compliance controls for cftc commodity pool operator registration",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/cftc-commodity-pool-operator-registration",
+      "skill_md": "skills/cftc-commodity-pool-operator-registration/SKILL.md"
     },
     {
       "name": "chaos-engineering-for-trading-infrastructure",
