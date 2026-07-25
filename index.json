@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:25:12.326489+00:00",
+  "generated_at": "2026-07-25T08:25:12.913173+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 428,
+  "total_skills": 429,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4625,6 +4625,24 @@
       "license": "Apache-2.0",
       "path": "skills/memory-mapped-ring-buffer-for-ultra-low-latency",
       "skill_md": "skills/memory-mapped-ring-buffer-for-ultra-low-latency/SKILL.md"
+    },
+    {
+      "name": "meta-strategy-signal-arbitration",
+      "description": "Skill implementation for meta-strategy-signal-arbitration",
+      "domain": "Portfolio Multi-Strategy",
+      "subdomain": "Skill Management",
+      "tags": [
+        "algo-trading",
+        "python"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/meta-strategy-signal-arbitration",
+      "skill_md": "skills/meta-strategy-signal-arbitration/SKILL.md"
     },
     {
       "name": "mifid-ii-algo-trading-compliance-eu",
