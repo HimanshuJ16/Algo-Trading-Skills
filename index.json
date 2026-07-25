@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:12:00.998729+00:00",
+  "generated_at": "2026-07-25T03:13:09.480400+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 102,
+  "total_skills": 103,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -27,6 +27,29 @@
       "license": "Apache-2.0",
       "path": "skills/adaptive-batch-size-tuning-under-load",
       "skill_md": "skills/adaptive-batch-size-tuning-under-load/SKILL.md"
+    },
+    {
+      "name": "adaptive-sampling-under-extreme-tick-rates",
+      "description": "Use during extreme market volatility or flash-crash volume spikes to dynamically sample tick streams (1:N systematic sampling), preserving strategy engine throughput and cumulative volume/VWAP tracking while preventing memory buffer overflow.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "adaptive-sampling",
+        "flash-crash",
+        "tick-filtering",
+        "volume-preservation",
+        "throughput-protection"
+      ],
+      "brokers_frameworks": [
+        "Adaptive Tick Sampler",
+        "Python Real-Time Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/adaptive-sampling-under-extreme-tick-rates",
+      "skill_md": "skills/adaptive-sampling-under-extreme-tick-rates/SKILL.md"
     },
     {
       "name": "alpaca-paper-live-key-separation",
