@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:36.498906+00:00",
+  "generated_at": "2026-07-25T08:23:37.290826+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 391,
+  "total_skills": 392,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7328,6 +7328,26 @@
       "license": "Apache-2.0",
       "path": "skills/vectorized-vs-event-driven-backtest-tradeoffs",
       "skill_md": "skills/vectorized-vs-event-driven-backtest-tradeoffs/SKILL.md"
+    },
+    {
+      "name": "vendor-lock-in-risk-for-proprietary-custody-formats",
+      "description": "Skill to handle vendor lock in risk for proprietary custody formats.",
+      "domain": "Crypto Custody",
+      "subdomain": "Security",
+      "tags": [
+        "security",
+        "crypto",
+        "custody",
+        "vendor"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/vendor-lock-in-risk-for-proprietary-custody-formats",
+      "skill_md": "skills/vendor-lock-in-risk-for-proprietary-custody-formats/SKILL.md"
     },
     {
       "name": "vendor-outage-fallback-data-source-hierarchy",
