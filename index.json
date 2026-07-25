@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:48.633824+00:00",
+  "generated_at": "2026-07-25T08:10:50.393720+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 243,
+  "total_skills": 244,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2590,6 +2590,23 @@
       "license": "Apache-2.0",
       "path": "skills/lookahead-bias-elimination",
       "skill_md": "skills/lookahead-bias-elimination/SKILL.md"
+    },
+    {
+      "name": "lse-millennium-exchange-api",
+      "description": "Integration or workflow skill for lse-millennium-exchange-api.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "lse-millennium-exchange-api"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/lse-millennium-exchange-api",
+      "skill_md": "skills/lse-millennium-exchange-api/SKILL.md"
     },
     {
       "name": "margin-utilization-circuit-breaker",
