@@ -352,7 +352,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `execution-algo-twap-vwap-slicing` — see `skills/execution-algo-twap-vwap-slicing/SKILL.md`
 - **[BUILT]** `participation-of-volume-pov-execution` — Implementing a POV execution algorithm that scales order slicing to real-time observed volume.
 - **[BUILT]** `implementation-shortfall-minimization` — Designing an execution schedule that minimizes implementation shortfall versus the arrival price benchmark.
-- **[planned]** `iceberg-order-simulation-and-detection` — Simulating iceberg/hidden-quantity orders in a backtest, and detecting when a strategy is inadvertently signaling its own size.
+- **[BUILT]** `iceberg-order-simulation-and-detection` — Simulating iceberg/hidden-quantity orders in a backtest, and detecting when a strategy is inadvertently signaling its own size.
 - **[planned]** `smart-order-routing-across-venues` — Routing an order across multiple venues/exchanges to minimize cost when a single venue lacks sufficient liquidity.
 - **[planned]** `adaptive-execution-under-volatility-spikes` — Switching an execution algorithm's aggressiveness in response to a real-time volatility spike detector.
 - **[planned]** `arrival-price-benchmark-execution-algo` — Building an execution algorithm explicitly benchmarked against arrival price rather than TWAP/VWAP, appropriate for urgency-driven orders.

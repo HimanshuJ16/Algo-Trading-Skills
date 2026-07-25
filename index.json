@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:18:24.082259+00:00",
+  "generated_at": "2026-07-25T08:18:24.839096+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 343,
+  "total_skills": 344,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3228,6 +3228,25 @@
       "license": "MIT",
       "path": "skills/iceberg-order-native-broker-support-vs-simulation",
       "skill_md": "skills/iceberg-order-native-broker-support-vs-simulation/SKILL.md"
+    },
+    {
+      "name": "iceberg-order-simulation-and-detection",
+      "description": "Execution algorithm for iceberg order simulation and detection",
+      "domain": "execution-algorithms",
+      "subdomain": "execution-strategies",
+      "tags": [
+        "execution",
+        "trading",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/iceberg-order-simulation-and-detection",
+      "skill_md": "skills/iceberg-order-simulation-and-detection/SKILL.md"
     },
     {
       "name": "idx-indonesia-stock-exchange-api",
