@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T07:58:18.546979+00:00",
+  "generated_at": "2026-07-25T07:58:19.300616+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 165,
+  "total_skills": 166,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -955,6 +955,25 @@
       "license": "Apache-2.0",
       "path": "skills/counterparty-and-broker-concentration-risk",
       "skill_md": "skills/counterparty-and-broker-concentration-risk/SKILL.md"
+    },
+    {
+      "name": "cross-account-aggregate-risk-view",
+      "description": "Aggregating risk across multi-account entities under common control.",
+      "domain": "risk-management",
+      "subdomain": "aggregation",
+      "tags": [
+        "risk",
+        "management"
+      ],
+      "brokers_frameworks": [
+        "ccxt",
+        "interactive-brokers"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/cross-account-aggregate-risk-view",
+      "skill_md": "skills/cross-account-aggregate-risk-view/SKILL.md"
     },
     {
       "name": "cross-datacenter-clock-sync-validation",
