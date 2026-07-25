@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:15.143086+00:00",
+  "generated_at": "2026-07-25T08:24:15.979698+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 410,
+  "total_skills": 411,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -7001,6 +7001,23 @@
       "license": "MIT",
       "path": "skills/smart-contract-approval-scope-minimization",
       "skill_md": "skills/smart-contract-approval-scope-minimization/SKILL.md"
+    },
+    {
+      "name": "smart-contract-audit-requirements-before-defi-integration",
+      "description": "Skill for smart contract audit requirements before defi integration",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/smart-contract-audit-requirements-before-defi-integration",
+      "skill_md": "skills/smart-contract-audit-requirements-before-defi-integration/SKILL.md"
     },
     {
       "name": "smart-order-router-failover-on-venue-outage",
