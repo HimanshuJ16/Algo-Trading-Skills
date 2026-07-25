@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:00.315736+00:00",
+  "generated_at": "2026-07-25T08:17:00.977173+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 318,
+  "total_skills": 319,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1590,6 +1590,24 @@
       "license": "Apache-2.0",
       "path": "skills/counterparty-credit-risk-for-otc-derivatives",
       "skill_md": "skills/counterparty-credit-risk-for-otc-derivatives/SKILL.md"
+    },
+    {
+      "name": "credit-default-swap-basics-for-algo-context",
+      "description": "Automation and handling of credit default swap basics for algo context.",
+      "domain": "multi-asset-derivatives",
+      "subdomain": "derivatives-trading",
+      "tags": [
+        "credit-default-swap-basics-for-algo-context",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/credit-default-swap-basics-for-algo-context",
+      "skill_md": "skills/credit-default-swap-basics-for-algo-context/SKILL.md"
     },
     {
       "name": "cross-account-aggregate-risk-view",
