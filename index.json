@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:14:19.588204+00:00",
+  "generated_at": "2026-07-25T03:14:52.320813+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 105,
+  "total_skills": 106,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -850,6 +850,30 @@
       "license": "Apache-2.0",
       "path": "skills/feature-store-for-live-and-backtest-parity",
       "skill_md": "skills/feature-store-for-live-and-backtest-parity/SKILL.md"
+    },
+    {
+      "name": "feed-handler-canary-deployment",
+      "description": "Use when releasing feed handler code updates to canary-route a controlled fraction of ticker symbols (5-10%) to the new release, execute comparative price audit against baseline feeds, and trigger auto-rollback on error spikes.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "canary-deployment",
+        "feed-handler",
+        "symbol-routing",
+        "comparative-audit",
+        "auto-rollback",
+        "zero-downtime"
+      ],
+      "brokers_frameworks": [
+        "Canary Feed Router",
+        "Python Real-Time Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/feed-handler-canary-deployment",
+      "skill_md": "skills/feed-handler-canary-deployment/SKILL.md"
     },
     {
       "name": "feed-handler-cpu-pinning-and-numa-awareness",

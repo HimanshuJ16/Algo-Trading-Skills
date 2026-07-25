@@ -75,7 +75,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[BUILT]** `adaptive-sampling-under-extreme-tick-rates` — Falling back to statistically-sampled tick processing under truly extreme tick rates (flash-crash-level volume) as a last-resort degrade tier beyond OHLC aggregation.
 - **[BUILT]** `network-interface-level-tick-timestamping` — Timestamping ticks at the network interface (kernel bypass / hardware timestamping) rather than in application code, for latency-sensitive strategies.
 - **[BUILT]** `cross-datacenter-clock-sync-validation` — Validating clock synchronization accuracy across datacenters/regions feeding a single strategy engine.
-- **[planned]** `feed-handler-canary-deployment` — Canary-deploying a new feed-handler version against a fraction of symbols before full rollout.
+- **[BUILT]** `feed-handler-canary-deployment` — Canary-deploying a new feed-handler version against a fraction of symbols before full rollout.
 - **[planned]** `order-book-imbalance-signal-pipeline` — Building a dedicated low-latency pipeline for order-book-imbalance signals, separate from the general tick-processing path given its stricter latency budget.
 
 ## backtesting-methodology  _(30 tracked: 3 built, 27 planned)_
