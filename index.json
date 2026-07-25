@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T02:46:00.863143+00:00",
+  "generated_at": "2026-07-25T02:47:28.147643+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 76,
+  "total_skills": 77,
   "skills": [
     {
       "name": "alpaca-paper-live-key-separation",
@@ -227,6 +227,29 @@
       "license": "Apache-2.0",
       "path": "skills/broker-order-type-capability-matrix",
       "skill_md": "skills/broker-order-type-capability-matrix/SKILL.md"
+    },
+    {
+      "name": "broker-status-page-monitoring-integration",
+      "description": "Use when building automated incident response and alerting systems to monitor public broker status pages and status APIs (e.g. Statuspage.io endpoints), distinguishing external broker platform outages from internal strategy bugs.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
+      "tags": [
+        "broker-integration",
+        "status-page",
+        "outage-monitoring",
+        "incident-response",
+        "statuspage-io",
+        "health-checks"
+      ],
+      "brokers_frameworks": [
+        "Statuspage.io API",
+        "Python Status Monitor"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/broker-status-page-monitoring-integration",
+      "skill_md": "skills/broker-status-page-monitoring-integration/SKILL.md"
     },
     {
       "name": "clock-skew-correction-for-tick-timestamps",
