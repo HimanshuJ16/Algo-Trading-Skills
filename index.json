@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:14.685133+00:00",
+  "generated_at": "2026-07-25T08:13:15.374404+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 266,
+  "total_skills": 267,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -931,6 +931,25 @@
       "license": "MIT",
       "path": "skills/bybit-derivatives-api-integration",
       "skill_md": "skills/bybit-derivatives-api-integration/SKILL.md"
+    },
+    {
+      "name": "canada-iiroc-electronic-trading-rules",
+      "description": "Compliance controls for canada iiroc electronic trading rules",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "regulatory",
+      "tags": [
+        "compliance",
+        "risk",
+        "regulatory"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "skill-builder",
+      "license": "MIT",
+      "path": "skills/canada-iiroc-electronic-trading-rules",
+      "skill_md": "skills/canada-iiroc-electronic-trading-rules/SKILL.md"
     },
     {
       "name": "canary-releases-for-strategy-code-changes",
