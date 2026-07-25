@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:23:33.618980+00:00",
+  "generated_at": "2026-07-25T08:23:34.385106+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 387,
+  "total_skills": 388,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2073,6 +2073,26 @@
       "license": "MIT",
       "path": "skills/currency-pair-quoting-convention-normalization",
       "skill_md": "skills/currency-pair-quoting-convention-normalization/SKILL.md"
+    },
+    {
+      "name": "custody-solution-uptime-and-liveness-guarantees",
+      "description": "Skill to handle custody solution uptime and liveness guarantees.",
+      "domain": "Crypto Custody",
+      "subdomain": "Security",
+      "tags": [
+        "security",
+        "crypto",
+        "custody",
+        "custody"
+      ],
+      "brokers_frameworks": [
+        "None"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/custody-solution-uptime-and-liveness-guarantees",
+      "skill_md": "skills/custody-solution-uptime-and-liveness-guarantees/SKILL.md"
     },
     {
       "name": "dark-pool-routing-logic",
