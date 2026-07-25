@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:24:14.292724+00:00",
+  "generated_at": "2026-07-25T08:24:15.143086+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 409,
+  "total_skills": 410,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2112,6 +2112,23 @@
       "license": "MIT",
       "path": "skills/currency-pair-quoting-convention-normalization",
       "skill_md": "skills/currency-pair-quoting-convention-normalization/SKILL.md"
+    },
+    {
+      "name": "custodial-vs-non-custodial-tradeoff-assessment",
+      "description": "Skill for custodial vs non custodial tradeoff assessment",
+      "domain": "crypto-custody-security",
+      "subdomain": "security",
+      "tags": [
+        "crypto",
+        "custody",
+        "security"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/custodial-vs-non-custodial-tradeoff-assessment",
+      "skill_md": "skills/custodial-vs-non-custodial-tradeoff-assessment/SKILL.md"
     },
     {
       "name": "custody-solution-uptime-and-liveness-guarantees",
