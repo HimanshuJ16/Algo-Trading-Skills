@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:28:29.689694+00:00",
+  "generated_at": "2026-07-25T08:28:30.576286+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 457,
+  "total_skills": 458,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -4756,6 +4756,24 @@
       "license": "Apache-2.0",
       "path": "skills/market-data-snapshot-plus-delta-reconciliation",
       "skill_md": "skills/market-data-snapshot-plus-delta-reconciliation/SKILL.md"
+    },
+    {
+      "name": "market-maker-vs-taker-strategy-classification",
+      "description": "Skill for market-maker-vs-taker-strategy-classification",
+      "domain": "Market Microstructure",
+      "subdomain": "Latency",
+      "tags": [
+        "trading",
+        "latency"
+      ],
+      "brokers_frameworks": [
+        "custom"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/market-maker-vs-taker-strategy-classification",
+      "skill_md": "skills/market-maker-vs-taker-strategy-classification/SKILL.md"
     },
     {
       "name": "mas-singapore-algo-trading-guidelines",
