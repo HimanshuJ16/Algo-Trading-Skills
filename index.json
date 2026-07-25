@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:17:49.542256+00:00",
+  "generated_at": "2026-07-25T08:17:53.460408+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 330,
+  "total_skills": 331,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -2398,6 +2398,24 @@
       "license": "MIT",
       "path": "skills/execution-algo-behavior-under-halted-instrument",
       "skill_md": "skills/execution-algo-behavior-under-halted-instrument/SKILL.md"
+    },
+    {
+      "name": "execution-algo-parameter-optimization-via-backtest",
+      "description": "Implementation of execution algo parameter optimization via backtest.",
+      "domain": "execution-algorithms",
+      "subdomain": "general",
+      "tags": [
+        "execution",
+        "algo"
+      ],
+      "brokers_frameworks": [
+        "general"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/execution-algo-parameter-optimization-via-backtest",
+      "skill_md": "skills/execution-algo-parameter-optimization-via-backtest/SKILL.md"
     },
     {
       "name": "execution-algo-twap-vwap-slicing",

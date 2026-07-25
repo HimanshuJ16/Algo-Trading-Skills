@@ -361,7 +361,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `close-auction-participation-strategy` — Participating correctly in an exchange's closing auction, including its distinct order-type and timing rules versus continuous trading.
 - **[planned]** `opening-auction-imbalance-based-execution` — Using published opening-auction imbalance information to inform execution timing around the open.
 - **[planned]** `peg-order-types-for-passive-execution` — Using pegged order types (mid-peg, primary-peg) for passive execution that tracks the market without requiring constant re-pricing logic.
-- **[planned]** `execution-algo-parameter-optimization-via-backtest` — Backtesting execution-algorithm parameter choices (interval count, aggressiveness) against historical intraday data, mirroring the discipline in walk-forward-validation-setup.
+- **[BUILT]** `execution-algo-parameter-optimization-via-backtest` — Backtesting execution-algorithm parameter choices (interval count, aggressiveness) against historical intraday data, mirroring the discipline in walk-forward-validation-setup.
 - **[planned]** `cross-venue-latency-arbitrage-defensive-design` — Designing execution logic defensively against being on the losing side of cross-venue latency arbitrage by other participants.
 - **[planned]** `algo-wheel-broker-execution-quality-comparison` — Building an 'algo wheel' that rotates order flow across multiple execution algorithms/brokers and tracks comparative execution quality.
 - **[planned]** `conditional-order-logic-for-execution-triggers` — Building conditional execution logic (e.g. only begin slicing once a volume or volatility condition is met) rather than a purely time-triggered schedule.
