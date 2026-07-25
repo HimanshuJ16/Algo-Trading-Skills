@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:05:01.495247+00:00",
+  "generated_at": "2026-07-25T08:05:02.128799+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 182,
+  "total_skills": 183,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -3141,6 +3141,24 @@
       "license": "Apache-2.0",
       "path": "skills/risk-metric-recalculation-frequency-tuning",
       "skill_md": "skills/risk-metric-recalculation-frequency-tuning/SKILL.md"
+    },
+    {
+      "name": "risk-model-backtesting-against-realized-outcomes",
+      "description": "Backtesting VaR/risk models against empirical P&L.",
+      "domain": "risk-management",
+      "subdomain": "risk-controls",
+      "tags": [
+        "risk",
+        "controls"
+      ],
+      "brokers_frameworks": [
+        "Any"
+      ],
+      "version": "1.0.0",
+      "author": "AI Builder",
+      "license": "MIT",
+      "path": "skills/risk-model-backtesting-against-realized-outcomes",
+      "skill_md": "skills/risk-model-backtesting-against-realized-outcomes/SKILL.md"
     },
     {
       "name": "risk-reporting-for-external-stakeholders",

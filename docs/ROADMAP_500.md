@@ -190,7 +190,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `real-time-liquidity-risk-monitoring` — Monitoring real-time liquidity conditions (widening spreads, thinning depth) as a distinct risk signal from price-based risk metrics.
 - **[planned]** `risk-adjusted-performance-attribution-per-strategy` — Attributing risk-adjusted performance (not just raw P&L) per strategy when multiple strategies share a risk budget.
 - **[BUILT]** `emergency-manual-override-access-control` — Controlling and auditing who has access to manually override or disable risk controls, treating this access itself as a security-sensitive permission.
-- **[planned]** `risk-model-backtesting-against-realized-outcomes` — Periodically backtesting the risk model itself (not just the trading strategy) against realized outcomes to detect a risk model that's become miscalibrated.
+- **[BUILT]** `risk-model-backtesting-against-realized-outcomes` — Periodically backtesting the risk model itself (not just the trading strategy) against realized outcomes to detect a risk model that's become miscalibrated.
 - **[planned]** `graduated-response-to-data-quality-degradation` — Defining graduated risk responses (reduce size, pause, halt) triggered by detected market-data quality degradation, distinct from P&L-triggered breakers.
 - **[planned]** `regulatory-capital-requirement-tracking` — Tracking regulatory capital requirements (where applicable to the trading entity) as a risk constraint alongside internal risk limits.
 - **[planned]** `risk-control-dependency-mapping` — Mapping dependencies between risk controls (e.g. a correlation check depending on a data feed) so a single upstream failure's blast radius on risk coverage is understood in advance.
