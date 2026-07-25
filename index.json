@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:27.735501+00:00",
+  "generated_at": "2026-07-25T08:10:28.112905+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 238,
+  "total_skills": 240,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -911,6 +911,23 @@
       "license": "MIT",
       "path": "skills/categorical-feature-encoding-for-instrument-identity",
       "skill_md": "skills/categorical-feature-encoding-for-instrument-identity/SKILL.md"
+    },
+    {
+      "name": "cboe-options-exchange-api-integration",
+      "description": "Integration for cboe-options-exchange-api-integration",
+      "domain": "global-market-integration",
+      "subdomain": "exchanges",
+      "tags": [
+        "cboe-options-exchange-api-integration"
+      ],
+      "brokers_frameworks": [
+        "Custom"
+      ],
+      "version": "1.0.0",
+      "author": "assistant",
+      "license": "MIT",
+      "path": "skills/cboe-options-exchange-api-integration",
+      "skill_md": "skills/cboe-options-exchange-api-integration/SKILL.md"
     },
     {
       "name": "centralized-secrets-management-vault-integration",
@@ -1960,6 +1977,23 @@
       "license": "Apache-2.0",
       "path": "skills/feed-handler-cpu-pinning-and-numa-awareness",
       "skill_md": "skills/feed-handler-cpu-pinning-and-numa-awareness/SKILL.md"
+    },
+    {
+      "name": "fix-protocol-session-management-across-venues",
+      "description": "Integration or workflow skill for fix-protocol-session-management-across-venues.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "fix-protocol-session-management-across-venues"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/fix-protocol-session-management-across-venues",
+      "skill_md": "skills/fix-protocol-session-management-across-venues/SKILL.md"
     },
     {
       "name": "forex-broker-integration-oanda-mt5",
