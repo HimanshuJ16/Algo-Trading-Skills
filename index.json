@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:16:54.702262+00:00",
+  "generated_at": "2026-07-25T08:16:55.380436+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 305,
+  "total_skills": 306,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -5897,6 +5897,23 @@
       "license": "Apache-2.0",
       "path": "skills/walk-forward-validation-setup",
       "skill_md": "skills/walk-forward-validation-setup/SKILL.md"
+    },
+    {
+      "name": "warrants-and-structured-product-integration",
+      "description": "Skill for warrants and structured product integration",
+      "domain": "Multi-Asset Derivatives",
+      "subdomain": "Structured Products",
+      "tags": [
+        "Multi-Asset Derivatives"
+      ],
+      "brokers_frameworks": [
+        "Generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/warrants-and-structured-product-integration",
+      "skill_md": "skills/warrants-and-structured-product-integration/SKILL.md"
     },
     {
       "name": "wash-trade-and-spoofing-self-detection",
