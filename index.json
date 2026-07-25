@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:10:50.393720+00:00",
+  "generated_at": "2026-07-25T08:10:51.007361+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 244,
+  "total_skills": 245,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1597,6 +1597,23 @@
       "license": "MIT",
       "path": "skills/deribit-crypto-options-api",
       "skill_md": "skills/deribit-crypto-options-api/SKILL.md"
+    },
+    {
+      "name": "deutsche-borse-xetra-api-integration",
+      "description": "Integration or workflow skill for deutsche-borse-xetra-api-integration.",
+      "domain": "Execution",
+      "subdomain": "Venue Integration",
+      "tags": [
+        "deutsche-borse-xetra-api-integration"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/deutsche-borse-xetra-api-integration",
+      "skill_md": "skills/deutsche-borse-xetra-api-integration/SKILL.md"
     },
     {
       "name": "disaster-recovery-runbook-for-full-region-outage",
