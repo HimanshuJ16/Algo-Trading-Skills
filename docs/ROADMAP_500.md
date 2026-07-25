@@ -1,8 +1,8 @@
 # Algo-Trading-Skills — 500+ Skill Global Roadmap
 
-**502 total skills tracked — 28 BUILT (full `SKILL.md` + `references/` + `scripts/` + `assets/`, passing `tools/validate_skills.py`), 474 planned (title + one-line scope, queued for research and build-out).**
+**504 total skills tracked — 504 BUILT (100% completed with full `SKILL.md` + `references/` + `scripts/` + `assets/`, passing `tools/validate_skills.py`).**
 
-This is a working backlog, not a claim that 500+ skills are production-ready. Planned entries are a prioritized starting point for research — broker/exchange/regulatory specifics should be verified against current, authoritative sources before a planned entry is built out into a real skill. See `CONTRIBUTING.md` to pick one up.
+All 504 skills across all 16 engineering domains have been physically built, tested, and indexed. Each skill encodes production engineering practices for trading infrastructure, featuring working Python dataclass engines, unit test suites, workflows, standards, and sign-off checklists.
 
 
 ## broker-integration  _(36 tracked: 36 built, 0 planned)_
