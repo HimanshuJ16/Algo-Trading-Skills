@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:13:36.022457+00:00",
+  "generated_at": "2026-07-25T08:13:36.689098+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 276,
+  "total_skills": 277,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1952,6 +1952,25 @@
       "license": "MIT",
       "path": "skills/eu-market-abuse-regulation-mar-surveillance",
       "skill_md": "skills/eu-market-abuse-regulation-mar-surveillance/SKILL.md"
+    },
+    {
+      "name": "eu-short-selling-regulation-disclosure-thresholds",
+      "description": "Compliance tool for eu short selling regulation disclosure thresholds",
+      "domain": "regulatory-compliance-global",
+      "subdomain": "compliance",
+      "tags": [
+        "regulatory",
+        "compliance",
+        "trading"
+      ],
+      "brokers_frameworks": [
+        "generic"
+      ],
+      "version": "1.0.0",
+      "author": "AI",
+      "license": "MIT",
+      "path": "skills/eu-short-selling-regulation-disclosure-thresholds",
+      "skill_md": "skills/eu-short-selling-regulation-disclosure-thresholds/SKILL.md"
     },
     {
       "name": "eurex-market-data-and-order-api",
