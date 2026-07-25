@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T03:08:06.386033+00:00",
+  "generated_at": "2026-07-25T03:09:11.571992+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 99,
+  "total_skills": 100,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -660,6 +660,30 @@
       "license": "Apache-2.0",
       "path": "skills/etrade-oauth1-signature-flow",
       "skill_md": "skills/etrade-oauth1-signature-flow/SKILL.md"
+    },
+    {
+      "name": "exchange-multicast-feed-handling",
+      "description": "Use when connecting to co-located exchange gateways (CME MDP 3.0, NASDAQ MoldUDP64) to handle dual A/B UDP multicast channels, re-sequence out-of-order packets, and issue TCP historical gap-fill re-transmission requests.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
+      "tags": [
+        "real-time-architecture",
+        "udp-multicast",
+        "cme-mdp",
+        "moldudp64",
+        "co-location",
+        "packet-resequencing",
+        "gap-fill"
+      ],
+      "brokers_frameworks": [
+        "Multicast Feed Handler",
+        "Python Socket Engine"
+      ],
+      "version": "1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
+      "path": "skills/exchange-multicast-feed-handling",
+      "skill_md": "skills/exchange-multicast-feed-handling/SKILL.md"
     },
     {
       "name": "execution-algo-twap-vwap-slicing",
