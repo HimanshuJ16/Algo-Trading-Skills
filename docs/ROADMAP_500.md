@@ -232,7 +232,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 
 - **[BUILT]** `crypto-exchange-api-integration` — see `skills/crypto-exchange-api-integration/SKILL.md`
 - **[BUILT]** `forex-broker-integration-oanda-mt5` — see `skills/forex-broker-integration-oanda-mt5/SKILL.md`
-- **[planned]** `binance-futures-testnet-to-mainnet-promotion` — Safely promoting a crypto futures bot from Binance testnet to mainnet with a distinct credential/config path.
+- **[BUILT]** `binance-futures-testnet-to-mainnet-promotion` — Safely promoting a crypto futures bot from Binance testnet to mainnet with a distinct credential/config path.
 - **[planned]** `coinbase-advanced-trade-api-migration` — Migrating from Coinbase's legacy Pro API to Advanced Trade without silently breaking order semantics.
 - **[planned]** `kraken-websocket-v2-auth-and-subscriptions` — Authenticating and subscribing to Kraken's WebSocket v2 private feeds for order/fill updates.
 - **[planned]** `interactive-brokers-global-multi-exchange-routing` — Routing orders correctly across IBKR's many supported global exchanges (LSE, HKEX, ASX, etc.) with correct contract specification.
