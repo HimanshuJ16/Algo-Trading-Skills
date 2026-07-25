@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T08:05:02.128799+00:00",
+  "generated_at": "2026-07-25T08:05:11.411340+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
-  "total_skills": 183,
+  "total_skills": 185,
   "skills": [
     {
       "name": "adaptive-batch-size-tuning-under-load",
@@ -1664,6 +1664,24 @@
       "skill_md": "skills/gradient-boosted-tree-vs-neural-net-tradeoffs/SKILL.md"
     },
     {
+      "name": "graduated-response-to-data-quality-degradation",
+      "description": "Graduated de-risking triggered by stale/missing data feeds.",
+      "domain": "risk-management",
+      "subdomain": "risk-controls",
+      "tags": [
+        "risk",
+        "controls"
+      ],
+      "brokers_frameworks": [
+        "Any"
+      ],
+      "version": "1.0.0",
+      "author": "AI Builder",
+      "license": "MIT",
+      "path": "skills/graduated-response-to-data-quality-degradation",
+      "skill_md": "skills/graduated-response-to-data-quality-degradation/SKILL.md"
+    },
+    {
       "name": "greeks-based-portfolio-hedging-automation",
       "description": "Use when managing options or multi-asset portfolios to aggregate net portfolio Greeks (Delta, Vega), evaluate risk tolerance breaches, and automatically generate rebalancing hedge orders to maintain delta/vega neutrality.",
       "domain": "algorithmic-trading",
@@ -3118,6 +3136,24 @@
       "license": "MIT",
       "path": "skills/risk-limit-breach-escalation-matrix",
       "skill_md": "skills/risk-limit-breach-escalation-matrix/SKILL.md"
+    },
+    {
+      "name": "risk-limit-calibration-against-historical-drawdowns",
+      "description": "Calibrating limits using historical drawdown distribution.",
+      "domain": "Risk Management",
+      "subdomain": "Calibration",
+      "tags": [
+        "risk",
+        "risk-limit-calibration-against-historical-drawdowns"
+      ],
+      "brokers_frameworks": [
+        "any"
+      ],
+      "version": "1.0.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/risk-limit-calibration-against-historical-drawdowns",
+      "skill_md": "skills/risk-limit-calibration-against-historical-drawdowns/SKILL.md"
     },
     {
       "name": "risk-metric-recalculation-frequency-tuning",

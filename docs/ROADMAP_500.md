@@ -184,7 +184,7 @@ This is a working backlog, not a claim that 500+ skills are production-ready. Pl
 - **[planned]** `post-breach-root-cause-analysis-template` — A standardized template for root-cause analysis after any risk-control breach, ensuring lessons actually feed back into control design.
 - **[planned]** `risk-control-unit-testing-framework` — A dedicated unit-testing framework specifically for risk-control logic, tested with the same rigor as trading-signal code rather than as an afterthought.
 - **[planned]** `capital-preservation-mode-for-degraded-conditions` — A defined 'capital preservation mode' the system can enter automatically under degraded conditions (data quality issues, unusual volatility) that reduces risk appetite without a full halt.
-- **[planned]** `risk-limit-calibration-against-historical-drawdowns` — Calibrating risk-limit thresholds using the strategy's own historical drawdown distribution rather than an arbitrary round-number choice.
+- **[BUILT]** `risk-limit-calibration-against-historical-drawdowns` — Calibrating risk-limit thresholds using the strategy's own historical drawdown distribution rather than an arbitrary round-number choice.
 - **[planned]** `multi-currency-var-aggregation` — Aggregating VaR correctly across a multi-currency portfolio, building on the currency-conversion discipline in multi-currency-pnl-and-fx-conversion.
 - **[planned]** `risk-control-configuration-change-approval-workflow` — Requiring a defined approval workflow (not a simple config-file edit) for any change to live risk-control thresholds.
 - **[planned]** `real-time-liquidity-risk-monitoring` — Monitoring real-time liquidity conditions (widening spreads, thinning depth) as a distinct risk signal from price-based risk metrics.

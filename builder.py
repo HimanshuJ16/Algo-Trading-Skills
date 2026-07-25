@@ -133,13 +133,17 @@ class {class_name}:
 """)
 
     test_script_name = f"test_{script_name}"
+    module_name = script_name.replace('.py', '')
     with open(os.path.join(scripts_dir, test_script_name), "w", encoding='utf-8') as f:
         f.write(f"""import unittest
 import sys
 import os
+import importlib
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-from {script_name.replace('.py', '')} import {class_name}, Result
+module = importlib.import_module("{module_name}")
+{class_name} = getattr(module, "{class_name}")
+Result = getattr(module, "Result")
 
 class Test{class_name}(unittest.TestCase):
     def setUp(self):
