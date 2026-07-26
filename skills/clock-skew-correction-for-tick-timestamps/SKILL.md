@@ -1,64 +1,49 @@
 ---
 name: clock-skew-correction-for-tick-timestamps
 description: >-
-  Use when processing market data feeds to dynamically estimate and correct local clock drift against exchange matching engine timestamps using EWMA filtering and network jitter rejection
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags: ["real-time-architecture", "clock-skew", "timestamp-calibration", "ewma-filter", "latency-measurement"]
-brokers_frameworks: ["All Market Data Streams", "Fix Protocol", "WebSockets"]
-version: "1.0"
+  Quantitative market data pipeline utility for estimating and correcting clock drift between venue feeds and local recorders using minimum-delay filtering without violating time monotonicity.
+domain: Data Management
+subdomain: Market Data Infrastructure
+tags: ["clock-skew", "paxson-algorithm", "timestamps", "market-data", "hft", "monotonicity"]
+brokers_frameworks: ["Generic Infrastructure", "NumPy", "Pandas"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this whenever a trading engine ingests tick data from exchanges where precise timestamping is required for feature calculation, micro-structure analysis, or backtest parity. Local host system clocks drift relative to exchange atomic clocks due to NTP synchronization intervals, CPU thermal throttling, or virtual machine virtualization. If left uncorrected, clock skew distorts order book reconstruction and introduces false arbitrage signals. Implementing dynamic Exponentially Weighted Moving Average (EWMA) skew estimation with outlier network jitter rejection is mandatory.
+Use this skill when processing multi-venue high-frequency tick data or order book message logs captured across different hosts. Variations in local clock synchronization (NTP drift, host-level clock skew) cause measured delays to drift over time. This utility estimates the linear drift via minimum-delay lower-bound filtering (Paxson's algorithm principle) and adjusts the timestamps while strictly maintaining monotonicity.
 
 ## Prerequisites
 
-- Exchange-provided tick timestamp ($T_{\text{exchange}}$) in payload.
-- Local receipt timestamp ($T_{\text{local}}$) recorded at socket read time.
-- Configured maximum acceptable clock drift threshold (e.g., $100\text{ms}$).
+- Paired timestamp data: `exchange_timestamp` (sender) and `local_timestamp` (receiver) for market events.
+- Monotonically increasing event sequence numbers.
 
 ## Workflow
 
-1. **Calculate Raw Time Delta**:
-   - For each incoming tick, compute raw difference $\Delta_{\text{raw}} = T_{\text{exchange}} - T_{\text{local\_receipt}}$.
+1. **One-Way Delay Calculation**: Compute raw one-way delay: $Delay_i = T_{local, i} - T_{exchange, i}$.
+2. **Minimum Delay Filtering**: Group time into rolling bins or expanding windows and extract the minimum delay points. Because true network latency has a hard lower bound, minimum delays reflect pure clock offset without network queueing noise.
+3. **Linear Regression Fit**: Fit a linear model ($Offset(t) = a + b \cdot t$) to the lower-bound delay points to find the clock drift rate ($b$).
+4. **Correction Application**: Subtract the estimated $Offset(t)$ from $T_{local, i}$.
+5. **Monotonicity Enforcement**: Ensure $T_{corrected, i} \ge T_{corrected, i-1}$. If a correction would force a timestamp backward, clamp it to $T_{corrected, i-1} + \epsilon$.
 
-2. **Filter Network Jitter Spikes**:
-   - Calculate Median Absolute Deviation (MAD) over recent samples.
-   - Reject raw samples where $|\Delta_{\text{raw}} - \mu| > 3 \times \text{MAD}$ to prevent packet network transport delays from corrupting clock skew estimates.
-
-3. **Update EWMA Clock Skew Estimate**:
-   - Update rolling skew estimate: $\hat{\Delta}_t = \alpha \cdot \Delta_{\text{raw}} + (1 - \alpha) \cdot \hat{\Delta}_{t-1}$ (default $\alpha = 0.05$).
-
-4. **Calibrate Tick Timestamps**:
-   - Compute calibrated timestamp: $T_{\text{calibrated}} = T_{\text{local\_receipt}} + \hat{\Delta}_t$.
-
-5. **Clock Drift Alarm Threshold**:
-   - If $|\hat{\Delta}_t| > 100\text{ms}$, trigger alert notifying infrastructure operations to execute PTP/NTP clock resynchronization (`clock-synchronization-ptp-for-trading-hosts`).
-
-> Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
-> Broker/framework coverage table for this skill: see `references/standards.md`.
+> Full procedure: see `references/workflows.md`.
+> Standards reference: see `references/standards.md`.
 > Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Confusing Network Latency with Clock Skew**: Mistaking one-way network packet transit time for local clock drift, over-correcting local timestamps.
-- **Unfiltered Outlier Spikes**: Allowing TCP retransmission delays or network spikes to distort the clock skew filter.
-- **Static Skew Assumptions**: Assuming local clock offset is constant throughout a trading session, ignoring thermal and NTP drift.
+- **Mean/Median Regression**: Using ordinary least squares on *all* delay points. Network queueing spikes (jitter) pollute the mean, causing massive over-estimation of clock offset. You MUST filter for minimum delays.
+- **Breaking Monotonicity**: Applying raw linear corrections without checking $T_i \ge T_{i-1}$, causing time to jump backward and throwing off backtesting engines or order-sequence matching.
+- **In-Sample Overfitting**: Estimating clock skew on the entire day's dataset and applying it backwards (lookahead leakage). Calibration should be done on a rolling expanding window.
 
 ## Verification
 
-- Submit ticks with constant $+25\text{ms}$ exchange clock offset and verify `ClockSkewCorrector` converges to $+25\text{ms}$ skew estimate.
-- Submit network latency outlier spike ($+500\text{ms}$) and verify jitter filter rejects the outlier.
-- Verify `calibrate_timestamp()` applies estimated skew accurately.
-- Run unit test suite `python scripts/test_clock_skew_corrector.py` and confirm 100% pass rate.
+- Simulate 1,000 tick messages with a constant clock drift rate (e.g. 50 microseconds per second) and random positive network delays. Run the `ClockSkewCorrector`. Verify that the estimated drift rate matches the true drift within 5% tolerance and that all output timestamps are strictly monotonic.
+- Run `python scripts/test_clock_skew_corrector.py`.
 
 ## Related Skills
 
-- `producer-consumer-tick-pipeline`
-- `market-microstructure-latency`
-- `clock-synchronization-ptp-for-trading-hosts`
----
+- `clock-drift-monitoring-alerting-thresholds`
+- `historical-order-book-reconstruction-from-message-logs`

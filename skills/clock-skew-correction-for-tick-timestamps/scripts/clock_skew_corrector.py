@@ -1,98 +1,86 @@
-"""
-clock-skew-correction-for-tick-timestamps: Production-grade dynamic clock skew estimator,
-EWMA smoothing filter, network jitter outlier rejector, and timestamp calibrator.
-"""
-from dataclasses import dataclass, field
+import numpy as np
 import logging
-import statistics
-import time
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Tuple
 
 logger = logging.getLogger(__name__)
 
-
-@dataclass
-class ClockSkewResult:
-    raw_delta_ms: float
-    estimated_skew_ms: float
-    calibrated_timestamp: float
-    is_outlier: bool
-
-
 class ClockSkewCorrector:
     """
-    Dynamically estimates local system clock drift relative to exchange timestamps,
-    filters network transport jitter, and calibrates local tick timestamps.
+    Estimates and corrects linear clock drift between exchange and local timestamps
+    using Paxson-style minimum delay filtering while guaranteeing monotonicity.
     """
+    def __init__(self, window_size_sec: float = 10.0, min_epsilon_sec: float = 1e-6):
+        self.window_size_sec = window_size_sec
+        self.min_epsilon_sec = min_epsilon_sec
+        self.alpha = 0.0  # Initial offset
+        self.beta = 0.0   # Drift rate (sec per sec)
 
-    def __init__(
-        self,
-        alpha: float = 0.05,
-        max_drift_threshold_ms: float = 100.0,
-        sample_window_size: int = 50,
-        outlier_std_multiplier: float = 3.0,
-    ):
-        self.alpha = alpha
-        self.max_drift_threshold_ms = max_drift_threshold_ms
-        self.sample_window_size = sample_window_size
-        self.outlier_std_multiplier = outlier_std_multiplier
-
-        self.estimated_skew_ms: float = 0.0
-        self.recent_deltas_ms: List[float] = []
-        self.is_initialized: bool = False
-
-    def is_outlier_jitter(self, delta_ms: float) -> bool:
-        """Determines if delta sample is a network latency outlier spike."""
-        if len(self.recent_deltas_ms) < 10:
-            return False
-        median = statistics.median(self.recent_deltas_ms)
-        mad = statistics.median([abs(x - median) for x in self.recent_deltas_ms])
-        threshold = max(mad * self.outlier_std_multiplier, 15.0)  # Min 15ms threshold
-        return abs(delta_ms - median) > threshold
-
-    def add_sample(self, t_exchange: float, t_local_receipt: float) -> ClockSkewResult:
+    def fit(self, exchange_ts: np.ndarray, local_ts: np.ndarray) -> "ClockSkewCorrector":
         """
-        Ingests exchange and local receipt timestamps, updates EWMA skew estimate,
-        and returns calibrated result. Timestamps passed in seconds or milliseconds.
+        Fits linear clock skew model based on minimum delays per time window.
         """
-        # Convert to milliseconds for numerical stability
-        t_ex_ms = t_exchange * 1000.0 if t_exchange < 1e11 else t_exchange
-        t_loc_ms = t_local_receipt * 1000.0 if t_local_receipt < 1e11 else t_local_receipt
+        if len(exchange_ts) != len(local_ts) or len(exchange_ts) == 0:
+            raise ValueError("exchange_ts and local_ts must be non-empty and of equal length.")
 
-        raw_delta_ms = t_ex_ms - t_loc_ms
-        is_outlier = self.is_outlier_jitter(raw_delta_ms)
+        delays = local_ts - exchange_ts
+        min_exchange_t = exchange_ts[0]
+        max_exchange_t = exchange_ts[-1]
+        
+        num_windows = max(1, int(np.ceil((max_exchange_t - min_exchange_t) / self.window_size_sec)))
+        
+        bin_ts = []
+        bin_min_delays = []
+        
+        for w in range(num_windows):
+            start_t = min_exchange_t + w * self.window_size_sec
+            end_t = start_t + self.window_size_sec
+            mask = (exchange_ts >= start_t) & (exchange_ts < end_t)
+            
+            if np.any(mask):
+                min_delay = np.min(delays[mask])
+                bin_ts.append(start_t)
+                bin_min_delays.append(min_delay)
 
-        if not is_outlier:
-            self.recent_deltas_ms.append(raw_delta_ms)
-            if len(self.recent_deltas_ms) > self.sample_window_size:
-                self.recent_deltas_ms.pop(0)
+        if len(bin_ts) < 2:
+            # Fallback to simple mean offset if not enough windows
+            self.alpha = float(np.min(delays))
+            self.beta = 0.0
+            return self
 
-            if not self.is_initialized:
-                self.estimated_skew_ms = raw_delta_ms
-                self.is_initialized = True
+        # Fit linear regression: min_delay = alpha + beta * (ts - min_exchange_t)
+        x = np.array(bin_ts) - min_exchange_t
+        y = np.array(bin_min_delays)
+        
+        poly = np.polyfit(x, y, deg=1)
+        self.beta = float(poly[0])
+        self.alpha = float(poly[1])
+        
+        logger.info(f"Clock Skew Fit: Base Offset = {self.alpha:.6f}s, Drift Rate = {self.beta*1e6:.2f} µs/sec")
+        return self
+
+    def transform(self, exchange_ts: np.ndarray, local_ts: np.ndarray) -> np.ndarray:
+        """
+        Applies fitted skew correction to local timestamps and enforces monotonicity.
+        """
+        min_exchange_t = exchange_ts[0]
+        rel_ts = exchange_ts - min_exchange_t
+        estimated_offset = self.alpha + self.beta * rel_ts
+        
+        # Raw correction: subtract estimated offset from local_ts
+        corrected_ts = local_ts - estimated_offset
+        
+        # Enforce strict monotonicity
+        final_ts = np.zeros_like(corrected_ts)
+        final_ts[0] = corrected_ts[0]
+        
+        for i in range(1, len(corrected_ts)):
+            if corrected_ts[i] <= final_ts[i-1]:
+                final_ts[i] = final_ts[i-1] + self.min_epsilon_sec
             else:
-                # EWMA update
-                self.estimated_skew_ms = (
-                    self.alpha * raw_delta_ms + (1.0 - self.alpha) * self.estimated_skew_ms
-                )
-        else:
-            logger.debug(f"Network jitter outlier rejected: {raw_delta_ms:.2f}ms")
+                final_ts[i] = corrected_ts[i]
+                
+        return final_ts
 
-        # Check drift threshold
-        if abs(self.estimated_skew_ms) > self.max_drift_threshold_ms:
-            logger.warning(
-                f"CLOCK DRIFT THRESHOLD BREACHED: Estimated skew is {self.estimated_skew_ms:.2f}ms > {self.max_drift_threshold_ms}ms! PTP/NTP resync recommended."
-            )
-
-        calibrated_ts_sec = (t_loc_ms + self.estimated_skew_ms) / 1000.0
-        return ClockSkewResult(
-            raw_delta_ms=raw_delta_ms,
-            estimated_skew_ms=self.estimated_skew_ms,
-            calibrated_timestamp=calibrated_ts_sec,
-            is_outlier=is_outlier,
-        )
-
-    def calibrate_timestamp(self, t_local_receipt: float) -> float:
-        """Applies estimated clock skew to local receipt timestamp."""
-        t_loc_sec = t_local_receipt / 1000.0 if t_local_receipt > 1e11 else t_local_receipt
-        return t_loc_sec + (self.estimated_skew_ms / 1000.0)
+    def fit_transform(self, exchange_ts: np.ndarray, local_ts: np.ndarray) -> np.ndarray:
+        self.fit(exchange_ts, local_ts)
+        return self.transform(exchange_ts, local_ts)

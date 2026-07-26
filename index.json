@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-26T02:10:26.358563+00:00",
+  "generated_at": "2026-07-26T02:22:37.928282+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1730,22 +1730,23 @@
     },
     {
       "name": "clock-skew-correction-for-tick-timestamps",
-      "description": "Use when processing market data feeds to dynamically estimate and correct local clock drift against exchange matching engine timestamps using EWMA filtering and network jitter rejection",
-      "domain": "algorithmic-trading",
-      "subdomain": "real-time-architecture",
+      "description": "Quantitative market data pipeline utility for estimating and correcting clock drift between venue feeds and local recorders using minimum-delay filtering without violating time monotonicity.",
+      "domain": "Data Management",
+      "subdomain": "Market Data Infrastructure",
       "tags": [
-        "real-time-architecture",
         "clock-skew",
-        "timestamp-calibration",
-        "ewma-filter",
-        "latency-measurement"
+        "paxson-algorithm",
+        "timestamps",
+        "market-data",
+        "hft",
+        "monotonicity"
       ],
       "brokers_frameworks": [
-        "All Market Data Streams",
-        "Fix Protocol",
-        "WebSockets"
+        "Generic Infrastructure",
+        "NumPy",
+        "Pandas"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/clock-skew-correction-for-tick-timestamps",

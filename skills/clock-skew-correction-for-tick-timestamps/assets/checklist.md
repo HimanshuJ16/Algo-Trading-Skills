@@ -1,15 +1,6 @@
-# Pre-Flight / Sign-off Checklist — clock-skew-correction-for-tick-timestamps
+# Pre-Flight Checklist
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Outlier Jitter Filtering:** Confirm network transport spikes $> 3\times\text{MAD}$ are rejected.
-- [ ] **EWMA Smoothing:** Confirm smoothing parameter $\alpha$ updates skew estimate smoothly.
-- [ ] **Timestamp Calibration:** Confirm `calibrate_timestamp()` applies estimated skew to local timestamps.
-- [ ] **Threshold Alerting:** Confirm warnings trigger if $|\hat{\Delta}| > 100\text{ms}$.
-- [ ] **Automated Testing:** Run `python scripts/test_clock_skew_corrector.py` and confirm 100% test pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
-- Environment tested (paper/sandbox/live): ___________________________
+- [ ] Does the algorithm filter for minimum delay points before fitting the linear drift line?
+- [ ] Is monotonicity strictly enforced on the output timestamp series?
+- [ ] Are time units handled consistently (e.g., converting all timestamps to float seconds or integer nanoseconds)?
+- [ ] Has the corrector been validated against synthetic drift and jitter to verify accuracy?

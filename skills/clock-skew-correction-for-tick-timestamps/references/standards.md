@@ -1,16 +1,7 @@
-# Broker & Framework Coverage — clock-skew-correction-for-tick-timestamps
+# Standards for Clock Skew Correction
 
-| Exchange / Feed | Timestamp Resolution | Typical Skew Range | Clock Sync Protocol |
-|---|---|---|---|
-| CME Globex | Nanosecond (`ns`) | $< 1\text{ms}$ | PTP (IEEE 1588) |
-| Nasdaq ITCH | Nanosecond (`ns`) | $< 5\text{ms}$ | PTP (IEEE 1588) |
-| Crypto WebSockets (Binance/Kraken) | Millisecond (`ms`) | $10\text{ms} - 500\text{ms}$ | NTP (RFC 5905) |
-
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
-## Regulatory & Operational Notes
-
-Intersects with MiFID II RTS 25 clock synchronization requirements (100-microsecond accuracy for HFT, 1-millisecond for automated trading).
+| Metric | Engineering Standard |
+|---|---|
+| Monotonicity Guarantee | Corrected timestamps MUST satisfy $T_i > T_{i-1}$ for all consecutive events $i$. |
+| Lower Bound Estimation | Regression MUST be performed on the 5th percentile or minimum delay values within time windows, never on mean or median. |
+| Time Unit Precision | Calculations must use floating-point seconds with at least microsecond/nanosecond precision (`float64`). |
