@@ -1,11 +1,6 @@
-# Pre-Flight Checklist — counterparty-and-broker-concentration-risk
+# Pre-Flight Checklist
 
-- [ ] All counterparties registered with current capital held.
-- [ ] Concentration percentages calculated correctly.
-- [ ] Over-limit allocations are blocked.
-- [ ] Run `python scripts/test_counterparty_monitor.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Are per-broker NAV concentration limits (e.g. 35% NAV) configured for all active counterparties?
+- [ ] Are Credit Default Swap (CDS) spread alerts and max thresholds ($>250\text{ bps}$) monitored?
+- [ ] Does pre-trade order routing automatically failover to secondary brokers upon limit breach?
+- [ ] Is broker HHI computed continuously to track counterparty diversification?

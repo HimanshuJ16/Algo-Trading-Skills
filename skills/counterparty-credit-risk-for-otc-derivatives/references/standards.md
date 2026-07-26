@@ -1,11 +1,7 @@
-# Standards — counterparty-credit-risk-for-otc-derivatives
+# Standards for OTC Counterparty Risk
 
-| Metric | Standard Value | Enforcement |
-|---|---|---|
-| PFE Confidence Level | $95.0\%$ | Parametric Gaussian quantile $1.645$ |
-| Default Loss Given Default ($LGD$) | $60.0\%$ | Based on $40\%$ recovery rate |
-| CSA Margin Call Threshold | $\text{Uncollateralized Limit}$ | Daily margin call generation |
-
-## Category
-
-`risk-management`
+| Metric | Engineering Standard |
+|---|---|
+| Netting Legal Enforceability | Close-out netting MUST only be applied under verified ISDA Master Agreements. |
+| SA-CCR Risk Factor Add-on | PFE add-on factors MUST conform to SA-CCR regulatory asset class tables (e.g. Equity 6%, FX 4%). |
+| Recovery Rate Assumption | Standard recovery rate assumption $R = 40\%$ unless specific senior CDS recovery is specified. |

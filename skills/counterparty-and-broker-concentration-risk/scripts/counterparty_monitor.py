@@ -1,125 +1,118 @@
-"""
-counterparty-and-broker-concentration-risk: Limits exposure to any single broker/custodian
-to bound counterparty risk, not just market risk.
-"""
-from dataclasses import dataclass, field
 import logging
-from typing import Dict, List, Optional
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
-
 @dataclass
-class Counterparty:
+class BrokerProfile:
+    broker_id: str
     name: str
-    capital_held: float  # USD held at this counterparty
-
+    max_nav_pct_limit: float          # e.g. 0.35 (35% NAV cap)
+    cds_spread_bps: float             # Credit Default Swap spread in bps (e.g. 85.0)
+    max_cds_bps_threshold: float      # Max allowed CDS before blocking (e.g. 250.0)
+    current_cash: float
+    current_margin: float
+    current_positions_value: float
 
 @dataclass
-class ConcentrationCheckResult:
-    approved: bool
-    counterparty: str
-    current_concentration_pct: float
-    projected_concentration_pct: float
-    max_allowed_pct: float
-    rejection_reason: Optional[str] = None
-
+class RoutingDecision:
+    selected_broker_id: str
+    is_rerouted: bool
+    original_broker_id: str
+    projected_nav_pct: float
+    reason: str
 
 class CounterpartyConcentrationMonitor:
     """
-    Monitors and enforces counterparty concentration limits across
-    multiple brokers/custodians.
+    Monitors prime broker counterparty concentration exposures, credit default signals,
+    enforces % NAV caps, and provides smart failover order routing.
     """
+    def __init__(self, brokers: List[BrokerProfile] = None):
+        self.brokers: Dict[str, BrokerProfile] = {b.broker_id: b for b in (brokers or [])}
 
-    def __init__(self, max_single_counterparty_pct: float = 0.40):
+    def register_broker(self, broker: BrokerProfile):
+        self.brokers[broker.broker_id] = broker
+
+    def calculate_total_broker_exposure(self, broker_id: str) -> float:
+        if broker_id not in self.brokers:
+            return 0.0
+        b = self.brokers[broker_id]
+        return b.current_cash + b.current_margin + b.current_positions_value
+
+    def calculate_portfolio_nav(self) -> float:
+        return sum(self.calculate_total_broker_exposure(bid) for bid in self.brokers)
+
+    def compute_hhi(self) -> float:
+        total_nav = self.calculate_portfolio_nav()
+        if total_nav <= 0:
+            return 0.0
+        weights = [self.calculate_total_broker_exposure(bid) / total_nav for bid in self.brokers]
+        return round(float(sum(w ** 2 for w in weights)), 4)
+
+    def route_order(self, target_broker_id: str, proposed_order_value: float) -> RoutingDecision:
         """
-        Args:
-            max_single_counterparty_pct: Maximum capital at any single counterparty (default 40%).
+        Evaluates proposed order routing to target_broker_id against concentration caps and CDS thresholds.
+        Re-routes to secondary broker if limits are breached.
         """
-        self.max_single_counterparty_pct = max_single_counterparty_pct
-        self.counterparties: Dict[str, Counterparty] = {}
+        total_nav = self.calculate_portfolio_nav()
+        effective_nav = max(total_nav, proposed_order_value)  # Prevent div-by-zero on initial portfolio
 
-    def register_counterparty(self, name: str, capital_held: float = 0.0) -> None:
-        """Register a counterparty with initial capital held."""
-        self.counterparties[name] = Counterparty(name=name, capital_held=capital_held)
+        if target_broker_id not in self.brokers:
+            raise ValueError(f"Unknown target broker {target_broker_id}")
 
-    def update_capital(self, name: str, capital_held: float) -> None:
-        """Update capital held at a counterparty."""
-        if name not in self.counterparties:
-            raise ValueError(f"Unknown counterparty: '{name}'")
-        self.counterparties[name].capital_held = capital_held
+        primary = self.brokers[target_broker_id]
+        primary_current_exp = self.calculate_total_broker_exposure(target_broker_id)
+        primary_proj_weight = (primary_current_exp + proposed_order_value) / effective_nav
 
-    def get_total_aum(self) -> float:
-        """Calculate total AUM across all counterparties."""
-        return sum(c.capital_held for c in self.counterparties.values())
+        # Check Primary Broker Compliance
+        is_cds_distressed = primary.cds_spread_bps > primary.max_cds_bps_threshold
+        is_nav_breached = primary_proj_weight > primary.max_nav_pct_limit
 
-    def check_allocation(
-        self,
-        counterparty_name: str,
-        additional_capital: float,
-    ) -> ConcentrationCheckResult:
-        """Check if additional capital allocation to a counterparty is allowed."""
-        if counterparty_name not in self.counterparties:
-            return ConcentrationCheckResult(
-                approved=False,
-                counterparty=counterparty_name,
-                current_concentration_pct=0.0,
-                projected_concentration_pct=0.0,
-                max_allowed_pct=self.max_single_counterparty_pct,
-                rejection_reason=f"Unknown counterparty: '{counterparty_name}'",
+        if not is_cds_distressed and not is_nav_breached:
+            return RoutingDecision(
+                selected_broker_id=target_broker_id,
+                is_rerouted=False,
+                original_broker_id=target_broker_id,
+                projected_nav_pct=round(primary_proj_weight * 100, 2),
+                reason="Order approved for primary broker within exposure limits."
             )
 
-        total_aum = self.get_total_aum() + additional_capital
-        if total_aum <= 0:
-            return ConcentrationCheckResult(
-                approved=False,
-                counterparty=counterparty_name,
-                current_concentration_pct=0.0,
-                projected_concentration_pct=0.0,
-                max_allowed_pct=self.max_single_counterparty_pct,
-                rejection_reason="Total AUM is zero or negative.",
-            )
-
-        current_capital = self.counterparties[counterparty_name].capital_held
-        current_conc = current_capital / (total_aum - additional_capital) if (total_aum - additional_capital) > 0 else 0.0
-        projected_capital = current_capital + additional_capital
-        projected_conc = projected_capital / total_aum
-
-        if projected_conc > self.max_single_counterparty_pct + 1e-9:
-            reason = (
-                f"COUNTERPARTY CONCENTRATION BREACH: '{counterparty_name}' projected at "
-                f"{projected_conc:.1%} of AUM (${projected_capital:,.0f} / ${total_aum:,.0f}), "
-                f"exceeding limit {self.max_single_counterparty_pct:.0%}. Transfer blocked."
-            )
-            logger.warning(reason)
-            return ConcentrationCheckResult(
-                approved=False,
-                counterparty=counterparty_name,
-                current_concentration_pct=current_conc,
-                projected_concentration_pct=projected_conc,
-                max_allowed_pct=self.max_single_counterparty_pct,
-                rejection_reason=reason,
-            )
-
-        return ConcentrationCheckResult(
-            approved=True,
-            counterparty=counterparty_name,
-            current_concentration_pct=current_conc,
-            projected_concentration_pct=projected_conc,
-            max_allowed_pct=self.max_single_counterparty_pct,
+        # Primary Broker Breached! Search Secondary Brokers for Failover Routing
+        logger.warning(
+            f"Primary Broker {target_broker_id} BREACHED (NAV Weight: {primary_proj_weight*100:.1f}%, CDS: {primary.cds_spread_bps}bps). Searching failover..."
         )
 
-    def get_concentration_report(self) -> List[Dict]:
-        """Generate concentration report for all counterparties."""
-        total_aum = self.get_total_aum()
-        report = []
-        for name, cp in self.counterparties.items():
-            conc = cp.capital_held / total_aum if total_aum > 0 else 0.0
-            report.append({
-                "counterparty": name,
-                "capital_held": cp.capital_held,
-                "concentration_pct": conc,
-                "limit_pct": self.max_single_counterparty_pct,
-                "breached": conc > self.max_single_counterparty_pct,
-            })
-        return report
+        candidate_brokers: List[Tuple[str, float]] = []
+        for bid, b in self.brokers.items():
+            if bid == target_broker_id:
+                continue
+            if b.cds_spread_bps > b.max_cds_bps_threshold:
+                continue
+                
+            curr_exp = self.calculate_total_broker_exposure(bid)
+            proj_weight = (curr_exp + proposed_order_value) / effective_nav
+            if proj_weight <= b.max_nav_pct_limit:
+                candidate_brokers.append((bid, proj_weight))
+
+        if candidate_brokers:
+            # Select broker with lowest projected weight
+            candidate_brokers.sort(key=lambda x: x[1])
+            selected_id, selected_weight = candidate_brokers[0]
+            logger.info(f"Order RE-ROUTED from {target_broker_id} to secondary broker {selected_id}.")
+            return RoutingDecision(
+                selected_broker_id=selected_id,
+                is_rerouted=True,
+                original_broker_id=target_broker_id,
+                projected_nav_pct=round(selected_weight * 100, 2),
+                reason=f"Primary broker {target_broker_id} limit breached. Re-routed to secondary broker {selected_id}."
+            )
+        else:
+            logger.critical("NO COMPLIANT FAILOVER BROKER AVAILABLE FOR ROUTING!")
+            return RoutingDecision(
+                selected_broker_id=target_broker_id,
+                is_rerouted=False,
+                original_broker_id=target_broker_id,
+                projected_nav_pct=round(primary_proj_weight * 100, 2),
+                reason="All prime brokers exceed concentration limits or CDS thresholds. Execution blocked."
+            )

@@ -1,110 +1,108 @@
-"""
-counterparty-credit-risk-for-otc-derivatives: PFE, CVA, ISDA CSA collateral threshold,
-and counterparty credit limit manager.
-"""
-from dataclasses import dataclass
 import logging
-import math
-from typing import Any, Dict, List, Optional, Tuple
+from dataclasses import dataclass
+from typing import List, Dict, Optional
 
 logger = logging.getLogger(__name__)
 
+@dataclass
+class OtcContract:
+    contract_id: str
+    asset_class: str                   # 'EQUITY', 'FX', 'RATES', 'COMMODITY', 'CRYPTO'
+    notional_usd: float
+    mtm_value_usd: float
+    sa_ccr_add_on_factor: float        # e.g. 0.06 (6% for equity swaps), 0.04 (FX)
 
 @dataclass
-class OTCTrade:
-    trade_id: str
-    counterparty_id: str
-    mark_to_market_usd: float
-    volatility_usd: float
-    maturity_years: float
-
-
-@dataclass
-class CounterpartyProfile:
-    counterparty_id: str
-    rating: str
-    probability_of_default: float  # e.g. 0.02 = 2%
-    recovery_rate: float            # e.g. 0.40 = 40%
-    credit_limit_usd: float
-    csa_collateral_threshold_usd: float
-
+class CsaTerms:
+    netting_set_id: str
+    threshold_usd: float               # Uncollateralized threshold (e.g. $100,000)
+    minimum_transfer_amount: float     # MTA (e.g. $50,000)
+    posted_collateral_usd: float
+    counterparty_pd: float            # Annual Probability of Default (e.g. 0.02 = 2%)
+    recovery_rate: float               # e.g. 0.40 (40%)
 
 @dataclass
-class CounterpartyExposureReport:
-    counterparty_id: str
-    total_mtm_usd: float
-    potential_future_exposure_pfe95_usd: float
-    credit_valuation_adjustment_cva_usd: float
-    credit_limit_usd: float
-    credit_limit_utilization_pct: float
-    collateral_margin_call_usd: float
-    is_limit_breached: bool
-    status_message: str
+class OtcRiskReport:
+    netting_set_id: str
+    gross_mtm_usd: float
+    net_mtm_usd: float
+    netted_current_exposure_usd: float
+    potential_future_exposure_usd: float
+    exposure_at_default_usd: float
+    cva_usd: float
+    is_margin_call_triggered: bool
+    margin_call_amount_usd: float
+    is_credit_limit_breached: bool
 
-
-class CounterpartyCreditRiskManager:
+class OtcCounterpartyRiskEngine:
     """
-    Evaluates Potential Future Exposure (PFE), Credit Valuation Adjustment (CVA),
-    and ISDA CSA collateral thresholds for bilateral OTC derivative portfolios.
+    Evaluates Counterparty Credit Risk (CCR) for bilateral OTC derivatives,
+    calculating Netted Current Exposure, SA-CCR PFE, CVA, and CSA Margin Calls.
     """
+    def __init__(self, max_ead_limit_usd: float = 1_000_000.0):
+        self.max_ead_limit_usd = max_ead_limit_usd
 
-    def __init__(self):
-        self._profiles: Dict[str, CounterpartyProfile] = {}
+    def calculate_current_exposure(self, contracts: List[OtcContract], csa: CsaTerms) -> float:
+        """
+        Calculates Netted Current Exposure: CE = max(0, sum(MTM) - Collateral - Threshold)
+        """
+        net_mtm = sum(c.mtm_value_usd for c in contracts)
+        uncollateralized = net_mtm - csa.posted_collateral_usd - csa.threshold_usd
+        return max(0.0, float(uncollateralized))
 
-    def register_counterparty(self, profile: CounterpartyProfile) -> None:
-        self._profiles[profile.counterparty_id] = profile
+    def calculate_pfe(self, contracts: List[OtcContract]) -> float:
+        """
+        Calculates SA-CCR Potential Future Exposure (PFE) Add-on across contracts.
+        PFE = sum(Notional * AddOnFactor)
+        """
+        pfe = sum(c.notional_usd * c.sa_ccr_add_on_factor for c in contracts)
+        return float(pfe)
 
-    def evaluate_counterparty_exposure(
+    def calculate_cva(self, ead: float, pd: float, recovery_rate: float) -> float:
+        """
+        Calculates Credit Valuation Adjustment (CVA): CVA = (1 - R) * EAD * PD
+        """
+        loss_given_default = 1.0 - recovery_rate
+        return float(loss_given_default * ead * pd)
+
+    def analyze_netting_set(
         self,
-        counterparty_id: str,
-        trades: List[OTCTrade],
-    ) -> CounterpartyExposureReport:
-        profile = self._profiles.get(counterparty_id)
-        if not profile:
-            raise ValueError(f"Unregistered OTC counterparty '{counterparty_id}'.")
+        contracts: List[OtcContract],
+        csa: CsaTerms
+    ) -> OtcRiskReport:
+        """
+        Audits an entire ISDA netting set and returns an OtcRiskReport.
+        """
+        gross_mtm = sum(abs(c.mtm_value_usd) for c in contracts)
+        net_mtm = sum(c.mtm_value_usd for c in contracts)
 
-        # Bilateral netting: aggregate MTM and combined volatility
-        tot_mtm = sum(t.mark_to_market_usd for t in trades)
-        max_maturity = max((t.maturity_years for t in trades), default=1.0)
-        tot_vol = math.sqrt(sum((t.volatility_usd ** 2) for t in trades)) if trades else 0.0
+        ce_net = self.calculate_current_exposure(contracts, csa)
+        pfe = self.calculate_pfe(contracts)
+        ead = ce_net + pfe
 
-        # PFE at 95% confidence = MTM + 1.645 * Vol * sqrt(T)
-        pfe_addon = 1.645 * tot_vol * math.sqrt(max_maturity)
-        pfe_95 = max(0.0, tot_mtm + pfe_addon)
+        cva = self.calculate_cva(ead, csa.counterparty_pd, csa.recovery_rate)
 
-        # CVA = (1 - Recovery) * PFE * PD
-        lgd = 1.0 - profile.recovery_rate
-        cva = lgd * pfe_95 * profile.probability_of_default
+        # CSA Margin Call Audit: Uncollateralized exposure > Threshold + MTA
+        uncollateralized_raw = net_mtm - csa.posted_collateral_usd
+        margin_call_amount = max(0.0, uncollateralized_raw - csa.threshold_usd)
+        
+        is_margin_call = margin_call_amount >= csa.minimum_transfer_amount
+        is_limit_breached = ead > self.max_ead_limit_usd
 
-        utilization_pct = (pfe_95 / max(1.0, profile.credit_limit_usd)) * 100.0
-        is_breached = pfe_95 > profile.credit_limit_usd
-
-        # Margin Call if PFE > CSA Threshold
-        margin_call = max(0.0, pfe_95 - profile.csa_collateral_threshold_usd)
-
-        if is_breached:
-            msg = (
-                f"OTC CREDIT LIMIT BREACH for '{counterparty_id}': PFE95 (${pfe_95:,.2f}) > "
-                f"Limit (${profile.credit_limit_usd:,.2f}). Margin Call: ${margin_call:,.2f}."
+        if is_limit_breached:
+            logger.error(
+                f"OTC Credit Limit Breached for {csa.netting_set_id}: EAD ${ead:,.2f} > Limit ${self.max_ead_limit_usd:,.2f}"
             )
-            logger.error(msg)
-        elif margin_call > 0:
-            msg = (
-                f"ISDA CSA MARGIN CALL for '{counterparty_id}': PFE95 (${pfe_95:,.2f}) > "
-                f"Threshold (${profile.csa_collateral_threshold_usd:,.2f}). Collateral Required: ${margin_call:,.2f}."
-            )
-            logger.warning(msg)
-        else:
-            msg = f"OTC Exposure OK for '{counterparty_id}': PFE95=${pfe_95:,.2f} ({utilization_pct:.1f}% limit)."
 
-        return CounterpartyExposureReport(
-            counterparty_id=counterparty_id,
-            total_mtm_usd=round(tot_mtm, 2),
-            potential_future_exposure_pfe95_usd=round(pfe_95, 2),
-            credit_valuation_adjustment_cva_usd=round(cva, 2),
-            credit_limit_usd=round(profile.credit_limit_usd, 2),
-            credit_limit_utilization_pct=round(utilization_pct, 2),
-            collateral_margin_call_usd=round(margin_call, 2),
-            is_limit_breached=is_breached,
-            status_message=msg,
+        return OtcRiskReport(
+            netting_set_id=csa.netting_set_id,
+            gross_mtm_usd=round(gross_mtm, 2),
+            net_mtm_usd=round(net_mtm, 2),
+            netted_current_exposure_usd=round(ce_net, 2),
+            potential_future_exposure_usd=round(pfe, 2),
+            exposure_at_default_usd=round(ead, 2),
+            cva_usd=round(cva, 2),
+            is_margin_call_triggered=is_margin_call,
+            margin_call_amount_usd=round(margin_call_amount if is_margin_call else 0.0, 2),
+            is_credit_limit_breached=is_limit_breached
         )

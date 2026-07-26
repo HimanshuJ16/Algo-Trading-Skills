@@ -1,15 +1,6 @@
-# Pre-Flight / Sign-off Checklist — corporate-action-adjusted-backtesting
+# Pre-Flight Checklist
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Split Adjustment:** Confirm pre-split prices are halved and volumes doubled for 2:1 splits.
-- [ ] **Reverse Split Adjustment:** Confirm pre-reverse split prices are multiplied and volumes reduced.
-- [ ] **Dividend Cash Credit:** Confirm `calculate_dividend_cash_credit()` credits cash to open positions on ex-dates.
-- [ ] **Double-Adjustment Prevention:** Confirm raw unadjusted data is validated prior to adjustment.
-- [ ] **Automated Testing:** Run `python scripts/test_corporate_action_adjuster.py` and confirm 100% test pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
-- Environment tested (paper/sandbox/live): ___________________________
+- [ ] Are stock splits, reverse splits, and cash dividends logged with exact ex-dates?
+- [ ] Is Cumulative Adjustment Factor (CAF) normalized to 1.0 at latest date?
+- [ ] Are signal indicators evaluated on adjusted price series?
+- [ ] Is trade execution and cash accounting executed on raw unadjusted price series?

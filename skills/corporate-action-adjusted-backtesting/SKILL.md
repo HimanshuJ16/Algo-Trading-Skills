@@ -1,66 +1,57 @@
 ---
 name: corporate-action-adjusted-backtesting
 description: >-
-  Use when processing historical market data for backtesting to apply backward price/volume split adjustments, process ex-dividend cash flows, and prevent double-adjustment errors
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "corporate-actions", "stock-splits", "dividends", "price-adjustment"]
-brokers_frameworks: ["Center for Research in Security Prices (CRSP)", "Yahoo Finance Data", "Interactive Brokers Historical API", "Polygon.io"]
-version: "1.0"
+  Quantitative backtesting module for processing corporate action event logs (stock splits, cash dividends, reverse splits), computing Cumulative Adjustment Factors (CAF), and separating raw vs. adjusted price data.
+domain: Data Management & Backtesting
+subdomain: Corporate Actions
+tags: ["corporate-actions", "stock-splits", "dividends", "caf", "adjusted-prices", "backtesting", "point-in-time"]
+brokers_frameworks: ["Pandas", "NumPy", "Generic Backtester"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this whenever backtesting trading strategies over historical stock or ETF datasets that experience corporate actions (stock splits, reverse splits, cash dividends, and stock dividends). Naively running technical indicators or stop-loss orders on unadjusted raw prices creates artificial price shocks (e.g. a 4-for-1 split drops price from $400 to $100 overnight, triggering false stop-loss exits). Conversely, applying dividend adjustments to already split-adjusted data causes double-counting errors. Implementing backward adjustment ratio trees and ex-date cash dividend crediting is mandatory.
+Use this skill when backtesting quantitative trading strategies on historical equity or ETF data. Unadjusted raw price data contains artificial gaps caused by stock splits (e.g. a 4-for-1 split looks like a 75% price crash) and cash dividends. Using raw data directly for technical indicators (SMA, RSI, Bollinger Bands) generates false signals. Conversely, using pre-adjusted prices for trade execution causes look-ahead bias and miscalculates share counts. This module manages Cumulative Adjustment Factors (CAF) to provide adjusted prices for signals while preserving raw prices for execution.
 
 ## Prerequisites
 
-- Unadjusted raw historical OHLCV bar series.
-- Corporate action event registry containing `ex_date`, `action_type`, `ratio`, and `cash_amount`.
-- Position tracking engine for ex-date dividend cash credit calculation.
+- Corporate action event history (ex-date, action type, ratio/dividend amount).
+- Historical raw price series (`open`, `high`, `low`, `close`, `volume`).
 
 ## Workflow
 
-1. **Register Corporate Action Events**:
-   - Store events per symbol with `ex_date`, `action_type` (`SPLIT`, `REVERSE_SPLIT`, `DIVIDEND`), `ratio`, and `cash_amount`.
+1. **Corporate Action Event Ingestion**: Register split events ($S_{split}$) and cash dividend events ($D$).
+2. **Adjustment Factor Calculation**:
+   - For Split on ex-date: Factor $\alpha_{split} = \frac{1}{\text{Split Ratio}}$.
+   - For Dividend on ex-date: Factor $\alpha_{div} = 1 - \frac{D}{P_{ex\_close}}$.
+3. **Cumulative Adjustment Factor (CAF) Construction**:
+   - Compute backward product: $\text{CAF}_t = \prod_{\tau > t} \alpha_\tau$.
+4. **Price & Volume Adjustment**:
+   - Adjusted Price $P_{adj}(t) = P_{raw}(t) \times \text{CAF}_t$.
+   - Adjusted Volume $V_{adj}(t) = V_{raw}(t) / \text{CAF}_t$.
+5. **Backtest Processing Dual-Path**:
+   - Use $P_{adj}$ for technical signal generation.
+   - Use $P_{raw}$ for actual order sizing, commission calculation, and cash dividend PnL credits on ex-dates.
 
-2. **Compute Cumulative Backward Adjustment Factors**:
-   - Iterate backwards from current time $T_{\text{today}}$ to history $T_0$.
-   - On split event (ratio $R$): Cumulative Price Factor $F_p = F_p \cdot \frac{1}{R}$; Volume Factor $F_v = F_v \cdot R$.
-   - On dividend event (cash $D$, pre-ex price $P$): Dividend Factor $F_d = F_d \cdot \left(1 - \frac{D}{P}\right)$.
-
-3. **Adjust Historical OHLCV Series**:
-   - Adjusted Price: $P_{\text{adj}} = P_{\text{raw}} \cdot F_p \cdot F_d$.
-   - Adjusted Volume: $V_{\text{adj}} = V_{\text{raw}} / F_p$.
-
-4. **Process Ex-Date Cash Dividend Credit**:
-   - On ex-dividend date $T_{\text{ex}}$, credit account cash balance: $\text{Cash} = \text{Open Position Quantity} \cdot D$.
-
-5. **Double-Adjustment Prevention Guard**:
-   - Verify input series is unadjusted raw data before applying adjustment factors to prevent double-adjusting.
-
-> Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
-> Broker/framework coverage table for this skill: see `references/standards.md`.
+> Full procedure: see `references/workflows.md`.
+> Standards reference: see `references/standards.md`.
 > Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Double Adjustment**: Applying backward split adjustments to historical data that was already split-adjusted by the data vendor.
-- **Un-Adjusted Volume**: Adjusting historical prices for a stock split without adjusting historical volume proportionally ($V_{\text{adj}} = V_{\text{raw}} \times \text{Split Ratio}$).
-- **Ignoring Dividend Cash Flow**: Adjusting prices downward for dividends without crediting cash to long position holders.
+- **Look-Ahead Bias in Adjusted Prices**: Applying future dividend adjustments to past price data during point-in-time signal generation, allowing the model to "know" about future cash payouts.
+- **Executing at Adjusted Prices**: Using adjusted prices to calculate trade share quantities and cash debit/credit, resulting in incorrect portfolio cash balances.
+- **Volume Unadjusted**: Multiplying price by split factor without adjusting trading volume accordingly, distorting ADV liquidity checks.
 
 ## Verification
 
-- Submit 2-for-1 split event on $T_{\text{ex}}$ and verify pre-ex historical prices are halved and volumes are doubled.
-- Submit cash dividend event ($1.00/share) for open position of 500 shares and verify $500.00 cash credit on ex-date.
-- Verify `CorporateActionAdjuster` detects pre-adjusted data and blocks double-adjustment.
-- Run unit test suite `python scripts/test_corporate_action_adjuster.py` and confirm 100% pass rate.
+- Instantiate `CorporateActionAdjuster`. Feed a 2-for-1 stock split event on Day 5 where raw close drops from $100 to $50. Verify that historical prices for Days 1-4 are retroactively scaled down by factor 0.5 ($100 \to $50), removing the price gap. Process a $2.00 dividend on a $100 stock (factor 0.98) and verify adjusted series continuity.
+- Run `python scripts/test_corporate_action_adjuster.py`.
 
 ## Related Skills
 
-- `survivorship-bias-free-universe-construction`
-- `walk-forward-optimization-window-management`
-- `purge-and-embargo-cross-validation`
+- `corporate-action-event-calendar-integration`
+- `point-in-time-fundamentals-data-joins`
 ---

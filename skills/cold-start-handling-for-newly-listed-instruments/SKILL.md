@@ -1,34 +1,35 @@
 ---
 name: cold-start-handling-for-newly-listed-instruments
 description: >-
-  Use when deploying ML signal generation models to handle newly-listed instruments (IPOs, new crypto pairs) with zero or minimal trading history, using fallback heuristics and cluster-proxy feature transfer without extrapolating invalid historical statistics.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags: ["financial-ml", "cold-start", "new-instruments", "feature-transfer", "fallback-heuristics", "cluster-proxy"]
-brokers_frameworks: ["Cold Start Handler Engine", "Python NumPy"]
-version: "1.0"
+  Quantitative feature engineering and risk management module for handling newly listed instruments (IPOs, SPACs) using Bayesian volatility shrinkage, peer imputation, and position sizing caps during probation windows.
+domain: Portfolio & Risk Management
+subdomain: Feature Engineering & Risk
+tags: ["cold-start", "ipo", "shrinkage", "imputation", "volatility", "position-sizing"]
+brokers_frameworks: ["NumPy", "Pandas", "Generic Quantitative Pipeline"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when deploying ML signal generation to a dynamic asset universe containing newly listed securities (e.g. IPOs, SPACs, new tokens). Standard ML features (200-day moving average, 60-day volatility, historical beta) crash or return NaN on day 1 of listing. This skill implements a cold-start fallback policy: assigning proxy cluster features from sector peers, enforcing reduced position sizing, and transitioning to model-driven signals once minimum history $T_{\text{min}}$ is accumulated.
+Use this skill when integrating newly listed assets (e.g., recent IPOs, newly listed crypto tokens, or spin-offs) into systematic trading strategies. Newly listed assets lack sufficient historical track records ($N < N_{min\_warmup}$ days), causing standard rolling indicators (50-day moving average, 30-day volatility, Sharpe ratio) to produce `NaN` values or extreme noise. The Cold Start Handler applies Bayesian shrinkage toward peer-group priors and enforces strict capital allocation caps during a probationary period.
 
 ## Prerequisites
 
-- Instrument listing timestamp $T_{\text{list}}$ and current bar count $N_{\text{bars}}$.
-- Sector peer cluster mapping and default cold-start risk scaling factor (e.g. 0.25x size).
+- Access to peer-group baseline metrics (e.g., sector ETF average volatility).
+- Historical observation count for each instrument.
 
 ## Workflow
 
-1. **Check Instrument History Maturity**:
-   - Compute history maturity ratio $M = \frac{N_{\text{bars}}}{N_{\text{required}}}$.
-2. **Apply Cold-Start Fallback State**:
-   - If $N_{\text{bars}} < N_{\text{min}}$ (e.g. $<30$ bars): Use sector peer cluster average features and apply `COLD_START_SIZE_SCALING` ($25\%$ max allocation).
-3. **Transition to Native Model**:
-   - If $N_{\text{bars}} \ge N_{\text{required}}$: Fully enable native ML model predictions.
-4. **Audit Universe Cold-Start Ratio**: Track percent of active universe currently in cold-start status.
+1. **Age Assessment**: Compute the number of available daily observations $N_{obs}$ for the target instrument.
+2. **Probation Check**: If $N_{obs} < N_{min\_warmup}$ (e.g., 30 trading days), flag the instrument as `PROBATIONARY`.
+3. **Bayesian Shrinkage Imputation**:
+   - Compute observation weight: $w = \frac{N_{obs}}{N_{min\_warmup}}$.
+   - Estimate volatility: $\sigma_{est} = w \cdot \sigma_{observed} + (1 - w) \cdot \sigma_{peer\_prior}$.
+4. **Capital Allocation Cap**:
+   - Limit max position size: $\text{Cap} = \text{Base\_Max\_Size} \times w$.
+5. **Graduation**: Once $N_{obs} \ge N_{min\_warmup}$, transition instrument to `STANDARD` status with 100% weight on empirical data.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -36,16 +37,16 @@ Invoke this skill when deploying ML signal generation to a dynamic asset univers
 
 ## Common Pitfalls
 
-- **Unbound Feature Extrapolation**: Computing rolling 100-day statistics on a 3-day-old stock, producing extreme NaN or zero-std anomalies.
-- **Uncapped Cold-Start Allocation**: Allocating full portfolio weight to an unproven newly listed IPO before price discovery stabilizes.
+- **Unshrinked Sample Volatility**: Calculating 5-day realized volatility for a 5-day old IPO and using it for Kelly position sizing. Extreme early noise will cause massive over-leveraging or complete under-allocation.
+- **Dropping IPOs Entirely**: Rejecting all newly listed stocks for 60 days, missing early post-IPO drift or liquidity-driven alpha opportunities.
+- **Ignoring Peer Sector Priors**: Using zero as a fallback for missing volatility instead of imputing the sector ETF prior.
 
 ## Verification
 
-- Submit newly listed instrument ($N_{\text{bars}} = 5$), verify proxy cluster feature substitution and position scaling ($25\%$).
-- Run `python scripts/test_cold_start_handler.py` and confirm 100% pass rate.
+- Instantiate `ColdStartHandler` with $N_{min\_warmup}=30$. Feed an asset with 5 days of data ($\sigma_{obs} = 0.80$) and a sector prior ($\sigma_{peer} = 0.20$). Verify that the estimated volatility is smoothly shrunken toward the peer prior ($\sim 0.30$) and that position size is capped at $16.7\%$ ($5/30$).
+- Run `python scripts/test_cold_start_handler.py`.
 
 ## Related Skills
 
-- `transfer-learning-across-correlated-instruments`
-- `fallback-and-redundancy-architecture`
----
+- `categorical-feature-encoding-for-instrument-identity`
+- `new-strategy-onboarding-checklist`

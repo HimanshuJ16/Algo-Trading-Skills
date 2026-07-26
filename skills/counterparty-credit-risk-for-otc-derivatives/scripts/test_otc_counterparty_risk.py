@@ -1,43 +1,59 @@
-"""Unit tests for counterparty-credit-risk-for-otc-derivatives."""
 import unittest
-from otc_counterparty_risk import CounterpartyCreditRiskManager, CounterpartyProfile, OTCTrade
+from otc_counterparty_risk import (
+    OtcCounterpartyRiskEngine, OtcContract, CsaTerms
+)
 
+class TestOtcCounterpartyRiskEngine(unittest.TestCase):
 
-class TestCounterpartyCreditRiskManager(unittest.TestCase):
     def setUp(self):
-        self.manager = CounterpartyCreditRiskManager()
-        self.manager.register_counterparty(CounterpartyProfile(
-            counterparty_id="DEALER_A",
-            rating="BBB",
-            probability_of_default=0.03,
-            recovery_rate=0.40,
-            credit_limit_usd=1000000.0,
-            csa_collateral_threshold_usd=500000.0,
-        ))
-
-    def test_exposure_breach_and_margin_call(self):
-        trades = [
-            OTCTrade("t1", "DEALER_A", mark_to_market_usd=800000.0, volatility_usd=300000.0, maturity_years=1.0),
-            OTCTrade("t2", "DEALER_A", mark_to_market_usd=400000.0, volatility_usd=200000.0, maturity_years=1.0),
+        self.engine = OtcCounterpartyRiskEngine(max_ead_limit_usd=1_000_000.0)
+        
+        self.csa = CsaTerms(
+            netting_set_id="ISDA_BANK_ALPHA",
+            threshold_usd=100_000.0,
+            minimum_transfer_amount=50_000.0,
+            posted_collateral_usd=300_000.0,
+            counterparty_pd=0.02,        # 2% default probability
+            recovery_rate=0.40           # 40% recovery
+        )
+        
+        # 3 Swaps under same netting set:
+        # Contract 1: Equity Swap +$500k MTM ($1M Notional @ 6% Add-on = $60k PFE)
+        # Contract 2: FX Forward -$200k MTM ($500k Notional @ 4% Add-on = $20k PFE)
+        # Contract 3: Rates Swap  +$100k MTM ($2M Notional @ 1% Add-on = $20k PFE)
+        # Net MTM = $500k - $200k + $100k = $400k
+        self.contracts = [
+            OtcContract("SWAP_1", "EQUITY", 1_000_000.0, 500_000.0, 0.06),
+            OtcContract("SWAP_2", "FX", 500_000.0, -200_000.0, 0.04),
+            OtcContract("SWAP_3", "RATES", 2_000_000.0, 100_000.0, 0.01)
         ]
 
-        report = self.manager.evaluate_counterparty_exposure("DEALER_A", trades)
+    def test_current_exposure_and_netting(self):
+        # Net MTM = $400k. Posted Collateral = $300k. Threshold = $100k
+        # CE = max(0, $400k - $300k - $100k) = $0.0
+        ce = self.engine.calculate_current_exposure(self.contracts, self.csa)
+        self.assertEqual(ce, 0.0)
 
-        self.assertTrue(report.is_limit_breached)
-        self.assertGreater(report.potential_future_exposure_pfe95_usd, 1000000.0)
-        self.assertGreater(report.credit_valuation_adjustment_cva_usd, 0.0)
-        self.assertEqual(report.collateral_margin_call_usd, report.potential_future_exposure_pfe95_usd - 500000.0)
+    def test_pfe_and_ead_calculation(self):
+        # Total PFE = $60k + $20k + $20k = $100k
+        pfe = self.engine.calculate_pfe(self.contracts)
+        self.assertEqual(pfe, 100_000.0)
 
-    def test_safe_exposure_no_breach(self):
-        trades = [
-            OTCTrade("t1", "DEALER_A", mark_to_market_usd=100000.0, volatility_usd=50000.0, maturity_years=0.5),
-        ]
+    def test_cva_calculation(self):
+        # EAD = $100k PFE + $0 CE = $100k
+        # LGD = 1 - 0.40 = 0.60
+        # CVA = 0.60 * $100,000 * 0.02 = $1,200.0
+        cva = self.engine.calculate_cva(ead=100_000.0, pd=0.02, recovery_rate=0.40)
+        self.assertEqual(cva, 1200.0)
 
-        report = self.manager.evaluate_counterparty_exposure("DEALER_A", trades)
+    def test_full_netting_set_audit(self):
+        report = self.engine.analyze_netting_set(self.contracts, self.csa)
+        
+        self.assertEqual(report.gross_mtm_usd, 800_000.0)
+        self.assertEqual(report.net_mtm_usd, 400_000.0)
+        self.assertEqual(report.potential_future_exposure_usd, 100_000.0)
+        self.assertEqual(report.cva_usd, 1200.0)
+        self.assertFalse(report.is_credit_limit_breached)
 
-        self.assertFalse(report.is_limit_breached)
-        self.assertEqual(report.collateral_margin_call_usd, 0.0)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

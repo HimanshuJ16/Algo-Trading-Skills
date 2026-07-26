@@ -1,14 +1,6 @@
-# Pre-Flight / Sign-off Checklist — consumer-group-rebalance-safety
+# Pre-Flight Checklist
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Rebalance Hook Registration:** Confirm `on_partitions_revoked` and `on_partitions_assigned` callbacks are registered.
-- [ ] **In-Flight Batch Flush:** Confirm in-flight records are processed before partition revocation completes.
-- [ ] **Offset Commit Protocol:** Confirm partition offsets are committed before unassignment.
-- [ ] **Unassigned Partition Veto:** Confirm records for unassigned partitions are rejected.
-- [ ] **Automated Testing:** Run `python scripts/test_rebalance_guard.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Is `enable.auto.commit` set to `false` in consumer configuration?
+- [ ] Are `on_partitions_revoked` and `on_partitions_assigned` listener callbacks registered?
+- [ ] Is thread fencing active so revoked partitions immediately reject new execution calls?
+- [ ] Is an idempotency cache active to prevent duplicate execution during rebalances?

@@ -1,90 +1,51 @@
-"""
-Unit tests for corporate-action-adjusted-backtesting skill.
-
-Tests:
-1. 2-for-1 stock split backward price halving and volume doubling.
-2. 1-for-5 reverse stock split backward price multiplying and volume reducing.
-3. Cash dividend ex-date account cash credit calculation.
-4. Combination of split and cash dividend adjustments.
-"""
-import datetime
 import unittest
+from datetime import date
 from corporate_action_adjuster import (
-    ActionType,
-    AdjustedBar,
-    CorporateActionAdjuster,
-    CorporateActionEvent,
-    RawBar,
+    CorporateActionAdjuster, CorporateActionEvent, BarData
 )
-
 
 class TestCorporateActionAdjuster(unittest.TestCase):
 
-    def setUp(self):
-        self.adjuster = CorporateActionAdjuster(symbol="NVDA")
-
     def test_stock_split_adjustment(self):
-        # 2-for-1 split on 2024-06-10
-        self.adjuster.add_event(
-            CorporateActionEvent(
-                symbol="NVDA",
-                ex_date=datetime.date(2024, 6, 10),
-                action_type=ActionType.SPLIT,
-                ratio=2.0,
-            )
-        )
+        # 2-for-1 stock split on Day 3 (2025-01-03)
+        # Raw prices: Day 1: $100, Day 2: $100, Day 3 (ex-date): $50, Day 4: $50
+        events = [CorporateActionEvent(ex_date=date(2025, 1, 3), event_type="SPLIT", value=2.0)]
+        adjuster = CorporateActionAdjuster(events)
 
         bars = [
-            RawBar(datetime.date(2024, 6, 7), open=1000.0, high=1020.0, low=990.0, close=1000.0, volume=100.0),
-            RawBar(datetime.date(2024, 6, 10), open=500.0, high=510.0, low=495.0, close=500.0, volume=200.0),
+            BarData(date(2025, 1, 1), 100, 100, 100, 100, 1000),
+            BarData(date(2025, 1, 2), 100, 100, 100, 100, 1000),
+            BarData(date(2025, 1, 3), 50, 50, 50, 50, 2000),
+            BarData(date(2025, 1, 4), 50, 50, 50, 50, 2000),
         ]
 
-        adj_bars = self.adjuster.adjust_series(bars)
-        self.assertEqual(len(adj_bars), 2)
+        adj_bars = adjuster.adjust_bars(bars)
+        
+        # Days 1 & 2 historical adjusted prices should be scaled down by 0.5 -> $50
+        self.assertEqual(adj_bars[0].adj_close, 50.0)
+        self.assertEqual(adj_bars[1].adj_close, 50.0)
+        # Days 3 & 4 adjusted prices remain $50 (CAF = 1.0)
+        self.assertEqual(adj_bars[2].adj_close, 50.0)
+        self.assertEqual(adj_bars[3].adj_close, 50.0)
 
-        # Pre-split bar (June 7) should have halved price ($500) and doubled volume (200)
-        self.assertEqual(adj_bars[0].close, 500.0)
-        self.assertEqual(adj_bars[0].volume, 200.0)
-
-        # Post-split bar (June 10) remains unchanged ($500 price, 200 volume)
-        self.assertEqual(adj_bars[1].close, 500.0)
-        self.assertEqual(adj_bars[1].volume, 200.0)
-
-    def test_reverse_stock_split_adjustment(self):
-        # 1-for-5 reverse split on 2024-03-01 (ratio = 0.2)
-        self.adjuster.add_event(
-            CorporateActionEvent(
-                symbol="NVDA",
-                ex_date=datetime.date(2024, 3, 1),
-                action_type=ActionType.REVERSE_SPLIT,
-                ratio=0.2,
-            )
-        )
+    def test_cash_dividend_adjustment(self):
+        # $2.00 cash dividend on Day 2 when raw close was $100 -> Factor = (100-2)/100 = 0.98
+        events = [CorporateActionEvent(ex_date=date(2025, 1, 2), event_type="DIVIDEND", value=2.0)]
+        adjuster = CorporateActionAdjuster(events)
 
         bars = [
-            RawBar(datetime.date(2024, 2, 28), open=2.0, high=2.1, low=1.9, close=2.0, volume=1000.0),
-            RawBar(datetime.date(2024, 3, 1), open=10.0, high=10.5, low=9.5, close=10.0, volume=200.0),
+            BarData(date(2025, 1, 1), 100, 100, 100, 100, 1000),
+            BarData(date(2025, 1, 2), 98, 98, 98, 100, 1000),
+            BarData(date(2025, 1, 3), 98, 98, 98, 98, 1000),
         ]
 
-        adj_bars = self.adjuster.adjust_series(bars)
+        adj_bars = adjuster.adjust_bars(bars)
+        
+        # Day 1 historical adjusted close should be 100 * 0.98 = 98.0
+        self.assertEqual(adj_bars[0].adj_close, 98.0)
+        # Days 2 & 3 adjusted close remain unchanged (CAF = 1.0)
+        self.assertEqual(adj_bars[1].adj_close, 100.0)
+        self.assertEqual(adj_bars[2].adj_close, 98.0)
 
-        # Pre-reverse split bar (Feb 28) should have price multiplied by 5 ($10) and volume divided by 5 (200)
-        self.assertEqual(adj_bars[0].close, 10.0)
-        self.assertEqual(adj_bars[0].volume, 200.0)
-
-    def test_dividend_cash_credit(self):
-        self.adjuster.add_event(
-            CorporateActionEvent(
-                symbol="NVDA",
-                ex_date=datetime.date(2024, 5, 15),
-                action_type=ActionType.CASH_DIVIDEND,
-                cash_amount=0.10,
-            )
-        )
-
-        cash = self.adjuster.calculate_dividend_cash_credit(datetime.date(2024, 5, 15), position_qty=1000)
-        self.assertEqual(cash, 100.0)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

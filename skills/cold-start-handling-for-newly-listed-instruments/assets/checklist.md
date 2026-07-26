@@ -1,11 +1,6 @@
-# Pre-Flight / Sign-off Checklist — cold-start-handling-for-newly-listed-instruments
+# Pre-Flight Checklist
 
-- [ ] History maturity check implemented.
-- [ ] Sector peer cluster feature substitution verified for NaN values.
-- [ ] Cold-start size scaling cap enforced.
-- [ ] Automated Testing: Run `python scripts/test_cold_start_handler.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Is $N_{min\_warmup}$ defined appropriately for the strategy frequency (e.g. 30 days)?
+- [ ] Are peer group sector priors available and configured for fallback?
+- [ ] Is Bayesian shrinkage applied to both return mean and volatility estimates?
+- [ ] Is maximum capital allocation capped during the probationary period?

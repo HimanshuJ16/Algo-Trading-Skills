@@ -1,12 +1,6 @@
-# Pre-Flight / Sign-off Checklist — counterparty-credit-risk-for-otc-derivatives
+# Pre-Flight Checklist
 
-- [ ] Netting agreement aggregation active.
-- [ ] Potential Future Exposure ($PFE_{95\%}$) calculation verified.
-- [ ] Credit Valuation Adjustment (CVA) computation active.
-- [ ] ISDA CSA collateral margin call generation tested.
-- [ ] Automated Testing: Run `python scripts/test_otc_counterparty_risk.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Are ISDA Netting Set IDs assigned to all active bilateral OTC derivative contracts?
+- [ ] Is Current Exposure (CE) calculated on a net MTM basis after deducting posted collateral?
+- [ ] Is Potential Future Exposure (PFE) calculated using SA-CCR add-on factors?
+- [ ] Is Credit Valuation Adjustment (CVA) priced into contract valuation?

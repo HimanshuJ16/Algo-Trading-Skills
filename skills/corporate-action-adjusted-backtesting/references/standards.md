@@ -1,16 +1,7 @@
-# Data Provider Standards — corporate-action-adjusted-backtesting
+# Standards for Corporate Action Adjusted Backtesting
 
-| Data Provider | Adjustment Field / Standard | Split Handling | Dividend Handling |
-|---|---|---|---|
-| CRSP (Center for Research in Security Prices) | `CFACPR` (Cumulative Factor Price), `CFACSHR` (Cumulative Factor Shares) | Multiplicative factor | Continuous dividend ratio factor |
-| Polygon.io / Yahoo Finance | `adj_close` vs `close` | Pre-calculated backward factors | Subtracted / ratio adjusted |
-| Interactive Brokers Historical API | `useRTH=1, whatToShow=ADJUSTED_LAST` | Real-time split/div adjustment | Cash dividends included |
-
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
-## Regulatory & Operational Notes
-
-Intersects with corporate action processing, accounting for dividend yields in total return benchmarks, and unadjusted vs adjusted price series integrity.
+| Metric | Engineering Standard |
+|---|---|
+| Signal vs Execution Separation | Signals MUST be computed on adjusted prices; Execution and cash accounting MUST use raw unadjusted prices. |
+| CAF Anchoring | Cumulative Adjustment Factors (CAF) MUST be normalized to $1.0$ at current/latest date. |
+| Volume Symmetry | Trading volume MUST be adjusted inversely to price adjustments ($V_{adj} = V_{raw} / \text{CAF}$). |

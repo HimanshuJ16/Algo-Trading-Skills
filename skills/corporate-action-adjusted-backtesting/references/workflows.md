@@ -1,33 +1,12 @@
-# Deep Workflow Reference — corporate-action-adjusted-backtesting
+# Workflows for Corporate Action Adjustments
 
-This file holds the full technical procedure referenced by `SKILL.md`. Load this when
-actually implementing the skill, not just when deciding whether it applies.
-
-## Full Procedure
-
-1. **Register Corporate Action Events:**
-   - Store events with `ex_date`, `action_type` (`SPLIT`, `REVERSE_SPLIT`, `CASH_DIVIDEND`), `ratio`, and `cash_amount`.
-
-2. **Backward Cumulative Factor Calculation:**
-   - Process historical bars in reverse chronological order (newest to oldest).
-   - Apply current cumulative factors ($F_p, F_v$) to bar $T$.
-   - If bar $T$ is an ex-date:
-     - For split ratio $R$: $F_p = F_p / R$; $F_v = F_v \cdot R$.
-     - For dividend cash $D$: $F_d = F_d \cdot (1 - D/P_{\text{close}})$.
-
-3. **Adjust Historical OHLCV Series:**
-   - Adjusted Price: $P_{\text{adj}} = P_{\text{raw}} \cdot F_p$.
-   - Adjusted Volume: $V_{\text{adj}} = V_{\text{raw}} \cdot F_v$.
-
-4. **Account Dividend Crediting:**
-   - On ex-dividend date, credit cash: $\text{Cash} = \text{Position Quantity} \cdot D$.
-
-## Failure Modes Observed in Production
-
-- **Double-Adjusting Vendors Data:** Applying split adjustments to data that was already pre-adjusted by data providers.
-- **Un-Adjusted Volume:** Adjusting historical prices for a stock split without adjusting historical volumes proportionally.
-
-## Production Implementation Reference
-
-- Reference code: `scripts/corporate_action_adjuster.py` (`CorporateActionAdjuster`, `CorporateActionEvent`, `ActionType`).
-- Automated unit tests: `scripts/test_corporate_action_adjuster.py`.
+1. **Event Registration**:
+   - Record events: `date`, `event_type` ('SPLIT', 'DIVIDEND'), `value` (e.g. 2.0 for 2-for-1 split, or $1.50 for dividend).
+2. **CAF Computation**:
+   - For each date $t$: $\text{CAF}_t = \prod_{\tau > t} \alpha_\tau$.
+3. **Data Series Transformation**:
+   - $P_{adj}(t) = P_{raw}(t) \times \text{CAF}_t$.
+   - $V_{adj}(t) = V_{raw}(t) / \text{CAF}_t$.
+4. **Execution Protocol**:
+   - Compute signals using $P_{adj}$.
+   - Execute trade orders using $P_{raw}(t)$ and credit cash for dividends on ex-date: $\text{Cash} += \text{Positions} \times D$.

@@ -1,41 +1,36 @@
 ---
 name: consumer-group-rebalance-safety
 description: >-
-  Use when operating distributed message stream consumer groups (Kafka, Redis Streams) to handle partition rebalance events safely, flushing in-flight batches and committing offset checkpoints before partition reassignment to prevent duplicate tick processing.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags: ["real-time-architecture", "consumer-group", "rebalance-safety", "kafka", "redis-streams", "offset-commit", "partition-reassignment"]
-brokers_frameworks: ["Consumer Rebalance Guard", "Python Async Stream"]
-version: "1.0"
+  Quantitative streaming infrastructure module for handling Kafka consumer group rebalances safely, preventing zombie execution, flushing in-flight orders, and enforcing offset commit idempotency.
+domain: Infrastructure
+subdomain: Event-Driven Systems & Streaming
+tags: ["kafka", "consumer-group", "rebalance-safety", "event-driven", "idempotency", "zombie-consumer", "streaming"]
+brokers_frameworks: ["Apache Kafka / Redpanda", "Generic Event Stream"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when deploying multi-worker distributed stream consumer groups (Kafka consumer groups, Redis Streams consumer groups) for market data or order updates. When consumer node instances auto-scale, crash, or restart, the broker triggers a Consumer Group Rebalance to reassign topic partitions across active workers. Processing or failing to commit in-flight messages during a rebalance window causes duplicate tick execution or dropped messages. This skill intercepts rebalance hooks to pause, flush, and commit offsets cleanly.
+Use this skill in event-driven quantitative trading architectures (e.g. processing streaming market data or order fills over Apache Kafka / Redpanda) where worker nodes belong to a Consumer Group. Unhandled consumer group rebalances can cause **zombie execution** (a node continuing to send orders after losing partition ownership) or **duplicate order execution** (a new worker reprocessing uncommitted order events). This module implements a safety guard around rebalance lifecycle hooks (`on_partitions_revoked`, `on_partitions_assigned`).
 
 ## Prerequisites
 
-- Distributed stream consumer group setup with partition assignment listeners (`on_partitions_revoked`, `on_partitions_assigned`).
-- Offset checkpoint commit interface.
+- Disables auto-commit (`enable.auto.commit = false`).
+- Topic partition assignment tracking and message idempotency key tracking (`order_id` / `event_id`).
 
 ## Workflow
 
-1. **Register Rebalance Listener Hooks**:
-   - Register callbacks for partition revocation (`on_partitions_revoked`) and partition assignment (`on_partitions_assigned`).
-
-2. **Handle Partition Revocation (`on_partitions_revoked`)**:
-   - Immediately pause new message fetches.
-   - Process remaining in-flight message batch to completion.
-   - Synchronously commit last processed offset checkpoint for revoked partitions.
-
-3. **Handle Partition Assignment (`on_partitions_assigned`)**:
-   - Initialize partition state for newly assigned partitions.
-   - Resume message consumption from verified committed offset checkpoint.
-
-4. **Verify Zero Duplicate / Dropped Ticks**:
-   - Confirm no messages from revoked partitions are processed during the rebalance window.
+1. **Rebalance Event Trigger**: Kafka coordinator initiates partition rebalance (node join/leave/pause).
+2. **Revocation Phase (`on_partitions_revoked`)**:
+   - Immediately set `is_partition_active[p] = False` to fence the worker thread from accepting new trades.
+   - Synchronously flush in-flight execution orders in the buffer.
+   - Commit current offsets for revoked partitions synchronously.
+3. **Assignment Phase (`on_partitions_assigned`)**:
+   - Reset local state and load assigned partition offsets.
+   - Set `is_partition_active[p] = True` for newly assigned partitions.
+4. **Rebalance Storm Detection**: Track rebalance event frequency; if rebalances exceed threshold (e.g. $> 3$ in 60 seconds), alert on worker cluster instability.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -43,19 +38,17 @@ Invoke this skill when deploying multi-worker distributed stream consumer groups
 
 ## Common Pitfalls
 
-- **Uncommitted In-Flight Batches**: Allowing a rebalance to complete while holding uncommitted in-flight tick batches, causing duplicate processing when the new partition owner takes over.
-- **Blocking Rebalance Callbacks**: Executing slow synchronous network operations inside the revocation callback, exceeding `max.poll.interval.ms` and triggering perpetual rebalance loops.
-- **Ignoring Rebalance State Guards**: Continuing to emit order signals from a worker thread after its partition assignment has been revoked.
+- **Continuing Processing During Revocation**: Allowing the event loop to execute trades on a partition that has already been revoked by the group coordinator.
+- **Asynchronous Commit in `onPartitionsRevoked`**: Using async offset commits during revocation. If the rebalance completes before the async commit succeeds, another worker will reprocess the same messages.
+- **Relying on Auto-Commit**: Leaving `enable.auto.commit=true`. Auto-commit will randomly commit offsets regardless of whether the trading engine finished processing the order batch.
 
 ## Verification
 
-- Simulate consumer group rebalance trigger (`REVOKE` $\to$ `ASSIGN`), verifying in-flight batch flush and offset commit before revocation completes.
-- Verify zero message duplication during partition handover.
-- Run `python scripts/test_rebalance_guard.py` and confirm 100% pass rate.
+- Instantiate `ConsumerGroupRebalanceGuard`. Assign partitions `[0, 1]`. Process message `ORDER_101` on partition `0` (recorded in processed set). Trigger `on_partitions_revoked([0])`. Verify that partition `0` is fenced (`is_active = False`) and in-flight buffers are flushed. Attempt to process another order on partition `0` and verify it is rejected with a `PartitionRevokedException`.
+- Run `python scripts/test_rebalance_guard.py`.
 
 ## Related Skills
 
-- `kafka-based-tick-distribution-at-scale`
-- `redis-streams-multi-consumer-tick-fanout`
-- `graceful-shutdown-draining-in-flight-ticks`
+- `binary-protocol-parsing-for-low-latency-feeds`
+- `cross-region-data-replication-lag-monitoring`
 ---

@@ -1,72 +1,67 @@
-"""
-cold-start-handling-for-newly-listed-instruments: Maturity checker, sector proxy feature substitute,
-and position size scaler for new listings.
-"""
-from dataclasses import dataclass
 import logging
-from typing import Any, Dict, List, Optional, Tuple
+from dataclasses import dataclass
+from typing import Dict, Tuple
 
 logger = logging.getLogger(__name__)
 
-
 @dataclass
-class ColdStartEvaluation:
+class InstrumentStatus:
     symbol: str
-    bars_available: int
-    min_required_bars: int
-    is_cold_start: bool
-    size_scaling_factor: float
-    features_used: Dict[str, float]
-    status_message: str
-
+    n_obs: int
+    is_probationary: bool
+    confidence_weight: float    # 0.0 to 1.0
+    estimated_volatility: float
+    max_position_cap_pct: float
 
 class ColdStartHandler:
     """
-    Manages ML feature generation and risk limits for newly listed instruments
-    with insufficient historical data.
+    Manages cold-start onboarding for newly listed instruments (IPOs/SPACs).
+    Applies Bayesian shrinkage toward peer priors and scales risk allocations.
     """
+    def __init__(self, warmup_period_days: int = 30, base_max_position_pct: float = 1.0):
+        self.warmup_period_days = warmup_period_days
+        self.base_max_position_pct = base_max_position_pct
 
-    def __init__(
-        self,
-        min_required_bars: int = 30,
-        cold_start_size_scale: float = 0.25,
-    ):
-        self.min_required_bars = min_required_bars
-        self.cold_start_size_scale = cold_start_size_scale
+    def calculate_shrinkage_weight(self, n_obs: int) -> float:
+        """
+        Calculates linear shrinkage weight w in [0.0, 1.0].
+        """
+        if n_obs < 0:
+            raise ValueError("Observation count cannot be negative.")
+        return float(min(1.0, max(0.0, n_obs / self.warmup_period_days)))
 
-    def evaluate_instrument(
+    def process_instrument(
         self,
         symbol: str,
-        bars_available: int,
-        native_features: Dict[str, float],
-        sector_peer_proxy_features: Dict[str, float],
-    ) -> ColdStartEvaluation:
-        is_cold = bars_available < self.min_required_bars
-
-        if is_cold:
-            scaling = self.cold_start_size_scale
-            # Substitute missing/NaN native features with sector peer proxies
-            merged_features = dict(sector_peer_proxy_features)
-            for k, v in native_features.items():
-                if v is not None and not (isinstance(v, float) and (v != v)):  # check not NaN
-                    merged_features[k] = v
-
-            msg = (
-                f"COLD START ACTIVE for '{symbol}' ({bars_available}/{self.min_required_bars} bars): "
-                f"Applied sector proxy features and scaled size to {scaling * 100:.0f}%."
+        n_obs: int,
+        observed_volatility: float,
+        peer_prior_volatility: float
+    ) -> InstrumentStatus:
+        """
+        Evaluates instrument history, applies volatility shrinkage, and returns status.
+        """
+        w = self.calculate_shrinkage_weight(n_obs)
+        is_probationary = w < 1.0
+        
+        # Bayesian Shrinkage: w * observed + (1 - w) * prior
+        shrunken_vol = (w * observed_volatility) + ((1.0 - w) * peer_prior_volatility)
+        
+        # Position sizing cap scales with confidence weight
+        max_cap = self.base_max_position_pct * w if is_probationary else self.base_max_position_pct
+        
+        if is_probationary:
+            logger.info(
+                f"Instrument {symbol} is PROBATIONARY ({n_obs}/{self.warmup_period_days} days). "
+                f"Shrunken Vol: {shrunken_vol:.4f}, Position Cap: {max_cap:.2%}"
             )
-            logger.info(msg)
         else:
-            scaling = 1.0
-            merged_features = dict(native_features)
-            msg = f"Instrument '{symbol}' MATURE ({bars_available} bars): Full native ML model enabled."
-
-        return ColdStartEvaluation(
+            logger.info(f"Instrument {symbol} is GRADUATED. Vol: {shrunken_vol:.4f}")
+            
+        return InstrumentStatus(
             symbol=symbol,
-            bars_available=bars_available,
-            min_required_bars=self.min_required_bars,
-            is_cold_start=is_cold,
-            size_scaling_factor=scaling,
-            features_used=merged_features,
-            status_message=msg,
+            n_obs=n_obs,
+            is_probationary=is_probationary,
+            confidence_weight=round(w, 4),
+            estimated_volatility=round(shrunken_vol, 4),
+            max_position_cap_pct=round(max_cap, 4)
         )

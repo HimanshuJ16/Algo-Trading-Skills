@@ -1,15 +1,14 @@
-# Deep Workflow Reference — counterparty-credit-risk-for-otc-derivatives
+# Workflows for OTC Counterparty Credit Risk
 
-This file holds the full technical procedure referenced by `SKILL.md`.
-
-## Full Procedure
-
-1. **Calculate PFE95**: $PFE_{95\%} = \max\left(0, \sum MTM + 1.645 \cdot \sigma_V \sqrt{T_{\text{max}}}\right)$.
-2. **Compute CVA**: $CVA = (1 - R) \cdot PFE_{95\%} \cdot PD$.
-3. **Audit Credit Limit & ISDA Threshold**: Check $PFE_{95\%} > \text{CreditLimit}$.
-4. **Generate Collateral Margin Call**: $\text{MarginCall} = \max(0, PFE_{95\%} - \text{CSA\_Threshold})$.
-
-## Production Implementation Reference
-
-- Reference code: `scripts/otc_counterparty_risk.py` (`CounterpartyCreditRiskManager`, `CounterpartyProfile`, `OTCTrade`).
-- Automated unit tests: `scripts/test_otc_counterparty_risk.py`.
+1. **Netting Set Aggregation**:
+   - Sum MTM values for all contracts in netting set: $V_{net} = \sum V_{mtm, i}$.
+2. **Current Exposure Calculation**:
+   - $CE_{net} = \max(0, V_{net} - \text{Collateral} - \text{Threshold})$.
+3. **PFE & EAD Calculation**:
+   - $\text{PFE} = \sum (\text{Notional}_i \times \text{RiskFactor}_i)$.
+   - $EAD = CE_{net} + \text{PFE}$.
+4. **CVA Pricing Adjustment**:
+   - $CVA = (1 - R) \times EAD \times PD$.
+5. **CSA Margin Call Audit**:
+   - Uncollateralized Amount $= V_{net} - \text{Collateral}$.
+   - If Uncollateralized Amount $> \text{Threshold} + \text{MTA} \implies$ Trigger Margin Call.

@@ -1,58 +1,55 @@
 ---
 name: counterparty-and-broker-concentration-risk
 description: >-
-  Use when trading across multiple brokers or custodians to limit exposure to any
-  single counterparty, bounding losses from broker default, insolvency, or operational
-  failure rather than just market risk.
-domain: algorithmic-trading
-subdomain: risk-management
-tags: ["risk-management", "counterparty-risk", "broker-risk", "concentration-limits", "custodian-risk"]
-brokers_frameworks: ["Custom Risk Engine", "Multi-Broker"]
-version: "1.0"
+  Quantitative treasury and risk management module for auditing prime broker counterparty concentration, enforcing max % NAV limits, credit rating/CDS spread bounds, and smart failover order routing.
+domain: Risk Management & Treasury
+subdomain: Counterparty Risk
+tags: ["counterparty-risk", "prime-broker", "concentration-limits", "cds-spread", "smart-order-routing", "hhi"]
+brokers_frameworks: ["Generic Risk Engine", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill whenever trading capital is distributed across multiple brokers, custodians,
-or exchanges. Even if market risk is well-hedged, counterparty concentration can cause
-catastrophic losses if a single broker defaults (e.g., MF Global 2011, FTX 2022). This skill:
-- Tracks capital held at each counterparty as a percentage of total AUM.
-- Enforces maximum single-counterparty exposure limits (e.g. 40% of AUM).
-- Blocks new deposits or position increases at over-concentrated counterparties.
+Use this skill in quantitative fund architectures that operate with multiple Prime Brokers (PBs), clearing firms, or crypto exchanges. Concentrating too much cash, margin collateral, or position value at a single counterparty exposes the fund to severe systemic risk (e.g. Lehman Brothers, MF Global, or exchange insolvencies). This module monitors per-broker exposure, incorporates Credit Default Swap (CDS) spread signals, enforces % NAV exposure caps, and dynamically re-routes orders to secondary brokers.
 
 ## Prerequisites
 
-- Registry of all brokers/custodians with current capital held at each.
-- Maximum single-counterparty exposure limit as percentage of total AUM.
-- Total AUM (assets under management) across all counterparties.
+- Account cash, margin, and position market value balances per prime broker.
+- Total portfolio NAV and broker credit metrics (CDS spread in bps, credit rating).
 
 ## Workflow
 
-1. **Register Counterparties**: List all brokers/custodians with capital held.
-2. **Compute Concentration**: For each counterparty, $\text{conc}_c = \text{capital}_c / \text{AUM}$.
-3. **Enforce Limits**: Block new capital allocation if $\text{conc}_c \ge \text{limit}$.
-4. **Alert on Drift**: Monitor for concentration drift as P&L shifts balances.
+1. **Broker Inventory Registration**: Register prime brokers (`broker_id`, `max_nav_pct_limit`, `cds_spread_bps`, `credit_rating`).
+2. **Current Exposure Calculation**:
+   - $\text{Exposure}_k = \text{Cash}_k + \text{Margin}_k + \text{PositionValue}_k$.
+   - $\text{NAV Weight}_k = \frac{\text{Exposure}_k}{\text{Portfolio NAV}}$.
+3. **Pre-Trade Routing Audit**:
+   - For proposed order with trade value $V$:
+   - Check if $\frac{\text{Exposure}_k + V}{\text{NAV}} > \text{Max NAV Limit}_k$.
+   - Check if broker $\text{CDS Spread} > \text{Max CDS Threshold}$ (credit distress).
+4. **Smart Failover Routing**: If primary broker breaches limits or credit signals, re-route order to the next available compliant broker.
+5. **Broker HHI Reporting**: Compute Herfindahl-Hirschman Index across broker exposures ($HHI = \sum w_k^2$).
 
 > Full procedure: see `references/workflows.md`.
-> Standards: see `references/standards.md`.
-> Checklist: see `assets/checklist.md`.
+> Standards reference: see `references/standards.md`.
+> Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Ignoring Margin Held as Exposure**: Margin posted to a broker is counterparty exposure.
-- **FTX-Style Commingling**: Assuming segregated accounts are truly segregated without verification.
-- **Not Counting Pending Settlements**: Unsettled trades are counterparty exposure.
+- **Single Broker Reliance**: Maintaining 90% of collateral at a single prime broker despite having active accounts at 3 secondary brokers.
+- **Ignoring CDS Spread Spikes**: Failing to monitor real-time broker CDS spreads, continuing to route new collateral to a bank experiencing credit distress.
+- **Excluding Unsettled Trade Cash**: Calculating broker concentration on settled cash only, ignoring open trade receivables.
 
 ## Verification
 
-- Register 3 counterparties and verify concentration calculations.
-- Attempt to increase exposure beyond limit and confirm blocking.
-- Run `python scripts/test_counterparty_monitor.py` and confirm 100% pass rate.
+- Instantiate `CounterpartyConcentrationMonitor` with 3 brokers (`BrokerA` limit 35% NAV, `BrokerB` limit 35% NAV). Set `BrokerA` current exposure to 33% NAV. Submit an order of $50,000 to `BrokerA`. Verify the monitor flags a limit breach and automatically re-routes to `BrokerB`.
+- Run `python scripts/test_counterparty_monitor.py`.
 
 ## Related Skills
 
-- `multi-strategy-capital-allocation-limits`
-- `kill-switch-and-drawdown-circuit-breakers`
+- `broker-failover-secondary-account-routing`
+- `smart-order-router-failover-on-venue-outage`
 ---

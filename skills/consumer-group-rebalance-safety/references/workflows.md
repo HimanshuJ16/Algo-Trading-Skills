@@ -1,22 +1,15 @@
-# Deep Workflow Reference — consumer-group-rebalance-safety
+# Workflows for Consumer Group Rebalance Safety
 
-This file holds the full technical procedure referenced by `SKILL.md`.
-
-## Full Procedure
-
-1. **Register Listener Hooks**:
-   - Register callbacks for partition revocation (`on_partitions_revoked`) and partition assignment (`on_partitions_assigned`).
-
-2. **Handle Partition Revocation**:
-   - Transition state to `REVOKING`.
-   - Process in-flight records to completion.
-   - Commit partition offset checkpoint synchronously before partition is unassigned.
-
-3. **Handle Partition Assignment**:
-   - Transition state to `ASSIGNING` $\to$ `NORMAL`.
-   - Initialize assigned partitions and resume message consumption from last committed offset checkpoint.
-
-## Production Implementation Reference
-
-- Reference code: `scripts/rebalance_guard.py` (`ConsumerGroupRebalanceGuard`, `RebalanceState`, `RebalanceEventReport`).
-- Automated unit tests: `scripts/test_rebalance_guard.py`.
+1. **Partition Assignment**:
+   - Call `guard.on_partitions_assigned(partitions)`. Mark assigned partitions as active (`is_active = True`).
+2. **Message Processing & Idempotency**:
+   - Check if partition is active (`is_active == True`).
+   - Deduplicate using `order_id` in idempotency cache.
+   - Execute trade / update position state.
+3. **Partition Revocation Protocol**:
+   - Call `guard.on_partitions_revoked(revoked_partitions)`.
+   - **Step A (Fencing)**: Set `is_active = False` immediately.
+   - **Step B (Flushing)**: Flush pending execution buffer.
+   - **Step C (Sync Commit)**: Synchronously commit offsets to broker.
+4. **Rebalance Storm Alert**:
+   - Record timestamp of rebalance. If count in rolling 60s window $> 3$, trigger cluster instability alert.

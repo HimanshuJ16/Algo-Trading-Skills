@@ -1,33 +1,42 @@
-"""Unit tests for cold-start-handling-for-newly-listed-instruments."""
 import unittest
-from cold_start_handler import ColdStartHandler
-
+from cold_start_handler import ColdStartHandler, InstrumentStatus
 
 class TestColdStartHandler(unittest.TestCase):
+
     def setUp(self):
-        self.handler = ColdStartHandler(min_required_bars=30, cold_start_size_scale=0.25)
+        self.handler = ColdStartHandler(warmup_period_days=30, base_max_position_pct=1.0)
 
-    def test_new_listing_triggers_cold_start(self):
-        native = {"volatility": float("nan")}
-        proxy = {"volatility": 0.20, "momentum": 0.05}
+    def test_zero_observations(self):
+        # 0 days of history -> 100% peer prior
+        status = self.handler.process_instrument(
+            symbol="NEW_IPO", n_obs=0, observed_volatility=0.0, peer_prior_volatility=0.25
+        )
+        self.assertTrue(status.is_probationary)
+        self.assertEqual(status.confidence_weight, 0.0)
+        self.assertEqual(status.estimated_volatility, 0.25)
+        self.assertEqual(status.max_position_cap_pct, 0.0)
 
-        eval_res = self.handler.evaluate_instrument("NEW_IPO", bars_available=5, native_features=native, sector_peer_proxy_features=proxy)
+    def test_partial_probation_shrinkage(self):
+        # 15 days of history (50% weight)
+        # Observed vol = 0.80, Peer prior vol = 0.20
+        # Expected vol = 0.5 * 0.80 + 0.5 * 0.20 = 0.50
+        status = self.handler.process_instrument(
+            symbol="MID_IPO", n_obs=15, observed_volatility=0.80, peer_prior_volatility=0.20
+        )
+        self.assertTrue(status.is_probationary)
+        self.assertEqual(status.confidence_weight, 0.5)
+        self.assertEqual(status.estimated_volatility, 0.50)
+        self.assertEqual(status.max_position_cap_pct, 0.5)
 
-        self.assertTrue(eval_res.is_cold_start)
-        self.assertEqual(eval_res.size_scaling_factor, 0.25)
-        self.assertEqual(eval_res.features_used["volatility"], 0.20)
-        self.assertIn("COLD START ACTIVE", eval_res.status_message)
+    def test_graduated_instrument(self):
+        # 30+ days of history -> 100% observed vol
+        status = self.handler.process_instrument(
+            symbol="MATURE", n_obs=45, observed_volatility=0.18, peer_prior_volatility=0.25
+        )
+        self.assertFalse(status.is_probationary)
+        self.assertEqual(status.confidence_weight, 1.0)
+        self.assertEqual(status.estimated_volatility, 0.18)
+        self.assertEqual(status.max_position_cap_pct, 1.0)
 
-    def test_mature_listing_uses_native_features(self):
-        native = {"volatility": 0.15, "momentum": 0.02}
-        proxy = {"volatility": 0.20, "momentum": 0.05}
-
-        eval_res = self.handler.evaluate_instrument("AAPL", bars_available=100, native_features=native, sector_peer_proxy_features=proxy)
-
-        self.assertFalse(eval_res.is_cold_start)
-        self.assertEqual(eval_res.size_scaling_factor, 1.0)
-        self.assertEqual(eval_res.features_used["volatility"], 0.15)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

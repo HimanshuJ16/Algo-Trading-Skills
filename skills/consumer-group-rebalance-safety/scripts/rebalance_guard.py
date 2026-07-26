@@ -1,122 +1,106 @@
-"""
-consumer-group-rebalance-safety: Stream consumer group rebalance listener,
-revocation in-flight batch flusher, and partition assignment offset manager.
-"""
-from dataclasses import dataclass, field
-import logging
 import time
-from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Set
+import logging
+from dataclasses import dataclass
+from typing import Dict, List, Set, Optional
 
 logger = logging.getLogger(__name__)
 
+class PartitionRevokedException(Exception):
+    """Raised when an application attempts to process messages on a revoked partition."""
+    pass
 
-class RebalanceState(Enum):
-    NORMAL = "NORMAL"
-    REVOKING = "REVOKING"
-    REBALANCING = "REBALANCING"
-    ASSIGNING = "ASSIGNING"
-
+class DuplicateMessageException(Exception):
+    """Raised when a duplicate message is detected via idempotency key."""
+    pass
 
 @dataclass
-class RebalanceEventReport:
-    state: RebalanceState
-    revoked_partitions: List[int]
-    assigned_partitions: List[int]
-    flushed_records_count: int
-    committed_offsets: Dict[int, int]
-    is_safe: bool
-    message: str
-
+class StreamMessage:
+    partition: int
+    offset: int
+    idempotency_key: str              # Unique order_id / event_id
+    payload: Dict
 
 class ConsumerGroupRebalanceGuard:
     """
-    Manages partition rebalance lifecycle events (Kafka / Redis Streams),
-    flushing in-flight batches and committing offsets before partition revocation.
+    Manages partition assignment/revocation lifecycle, enforces thread fencing,
+    synchronously flushes pending buffers, and detects rebalance storms.
     """
+    def __init__(self, rebalance_storm_threshold_count: int = 3, rebalance_window_sec: float = 60.0):
+        self.rebalance_storm_threshold_count = rebalance_storm_threshold_count
+        self.rebalance_window_sec = rebalance_window_sec
 
-    def __init__(self, group_id: str = "strategy-consumer-group"):
-        self.group_id = group_id
-        self.state = RebalanceState.NORMAL
-        self.assigned_partitions: Set[int] = set()
-        self.committed_offsets: Dict[int, int] = {}  # partition -> offset
-        self.in_flight_batches: Dict[int, List[Dict[str, Any]]] = {}  # partition -> records
+        self.active_partitions: Set[int] = set()
+        self.processed_idempotency_keys: Set[str] = set()
+        self.in_flight_buffer: Dict[int, List[StreamMessage]] = {}
+        self.committed_offsets: Dict[int, int] = {}
+        self.rebalance_timestamps: List[float] = []
 
-    def on_partitions_revoked(
-        self,
-        revoked_partitions: List[int],
-        flush_fn: Optional[Callable[[int, List[Dict[str, Any]]], int]] = None,
-    ) -> RebalanceEventReport:
+    def _track_rebalance_storm(self):
+        now = time.time()
+        self.rebalance_timestamps.append(now)
+        # Filter timestamps within window
+        self.rebalance_timestamps = [
+            ts for ts in self.rebalance_timestamps 
+            if now - ts <= self.rebalance_window_sec
+        ]
+        
+        if len(self.rebalance_timestamps) >= self.rebalance_storm_threshold_count:
+            logger.error(
+                f"REBALANCE STORM DETECTED: {len(self.rebalance_timestamps)} rebalances "
+                f"occurred in the last {self.rebalance_window_sec}s. Consumer group may be unstable!"
+            )
+
+    def on_partitions_assigned(self, partitions: List[int]):
         """
-        Invoked when stream broker initiates partition revocation. Flushes in-flight
-        records and commits offsets before partitions are unassigned.
+        Callback executed when new partitions are assigned to this worker.
         """
-        self.state = RebalanceState.REVOKING
-        logger.warning(f"Rebalance Guard [{self.group_id}]: Revoking partitions {revoked_partitions}. Flushing in-flight batches...")
+        self._track_rebalance_storm()
+        for p in partitions:
+            self.active_partitions.add(p)
+            if p not in self.in_flight_buffer:
+                self.in_flight_buffer[p] = []
+        logger.info(f"Partitions Assigned: {partitions}. Current Active: {sorted(list(self.active_partitions))}")
 
-        flushed_count = 0
-        committed: Dict[int, int] = {}
+    def on_partitions_revoked(self, partitions: List[int]):
+        """
+        Callback executed when partitions are revoked.
+        Step 1: Immediately fence worker from accepting new messages on these partitions.
+        Step 2: Flush in-flight execution buffers.
+        Step 3: Synchronously commit offsets.
+        """
+        logger.warning(f"Partitions Revoked: {partitions}. Initiating fencing and flush protocol.")
+        
+        for p in partitions:
+            # Step 1: Fence Partition
+            if p in self.active_partitions:
+                self.active_partitions.remove(p)
 
-        for p in revoked_partitions:
-            records = self.in_flight_batches.pop(p, [])
-            if records and flush_fn:
-                # Flush batch for partition p
-                last_offset = flush_fn(p, records)
-                flushed_count += len(records)
+            # Step 2: Flush in-flight buffer
+            if p in self.in_flight_buffer and self.in_flight_buffer[p]:
+                flushed_count = len(self.in_flight_buffer[p])
+                last_offset = self.in_flight_buffer[p][-1].offset
                 self.committed_offsets[p] = last_offset
-                committed[p] = last_offset
-                logger.info(f"Flushed & Committed Partition {p} Offset {last_offset} during revocation.")
+                self.in_flight_buffer[p].clear()
+                logger.info(f"Partition {p} flushed {flushed_count} messages. Synchronous Offset Committed: {last_offset}")
 
-            self.assigned_partitions.discard(p)
-
-        self.state = RebalanceState.REBALANCING
-        msg = f"Partition revocation complete. Flushed {flushed_count} records across {len(revoked_partitions)} partitions."
-        logger.info(msg)
-
-        return RebalanceEventReport(
-            state=self.state,
-            revoked_partitions=revoked_partitions,
-            assigned_partitions=list(self.assigned_partitions),
-            flushed_records_count=flushed_count,
-            committed_offsets=committed,
-            is_safe=True,
-            message=msg,
-        )
-
-    def on_partitions_assigned(self, newly_assigned: List[int]) -> RebalanceEventReport:
+    def process_message(self, message: StreamMessage):
         """
-        Invoked when stream broker finishes partition assignment for this consumer node.
+        Processes an incoming streaming order/event message safely.
         """
-        self.state = RebalanceState.ASSIGNING
-        logger.info(f"Rebalance Guard [{self.group_id}]: Assigned new partitions {newly_assigned}.")
+        # 1. Fencing Check: Reject if partition was revoked
+        if message.partition not in self.active_partitions:
+            raise PartitionRevokedException(
+                f"Cannot process message on Partition {message.partition}. Partition is revoked/fenced."
+            )
 
-        for p in newly_assigned:
-            self.assigned_partitions.add(p)
-            if p not in self.in_flight_batches:
-                self.in_flight_batches[p] = []
+        # 2. Idempotency Check: Reject if already processed
+        if message.idempotency_key in self.processed_idempotency_keys:
+            raise DuplicateMessageException(
+                f"Duplicate message detected for key {message.idempotency_key}. Dropping to prevent double execution."
+            )
 
-        self.state = RebalanceState.NORMAL
-        msg = f"Partition assignment complete. Active partitions: {sorted(list(self.assigned_partitions))}"
-        logger.info(msg)
-
-        return RebalanceEventReport(
-            state=self.state,
-            revoked_partitions=[],
-            assigned_partitions=sorted(list(self.assigned_partitions)),
-            flushed_records_count=0,
-            committed_offsets=self.committed_offsets,
-            is_safe=True,
-            message=msg,
-        )
-
-    def buffer_in_flight_record(self, partition: int, record: Dict[str, Any]) -> bool:
-        """Buffers an in-flight record for partition if partition is assigned."""
-        if partition not in self.assigned_partitions or self.state != RebalanceState.NORMAL:
-            logger.warning(f"Record rejected: Partition {partition} not assigned or state={self.state.value}")
-            return False
-
-        if partition not in self.in_flight_batches:
-            self.in_flight_batches[partition] = []
-
-        self.in_flight_batches[partition].append(record)
-        return True
+        # 3. Process & Buffer
+        self.processed_idempotency_keys.add(message.idempotency_key)
+        self.in_flight_buffer[message.partition].append(message)
+        self.committed_offsets[message.partition] = message.offset
+        logger.debug(f"Processed message {message.idempotency_key} on partition {message.partition} at offset {message.offset}")

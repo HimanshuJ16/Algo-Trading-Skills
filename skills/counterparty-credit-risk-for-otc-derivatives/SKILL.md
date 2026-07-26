@@ -1,39 +1,38 @@
 ---
 name: counterparty-credit-risk-for-otc-derivatives
 description: >-
-  Use when trading bilateral OTC derivatives (swaps, OTC options, forwards) to compute Expected Exposure (EE), Potential Future Exposure (PFE), and Credit Valuation Adjustment (CVA) while enforcing ISDA CSA collateral thresholds.
-domain: algorithmic-trading
-subdomain: risk-management
-tags: ["risk-management", "counterparty-risk", "otc-derivatives", "cva", "pfe", "isda-csa", "credit-limit"]
-brokers_frameworks: ["Counterparty Credit Risk Manager", "Python NumPy"]
-version: "1.0"
+  Quantitative OTC derivatives risk engine for computing Current Exposure (CE), Potential Future Exposure (PFE), Credit Valuation Adjustment (CVA), ISDA netting sets, and CSA collateral margins.
+domain: Risk Management & Derivatives
+subdomain: Counterparty Credit Risk
+tags: ["counterparty-risk", "otc-derivatives", "pfe", "cva", "isda", "csa", "netting", "sa-ccr"]
+brokers_frameworks: ["ISDA Standard", "SA-CCR", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when executing non-exchange-cleared Over-The-Counter (OTC) contracts (e.g. crypto OTC swaps, FX forwards, custom equity swaps). Unlike exchange-cleared futures/options backed by a central clearinghouse (CCP), OTC transactions expose trading firms to bilateral counterparty default risk. This skill measures Potential Future Exposure (PFE), calculates Credit Valuation Adjustment (CVA), and enforces ISDA Credit Support Annex (CSA) collateral margin thresholds.
+Use this skill when trading Over-The-Counter (OTC) derivatives (e.g. Interest Rate Swaps, FX Forwards, Equity Swaps, Crypto Perpetuals) with bilateral counterparties. Unlike exchange-traded futures backed by central clearing houses (CCPs), OTC derivatives carry bilateral **Counterparty Credit Risk (CCR)**. This module calculates Current Exposure (CE), SA-CCR Potential Future Exposure (PFE), Credit Valuation Adjustment (CVA), and enforces ISDA Master Agreement close-out netting and CSA collateral threshold limits.
 
 ## Prerequisites
 
-- Counterparty Credit Rating / Probability of Default ($PD$).
-- Recovery Rate $R$ (e.g. $40\%$, corresponding to $60\%$ Loss Given Default $LGD = 1 - R$).
-- Portfolio mark-to-market value $V_t$ and volatility $\sigma_V$.
+- Active OTC contract mark-to-market (MTM) values and notionals.
+- ISDA/CSA parameters: `threshold`, `minimum_transfer_amount` (MTA), posted collateral, counterparty probability of default ($PD$), and recovery rate ($R$).
 
 ## Workflow
 
-1. **Calculate Expected Exposure ($EE$) & Potential Future Exposure ($PFE_{95\%}$)**:
-   $$PFE_{95\%} = \max\left(0, V_t + 1.645 \times \sigma_V \sqrt{T}\right)$$
-
-2. **Compute Credit Valuation Adjustment (CVA)**:
-   $$CVA = (1 - R) \times PFE_{95\%} \times PD$$
-
-3. **Check ISDA CSA Collateral Threshold Breach**:
-   If $PFE_{95\%} > \text{UncollateralizedCreditLimit}$, trigger collateral posting margin call:
-   $$\text{MarginCallAmount} = PFE_{95\%} - \text{CSA\_Threshold}$$
-
-4. **Audit Counterparty Exposure Cap**: Block new OTC trades if counterparty limit is exceeded.
+1. **Netting Set Grouping**: Aggregate all active MTM contract values under the same ISDA Netting Set ID.
+2. **Current Exposure (CE) Calculation**:
+   - $\text{Net MTM} = \sum V_{mtm, i}$.
+   - $\text{Netted Current Exposure } CE_{net} = \max(0, \text{Net MTM} - \text{Posted Collateral} - \text{Threshold})$.
+3. **Potential Future Exposure (PFE) & EAD**:
+   - Calculate SA-CCR Add-On: $\text{AddOn} = \text{Notional} \times \text{Risk Factor}$.
+   - Exposure at Default $EAD = CE_{net} + \text{PFE}$.
+4. **Credit Valuation Adjustment (CVA)**:
+   - $CVA = (1 - R) \times EAD \times PD$.
+5. **Pre-Trade Limit & CSA Collateral Call Audit**:
+   - If $EAD > \text{Max Credit Limit}$, block trade or trigger mandatory Margin Call for collateral top-up.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -41,16 +40,17 @@ Invoke this skill when executing non-exchange-cleared Over-The-Counter (OTC) con
 
 ## Common Pitfalls
 
-- **Treating OTC Counterparties Like Exchange CCPs**: Assuming bilateral OTC contracts have zero default risk.
-- **Ignoring Netting Agreements**: Calculating gross exposures without applying bilateral netting agreements across master agreements.
+- **Gross Exposure Without Netting**: Calculating credit exposure contract-by-contract without ISDA legal close-out netting, grossly overstating credit exposure.
+- **Ignoring Margin Transfer Thresholds (MTA)**: Failing to factor Minimum Transfer Amount (MTA) into collateral call triggers, leading to un-collateralized micro-exposure drift.
+- **Static Default Probabilities ($PD$)**: Using static credit ratings without updating market-implied $PD$ derived from CDS spreads.
 
 ## Verification
 
-- Submit OTC position with $\$2,000,000$ PFE against counterparty with $\$1,000,000$ credit limit, verify margin call generation and trade blocking.
-- Run `python scripts/test_otc_counterparty_risk.py` and confirm 100% pass rate.
+- Instantiate `OtcCounterpartyRiskEngine`. Register 3 OTC swap contracts under Netting Set `ISDA_BANK_A` (MTMs: +$500k, -$200k, +$100k; Net MTM = +$400k). Post $300k collateral. Verify Netted Current Exposure = $100k. Compute SA-CCR PFE ($50k) and verify $EAD = $150k. Calculate CVA ($PD = 2\%, R = 40\%$) and verify $CVA = 0.60 \times 150k \times 0.02 = \$1,800$.
+- Run `python scripts/test_otc_counterparty_risk.py`.
 
 ## Related Skills
 
 - `counterparty-and-broker-concentration-risk`
-- `margin-utilization-circuit-breaker`
+- `broker-account-margin-call-handling`
 ---

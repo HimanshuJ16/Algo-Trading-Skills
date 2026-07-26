@@ -1,10 +1,7 @@
-# Real-Time Architecture Standards — consumer-group-rebalance-safety
+# Standards for Consumer Group Rebalance Safety
 
-| Event Hook | Trigger Condition | Action |
-|---|---|---|
-| `on_partitions_revoked` | Consumer node leaving/rebalancing | Pause fetch; flush in-flight batch; commit offset |
-| `on_partitions_assigned` | Rebalance assignment complete | Initialize partition state; resume consumption |
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.
+| Metric | Engineering Standard |
+|---|---|
+| Auto-Commit Policy | Automatic offset commits MUST be disabled (`enable.auto.commit = false`) on all trading event consumers. |
+| Synchronous Revocation Commit | Offset commits in `on_partitions_revoked` MUST be synchronous to ensure completion before reassignment. |
+| Partition Fencing | Processing trade events on a revoked partition MUST immediately throw an exception. |

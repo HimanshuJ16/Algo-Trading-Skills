@@ -1,15 +1,14 @@
-# Deep Workflow Reference — cold-start-handling-for-newly-listed-instruments
+# Workflows for Cold Start Handling
 
-This file holds the full technical procedure referenced by `SKILL.md`.
-
-## Full Procedure
-
-1. **Check History Maturity**: Compare $N_{\text{bars}}$ vs minimum required history threshold $N_{\text{min}}$.
-2. **Apply Cold-Start Substitution**: If $N_{\text{bars}} < N_{\text{min}}$, substitute NaN/missing features with sector peer proxy averages.
-3. **Scale Position Sizing**: Apply `cold_start_size_scale` ($25\%$ max allocation) to limit unproven asset risk.
-4. **Transition to Native Model**: Once $N_{\text{bars}} \ge N_{\text{min}}$, fully enable native ML model predictions.
-
-## Production Implementation Reference
-
-- Reference code: `scripts/cold_start_handler.py` (`ColdStartHandler`, `ColdStartEvaluation`).
-- Automated unit tests: `scripts/test_cold_start_handler.py`.
+1. **Instrument Onboarding**:
+   - Query instrument metadata: `list_date`.
+   - Calculate $N_{obs} = \text{Current Date} - \text{List Date}$ in trading days.
+2. **Feature Imputation Pipeline**:
+   - If $N_{obs} == 0$: Return 100% Peer Prior values for volatility and feature encodings.
+   - If $0 < N_{obs} < N_{min\_warmup}$:
+     - Calculate linear weight $w = N_{obs} / N_{min\_warmup}$.
+     - Impute $\sigma = w \cdot \sigma_{obs} + (1 - w) \cdot \sigma_{peer}$.
+3. **Risk Management & Position Sizing**:
+   - $\text{Max Capital} = \text{Target Allocation} \times w$.
+4. **Graduation Event**:
+   - At $N_{obs} = N_{min\_warmup}$, mark status as `GRADUATED` and remove shrinkage constraints.

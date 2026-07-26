@@ -1,40 +1,49 @@
-"""
-Unit tests for consumer-group-rebalance-safety skill.
-"""
 import unittest
-from rebalance_guard import ConsumerGroupRebalanceGuard, RebalanceState
-
+from rebalance_guard import (
+    ConsumerGroupRebalanceGuard, StreamMessage,
+    PartitionRevokedException, DuplicateMessageException
+)
 
 class TestConsumerGroupRebalanceGuard(unittest.TestCase):
 
     def setUp(self):
-        self.guard = ConsumerGroupRebalanceGuard("test-group")
-        # Assign partitions 0 and 1
+        self.guard = ConsumerGroupRebalanceGuard()
         self.guard.on_partitions_assigned([0, 1])
 
-    def test_partition_assignment_and_buffering(self):
-        self.assertEqual(self.guard.state, RebalanceState.NORMAL)
-        self.assertTrue(self.guard.buffer_in_flight_record(0, {"seq": 100, "price": 150.0}))
-        self.assertTrue(self.guard.buffer_in_flight_record(1, {"seq": 200, "price": 250.0}))
+    def test_normal_message_processing(self):
+        msg = StreamMessage(partition=0, offset=100, idempotency_key="ORD_101", payload={"symbol": "AAPL"})
+        self.guard.process_message(msg)
+        
+        self.assertIn("ORD_101", self.guard.processed_idempotency_keys)
+        self.assertEqual(self.guard.committed_offsets[0], 100)
 
-        # Unassigned partition 2 -> Rejected
-        self.assertFalse(self.guard.buffer_in_flight_record(2, {"seq": 300, "price": 50.0}))
+    def test_duplicate_message_prevention(self):
+        msg = StreamMessage(partition=0, offset=100, idempotency_key="ORD_101", payload={"symbol": "AAPL"})
+        self.guard.process_message(msg)
+        
+        # Second attempt with same idempotency key -> throws DuplicateMessageException
+        with self.assertRaises(DuplicateMessageException):
+            self.guard.process_message(msg)
 
-    def test_revocation_flushes_batch_and_commits_offset(self):
-        self.guard.buffer_in_flight_record(0, {"seq": 100, "offset": 15})
-        self.guard.buffer_in_flight_record(0, {"seq": 101, "offset": 16})
+    def test_partition_fencing_on_revocation(self):
+        msg1 = StreamMessage(partition=0, offset=101, idempotency_key="ORD_102", payload={"symbol": "MSFT"})
+        self.guard.process_message(msg1)
+        
+        # Revoke partition 0
+        self.guard.on_partitions_revoked([0])
+        self.assertNotIn(0, self.guard.active_partitions)
+        
+        # Attempting to process message on revoked partition 0 throws PartitionRevokedException
+        msg2 = StreamMessage(partition=0, offset=102, idempotency_key="ORD_103", payload={"symbol": "MSFT"})
+        with self.assertRaises(PartitionRevokedException):
+            self.guard.process_message(msg2)
 
-        def mock_flush(partition, batch):
-            # Return last committed offset
-            return batch[-1]["offset"]
+    def test_rebalance_storm_detection(self):
+        # 3 rebalances in short window
+        self.guard.on_partitions_assigned([0])
+        self.guard.on_partitions_assigned([1])
+        self.guard.on_partitions_assigned([2])
+        self.assertGreaterEqual(len(self.guard.rebalance_timestamps), 3)
 
-        report = self.guard.on_partitions_revoked([0], flush_fn=mock_flush)
-
-        self.assertTrue(report.is_safe)
-        self.assertEqual(report.flushed_records_count, 2)
-        self.assertEqual(report.committed_offsets[0], 16)
-        self.assertNotIn(0, self.guard.assigned_partitions)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
