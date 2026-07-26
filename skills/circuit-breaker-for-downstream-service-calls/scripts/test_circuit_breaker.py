@@ -1,75 +1,85 @@
-"""
-Unit tests for circuit-breaker-for-downstream-service-calls skill.
-"""
-import time
 import unittest
-from circuit_breaker import CircuitBreakerOpenException, CircuitState, ServiceCircuitBreaker
+import time
+from circuit_breaker import CircuitBreaker, CircuitState, CircuitBreakerOpenException
 
-
-def mock_failing_service():
-    raise ConnectionError("Database connection timeout")
-
-
-def mock_healthy_service():
-    return {"status": "ok", "risk_approved": True}
-
-
-def mock_fallback_service():
-    return {"status": "fallback", "risk_approved": True}
-
-
-class TestServiceCircuitBreaker(unittest.TestCase):
+class TestCircuitBreaker(unittest.TestCase):
 
     def setUp(self):
-        self.breaker = ServiceCircuitBreaker(
-            service_name="risk-db",
-            failure_threshold=3,
-            cooldown_seconds=1.0,
-            half_open_trials=2,
-        )
+        # 3 failures to trip, 0.1 second recovery timeout
+        self.cb = CircuitBreaker(failure_threshold=3, recovery_timeout_sec=0.1, expected_exceptions=(ConnectionError,))
 
-    def test_normal_operation_closed_state(self):
-        res = self.breaker.call(mock_healthy_service)
-        self.assertEqual(res["status"], "ok")
-        self.assertEqual(self.breaker.state, CircuitState.CLOSED)
+    def _mock_success(self):
+        return "SUCCESS"
 
-    def test_trip_to_open_state_and_fail_fast(self):
-        # 3 failures -> Trips breaker to OPEN
-        for i in range(3):
+    def _mock_failure(self):
+        raise ConnectionError("Service Down")
+
+    def _mock_business_logic_error(self):
+        raise ValueError("Invalid Input")
+
+    def test_closed_state_success(self):
+        res = self.cb.call(self._mock_success)
+        self.assertEqual(res, "SUCCESS")
+        self.assertEqual(self.cb.state, CircuitState.CLOSED)
+
+    def test_business_error_does_not_trip_circuit(self):
+        # ValueError is not in expected_exceptions
+        with self.assertRaises(ValueError):
+            self.cb.call(self._mock_business_logic_error)
+            
+        self.assertEqual(self.cb.failure_count, 0)
+        self.assertEqual(self.cb.state, CircuitState.CLOSED)
+
+    def test_trip_to_open_state(self):
+        # Fail 3 times
+        for _ in range(3):
             with self.assertRaises(ConnectionError):
-                self.breaker.call(mock_failing_service)
-
-        self.assertEqual(self.breaker.state, CircuitState.OPEN)
-
-        # 4th call fails fast with CircuitBreakerOpenException
+                self.cb.call(self._mock_failure)
+                
+        self.assertEqual(self.cb.state, CircuitState.OPEN)
+        
+        # 4th call should raise CircuitBreakerOpenException immediately
         with self.assertRaises(CircuitBreakerOpenException):
-            self.breaker.call(mock_healthy_service)
+            self.cb.call(self._mock_success) # Even if it would succeed, the circuit blocks it
 
-    def test_fallback_execution_when_open(self):
-        for i in range(3):
-            with self.assertRaises(ConnectionError):
-                self.breaker.call(mock_failing_service)
+    def test_half_open_recovery(self):
+        # Trip the circuit
+        for _ in range(3):
+            try:
+                self.cb.call(self._mock_failure)
+            except ConnectionError:
+                pass
+                
+        self.assertEqual(self.cb.state, CircuitState.OPEN)
+        
+        # Wait for recovery timeout
+        time.sleep(0.15)
+        
+        # Next call should be permitted (Half-Open)
+        res = self.cb.call(self._mock_success)
+        
+        # After success, should reset to Closed
+        self.assertEqual(res, "SUCCESS")
+        self.assertEqual(self.cb.state, CircuitState.CLOSED)
+        self.assertEqual(self.cb.failure_count, 0)
 
-        # Execute call with fallback
-        res = self.breaker.call(mock_healthy_service, fallback_fn=mock_fallback_service)
-        self.assertEqual(res["status"], "fallback")
+    def test_half_open_failure_returns_to_open(self):
+        # Trip the circuit
+        for _ in range(3):
+            try:
+                self.cb.call(self._mock_failure)
+            except ConnectionError:
+                pass
+                
+        # Wait for recovery timeout
+        time.sleep(0.15)
+        
+        # Next call is permitted (Half-Open) but fails again
+        with self.assertRaises(ConnectionError):
+            self.cb.call(self._mock_failure)
+            
+        # Circuit should immediately return to Open without needing 3 more failures
+        self.assertEqual(self.cb.state, CircuitState.OPEN)
 
-    def test_cooldown_and_half_open_recovery(self):
-        for i in range(3):
-            with self.assertRaises(ConnectionError):
-                self.breaker.call(mock_failing_service)
-
-        self.assertEqual(self.breaker.state, CircuitState.OPEN)
-        time.sleep(1.1)  # Cooldown expires
-
-        # 1st trial call -> HALF_OPEN
-        res1 = self.breaker.call(mock_healthy_service)
-        self.assertEqual(self.breaker.state, CircuitState.HALF_OPEN)
-
-        # 2nd trial call -> Back to CLOSED
-        res2 = self.breaker.call(mock_healthy_service)
-        self.assertEqual(self.breaker.state, CircuitState.CLOSED)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-07-25T15:56:29.157671+00:00",
+  "generated_at": "2026-07-26T02:10:26.358563+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1619,58 +1619,64 @@
     },
     {
       "name": "cftc-commodity-pool-operator-registration",
-      "description": "Compliance controls for cftc commodity pool operator registration",
-      "domain": "regulatory-compliance-global",
-      "subdomain": "regulatory",
+      "description": "Regulatory compliance engine that continuously monitors portfolio exposure against the CFTC Rule 4.13(a)(3) de minimis exemption thresholds for CPO registration.",
+      "domain": "Compliance & Regulation",
+      "subdomain": "US Regulatory",
       "tags": [
-        "compliance",
-        "risk",
-        "regulatory"
+        "cftc",
+        "cpo",
+        "de-minimis",
+        "margin",
+        "futures",
+        "compliance"
       ],
       "brokers_frameworks": [
-        "any"
+        "CFTC",
+        "NFA"
       ],
       "version": "1.0.0",
-      "author": "skill-builder",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/cftc-commodity-pool-operator-registration",
       "skill_md": "skills/cftc-commodity-pool-operator-registration/SKILL.md"
     },
     {
       "name": "chaos-engineering-for-trading-infrastructure",
-      "description": "Deployment ops skill for chaos-engineering-for-trading-infrastructure",
-      "domain": "deployment-ops",
-      "subdomain": "operations",
+      "description": "Quantitative infrastructure testing tool that injects controlled network latency, packet drops, and process terminations to validate trading system resilience.",
+      "domain": "Infrastructure",
+      "subdomain": "Reliability",
       "tags": [
-        "deployment"
+        "chaos-engineering",
+        "resilience",
+        "latency",
+        "failover",
+        "infrastructure"
       ],
       "brokers_frameworks": [
-        "general"
+        "Generic Infrastructure"
       ],
       "version": "1.0.0",
-      "author": "AI",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/chaos-engineering-for-trading-infrastructure",
       "skill_md": "skills/chaos-engineering-for-trading-infrastructure/SKILL.md"
     },
     {
       "name": "circuit-breaker-for-downstream-service-calls",
-      "description": "Use when connecting trading engines to downstream microservices (database, risk service, portfolio ledger) to execute the Circuit Breaker pattern (CLOSED -> OPEN -> HALF_OPEN), preventing cascading latency and tick-processing thread starvation.",
-      "domain": "algorithmic-trading",
-      "subdomain": "real-time-architecture",
+      "description": "Resilience engineering pattern implementing a Circuit Breaker to prevent cascading failures when downstream trading services or data APIs experience degraded performance.",
+      "domain": "Infrastructure",
+      "subdomain": "Reliability",
       "tags": [
-        "real-time-architecture",
         "circuit-breaker",
         "resilience",
-        "fail-fast",
-        "cascading-failure",
-        "fault-tolerance"
+        "microservices",
+        "api",
+        "fail-fast"
       ],
       "brokers_frameworks": [
-        "Circuit Breaker Engine",
-        "Python Decorators"
+        "Generic Infrastructure"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/circuit-breaker-for-downstream-service-calls",
@@ -1678,36 +1684,47 @@
     },
     {
       "name": "class-imbalance-handling-for-rare-signal-events",
-      "description": "Implementation for class-imbalance-handling-for-rare-signal-events",
-      "domain": "financial-ml",
-      "subdomain": "execution",
+      "description": "Machine learning utility pipeline for mitigating class imbalance when predicting rare financial events, supporting cost-sensitive weighting and random undersampling without lookahead bias.",
+      "domain": "Machine Learning",
+      "subdomain": "Model Training",
       "tags": [
-        "machine-learning"
+        "machine-learning",
+        "class-imbalance",
+        "rare-events",
+        "undersampling",
+        "class-weights"
       ],
       "brokers_frameworks": [
-        "scikit-learn"
+        "Scikit-Learn",
+        "Pandas",
+        "NumPy"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/class-imbalance-handling-for-rare-signal-events",
       "skill_md": "skills/class-imbalance-handling-for-rare-signal-events/SKILL.md"
     },
     {
       "name": "clock-drift-monitoring-alerting-thresholds",
-      "description": "Skill for clock drift monitoring alerting thresholds",
-      "domain": "Market Microstructure",
-      "subdomain": "Latency",
+      "description": "Infrastructure compliance engine that continuously monitors PTP (Precision Time Protocol) clock drift against strict MiFID II RTS 25 microsecond thresholds, triggering automated circuit breakers.",
+      "domain": "Compliance & Regulation",
+      "subdomain": "Infrastructure",
       "tags": [
-        "latency",
-        "microstructure"
+        "mifid-ii",
+        "clock-drift",
+        "ptp",
+        "hft",
+        "compliance",
+        "latency"
       ],
       "brokers_frameworks": [
-        "ccxt"
+        "Linux PTP",
+        "Generic Infrastructure"
       ],
       "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/clock-drift-monitoring-alerting-thresholds",
       "skill_md": "skills/clock-drift-monitoring-alerting-thresholds/SKILL.md"
     },
