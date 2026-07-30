@@ -1,14 +1,21 @@
 ---
 name: etrade-oauth1-signature-flow
-description: >-
-  Use when integrating E*TRADE's API which uses OAuth1 (not OAuth2) signature-based
+description: Use when integrating E*TRADE's API which uses OAuth1 (not OAuth2) signature-based
   authentication, handling request token acquisition, user authorization callback,
   access token exchange, and HMAC-SHA1 request signing for every API call.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "etrade", "oauth1", "hmac-sha1", "request-signing"]
-brokers_frameworks: ["E*TRADE", "OAuth1", "HMAC-SHA1"]
-version: "1.0"
+tags:
+- broker-integration
+- etrade
+- oauth1
+- hmac-sha1
+- request-signing
+brokers_frameworks:
+- E*TRADE
+- OAuth1
+- HMAC-SHA1
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

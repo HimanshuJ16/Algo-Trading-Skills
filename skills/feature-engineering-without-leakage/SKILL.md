@@ -1,12 +1,14 @@
 ---
 name: feature-engineering-without-leakage
-description: >-
-  Use when constructing features for an ML-based trading signal classifier, to guarantee every feature is computable using only information available strictly before the prediction target's outcome
+description: Use when constructing features for an ML-based trading signal classifier,
+  to guarantee every feature is computable using only information available strictly
+  before the prediction target's outcome
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml"]
+tags:
+- financial-ml
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

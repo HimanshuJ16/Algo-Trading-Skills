@@ -1,12 +1,22 @@
 ---
 name: market-data-feed-arbitration-across-vendors
-description: >-
-  Use when consuming redundant market data streams from dual data vendors (e.g. Bloomberg and Refinitiv) to execute real-time feed arbitration, detect price divergence spikes, filter bad ticks, and fail over seamlessly when one vendor feed becomes stale.
+description: Use when consuming redundant market data streams from dual data vendors
+  (e.g. Bloomberg and Refinitiv) to execute real-time feed arbitration, detect price
+  divergence spikes, filter bad ticks, and fail over seamlessly when one vendor feed
+  becomes stale.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "feed-arbitration", "dual-vendors", "bad-tick-filter", "price-divergence", "redundancy"]
-brokers_frameworks: ["Feed Arbitrator Engine", "Python Real-Time Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- feed-arbitration
+- dual-vendors
+- bad-tick-filter
+- price-divergence
+- redundancy
+brokers_frameworks:
+- Feed Arbitrator Engine
+- Python Real-Time Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

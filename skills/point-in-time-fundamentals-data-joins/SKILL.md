@@ -3,8 +3,11 @@ name: point-in-time-fundamentals-data-joins
 description: Implementation for point-in-time-fundamentals-data-joins
 domain: data-management-global
 subdomain: data
-tags: [data, management]
-brokers_frameworks: [custom]
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
 version: 1.0.0
 author: System
 license: MIT

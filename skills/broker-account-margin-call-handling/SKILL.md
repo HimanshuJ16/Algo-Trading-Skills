@@ -1,12 +1,24 @@
 ---
 name: broker-account-margin-call-handling
-description: >-
-  Use when monitoring margin account health to calculate real-time maintenance margin ratios, enforce multi-tiered margin warning thresholds, evaluate predictive order impacts, and trigger automated liquidity-aware de-leveraging before broker forced liquidation.
+description: Use when monitoring margin account health to calculate real-time maintenance
+  margin ratios, enforce multi-tiered margin warning thresholds, evaluate predictive
+  order impacts, and trigger automated liquidity-aware de-leveraging before broker
+  forced liquidation.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "margin-call", "risk-management", "forced-liquidation-prevention", "margin-utilization", "liquidity-aware"]
-brokers_frameworks: ["Interactive Brokers Reg T / Portfolio Margin", "Zerodha RMS", "Alpaca Margin API", "CME SPAN"]
-version: "2.0"
+tags:
+- broker-integration
+- margin-call
+- risk-management
+- forced-liquidation-prevention
+- margin-utilization
+- liquidity-aware
+brokers_frameworks:
+- Interactive Brokers Reg T / Portfolio Margin
+- Zerodha RMS
+- Alpaca Margin API
+- CME SPAN
+version: '2.0'
 author: quantitative-systems-engineer
 license: Apache-2.0
 ---

@@ -1,12 +1,20 @@
 ---
 name: adjusted-vs-unadjusted-price-series-pitfalls
-description: >-
-  Audits historical price and volume series for corporate action discontinuities (splits/dividends) to prevent look-ahead bias and false signals in backtesting pipelines.
+description: Audits historical price and volume series for corporate action discontinuities
+  (splits/dividends) to prevent look-ahead bias and false signals in backtesting pipelines.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "price-adjustment", "stock-splits", "dividends", "data-integrity", "look-ahead-bias"]
-brokers_frameworks: ["Price Adjustment Auditor", "Python"]
-version: "1.1"
+tags:
+- backtesting-methodology
+- price-adjustment
+- stock-splits
+- dividends
+- data-integrity
+- look-ahead-bias
+brokers_frameworks:
+- Price Adjustment Auditor
+- Python
+version: '1.1'
 author: System
 license: MIT
 ---

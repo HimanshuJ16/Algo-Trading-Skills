@@ -4,10 +4,10 @@ description: Automation and handling of perpetual futures funding rate handling.
 domain: multi-asset-derivatives
 subdomain: derivatives-trading
 tags:
-  - perpetual-futures-funding-rate-handling
-  - trading
+- perpetual-futures-funding-rate-handling
+- trading
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

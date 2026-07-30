@@ -1,12 +1,24 @@
 ---
 name: dependency-pinning-and-reproducible-builds
-description: >-
-  Quantitative software engineering tool for auditing Python dependency lockfiles, enforcing exact version pinning (==x.y.z), SHA-256 package hashes, and guaranteeing byte-for-byte reproducible builds.
+description: Quantitative software engineering tool for auditing Python dependency
+  lockfiles, enforcing exact version pinning (==x.y.z), SHA-256 package hashes, and
+  guaranteeing byte-for-byte reproducible builds.
 domain: Infrastructure & DevOps
 subdomain: Reproducible Builds & Dependency Governance
-tags: ["dependency-pinning", "reproducible-builds", "poetry-lock", "pip-tools", "sha256-hash-verification", "supply-chain-security", "lockfile-audit"]
-brokers_frameworks: ["Poetry", "pip-tools", "pip-compile", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- dependency-pinning
+- reproducible-builds
+- poetry-lock
+- pip-tools
+- sha256-hash-verification
+- supply-chain-security
+- lockfile-audit
+brokers_frameworks:
+- Poetry
+- pip-tools
+- pip-compile
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

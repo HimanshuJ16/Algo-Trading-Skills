@@ -1,12 +1,23 @@
 ---
 name: cost-monitoring-for-cloud-trading-infrastructure
-description: >-
-  Quantitative FinOps module for tracking cloud infrastructure expenditure (AWS/GCP/Azure compute, egress bandwidth, storage), detecting cost spikes via rolling Z-score baselines, and auditing unit economics.
+description: Quantitative FinOps module for tracking cloud infrastructure expenditure
+  (AWS/GCP/Azure compute, egress bandwidth, storage), detecting cost spikes via rolling
+  Z-score baselines, and auditing unit economics.
 domain: Infrastructure
 subdomain: FinOps & Cloud Management
-tags: ["finops", "cloud-cost", "anomaly-detection", "aws", "gcp", "z-score", "egress-cost", "unit-economics"]
-brokers_frameworks: ["Generic Cloud", "NumPy"]
-version: "1.0.0"
+tags:
+- finops
+- cloud-cost
+- anomaly-detection
+- aws
+- gcp
+- z-score
+- egress-cost
+- unit-economics
+brokers_frameworks:
+- Generic Cloud
+- NumPy
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

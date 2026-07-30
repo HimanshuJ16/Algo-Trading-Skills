@@ -4,9 +4,9 @@ description: Integration or workflow skill for lme-london-metal-exchange-integra
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - lme-london-metal-exchange-integration
+- lme-london-metal-exchange-integration
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

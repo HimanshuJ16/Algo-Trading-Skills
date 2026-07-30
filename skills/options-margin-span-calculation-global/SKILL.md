@@ -1,12 +1,19 @@
 ---
 name: options-margin-span-calculation-global
-description: >-
-  Use when a strategy trades options/futures and needs to estimate margin requirements accurately across brokers/exchanges using SPAN-style or broker-specific portfolio-margin methodologies, to avoid a strategy that looks fine on paper but is unplaceable due to margin
+description: Use when a strategy trades options/futures and needs to estimate margin
+  requirements accurately across brokers/exchanges using SPAN-style or broker-specific
+  portfolio-margin methodologies, to avoid a strategy that looks fine on paper but
+  is unplaceable due to margin
 domain: algorithmic-trading
 subdomain: multi-asset-derivatives
-tags: ["multi-asset-derivatives", "span-(standard-portfolio-analysis-of-risk)", "broker-specific-portfolio-margin-models"]
-brokers_frameworks: ["SPAN (Standard Portfolio Analysis of Risk)", "broker-specific portfolio margin models"]
-version: "1.0"
+tags:
+- multi-asset-derivatives
+- span-(standard-portfolio-analysis-of-risk)
+- broker-specific-portfolio-margin-models
+brokers_frameworks:
+- SPAN (Standard Portfolio Analysis of Risk)
+- broker-specific portfolio margin models
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

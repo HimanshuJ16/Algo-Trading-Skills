@@ -4,9 +4,9 @@ description: Integration for interactive-brokers-global-multi-exchange-routing
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - interactive-brokers-global-multi-exchange-routing
+- interactive-brokers-global-multi-exchange-routing
 brokers_frameworks:
-  - Custom
+- Custom
 version: 1.0.0
 author: assistant
 license: MIT

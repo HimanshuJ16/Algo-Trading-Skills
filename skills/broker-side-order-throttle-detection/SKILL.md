@@ -1,12 +1,24 @@
 ---
 name: broker-side-order-throttle-detection
-description: >-
-  Use when operating high-frequency or high-volume trading bots to measure order acknowledgment round-trip latency (ACK RTT), detect silent broker-side order throttling during market volatility using Exponentially Weighted Moving Average (EWMA) and Variance (EWMVar), and dynamically back off order dispatch using an AIMD congestion control engine.
+description: Use when operating high-frequency or high-volume trading bots to measure
+  order acknowledgment round-trip latency (ACK RTT), detect silent broker-side order
+  throttling during market volatility using Exponentially Weighted Moving Average
+  (EWMA) and Variance (EWMVar), and dynamically back off order dispatch using an AIMD
+  congestion control engine.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "order-throttle", "latency-monitoring", "ack-rtt", "silent-throttling", "aimd-backoff", "ewma-anomaly-detection"]
-brokers_frameworks: ["Broker Throttle Detector", "Python High-Frequency Engine"]
-version: "2.0"
+tags:
+- broker-integration
+- order-throttle
+- latency-monitoring
+- ack-rtt
+- silent-throttling
+- aimd-backoff
+- ewma-anomaly-detection
+brokers_frameworks:
+- Broker Throttle Detector
+- Python High-Frequency Engine
+version: '2.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

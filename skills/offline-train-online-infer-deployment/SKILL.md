@@ -1,12 +1,13 @@
 ---
 name: offline-train-online-infer-deployment
-description: >-
-  Use when exporting a trained ML signal classifier's weights from an offline training pipeline into a live trading bot's inference path
+description: Use when exporting a trained ML signal classifier's weights from an offline
+  training pipeline into a live trading bot's inference path
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml"]
+tags:
+- financial-ml
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

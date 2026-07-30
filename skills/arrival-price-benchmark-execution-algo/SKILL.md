@@ -1,16 +1,17 @@
 ---
 name: arrival-price-benchmark-execution-algo
-description: Implementation Shortfall (IS) execution algorithm generating optimal trading trajectories based on the Almgren-Chriss framework and trader urgency.
+description: Implementation Shortfall (IS) execution algorithm generating optimal
+  trading trajectories based on the Almgren-Chriss framework and trader urgency.
 domain: execution-algorithms
 subdomain: execution-strategies
 tags:
-  - execution
-  - implementation-shortfall
-  - arrival-price
-  - almgren-chriss
-  - urgency
+- execution
+- implementation-shortfall
+- arrival-price
+- almgren-chriss
+- urgency
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

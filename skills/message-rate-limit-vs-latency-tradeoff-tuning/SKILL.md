@@ -3,7 +3,9 @@ name: message-rate-limit-vs-latency-tradeoff-tuning
 description: Skill to handle message rate limit vs latency tradeoff tuning
 domain: Market Microstructure
 subdomain: Latency
-tags: [latency, hft]
+tags:
+- latency
+- hft
 brokers_frameworks: []
 version: 1.0.0
 author: assistant

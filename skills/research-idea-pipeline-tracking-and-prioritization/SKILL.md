@@ -3,7 +3,10 @@ name: research-idea-pipeline-tracking-and-prioritization
 description: Skill for research idea pipeline tracking and prioritization
 domain: quant-research-alt-data
 subdomain: Alternative Data
-tags: [alt-data, python, research]
+tags:
+- alt-data
+- python
+- research
 brokers_frameworks: []
 version: 1.0.0
 author: AI

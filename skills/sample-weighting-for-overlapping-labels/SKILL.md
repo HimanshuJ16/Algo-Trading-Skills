@@ -4,10 +4,10 @@ description: Skill for sample weighting for overlapping labels
 domain: Financial ML
 subdomain: Sample Weighting
 tags:
-  - ml
-  - trading
+- ml
+- trading
 brokers_frameworks:
-  - scikit-learn
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

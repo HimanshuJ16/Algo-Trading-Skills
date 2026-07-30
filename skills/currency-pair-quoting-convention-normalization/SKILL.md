@@ -1,12 +1,22 @@
 ---
 name: currency-pair-quoting-convention-normalization
-description: >-
-  Quantitative FX market data normalization module for enforcing ISO 4217 currency priority, converting inverted quotes (USD/EUR -> EUR/USD), and recalibrating bid-ask spreads.
+description: Quantitative FX market data normalization module for enforcing ISO 4217
+  currency priority, converting inverted quotes (USD/EUR -> EUR/USD), and recalibrating
+  bid-ask spreads.
 domain: Data Management Global
 subdomain: FX Market Data Normalization
-tags: ["fx-quoting", "currency-pair", "iso-4217", "base-quote-currency", "inverted-quote", "bid-ask-conversion", "pip-calculation"]
-brokers_frameworks: ["ISO 4217", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- fx-quoting
+- currency-pair
+- iso-4217
+- base-quote-currency
+- inverted-quote
+- bid-ask-conversion
+- pip-calculation
+brokers_frameworks:
+- ISO 4217
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

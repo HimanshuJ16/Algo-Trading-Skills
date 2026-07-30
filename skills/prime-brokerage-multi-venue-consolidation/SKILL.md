@@ -4,9 +4,9 @@ description: Integration or workflow skill for prime-brokerage-multi-venue-conso
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - prime-brokerage-multi-venue-consolidation
+- prime-brokerage-multi-venue-consolidation
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

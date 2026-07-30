@@ -4,9 +4,9 @@ description: Integration or workflow skill for korea-exchange-krx-api-integratio
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - korea-exchange-krx-api-integration
+- korea-exchange-krx-api-integration
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

@@ -1,12 +1,22 @@
 ---
 name: environment-parity-dev-staging-production
-description: >-
-  Quantitative DevOps engine for auditing 5-factor environment parity (Python runtime, dependency lockfile hashes, env vars, DB schema revisions, broker endpoint modes) across Dev, Staging, and Production.
+description: Quantitative DevOps engine for auditing 5-factor environment parity (Python
+  runtime, dependency lockfile hashes, env vars, DB schema revisions, broker endpoint
+  modes) across Dev, Staging, and Production.
 domain: Infrastructure & DevOps
 subdomain: Environment Parity & CI/CD Validation
-tags: ["environment-parity", "dev-staging-prod", "12-factor-app", "dependency-lockfile", "db-schema-parity", "ci-cd-pipeline"]
-brokers_frameworks: ["12-Factor App", "Terraform", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- environment-parity
+- dev-staging-prod
+- 12-factor-app
+- dependency-lockfile
+- db-schema-parity
+- ci-cd-pipeline
+brokers_frameworks:
+- 12-Factor App
+- Terraform
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

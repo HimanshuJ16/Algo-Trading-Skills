@@ -3,7 +3,9 @@ name: microstructure-noise-filtering-for-hf-signals
 description: Skill to handle microstructure noise filtering for hf signals
 domain: Market Microstructure
 subdomain: Latency
-tags: [latency, hft]
+tags:
+- latency
+- hft
 brokers_frameworks: []
 version: 1.0.0
 author: assistant

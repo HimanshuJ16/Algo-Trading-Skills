@@ -1,12 +1,22 @@
 ---
 name: data-lineage-tracking-for-audit-and-debugging
-description: >-
-  Quantitative data lineage tracking engine for auditing market data pipelines, feature store lineage, and model decision graphs to perform root cause debugging and impact analysis.
+description: Quantitative data lineage tracking engine for auditing market data pipelines,
+  feature store lineage, and model decision graphs to perform root cause debugging
+  and impact analysis.
 domain: Data Management Global
 subdomain: Data Lineage & Auditability
-tags: ["data-lineage", "dag-lineage", "auditability", "feature-store-lineage", "root-cause-analysis", "impact-analysis", "openlineage"]
-brokers_frameworks: ["OpenLineage Standard", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- data-lineage
+- dag-lineage
+- auditability
+- feature-store-lineage
+- root-cause-analysis
+- impact-analysis
+- openlineage
+brokers_frameworks:
+- OpenLineage Standard
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

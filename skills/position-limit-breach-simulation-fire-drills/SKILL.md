@@ -4,11 +4,11 @@ description: Fire drill breach simulations in paper trading.
 domain: risk-management
 subdomain: simulation
 tags:
-  - risk
-  - management
+- risk
+- management
 brokers_frameworks:
-  - ccxt
-  - interactive-brokers
+- ccxt
+- interactive-brokers
 version: 1.0.0
 author: System
 license: MIT

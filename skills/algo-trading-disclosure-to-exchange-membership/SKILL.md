@@ -1,16 +1,18 @@
 ---
 name: algo-trading-disclosure-to-exchange-membership
-description: Evaluates outbound orders to ensure compliance with algorithmic trading disclosure regulations (e.g., MiFID II, SEBI) requiring unique Algo ID tagging and registration verification.
+description: Evaluates outbound orders to ensure compliance with algorithmic trading
+  disclosure regulations (e.g., MiFID II, SEBI) requiring unique Algo ID tagging and
+  registration verification.
 domain: regulatory-compliance
 subdomain: exchange-connectivity
 tags:
-  - compliance
-  - regulatory
-  - mifid-ii
-  - algo-id
-  - pre-trade-risk
+- compliance
+- regulatory
+- mifid-ii
+- algo-id
+- pre-trade-risk
 brokers_frameworks:
-  - generic-fix
+- generic-fix
 version: 1.1.0
 author: System
 license: MIT

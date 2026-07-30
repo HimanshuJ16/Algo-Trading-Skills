@@ -4,8 +4,8 @@ description: Kupiec proportion-of-failures test for VaR model validation
 domain: risk-management
 subdomain: risk
 tags:
-  - risk
-  - management
+- risk
+- management
 brokers_frameworks: []
 version: 1.0.0
 author: System

@@ -4,9 +4,9 @@ description: Integration for hong-kong-exchange-hkex-orion-api
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - hong-kong-exchange-hkex-orion-api
+- hong-kong-exchange-hkex-orion-api
 brokers_frameworks:
-  - Custom
+- Custom
 version: 1.0.0
 author: assistant
 license: MIT

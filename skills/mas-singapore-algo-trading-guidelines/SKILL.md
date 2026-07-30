@@ -3,8 +3,12 @@ name: mas-singapore-algo-trading-guidelines
 description: Compliance controls for mas singapore algo trading guidelines
 domain: regulatory-compliance-global
 subdomain: regulatory
-tags: [compliance, risk, regulatory]
-brokers_frameworks: [any]
+tags:
+- compliance
+- risk
+- regulatory
+brokers_frameworks:
+- any
 version: 1.0.0
 author: skill-builder
 license: MIT

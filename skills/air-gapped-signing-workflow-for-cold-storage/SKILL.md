@@ -1,16 +1,17 @@
 ---
 name: air-gapped-signing-workflow-for-cold-storage
-description: Simulates and enforces a strict air-gapped signing workflow (Coordinator -> QR/SD -> Offline Vault -> Sign -> Broadcast) for institutional crypto custody.
+description: Simulates and enforces a strict air-gapped signing workflow (Coordinator
+  -> QR/SD -> Offline Vault -> Sign -> Broadcast) for institutional crypto custody.
 domain: crypto-custody-security
 subdomain: Key Management
 tags:
-  - crypto
-  - custody
-  - security
-  - air-gap
-  - psbt
+- crypto
+- custody
+- security
+- air-gap
+- psbt
 brokers_frameworks:
-  - Generic
+- Generic
 version: 1.1.0
 author: System
 license: MIT

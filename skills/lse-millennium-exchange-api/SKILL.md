@@ -4,9 +4,9 @@ description: Integration or workflow skill for lse-millennium-exchange-api.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - lse-millennium-exchange-api
+- lse-millennium-exchange-api
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

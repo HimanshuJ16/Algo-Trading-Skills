@@ -3,8 +3,11 @@ name: real-time-vs-delayed-data-entitlement-handling
 description: Implementation for real-time-vs-delayed-data-entitlement-handling
 domain: data-management-global
 subdomain: data
-tags: [data, management]
-brokers_frameworks: [custom]
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
 version: 1.0.0
 author: System
 license: MIT

@@ -1,12 +1,23 @@
 ---
 name: cross-chain-bridge-risk-for-multi-chain-strategies
-description: >-
-  Quantitative crypto risk management module for evaluating cross-chain bridge security, wrapped token de-pegging, finality latency SLAs, and enforcing in-flight capital caps.
+description: Quantitative crypto risk management module for evaluating cross-chain
+  bridge security, wrapped token de-pegging, finality latency SLAs, and enforcing
+  in-flight capital caps.
 domain: Crypto Risk & DeFi
 subdomain: Multi-Chain Bridge Risk
-tags: ["cross-chain", "bridge-risk", "de-peg", "wrapped-token", "finality-latency", "in-flight-caps", "stargate", "wormhole"]
-brokers_frameworks: ["DeFi Protocols", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- cross-chain
+- bridge-risk
+- de-peg
+- wrapped-token
+- finality-latency
+- in-flight-caps
+- stargate
+- wormhole
+brokers_frameworks:
+- DeFi Protocols
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

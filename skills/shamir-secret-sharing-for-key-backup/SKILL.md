@@ -4,9 +4,9 @@ description: Skill for shamir secret sharing for key backup
 domain: crypto-custody-security
 subdomain: security
 tags:
-  - crypto
-  - custody
-  - security
+- crypto
+- custody
+- security
 brokers_frameworks: []
 version: 1.0.0
 author: AI

@@ -3,8 +3,11 @@ name: multi-leg-strategy-margin-optimization
 description: Skill for multi-leg-strategy-margin-optimization
 domain: multi-asset-derivatives
 subdomain: subdomain
-tags: [trading, algos]
-brokers_frameworks: [all]
+tags:
+- trading
+- algos
+brokers_frameworks:
+- all
 version: 1.0.0
 author: System
 license: MIT

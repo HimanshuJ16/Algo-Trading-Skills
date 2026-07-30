@@ -1,16 +1,17 @@
 ---
 name: alternative-data-vendor-due-diligence-checklist
-description: Institutional compliance engine for automating alternative data vendor due diligence. Evaluates PII, MNPI, and web scraping (CFAA) legal risks.
+description: Institutional compliance engine for automating alternative data vendor
+  due diligence. Evaluates PII, MNPI, and web scraping (CFAA) legal risks.
 domain: regulatory-compliance
 subdomain: data-sourcing
 tags:
-  - compliance
-  - alternative-data
-  - mnpi
-  - pii
-  - legal-risk
+- compliance
+- alternative-data
+- mnpi
+- pii
+- legal-risk
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

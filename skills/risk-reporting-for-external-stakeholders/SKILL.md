@@ -3,8 +3,12 @@ name: risk-reporting-for-external-stakeholders
 description: Institutional risk reporting format.
 domain: risk-management
 subdomain: compliance
-tags: [risk, compliance, automation]
-brokers_frameworks: [any]
+tags:
+- risk
+- compliance
+- automation
+brokers_frameworks:
+- any
 version: 1.0.0
 author: System
 license: MIT

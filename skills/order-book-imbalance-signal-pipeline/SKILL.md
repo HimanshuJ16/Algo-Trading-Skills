@@ -1,12 +1,22 @@
 ---
 name: order-book-imbalance-signal-pipeline
-description: >-
-  Use when building dedicated fast-path pipelines for Level-2 order book imbalance (OBI) and micro-price signals, bypassing standard tick aggregation channels to achieve sub-microsecond signal generation.
+description: Use when building dedicated fast-path pipelines for Level-2 order book
+  imbalance (OBI) and micro-price signals, bypassing standard tick aggregation channels
+  to achieve sub-microsecond signal generation.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "order-book-imbalance", "micro-price", "fast-path", "low-latency", "l2-book", "hft-signals"]
-brokers_frameworks: ["Order Book Imbalance Pipeline", "Python Real-Time Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- order-book-imbalance
+- micro-price
+- fast-path
+- low-latency
+- l2-book
+- hft-signals
+brokers_frameworks:
+- Order Book Imbalance Pipeline
+- Python Real-Time Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

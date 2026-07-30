@@ -4,9 +4,9 @@ description: Skill for exchange withdrawal whitelist enforcement
 domain: crypto-custody-security
 subdomain: security
 tags:
-  - crypto
-  - custody
-  - security
+- crypto
+- custody
+- security
 brokers_frameworks: []
 version: 1.0.0
 author: AI

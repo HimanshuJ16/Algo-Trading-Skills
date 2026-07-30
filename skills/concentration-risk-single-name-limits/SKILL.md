@@ -1,12 +1,21 @@
 ---
 name: concentration-risk-single-name-limits
-description: >-
-  Quantitative pre-trade risk engine for enforcing single-name NAV exposure caps, liquidity ADV constraints, order downsizing, and calculating portfolio Herfindahl-Hirschman Index (HHI).
+description: Quantitative pre-trade risk engine for enforcing single-name NAV exposure
+  caps, liquidity ADV constraints, order downsizing, and calculating portfolio Herfindahl-Hirschman
+  Index (HHI).
 domain: Risk Management
 subdomain: Portfolio Risk & Limits
-tags: ["concentration-risk", "single-name-limit", "hhi", "adv-limit", "pre-trade-risk", "position-sizing"]
-brokers_frameworks: ["NumPy", "Generic Risk Engine"]
-version: "1.0.0"
+tags:
+- concentration-risk
+- single-name-limit
+- hhi
+- adv-limit
+- pre-trade-risk
+- position-sizing
+brokers_frameworks:
+- NumPy
+- Generic Risk Engine
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

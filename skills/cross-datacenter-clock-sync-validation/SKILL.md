@@ -1,12 +1,22 @@
 ---
 name: cross-datacenter-clock-sync-validation
-description: >-
-  Use when deploying multi-region or cross-datacenter trading nodes (NY4, LD4, AWS us-east-1) to measure pairwise PTP/NTP clock drift, detect clock sync degradation (>1ms), and enforce safety vetoes on cross-region arbitration.
+description: Use when deploying multi-region or cross-datacenter trading nodes (NY4,
+  LD4, AWS us-east-1) to measure pairwise PTP/NTP clock drift, detect clock sync degradation
+  (>1ms), and enforce safety vetoes on cross-region arbitration.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "clock-sync", "cross-datacenter", "ptp", "ntp", "clock-drift", "multi-region"]
-brokers_frameworks: ["Clock Sync Validator", "Python Real-Time Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- clock-sync
+- cross-datacenter
+- ptp
+- ntp
+- clock-drift
+- multi-region
+brokers_frameworks:
+- Clock Sync Validator
+- Python Real-Time Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

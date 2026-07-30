@@ -1,12 +1,23 @@
 ---
 name: multi-year-regime-coverage-requirement
-description: >-
-  Use when validating strategy backtests to segment historical price data into distinct market regimes (Bull Trend, Bear Market, High Volatility Crash, Low Volatility Range), enforce multi-regime coverage rules (>=3 regimes), and de-average performance metrics.
+description: Use when validating strategy backtests to segment historical price data
+  into distinct market regimes (Bull Trend, Bear Market, High Volatility Crash, Low
+  Volatility Range), enforce multi-regime coverage rules (>=3 regimes), and de-average
+  performance metrics.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "regime-classification", "market-regimes", "multi-year-backtest", "robustness-testing", "de-averaged-performance"]
-brokers_frameworks: ["Market Regime Coverage Engine", "Python Pandas", "NumPy"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- regime-classification
+- market-regimes
+- multi-year-backtest
+- robustness-testing
+- de-averaged-performance
+brokers_frameworks:
+- Market Regime Coverage Engine
+- Python Pandas
+- NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

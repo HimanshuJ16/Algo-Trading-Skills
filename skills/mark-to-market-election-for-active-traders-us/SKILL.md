@@ -4,8 +4,8 @@ description: Implementation for mark-to-market-election-for-active-traders-us
 domain: tax-accounting-reporting-global
 subdomain: tax-reporting
 tags:
-  - tax
-  - reporting
+- tax
+- reporting
 brokers_frameworks: []
 version: 1.0.0
 author: System

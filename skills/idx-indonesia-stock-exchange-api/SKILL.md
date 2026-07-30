@@ -4,9 +4,9 @@ description: Integration or workflow skill for idx-indonesia-stock-exchange-api.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - idx-indonesia-stock-exchange-api
+- idx-indonesia-stock-exchange-api
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

@@ -4,10 +4,10 @@ description: Basel III / SEC Rule 15c3-1 Net Capital tracking.
 domain: risk-management
 subdomain: risk-controls
 tags:
-  - risk
-  - controls
+- risk
+- controls
 brokers_frameworks:
-  - Any
+- Any
 version: 1.0.0
 author: AI Builder
 license: MIT

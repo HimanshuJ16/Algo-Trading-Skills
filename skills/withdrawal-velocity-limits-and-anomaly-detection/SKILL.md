@@ -3,8 +3,12 @@ name: withdrawal-velocity-limits-and-anomaly-detection
 description: Implementation for withdrawal-velocity-limits-and-anomaly-detection
 domain: Crypto
 subdomain: Custody Security
-tags: [crypto, custody, security]
-brokers_frameworks: [None]
+tags:
+- crypto
+- custody
+- security
+brokers_frameworks:
+- None
 version: 1.0.0
 author: System
 license: MIT

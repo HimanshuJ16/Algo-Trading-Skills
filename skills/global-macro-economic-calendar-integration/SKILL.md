@@ -1,13 +1,16 @@
 ---
-name: "global-macro-economic-calendar-integration"
-description: "Implementation of global-macro-economic-calendar-integration"
-domain: "Data Management"
-subdomain: "Global"
-tags: ["data", "management"]
-brokers_frameworks: ["custom"]
-version: "1.0.0"
-author: "Agent"
-license: "MIT"
+name: global-macro-economic-calendar-integration
+description: Implementation of global-macro-economic-calendar-integration
+domain: Data Management
+subdomain: Global
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
+version: 1.0.0
+author: Agent
+license: MIT
 ---
 
 ## When to Use

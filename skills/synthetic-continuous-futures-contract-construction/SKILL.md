@@ -1,13 +1,16 @@
 ---
-name: "synthetic-continuous-futures-contract-construction"
-description: "Implementation of synthetic-continuous-futures-contract-construction"
-domain: "Data Management"
-subdomain: "Global"
-tags: ["data", "management"]
-brokers_frameworks: ["custom"]
-version: "1.0.0"
-author: "Agent"
-license: "MIT"
+name: synthetic-continuous-futures-contract-construction
+description: Implementation of synthetic-continuous-futures-contract-construction
+domain: Data Management
+subdomain: Global
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
+version: 1.0.0
+author: Agent
+license: MIT
 ---
 
 ## When to Use

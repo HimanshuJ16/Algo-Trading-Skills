@@ -1,12 +1,18 @@
 ---
 name: bybit-derivatives-api-integration
-description: >-
-  Institutional-grade Bybit V5 API integration handling HMAC-SHA256 signature generation, NTP timestamp compliance, and REST rate limit tracking.
+description: Institutional-grade Bybit V5 API integration handling HMAC-SHA256 signature
+  generation, NTP timestamp compliance, and REST rate limit tracking.
 domain: Execution
 subdomain: Venue Integration
-tags: ["bybit", "crypto-derivatives", "v5-api", "hmac-sha256", "rate-limiting"]
-brokers_frameworks: ["Bybit V5 REST"]
-version: "1.0.0"
+tags:
+- bybit
+- crypto-derivatives
+- v5-api
+- hmac-sha256
+- rate-limiting
+brokers_frameworks:
+- Bybit V5 REST
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

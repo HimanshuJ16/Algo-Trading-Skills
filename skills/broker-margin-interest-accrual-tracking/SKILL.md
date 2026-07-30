@@ -1,12 +1,24 @@
 ---
 name: broker-margin-interest-accrual-tracking
-description: >-
-  Institutional-grade margin interest and short borrow fee tracker. Uses progressive blended rate schedules (e.g. IBKR style), accounts for 360-day vs 365-day conventions, applies weekend T+1/T+2 compounding rules, and deducts cost of leverage and borrow from net P&L.
+description: Institutional-grade margin interest and short borrow fee tracker. Uses
+  progressive blended rate schedules (e.g. IBKR style), accounts for 360-day vs 365-day
+  conventions, applies weekend T+1/T+2 compounding rules, and deducts cost of leverage
+  and borrow from net P&L.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "margin-interest", "accrual-tracking", "borrowing-cost", "pnl-accounting", "leverage-cost", "institutional"]
-brokers_frameworks: ["Margin Cost Tracker", "Python PnL Accounting", "Interactive Brokers"]
-version: "2.0"
+tags:
+- broker-integration
+- margin-interest
+- accrual-tracking
+- borrowing-cost
+- pnl-accounting
+- leverage-cost
+- institutional
+brokers_frameworks:
+- Margin Cost Tracker
+- Python PnL Accounting
+- Interactive Brokers
+version: '2.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -45,3 +57,8 @@ Invoke this skill when performing highly accurate institutional P&L accounting f
 
 - Simulate a $150k margin balance across the weekend and verify the blended APR and 3-day accrual logic.
 - Run `python scripts/test_margin_interest.py` and confirm all tests pass 100%.
+
+
+## Related Skills
+
+Documentation for Related Skills.

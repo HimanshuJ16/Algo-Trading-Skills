@@ -1,12 +1,23 @@
 ---
 name: data-retention-policy-and-storage-tiering
-description: >-
-  Quantitative data storage tiering and lifecycle engine for transitioning market data (L2/L3 ticks, Parquet backtests, trade logs) across HOT (NVMe), WARM (S3), COLD (Glacier), and DEEP ARCHIVE tiers.
+description: Quantitative data storage tiering and lifecycle engine for transitioning
+  market data (L2/L3 ticks, Parquet backtests, trade logs) across HOT (NVMe), WARM
+  (S3), COLD (Glacier), and DEEP ARCHIVE tiers.
 domain: Data Management Global
 subdomain: Storage Optimization & Retention
-tags: ["data-retention", "storage-tiering", "hot-warm-cold", "s3-glacier", "parquet-compaction", "cost-optimization", "sec-17a-4"]
-brokers_frameworks: ["AWS S3 Lifecycle", "Glacier Deep Archive", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- data-retention
+- storage-tiering
+- hot-warm-cold
+- s3-glacier
+- parquet-compaction
+- cost-optimization
+- sec-17a-4
+brokers_frameworks:
+- AWS S3 Lifecycle
+- Glacier Deep Archive
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,22 @@
 ---
 name: order-book-depth-processing-l2-l3
-description: >-
-  Use when processing high-frequency Level 2 and Level 3 order book depth feeds to enforce atomic thread safety, prevent crossed-book states, and compute real-time order book imbalance metrics
+description: Use when processing high-frequency Level 2 and Level 3 order book depth
+  feeds to enforce atomic thread safety, prevent crossed-book states, and compute
+  real-time order book imbalance metrics
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "order-book-l2-l3", "book-imbalance", "weighted-midprice", "thread-safety"]
-brokers_frameworks: ["CME ITCH", "Nasdaq TotalView L3", "Coinbase L3", "Binance Depth Stream"]
-version: "1.0"
+tags:
+- real-time-architecture
+- order-book-l2-l3
+- book-imbalance
+- weighted-midprice
+- thread-safety
+brokers_frameworks:
+- CME ITCH
+- Nasdaq TotalView L3
+- Coinbase L3
+- Binance Depth Stream
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

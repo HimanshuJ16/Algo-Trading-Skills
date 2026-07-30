@@ -1,12 +1,22 @@
 ---
 name: close-auction-participation-strategy
-description: >-
-  Quantitative execution strategy for parsing Net Order Imbalance Indicator (NOII) feed data and placing contra-side Limit-On-Close (LOC) / Imbalance-Only (IO) orders before exchange cutoff times.
+description: Quantitative execution strategy for parsing Net Order Imbalance Indicator
+  (NOII) feed data and placing contra-side Limit-On-Close (LOC) / Imbalance-Only (IO)
+  orders before exchange cutoff times.
 domain: Execution Algorithms
 subdomain: Auction Mechanics
-tags: ["closing-auction", "noii", "moc", "loc", "imbalance", "execution-algo"]
-brokers_frameworks: ["Nasdaq NOII", "NYSE Closing Auction", "Generic Execution"]
-version: "1.0.0"
+tags:
+- closing-auction
+- noii
+- moc
+- loc
+- imbalance
+- execution-algo
+brokers_frameworks:
+- Nasdaq NOII
+- NYSE Closing Auction
+- Generic Execution
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

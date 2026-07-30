@@ -1,12 +1,23 @@
 ---
 name: eu-benchmark-regulation-for-strategies-referencing-indices
-description: >-
-  Quantitative European regulatory compliance engine for auditing EU Benchmark Regulation (EU BMR - Regulation 2016/1011) authorization, ESMA register status, and Article 28(2) robust written fallback provisions.
+description: Quantitative European regulatory compliance engine for auditing EU Benchmark
+  Regulation (EU BMR - Regulation 2016/1011) authorization, ESMA register status,
+  and Article 28(2) robust written fallback provisions.
 domain: Regulatory Compliance & Governance
 subdomain: European Index & Benchmark Regulation (EU BMR)
-tags: ["eu-bmr", "esma-register", "benchmark-regulation", "article-28-2-fallback", "index-referencing", "euribor-estren", "mifid-ii"]
-brokers_frameworks: ["ESMA BMR Register", "Regulation (EU) 2016/1011", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- eu-bmr
+- esma-register
+- benchmark-regulation
+- article-28-2-fallback
+- index-referencing
+- euribor-estren
+- mifid-ii
+brokers_frameworks:
+- ESMA BMR Register
+- Regulation (EU) 2016/1011
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

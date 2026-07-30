@@ -1,12 +1,24 @@
 ---
 name: deribit-crypto-options-api
-description: >-
-  Quantitative Deribit crypto options API engine for JSON-RPC 2.0 formatting, inverse option premium conversions (BTC/ETH to USD), portfolio Greeks aggregation, and margin safety audits.
+description: Quantitative Deribit crypto options API engine for JSON-RPC 2.0 formatting,
+  inverse option premium conversions (BTC/ETH to USD), portfolio Greeks aggregation,
+  and margin safety audits.
 domain: Decentralized Finance (DeFi) & Crypto Derivatives
 subdomain: Crypto Options Trading
-tags: ["deribit", "crypto-options", "json-rpc-2.0", "inverse-options", "btc-options", "eth-options", "option-greeks", "mark-iv"]
-brokers_frameworks: ["Deribit API v2", "JSON-RPC 2.0", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- deribit
+- crypto-options
+- json-rpc-2.0
+- inverse-options
+- btc-options
+- eth-options
+- option-greeks
+- mark-iv
+brokers_frameworks:
+- Deribit API v2
+- JSON-RPC 2.0
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

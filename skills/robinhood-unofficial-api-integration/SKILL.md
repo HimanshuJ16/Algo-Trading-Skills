@@ -1,14 +1,21 @@
 ---
 name: robinhood-unofficial-api-integration
-description: >-
-  Use when integrating Robinhood via its unofficial API for algorithmic trading,
-  with explicit acknowledgment of Terms of Service risk, authentication via device
-  token and MFA challenge, and order placement/status polling patterns.
+description: Use when integrating Robinhood via its unofficial API for algorithmic
+  trading, with explicit acknowledgment of Terms of Service risk, authentication via
+  device token and MFA challenge, and order placement/status polling patterns.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "robinhood", "unofficial-api", "mfa-auth", "commission-free"]
-brokers_frameworks: ["Robinhood (unofficial)", "robin_stocks", "Python requests"]
-version: "1.0"
+tags:
+- broker-integration
+- robinhood
+- unofficial-api
+- mfa-auth
+- commission-free
+brokers_frameworks:
+- Robinhood (unofficial)
+- robin_stocks
+- Python requests
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

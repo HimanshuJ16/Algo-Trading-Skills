@@ -1,12 +1,22 @@
 ---
 name: degiro-unofficial-api-risk-assessment
-description: >-
-  Use when connecting to DEGIRO via reverse-engineered Web API endpoints for European retail trading to evaluate ToS compliance, manage session tokens, calculate pre-trade order fees, and enforce fallback circuit breakers.
+description: Use when connecting to DEGIRO via reverse-engineered Web API endpoints
+  for European retail trading to evaluate ToS compliance, manage session tokens, calculate
+  pre-trade order fees, and enforce fallback circuit breakers.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "degiro", "european-markets", "unofficial-api", "risk-assessment", "euronext"]
-brokers_frameworks: ["DEGIRO Web API", "Python requests", "Custom Risk Engine"]
-version: "1.0"
+tags:
+- broker-integration
+- degiro
+- european-markets
+- unofficial-api
+- risk-assessment
+- euronext
+brokers_frameworks:
+- DEGIRO Web API
+- Python requests
+- Custom Risk Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

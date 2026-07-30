@@ -1,12 +1,18 @@
 ---
 name: capacity-planning-for-symbol-universe-growth
-description: >-
-  Quantitative infrastructure modeling tool to forecast CPU, memory, and network bandwidth requirements as a strategy's symbol universe expands.
+description: Quantitative infrastructure modeling tool to forecast CPU, memory, and
+  network bandwidth requirements as a strategy's symbol universe expands.
 domain: Infrastructure
 subdomain: Scalability
-tags: ["capacity-planning", "throughput", "bandwidth", "memory", "symbol-universe"]
-brokers_frameworks: ["Generic Systems Engineering"]
-version: "1.0.0"
+tags:
+- capacity-planning
+- throughput
+- bandwidth
+- memory
+- symbol-universe
+brokers_frameworks:
+- Generic Systems Engineering
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

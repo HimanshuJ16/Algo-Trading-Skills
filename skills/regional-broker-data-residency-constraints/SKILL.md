@@ -1,12 +1,22 @@
 ---
 name: regional-broker-data-residency-constraints
-description: >-
-  Use when deploying trading infrastructure across global jurisdictions to enforce regional data residency constraints (MiFID II, SEBI, GDPR, FINMA) and verify that trading bots run strictly within legally compliant cloud regions.
+description: Use when deploying trading infrastructure across global jurisdictions
+  to enforce regional data residency constraints (MiFID II, SEBI, GDPR, FINMA) and
+  verify that trading bots run strictly within legally compliant cloud regions.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "data-residency", "compliance", "mifid-ii", "sebi", "cloud-regions", "regulatory-guard"]
-brokers_frameworks: ["Data Residency Compliance Guard", "Python Cloud Security"]
-version: "1.0"
+tags:
+- broker-integration
+- data-residency
+- compliance
+- mifid-ii
+- sebi
+- cloud-regions
+- regulatory-guard
+brokers_frameworks:
+- Data Residency Compliance Guard
+- Python Cloud Security
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

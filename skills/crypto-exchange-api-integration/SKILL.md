@@ -1,12 +1,21 @@
 ---
 name: crypto-exchange-api-integration
-description: >-
-  Use when integrating a crypto exchange (Binance, Coinbase Advanced Trade, Kraken) for spot or derivatives trading, where 24/7 markets, different rate-limit models, and exchange-specific order semantics break assumptions carried over from equities broker integration
+description: Use when integrating a crypto exchange (Binance, Coinbase Advanced Trade,
+  Kraken) for spot or derivatives trading, where 24/7 markets, different rate-limit
+  models, and exchange-specific order semantics break assumptions carried over from
+  equities broker integration
 domain: algorithmic-trading
 subdomain: global-market-integration
-tags: ["global-market-integration", "binance-spot-futures-api", "coinbase-advanced-trade-api", "kraken-rest-websocket-v2"]
-brokers_frameworks: ["Binance Spot/Futures API", "Coinbase Advanced Trade API", "Kraken REST/WebSocket v2"]
-version: "1.0"
+tags:
+- global-market-integration
+- binance-spot-futures-api
+- coinbase-advanced-trade-api
+- kraken-rest-websocket-v2
+brokers_frameworks:
+- Binance Spot/Futures API
+- Coinbase Advanced Trade API
+- Kraken REST/WebSocket v2
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

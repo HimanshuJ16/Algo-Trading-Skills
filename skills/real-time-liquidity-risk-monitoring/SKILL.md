@@ -3,8 +3,11 @@ name: real-time-liquidity-risk-monitoring
 description: Monitoring spread widening and depth thinning.
 domain: Risk Management
 subdomain: Calibration
-tags: [risk, real-time-liquidity-risk-monitoring]
-brokers_frameworks: [any]
+tags:
+- risk
+- real-time-liquidity-risk-monitoring
+brokers_frameworks:
+- any
 version: 1.0.0
 author: System
 license: MIT

@@ -1,12 +1,20 @@
 ---
 name: categorical-feature-encoding-for-instrument-identity
-description: >-
-  Quantitative feature engineering pipeline for safely encoding high-cardinality instrument identities (tickers) using smoothed target encoding without lookahead bias.
+description: Quantitative feature engineering pipeline for safely encoding high-cardinality
+  instrument identities (tickers) using smoothed target encoding without lookahead
+  bias.
 domain: Machine Learning
 subdomain: Feature Engineering
-tags: ["categorical-encoding", "target-encoding", "instrument-identity", "feature-engineering", "machine-learning"]
-brokers_frameworks: ["Scikit-Learn", "Pandas"]
-version: "1.0.0"
+tags:
+- categorical-encoding
+- target-encoding
+- instrument-identity
+- feature-engineering
+- machine-learning
+brokers_frameworks:
+- Scikit-Learn
+- Pandas
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

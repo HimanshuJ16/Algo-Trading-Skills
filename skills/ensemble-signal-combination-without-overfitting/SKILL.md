@@ -1,12 +1,22 @@
 ---
 name: ensemble-signal-combination-without-overfitting
-description: >-
-  Use when ensembling multiple trading signals or ML models to apply signal normalization, non-negative weight constraints, 1/N shrinkage, and inverse variance weighting without overfitting to historical noise
+description: Use when ensembling multiple trading signals or ML models to apply signal
+  normalization, non-negative weight constraints, 1/N shrinkage, and inverse variance
+  weighting without overfitting to historical noise
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "ensemble-learning", "signal-combination", "l2-regularization", "1-over-n-shrinkage"]
-brokers_frameworks: ["scikit-learn", "SciPy Optimize", "NumPy", "Custom Signal Ensembles"]
-version: "1.0"
+tags:
+- financial-ml
+- ensemble-learning
+- signal-combination
+- l2-regularization
+- 1-over-n-shrinkage
+brokers_frameworks:
+- scikit-learn
+- SciPy Optimize
+- NumPy
+- Custom Signal Ensembles
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,19 @@
 ---
 name: capital-gains-vs-business-income-classification
-description: >-
-  Quantitative tax classification engine to automatically categorize trading activity as Capital Gains vs Business Income (Speculative / Non-Speculative) based on holding periods and asset class.
+description: Quantitative tax classification engine to automatically categorize trading
+  activity as Capital Gains vs Business Income (Speculative / Non-Speculative) based
+  on holding periods and asset class.
 domain: Back-Office
 subdomain: Taxation & Compliance
-tags: ["tax", "capital-gains", "business-income", "speculative", "classification"]
-brokers_frameworks: ["Generic Post-Trade"]
-version: "1.0.0"
+tags:
+- tax
+- capital-gains
+- business-income
+- speculative
+- classification
+brokers_frameworks:
+- Generic Post-Trade
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

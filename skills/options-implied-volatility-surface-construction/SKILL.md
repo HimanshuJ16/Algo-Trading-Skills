@@ -1,13 +1,16 @@
 ---
-name: "options-implied-volatility-surface-construction"
-description: "Implementation of options-implied-volatility-surface-construction"
-domain: "Data Management"
-subdomain: "Global"
-tags: ["data", "management"]
-brokers_frameworks: ["custom"]
-version: "1.0.0"
-author: "Agent"
-license: "MIT"
+name: options-implied-volatility-surface-construction
+description: Implementation of options-implied-volatility-surface-construction
+domain: Data Management
+subdomain: Global
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
+version: 1.0.0
+author: Agent
+license: MIT
 ---
 
 ## When to Use

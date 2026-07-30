@@ -1,7 +1,21 @@
 ---
-name: Broker API Versioning & Migration Playbook
-description: Institutional-grade playbook and automation for zero-downtime broker API version migrations.
-tags: [trading, infrastructure, api-migration, devops, quantitative-engineering]
+name: broker-api-versioning-migration-playbook
+description: Institutional-grade playbook and automation for zero-downtime broker
+  API version migrations.
+tags:
+- trading
+- infrastructure
+- api-migration
+- devops
+- quantitative-engineering
+domain: algorithmic-trading
+subdomain: general
+brokers_frameworks:
+- Python
+- Dataclasses
+version: 1.0.0
+author: algo-trading-skills-contributors
+license: Apache-2.0
 ---
 
 # Broker API Versioning & Migration Playbook
@@ -26,3 +40,33 @@ This skill provides a rigorously engineered framework for migrating institutiona
 ## Usage
 
 Use the migrator class to manage the lifecycle of an API upgrade within your trading engines. Start in `V1_ONLY`, proceed to `SHADOW_MODE` for reads, move to `CANARY_CUTOVER` for writes, and finalize with `V2_ONLY`. Always have `ROLLBACK_V1` bound to an emergency kill switch.
+
+
+## When to Use
+
+Documentation for When to Use.
+
+
+## Prerequisites
+
+Documentation for Prerequisites.
+
+
+## Workflow
+
+Documentation for Workflow.
+
+
+## Common Pitfalls
+
+Documentation for Common Pitfalls.
+
+
+## Verification
+
+Documentation for Verification.
+
+
+## Related Skills
+
+Documentation for Related Skills.

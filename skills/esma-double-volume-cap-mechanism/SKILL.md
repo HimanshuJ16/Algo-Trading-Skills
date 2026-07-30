@@ -1,12 +1,23 @@
 ---
 name: esma-double-volume-cap-mechanism
-description: >-
-  Quantitative European regulatory compliance engine for monitoring ESMA Double Volume Cap (DVC) dark pool limits (4% venue / 8% EU-wide), managing dark trading suspensions, and rerouting orders to Lit or Large-In-Scale (LIS) waivers.
+description: Quantitative European regulatory compliance engine for monitoring ESMA
+  Double Volume Cap (DVC) dark pool limits (4% venue / 8% EU-wide), managing dark
+  trading suspensions, and rerouting orders to Lit or Large-In-Scale (LIS) waivers.
 domain: Venue Integration & Protocols
 subdomain: European Regulatory Compliance (MiFID II / MiFIR)
-tags: ["esma", "double-volume-cap", "mifid-ii", "dark-pools", "reference-price-waiver", "lis-waiver", "smart-order-router"]
-brokers_frameworks: ["ESMA DVC Register", "Cboe Europe Dark", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- esma
+- double-volume-cap
+- mifid-ii
+- dark-pools
+- reference-price-waiver
+- lis-waiver
+- smart-order-router
+brokers_frameworks:
+- ESMA DVC Register
+- Cboe Europe Dark
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

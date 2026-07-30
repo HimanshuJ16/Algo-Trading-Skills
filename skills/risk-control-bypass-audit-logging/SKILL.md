@@ -4,11 +4,11 @@ description: Audit logging for manual risk overrides.
 domain: risk-management
 subdomain: audit
 tags:
-  - risk
-  - management
+- risk
+- management
 brokers_frameworks:
-  - ccxt
-  - interactive-brokers
+- ccxt
+- interactive-brokers
 version: 1.0.0
 author: System
 license: MIT

@@ -3,8 +3,12 @@ name: label-noise-estimation-in-financial-targets
 description: Skill for label-noise-estimation-in-financial-targets
 domain: financial-ml
 subdomain: ml-ops
-tags: [ml, ops, finance]
-brokers_frameworks: [scikit-learn]
+tags:
+- ml
+- ops
+- finance
+brokers_frameworks:
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

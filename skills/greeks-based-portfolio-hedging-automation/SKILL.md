@@ -1,12 +1,21 @@
 ---
 name: greeks-based-portfolio-hedging-automation
-description: >-
-  Use when managing options or multi-asset portfolios to aggregate net portfolio Greeks (Delta, Vega), evaluate risk tolerance breaches, and automatically generate rebalancing hedge orders to maintain delta/vega neutrality.
+description: Use when managing options or multi-asset portfolios to aggregate net
+  portfolio Greeks (Delta, Vega), evaluate risk tolerance breaches, and automatically
+  generate rebalancing hedge orders to maintain delta/vega neutrality.
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "options-hedging", "portfolio-greeks", "delta-neutral", "vega-hedging", "automated-rebalancing"]
-brokers_frameworks: ["Greeks Hedging Engine", "Python NumPy"]
-version: "1.0"
+tags:
+- risk-management
+- options-hedging
+- portfolio-greeks
+- delta-neutral
+- vega-hedging
+- automated-rebalancing
+brokers_frameworks:
+- Greeks Hedging Engine
+- Python NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

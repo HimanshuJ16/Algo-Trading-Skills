@@ -3,8 +3,11 @@ name: execution-venue-fee-tier-optimization
 description: Implementation for execution-venue-fee-tier-optimization
 domain: Execution
 subdomain: Algorithms
-tags: [execution, trading]
-brokers_frameworks: [generic]
+tags:
+- execution
+- trading
+brokers_frameworks:
+- generic
 version: 1.0.0
 author: System
 license: MIT

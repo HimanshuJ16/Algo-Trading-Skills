@@ -4,9 +4,9 @@ description: Integration or workflow skill for fix-protocol-session-management-a
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - fix-protocol-session-management-across-venues
+- fix-protocol-session-management-across-venues
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

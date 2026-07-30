@@ -1,12 +1,22 @@
 ---
 name: clock-synchronization-ptp-for-trading-hosts
-description: >-
-  Quantitative infrastructure management module for configuring, parsing, and validating PTP (IEEE 1588v2) hardware clock synchronization across trading host NICs and system CLOCK_REALTIME.
+description: Quantitative infrastructure management module for configuring, parsing,
+  and validating PTP (IEEE 1588v2) hardware clock synchronization across trading host
+  NICs and system CLOCK_REALTIME.
 domain: Infrastructure
 subdomain: Network & Hardware Architecture
-tags: ["ptp", "ieee-1588", "ptp4l", "phc2sys", "hardware-timestamping", "hft", "mifid-ii"]
-brokers_frameworks: ["linuxptp", "Generic Infrastructure"]
-version: "1.0.0"
+tags:
+- ptp
+- ieee-1588
+- ptp4l
+- phc2sys
+- hardware-timestamping
+- hft
+- mifid-ii
+brokers_frameworks:
+- linuxptp
+- Generic Infrastructure
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,19 @@
 ---
 name: calendar-spread-and-multi-leg-order-atomicity
-description: >-
-  Use when executing multi-leg strategies (like calendar spreads) on exchanges that do not support native combo orders. Implements algorithmic atomicity and legging-risk management.
+description: Use when executing multi-leg strategies (like calendar spreads) on exchanges
+  that do not support native combo orders. Implements algorithmic atomicity and legging-risk
+  management.
 domain: algorithmic-trading
 subdomain: execution-algorithms
-tags: ["execution", "multi-leg", "atomicity", "legging-risk", "calendar-spread"]
-brokers_frameworks: ["Generic Execution"]
-version: "1.0.0"
+tags:
+- execution
+- multi-leg
+- atomicity
+- legging-risk
+- calendar-spread
+brokers_frameworks:
+- Generic Execution
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,23 @@
 ---
 name: options-backtesting-with-realistic-iv-surface
-description: >-
-  Use when backtesting options strategies (straddles, vertical spreads, iron condors) to interpolate dynamic 3D implied volatility (IV) surfaces across strike moneyness and term structure, avoiding flat IV mispricing errors.
+description: Use when backtesting options strategies (straddles, vertical spreads,
+  iron condors) to interpolate dynamic 3D implied volatility (IV) surfaces across
+  strike moneyness and term structure, avoiding flat IV mispricing errors.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "options-backtesting", "iv-surface", "volatility-smile", "greeks-calculation", "black-scholes", "derivatives"]
-brokers_frameworks: ["Options IV Surface Engine", "Python SciPy", "NumPy"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- options-backtesting
+- iv-surface
+- volatility-smile
+- greeks-calculation
+- black-scholes
+- derivatives
+brokers_frameworks:
+- Options IV Surface Engine
+- Python SciPy
+- NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

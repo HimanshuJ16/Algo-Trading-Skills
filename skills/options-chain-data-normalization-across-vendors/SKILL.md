@@ -3,8 +3,11 @@ name: options-chain-data-normalization-across-vendors
 description: Implementation for options-chain-data-normalization-across-vendors
 domain: data-management-global
 subdomain: data
-tags: [data, management]
-brokers_frameworks: [custom]
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
 version: 1.0.0
 author: System
 license: MIT

@@ -1,18 +1,19 @@
 ---
 name: b3-brazil-exchange-api-integration
-description: Connectivity engine for the B3 Exchange (Brasil Bolsa Balcão) PUMA Trading System, supporting both Legacy (FIX/FAST) and Modern (Binary SBE) architectures.
+description: "Connectivity engine for the B3 Exchange (Brasil Bolsa Balc\xE3o) PUMA\
+  \ Trading System, supporting both Legacy (FIX/FAST) and Modern (Binary SBE) architectures."
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - b3
-  - brazil
-  - puma-trading-system
-  - fix-fast
-  - umdf
-  - sbe
-  - binary-order-entry
+- b3
+- brazil
+- puma-trading-system
+- fix-fast
+- umdf
+- sbe
+- binary-order-entry
 brokers_frameworks:
-  - direct-market-access
+- direct-market-access
 version: 1.1.0
 author: System
 license: MIT

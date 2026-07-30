@@ -1,12 +1,20 @@
 ---
 name: backtest-look-ahead-in-universe-selection
-description: >-
-  Use when auditing strategy universe selection logic to detect and prevent lookahead bias (e.g. selecting top 50 S&P 500 stocks by today's market cap retroactively for 2015 backtests).
+description: Use when auditing strategy universe selection logic to detect and prevent
+  lookahead bias (e.g. selecting top 50 S&P 500 stocks by today's market cap retroactively
+  for 2015 backtests).
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "universe-selection", "lookahead-bias", "point-in-time", "survivorship-bias"]
-brokers_frameworks: ["Universe Lookahead Auditor", "Python"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- universe-selection
+- lookahead-bias
+- point-in-time
+- survivorship-bias
+brokers_frameworks:
+- Universe Lookahead Auditor
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

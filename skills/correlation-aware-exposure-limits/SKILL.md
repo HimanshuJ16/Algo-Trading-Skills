@@ -1,12 +1,23 @@
 ---
 name: correlation-aware-exposure-limits
-description: >-
-  Use when building multi-asset portfolio risk systems to compute pairwise correlation matrices, cluster correlated instruments, and cap aggregate cluster exposure to prevent risk concentration
+description: Use when building multi-asset portfolio risk systems to compute pairwise
+  correlation matrices, cluster correlated instruments, and cap aggregate cluster
+  exposure to prevent risk concentration
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "correlation-matrix", "exposure-limits", "cluster-risk", "concentration-risk"]
-brokers_frameworks: ["PyPFcon", "Riskfolio-Lib", "Pandas", "NumPy", "Custom Portfolio Risk"]
-version: "1.0"
+tags:
+- risk-management
+- correlation-matrix
+- exposure-limits
+- cluster-risk
+- concentration-risk
+brokers_frameworks:
+- PyPFcon
+- Riskfolio-Lib
+- Pandas
+- NumPy
+- Custom Portfolio Risk
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

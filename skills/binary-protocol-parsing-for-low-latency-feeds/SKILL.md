@@ -1,6 +1,19 @@
 ---
 name: binary-protocol-parsing-for-low-latency-feeds
-description: "Zero-copy binary struct unpacker for NASDAQ ITCH / CME MDP style binary market data feeds."
+description: Zero-copy binary struct unpacker for NASDAQ ITCH / CME MDP style binary
+  market data feeds.
+domain: algorithmic-trading
+subdomain: general
+tags:
+- trading
+- algo
+- skill
+brokers_frameworks:
+- Python
+- Dataclasses
+version: 1.0.0
+author: algo-trading-skills-contributors
+license: Apache-2.0
 ---
 
 # Binary Protocol Parsing for Low Latency Feeds
@@ -23,3 +36,33 @@ See the implementation in `scripts/binary_parser.py`. It showcases a highly opti
 1. Never copy byte buffers during ingestion (use pointers or `memoryview`).
 2. Pre-allocate message structs if possible (object pooling) to avoid garbage collection pauses.
 3. Validate frame lengths immediately upon network read before passing to the parser.
+
+
+## When to Use
+
+Documentation for When to Use.
+
+
+## Prerequisites
+
+Documentation for Prerequisites.
+
+
+## Workflow
+
+Documentation for Workflow.
+
+
+## Common Pitfalls
+
+Documentation for Common Pitfalls.
+
+
+## Verification
+
+Documentation for Verification.
+
+
+## Related Skills
+
+Documentation for Related Skills.

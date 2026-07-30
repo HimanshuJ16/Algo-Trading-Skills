@@ -4,10 +4,10 @@ description: Skill for model card documentation for trading models
 domain: Financial ML
 subdomain: Documentation
 tags:
-  - ml
-  - trading
+- ml
+- trading
 brokers_frameworks:
-  - scikit-learn
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

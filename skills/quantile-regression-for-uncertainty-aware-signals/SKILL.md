@@ -1,12 +1,21 @@
 ---
 name: quantile-regression-for-uncertainty-aware-signals
-description: >-
-  Use when training ML signal generation models to predict conditional return quantiles (e.g. 10th, 50th, 90th percentiles) rather than single point forecasts, enabling uncertainty-aware confidence-scaled position sizing.
+description: Use when training ML signal generation models to predict conditional
+  return quantiles (e.g. 10th, 50th, 90th percentiles) rather than single point forecasts,
+  enabling uncertainty-aware confidence-scaled position sizing.
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "quantile-regression", "uncertainty-estimation", "pinball-loss", "confidence-scaling", "position-sizing"]
-brokers_frameworks: ["Quantile Regression Signal Engine", "Python NumPy"]
-version: "1.0"
+tags:
+- financial-ml
+- quantile-regression
+- uncertainty-estimation
+- pinball-loss
+- confidence-scaling
+- position-sizing
+brokers_frameworks:
+- Quantile Regression Signal Engine
+- Python NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

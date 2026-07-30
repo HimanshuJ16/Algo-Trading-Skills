@@ -1,12 +1,23 @@
 ---
 name: custody-solution-uptime-and-liveness-guarantees
-description: >-
-  Quantitative custody liveness monitoring engine for tracking API uptime SLAs (99.9%+), MPC threshold quorum (k-of-n), and signing latency SLAs, triggering failover upon availability breaches.
+description: Quantitative custody liveness monitoring engine for tracking API uptime
+  SLAs (99.9%+), MPC threshold quorum (k-of-n), and signing latency SLAs, triggering
+  failover upon availability breaches.
 domain: Crypto Custody & Security
 subdomain: Custody SLA & Liveness
-tags: ["custody-sla", "liveness-guarantees", "mpc-quorum", "signing-latency", "fireblocks", "bitgo", "anchorage", "uptime-monitoring"]
-brokers_frameworks: ["SOC 2 Type II", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- custody-sla
+- liveness-guarantees
+- mpc-quorum
+- signing-latency
+- fireblocks
+- bitgo
+- anchorage
+- uptime-monitoring
+brokers_frameworks:
+- SOC 2 Type II
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

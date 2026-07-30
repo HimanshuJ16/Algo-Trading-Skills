@@ -1,12 +1,21 @@
 ---
 name: benchmark-portfolio-for-multi-strategy-performance-context
-description: >-
-  Use when evaluating a multi-strategy quantitative portfolio to isolate genuine skill (Alpha) from hidden market exposure (Beta) and calculate tracking error against a custom or standard benchmark.
+description: Use when evaluating a multi-strategy quantitative portfolio to isolate
+  genuine skill (Alpha) from hidden market exposure (Beta) and calculate tracking
+  error against a custom or standard benchmark.
 domain: algorithmic-trading
 subdomain: portfolio-construction
-tags: ["multi-strategy", "benchmarking", "alpha", "beta", "information-ratio", "tracking-error"]
-brokers_frameworks: ["NumPy", "Portfolio Benchmarking"]
-version: "1.0"
+tags:
+- multi-strategy
+- benchmarking
+- alpha
+- beta
+- information-ratio
+- tracking-error
+brokers_frameworks:
+- NumPy
+- Portfolio Benchmarking
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

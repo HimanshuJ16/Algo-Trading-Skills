@@ -1,12 +1,22 @@
 ---
 name: websocket-reconnection-with-state-recovery
-description: >-
-  Use when managing real-time market data or order update WebSocket streams to execute automatic reconnection with exponential backoff and randomized jitter, re-subscribe active symbol channels, and perform REST sequence gap-filling to prevent missed tick data.
+description: Use when managing real-time market data or order update WebSocket streams
+  to execute automatic reconnection with exponential backoff and randomized jitter,
+  re-subscribe active symbol channels, and perform REST sequence gap-filling to prevent
+  missed tick data.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "websocket", "reconnection", "exponential-backoff", "state-recovery", "gap-fill"]
-brokers_frameworks: ["WebSocket Manager", "Python Async Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- websocket
+- reconnection
+- exponential-backoff
+- state-recovery
+- gap-fill
+brokers_frameworks:
+- WebSocket Manager
+- Python Async Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

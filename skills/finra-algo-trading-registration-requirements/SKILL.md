@@ -3,8 +3,12 @@ name: finra-algo-trading-registration-requirements
 description: Compliance controls for finra algo trading registration requirements
 domain: regulatory-compliance-global
 subdomain: regulatory
-tags: [compliance, risk, regulatory]
-brokers_frameworks: [any]
+tags:
+- compliance
+- risk
+- regulatory
+brokers_frameworks:
+- any
 version: 1.0.0
 author: skill-builder
 license: MIT

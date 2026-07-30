@@ -3,8 +3,11 @@ name: physical-vs-cash-settlement-handling
 description: Skill for physical-vs-cash-settlement-handling
 domain: multi-asset-derivatives
 subdomain: subdomain
-tags: [trading, algos]
-brokers_frameworks: [all]
+tags:
+- trading
+- algos
+brokers_frameworks:
+- all
 version: 1.0.0
 author: System
 license: MIT

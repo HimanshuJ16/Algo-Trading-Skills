@@ -1,16 +1,17 @@
 ---
 name: annual-compliance-attestation-workflow
-description: Automated compliance verification engine for SEC Rule 206(4)-7 and FINRA Rule 3130 annual attestations in quantitative hedge funds.
+description: Automated compliance verification engine for SEC Rule 206(4)-7 and FINRA
+  Rule 3130 annual attestations in quantitative hedge funds.
 domain: regulatory-compliance
 subdomain: institutional-reporting
 tags:
-  - compliance
-  - sec-20647
-  - finra-3130
-  - regulatory
-  - attestation
+- compliance
+- sec-20647
+- finra-3130
+- regulatory
+- attestation
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

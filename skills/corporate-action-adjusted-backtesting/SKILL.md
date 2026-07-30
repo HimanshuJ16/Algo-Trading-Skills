@@ -1,12 +1,23 @@
 ---
 name: corporate-action-adjusted-backtesting
-description: >-
-  Quantitative backtesting module for processing corporate action event logs (stock splits, cash dividends, reverse splits), computing Cumulative Adjustment Factors (CAF), and separating raw vs. adjusted price data.
+description: Quantitative backtesting module for processing corporate action event
+  logs (stock splits, cash dividends, reverse splits), computing Cumulative Adjustment
+  Factors (CAF), and separating raw vs. adjusted price data.
 domain: Data Management & Backtesting
 subdomain: Corporate Actions
-tags: ["corporate-actions", "stock-splits", "dividends", "caf", "adjusted-prices", "backtesting", "point-in-time"]
-brokers_frameworks: ["Pandas", "NumPy", "Generic Backtester"]
-version: "1.0.0"
+tags:
+- corporate-actions
+- stock-splits
+- dividends
+- caf
+- adjusted-prices
+- backtesting
+- point-in-time
+brokers_frameworks:
+- Pandas
+- NumPy
+- Generic Backtester
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

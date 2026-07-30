@@ -1,13 +1,16 @@
 ---
-name: "instrument-universe-change-detection-and-alerting"
-description: "Implementation of instrument-universe-change-detection-and-alerting"
-domain: "Data Management"
-subdomain: "Global"
-tags: ["data", "management"]
-brokers_frameworks: ["custom"]
-version: "1.0.0"
-author: "Agent"
-license: "MIT"
+name: instrument-universe-change-detection-and-alerting
+description: Implementation of instrument-universe-change-detection-and-alerting
+domain: Data Management
+subdomain: Global
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
+version: 1.0.0
+author: Agent
+license: MIT
 ---
 
 ## When to Use

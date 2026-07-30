@@ -4,8 +4,8 @@ description: Implementation for record-keeping-requirements-for-tax-audit-defens
 domain: tax-accounting-reporting-global
 subdomain: tax-reporting
 tags:
-  - tax
-  - reporting
+- tax
+- reporting
 brokers_frameworks: []
 version: 1.0.0
 author: System

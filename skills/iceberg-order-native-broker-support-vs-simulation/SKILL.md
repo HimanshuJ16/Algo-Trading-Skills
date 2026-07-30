@@ -3,8 +3,11 @@ name: iceberg-order-native-broker-support-vs-simulation
 description: Implementation for iceberg-order-native-broker-support-vs-simulation
 domain: Execution
 subdomain: Algorithms
-tags: [execution, trading]
-brokers_frameworks: [generic]
+tags:
+- execution
+- trading
+brokers_frameworks:
+- generic
 version: 1.0.0
 author: System
 license: MIT

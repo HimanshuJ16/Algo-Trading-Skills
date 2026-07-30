@@ -3,7 +3,10 @@ name: research-environment-vs-production-environment-parity
 description: Skill for research environment vs production environment parity
 domain: quant-research-alt-data
 subdomain: Alternative Data
-tags: [alt-data, python, research]
+tags:
+- alt-data
+- python
+- research
 brokers_frameworks: []
 version: 1.0.0
 author: AI

@@ -4,9 +4,9 @@ description: Skill for total return swap synthetic exposure
 domain: Multi-Asset Derivatives
 subdomain: Swaps
 tags:
-  - Multi-Asset Derivatives
+- Multi-Asset Derivatives
 brokers_frameworks:
-  - Generic
+- Generic
 version: 1.0.0
 author: System
 license: MIT

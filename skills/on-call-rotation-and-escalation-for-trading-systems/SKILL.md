@@ -4,7 +4,7 @@ description: Skill for on-call-rotation-and-escalation-for-trading-systems
 domain: deployment-ops
 subdomain: deployment
 tags:
-  - on-call-rotation-and-escalation-for-trading-systems
+- on-call-rotation-and-escalation-for-trading-systems
 brokers_frameworks: []
 version: 1.0.0
 author: System

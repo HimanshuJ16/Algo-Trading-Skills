@@ -1,12 +1,21 @@
 ---
 name: adaptive-sampling-under-extreme-tick-rates
-description: >-
-  Use during extreme market volatility or flash-crash volume spikes to dynamically sample tick streams (1:N systematic sampling), preserving strategy engine throughput and cumulative volume/VWAP tracking while preventing memory buffer overflow.
+description: Use during extreme market volatility or flash-crash volume spikes to
+  dynamically sample tick streams (1:N systematic sampling), preserving strategy engine
+  throughput and cumulative volume/VWAP tracking while preventing memory buffer overflow.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "adaptive-sampling", "flash-crash", "tick-filtering", "volume-preservation", "throughput-protection"]
-brokers_frameworks: ["Adaptive Tick Sampler", "Python Real-Time Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- adaptive-sampling
+- flash-crash
+- tick-filtering
+- volume-preservation
+- throughput-protection
+brokers_frameworks:
+- Adaptive Tick Sampler
+- Python Real-Time Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,22 @@
 ---
 name: custody-solution-vendor-due-diligence-checklist
-description: >-
-  Quantitative institutional due diligence framework for auditing digital asset custodians across SEC Qualified Custodian status, SOC 2 Type II compliance, bankruptcy remoteness, crime insurance, and MPC key security.
+description: Quantitative institutional due diligence framework for auditing digital
+  asset custodians across SEC Qualified Custodian status, SOC 2 Type II compliance,
+  bankruptcy remoteness, crime insurance, and MPC key security.
 domain: Crypto Custody & Security
 subdomain: Vendor Risk Management
-tags: ["custody-due-diligence", "sec-qualified-custodian", "soc2-type2", "bankruptcy-remoteness", "crime-insurance", "vendor-risk"]
-brokers_frameworks: ["SEC Rule 206(4)-2", "SOC 2 Type II", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- custody-due-diligence
+- sec-qualified-custodian
+- soc2-type2
+- bankruptcy-remoteness
+- crime-insurance
+- vendor-risk
+brokers_frameworks:
+- SEC Rule 206(4)-2
+- SOC 2 Type II
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

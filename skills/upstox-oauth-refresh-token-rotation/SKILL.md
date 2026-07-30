@@ -1,12 +1,19 @@
 ---
 name: upstox-oauth-refresh-token-rotation
-description: >-
-  Use when implementing Upstox API v2 OAuth2 token management to handle single-use refresh token rotation, thread-safe token persistence, and seamless session renewal for long-running trading bots
+description: Use when implementing Upstox API v2 OAuth2 token management to handle
+  single-use refresh token rotation, thread-safe token persistence, and seamless session
+  renewal for long-running trading bots
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "upstox-api-v2", "oauth2", "token-rotation", "refresh-token"]
-brokers_frameworks: ["Upstox API v2"]
-version: "1.0"
+tags:
+- broker-integration
+- upstox-api-v2
+- oauth2
+- token-rotation
+- refresh-token
+brokers_frameworks:
+- Upstox API v2
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

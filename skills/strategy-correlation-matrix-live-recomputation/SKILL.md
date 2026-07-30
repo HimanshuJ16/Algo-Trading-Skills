@@ -1,15 +1,16 @@
 ---
 name: strategy-correlation-matrix-live-recomputation
-description: Skill for strategy-correlation-matrix-live-recomputation in portfolio multi strategy.
+description: Skill for strategy-correlation-matrix-live-recomputation in portfolio
+  multi strategy.
 domain: Portfolio Management
 subdomain: Multi Strategy
 tags:
-  - portfolio
-  - strategy
-  - strategy
+- portfolio
+- strategy
+- strategy
 brokers_frameworks:
-  - Backtrader
-  - QuantConnect
+- Backtrader
+- QuantConnect
 version: 1.0.0
 author: System
 license: MIT

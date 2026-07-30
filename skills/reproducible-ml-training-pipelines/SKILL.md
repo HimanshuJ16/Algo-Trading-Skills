@@ -3,8 +3,12 @@ name: reproducible-ml-training-pipelines
 description: Skill for reproducible-ml-training-pipelines
 domain: financial-ml
 subdomain: ml-ops
-tags: [ml, ops, finance]
-brokers_frameworks: [scikit-learn]
+tags:
+- ml
+- ops
+- finance
+brokers_frameworks:
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

@@ -1,13 +1,14 @@
 ---
 name: interest-rate-swap-exposure-in-multi-asset-portfolios
-description: Automation and handling of interest rate swap exposure in multi asset portfolios.
+description: Automation and handling of interest rate swap exposure in multi asset
+  portfolios.
 domain: multi-asset-derivatives
 subdomain: derivatives-trading
 tags:
-  - interest-rate-swap-exposure-in-multi-asset-portfolios
-  - trading
+- interest-rate-swap-exposure-in-multi-asset-portfolios
+- trading
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

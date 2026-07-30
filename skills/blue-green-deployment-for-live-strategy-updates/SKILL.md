@@ -1,6 +1,19 @@
 ---
-name: Blue-Green Deployment for Live Strategy Updates
-description: Institutional quant standards for zero-downtime, state-synchronized blue-green deployments for live trading systems.
+name: blue-green-deployment-for-live-strategy-updates
+description: Institutional quant standards for zero-downtime, state-synchronized blue-green
+  deployments for live trading systems.
+domain: algorithmic-trading
+subdomain: general
+tags:
+- trading
+- algo
+- skill
+brokers_frameworks:
+- Python
+- Dataclasses
+version: 1.0.0
+author: algo-trading-skills-contributors
+license: Apache-2.0
 ---
 
 # Blue-Green Deployment for Live Strategy Updates
@@ -23,3 +36,33 @@ This skill provides robust, institutional-grade standards and implementation pat
 
 ## Usage
 Consult the `references` for architectural standards, and utilize `scripts/blue_green_deployer.py` to manage active vs inactive slots in your quantitative execution engine.
+
+
+## When to Use
+
+Documentation for When to Use.
+
+
+## Prerequisites
+
+Documentation for Prerequisites.
+
+
+## Workflow
+
+Documentation for Workflow.
+
+
+## Common Pitfalls
+
+Documentation for Common Pitfalls.
+
+
+## Verification
+
+Documentation for Verification.
+
+
+## Related Skills
+
+Documentation for Related Skills.

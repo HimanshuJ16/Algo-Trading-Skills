@@ -1,12 +1,20 @@
 ---
 name: risk-control-latency-budget
-description: >-
-  Use when engineering live risk management controls to profile, bound, and audit total risk evaluation latency (ingestion + evaluation + order transmission), ensuring slow risk controls do not fail during fast market crashes.
+description: Use when engineering live risk management controls to profile, bound,
+  and audit total risk evaluation latency (ingestion + evaluation + order transmission),
+  ensuring slow risk controls do not fail during fast market crashes.
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "latency-budget", "risk-control-sla", "circuit-breaker-latency", "performance-profiling"]
-brokers_frameworks: ["Risk Control Latency Budgeter", "Python"]
-version: "1.0"
+tags:
+- risk-management
+- latency-budget
+- risk-control-sla
+- circuit-breaker-latency
+- performance-profiling
+brokers_frameworks:
+- Risk Control Latency Budgeter
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

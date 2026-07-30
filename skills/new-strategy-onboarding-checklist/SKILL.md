@@ -4,12 +4,12 @@ description: Skill for new-strategy-onboarding-checklist in portfolio multi stra
 domain: Portfolio Management
 subdomain: Multi Strategy
 tags:
-  - portfolio
-  - strategy
-  - new
+- portfolio
+- strategy
+- new
 brokers_frameworks:
-  - Backtrader
-  - QuantConnect
+- Backtrader
+- QuantConnect
 version: 1.0.0
 author: System
 license: MIT

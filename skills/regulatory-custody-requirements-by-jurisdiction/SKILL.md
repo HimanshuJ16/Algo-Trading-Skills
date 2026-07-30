@@ -3,8 +3,13 @@ name: regulatory-custody-requirements-by-jurisdiction
 description: Skill to handle regulatory custody requirements by jurisdiction.
 domain: Crypto Custody
 subdomain: Security
-tags: [security, crypto, custody, regulatory]
-brokers_frameworks: [None]
+tags:
+- security
+- crypto
+- custody
+- regulatory
+brokers_frameworks:
+- None
 version: 1.0.0
 author: AI
 license: MIT

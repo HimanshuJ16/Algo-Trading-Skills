@@ -4,11 +4,11 @@ description: Real-time Greeks recalculation on tick/price shifts.
 domain: risk-management
 subdomain: greeks
 tags:
-  - risk
-  - management
+- risk
+- management
 brokers_frameworks:
-  - ccxt
-  - interactive-brokers
+- ccxt
+- interactive-brokers
 version: 1.0.0
 author: System
 license: MIT

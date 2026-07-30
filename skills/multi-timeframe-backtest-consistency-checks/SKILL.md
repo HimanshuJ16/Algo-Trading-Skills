@@ -1,12 +1,20 @@
 ---
 name: multi-timeframe-backtest-consistency-checks
-description: >-
-  Use when verifying that a strategy's signals computed from higher-resolution data (e.g. 1-min bars) produce consistent results when compared against resampled lower-resolution data (e.g. 5-min, 15-min bars).
+description: Use when verifying that a strategy's signals computed from higher-resolution
+  data (e.g. 1-min bars) produce consistent results when compared against resampled
+  lower-resolution data (e.g. 5-min, 15-min bars).
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "multi-timeframe", "resampling", "signal-consistency", "data-resolution"]
-brokers_frameworks: ["Timeframe Consistency Checker", "Python"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- multi-timeframe
+- resampling
+- signal-consistency
+- data-resolution
+brokers_frameworks:
+- Timeframe Consistency Checker
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

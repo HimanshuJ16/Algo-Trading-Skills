@@ -1,16 +1,17 @@
 ---
 name: benchmark-selection-for-strategy-evaluation
-description: Choosing an appropriate benchmark against which to evaluate a strategy's risk-adjusted performance.
+description: Choosing an appropriate benchmark against which to evaluate a strategy's
+  risk-adjusted performance.
 domain: Backtesting
 subdomain: Evaluation
 tags:
-  - backtesting
-  - benchmark
-  - evaluation
-  - metrics
+- backtesting
+- benchmark
+- evaluation
+- metrics
 brokers_frameworks:
-  - Pandas
-  - NumPy
+- Pandas
+- NumPy
 version: 1.0.0
 author: System
 license: MIT

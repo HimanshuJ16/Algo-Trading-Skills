@@ -1,12 +1,22 @@
 ---
 name: consumer-group-rebalance-safety
-description: >-
-  Quantitative streaming infrastructure module for handling Kafka consumer group rebalances safely, preventing zombie execution, flushing in-flight orders, and enforcing offset commit idempotency.
+description: Quantitative streaming infrastructure module for handling Kafka consumer
+  group rebalances safely, preventing zombie execution, flushing in-flight orders,
+  and enforcing offset commit idempotency.
 domain: Infrastructure
 subdomain: Event-Driven Systems & Streaming
-tags: ["kafka", "consumer-group", "rebalance-safety", "event-driven", "idempotency", "zombie-consumer", "streaming"]
-brokers_frameworks: ["Apache Kafka / Redpanda", "Generic Event Stream"]
-version: "1.0.0"
+tags:
+- kafka
+- consumer-group
+- rebalance-safety
+- event-driven
+- idempotency
+- zombie-consumer
+- streaming
+brokers_frameworks:
+- Apache Kafka / Redpanda
+- Generic Event Stream
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

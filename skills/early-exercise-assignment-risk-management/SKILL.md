@@ -1,12 +1,23 @@
 ---
 name: early-exercise-assignment-risk-management
-description: >-
-  Quantitative options risk engine for detecting early exercise and assignment risk on short American calls/puts, evaluating ex-dividend dividend capture vs extrinsic value, and triggering position roll warnings.
+description: Quantitative options risk engine for detecting early exercise and assignment
+  risk on short American calls/puts, evaluating ex-dividend dividend capture vs extrinsic
+  value, and triggering position roll warnings.
 domain: Options & Derivatives Trading
 subdomain: Option Assignment Risk & Volatility
-tags: ["early-exercise", "assignment-risk", "american-options", "ex-dividend", "extrinsic-value", "covered-calls", "option-greeks"]
-brokers_frameworks: ["CBOE Options", "OCC", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- early-exercise
+- assignment-risk
+- american-options
+- ex-dividend
+- extrinsic-value
+- covered-calls
+- option-greeks
+brokers_frameworks:
+- CBOE Options
+- OCC
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

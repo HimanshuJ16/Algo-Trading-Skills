@@ -1,12 +1,22 @@
 ---
 name: post-only-and-maker-taker-fee-optimization
-description: >-
-  Use when deploying order execution algorithms to exchanges or brokers with maker-taker fee structures to inject Post-Only order flags, guarantee maker fee tiers, handle spread-crossing order cancellations, and quantify net transaction fee savings.
+description: Use when deploying order execution algorithms to exchanges or brokers
+  with maker-taker fee structures to inject Post-Only order flags, guarantee maker
+  fee tiers, handle spread-crossing order cancellations, and quantify net transaction
+  fee savings.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "post-only", "maker-taker", "fee-optimization", "liquidity-provider", "execution-cost"]
-brokers_frameworks: ["Exchange Fee Optimizer", "Python Trading Engine"]
-version: "1.0"
+tags:
+- broker-integration
+- post-only
+- maker-taker
+- fee-optimization
+- liquidity-provider
+- execution-cost
+brokers_frameworks:
+- Exchange Fee Optimizer
+- Python Trading Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

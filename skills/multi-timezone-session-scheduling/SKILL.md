@@ -1,12 +1,18 @@
 ---
 name: multi-timezone-session-scheduling
-description: >-
-  Use when a bot's scheduling logic (session start/end, pre-market checks, EOD tasks) must operate correctly across time zones and daylight saving transitions, not just a single fixed local time
+description: Use when a bot's scheduling logic (session start/end, pre-market checks,
+  EOD tasks) must operate correctly across time zones and daylight saving transitions,
+  not just a single fixed local time
 domain: algorithmic-trading
 subdomain: data-management-global
-tags: ["data-management-global", "iana-tz-database", "pytz-zoneinfo"]
-brokers_frameworks: ["IANA tz database", "pytz/zoneinfo"]
-version: "1.0"
+tags:
+- data-management-global
+- iana-tz-database
+- pytz-zoneinfo
+brokers_frameworks:
+- IANA tz database
+- pytz/zoneinfo
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

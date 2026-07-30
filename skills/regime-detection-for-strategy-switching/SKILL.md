@@ -1,12 +1,22 @@
 ---
 name: regime-detection-for-strategy-switching
-description: >-
-  Use when building adaptive quantitative trading systems to detect market regime shifts (trending, ranging, high-volatility) using ADX, ATR z-scores, and hysteresis filters to dynamically route active strategy variants
+description: Use when building adaptive quantitative trading systems to detect market
+  regime shifts (trending, ranging, high-volatility) using ADX, ATR z-scores, and
+  hysteresis filters to dynamically route active strategy variants
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "regime-detection", "adx-indicator", "strategy-switching", "hysteresis-filter"]
-brokers_frameworks: ["scikit-learn", "hmmlearn", "TA-Lib", "Custom Python Regimes"]
-version: "1.0"
+tags:
+- financial-ml
+- regime-detection
+- adx-indicator
+- strategy-switching
+- hysteresis-filter
+brokers_frameworks:
+- scikit-learn
+- hmmlearn
+- TA-Lib
+- Custom Python Regimes
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

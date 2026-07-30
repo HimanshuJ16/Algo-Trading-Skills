@@ -1,12 +1,19 @@
 ---
 name: centralized-secrets-management-vault-integration
-description: >-
-  Secure, centralized API key management using HashiCorp Vault. Enforces AppRole authentication, environment isolation, and secret caching for trading bots.
+description: Secure, centralized API key management using HashiCorp Vault. Enforces
+  AppRole authentication, environment isolation, and secret caching for trading bots.
 domain: Infrastructure
 subdomain: Security
-tags: ["vault", "hashicorp", "secrets", "api-keys", "approle", "security"]
-brokers_frameworks: ["HashiCorp Vault"]
-version: "1.0.0"
+tags:
+- vault
+- hashicorp
+- secrets
+- api-keys
+- approle
+- security
+brokers_frameworks:
+- HashiCorp Vault
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

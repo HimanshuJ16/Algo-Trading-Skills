@@ -1,12 +1,20 @@
 ---
 name: redis-streams-multi-consumer-tick-fanout
-description: >-
-  Use when distributing real-time market data ticks to multiple independent services using Redis Streams consumer groups, message acknowledgments (XACK), and pending message claims (XCLAIM)
+description: Use when distributing real-time market data ticks to multiple independent
+  services using Redis Streams consumer groups, message acknowledgments (XACK), and
+  pending message claims (XCLAIM)
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "redis-streams", "tick-fanout", "consumer-groups", "at-least-once"]
-brokers_frameworks: ["Redis 6.0+", "redis-py"]
-version: "1.0"
+tags:
+- real-time-architecture
+- redis-streams
+- tick-fanout
+- consumer-groups
+- at-least-once
+brokers_frameworks:
+- Redis 6.0+
+- redis-py
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

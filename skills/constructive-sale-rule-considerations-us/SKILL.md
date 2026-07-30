@@ -1,12 +1,21 @@
 ---
 name: constructive-sale-rule-considerations-us
-description: >-
-  US tax compliance module for detecting Section 1259 Constructive Sale triggers (Short-Against-The-Box, Offsetting Swaps) and auditing Section 1259(c)(3) 30-day/60-day Safe Harbor requirements.
+description: US tax compliance module for detecting Section 1259 Constructive Sale
+  triggers (Short-Against-The-Box, Offsetting Swaps) and auditing Section 1259(c)(3)
+  30-day/60-day Safe Harbor requirements.
 domain: Tax Accounting & Compliance
 subdomain: US Tax Rules
-tags: ["tax-accounting", "section-1259", "constructive-sale", "short-against-the-box", "safe-harbor", "capital-gains"]
-brokers_frameworks: ["IRS Section 1259", "Generic Tax Compliance"]
-version: "1.0.0"
+tags:
+- tax-accounting
+- section-1259
+- constructive-sale
+- short-against-the-box
+- safe-harbor
+- capital-gains
+brokers_frameworks:
+- IRS Section 1259
+- Generic Tax Compliance
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,20 @@
 ---
 name: token-lifecycle-live-probing
-description: >-
-  Use when a bot needs to decide whether a cached broker token is still valid before making trading calls — especially for brokers that invalidate tokens outside their documented expiry windows
+description: "Use when a bot needs to decide whether a cached broker token is still\
+  \ valid before making trading calls \u2014 especially for brokers that invalidate\
+  \ tokens outside their documented expiry windows"
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "fyers-api-v3", "icici-breeze-api", "zerodha-kite-connect"]
-brokers_frameworks: ["Fyers API v3", "ICICI Breeze API", "Zerodha Kite Connect"]
-version: "1.0"
+tags:
+- broker-integration
+- fyers-api-v3
+- icici-breeze-api
+- zerodha-kite-connect
+brokers_frameworks:
+- Fyers API v3
+- ICICI Breeze API
+- Zerodha Kite Connect
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

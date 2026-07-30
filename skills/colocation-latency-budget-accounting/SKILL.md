@@ -1,12 +1,22 @@
 ---
 name: colocation-latency-budget-accounting
-description: >-
-  Quantitative co-location telemetry module for decomposing tick-to-trade (T2T) latency budgets into nanosecond phases, detecting SLA breaches, and computing P99/P99.9 tail jitter statistics.
+description: Quantitative co-location telemetry module for decomposing tick-to-trade
+  (T2T) latency budgets into nanosecond phases, detecting SLA breaches, and computing
+  P99/P99.9 tail jitter statistics.
 domain: Infrastructure
 subdomain: Latency Optimization
-tags: ["latency-budget", "tick-to-trade", "hft", "colocation", "hardware-timestamping", "sla", "tail-jitter"]
-brokers_frameworks: ["Generic Infrastructure", "NumPy"]
-version: "1.0.0"
+tags:
+- latency-budget
+- tick-to-trade
+- hft
+- colocation
+- hardware-timestamping
+- sla
+- tail-jitter
+brokers_frameworks:
+- Generic Infrastructure
+- NumPy
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,23 @@
 ---
 name: dividend-futures-and-forward-modeling
-description: >-
-  Quantitative equity forward curve engine for modeling discrete dividends, present/future value calculations, fair value dividend futures pricing, and cash-and-carry arbitrage detection.
+description: Quantitative equity forward curve engine for modeling discrete dividends,
+  present/future value calculations, fair value dividend futures pricing, and cash-and-carry
+  arbitrage detection.
 domain: Equity Derivatives & Forward Curves
 subdomain: Dividend Risk & Index Futures
-tags: ["dividend-futures", "forward-modeling", "discrete-dividends", "cash-and-carry", "cost-of-carry", "eurex-fdbx", "cme-sda"]
-brokers_frameworks: ["Eurex FDBX", "CME Dividend Futures", "Python Math / Dataclasses"]
-version: "1.0.0"
+tags:
+- dividend-futures
+- forward-modeling
+- discrete-dividends
+- cash-and-carry
+- cost-of-carry
+- eurex-fdbx
+- cme-sda
+brokers_frameworks:
+- Eurex FDBX
+- CME Dividend Futures
+- Python Math / Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

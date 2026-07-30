@@ -1,12 +1,13 @@
 ---
 name: sanctions-screening-for-counterparties-and-instruments
-description: Compliance controls and workflows for sanctions screening for counterparties and instruments
+description: Compliance controls and workflows for sanctions screening for counterparties
+  and instruments
 domain: regulatory-compliance
 subdomain: global
 tags:
-  - compliance
-  - regulatory
-  - trading
+- compliance
+- regulatory
+- trading
 brokers_frameworks: []
 version: 1.0.0
 author: System

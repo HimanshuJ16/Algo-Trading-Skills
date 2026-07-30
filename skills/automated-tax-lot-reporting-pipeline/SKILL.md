@@ -1,17 +1,18 @@
 ---
 name: automated-tax-lot-reporting-pipeline
-description: Ledger engine for automated tax lot matching and capital gains calculation supporting FIFO and HIFO strategies.
+description: Ledger engine for automated tax lot matching and capital gains calculation
+  supporting FIFO and HIFO strategies.
 domain: tax-accounting-reporting-global
 subdomain: tax-reporting
 tags:
-  - tax
-  - reporting
-  - fifo
-  - hifo
-  - capital-gains
-  - portfolio-accounting
+- tax
+- reporting
+- fifo
+- hifo
+- capital-gains
+- portfolio-accounting
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

@@ -1,12 +1,14 @@
 ---
 name: kill-switch-and-drawdown-circuit-breakers
-description: >-
-  Use when a live trading bot needs hard, strategy-independent limits that force-flatten positions and halt new orders, so that a strategy bug or unexpected market condition cannot cause unbounded loss
+description: Use when a live trading bot needs hard, strategy-independent limits that
+  force-flatten positions and halt new orders, so that a strategy bug or unexpected
+  market condition cannot cause unbounded loss
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management"]
+tags:
+- risk-management
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

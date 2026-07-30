@@ -3,8 +3,12 @@ name: japan-fsa-high-speed-trading-registration
 description: Compliance controls for japan fsa high speed trading registration
 domain: regulatory-compliance-global
 subdomain: regulatory
-tags: [compliance, risk, regulatory]
-brokers_frameworks: [any]
+tags:
+- compliance
+- risk
+- regulatory
+brokers_frameworks:
+- any
 version: 1.0.0
 author: skill-builder
 license: MIT

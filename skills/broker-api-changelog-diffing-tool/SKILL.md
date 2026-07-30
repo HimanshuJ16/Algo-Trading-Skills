@@ -1,12 +1,24 @@
 ---
 name: broker-api-changelog-diffing-tool
-description: >-
-  Use when updating broker SDKs or API integrations to automatically diff release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals, renamed parameters, mutated enums, request body changes, and response model alterations before production deployment.
+description: Use when updating broker SDKs or API integrations to automatically diff
+  release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals,
+  renamed parameters, mutated enums, request body changes, and response model alterations
+  before production deployment.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "api-changelog", "schema-diffing", "openapi", "breaking-changes", "ci-cd-security", "quantitative-engineering"]
-brokers_frameworks: ["Schema Diffing Engine", "Python OpenAPI Parser", "Quantitative Standards"]
-version: "2.0"
+tags:
+- broker-integration
+- api-changelog
+- schema-diffing
+- openapi
+- breaking-changes
+- ci-cd-security
+- quantitative-engineering
+brokers_frameworks:
+- Schema Diffing Engine
+- Python OpenAPI Parser
+- Quantitative Standards
+version: '2.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

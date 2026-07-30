@@ -1,12 +1,23 @@
 ---
 name: eu-market-abuse-regulation-mar-surveillance
-description: >-
-  Quantitative trade surveillance engine for detecting EU Market Abuse Regulation (MAR - Regulation 596/2014) patterns (spoofing/layering, wash trading, quote stuffing) and generating STOR regulatory filings.
+description: Quantitative trade surveillance engine for detecting EU Market Abuse
+  Regulation (MAR - Regulation 596/2014) patterns (spoofing/layering, wash trading,
+  quote stuffing) and generating STOR regulatory filings.
 domain: Trade Surveillance & Regulatory Compliance
 subdomain: Market Abuse & STOR Reporting (EU MAR)
-tags: ["eu-mar", "market-abuse", "trade-surveillance", "stor-report", "spoofing-detection", "wash-trading", "quote-stuffing"]
-brokers_frameworks: ["EU MAR Regulation 596/2014", "ESMA RTS 25 STOR", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- eu-mar
+- market-abuse
+- trade-surveillance
+- stor-report
+- spoofing-detection
+- wash-trading
+- quote-stuffing
+brokers_frameworks:
+- EU MAR Regulation 596/2014
+- ESMA RTS 25 STOR
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

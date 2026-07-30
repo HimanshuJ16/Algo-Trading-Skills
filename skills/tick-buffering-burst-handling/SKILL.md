@@ -1,12 +1,13 @@
 ---
 name: tick-buffering-burst-handling
-description: >-
-  Use when sizing and managing in-memory buffers for market data so volatility bursts don't cause unbounded memory growth or silent tick loss
+description: Use when sizing and managing in-memory buffers for market data so volatility
+  bursts don't cause unbounded memory growth or silent tick loss
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture"]
+tags:
+- real-time-architecture
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

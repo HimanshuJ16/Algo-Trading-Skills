@@ -1,12 +1,22 @@
 ---
 name: reinforcement-learning-safety-constraints-for-execution
-description: >-
-  Use when training or deploying RL execution agents to implement hard action masking, position limits, spread veto guards, and reward penalty shaping to prevent unsafe policy exploration
+description: Use when training or deploying RL execution agents to implement hard
+  action masking, position limits, spread veto guards, and reward penalty shaping
+  to prevent unsafe policy exploration
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "reinforcement-learning", "action-masking", "safety-constraints", "rl-execution"]
-brokers_frameworks: ["Gymnasium", "Stable-Baselines3", "Ray RLLib", "Custom RL Environments"]
-version: "1.0"
+tags:
+- financial-ml
+- reinforcement-learning
+- action-masking
+- safety-constraints
+- rl-execution
+brokers_frameworks:
+- Gymnasium
+- Stable-Baselines3
+- Ray RLLib
+- Custom RL Environments
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

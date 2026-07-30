@@ -1,12 +1,22 @@
 ---
 name: questrade-api-rate-limit-and-account-types
-description: >-
-  Use when building algorithmic trading bots for Canadian markets via Questrade API to handle OAuth2 refresh token rotation, account type routing (TFSA, RRSP, Margin), and token-bucket rate limiting.
+description: Use when building algorithmic trading bots for Canadian markets via Questrade
+  API to handle OAuth2 refresh token rotation, account type routing (TFSA, RRSP, Margin),
+  and token-bucket rate limiting.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "questrade", "canadian-markets", "oauth2", "rate-limiting", "tfsa-rrsp"]
-brokers_frameworks: ["Questrade API", "Python requests", "Token Bucket Rate Limiter"]
-version: "1.0"
+tags:
+- broker-integration
+- questrade
+- canadian-markets
+- oauth2
+- rate-limiting
+- tfsa-rrsp
+brokers_frameworks:
+- Questrade API
+- Python requests
+- Token Bucket Rate Limiter
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

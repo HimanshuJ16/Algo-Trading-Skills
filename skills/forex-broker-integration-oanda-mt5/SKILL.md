@@ -1,12 +1,19 @@
 ---
 name: forex-broker-integration-oanda-mt5
-description: >-
-  Use when integrating a forex broker (OANDA's REST/streaming API, or MetaTrader 5 for brokers that only expose an MT5 terminal) where pip-based pricing, rollover/swap charges, and MT5's non-Python-native environment introduce integration patterns distinct from equities brokers
+description: Use when integrating a forex broker (OANDA's REST/streaming API, or MetaTrader
+  5 for brokers that only expose an MT5 terminal) where pip-based pricing, rollover/swap
+  charges, and MT5's non-Python-native environment introduce integration patterns
+  distinct from equities brokers
 domain: algorithmic-trading
 subdomain: global-market-integration
-tags: ["global-market-integration", "oanda-v20-rest-api", "metatrader-5-python-integration"]
-brokers_frameworks: ["OANDA v20 REST API", "MetaTrader 5 Python integration"]
-version: "1.0"
+tags:
+- global-market-integration
+- oanda-v20-rest-api
+- metatrader-5-python-integration
+brokers_frameworks:
+- OANDA v20 REST API
+- MetaTrader 5 Python integration
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

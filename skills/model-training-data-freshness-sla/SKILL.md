@@ -4,10 +4,10 @@ description: Skill for model training data freshness sla
 domain: Financial ML
 subdomain: MLOps
 tags:
-  - ml
-  - trading
+- ml
+- trading
 brokers_frameworks:
-  - scikit-learn
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

@@ -1,12 +1,25 @@
 ---
 name: data-localization-requirements-for-trade-records
-description: >-
-  Quantitative regulatory compliance engine for auditing cross-border trade record localization laws (China PIPL/DSL, India RBI/SEBI, EU GDPR, US SEC 17a-4) and blocking illegal cross-border egress.
+description: Quantitative regulatory compliance engine for auditing cross-border trade
+  record localization laws (China PIPL/DSL, India RBI/SEBI, EU GDPR, US SEC 17a-4)
+  and blocking illegal cross-border egress.
 domain: Data Management Global
 subdomain: Regulatory Compliance & Sovereignty
-tags: ["data-localization", "trade-record-sovereignty", "pipl", "rbi-data-localization", "mifid-ii", "sec-17a-4", "cross-border-egress"]
-brokers_frameworks: ["China PIPL/DSL", "India RBI/SEBI CSCRF", "EU GDPR", "SEC Rule 17a-4", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- data-localization
+- trade-record-sovereignty
+- pipl
+- rbi-data-localization
+- mifid-ii
+- sec-17a-4
+- cross-border-egress
+brokers_frameworks:
+- China PIPL/DSL
+- India RBI/SEBI CSCRF
+- EU GDPR
+- SEC Rule 17a-4
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

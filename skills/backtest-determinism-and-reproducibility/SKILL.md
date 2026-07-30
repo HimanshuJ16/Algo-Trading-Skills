@@ -1,12 +1,23 @@
 ---
 name: backtest-determinism-and-reproducibility
-description: >-
-  Use when designing backtest execution frameworks to enforce deterministic random seeding, sort input data streams strictly, eliminate async race conditions, and verify bit-identical P&L results via cryptographic audit checksums.
+description: Use when designing backtest execution frameworks to enforce deterministic
+  random seeding, sort input data streams strictly, eliminate async race conditions,
+  and verify bit-identical P&L results via cryptographic audit checksums.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "reproducibility", "determinism", "random-seed", "bit-identical", "audit-checksum", "regression-testing"]
-brokers_frameworks: ["Determinism Reproducibility Engine", "Python NumPy", "Random"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- reproducibility
+- determinism
+- random-seed
+- bit-identical
+- audit-checksum
+- regression-testing
+brokers_frameworks:
+- Determinism Reproducibility Engine
+- Python NumPy
+- Random
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

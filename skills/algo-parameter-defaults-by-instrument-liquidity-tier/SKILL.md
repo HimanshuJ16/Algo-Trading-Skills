@@ -1,16 +1,17 @@
 ---
 name: algo-parameter-defaults-by-instrument-liquidity-tier
-description: Dynamically assigns algorithmic execution parameters (participation rates, aggression, TWAP/VWAP defaults) based on the instrument's liquidity tier (ADV).
+description: Dynamically assigns algorithmic execution parameters (participation rates,
+  aggression, TWAP/VWAP defaults) based on the instrument's liquidity tier (ADV).
 domain: algorithmic-trading
 subdomain: execution-algorithms
 tags:
-  - execution
-  - smart-order-routing
-  - market-impact
-  - twap
-  - vwap
+- execution
+- smart-order-routing
+- market-impact
+- twap
+- vwap
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

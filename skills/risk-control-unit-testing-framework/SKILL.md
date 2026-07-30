@@ -3,8 +3,12 @@ name: risk-control-unit-testing-framework
 description: Specialized unit test harness for risk rules.
 domain: risk-management
 subdomain: compliance
-tags: [risk, compliance, automation]
-brokers_frameworks: [any]
+tags:
+- risk
+- compliance
+- automation
+brokers_frameworks:
+- any
 version: 1.0.0
 author: System
 license: MIT

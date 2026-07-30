@@ -3,8 +3,11 @@ name: quanto-options-and-cross-currency-derivative-structures
 description: Skill for quanto-options-and-cross-currency-derivative-structures
 domain: multi-asset-derivatives
 subdomain: subdomain
-tags: [trading, algos]
-brokers_frameworks: [all]
+tags:
+- trading
+- algos
+brokers_frameworks:
+- all
 version: 1.0.0
 author: System
 license: MIT

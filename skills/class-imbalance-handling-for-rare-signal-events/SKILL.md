@@ -1,12 +1,21 @@
 ---
 name: class-imbalance-handling-for-rare-signal-events
-description: >-
-  Machine learning utility pipeline for mitigating class imbalance when predicting rare financial events, supporting cost-sensitive weighting and random undersampling without lookahead bias.
+description: Machine learning utility pipeline for mitigating class imbalance when
+  predicting rare financial events, supporting cost-sensitive weighting and random
+  undersampling without lookahead bias.
 domain: Machine Learning
 subdomain: Model Training
-tags: ["machine-learning", "class-imbalance", "rare-events", "undersampling", "class-weights"]
-brokers_frameworks: ["Scikit-Learn", "Pandas", "NumPy"]
-version: "1.0.0"
+tags:
+- machine-learning
+- class-imbalance
+- rare-events
+- undersampling
+- class-weights
+brokers_frameworks:
+- Scikit-Learn
+- Pandas
+- NumPy
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

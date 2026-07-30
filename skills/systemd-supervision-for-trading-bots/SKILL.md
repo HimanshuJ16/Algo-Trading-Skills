@@ -1,12 +1,16 @@
 ---
 name: systemd-supervision-for-trading-bots
-description: >-
-  Use when deploying a trading bot process to a Linux server/VM, to get reliable process supervision, restart behavior, and pre-market health checks — preferred over cron for anything long-running
+description: "Use when deploying a trading bot process to a Linux server/VM, to get\
+  \ reliable process supervision, restart behavior, and pre-market health checks \u2014\
+  \ preferred over cron for anything long-running"
 domain: algorithmic-trading
 subdomain: deployment-ops
-tags: ["deployment-ops", "systemd"]
-brokers_frameworks: ["systemd"]
-version: "1.0"
+tags:
+- deployment-ops
+- systemd
+brokers_frameworks:
+- systemd
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

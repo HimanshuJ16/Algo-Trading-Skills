@@ -4,9 +4,9 @@ description: Integration or workflow skill for okx-unified-account-api.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - okx-unified-account-api
+- okx-unified-account-api
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

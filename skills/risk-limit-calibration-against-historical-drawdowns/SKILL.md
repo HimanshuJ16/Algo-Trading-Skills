@@ -3,8 +3,11 @@ name: risk-limit-calibration-against-historical-drawdowns
 description: Calibrating limits using historical drawdown distribution.
 domain: Risk Management
 subdomain: Calibration
-tags: [risk, risk-limit-calibration-against-historical-drawdowns]
-brokers_frameworks: [any]
+tags:
+- risk
+- risk-limit-calibration-against-historical-drawdowns
+brokers_frameworks:
+- any
 version: 1.0.0
 author: System
 license: MIT

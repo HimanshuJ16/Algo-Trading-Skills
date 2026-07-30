@@ -1,12 +1,19 @@
 ---
 name: capital-reallocation-based-on-live-performance
-description: >-
-  Quantitative capital allocation engine that dynamically re-weights funding across multiple active strategies based on real-time performance metrics (Sharpe, Kelly).
+description: Quantitative capital allocation engine that dynamically re-weights funding
+  across multiple active strategies based on real-time performance metrics (Sharpe,
+  Kelly).
 domain: Portfolio Management
 subdomain: Capital Allocation
-tags: ["capital-allocation", "dynamic-weighting", "kelly-criterion", "sharpe-ratio", "portfolio"]
-brokers_frameworks: ["Generic Portfolio Management"]
-version: "1.0.0"
+tags:
+- capital-allocation
+- dynamic-weighting
+- kelly-criterion
+- sharpe-ratio
+- portfolio
+brokers_frameworks:
+- Generic Portfolio Management
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

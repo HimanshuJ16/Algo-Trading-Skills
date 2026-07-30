@@ -1,13 +1,22 @@
 ---
 name: multi-region-failover-for-broker-connectivity
-description: >-
-  Use when a trading bot requires high-availability broker connectivity by failing over
-  to a backup network path or region if the primary connection degrades or becomes unavailable.
+description: Use when a trading bot requires high-availability broker connectivity
+  by failing over to a backup network path or region if the primary connection degrades
+  or becomes unavailable.
 domain: algorithmic-trading
 subdomain: deployment-ops
-tags: ["deployment", "failover", "high-availability", "multi-region", "broker-connectivity"]
-brokers_frameworks: ["AWS", "GCP", "Azure", "Custom HA"]
-version: "1.0"
+tags:
+- deployment
+- failover
+- high-availability
+- multi-region
+- broker-connectivity
+brokers_frameworks:
+- AWS
+- GCP
+- Azure
+- Custom HA
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

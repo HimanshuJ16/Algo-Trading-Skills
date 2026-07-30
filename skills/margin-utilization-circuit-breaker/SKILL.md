@@ -1,14 +1,22 @@
 ---
 name: margin-utilization-circuit-breaker
-description: >-
-  Use when trading on margin to halt new order placement when margin utilization crosses
-  a defined threshold, independent of P&L-based circuit breakers, preventing margin calls
-  and forced liquidations by the broker.
+description: Use when trading on margin to halt new order placement when margin utilization
+  crosses a defined threshold, independent of P&L-based circuit breakers, preventing
+  margin calls and forced liquidations by the broker.
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "margin", "circuit-breaker", "leverage", "margin-call-prevention"]
-brokers_frameworks: ["Custom Risk Engine", "IBKR", "Zerodha", "Alpaca"]
-version: "1.0"
+tags:
+- risk-management
+- margin
+- circuit-breaker
+- leverage
+- margin-call-prevention
+brokers_frameworks:
+- Custom Risk Engine
+- IBKR
+- Zerodha
+- Alpaca
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,19 +1,20 @@
 ---
 name: australia-asic-drt-obligations
-description: Compliance validation engine enforcing ASIC Derivative Transaction Rules (DRT) 2024, ensuring mandatory LEI, UTI, and UPI fields for OTC derivatives reporting.
+description: Compliance validation engine enforcing ASIC Derivative Transaction Rules
+  (DRT) 2024, ensuring mandatory LEI, UTI, and UPI fields for OTC derivatives reporting.
 domain: regulatory-compliance-global
 subdomain: regulatory
 tags:
-  - compliance
-  - asic
-  - australia
-  - otc-derivatives
-  - trade-reporting
-  - lei
-  - uti
-  - upi
+- compliance
+- asic
+- australia
+- otc-derivatives
+- trade-reporting
+- lei
+- uti
+- upi
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

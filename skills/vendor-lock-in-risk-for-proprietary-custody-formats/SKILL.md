@@ -3,8 +3,13 @@ name: vendor-lock-in-risk-for-proprietary-custody-formats
 description: Skill to handle vendor lock in risk for proprietary custody formats.
 domain: Crypto Custody
 subdomain: Security
-tags: [security, crypto, custody, vendor]
-brokers_frameworks: [None]
+tags:
+- security
+- crypto
+- custody
+- vendor
+brokers_frameworks:
+- None
 version: 1.0.0
 author: AI
 license: MIT

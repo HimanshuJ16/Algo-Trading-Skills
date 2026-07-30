@@ -3,8 +3,11 @@ name: multi-currency-var-aggregation
 description: FX-converted multi-currency VaR aggregation.
 domain: Risk Management
 subdomain: Calibration
-tags: [risk, multi-currency-var-aggregation]
-brokers_frameworks: [any]
+tags:
+- risk
+- multi-currency-var-aggregation
+brokers_frameworks:
+- any
 version: 1.0.0
 author: System
 license: MIT

@@ -1,12 +1,18 @@
 ---
 name: chaos-engineering-for-trading-infrastructure
-description: >-
-  Quantitative infrastructure testing tool that injects controlled network latency, packet drops, and process terminations to validate trading system resilience.
+description: Quantitative infrastructure testing tool that injects controlled network
+  latency, packet drops, and process terminations to validate trading system resilience.
 domain: Infrastructure
 subdomain: Reliability
-tags: ["chaos-engineering", "resilience", "latency", "failover", "infrastructure"]
-brokers_frameworks: ["Generic Infrastructure"]
-version: "1.0.0"
+tags:
+- chaos-engineering
+- resilience
+- latency
+- failover
+- infrastructure
+brokers_frameworks:
+- Generic Infrastructure
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

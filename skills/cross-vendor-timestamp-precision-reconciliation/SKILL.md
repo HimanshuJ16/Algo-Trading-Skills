@@ -1,12 +1,25 @@
 ---
 name: cross-vendor-timestamp-precision-reconciliation
-description: >-
-  Quantitative market data reconciliation engine for normalizing multi-vendor timestamps (s, ms, us, ns, ISO-8601) to 64-bit nanosecond UTC epoch, detecting clock drift, and aligning tick sequences.
+description: Quantitative market data reconciliation engine for normalizing multi-vendor
+  timestamps (s, ms, us, ns, ISO-8601) to 64-bit nanosecond UTC epoch, detecting clock
+  drift, and aligning tick sequences.
 domain: Data Management Global
 subdomain: Market Data Reconciliation
-tags: ["timestamp-reconciliation", "nanoseconds", "utc-epoch", "iso-8601", "databento", "refinitiv", "bloomberg", "mifid-ii-rts25"]
-brokers_frameworks: ["Databento", "Refinitiv ELEKTRON", "Bloomberg B-PIPE", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- timestamp-reconciliation
+- nanoseconds
+- utc-epoch
+- iso-8601
+- databento
+- refinitiv
+- bloomberg
+- mifid-ii-rts25
+brokers_frameworks:
+- Databento
+- Refinitiv ELEKTRON
+- Bloomberg B-PIPE
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

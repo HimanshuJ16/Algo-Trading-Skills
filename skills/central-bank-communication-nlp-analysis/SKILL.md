@@ -1,12 +1,19 @@
 ---
 name: central-bank-communication-nlp-analysis
-description: >-
-  Quantitative NLP engine for extracting hawkish vs. dovish sentiment from central bank statements, featuring n-gram negation handling and standardized scoring.
+description: Quantitative NLP engine for extracting hawkish vs. dovish sentiment from
+  central bank statements, featuring n-gram negation handling and standardized scoring.
 domain: Alpha Generation
 subdomain: Alternative Data
-tags: ["nlp", "sentiment-analysis", "central-bank", "fomc", "hawkish", "dovish"]
-brokers_frameworks: ["Generic NLP"]
-version: "1.0.0"
+tags:
+- nlp
+- sentiment-analysis
+- central-bank
+- fomc
+- hawkish
+- dovish
+brokers_frameworks:
+- Generic NLP
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

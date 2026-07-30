@@ -4,8 +4,8 @@ description: OTM options tail risk insurance under defined budget
 domain: risk-management
 subdomain: risk
 tags:
-  - risk
-  - management
+- risk
+- management
 brokers_frameworks: []
 version: 1.0.0
 author: System

@@ -1,12 +1,21 @@
 ---
 name: walk-forward-hyperparameter-search-budget
-description: >-
-  Use when conducting walk-forward strategy optimization to compute, bound, and enforce hyperparameter search budgets ($N_{\text{evals}}$), preventing indirect overfitting from excessive trial iterations across out-of-sample slices.
+description: Use when conducting walk-forward strategy optimization to compute, bound,
+  and enforce hyperparameter search budgets ($N_{\text{evals}}$), preventing indirect
+  overfitting from excessive trial iterations across out-of-sample slices.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "hyperparameter-budget", "walk-forward", "overfitting-prevention", "pbo", "search-space-bounding"]
-brokers_frameworks: ["Hyperparameter Search Budgeter", "Python"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- hyperparameter-budget
+- walk-forward
+- overfitting-prevention
+- pbo
+- search-space-bounding
+brokers_frameworks:
+- Hyperparameter Search Budgeter
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

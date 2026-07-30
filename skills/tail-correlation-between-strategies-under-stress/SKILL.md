@@ -4,10 +4,10 @@ description: Skill implementation for tail-correlation-between-strategies-under-
 domain: Portfolio Multi-Strategy
 subdomain: Skill Management
 tags:
-  - algo-trading
-  - python
+- algo-trading
+- python
 brokers_frameworks:
-  - general
+- general
 version: 1.0.0
 author: System
 license: MIT

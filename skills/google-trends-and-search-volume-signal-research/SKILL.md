@@ -4,10 +4,10 @@ description: A quant research alternative data skill for google-trends-and-searc
 domain: quant-research-alt-data
 subdomain: alt-data
 tags:
-  - alt-data
-  - quant-research
+- alt-data
+- quant-research
 brokers_frameworks:
-  - none
+- none
 version: 1.0.0
 author: AI
 license: MIT

@@ -1,16 +1,17 @@
 ---
 name: asic-market-integrity-rules-automated-trading
-description: Compliance engine enforcing ASIC Market Integrity Rules (MIRs) for Automated Order Processing (AOP), including pre-trade filters and kill switches.
+description: Compliance engine enforcing ASIC Market Integrity Rules (MIRs) for Automated
+  Order Processing (AOP), including pre-trade filters and kill switches.
 domain: regulatory-compliance-global
 subdomain: regulatory
 tags:
-  - compliance
-  - asic
-  - australia
-  - pre-trade-filter
-  - kill-switch
+- compliance
+- asic
+- australia
+- pre-trade-filter
+- kill-switch
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

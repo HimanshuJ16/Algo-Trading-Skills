@@ -1,15 +1,16 @@
 ---
 name: portfolio-level-stop-loss-independent-of-strategy-stops
-description: Skill for portfolio-level-stop-loss-independent-of-strategy-stops in portfolio multi strategy.
+description: Skill for portfolio-level-stop-loss-independent-of-strategy-stops in
+  portfolio multi strategy.
 domain: Portfolio Management
 subdomain: Multi Strategy
 tags:
-  - portfolio
-  - strategy
-  - portfolio
+- portfolio
+- strategy
+- portfolio
 brokers_frameworks:
-  - Backtrader
-  - QuantConnect
+- Backtrader
+- QuantConnect
 version: 1.0.0
 author: System
 license: MIT

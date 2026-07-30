@@ -1,12 +1,22 @@
 ---
 name: credit-card-transaction-data-signal-construction
-description: >-
-  Quantitative alternative data pipeline module for aggregating credit card transaction panel data, normalizing panel bias, computing YoY sales growth metrics, and predicting Wall Street earnings surprises.
+description: Quantitative alternative data pipeline module for aggregating credit
+  card transaction panel data, normalizing panel bias, computing YoY sales growth
+  metrics, and predicting Wall Street earnings surprises.
 domain: Quant Research & Alt Data
 subdomain: Consumer Transaction Data
-tags: ["alt-data", "credit-card-data", "earnings-prediction", "yoy-growth", "consensus-surprise", "panel-normalization"]
-brokers_frameworks: ["Pandas", "NumPy", "Scikit-Learn"]
-version: "1.0.0"
+tags:
+- alt-data
+- credit-card-data
+- earnings-prediction
+- yoy-growth
+- consensus-surprise
+- panel-normalization
+brokers_frameworks:
+- Pandas
+- NumPy
+- Scikit-Learn
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

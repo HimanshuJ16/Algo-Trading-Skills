@@ -1,12 +1,21 @@
 ---
 name: dynamic-position-sizing-based-on-realized-volatility
-description: >-
-  Use when calculating portfolio position sizes to scale allocations inversely to recent realized volatility (volatility targeting), maintaining constant risk exposure across calm and volatile market regimes.
+description: Use when calculating portfolio position sizes to scale allocations inversely
+  to recent realized volatility (volatility targeting), maintaining constant risk
+  exposure across calm and volatile market regimes.
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "volatility-targeting", "realized-volatility", "position-sizing", "riskmetrics-ema", "vol-scaling"]
-brokers_frameworks: ["Realized Volatility Position Sizer", "Python NumPy"]
-version: "1.0"
+tags:
+- risk-management
+- volatility-targeting
+- realized-volatility
+- position-sizing
+- riskmetrics-ema
+- vol-scaling
+brokers_frameworks:
+- Realized Volatility Position Sizer
+- Python NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

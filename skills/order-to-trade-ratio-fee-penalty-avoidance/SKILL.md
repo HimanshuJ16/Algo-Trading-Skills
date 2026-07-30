@@ -3,7 +3,9 @@ name: order-to-trade-ratio-fee-penalty-avoidance
 description: Skill to handle order to trade ratio fee penalty avoidance
 domain: Market Microstructure
 subdomain: Latency
-tags: [latency, hft]
+tags:
+- latency
+- hft
 brokers_frameworks: []
 version: 1.0.0
 author: assistant

@@ -1,12 +1,23 @@
 ---
 name: decentralized-exchange-dex-integration-uniswap-style
-description: >-
-  Quantitative AMM DEX integration engine for Uniswap v2/v3 style pools, calculating constant product swap outputs (x*y=k), price impact, slippage tolerance, and MEV deadline protections.
+description: Quantitative AMM DEX integration engine for Uniswap v2/v3 style pools,
+  calculating constant product swap outputs (x*y=k), price impact, slippage tolerance,
+  and MEV deadline protections.
 domain: Decentralized Finance (DeFi) & DEX
 subdomain: AMM Trading & Execution
-tags: ["uniswap", "amm", "constant-product", "price-impact", "slippage-tolerance", "mev-protection", "dex-trading"]
-brokers_frameworks: ["Uniswap v2/v3", "web3.py", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- uniswap
+- amm
+- constant-product
+- price-impact
+- slippage-tolerance
+- mev-protection
+- dex-trading
+brokers_frameworks:
+- Uniswap v2/v3
+- web3.py
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

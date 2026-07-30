@@ -1,12 +1,18 @@
 ---
 name: canary-releases-for-strategy-code-changes
-description: >-
-  Quantitative execution engine for safely transitioning strategies through SHADOW, CANARY, and PRODUCTION stages with strict order size scaling.
+description: Quantitative execution engine for safely transitioning strategies through
+  SHADOW, CANARY, and PRODUCTION stages with strict order size scaling.
 domain: CI/CD
 subdomain: Live Deployment
-tags: ["canary", "shadow-mode", "deployment", "risk-management", "order-scaling"]
-brokers_frameworks: ["Generic Execution"]
-version: "1.0.0"
+tags:
+- canary
+- shadow-mode
+- deployment
+- risk-management
+- order-scaling
+brokers_frameworks:
+- Generic Execution
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

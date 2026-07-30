@@ -3,8 +3,11 @@ name: latency-arbitrage-defensive-order-sizing
 description: Skill for latency-arbitrage-defensive-order-sizing
 domain: Market Microstructure
 subdomain: Latency
-tags: [trading, latency]
-brokers_frameworks: [custom]
+tags:
+- trading
+- latency
+brokers_frameworks:
+- custom
 version: 1.0.0
 author: System
 license: MIT

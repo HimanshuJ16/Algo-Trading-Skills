@@ -1,12 +1,21 @@
 ---
 name: producer-consumer-tick-pipeline
-description: >-
-  Use when designing the ingestion path for a WebSocket market data feed, to prevent slow strategy/processing logic from blocking or dropping the socket's read loop
+description: Use when designing the ingestion path for a WebSocket market data feed,
+  to prevent slow strategy/processing logic from blocking or dropping the socket's
+  read loop
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "websocket-streaming-apis-\u2014-fyers", "kite", "ibkr"]
-brokers_frameworks: ["WebSocket streaming APIs \u2014 Fyers", "Kite", "IBKR", "Alpaca market data streams"]
-version: "1.0"
+tags:
+- real-time-architecture
+- "websocket-streaming-apis-\u2014-fyers"
+- kite
+- ibkr
+brokers_frameworks:
+- "WebSocket streaming APIs \u2014 Fyers"
+- Kite
+- IBKR
+- Alpaca market data streams
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

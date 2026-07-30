@@ -1,12 +1,23 @@
 ---
 name: daylight-saving-time-transition-handling
-description: >-
-  Quantitative market schedule and timezone engine for handling Daylight Saving Time (DST) shifts across US, EU, and Asian exchanges, calculating UTC session opens, and detecting 2-week desynchronization windows.
+description: Quantitative market schedule and timezone engine for handling Daylight
+  Saving Time (DST) shifts across US, EU, and Asian exchanges, calculating UTC session
+  opens, and detecting 2-week desynchronization windows.
 domain: Data Management Global
 subdomain: Timezone & Session Scheduling
-tags: ["dst-transition", "timezone-handling", "utc-normalization", "iana-timezones", "session-scheduling", "cross-border-desync", "market-hours"]
-brokers_frameworks: ["Python zoneinfo", "IANA Time Zone Database", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- dst-transition
+- timezone-handling
+- utc-normalization
+- iana-timezones
+- session-scheduling
+- cross-border-desync
+- market-hours
+brokers_frameworks:
+- Python zoneinfo
+- IANA Time Zone Database
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

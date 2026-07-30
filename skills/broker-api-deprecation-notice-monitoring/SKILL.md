@@ -1,12 +1,24 @@
 ---
 name: broker-api-deprecation-notice-monitoring
-description: >-
-  Use when building production broker adapters to monitor HTTP deprecation headers (RFC 8594 / Sunset header) and developer changelog RSS feeds, alerting ops teams before API endpoint retirements break live trading bots. Highly robust implementation suitable for quantitative trading desks.
+description: Use when building production broker adapters to monitor HTTP deprecation
+  headers (RFC 8594 / Sunset header) and developer changelog RSS feeds, alerting ops
+  teams before API endpoint retirements break live trading bots. Highly robust implementation
+  suitable for quantitative trading desks.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "deprecation-monitoring", "sunset-headers", "rfc-8594", "changelog-parser", "api-maintenance", "quantitative-engineering"]
-brokers_frameworks: ["Deprecation Monitor", "Python Requests", "RFC 8594"]
-version: "2.0"
+tags:
+- broker-integration
+- deprecation-monitoring
+- sunset-headers
+- rfc-8594
+- changelog-parser
+- api-maintenance
+- quantitative-engineering
+brokers_frameworks:
+- Deprecation Monitor
+- Python Requests
+- RFC 8594
+version: '2.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

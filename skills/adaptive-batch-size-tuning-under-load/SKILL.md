@@ -1,12 +1,21 @@
 ---
 name: adaptive-batch-size-tuning-under-load
-description: >-
-  Use when writing market data or order logs to downstream databases (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch sizes and flush timeouts based on queue pressure and sink write latency.
+description: Use when writing market data or order logs to downstream databases (TimescaleDB,
+  ClickHouse) or message brokers to dynamically adapt write batch sizes and flush
+  timeouts based on queue pressure and sink write latency.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "adaptive-batching", "dynamic-tuning", "throughput-optimization", "database-sink", "load-balancing"]
-brokers_frameworks: ["Adaptive Batch Tuner", "Python Real-Time Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- adaptive-batching
+- dynamic-tuning
+- throughput-optimization
+- database-sink
+- load-balancing
+brokers_frameworks:
+- Adaptive Batch Tuner
+- Python Real-Time Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

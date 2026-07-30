@@ -1,12 +1,24 @@
 ---
 name: eurex-market-data-and-order-api
-description: >-
-  Quantitative derivatives venue engine for parsing Eurex T7 EMDI multicast market data depth feeds, formatting T7 ETI binary order entry payloads, and enforcing futures contract tick rules and price reasonability bands.
+description: Quantitative derivatives venue engine for parsing Eurex T7 EMDI multicast
+  market data depth feeds, formatting T7 ETI binary order entry payloads, and enforcing
+  futures contract tick rules and price reasonability bands.
 domain: Venue Integration & Protocols
 subdomain: European Derivatives (Eurex T7)
-tags: ["eurex", "t7-eti", "t7-emdi", "futures-trading", "euro-stoxx-50", "euro-bund", "binary-protocol", "fix-5.0-sp2"]
-brokers_frameworks: ["Eurex T7 ETI", "T7 EMDI Multicast", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- eurex
+- t7-eti
+- t7-emdi
+- futures-trading
+- euro-stoxx-50
+- euro-bund
+- binary-protocol
+- fix-5.0-sp2
+brokers_frameworks:
+- Eurex T7 ETI
+- T7 EMDI Multicast
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

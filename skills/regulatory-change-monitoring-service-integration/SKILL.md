@@ -1,12 +1,13 @@
 ---
 name: regulatory-change-monitoring-service-integration
-description: Compliance controls and workflows for regulatory change monitoring service integration
+description: Compliance controls and workflows for regulatory change monitoring service
+  integration
 domain: regulatory-compliance
 subdomain: global
 tags:
-  - compliance
-  - regulatory
-  - trading
+- compliance
+- regulatory
+- trading
 brokers_frameworks: []
 version: 1.0.0
 author: System

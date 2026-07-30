@@ -1,12 +1,21 @@
 ---
 name: sequence-number-gap-detection-for-feeds
-description: >-
-  Use when consuming exchange market data feeds (WebSockets, ITCH, UDP multicast) to detect sequence number gaps, trigger gap-fill re-transmission requests, and mark orderbook feeds as dirty until state reconciliation completes.
+description: Use when consuming exchange market data feeds (WebSockets, ITCH, UDP
+  multicast) to detect sequence number gaps, trigger gap-fill re-transmission requests,
+  and mark orderbook feeds as dirty until state reconciliation completes.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "sequence-gaps", "feed-monitoring", "packet-loss", "orderbook-sync", "retransmission"]
-brokers_frameworks: ["Sequence Gap Detector", "Python Real-Time Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- sequence-gaps
+- feed-monitoring
+- packet-loss
+- orderbook-sync
+- retransmission
+brokers_frameworks:
+- Sequence Gap Detector
+- Python Real-Time Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

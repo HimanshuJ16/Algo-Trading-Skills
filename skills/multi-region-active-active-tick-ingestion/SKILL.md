@@ -1,12 +1,21 @@
 ---
 name: multi-region-active-active-tick-ingestion
-description: >-
-  Use when deploying multi-region high-availability market data infrastructure to ingest active-active parallel tick streams from redundant cloud regions, deduplicating ticks by signature, and arbitrating lowest-latency message arrival.
+description: Use when deploying multi-region high-availability market data infrastructure
+  to ingest active-active parallel tick streams from redundant cloud regions, deduplicating
+  ticks by signature, and arbitrating lowest-latency message arrival.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "active-active", "multi-region", "deduplication", "latency-arbitration", "high-availability"]
-brokers_frameworks: ["Active-Active Ingest Engine", "Python Async Real-Time"]
-version: "1.0"
+tags:
+- real-time-architecture
+- active-active
+- multi-region
+- deduplication
+- latency-arbitration
+- high-availability
+brokers_frameworks:
+- Active-Active Ingest Engine
+- Python Async Real-Time
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -3,8 +3,11 @@ name: market-maker-vs-taker-strategy-classification
 description: Skill for market-maker-vs-taker-strategy-classification
 domain: Market Microstructure
 subdomain: Latency
-tags: [trading, latency]
-brokers_frameworks: [custom]
+tags:
+- trading
+- latency
+brokers_frameworks:
+- custom
 version: 1.0.0
 author: System
 license: MIT

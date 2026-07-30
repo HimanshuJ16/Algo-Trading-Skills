@@ -1,12 +1,22 @@
 ---
 name: estimated-tax-payment-scheduling-for-active-trading-income
-description: >-
-  Quantitative tax accounting engine for calculating IRS quarterly estimated tax payments (Form 1040-ES), prior-year safe harbor rules (100%/110%), and trading capital tax reserve scheduling.
+description: Quantitative tax accounting engine for calculating IRS quarterly estimated
+  tax payments (Form 1040-ES), prior-year safe harbor rules (100%/110%), and trading
+  capital tax reserve scheduling.
 domain: Tax Accounting & Reporting
 subdomain: Estimated Taxes & Cash Flow Management
-tags: ["estimated-taxes", "quarterly-tax-schedule", "safe-harbor-rules", "irs-form-1040-es", "active-trader-tax", "tax-reserve-allocation"]
-brokers_frameworks: ["IRS Form 1040-ES", "Form 2210 Schedule AI", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- estimated-taxes
+- quarterly-tax-schedule
+- safe-harbor-rules
+- irs-form-1040-es
+- active-trader-tax
+- tax-reserve-allocation
+brokers_frameworks:
+- IRS Form 1040-ES
+- Form 2210 Schedule AI
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

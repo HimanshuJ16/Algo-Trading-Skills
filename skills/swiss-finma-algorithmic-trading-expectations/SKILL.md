@@ -3,8 +3,12 @@ name: swiss-finma-algorithmic-trading-expectations
 description: Compliance tool for swiss finma algorithmic trading expectations
 domain: regulatory-compliance-global
 subdomain: compliance
-tags: [regulatory, compliance, trading]
-brokers_frameworks: [generic]
+tags:
+- regulatory
+- compliance
+- trading
+brokers_frameworks:
+- generic
 version: 1.0.0
 author: AI
 license: MIT

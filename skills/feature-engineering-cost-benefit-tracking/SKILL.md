@@ -1,12 +1,21 @@
 ---
 name: feature-engineering-cost-benefit-tracking
-description: >-
-  Use when engineering ML feature sets to evaluate each feature's marginal performance contribution (Shapley / Permutation Importance) against its compute, storage, and API licensing cost, pruning expensive low-value features.
+description: Use when engineering ML feature sets to evaluate each feature's marginal
+  performance contribution (Shapley / Permutation Importance) against its compute,
+  storage, and API licensing cost, pruning expensive low-value features.
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "feature-cost-benefit", "shapley-value", "cost-benefit-pruning", "feature-selection", "compute-efficiency"]
-brokers_frameworks: ["Feature Cost-Benefit Tracker Engine", "Python NumPy"]
-version: "1.0"
+tags:
+- financial-ml
+- feature-cost-benefit
+- shapley-value
+- cost-benefit-pruning
+- feature-selection
+- compute-efficiency
+brokers_frameworks:
+- Feature Cost-Benefit Tracker Engine
+- Python NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

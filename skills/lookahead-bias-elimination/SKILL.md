@@ -1,12 +1,14 @@
 ---
 name: lookahead-bias-elimination
-description: >-
-  Use when writing or auditing backtest code to ensure no signal, feature, or decision uses information that would not have been available at the actual decision timestamp in live trading
+description: Use when writing or auditing backtest code to ensure no signal, feature,
+  or decision uses information that would not have been available at the actual decision
+  timestamp in live trading
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology"]
+tags:
+- backtesting-methodology
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

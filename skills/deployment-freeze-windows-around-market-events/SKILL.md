@@ -1,12 +1,23 @@
 ---
 name: deployment-freeze-windows-around-market-events
-description: >-
-  Quantitative DevOps risk guard for enforcing automated deployment freeze windows around high-volatility macro events (FOMC, CPI, NFP) and market open/close windows, with dual sign-off break-glass protocols.
+description: Quantitative DevOps risk guard for enforcing automated deployment freeze
+  windows around high-volatility macro events (FOMC, CPI, NFP) and market open/close
+  windows, with dual sign-off break-glass protocols.
 domain: Infrastructure & DevOps
 subdomain: CI/CD Governance & Risk Control
-tags: ["deployment-freeze", "market-events", "fomc-freeze", "sre-guardrails", "break-glass-protocol", "volatility-control", "ci-cd-governance"]
-brokers_frameworks: ["GitHub Actions", "GitLab CI", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- deployment-freeze
+- market-events
+- fomc-freeze
+- sre-guardrails
+- break-glass-protocol
+- volatility-control
+- ci-cd-governance
+brokers_frameworks:
+- GitHub Actions
+- GitLab CI
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

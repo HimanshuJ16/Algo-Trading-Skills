@@ -1,15 +1,16 @@
 ---
 name: american-vs-european-style-option-exercise-handling
-description: Quantitative decision engine for determining optimal early exercise conditions for American options vs holding to expiration (European style).
+description: Quantitative decision engine for determining optimal early exercise conditions
+  for American options vs holding to expiration (European style).
 domain: multi-asset-derivatives
 subdomain: options-pricing
 tags:
-  - options
-  - derivatives
-  - early-exercise
-  - quantitative-finance
+- options
+- derivatives
+- early-exercise
+- quantitative-finance
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

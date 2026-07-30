@@ -3,8 +3,12 @@ name: india-sebi-algo-trading-tagging-requirements
 description: Compliance tool for india sebi algo trading tagging requirements
 domain: regulatory-compliance-global
 subdomain: compliance
-tags: [regulatory, compliance, trading]
-brokers_frameworks: [generic]
+tags:
+- regulatory
+- compliance
+- trading
+brokers_frameworks:
+- generic
 version: 1.0.0
 author: AI
 license: MIT

@@ -1,15 +1,16 @@
 ---
 name: binance-futures-testnet-to-mainnet-promotion
-description: Institutional quantitative standards for promoting a trading strategy from Binance Futures Testnet to Mainnet.
+description: Institutional quantitative standards for promoting a trading strategy
+  from Binance Futures Testnet to Mainnet.
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - binance-futures
-  - deployment
-  - risk-management
-  - institutional-standards
+- binance-futures
+- deployment
+- risk-management
+- institutional-standards
 brokers_frameworks:
-  - Binance Futures
+- Binance Futures
 version: 1.0.0
 author: assistant
 license: MIT
@@ -39,3 +40,8 @@ Use this skill when transitioning a quantitative trading strategy from the Binan
 
 ## Verification
 Run `python -m unittest test_binance_futures_testnet_to_mainnet_promotion.py` to ensure all institutional safeguards are functioning properly.
+
+
+## Related Skills
+
+Documentation for Related Skills.

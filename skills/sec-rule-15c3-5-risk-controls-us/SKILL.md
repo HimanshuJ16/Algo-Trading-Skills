@@ -3,8 +3,12 @@ name: sec-rule-15c3-5-risk-controls-us
 description: Compliance controls for sec rule 15c3 5 risk controls us
 domain: regulatory-compliance-global
 subdomain: regulatory
-tags: [compliance, risk, regulatory]
-brokers_frameworks: [any]
+tags:
+- compliance
+- risk
+- regulatory
+brokers_frameworks:
+- any
 version: 1.0.0
 author: skill-builder
 license: MIT

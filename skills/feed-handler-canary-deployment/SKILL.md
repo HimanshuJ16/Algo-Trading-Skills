@@ -1,12 +1,22 @@
 ---
 name: feed-handler-canary-deployment
-description: >-
-  Use when releasing feed handler code updates to canary-route a controlled fraction of ticker symbols (5-10%) to the new release, execute comparative price audit against baseline feeds, and trigger auto-rollback on error spikes.
+description: Use when releasing feed handler code updates to canary-route a controlled
+  fraction of ticker symbols (5-10%) to the new release, execute comparative price
+  audit against baseline feeds, and trigger auto-rollback on error spikes.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "canary-deployment", "feed-handler", "symbol-routing", "comparative-audit", "auto-rollback", "zero-downtime"]
-brokers_frameworks: ["Canary Feed Router", "Python Real-Time Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- canary-deployment
+- feed-handler
+- symbol-routing
+- comparative-audit
+- auto-rollback
+- zero-downtime
+brokers_frameworks:
+- Canary Feed Router
+- Python Real-Time Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

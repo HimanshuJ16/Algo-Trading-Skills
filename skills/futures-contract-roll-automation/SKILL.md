@@ -4,10 +4,10 @@ description: Automation and handling of futures contract roll automation.
 domain: multi-asset-derivatives
 subdomain: derivatives-trading
 tags:
-  - futures-contract-roll-automation
-  - trading
+- futures-contract-roll-automation
+- trading
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

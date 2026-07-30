@@ -1,12 +1,23 @@
 ---
 name: explainability-for-live-trading-signals
-description: >-
-  Use when deploying ML trading models to decompose raw live signal predictions into local feature attributions (SHAP/contributions) and generate human-readable audit explanations
+description: Use when deploying ML trading models to decompose raw live signal predictions
+  into local feature attributions (SHAP/contributions) and generate human-readable
+  audit explanations
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "explainable-ai", "shap-values", "signal-attribution", "compliance-audit"]
-brokers_frameworks: ["SHAP", "Captum", "scikit-learn", "XGBoost", "Custom Explainers"]
-version: "1.0"
+tags:
+- financial-ml
+- explainable-ai
+- shap-values
+- signal-attribution
+- compliance-audit
+brokers_frameworks:
+- SHAP
+- Captum
+- scikit-learn
+- XGBoost
+- Custom Explainers
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

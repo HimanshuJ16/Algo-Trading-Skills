@@ -1,12 +1,22 @@
 ---
 name: tastytrade-api-integration
-description: >-
-  Use when connecting to Tastytrade (Tastyworks) API for options and futures trading to handle session token auth, option chain OCC ticker resolution, multi-leg complex option order construction, and account position tracking.
+description: Use when connecting to Tastytrade (Tastyworks) API for options and futures
+  trading to handle session token auth, option chain OCC ticker resolution, multi-leg
+  complex option order construction, and account position tracking.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "tastytrade", "tastyworks", "options-trading", "multi-leg-orders", "futures"]
-brokers_frameworks: ["Tastytrade API", "Python requests", "tastytrade-sdk"]
-version: "1.0"
+tags:
+- broker-integration
+- tastytrade
+- tastyworks
+- options-trading
+- multi-leg-orders
+- futures
+brokers_frameworks:
+- Tastytrade API
+- Python requests
+- tastytrade-sdk
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,19 @@
 ---
 name: sandbox-vs-production-endpoint-drift
-description: >-
-  Use when testing broker API integrations to detect schema drift, response payload mismatches, header variations, and status code discrepancies between sandbox and production environments
+description: Use when testing broker API integrations to detect schema drift, response
+  payload mismatches, header variations, and status code discrepancies between sandbox
+  and production environments
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "sandbox-drift", "api-schema-audit", "environment-parity", "regression-testing"]
-brokers_frameworks: ["All Broker REST APIs"]
-version: "1.0"
+tags:
+- broker-integration
+- sandbox-drift
+- api-schema-audit
+- environment-parity
+- regression-testing
+brokers_frameworks:
+- All Broker REST APIs
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

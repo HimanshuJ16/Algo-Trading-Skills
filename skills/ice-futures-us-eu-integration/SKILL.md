@@ -4,9 +4,9 @@ description: Integration or workflow skill for ice-futures-us-eu-integration.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - ice-futures-us-eu-integration
+- ice-futures-us-eu-integration
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

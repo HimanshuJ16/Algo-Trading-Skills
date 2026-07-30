@@ -1,14 +1,22 @@
 ---
 name: stress-testing-against-historical-crash-scenarios
-description: >-
-  Use when replaying a live portfolio's current positions against historical crash scenarios
-  (2020 COVID crash, 2015 flash crash, 2008 GFC, etc.) to quantify tail-risk P&L impact
-  and validate that drawdown circuit breakers would trigger before catastrophic loss.
+description: Use when replaying a live portfolio's current positions against historical
+  crash scenarios (2020 COVID crash, 2015 flash crash, 2008 GFC, etc.) to quantify
+  tail-risk P&L impact and validate that drawdown circuit breakers would trigger before
+  catastrophic loss.
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "stress-testing", "crash-scenarios", "tail-risk", "drawdown-analysis"]
-brokers_frameworks: ["NumPy", "Pandas", "Custom Risk Engine"]
-version: "1.0"
+tags:
+- risk-management
+- stress-testing
+- crash-scenarios
+- tail-risk
+- drawdown-analysis
+brokers_frameworks:
+- NumPy
+- Pandas
+- Custom Risk Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

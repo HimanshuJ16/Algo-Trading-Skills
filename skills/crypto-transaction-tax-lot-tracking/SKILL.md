@@ -1,12 +1,22 @@
 ---
 name: crypto-transaction-tax-lot-tracking
-description: >-
-  Quantitative crypto tax accounting engine for tracking tax lots across crypto-to-crypto swaps, DEX trades, gas fee deductions, and enforcing HIFO/FIFO tax optimization for IRS Form 8949 reporting.
+description: Quantitative crypto tax accounting engine for tracking tax lots across
+  crypto-to-crypto swaps, DEX trades, gas fee deductions, and enforcing HIFO/FIFO
+  tax optimization for IRS Form 8949 reporting.
 domain: Tax Accounting & Optimization
 subdomain: Crypto Tax Accounting
-tags: ["crypto-tax", "tax-lot-tracking", "crypto-to-crypto-swap", "hifo", "fifo", "gas-fee-deduction", "form-8949"]
-brokers_frameworks: ["IRS Form 8949", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- crypto-tax
+- tax-lot-tracking
+- crypto-to-crypto-swap
+- hifo
+- fifo
+- gas-fee-deduction
+- form-8949
+brokers_frameworks:
+- IRS Form 8949
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

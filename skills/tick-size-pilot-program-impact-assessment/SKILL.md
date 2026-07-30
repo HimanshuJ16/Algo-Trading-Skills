@@ -3,7 +3,9 @@ name: tick-size-pilot-program-impact-assessment
 description: Skill to handle tick size pilot program impact assessment
 domain: Market Microstructure
 subdomain: Latency
-tags: [latency, hft]
+tags:
+- latency
+- hft
 brokers_frameworks: []
 version: 1.0.0
 author: assistant

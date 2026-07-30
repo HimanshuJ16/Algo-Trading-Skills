@@ -1,12 +1,19 @@
 ---
 name: schwab-api-oauth-pkce-flow
-description: >-
-  Use when connecting a trading bot to the Charles Schwab Developer API to implement OAuth 2.0 PKCE (RFC 7636) authentication, code verifier/challenge generation, and unattended token refresh
+description: Use when connecting a trading bot to the Charles Schwab Developer API
+  to implement OAuth 2.0 PKCE (RFC 7636) authentication, code verifier/challenge generation,
+  and unattended token refresh
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "schwab-api", "oauth2-pkce", "rfc-7636", "token-refresh"]
-brokers_frameworks: ["Charles Schwab Developer API v1"]
-version: "1.0"
+tags:
+- broker-integration
+- schwab-api
+- oauth2-pkce
+- rfc-7636
+- token-refresh
+brokers_frameworks:
+- Charles Schwab Developer API v1
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

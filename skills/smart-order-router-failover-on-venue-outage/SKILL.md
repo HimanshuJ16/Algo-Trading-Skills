@@ -4,10 +4,10 @@ description: Implementation of smart order router failover on venue outage.
 domain: execution-algorithms
 subdomain: general
 tags:
-  - execution
-  - algo
+- execution
+- algo
 brokers_frameworks:
-  - general
+- general
 version: 1.0.0
 author: AI
 license: MIT

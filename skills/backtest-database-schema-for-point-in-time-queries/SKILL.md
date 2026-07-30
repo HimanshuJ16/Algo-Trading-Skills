@@ -1,12 +1,19 @@
 ---
 name: backtest-database-schema-for-point-in-time-queries
-description: >-
-  Use when designing a database schema that natively supports point-in-time queries to make lookahead-bias mistakes structurally harder to introduce in backtests.
+description: Use when designing a database schema that natively supports point-in-time
+  queries to make lookahead-bias mistakes structurally harder to introduce in backtests.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "point-in-time", "database-schema", "lookahead-bias", "temporal-queries"]
-brokers_frameworks: ["Point-in-Time Schema Engine", "Python"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- point-in-time
+- database-schema
+- lookahead-bias
+- temporal-queries
+brokers_frameworks:
+- Point-in-Time Schema Engine
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

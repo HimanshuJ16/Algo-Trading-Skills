@@ -3,7 +3,9 @@ name: fpga-based-market-data-processing-evaluation
 description: Skill to handle fpga based market data processing evaluation
 domain: Market Microstructure
 subdomain: Latency
-tags: [latency, hft]
+tags:
+- latency
+- hft
 brokers_frameworks: []
 version: 1.0.0
 author: assistant

@@ -3,8 +3,13 @@ name: third-party-custody-audit-report-review-cadence
 description: Skill to handle third party custody audit report review cadence.
 domain: Crypto Custody
 subdomain: Security
-tags: [security, crypto, custody, third]
-brokers_frameworks: [None]
+tags:
+- security
+- crypto
+- custody
+- third
+brokers_frameworks:
+- None
 version: 1.0.0
 author: AI
 license: MIT

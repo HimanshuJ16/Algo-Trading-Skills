@@ -4,9 +4,9 @@ description: Skill for smart contract audit requirements before defi integration
 domain: crypto-custody-security
 subdomain: security
 tags:
-  - crypto
-  - custody
-  - security
+- crypto
+- custody
+- security
 brokers_frameworks: []
 version: 1.0.0
 author: AI

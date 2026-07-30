@@ -1,12 +1,22 @@
 ---
 name: exchange-multicast-feed-handling
-description: >-
-  Use when connecting to co-located exchange gateways (CME MDP 3.0, NASDAQ MoldUDP64) to handle dual A/B UDP multicast channels, re-sequence out-of-order packets, and issue TCP historical gap-fill re-transmission requests.
+description: Use when connecting to co-located exchange gateways (CME MDP 3.0, NASDAQ
+  MoldUDP64) to handle dual A/B UDP multicast channels, re-sequence out-of-order packets,
+  and issue TCP historical gap-fill re-transmission requests.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "udp-multicast", "cme-mdp", "moldudp64", "co-location", "packet-resequencing", "gap-fill"]
-brokers_frameworks: ["Multicast Feed Handler", "Python Socket Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- udp-multicast
+- cme-mdp
+- moldudp64
+- co-location
+- packet-resequencing
+- gap-fill
+brokers_frameworks:
+- Multicast Feed Handler
+- Python Socket Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

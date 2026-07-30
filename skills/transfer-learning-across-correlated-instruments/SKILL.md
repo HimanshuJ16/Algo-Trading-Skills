@@ -3,8 +3,12 @@ name: transfer-learning-across-correlated-instruments
 description: Skill for transfer-learning-across-correlated-instruments
 domain: financial-ml
 subdomain: ml-ops
-tags: [ml, ops, finance]
-brokers_frameworks: [scikit-learn]
+tags:
+- ml
+- ops
+- finance
+brokers_frameworks:
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

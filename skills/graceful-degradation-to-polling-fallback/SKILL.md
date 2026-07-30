@@ -1,12 +1,21 @@
 ---
 name: graceful-degradation-to-polling-fallback
-description: >-
-  Use when maintaining real-time market data availability to detect WebSocket feed degradation, seamlessly switch to REST polling fallback, and deduplicate ticks during handover transitions
+description: Use when maintaining real-time market data availability to detect WebSocket
+  feed degradation, seamlessly switch to REST polling fallback, and deduplicate ticks
+  during handover transitions
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "feed-degradation", "polling-fallback", "websocket-failover", "high-availability"]
-brokers_frameworks: ["All Market Data Feeds", "WebSockets", "REST APIs"]
-version: "1.0"
+tags:
+- real-time-architecture
+- feed-degradation
+- polling-fallback
+- websocket-failover
+- high-availability
+brokers_frameworks:
+- All Market Data Feeds
+- WebSockets
+- REST APIs
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

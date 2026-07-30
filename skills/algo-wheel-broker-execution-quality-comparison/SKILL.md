@@ -1,16 +1,18 @@
 ---
 name: algo-wheel-broker-execution-quality-comparison
-description: Implements an Algorithmic Wheel that dynamically routes orders to brokers based on historical Transaction Cost Analysis (TCA), explicitly minimizing Implementation Shortfall (IS).
+description: Implements an Algorithmic Wheel that dynamically routes orders to brokers
+  based on historical Transaction Cost Analysis (TCA), explicitly minimizing Implementation
+  Shortfall (IS).
 domain: execution-algorithms
 subdomain: smart-order-routing
 tags:
-  - execution
-  - algo-wheel
-  - tca
-  - implementation-shortfall
-  - broker-routing
+- execution
+- algo-wheel
+- tca
+- implementation-shortfall
+- broker-routing
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

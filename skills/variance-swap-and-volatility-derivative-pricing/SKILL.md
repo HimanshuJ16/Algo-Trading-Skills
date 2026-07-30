@@ -4,10 +4,10 @@ description: Automation and handling of variance swap and volatility derivative 
 domain: multi-asset-derivatives
 subdomain: derivatives-trading
 tags:
-  - variance-swap-and-volatility-derivative-pricing
-  - trading
+- variance-swap-and-volatility-derivative-pricing
+- trading
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

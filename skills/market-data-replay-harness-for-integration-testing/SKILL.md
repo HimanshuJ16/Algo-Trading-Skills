@@ -1,12 +1,21 @@
 ---
 name: market-data-replay-harness-for-integration-testing
-description: >-
-  Use when integration-testing trading engines and execution algorithms to replay recorded historical tick sessions at deterministic speeds (1x real-time, 10x fast-forward) to verify exact strategy event handling.
+description: Use when integration-testing trading engines and execution algorithms
+  to replay recorded historical tick sessions at deterministic speeds (1x real-time,
+  10x fast-forward) to verify exact strategy event handling.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "tick-replay", "integration-testing", "deterministic-backtest", "time-warp", "event-driven"]
-brokers_frameworks: ["Tick Replay Harness", "Python Async Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- tick-replay
+- integration-testing
+- deterministic-backtest
+- time-warp
+- event-driven
+brokers_frameworks:
+- Tick Replay Harness
+- Python Async Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

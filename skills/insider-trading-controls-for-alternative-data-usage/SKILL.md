@@ -1,12 +1,13 @@
 ---
 name: insider-trading-controls-for-alternative-data-usage
-description: Compliance controls and workflows for insider trading controls for alternative data usage
+description: Compliance controls and workflows for insider trading controls for alternative
+  data usage
 domain: regulatory-compliance
 subdomain: global
 tags:
-  - compliance
-  - regulatory
-  - trading
+- compliance
+- regulatory
+- trading
 brokers_frameworks: []
 version: 1.0.0
 author: System

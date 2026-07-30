@@ -3,8 +3,12 @@ name: recovery-plan-for-lost-or-compromised-keys
 description: Implementation for recovery-plan-for-lost-or-compromised-keys
 domain: Crypto
 subdomain: Custody Security
-tags: [crypto, custody, security]
-brokers_frameworks: [None]
+tags:
+- crypto
+- custody
+- security
+brokers_frameworks:
+- None
 version: 1.0.0
 author: System
 license: MIT

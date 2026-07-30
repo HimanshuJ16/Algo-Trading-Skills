@@ -1,12 +1,23 @@
 ---
 name: broker-api-idempotent-cancel-requests
-description: >-
-  Use when managing order lifecycles to execute idempotent order cancel requests, handling Cancel-vs-Fill race conditions, network timeouts, 5xx server errors, and duplicate cancel retries without unhandled broker API exceptions.
+description: Use when managing order lifecycles to execute idempotent order cancel
+  requests, handling Cancel-vs-Fill race conditions, network timeouts, 5xx server
+  errors, and duplicate cancel retries without unhandled broker API exceptions.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "idempotency", "order-cancellation", "race-condition", "cancel-vs-fill", "resilience", "concurrency"]
-brokers_frameworks: ["Idempotent Cancel Manager", "Python Trading Engine", "FIX Protocol Concepts"]
-version: "2.0"
+tags:
+- broker-integration
+- idempotency
+- order-cancellation
+- race-condition
+- cancel-vs-fill
+- resilience
+- concurrency
+brokers_frameworks:
+- Idempotent Cancel Manager
+- Python Trading Engine
+- FIX Protocol Concepts
+version: '2.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

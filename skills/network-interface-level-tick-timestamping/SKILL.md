@@ -1,12 +1,22 @@
 ---
 name: network-interface-level-tick-timestamping
-description: >-
-  Use when operating low-latency feed handlers (Solarflare Onload, PTP hardware NICs, kernel-bypass) to extract hardware network interface packet timestamps (SO_TIMESTAMPING), bypassing OS kernel queueing jitter.
+description: Use when operating low-latency feed handlers (Solarflare Onload, PTP
+  hardware NICs, kernel-bypass) to extract hardware network interface packet timestamps
+  (SO_TIMESTAMPING), bypassing OS kernel queueing jitter.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "nic-timestamping", "kernel-bypass", "solarflare", "hardware-clock", "so-timestamping", "low-latency"]
-brokers_frameworks: ["NIC Hardware Timestamper", "Python Socket Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- nic-timestamping
+- kernel-bypass
+- solarflare
+- hardware-clock
+- so-timestamping
+- low-latency
+brokers_frameworks:
+- NIC Hardware Timestamper
+- Python Socket Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

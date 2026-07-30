@@ -1,12 +1,23 @@
 ---
 name: vectorized-vs-event-driven-backtest-tradeoffs
-description: >-
-  Use when selecting backtesting engine architecture to evaluate strategy characteristics, run fast vectorized matrix backtests for initial parameter discovery, and cross-validate against high-fidelity event-driven backtest engines to measure execution drag.
+description: Use when selecting backtesting engine architecture to evaluate strategy
+  characteristics, run fast vectorized matrix backtests for initial parameter discovery,
+  and cross-validate against high-fidelity event-driven backtest engines to measure
+  execution drag.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "vectorized-backtest", "event-driven-backtest", "tradeoff-analysis", "execution-drag", "performance-parity"]
-brokers_frameworks: ["Dual Engine Backtest Selector", "NumPy", "Pandas"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- vectorized-backtest
+- event-driven-backtest
+- tradeoff-analysis
+- execution-drag
+- performance-parity
+brokers_frameworks:
+- Dual Engine Backtest Selector
+- NumPy
+- Pandas
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,16 +1,17 @@
 ---
 name: auction-only-order-types-for-illiquid-names
-description: Execution algorithm optimizing the use of Limit-on-Close (LOC) and Market-on-Close (MOC) orders to minimize market impact when trading illiquid equities.
+description: Execution algorithm optimizing the use of Limit-on-Close (LOC) and Market-on-Close
+  (MOC) orders to minimize market impact when trading illiquid equities.
 domain: execution-algorithms
 subdomain: liquidity-seeking
 tags:
-  - execution
-  - illiquid
-  - closing-auction
-  - loc
-  - moc
+- execution
+- illiquid
+- closing-auction
+- loc
+- moc
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

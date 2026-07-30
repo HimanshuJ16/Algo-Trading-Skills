@@ -1,12 +1,23 @@
 ---
 name: deutsche-borse-xetra-api-integration
-description: >-
-  Quantitative venue integration engine for Deutsche Börse Xetra T7 Enhanced Trading Interface (ETI), validating MiFID II RTS 28 order parameters, T7 tick size regimes, and binary message formatting.
+description: "Quantitative venue integration engine for Deutsche B\xF6rse Xetra T7\
+  \ Enhanced Trading Interface (ETI), validating MiFID II RTS 28 order parameters,\
+  \ T7 tick size regimes, and binary message formatting."
 domain: Venue Integration & Protocols
 subdomain: European Exchange Integration (Xetra/Eurex)
-tags: ["xetra", "t7-eti", "deutsche-borse", "mifid-ii", "tick-size-regime", "binary-protocol", "european-equities"]
-brokers_frameworks: ["Deutsche Börse T7 ETI", "FIX 5.0 SP2", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- xetra
+- t7-eti
+- deutsche-borse
+- mifid-ii
+- tick-size-regime
+- binary-protocol
+- european-equities
+brokers_frameworks:
+- "Deutsche B\xF6rse T7 ETI"
+- FIX 5.0 SP2
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

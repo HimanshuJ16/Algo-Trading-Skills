@@ -4,9 +4,9 @@ description: Integration for mt5-python-bridge-for-forex-bots
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - mt5-python-bridge-for-forex-bots
+- mt5-python-bridge-for-forex-bots
 brokers_frameworks:
-  - Custom
+- Custom
 version: 1.0.0
 author: assistant
 license: MIT

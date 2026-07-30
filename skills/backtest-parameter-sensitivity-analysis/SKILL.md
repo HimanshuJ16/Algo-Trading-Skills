@@ -1,12 +1,21 @@
 ---
 name: backtest-parameter-sensitivity-analysis
-description: >-
-  Use when evaluating strategy robustness by perturbing backtest parameters across a grid and measuring Sharpe ratio sensitivity to detect overfitting sweet spots vs genuinely robust parameter plateaus.
+description: Use when evaluating strategy robustness by perturbing backtest parameters
+  across a grid and measuring Sharpe ratio sensitivity to detect overfitting sweet
+  spots vs genuinely robust parameter plateaus.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "parameter-sensitivity", "overfitting-detection", "grid-search", "robustness", "sharpe-surface"]
-brokers_frameworks: ["Parameter Sensitivity Analyzer", "Python"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- parameter-sensitivity
+- overfitting-detection
+- grid-search
+- robustness
+- sharpe-surface
+brokers_frameworks:
+- Parameter Sensitivity Analyzer
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

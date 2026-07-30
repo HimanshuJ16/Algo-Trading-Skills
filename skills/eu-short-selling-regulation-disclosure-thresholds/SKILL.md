@@ -1,12 +1,23 @@
 ---
 name: eu-short-selling-regulation-disclosure-thresholds
-description: >-
-  Quantitative European regulatory compliance engine for tracking EU Short Selling Regulation (SSR - Regulation 236/2012) net short position disclosures (0.1% NCA private notification / 0.5% public disclosure) and naked short bans.
+description: Quantitative European regulatory compliance engine for tracking EU Short
+  Selling Regulation (SSR - Regulation 236/2012) net short position disclosures (0.1%
+  NCA private notification / 0.5% public disclosure) and naked short bans.
 domain: Regulatory Compliance & Governance
 subdomain: European Short Selling Regulation (EU SSR)
-tags: ["eu-ssr", "short-selling-regulation", "nca-notification", "public-disclosure", "naked-short-ban", "locate-audit", "mifid-ii"]
-brokers_frameworks: ["Regulation (EU) No 236/2012", "ESMA SSR Register", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- eu-ssr
+- short-selling-regulation
+- nca-notification
+- public-disclosure
+- naked-short-ban
+- locate-audit
+- mifid-ii
+brokers_frameworks:
+- Regulation (EU) No 236/2012
+- ESMA SSR Register
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

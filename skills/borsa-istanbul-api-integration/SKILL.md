@@ -1,17 +1,18 @@
 ---
 name: borsa-istanbul-api-integration
-description: Advanced institutional integration skill for Borsa Istanbul (BIST) via BISTECH FIX 5.0 SP2 and OUCH/ITCH protocols.
+description: Advanced institutional integration skill for Borsa Istanbul (BIST) via
+  BISTECH FIX 5.0 SP2 and OUCH/ITCH protocols.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - borsa-istanbul
-  - fix-protocol
-  - bistech
-  - order-routing
-  - market-data
+- borsa-istanbul
+- fix-protocol
+- bistech
+- order-routing
+- market-data
 brokers_frameworks:
-  - quickfix
-  - bistech-api
+- quickfix
+- bistech-api
 version: 1.0.0
 author: Quant Engineering
 license: MIT

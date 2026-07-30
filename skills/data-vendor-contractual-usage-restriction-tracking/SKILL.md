@@ -1,12 +1,23 @@
 ---
 name: data-vendor-contractual-usage-restriction-tracking
-description: >-
-  Quantitative market data compliance engine for tracking vendor license restrictions (Bloomberg, Refinitiv, ICE), non-display trading entitlements, and blocking illegal external data redistribution.
+description: Quantitative market data compliance engine for tracking vendor license
+  restrictions (Bloomberg, Refinitiv, ICE), non-display trading entitlements, and
+  blocking illegal external data redistribution.
 domain: Data Management Global
 subdomain: Vendor Data Governance
-tags: ["vendor-compliance", "data-licensing", "non-display-trading", "bloomberg-bpipe", "refinitiv-dacs", "redistribution-audit", "entitlement-tracking"]
-brokers_frameworks: ["Refinitiv DACS", "Bloomberg EMRS", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- vendor-compliance
+- data-licensing
+- non-display-trading
+- bloomberg-bpipe
+- refinitiv-dacs
+- redistribution-audit
+- entitlement-tracking
+brokers_frameworks:
+- Refinitiv DACS
+- Bloomberg EMRS
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

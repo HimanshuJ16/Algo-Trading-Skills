@@ -4,10 +4,10 @@ description: Backtesting VaR/risk models against empirical P&L.
 domain: risk-management
 subdomain: risk-controls
 tags:
-  - risk
-  - controls
+- risk
+- controls
 brokers_frameworks:
-  - Any
+- Any
 version: 1.0.0
 author: AI Builder
 license: MIT

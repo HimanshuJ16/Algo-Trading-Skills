@@ -1,12 +1,16 @@
 ---
 name: pattern-day-trader-rule-compliance-us
-description: >-
-  Use when a bot trades US equities/options in a margin account under $25,000 in equity, to avoid triggering FINRA's Pattern Day Trader restriction, which can freeze the account's day-trading ability
+description: Use when a bot trades US equities/options in a margin account under $25,000
+  in equity, to avoid triggering FINRA's Pattern Day Trader restriction, which can
+  freeze the account's day-trading ability
 domain: algorithmic-trading
 subdomain: regulatory-compliance-global
-tags: ["regulatory-compliance-global", "finra-rule-4210-(pattern-day-trader)"]
-brokers_frameworks: ["FINRA Rule 4210 (Pattern Day Trader)"]
-version: "1.0"
+tags:
+- regulatory-compliance-global
+- finra-rule-4210-(pattern-day-trader)
+brokers_frameworks:
+- FINRA Rule 4210 (Pattern Day Trader)
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

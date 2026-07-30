@@ -1,12 +1,20 @@
 ---
 name: cftc-commodity-pool-operator-registration
-description: >-
-  Regulatory compliance engine that continuously monitors portfolio exposure against the CFTC Rule 4.13(a)(3) de minimis exemption thresholds for CPO registration.
+description: Regulatory compliance engine that continuously monitors portfolio exposure
+  against the CFTC Rule 4.13(a)(3) de minimis exemption thresholds for CPO registration.
 domain: Compliance & Regulation
 subdomain: US Regulatory
-tags: ["cftc", "cpo", "de-minimis", "margin", "futures", "compliance"]
-brokers_frameworks: ["CFTC", "NFA"]
-version: "1.0.0"
+tags:
+- cftc
+- cpo
+- de-minimis
+- margin
+- futures
+- compliance
+brokers_frameworks:
+- CFTC
+- NFA
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

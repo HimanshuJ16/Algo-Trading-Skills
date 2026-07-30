@@ -1,12 +1,20 @@
 ---
 name: co-location-provider-selection-and-network-topology
-description: >-
-  Quantitative evaluation framework for scoring co-location data centers, modeling cross-venue fiber/microwave network topologies, and decomposing microsecond latency budgets.
+description: Quantitative evaluation framework for scoring co-location data centers,
+  modeling cross-venue fiber/microwave network topologies, and decomposing microsecond
+  latency budgets.
 domain: Infrastructure
 subdomain: Network Architecture
-tags: ["colocation", "latency-budget", "equinix-ny4", "cme-aurora", "slough-ld4", "network-topology"]
-brokers_frameworks: ["Generic Infrastructure"]
-version: "1.0.0"
+tags:
+- colocation
+- latency-budget
+- equinix-ny4
+- cme-aurora
+- slough-ld4
+- network-topology
+brokers_frameworks:
+- Generic Infrastructure
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

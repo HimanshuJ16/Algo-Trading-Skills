@@ -4,8 +4,8 @@ description: Implementation for fifo-vs-specific-lot-tax-accounting-methods
 domain: tax-accounting-reporting-global
 subdomain: tax-reporting
 tags:
-  - tax
-  - reporting
+- tax
+- reporting
 brokers_frameworks: []
 version: 1.0.0
 author: System

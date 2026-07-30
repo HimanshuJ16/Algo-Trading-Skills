@@ -1,12 +1,22 @@
 ---
 name: corporate-action-event-calendar-integration
-description: >-
-  Quantitative corporate action data integration module for tracking declaration, ex-date, record date, and payment date lifecycle events, calculating dividend entitlements, and auditing vendor feed parity.
+description: Quantitative corporate action data integration module for tracking declaration,
+  ex-date, record date, and payment date lifecycle events, calculating dividend entitlements,
+  and auditing vendor feed parity.
 domain: Data Management & Global
 subdomain: Corporate Action Calendars
-tags: ["corporate-actions", "event-calendar", "ex-date", "record-date", "dividends", "splits", "entitlement"]
-brokers_frameworks: ["Generic Market Data", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- corporate-actions
+- event-calendar
+- ex-date
+- record-date
+- dividends
+- splits
+- entitlement
+brokers_frameworks:
+- Generic Market Data
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

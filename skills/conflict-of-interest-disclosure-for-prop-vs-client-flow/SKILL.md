@@ -1,12 +1,22 @@
 ---
 name: conflict-of-interest-disclosure-for-prop-vs-client-flow
-description: >-
-  Compliance engine for auditing Proprietary (Prop) vs. Client Agency order flow, enforcing FINRA Rule 5320 (Manning Rule) front-running prohibitions, information barriers, and mandatory disclosures.
+description: Compliance engine for auditing Proprietary (Prop) vs. Client Agency order
+  flow, enforcing FINRA Rule 5320 (Manning Rule) front-running prohibitions, information
+  barriers, and mandatory disclosures.
 domain: Compliance & Regulation
 subdomain: Order Handling & Conflicts
-tags: ["finra-rule-5320", "manning-rule", "prop-vs-client", "conflict-of-interest", "information-barrier", "mifid-ii"]
-brokers_frameworks: ["FINRA", "SEC Rule 605/606", "Generic Broker Engine"]
-version: "1.0.0"
+tags:
+- finra-rule-5320
+- manning-rule
+- prop-vs-client
+- conflict-of-interest
+- information-barrier
+- mifid-ii
+brokers_frameworks:
+- FINRA
+- SEC Rule 605/606
+- Generic Broker Engine
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

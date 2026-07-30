@@ -1,16 +1,18 @@
 ---
 name: algorithmic-trading-firm-licensing-thresholds
-description: Evaluates proprietary trading activity against global regulatory thresholds (SEC Rule 15b9-1, MiFID II, SEBI) to trigger mandatory firm licensing and registration alerts.
+description: Evaluates proprietary trading activity against global regulatory thresholds
+  (SEC Rule 15b9-1, MiFID II, SEBI) to trigger mandatory firm licensing and registration
+  alerts.
 domain: regulatory-compliance
 subdomain: legal-and-registration
 tags:
-  - compliance
-  - sec
-  - finra
-  - mifid-ii
-  - hft
+- compliance
+- sec
+- finra
+- mifid-ii
+- hft
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

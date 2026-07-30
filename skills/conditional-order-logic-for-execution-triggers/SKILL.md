@@ -1,12 +1,21 @@
 ---
 name: conditional-order-logic-for-execution-triggers
-description: >-
-  Quantitative execution engine for evaluating nested Boolean condition trees (price, volume, time, cross-asset benchmarks) to trigger conditional order submission.
+description: Quantitative execution engine for evaluating nested Boolean condition
+  trees (price, volume, time, cross-asset benchmarks) to trigger conditional order
+  submission.
 domain: Execution Algorithms
 subdomain: Order Logic & Triggers
-tags: ["conditional-orders", "execution-triggers", "boolean-tree", "cross-asset-trigger", "oms", "ems"]
-brokers_frameworks: ["Generic Execution", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- conditional-orders
+- execution-triggers
+- boolean-tree
+- cross-asset-trigger
+- oms
+- ems
+brokers_frameworks:
+- Generic Execution
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

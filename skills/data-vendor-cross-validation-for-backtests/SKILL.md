@@ -1,12 +1,21 @@
 ---
 name: data-vendor-cross-validation-for-backtests
-description: >-
-  Use when validating historical price data integrity by cross-referencing OHLCV bars from two independent data vendors, detecting discrepancies in price, volume, and missing-bar coverage before they corrupt backtest results.
+description: Use when validating historical price data integrity by cross-referencing
+  OHLCV bars from two independent data vendors, detecting discrepancies in price,
+  volume, and missing-bar coverage before they corrupt backtest results.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "data-validation", "cross-vendor", "data-quality", "price-discrepancy", "missing-bars"]
-brokers_frameworks: ["Data Vendor Cross Validator", "Python Statistics"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- data-validation
+- cross-vendor
+- data-quality
+- price-discrepancy
+- missing-bars
+brokers_frameworks:
+- Data Vendor Cross Validator
+- Python Statistics
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

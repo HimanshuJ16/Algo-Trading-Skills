@@ -1,12 +1,22 @@
 ---
 name: risk-metric-recalculation-frequency-tuning
-description: >-
-  Use when engineering risk monitoring architecture to tune and schedule differential recalculation frequencies across risk metrics (real-time tick checks vs periodic VaR/Greeks/stress tests), optimizing compute budget without compromising risk protection.
+description: Use when engineering risk monitoring architecture to tune and schedule
+  differential recalculation frequencies across risk metrics (real-time tick checks
+  vs periodic VaR/Greeks/stress tests), optimizing compute budget without compromising
+  risk protection.
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "risk-cadence", "recalculation-frequency", "compute-efficiency", "event-driven-risk", "var-tuning"]
-brokers_frameworks: ["Risk Metric Frequency Tuner Engine", "Python"]
-version: "1.0"
+tags:
+- risk-management
+- risk-cadence
+- recalculation-frequency
+- compute-efficiency
+- event-driven-risk
+- var-tuning
+brokers_frameworks:
+- Risk Metric Frequency Tuner Engine
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

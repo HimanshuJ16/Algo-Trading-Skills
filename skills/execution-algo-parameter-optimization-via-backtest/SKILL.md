@@ -4,10 +4,10 @@ description: Implementation of execution algo parameter optimization via backtes
 domain: execution-algorithms
 subdomain: general
 tags:
-  - execution
-  - algo
+- execution
+- algo
 brokers_frameworks:
-  - general
+- general
 version: 1.0.0
 author: AI
 license: MIT

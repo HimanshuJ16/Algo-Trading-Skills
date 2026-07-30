@@ -4,9 +4,9 @@ description: Implementation for multi-horizon-forecasting-architecture
 domain: financial-ml
 subdomain: execution
 tags:
-  - machine-learning
+- machine-learning
 brokers_frameworks:
-  - scikit-learn
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

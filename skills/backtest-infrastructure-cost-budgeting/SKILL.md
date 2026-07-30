@@ -1,16 +1,17 @@
 ---
 name: backtest-infrastructure-cost-budgeting
-description: Budgeting compute/storage cost for large-scale backtesting before it becomes a surprise cloud bill.
+description: Budgeting compute/storage cost for large-scale backtesting before it
+  becomes a surprise cloud bill.
 domain: Backtesting
 subdomain: Infrastructure
 tags:
-  - backtesting
-  - cost
-  - budgeting
-  - cloud
+- backtesting
+- cost
+- budgeting
+- cloud
 brokers_frameworks:
-  - AWS
-  - GCP
+- AWS
+- GCP
 version: 1.0.0
 author: System
 license: MIT

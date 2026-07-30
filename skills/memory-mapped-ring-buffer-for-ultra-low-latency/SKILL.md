@@ -1,12 +1,22 @@
 ---
 name: memory-mapped-ring-buffer-for-ultra-low-latency
-description: >-
-  Use when operating sub-microsecond market data pipelines to execute zero-copy memory-mapped file (mmap) ring buffers, eliminating heap allocations, garbage collection pauses, and language-level queue locks.
+description: Use when operating sub-microsecond market data pipelines to execute zero-copy
+  memory-mapped file (mmap) ring buffers, eliminating heap allocations, garbage collection
+  pauses, and language-level queue locks.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "memory-mapped", "mmap", "ring-buffer", "zero-copy", "low-latency", "ipc"]
-brokers_frameworks: ["mmap Ring Buffer", "Python mmap Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- memory-mapped
+- mmap
+- ring-buffer
+- zero-copy
+- low-latency
+- ipc
+brokers_frameworks:
+- mmap Ring Buffer
+- Python mmap Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

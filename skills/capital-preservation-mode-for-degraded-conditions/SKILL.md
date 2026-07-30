@@ -1,12 +1,19 @@
 ---
 name: capital-preservation-mode-for-degraded-conditions
-description: >-
-  Quantitative kill-switch and capital preservation engine that monitors order rates, daily drawdowns, and API errors to automatically halt trading during degraded conditions.
+description: Quantitative kill-switch and capital preservation engine that monitors
+  order rates, daily drawdowns, and API errors to automatically halt trading during
+  degraded conditions.
 domain: Risk Management
 subdomain: Emergency Controls
-tags: ["kill-switch", "capital-preservation", "drawdown", "circuit-breaker", "risk"]
-brokers_frameworks: ["Generic Risk Engineering"]
-version: "1.0.0"
+tags:
+- kill-switch
+- capital-preservation
+- drawdown
+- circuit-breaker
+- risk
+brokers_frameworks:
+- Generic Risk Engineering
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

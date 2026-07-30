@@ -1,12 +1,23 @@
 ---
 name: kafka-based-tick-distribution-at-scale
-description: >-
-  Use when building high-throughput distributed market data ingestion pipelines (50k+ ticks/sec) using Apache Kafka to partition tick events by symbol, balance consumer group loads, configure producer batching, and commit offset checkpoints cleanly.
+description: Use when building high-throughput distributed market data ingestion pipelines
+  (50k+ ticks/sec) using Apache Kafka to partition tick events by symbol, balance
+  consumer group loads, configure producer batching, and commit offset checkpoints
+  cleanly.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "kafka", "tick-distribution", "partitioning", "consumer-groups", "high-throughput"]
-brokers_frameworks: ["Kafka Producer/Consumer", "kafka-python", "confluent-kafka"]
-version: "1.0"
+tags:
+- real-time-architecture
+- kafka
+- tick-distribution
+- partitioning
+- consumer-groups
+- high-throughput
+brokers_frameworks:
+- Kafka Producer/Consumer
+- kafka-python
+- confluent-kafka
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

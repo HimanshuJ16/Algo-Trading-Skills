@@ -1,12 +1,19 @@
 ---
 name: alpaca-paper-live-key-separation
-description: >-
-  Use when connecting a bot to Alpaca Trading API to strictly segregate paper and live credentials, enforce base URL endpoint matching, validate account environment flags, and prevent accidental live capital loss
+description: Use when connecting a bot to Alpaca Trading API to strictly segregate
+  paper and live credentials, enforce base URL endpoint matching, validate account
+  environment flags, and prevent accidental live capital loss
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "alpaca-api", "paper-trading", "live-capital-guard", "credential-security"]
-brokers_frameworks: ["Alpaca Trading API v2"]
-version: "1.0"
+tags:
+- broker-integration
+- alpaca-api
+- paper-trading
+- live-capital-guard
+- credential-security
+brokers_frameworks:
+- Alpaca Trading API v2
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

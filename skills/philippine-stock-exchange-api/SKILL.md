@@ -4,9 +4,9 @@ description: Integration or workflow skill for philippine-stock-exchange-api.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - philippine-stock-exchange-api
+- philippine-stock-exchange-api
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

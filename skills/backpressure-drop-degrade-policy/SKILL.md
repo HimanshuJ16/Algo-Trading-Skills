@@ -1,12 +1,13 @@
 ---
 name: backpressure-drop-degrade-policy
-description: >-
-  Use when a real-time pipeline's consumers fall persistently behind producers and the system needs an explicit, chosen policy rather than an accidental one
+description: Use when a real-time pipeline's consumers fall persistently behind producers
+  and the system needs an explicit, chosen policy rather than an accidental one
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture"]
+tags:
+- real-time-architecture
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

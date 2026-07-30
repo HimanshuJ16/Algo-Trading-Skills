@@ -1,12 +1,23 @@
 ---
 name: custodial-vs-non-custodial-tradeoff-assessment
-description: >-
-  Quantitative institutional framework for evaluating trade-offs between Custodial CEX, Off-Exchange Settlement (Fireblocks/Copper), and Non-Custodial DEX architectures based on latency, gas, and counterparty risk.
+description: Quantitative institutional framework for evaluating trade-offs between
+  Custodial CEX, Off-Exchange Settlement (Fireblocks/Copper), and Non-Custodial DEX
+  architectures based on latency, gas, and counterparty risk.
 domain: Crypto Custody & Security
 subdomain: Custody Architecture Design
-tags: ["crypto-custody", "cex-vs-dex", "non-custodial", "off-exchange-settlement", "fireblocks", "counterparty-risk", "mpc-wallet"]
-brokers_frameworks: ["Fireblocks MPC", "Copper ClearLoop", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- crypto-custody
+- cex-vs-dex
+- non-custodial
+- off-exchange-settlement
+- fireblocks
+- counterparty-risk
+- mpc-wallet
+brokers_frameworks:
+- Fireblocks MPC
+- Copper ClearLoop
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

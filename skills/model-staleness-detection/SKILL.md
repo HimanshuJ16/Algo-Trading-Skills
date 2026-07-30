@@ -1,12 +1,14 @@
 ---
 name: model-staleness-detection
-description: >-
-  Use when a live signal classifier has been running for a while and needs ongoing monitoring for performance drift relative to its training-time distribution, rather than being trusted indefinitely after initial validation
+description: Use when a live signal classifier has been running for a while and needs
+  ongoing monitoring for performance drift relative to its training-time distribution,
+  rather than being trusted indefinitely after initial validation
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml"]
+tags:
+- financial-ml
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

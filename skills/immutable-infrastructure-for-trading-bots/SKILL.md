@@ -4,9 +4,9 @@ description: Deployment ops skill for immutable-infrastructure-for-trading-bots
 domain: deployment-ops
 subdomain: operations
 tags:
-  - deployment
+- deployment
 brokers_frameworks:
-  - general
+- general
 version: 1.0.0
 author: AI
 license: MIT

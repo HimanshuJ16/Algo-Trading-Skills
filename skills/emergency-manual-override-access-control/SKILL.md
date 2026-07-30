@@ -1,12 +1,23 @@
 ---
 name: emergency-manual-override-access-control
-description: >-
-  Quantitative infrastructure security engine for managing break-glass emergency manual overrides (kill switches, algo halts), dual-signature authorization, role-based access control (RBAC), and immutable audit logging.
+description: Quantitative infrastructure security engine for managing break-glass
+  emergency manual overrides (kill switches, algo halts), dual-signature authorization,
+  role-based access control (RBAC), and immutable audit logging.
 domain: Infrastructure & Security
 subdomain: Access Control & Emergency Overrides
-tags: ["emergency-override", "break-glass", "kill-switch", "rbac", "dual-sign-off", "audit-logging", "compliance"]
-brokers_frameworks: ["RBAC Framework", "SHA-256 Audit Trail", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- emergency-override
+- break-glass
+- kill-switch
+- rbac
+- dual-sign-off
+- audit-logging
+- compliance
+brokers_frameworks:
+- RBAC Framework
+- SHA-256 Audit Trail
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -4,9 +4,9 @@ description: Integration for nyse-arca-integrated-feed-handling
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - nyse-arca-integrated-feed-handling
+- nyse-arca-integrated-feed-handling
 brokers_frameworks:
-  - Custom
+- Custom
 version: 1.0.0
 author: assistant
 license: MIT

@@ -1,12 +1,23 @@
 ---
 name: cross-region-data-replication-lag-monitoring
-description: >-
-  Quantitative observability module for measuring cross-region database and message broker (Aurora, Kafka, Redis) replication lag, tracking P95/P99 SLAs, and triggering stale-read failovers.
+description: Quantitative observability module for measuring cross-region database
+  and message broker (Aurora, Kafka, Redis) replication lag, tracking P95/P99 SLAs,
+  and triggering stale-read failovers.
 domain: Infrastructure & Real-Time Architecture
 subdomain: Cross-Region Telemetry
-tags: ["cross-region", "data-replication", "replication-lag", "p99-sla", "stale-reads", "aurora", "kafka-mirrormaker"]
-brokers_frameworks: ["Kafka", "Aurora", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- cross-region
+- data-replication
+- replication-lag
+- p99-sla
+- stale-reads
+- aurora
+- kafka-mirrormaker
+brokers_frameworks:
+- Kafka
+- Aurora
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

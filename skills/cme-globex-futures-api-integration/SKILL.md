@@ -1,12 +1,21 @@
 ---
 name: cme-globex-futures-api-integration
-description: >-
-  Quantitative market connectivity module for CME Globex futures order entry, enforcing Tag 50 (Operator ID) Rule 576 compliance, Market-With-Protection (MWP) limits, and price banding.
+description: Quantitative market connectivity module for CME Globex futures order
+  entry, enforcing Tag 50 (Operator ID) Rule 576 compliance, Market-With-Protection
+  (MWP) limits, and price banding.
 domain: Market Connectivity
 subdomain: Exchange API
-tags: ["cme-globex", "ilink3", "futures", "tag50", "mwp", "price-banding"]
-brokers_frameworks: ["CME Globex iLink 3", "CME FIX"]
-version: "1.0.0"
+tags:
+- cme-globex
+- ilink3
+- futures
+- tag50
+- mwp
+- price-banding
+brokers_frameworks:
+- CME Globex iLink 3
+- CME FIX
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

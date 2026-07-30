@@ -1,12 +1,21 @@
 ---
 name: cold-storage-geographic-distribution-strategy
-description: >-
-  Institutional crypto custody module for analyzing Shamir Secret Sharing (SSS) M-of-N key shard distribution across geographically and jurisdictionally diverse vaults, auditing single-point-of-failure (SPOF) risks.
+description: Institutional crypto custody module for analyzing Shamir Secret Sharing
+  (SSS) M-of-N key shard distribution across geographically and jurisdictionally diverse
+  vaults, auditing single-point-of-failure (SPOF) risks.
 domain: Crypto Custody & Security
 subdomain: Key Management
-tags: ["crypto-custody", "cold-storage", "shamir-secret-sharing", "geographic-distribution", "jurisdiction-risk", "spof"]
-brokers_frameworks: ["Generic Crypto Security", "NumPy"]
-version: "1.0.0"
+tags:
+- crypto-custody
+- cold-storage
+- shamir-secret-sharing
+- geographic-distribution
+- jurisdiction-risk
+- spof
+brokers_frameworks:
+- Generic Crypto Security
+- NumPy
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

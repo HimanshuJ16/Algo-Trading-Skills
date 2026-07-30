@@ -1,12 +1,25 @@
 ---
 name: cross-jurisdiction-regulatory-conflict-resolution
-description: >-
-  Quantitative compliance resolution engine for managing cross-jurisdiction regulatory conflicts (SEC vs MiFID II vs FCA), enforcing Strictest Rule Primacy, and auditing pre-trade order routing.
+description: Quantitative compliance resolution engine for managing cross-jurisdiction
+  regulatory conflicts (SEC vs MiFID II vs FCA), enforcing Strictest Rule Primacy,
+  and auditing pre-trade order routing.
 domain: Compliance & Legal
 subdomain: Cross-Jurisdiction Regulation
-tags: ["compliance", "regulatory-conflict", "mifid-ii", "sec", "pfof", "short-selling", "lei", "strictest-rule-primacy"]
-brokers_frameworks: ["MiFID II", "SEC", "FCA", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- compliance
+- regulatory-conflict
+- mifid-ii
+- sec
+- pfof
+- short-selling
+- lei
+- strictest-rule-primacy
+brokers_frameworks:
+- MiFID II
+- SEC
+- FCA
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,17 +1,18 @@
 ---
 name: adaptive-execution-under-volatility-spikes
-description: Execution algorithm logic for dynamically adjusting order sizing, participation rates, and routing during severe market volatility and flash crashes.
+description: Execution algorithm logic for dynamically adjusting order sizing, participation
+  rates, and routing during severe market volatility and flash crashes.
 domain: execution-algorithms
 subdomain: execution-strategies
 tags:
-  - execution
-  - trading
-  - algo
-  - volatility
-  - flash-crash
-  - risk-management
+- execution
+- trading
+- algo
+- volatility
+- flash-crash
+- risk-management
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

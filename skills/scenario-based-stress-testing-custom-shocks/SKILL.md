@@ -4,8 +4,8 @@ description: Stress testing with custom macroeconomic/rate shock scenarios
 domain: risk-management
 subdomain: risk
 tags:
-  - risk
-  - management
+- risk
+- management
 brokers_frameworks: []
 version: 1.0.0
 author: System

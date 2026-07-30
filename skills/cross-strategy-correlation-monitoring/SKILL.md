@@ -1,12 +1,22 @@
 ---
 name: cross-strategy-correlation-monitoring
-description: >-
-  Quantitative multi-strategy risk management engine for monitoring rolling PnL correlations across strategy pods, detecting diversification breakdown, and computing Diversification Ratios.
+description: Quantitative multi-strategy risk management engine for monitoring rolling
+  PnL correlations across strategy pods, detecting diversification breakdown, and
+  computing Diversification Ratios.
 domain: Multi-Strategy & Portfolio Risk
 subdomain: Cross-Strategy Correlation
-tags: ["multi-strategy", "cross-strategy", "pnl-correlation", "diversification-ratio", "pod-risk", "correlation-breach"]
-brokers_frameworks: ["NumPy", "Pandas", "SciPy"]
-version: "1.0.0"
+tags:
+- multi-strategy
+- cross-strategy
+- pnl-correlation
+- diversification-ratio
+- pod-risk
+- correlation-breach
+brokers_frameworks:
+- NumPy
+- Pandas
+- SciPy
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

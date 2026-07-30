@@ -3,8 +3,12 @@ name: uk-senior-managers-regime-algo-accountability
 description: Compliance tool for uk senior managers regime algo accountability
 domain: regulatory-compliance-global
 subdomain: compliance
-tags: [regulatory, compliance, trading]
-brokers_frameworks: [generic]
+tags:
+- regulatory
+- compliance
+- trading
+brokers_frameworks:
+- generic
 version: 1.0.0
 author: AI
 license: MIT

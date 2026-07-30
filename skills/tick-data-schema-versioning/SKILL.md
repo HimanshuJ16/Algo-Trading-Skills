@@ -1,12 +1,21 @@
 ---
 name: tick-data-schema-versioning
-description: >-
-  Use when deploying distributed tick processing pipelines to attach explicit schema version headers (v1, v2, v3), execute backward/forward schema migration adapters, and prevent deserialization crashes across consumer microservices.
+description: Use when deploying distributed tick processing pipelines to attach explicit
+  schema version headers (v1, v2, v3), execute backward/forward schema migration adapters,
+  and prevent deserialization crashes across consumer microservices.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "schema-versioning", "migration-adapters", "backward-compatibility", "event-schema", "serialization"]
-brokers_frameworks: ["Tick Schema Versioner", "Python Real-Time Engine"]
-version: "1.0"
+tags:
+- real-time-architecture
+- schema-versioning
+- migration-adapters
+- backward-compatibility
+- event-schema
+- serialization
+brokers_frameworks:
+- Tick Schema Versioner
+- Python Real-Time Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

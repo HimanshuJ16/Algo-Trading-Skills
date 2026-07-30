@@ -1,12 +1,22 @@
 ---
 name: cme-group-fix-api-for-futures
-description: >-
-  Quantitative market connectivity module for CME Group FIX API futures order entry and session management, implementing Tag 1028 (ManualOrderIndicator), Tag 7928/8000 (Self-Match Prevention), and MsgSeqNum gap-fill sequence recovery.
+description: Quantitative market connectivity module for CME Group FIX API futures
+  order entry and session management, implementing Tag 1028 (ManualOrderIndicator),
+  Tag 7928/8000 (Self-Match Prevention), and MsgSeqNum gap-fill sequence recovery.
 domain: Market Connectivity
 subdomain: FIX Protocol
-tags: ["cme-group", "fix-protocol", "futures", "tag1028", "smp", "self-match-prevention", "seqnum"]
-brokers_frameworks: ["CME FIX 4.2", "CME FIX 4.4"]
-version: "1.0.0"
+tags:
+- cme-group
+- fix-protocol
+- futures
+- tag1028
+- smp
+- self-match-prevention
+- seqnum
+brokers_frameworks:
+- CME FIX 4.2
+- CME FIX 4.4
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

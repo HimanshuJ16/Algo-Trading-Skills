@@ -4,7 +4,7 @@ description: Skill for network-segmentation-for-trading-infrastructure
 domain: deployment-ops
 subdomain: deployment
 tags:
-  - network-segmentation-for-trading-infrastructure
+- network-segmentation-for-trading-infrastructure
 brokers_frameworks: []
 version: 1.0.0
 author: System

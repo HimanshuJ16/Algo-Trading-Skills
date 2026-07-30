@@ -4,10 +4,10 @@ description: Skill for feature selection stability across folds
 domain: Financial ML
 subdomain: Feature Selection
 tags:
-  - ml
-  - trading
+- ml
+- trading
 brokers_frameworks:
-  - scikit-learn
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

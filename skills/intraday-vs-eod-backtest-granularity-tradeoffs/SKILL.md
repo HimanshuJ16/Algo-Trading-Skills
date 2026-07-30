@@ -1,12 +1,21 @@
 ---
 name: intraday-vs-eod-backtest-granularity-tradeoffs
-description: >-
-  Use when choosing appropriate data granularity (tick, minute, EOD) for a backtest based on the strategy's holding period and decision frequency to balance accuracy against compute cost.
+description: Use when choosing appropriate data granularity (tick, minute, EOD) for
+  a backtest based on the strategy's holding period and decision frequency to balance
+  accuracy against compute cost.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "data-granularity", "intraday", "eod", "tick-data", "compute-cost"]
-brokers_frameworks: ["Granularity Advisor Engine", "Python"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- data-granularity
+- intraday
+- eod
+- tick-data
+- compute-cost
+brokers_frameworks:
+- Granularity Advisor Engine
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -3,7 +3,9 @@ name: exchange-matching-engine-behavior-under-load
 description: Skill to handle exchange matching engine behavior under load
 domain: Market Microstructure
 subdomain: Latency
-tags: [latency, hft]
+tags:
+- latency
+- hft
 brokers_frameworks: []
 version: 1.0.0
 author: assistant

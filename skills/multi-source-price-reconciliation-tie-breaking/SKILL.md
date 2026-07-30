@@ -1,13 +1,16 @@
 ---
-name: "multi-source-price-reconciliation-tie-breaking"
-description: "Implementation of multi-source-price-reconciliation-tie-breaking"
-domain: "Data Management"
-subdomain: "Global"
-tags: ["data", "management"]
-brokers_frameworks: ["custom"]
-version: "1.0.0"
-author: "Agent"
-license: "MIT"
+name: multi-source-price-reconciliation-tie-breaking
+description: Implementation of multi-source-price-reconciliation-tie-breaking
+domain: Data Management
+subdomain: Global
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
+version: 1.0.0
+author: Agent
+license: MIT
 ---
 
 ## When to Use

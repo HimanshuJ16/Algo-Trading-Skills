@@ -1,12 +1,19 @@
 ---
 name: tradestation-websocket-order-updates
-description: >-
-  Use when consuming TradeStation's WebAPI order update stream to manage streaming WebSocket connections, gap-reconciliation via REST fallback, and fill deduplication across network reconnects
+description: Use when consuming TradeStation's WebAPI order update stream to manage
+  streaming WebSocket connections, gap-reconciliation via REST fallback, and fill
+  deduplication across network reconnects
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "tradestation-api", "websocket-stream", "order-updates", "gap-reconciliation"]
-brokers_frameworks: ["TradeStation WebAPI v2/v3"]
-version: "1.0"
+tags:
+- broker-integration
+- tradestation-api
+- websocket-stream
+- order-updates
+- gap-reconciliation
+brokers_frameworks:
+- TradeStation WebAPI v2/v3
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

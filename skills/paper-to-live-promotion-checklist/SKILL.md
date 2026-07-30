@@ -1,12 +1,14 @@
 ---
 name: paper-to-live-promotion-checklist
-description: >-
-  Use when deciding whether a strategy that has passed backtesting is ready to be promoted from paper trading to live capital, providing gated criteria rather than a subjective "feels ready" judgment
+description: Use when deciding whether a strategy that has passed backtesting is ready
+  to be promoted from paper trading to live capital, providing gated criteria rather
+  than a subjective "feels ready" judgment
 domain: algorithmic-trading
 subdomain: deployment-ops
-tags: ["deployment-ops"]
+tags:
+- deployment-ops
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

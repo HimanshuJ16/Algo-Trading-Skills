@@ -1,12 +1,14 @@
 ---
 name: walk-forward-validation-setup
-description: >-
-  Use when validating a trading strategy or ML signal model on historical time-series data, to avoid the invalid train/test splits that k-fold cross-validation produces on non-stationary sequential data
+description: Use when validating a trading strategy or ML signal model on historical
+  time-series data, to avoid the invalid train/test splits that k-fold cross-validation
+  produces on non-stationary sequential data
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology"]
+tags:
+- backtesting-methodology
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

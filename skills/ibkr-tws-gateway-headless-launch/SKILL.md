@@ -1,12 +1,21 @@
 ---
 name: ibkr-tws-gateway-headless-launch
-description: >-
-  Use when deploying an Interactive Brokers (IBKR) trading bot to a headless server or container to manage IB Gateway / IBC headless startup, port probes, daily reset handling, and socket readiness checks
+description: Use when deploying an Interactive Brokers (IBKR) trading bot to a headless
+  server or container to manage IB Gateway / IBC headless startup, port probes, daily
+  reset handling, and socket readiness checks
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "ibkr", "ib-gateway", "tws-api", "docker-headless"]
-brokers_frameworks: ["Interactive Brokers TWS API", "IB Gateway", "IBC"]
-version: "1.0"
+tags:
+- broker-integration
+- ibkr
+- ib-gateway
+- tws-api
+- docker-headless
+brokers_frameworks:
+- Interactive Brokers TWS API
+- IB Gateway
+- IBC
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

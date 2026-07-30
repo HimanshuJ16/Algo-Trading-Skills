@@ -1,16 +1,18 @@
 ---
 name: alternative-data-feature-integration
-description: Integrates alternative data sources (e.g., satellite, credit card logs, sentiment) into quantitative features while enforcing strict Point-in-Time (PIT) lag mapping to prevent look-ahead bias.
+description: Integrates alternative data sources (e.g., satellite, credit card logs,
+  sentiment) into quantitative features while enforcing strict Point-in-Time (PIT)
+  lag mapping to prevent look-ahead bias.
 domain: financial-ml
 subdomain: data-engineering
 tags:
-  - machine-learning
-  - alternative-data
-  - look-ahead-bias
-  - point-in-time
-  - feature-engineering
+- machine-learning
+- alternative-data
+- look-ahead-bias
+- point-in-time
+- feature-engineering
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

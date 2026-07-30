@@ -3,8 +3,13 @@ name: test-transaction-verification-before-large-transfers
 description: Skill to handle test transaction verification before large transfers.
 domain: Crypto Custody
 subdomain: Security
-tags: [security, crypto, custody, test]
-brokers_frameworks: [None]
+tags:
+- security
+- crypto
+- custody
+- test
+brokers_frameworks:
+- None
 version: 1.0.0
 author: AI
 license: MIT

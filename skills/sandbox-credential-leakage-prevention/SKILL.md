@@ -1,12 +1,21 @@
 ---
 name: sandbox-credential-leakage-prevention
-description: >-
-  Use when building broker adapters to enforce strict runtime isolation between sandbox/paper test credentials and live production endpoints, preventing test keys from reaching live gateways and blocking accidental real-money order routing.
+description: Use when building broker adapters to enforce strict runtime isolation
+  between sandbox/paper test credentials and live production endpoints, preventing
+  test keys from reaching live gateways and blocking accidental real-money order routing.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "sandbox-prevention", "credential-leakage", "environment-guard", "security", "production-safety"]
-brokers_frameworks: ["Credential Security Guard", "Python Security"]
-version: "1.0"
+tags:
+- broker-integration
+- sandbox-prevention
+- credential-leakage
+- environment-guard
+- security
+- production-safety
+brokers_frameworks:
+- Credential Security Guard
+- Python Security
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

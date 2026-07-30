@@ -1,12 +1,23 @@
 ---
 name: multi-exchange-feed-normalization
-description: >-
-  Use when building multi-exchange market data pipelines to map heterogeneous WebSocket/REST tick payloads into a single unified internal schema with normalized symbols, prices, quantities, and timestamps
+description: Use when building multi-exchange market data pipelines to map heterogeneous
+  WebSocket/REST tick payloads into a single unified internal schema with normalized
+  symbols, prices, quantities, and timestamps
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "feed-normalization", "multi-exchange", "unified-tick", "market-data-schema"]
-brokers_frameworks: ["Binance", "Coinbase", "Zerodha", "IBKR", "Kraken"]
-version: "1.0"
+tags:
+- real-time-architecture
+- feed-normalization
+- multi-exchange
+- unified-tick
+- market-data-schema
+brokers_frameworks:
+- Binance
+- Coinbase
+- Zerodha
+- IBKR
+- Kraken
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

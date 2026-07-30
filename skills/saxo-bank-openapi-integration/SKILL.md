@@ -1,12 +1,22 @@
 ---
 name: saxo-bank-openapi-integration
-description: >-
-  Use when connecting to Saxo Bank OpenAPI for multi-asset trading (Equities, FX, Futures, Options, CFDs) to execute OAuth2 authentication, multi-asset instrument lookup, order placement, and portfolio position tracking.
+description: Use when connecting to Saxo Bank OpenAPI for multi-asset trading (Equities,
+  FX, Futures, Options, CFDs) to execute OAuth2 authentication, multi-asset instrument
+  lookup, order placement, and portfolio position tracking.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "saxo-bank", "multi-asset", "openapi", "fx-trading", "global-markets"]
-brokers_frameworks: ["Saxo Bank OpenAPI", "Python requests", "WebSockets"]
-version: "1.0"
+tags:
+- broker-integration
+- saxo-bank
+- multi-asset
+- openapi
+- fx-trading
+- global-markets
+brokers_frameworks:
+- Saxo Bank OpenAPI
+- Python requests
+- WebSockets
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

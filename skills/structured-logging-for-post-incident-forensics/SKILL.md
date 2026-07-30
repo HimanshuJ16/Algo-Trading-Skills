@@ -1,14 +1,23 @@
 ---
 name: structured-logging-for-post-incident-forensics
-description: >-
-  Use when designing log schemas for trading systems that enable post-incident timeline
-  reconstruction without guesswork, using structured JSON log events with correlation IDs,
-  sequence numbers, and standardized event types.
+description: Use when designing log schemas for trading systems that enable post-incident
+  timeline reconstruction without guesswork, using structured JSON log events with
+  correlation IDs, sequence numbers, and standardized event types.
 domain: algorithmic-trading
 subdomain: deployment-ops
-tags: ["deployment", "logging", "forensics", "incident-response", "structured-logs", "observability"]
-brokers_frameworks: ["Python logging", "JSON", "ELK Stack", "Datadog"]
-version: "1.0"
+tags:
+- deployment
+- logging
+- forensics
+- incident-response
+- structured-logs
+- observability
+brokers_frameworks:
+- Python logging
+- JSON
+- ELK Stack
+- Datadog
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

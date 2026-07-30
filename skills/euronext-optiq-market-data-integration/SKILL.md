@@ -1,12 +1,24 @@
 ---
 name: euronext-optiq-market-data-integration
-description: >-
-  Quantitative venue integration engine for parsing Euronext Optiq Market Data Gateway (MDG) Simple Binary Encoding (SBE) multicast feeds, reconstructing L2 order book depth, and monitoring trading state transitions.
+description: Quantitative venue integration engine for parsing Euronext Optiq Market
+  Data Gateway (MDG) Simple Binary Encoding (SBE) multicast feeds, reconstructing
+  L2 order book depth, and monitoring trading state transitions.
 domain: Venue Integration & Protocols
 subdomain: European Market Data (Euronext Optiq)
-tags: ["euronext", "optiq-mdg", "sbe-binary", "l2-order-book", "multicast-feed", "lvmh", "asml", "market-microstructure"]
-brokers_frameworks: ["Euronext Optiq MDG", "SBE Protocol", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- euronext
+- optiq-mdg
+- sbe-binary
+- l2-order-book
+- multicast-feed
+- lvmh
+- asml
+- market-microstructure
+brokers_frameworks:
+- Euronext Optiq MDG
+- SBE Protocol
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -3,8 +3,12 @@ name: uk-fca-algorithmic-trading-systems-controls
 description: Compliance controls for uk fca algorithmic trading systems controls
 domain: regulatory-compliance-global
 subdomain: regulatory
-tags: [compliance, risk, regulatory]
-brokers_frameworks: [any]
+tags:
+- compliance
+- risk
+- regulatory
+brokers_frameworks:
+- any
 version: 1.0.0
 author: skill-builder
 license: MIT

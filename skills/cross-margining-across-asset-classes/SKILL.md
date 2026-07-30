@@ -1,12 +1,23 @@
 ---
 name: cross-margining-across-asset-classes
-description: >-
-  Quantitative multi-asset treasury and margin optimization module for computing cross-margining offsets across clearing houses (CME, OCC, FICC), reducing initial margin, and calculating capital efficiency.
+description: Quantitative multi-asset treasury and margin optimization module for
+  computing cross-margining offsets across clearing houses (CME, OCC, FICC), reducing
+  initial margin, and calculating capital efficiency.
 domain: Treasury & Clearing Operations
 subdomain: Portfolio & Cross Margining
-tags: ["cross-margining", "portfolio-margin", "cme", "occ", "ficc", "margin-offset", "capital-efficiency"]
-brokers_frameworks: ["CME SPAN", "OCC STANS", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- cross-margining
+- portfolio-margin
+- cme
+- occ
+- ficc
+- margin-offset
+- capital-efficiency
+brokers_frameworks:
+- CME SPAN
+- OCC STANS
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

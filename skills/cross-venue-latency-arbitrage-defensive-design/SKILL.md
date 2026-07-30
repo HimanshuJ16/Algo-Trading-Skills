@@ -1,12 +1,22 @@
 ---
 name: cross-venue-latency-arbitrage-defensive-design
-description: >-
-  Quantitative HFT market-making module for detecting cross-venue latency arbitrage, calculating micro-price toxicity, and executing defensive quote pulls, spread widening, and size reductions.
+description: Quantitative HFT market-making module for detecting cross-venue latency
+  arbitrage, calculating micro-price toxicity, and executing defensive quote pulls,
+  spread widening, and size reductions.
 domain: Market Microstructure & HFT
 subdomain: Latency Arbitrage & Adverse Selection
-tags: ["latency-arbitrage", "hft", "market-making", "micro-price", "stale-quote", "adverse-selection", "cross-venue"]
-brokers_frameworks: ["Order Book Engine", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- latency-arbitrage
+- hft
+- market-making
+- micro-price
+- stale-quote
+- adverse-selection
+- cross-venue
+brokers_frameworks:
+- Order Book Engine
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

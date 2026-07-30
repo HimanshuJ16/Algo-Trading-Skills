@@ -1,12 +1,14 @@
 ---
 name: execution-realistic-simulation
-description: >-
-  Use when building a backtest's fill/execution model, to ensure simulated fills, slippage, and fees reflect what would actually happen in a live order rather than idealized instantaneous execution at a quoted price
+description: Use when building a backtest's fill/execution model, to ensure simulated
+  fills, slippage, and fees reflect what would actually happen in a live order rather
+  than idealized instantaneous execution at a quoted price
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology"]
+tags:
+- backtesting-methodology
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

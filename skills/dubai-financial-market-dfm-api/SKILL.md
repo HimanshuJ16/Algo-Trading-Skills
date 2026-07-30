@@ -1,12 +1,23 @@
 ---
 name: dubai-financial-market-dfm-api
-description: >-
-  Quantitative venue integration engine for Dubai Financial Market (DFM) FIX 4.4 protocol, validating National Investor Numbers (NIN), AED tick size regimes, and 10% daily price band circuit breakers.
+description: Quantitative venue integration engine for Dubai Financial Market (DFM)
+  FIX 4.4 protocol, validating National Investor Numbers (NIN), AED tick size regimes,
+  and 10% daily price band circuit breakers.
 domain: Venue Integration & Protocols
 subdomain: Middle East (GCC/MENA) Exchange Integration
-tags: ["dfm", "dubai-financial-market", "gcc-markets", "fix-4.4", "nin-investor-number", "aed-currency", "mena-trading"]
-brokers_frameworks: ["DFM FIX 4.4 Gateway", "Dubai CSD", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- dfm
+- dubai-financial-market
+- gcc-markets
+- fix-4.4
+- nin-investor-number
+- aed-currency
+- mena-trading
+brokers_frameworks:
+- DFM FIX 4.4 Gateway
+- Dubai CSD
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -4,10 +4,10 @@ description: Automation and handling of fx forward and swap position tracking.
 domain: multi-asset-derivatives
 subdomain: derivatives-trading
 tags:
-  - fx-forward-and-swap-position-tracking
-  - trading
+- fx-forward-and-swap-position-tracking
+- trading
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

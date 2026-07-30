@@ -1,12 +1,21 @@
 ---
 name: synthetic-data-generation-for-backtest-augmentation
-description: >-
-  Use when historical dataset length is limited to generate synthetic price paths via Geometric Brownian Motion (GBM) and block bootstrapping, enabling stress-testing and robustness evaluation.
+description: Use when historical dataset length is limited to generate synthetic price
+  paths via Geometric Brownian Motion (GBM) and block bootstrapping, enabling stress-testing
+  and robustness evaluation.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "synthetic-data", "gbm", "bootstrap", "data-augmentation", "robustness-testing"]
-brokers_frameworks: ["Synthetic Data Generator", "Python NumPy"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- synthetic-data
+- gbm
+- bootstrap
+- data-augmentation
+- robustness-testing
+brokers_frameworks:
+- Synthetic Data Generator
+- Python NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

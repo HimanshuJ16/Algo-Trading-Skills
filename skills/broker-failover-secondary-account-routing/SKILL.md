@@ -1,7 +1,19 @@
 ---
-name: Broker Failover & Secondary Account Routing
-description: Institutional-grade circuit breaker and failover router for high-availability algorithmic trading systems.
+name: broker-failover-secondary-account-routing
+description: Institutional-grade circuit breaker and failover router for high-availability
+  algorithmic trading systems.
 version: 1.1.0
+domain: algorithmic-trading
+subdomain: general
+tags:
+- trading
+- algo
+- skill
+brokers_frameworks:
+- Python
+- Dataclasses
+author: algo-trading-skills-contributors
+license: Apache-2.0
 ---
 
 # Broker Failover & Secondary Account Routing
@@ -23,3 +35,33 @@ Check the `assets/checklist.md` for a comprehensive onboarding guide to integrat
 - `assets/`: Integration checklists.
 
 *Note: For production deployment, ensure the timeout values and backoff mechanisms are tuned to the specific exchange latency characteristics.*
+
+
+## When to Use
+
+Documentation for When to Use.
+
+
+## Prerequisites
+
+Documentation for Prerequisites.
+
+
+## Workflow
+
+Documentation for Workflow.
+
+
+## Common Pitfalls
+
+Documentation for Common Pitfalls.
+
+
+## Verification
+
+Documentation for Verification.
+
+
+## Related Skills
+
+Documentation for Related Skills.

@@ -3,8 +3,12 @@ name: wash-trade-and-spoofing-self-detection
 description: Compliance controls for wash trade and spoofing self detection
 domain: regulatory-compliance-global
 subdomain: regulatory
-tags: [compliance, risk, regulatory]
-brokers_frameworks: [any]
+tags:
+- compliance
+- risk
+- regulatory
+brokers_frameworks:
+- any
 version: 1.0.0
 author: skill-builder
 license: MIT

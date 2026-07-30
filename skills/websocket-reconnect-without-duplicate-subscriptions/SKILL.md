@@ -1,12 +1,21 @@
 ---
 name: websocket-reconnect-without-duplicate-subscriptions
-description: >-
-  Use when implementing reconnection logic for a broker market-data WebSocket, to avoid duplicate ticks, duplicate subscriptions, or silent gaps in coverage after a network blip
+description: Use when implementing reconnection logic for a broker market-data WebSocket,
+  to avoid duplicate ticks, duplicate subscriptions, or silent gaps in coverage after
+  a network blip
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "websocket-streaming-apis-\u2014-fyers", "kite", "ibkr"]
-brokers_frameworks: ["WebSocket streaming APIs \u2014 Fyers", "Kite", "IBKR", "Alpaca market data streams"]
-version: "1.0"
+tags:
+- real-time-architecture
+- "websocket-streaming-apis-\u2014-fyers"
+- kite
+- ibkr
+brokers_frameworks:
+- "WebSocket streaming APIs \u2014 Fyers"
+- Kite
+- IBKR
+- Alpaca market data streams
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,21 @@
 ---
 name: graceful-shutdown-draining-in-flight-ticks
-description: >-
-  Use when shutting down or redeploying trading microservices (Kubernetes SIGTERM, systemd restart) to trap termination signals, stop new tick ingestion, drain in-flight queues, flush database sinks, and commit consumer offsets.
+description: Use when shutting down or redeploying trading microservices (Kubernetes
+  SIGTERM, systemd restart) to trap termination signals, stop new tick ingestion,
+  drain in-flight queues, flush database sinks, and commit consumer offsets.
 domain: algorithmic-trading
 subdomain: real-time-architecture
-tags: ["real-time-architecture", "graceful-shutdown", "sigterm", "queue-drain", "data-loss-prevention", "deployment-safety"]
-brokers_frameworks: ["Graceful Shutdown Manager", "Python Signal Handler"]
-version: "1.0"
+tags:
+- real-time-architecture
+- graceful-shutdown
+- sigterm
+- queue-drain
+- data-loss-prevention
+- deployment-safety
+brokers_frameworks:
+- Graceful Shutdown Manager
+- Python Signal Handler
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

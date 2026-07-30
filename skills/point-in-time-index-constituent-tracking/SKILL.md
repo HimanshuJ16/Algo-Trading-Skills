@@ -4,10 +4,10 @@ description: Implementation of point-in-time-index-constituent-tracking
 domain: Data Management
 subdomain: Global
 tags:
-  - data
-  - python
+- data
+- python
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

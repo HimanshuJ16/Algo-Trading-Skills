@@ -4,9 +4,9 @@ description: Integration or workflow skill for jse-south-africa-api-integration.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - jse-south-africa-api-integration
+- jse-south-africa-api-integration
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

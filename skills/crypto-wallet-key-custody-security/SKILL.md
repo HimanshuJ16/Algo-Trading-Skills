@@ -1,12 +1,14 @@
 ---
 name: crypto-wallet-key-custody-security
-description: >-
-  Use when a trading bot has any access to crypto private keys, exchange API keys with withdrawal permission, or wallet infrastructure, to bound the damage a compromised bot or leaked credential can cause
+description: Use when a trading bot has any access to crypto private keys, exchange
+  API keys with withdrawal permission, or wallet infrastructure, to bound the damage
+  a compromised bot or leaked credential can cause
 domain: algorithmic-trading
 subdomain: crypto-custody-security
-tags: ["crypto-custody-security"]
+tags:
+- crypto-custody-security
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

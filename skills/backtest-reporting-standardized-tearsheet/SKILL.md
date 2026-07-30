@@ -1,12 +1,21 @@
 ---
 name: backtest-reporting-standardized-tearsheet
-description: >-
-  Use when evaluating completed backtests to generate a standardized performance tearsheet computing Sharpe, Sortino, Calmar, max drawdown, win rate, and profit factor for objective strategy comparison.
+description: Use when evaluating completed backtests to generate a standardized performance
+  tearsheet computing Sharpe, Sortino, Calmar, max drawdown, win rate, and profit
+  factor for objective strategy comparison.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "tearsheet", "performance-metrics", "sharpe-ratio", "drawdown", "backtest-reporting"]
-brokers_frameworks: ["Standardized Tearsheet Generator", "Python NumPy"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- tearsheet
+- performance-metrics
+- sharpe-ratio
+- drawdown
+- backtest-reporting
+brokers_frameworks:
+- Standardized Tearsheet Generator
+- Python NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -3,8 +3,12 @@ name: segregation-of-duties-for-custody-operations
 description: Implementation for segregation-of-duties-for-custody-operations
 domain: Crypto
 subdomain: Custody Security
-tags: [crypto, custody, security]
-brokers_frameworks: [None]
+tags:
+- crypto
+- custody
+- security
+brokers_frameworks:
+- None
 version: 1.0.0
 author: System
 license: MIT

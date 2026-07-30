@@ -1,12 +1,22 @@
 ---
 name: backtest-audit-trail-for-regulatory-review
-description: >-
-  Use when conducting production backtests to record and sign a immutable audit trail capturing code git commit SHA, data version checksum, hyperparameter manifest, and execution environment metadata for regulatory review (e.g. SEC/FINRA/MiFID II).
+description: Use when conducting production backtests to record and sign a immutable
+  audit trail capturing code git commit SHA, data version checksum, hyperparameter
+  manifest, and execution environment metadata for regulatory review (e.g. SEC/FINRA/MiFID
+  II).
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "regulatory-compliance", "audit-trail", "reproducibility", "sec-compliance", "data-lineage"]
-brokers_frameworks: ["Regulatory Audit Trail Engine", "Python Cryptography"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- regulatory-compliance
+- audit-trail
+- reproducibility
+- sec-compliance
+- data-lineage
+brokers_frameworks:
+- Regulatory Audit Trail Engine
+- Python Cryptography
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

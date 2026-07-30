@@ -3,8 +3,11 @@ name: graceful-degradation-priority-during-partial-outage
 description: A skill to handle Graceful Degradation in algo-trading
 domain: deployment-ops
 subdomain: operations
-tags: [deployment-ops]
-brokers_frameworks: [aws, gcp]
+tags:
+- deployment-ops
+brokers_frameworks:
+- aws
+- gcp
 version: 1.0.0
 author: AI
 license: MIT

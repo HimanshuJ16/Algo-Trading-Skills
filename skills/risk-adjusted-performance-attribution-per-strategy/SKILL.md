@@ -3,8 +3,11 @@ name: risk-adjusted-performance-attribution-per-strategy
 description: RAROC / Sharpe attribution per strategy sharing capital.
 domain: Risk Management
 subdomain: Calibration
-tags: [risk, risk-adjusted-performance-attribution-per-strategy]
-brokers_frameworks: [any]
+tags:
+- risk
+- risk-adjusted-performance-attribution-per-strategy
+brokers_frameworks:
+- any
 version: 1.0.0
 author: System
 license: MIT

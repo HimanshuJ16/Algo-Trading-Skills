@@ -4,11 +4,11 @@ description: Risk budgeting across intraday, swing, and position holding periods
 domain: risk-management
 subdomain: risk-budgeting
 tags:
-  - risk
-  - management
+- risk
+- management
 brokers_frameworks:
-  - ccxt
-  - interactive-brokers
+- ccxt
+- interactive-brokers
 version: 1.0.0
 author: System
 license: MIT

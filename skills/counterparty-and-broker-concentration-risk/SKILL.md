@@ -1,12 +1,21 @@
 ---
 name: counterparty-and-broker-concentration-risk
-description: >-
-  Quantitative treasury and risk management module for auditing prime broker counterparty concentration, enforcing max % NAV limits, credit rating/CDS spread bounds, and smart failover order routing.
+description: Quantitative treasury and risk management module for auditing prime broker
+  counterparty concentration, enforcing max % NAV limits, credit rating/CDS spread
+  bounds, and smart failover order routing.
 domain: Risk Management & Treasury
 subdomain: Counterparty Risk
-tags: ["counterparty-risk", "prime-broker", "concentration-limits", "cds-spread", "smart-order-routing", "hhi"]
-brokers_frameworks: ["Generic Risk Engine", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- counterparty-risk
+- prime-broker
+- concentration-limits
+- cds-spread
+- smart-order-routing
+- hhi
+brokers_frameworks:
+- Generic Risk Engine
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,22 @@
 ---
 name: benchmark-relative-performance-attribution
-description: >-
-  Use when analyzing backtest or live trading performance to decompose total returns into Alpha, Beta, Tracking Error, Information Ratio, and Brinson-Fachler allocation and selection effects
+description: Use when analyzing backtest or live trading performance to decompose
+  total returns into Alpha, Beta, Tracking Error, Information Ratio, and Brinson-Fachler
+  allocation and selection effects
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "performance-attribution", "alpha-beta", "information-ratio", "brinson-attribution"]
-brokers_frameworks: ["PyFolio", "Empyrial", "QuantStats", "Custom Performance Evaluators"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- performance-attribution
+- alpha-beta
+- information-ratio
+- brinson-attribution
+brokers_frameworks:
+- PyFolio
+- Empyrial
+- QuantStats
+- Custom Performance Evaluators
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

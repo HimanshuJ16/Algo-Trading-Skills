@@ -3,7 +3,10 @@ name: weather-data-signal-research-for-commodity-strategies
 description: Skill for weather data signal research for commodity strategies
 domain: quant-research-alt-data
 subdomain: Alternative Data
-tags: [alt-data, python, research]
+tags:
+- alt-data
+- python
+- research
 brokers_frameworks: []
 version: 1.0.0
 author: AI

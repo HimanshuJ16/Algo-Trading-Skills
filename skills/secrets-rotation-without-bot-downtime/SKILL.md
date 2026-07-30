@@ -1,13 +1,21 @@
 ---
 name: secrets-rotation-without-bot-downtime
-description: >-
-  Use when rotating broker API keys, secrets, or tokens on a schedule without requiring
-  a full bot restart, ensuring continuous trading coverage during credential transitions.
+description: Use when rotating broker API keys, secrets, or tokens on a schedule without
+  requiring a full bot restart, ensuring continuous trading coverage during credential
+  transitions.
 domain: algorithmic-trading
 subdomain: deployment-ops
-tags: ["deployment", "secrets-rotation", "credentials", "zero-downtime", "api-keys"]
-brokers_frameworks: ["Vault", "AWS Secrets Manager", "Custom Secrets Store"]
-version: "1.0"
+tags:
+- deployment
+- secrets-rotation
+- credentials
+- zero-downtime
+- api-keys
+brokers_frameworks:
+- Vault
+- AWS Secrets Manager
+- Custom Secrets Store
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

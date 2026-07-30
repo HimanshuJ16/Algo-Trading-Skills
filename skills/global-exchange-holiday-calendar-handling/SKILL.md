@@ -1,12 +1,17 @@
 ---
 name: global-exchange-holiday-calendar-handling
-description: >-
-  Use when a bot or backtest operates across more than one country's exchange, to avoid treating a foreign market holiday as a normal trading day (or vice versa)
+description: Use when a bot or backtest operates across more than one country's exchange,
+  to avoid treating a foreign market holiday as a normal trading day (or vice versa)
 domain: algorithmic-trading
 subdomain: data-management-global
-tags: ["data-management-global", "exchange_calendars-(python)", "pandas_market_calendars"]
-brokers_frameworks: ["exchange_calendars (Python)", "pandas_market_calendars"]
-version: "1.0"
+tags:
+- data-management-global
+- exchange_calendars-(python)
+- pandas_market_calendars
+brokers_frameworks:
+- exchange_calendars (Python)
+- pandas_market_calendars
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

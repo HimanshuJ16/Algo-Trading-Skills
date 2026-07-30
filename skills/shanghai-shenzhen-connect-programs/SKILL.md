@@ -4,9 +4,9 @@ description: Integration or workflow skill for shanghai-shenzhen-connect-program
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - shanghai-shenzhen-connect-programs
+- shanghai-shenzhen-connect-programs
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

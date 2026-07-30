@@ -4,10 +4,10 @@ description: Skill for gradient boosted tree vs neural net tradeoffs
 domain: Financial ML
 subdomain: Model Selection
 tags:
-  - ml
-  - trading
+- ml
+- trading
 brokers_frameworks:
-  - scikit-learn
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

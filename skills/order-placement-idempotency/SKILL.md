@@ -1,12 +1,22 @@
 ---
 name: order-placement-idempotency
-description: >-
-  Use whenever a bot places, modifies, or cancels live orders and must guarantee it never double-executes an order due to retries, timeouts, or reconnects
+description: Use whenever a bot places, modifies, or cancels live orders and must
+  guarantee it never double-executes an order due to retries, timeouts, or reconnects
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "fyers-api-v3", "zerodha-kite-connect", "icici-breeze-api"]
-brokers_frameworks: ["Fyers API v3", "Zerodha Kite Connect", "ICICI Breeze API", "Upstox API v2", "Alpaca Trading API", "IBKR API"]
-version: "1.0"
+tags:
+- broker-integration
+- fyers-api-v3
+- zerodha-kite-connect
+- icici-breeze-api
+brokers_frameworks:
+- Fyers API v3
+- Zerodha Kite Connect
+- ICICI Breeze API
+- Upstox API v2
+- Alpaca Trading API
+- IBKR API
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

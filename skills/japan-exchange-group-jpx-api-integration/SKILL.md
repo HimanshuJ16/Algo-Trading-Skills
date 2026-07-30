@@ -4,9 +4,9 @@ description: Integration for japan-exchange-group-jpx-api-integration
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - japan-exchange-group-jpx-api-integration
+- japan-exchange-group-jpx-api-integration
 brokers_frameworks:
-  - Custom
+- Custom
 version: 1.0.0
 author: assistant
 license: MIT

@@ -1,12 +1,22 @@
 ---
 name: webhook-based-order-fill-notifications
-description: >-
-  Use when building webhook consumers for broker order fill notifications to handle HMAC-SHA256 signature verification, at-least-once delivery deduplication, and out-of-order execution sequencing
+description: Use when building webhook consumers for broker order fill notifications
+  to handle HMAC-SHA256 signature verification, at-least-once delivery deduplication,
+  and out-of-order execution sequencing
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "webhooks", "order-fills", "deduplication", "at-least-once-delivery"]
-brokers_frameworks: ["Generic Broker Webhooks", "Interactive Brokers", "TradeStation", "Alpaca"]
-version: "1.0"
+tags:
+- broker-integration
+- webhooks
+- order-fills
+- deduplication
+- at-least-once-delivery
+brokers_frameworks:
+- Generic Broker Webhooks
+- Interactive Brokers
+- TradeStation
+- Alpaca
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

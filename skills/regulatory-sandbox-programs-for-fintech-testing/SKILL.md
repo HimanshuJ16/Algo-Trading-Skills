@@ -1,12 +1,13 @@
 ---
 name: regulatory-sandbox-programs-for-fintech-testing
-description: Compliance controls and workflows for regulatory sandbox programs for fintech testing
+description: Compliance controls and workflows for regulatory sandbox programs for
+  fintech testing
 domain: regulatory-compliance
 subdomain: global
 tags:
-  - compliance
-  - regulatory
-  - trading
+- compliance
+- regulatory
+- trading
 brokers_frameworks: []
 version: 1.0.0
 author: System

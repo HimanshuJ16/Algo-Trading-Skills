@@ -1,12 +1,23 @@
 ---
 name: multi-broker-rate-limit-handling
-description: >-
-  Use when a bot makes frequent API calls across one or more brokers and must avoid rate-limit bans while ensuring risk-critical calls (cancel, kill-switch) are never queued behind non-critical data polling
+description: Use when a bot makes frequent API calls across one or more brokers and
+  must avoid rate-limit bans while ensuring risk-critical calls (cancel, kill-switch)
+  are never queued behind non-critical data polling
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "fyers-api-v3", "zerodha-kite-connect", "icici-breeze-api"]
-brokers_frameworks: ["Fyers API v3", "Zerodha Kite Connect", "ICICI Breeze API", "Upstox API v2", "Alpaca Trading API", "IBKR API"]
-version: "1.0"
+tags:
+- broker-integration
+- fyers-api-v3
+- zerodha-kite-connect
+- icici-breeze-api
+brokers_frameworks:
+- Fyers API v3
+- Zerodha Kite Connect
+- ICICI Breeze API
+- Upstox API v2
+- Alpaca Trading API
+- IBKR API
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

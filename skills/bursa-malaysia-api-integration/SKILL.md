@@ -1,12 +1,19 @@
 ---
 name: bursa-malaysia-api-integration
-description: >-
-  Institutional-grade FIX 5.0 SP1 engine for Bursa Malaysia BTS2 (Bursa Trade Securities 2) trading gateway integration.
+description: Institutional-grade FIX 5.0 SP1 engine for Bursa Malaysia BTS2 (Bursa
+  Trade Securities 2) trading gateway integration.
 domain: Execution
 subdomain: Venue Integration
-tags: ["bursa-malaysia", "fix-protocol", "bts2", "order-routing", "asian-equities"]
-brokers_frameworks: ["Bursa Malaysia BTS2", "FIX 5.0 SP1"]
-version: "1.0.0"
+tags:
+- bursa-malaysia
+- fix-protocol
+- bts2
+- order-routing
+- asian-equities
+brokers_frameworks:
+- Bursa Malaysia BTS2
+- FIX 5.0 SP1
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,19 @@
 ---
 name: circuit-breaker-for-downstream-service-calls
-description: >-
-  Resilience engineering pattern implementing a Circuit Breaker to prevent cascading failures when downstream trading services or data APIs experience degraded performance.
+description: Resilience engineering pattern implementing a Circuit Breaker to prevent
+  cascading failures when downstream trading services or data APIs experience degraded
+  performance.
 domain: Infrastructure
 subdomain: Reliability
-tags: ["circuit-breaker", "resilience", "microservices", "api", "fail-fast"]
-brokers_frameworks: ["Generic Infrastructure"]
-version: "1.0.0"
+tags:
+- circuit-breaker
+- resilience
+- microservices
+- api
+- fail-fast
+brokers_frameworks:
+- Generic Infrastructure
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

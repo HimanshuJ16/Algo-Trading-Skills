@@ -4,9 +4,9 @@ description: Skill for single stock futures where available
 domain: Multi-Asset Derivatives
 subdomain: Equities
 tags:
-  - Multi-Asset Derivatives
+- Multi-Asset Derivatives
 brokers_frameworks:
-  - Generic
+- Generic
 version: 1.0.0
 author: System
 license: MIT

@@ -4,9 +4,9 @@ description: Skill for weather derivatives and niche instrument handling
 domain: Multi-Asset Derivatives
 subdomain: Exotics
 tags:
-  - Multi-Asset Derivatives
+- Multi-Asset Derivatives
 brokers_frameworks:
-  - Generic
+- Generic
 version: 1.0.0
 author: System
 license: MIT

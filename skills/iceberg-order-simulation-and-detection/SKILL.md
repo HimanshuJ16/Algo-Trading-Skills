@@ -4,11 +4,11 @@ description: Execution algorithm for iceberg order simulation and detection
 domain: execution-algorithms
 subdomain: execution-strategies
 tags:
-  - execution
-  - trading
-  - algo
+- execution
+- trading
+- algo
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: assistant
 license: MIT

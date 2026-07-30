@@ -1,13 +1,16 @@
 ---
-name: "vendor-outage-fallback-data-source-hierarchy"
-description: "Implementation of vendor-outage-fallback-data-source-hierarchy"
-domain: "Data Management"
-subdomain: "Global"
-tags: ["data", "management"]
-brokers_frameworks: ["custom"]
-version: "1.0.0"
-author: "Agent"
-license: "MIT"
+name: vendor-outage-fallback-data-source-hierarchy
+description: Implementation of vendor-outage-fallback-data-source-hierarchy
+domain: Data Management
+subdomain: Global
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
+version: 1.0.0
+author: Agent
+license: MIT
 ---
 
 ## When to Use

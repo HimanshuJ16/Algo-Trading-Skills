@@ -1,12 +1,22 @@
 ---
 name: online-learning-for-adaptive-signal-models
-description: >-
-  Use when deploying machine learning signal models to adapt continuously to shifting market microstructures using online/incremental learning algorithms (Stochastic Gradient Descent / Recursive Least Squares) without full batch retraining.
+description: Use when deploying machine learning signal models to adapt continuously
+  to shifting market microstructures using online/incremental learning algorithms
+  (Stochastic Gradient Descent / Recursive Least Squares) without full batch retraining.
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "online-learning", "adaptive-model", "incremental-learning", "rls", "concept-drift", "signal-processing"]
-brokers_frameworks: ["Online Adaptive Model Engine", "Python NumPy"]
-version: "1.0"
+tags:
+- financial-ml
+- online-learning
+- adaptive-model
+- incremental-learning
+- rls
+- concept-drift
+- signal-processing
+brokers_frameworks:
+- Online Adaptive Model Engine
+- Python NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

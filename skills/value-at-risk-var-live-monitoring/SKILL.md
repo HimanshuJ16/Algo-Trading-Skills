@@ -1,12 +1,24 @@
 ---
 name: value-at-risk-var-live-monitoring
-description: >-
-  Use when monitoring live portfolio risk to calculate real-time Parametric VaR, Historical Simulation VaR, and Conditional VaR (CVaR) and block order placement upon VaR limit breaches
+description: Use when monitoring live portfolio risk to calculate real-time Parametric
+  VaR, Historical Simulation VaR, and Conditional VaR (CVaR) and block order placement
+  upon VaR limit breaches
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "value-at-risk", "var-monitoring", "expected-shortfall", "cvar", "live-risk"]
-brokers_frameworks: ["SciPy", "PyPFcon", "NumPy", "Pandas", "Custom Live Risk Engine"]
-version: "1.0"
+tags:
+- risk-management
+- value-at-risk
+- var-monitoring
+- expected-shortfall
+- cvar
+- live-risk
+brokers_frameworks:
+- SciPy
+- PyPFcon
+- NumPy
+- Pandas
+- Custom Live Risk Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

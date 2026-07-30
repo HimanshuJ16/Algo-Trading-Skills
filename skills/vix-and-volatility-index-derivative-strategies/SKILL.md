@@ -4,9 +4,9 @@ description: Skill for vix and volatility index derivative strategies
 domain: Multi-Asset Derivatives
 subdomain: Volatility
 tags:
-  - Multi-Asset Derivatives
+- Multi-Asset Derivatives
 brokers_frameworks:
-  - Generic
+- Generic
 version: 1.0.0
 author: System
 license: MIT

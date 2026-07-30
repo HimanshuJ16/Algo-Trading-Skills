@@ -1,12 +1,14 @@
 ---
 name: multi-currency-pnl-and-fx-conversion
-description: >-
-  Use when a bot or backtest holds positions denominated in more than one currency, to prevent P&L from different currencies being silently summed as if they were the same unit
+description: Use when a bot or backtest holds positions denominated in more than one
+  currency, to prevent P&L from different currencies being silently summed as if they
+  were the same unit
 domain: algorithmic-trading
 subdomain: data-management-global
-tags: ["data-management-global"]
+tags:
+- data-management-global
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

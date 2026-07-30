@@ -1,12 +1,22 @@
 ---
 name: cross-strategy-tax-lot-optimization
-description: >-
-  Quantitative tax optimization engine for cross-strategy tax-lot selection (HIFO, Specific ID, LTCG optimization), internal order netting, and wash-sale rule interception.
+description: Quantitative tax optimization engine for cross-strategy tax-lot selection
+  (HIFO, Specific ID, LTCG optimization), internal order netting, and wash-sale rule
+  interception.
 domain: Tax Accounting & Optimization
 subdomain: Tax-Lot Accounting
-tags: ["tax-lot", "hifo", "tax-loss-harvesting", "wash-sale", "internal-netting", "capital-gains", "cross-strategy"]
-brokers_frameworks: ["IRS Form 8949", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- tax-lot
+- hifo
+- tax-loss-harvesting
+- wash-sale
+- internal-netting
+- capital-gains
+- cross-strategy
+brokers_frameworks:
+- IRS Form 8949
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

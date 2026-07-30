@@ -1,16 +1,17 @@
 ---
 name: automated-rollback-triggers-on-anomaly-detection
-description: Deployment ops engine that monitors post-deployment health metrics and triggers automated rollbacks if trading or technical anomalies are detected.
+description: Deployment ops engine that monitors post-deployment health metrics and
+  triggers automated rollbacks if trading or technical anomalies are detected.
 domain: deployment-ops
 subdomain: deployment
 tags:
-  - deployment
-  - ci-cd
-  - rollback
-  - anomaly-detection
-  - self-healing
+- deployment
+- ci-cd
+- rollback
+- anomaly-detection
+- self-healing
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

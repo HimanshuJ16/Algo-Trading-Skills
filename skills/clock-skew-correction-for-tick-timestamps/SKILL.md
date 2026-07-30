@@ -1,12 +1,22 @@
 ---
 name: clock-skew-correction-for-tick-timestamps
-description: >-
-  Quantitative market data pipeline utility for estimating and correcting clock drift between venue feeds and local recorders using minimum-delay filtering without violating time monotonicity.
+description: Quantitative market data pipeline utility for estimating and correcting
+  clock drift between venue feeds and local recorders using minimum-delay filtering
+  without violating time monotonicity.
 domain: Data Management
 subdomain: Market Data Infrastructure
-tags: ["clock-skew", "paxson-algorithm", "timestamps", "market-data", "hft", "monotonicity"]
-brokers_frameworks: ["Generic Infrastructure", "NumPy", "Pandas"]
-version: "1.0.0"
+tags:
+- clock-skew
+- paxson-algorithm
+- timestamps
+- market-data
+- hft
+- monotonicity
+brokers_frameworks:
+- Generic Infrastructure
+- NumPy
+- Pandas
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

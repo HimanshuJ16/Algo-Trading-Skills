@@ -3,8 +3,11 @@ name: execution-slippage-attribution-timing-vs-sizing
 description: Implementation for execution-slippage-attribution-timing-vs-sizing
 domain: Execution
 subdomain: Algorithms
-tags: [execution, trading]
-brokers_frameworks: [generic]
+tags:
+- execution
+- trading
+brokers_frameworks:
+- generic
 version: 1.0.0
 author: System
 license: MIT

@@ -1,12 +1,21 @@
 ---
 name: model-monitoring-dashboard-for-non-technical-stakeholders
-description: >-
-  Use when deploying ML trading models to aggregate complex model health metrics (accuracy, staleness, concept drift, feature drift) into a non-technical traffic light (GREEN, AMBER, RED) health dashboard.
+description: Use when deploying ML trading models to aggregate complex model health
+  metrics (accuracy, staleness, concept drift, feature drift) into a non-technical
+  traffic light (GREEN, AMBER, RED) health dashboard.
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "monitoring-dashboard", "model-health", "non-technical", "traffic-light", "risk-reporting"]
-brokers_frameworks: ["Model Monitoring Dashboard Engine", "Python"]
-version: "1.0"
+tags:
+- financial-ml
+- monitoring-dashboard
+- model-health
+- non-technical
+- traffic-light
+- risk-reporting
+brokers_frameworks:
+- Model Monitoring Dashboard Engine
+- Python
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

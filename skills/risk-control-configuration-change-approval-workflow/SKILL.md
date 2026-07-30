@@ -3,8 +3,11 @@ name: risk-control-configuration-change-approval-workflow
 description: Two-person approval workflow for risk config changes.
 domain: Risk Management
 subdomain: Calibration
-tags: [risk, risk-control-configuration-change-approval-workflow]
-brokers_frameworks: [any]
+tags:
+- risk
+- risk-control-configuration-change-approval-workflow
+brokers_frameworks:
+- any
 version: 1.0.0
 author: System
 license: MIT

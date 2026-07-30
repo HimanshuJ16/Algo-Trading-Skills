@@ -3,7 +3,9 @@ name: microwave-vs-fiber-network-links-for-cross-market-latency
 description: Skill to handle microwave vs fiber network links for cross market latency
 domain: Market Microstructure
 subdomain: Latency
-tags: [latency, hft]
+tags:
+- latency
+- hft
 brokers_frameworks: []
 version: 1.0.0
 author: assistant

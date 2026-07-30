@@ -4,9 +4,9 @@ description: Integration or workflow skill for new-zealand-exchange-nzx-api.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - new-zealand-exchange-nzx-api
+- new-zealand-exchange-nzx-api
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

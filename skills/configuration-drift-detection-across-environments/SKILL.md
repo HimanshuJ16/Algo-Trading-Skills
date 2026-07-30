@@ -1,12 +1,22 @@
 ---
 name: configuration-drift-detection-across-environments
-description: >-
-  Quantitative infrastructure module for auditing configuration drift across trading environments (DEV, STAGING, PROD) against a Golden Source baseline using allowed-override rules and severity scoring.
+description: Quantitative infrastructure module for auditing configuration drift across
+  trading environments (DEV, STAGING, PROD) against a Golden Source baseline using
+  allowed-override rules and severity scoring.
 domain: Infrastructure
 subdomain: DevOps & Configuration Management
-tags: ["configuration-drift", "devops", "gitops", "env-parity", "golden-source", "audit", "risk-control"]
-brokers_frameworks: ["Generic Infrastructure", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- configuration-drift
+- devops
+- gitops
+- env-parity
+- golden-source
+- audit
+- risk-control
+brokers_frameworks:
+- Generic Infrastructure
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

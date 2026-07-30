@@ -4,9 +4,9 @@ description: Integration or workflow skill for moscow-exchange-moex-api-integrat
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - moscow-exchange-moex-api-integration
+- moscow-exchange-moex-api-integration
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

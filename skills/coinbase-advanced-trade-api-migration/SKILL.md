@@ -1,12 +1,21 @@
 ---
 name: coinbase-advanced-trade-api-migration
-description: >-
-  Quantitative broker migration adapter for translating legacy Coinbase Pro API requests into Coinbase Advanced Trade v3 endpoints and nested order_configuration payloads.
+description: Quantitative broker migration adapter for translating legacy Coinbase
+  Pro API requests into Coinbase Advanced Trade v3 endpoints and nested order_configuration
+  payloads.
 domain: Market Connectivity
 subdomain: Crypto API
-tags: ["coinbase", "advanced-trade", "crypto-api", "migration", "order-configuration", "broker-adapter"]
-brokers_frameworks: ["Coinbase Advanced Trade API v3", "Coinbase Pro (Legacy)"]
-version: "1.0.0"
+tags:
+- coinbase
+- advanced-trade
+- crypto-api
+- migration
+- order-configuration
+- broker-adapter
+brokers_frameworks:
+- Coinbase Advanced Trade API v3
+- Coinbase Pro (Legacy)
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

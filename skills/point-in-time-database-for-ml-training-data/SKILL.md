@@ -1,12 +1,21 @@
 ---
 name: point-in-time-database-for-ml-training-data
-description: >-
-  Use when constructing ML training datasets to build a point-in-time correct feature store database, ensuring feature values joined to historical labels reflect only information available at target timestamp T.
+description: Use when constructing ML training datasets to build a point-in-time correct
+  feature store database, ensuring feature values joined to historical labels reflect
+  only information available at target timestamp T.
 domain: algorithmic-trading
 subdomain: financial-ml
-tags: ["financial-ml", "point-in-time-db", "training-data", "feature-store", "data-leakage-prevention", "as-of-join"]
-brokers_frameworks: ["Point-In-Time ML Database Engine", "Python Pandas"]
-version: "1.0"
+tags:
+- financial-ml
+- point-in-time-db
+- training-data
+- feature-store
+- data-leakage-prevention
+- as-of-join
+brokers_frameworks:
+- Point-In-Time ML Database Engine
+- Python Pandas
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,18 @@
 ---
 name: cboe-options-exchange-api-integration
-description: >-
-  Quantitative integration for Cboe Options Exchange API, specializing in Complex Order Book (COB) multi-leg routing and Complex Order Auction (COA) participation.
+description: Quantitative integration for Cboe Options Exchange API, specializing
+  in Complex Order Book (COB) multi-leg routing and Complex Order Auction (COA) participation.
 domain: Market Connectivity
 subdomain: Exchange API
-tags: ["cboe", "options", "complex-order-book", "multi-leg", "fix-protocol"]
-brokers_frameworks: ["Generic FIX Engine"]
-version: "1.0.0"
+tags:
+- cboe
+- options
+- complex-order-book
+- multi-leg
+- fix-protocol
+brokers_frameworks:
+- Generic FIX Engine
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

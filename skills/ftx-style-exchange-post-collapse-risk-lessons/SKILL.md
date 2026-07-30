@@ -4,9 +4,9 @@ description: Integration or workflow skill for ftx-style-exchange-post-collapse-
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - ftx-style-exchange-post-collapse-risk-lessons
+- ftx-style-exchange-post-collapse-risk-lessons
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

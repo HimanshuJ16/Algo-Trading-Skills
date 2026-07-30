@@ -4,8 +4,8 @@ description: Graduated risk response (WARN -> REDUCE -> HALT -> FLATTEN)
 domain: risk-management
 subdomain: risk
 tags:
-  - risk
-  - management
+- risk
+- management
 brokers_frameworks: []
 version: 1.0.0
 author: System

@@ -1,12 +1,22 @@
 ---
 name: cross-asset-correlation-regime-shifts
-description: >-
-  Quantitative macro risk engine for monitoring cross-asset correlation matrices (Equities, Bonds, Gold, Crypto), calculating Frobenius matrix distance, and detecting correlation breakdown regime shifts.
+description: Quantitative macro risk engine for monitoring cross-asset correlation
+  matrices (Equities, Bonds, Gold, Crypto), calculating Frobenius matrix distance,
+  and detecting correlation breakdown regime shifts.
 domain: Macro & Risk Management
 subdomain: Correlation Regimes
-tags: ["cross-asset", "correlation-matrix", "frobenius-norm", "regime-shift", "risk-parity", "diversification-breakdown"]
-brokers_frameworks: ["NumPy", "Pandas", "SciPy"]
-version: "1.0.0"
+tags:
+- cross-asset
+- correlation-matrix
+- frobenius-norm
+- regime-shift
+- risk-parity
+- diversification-breakdown
+brokers_frameworks:
+- NumPy
+- Pandas
+- SciPy
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

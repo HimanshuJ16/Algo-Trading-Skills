@@ -1,12 +1,22 @@
 ---
 name: cross-strategy-signal-reuse-and-licensing
-description: >-
-  Quantitative alpha governance engine for managing cross-strategy signal reuse, entitlement access control, internal transfer pricing fee attribution, and AUM capacity limits.
+description: Quantitative alpha governance engine for managing cross-strategy signal
+  reuse, entitlement access control, internal transfer pricing fee attribution, and
+  AUM capacity limits.
 domain: Signal Governance & Licensing
 subdomain: Alpha Marketplace & Transfer Pricing
-tags: ["signal-reuse", "signal-licensing", "entitlement", "alpha-marketplace", "transfer-pricing", "fee-attribution", "aum-capacity"]
-brokers_frameworks: ["OECD Transfer Pricing", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- signal-reuse
+- signal-licensing
+- entitlement
+- alpha-marketplace
+- transfer-pricing
+- fee-attribution
+- aum-capacity
+brokers_frameworks:
+- OECD Transfer Pricing
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

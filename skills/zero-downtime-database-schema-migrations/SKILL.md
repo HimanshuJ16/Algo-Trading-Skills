@@ -4,7 +4,7 @@ description: Skill for zero-downtime-database-schema-migrations
 domain: deployment-ops
 subdomain: deployment
 tags:
-  - zero-downtime-database-schema-migrations
+- zero-downtime-database-schema-migrations
 brokers_frameworks: []
 version: 1.0.0
 author: System

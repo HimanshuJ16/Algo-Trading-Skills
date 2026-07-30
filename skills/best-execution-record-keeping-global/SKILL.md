@@ -1,10 +1,17 @@
 ---
 name: best-execution-record-keeping-global
-description: Rigorous compliance controls for global best execution and audit-proof record keeping in quantitative trading.
+description: Rigorous compliance controls for global best execution and audit-proof
+  record keeping in quantitative trading.
 domain: regulatory-compliance-global
 subdomain: regulatory
-tags: [compliance, risk, regulatory, best-execution, audit]
-brokers_frameworks: [any]
+tags:
+- compliance
+- risk
+- regulatory
+- best-execution
+- audit
+brokers_frameworks:
+- any
 version: 2.0.0
 author: skill-builder
 license: MIT

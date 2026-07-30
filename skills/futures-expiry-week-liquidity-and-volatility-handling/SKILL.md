@@ -3,8 +3,11 @@ name: futures-expiry-week-liquidity-and-volatility-handling
 description: Skill for futures-expiry-week-liquidity-and-volatility-handling
 domain: multi-asset-derivatives
 subdomain: subdomain
-tags: [trading, algos]
-brokers_frameworks: [all]
+tags:
+- trading
+- algos
+brokers_frameworks:
+- all
 version: 1.0.0
 author: System
 license: MIT

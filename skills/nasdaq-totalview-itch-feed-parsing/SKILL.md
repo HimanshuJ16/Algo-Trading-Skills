@@ -4,9 +4,9 @@ description: Integration for nasdaq-totalview-itch-feed-parsing
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - nasdaq-totalview-itch-feed-parsing
+- nasdaq-totalview-itch-feed-parsing
 brokers_frameworks:
-  - Custom
+- Custom
 version: 1.0.0
 author: assistant
 license: MIT

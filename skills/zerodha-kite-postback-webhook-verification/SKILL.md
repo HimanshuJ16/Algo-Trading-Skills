@@ -1,12 +1,18 @@
 ---
 name: zerodha-kite-postback-webhook-verification
-description: >-
-  Use when consuming Zerodha Kite Connect order postback webhooks to verify SHA-256 signature authenticity, prevent request spoofing, enforce timestamp replay protection, and guarantee idempotent order state updates
+description: Use when consuming Zerodha Kite Connect order postback webhooks to verify
+  SHA-256 signature authenticity, prevent request spoofing, enforce timestamp replay
+  protection, and guarantee idempotent order state updates
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "zerodha-kite-connect", "postback-webhooks", "webhook-security"]
-brokers_frameworks: ["Zerodha Kite Connect v3 API"]
-version: "1.0"
+tags:
+- broker-integration
+- zerodha-kite-connect
+- postback-webhooks
+- webhook-security
+brokers_frameworks:
+- Zerodha Kite Connect v3 API
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

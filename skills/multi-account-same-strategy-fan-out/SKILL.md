@@ -1,12 +1,22 @@
 ---
 name: multi-account-same-strategy-fan-out
-description: >-
-  Use when broadcasting a single quantitative strategy signal across multiple client accounts or sub-accounts (e.g. fund management / prop trading) to execute pro-rata order fan-out without cross-account order collision.
+description: Use when broadcasting a single quantitative strategy signal across multiple
+  client accounts or sub-accounts (e.g. fund management / prop trading) to execute
+  pro-rata order fan-out without cross-account order collision.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "multi-account", "fan-out", "pro-rata", "fund-management", "order-collision-prevention"]
-brokers_frameworks: ["IBKR Allocations", "Multi-Account Manager", "Python Concurrent"]
-version: "1.0"
+tags:
+- broker-integration
+- multi-account
+- fan-out
+- pro-rata
+- fund-management
+- order-collision-prevention
+brokers_frameworks:
+- IBKR Allocations
+- Multi-Account Manager
+- Python Concurrent
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

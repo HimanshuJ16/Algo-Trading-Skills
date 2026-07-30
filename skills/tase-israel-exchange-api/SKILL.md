@@ -4,9 +4,9 @@ description: Integration or workflow skill for tase-israel-exchange-api.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - tase-israel-exchange-api
+- tase-israel-exchange-api
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

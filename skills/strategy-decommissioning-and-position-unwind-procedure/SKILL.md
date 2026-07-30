@@ -4,10 +4,10 @@ description: Skill implementation for strategy-decommissioning-and-position-unwi
 domain: Portfolio Multi-Strategy
 subdomain: Skill Management
 tags:
-  - algo-trading
-  - python
+- algo-trading
+- python
 brokers_frameworks:
-  - general
+- general
 version: 1.0.0
 author: System
 license: MIT

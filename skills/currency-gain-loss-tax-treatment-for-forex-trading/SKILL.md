@@ -1,12 +1,23 @@
 ---
 name: currency-gain-loss-tax-treatment-for-forex-trading
-description: >-
-  Quantitative tax model for evaluating US IRC Section 988 (Ordinary Income/Loss) vs Section 1256 (60/40 Capital Gains Opt-Out Election) tax treatment for spot forex, futures, and currency forwards.
+description: Quantitative tax model for evaluating US IRC Section 988 (Ordinary Income/Loss)
+  vs Section 1256 (60/40 Capital Gains Opt-Out Election) tax treatment for spot forex,
+  futures, and currency forwards.
 domain: Tax Accounting & Global Reporting
 subdomain: Forex Tax Accounting
-tags: ["forex-tax", "section-988", "section-1256", "60-40-rule", "ordinary-income", "currency-gains", "opt-out-election"]
-brokers_frameworks: ["IRS Form 6781", "Form 1040", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- forex-tax
+- section-988
+- section-1256
+- 60-40-rule
+- ordinary-income
+- currency-gains
+- opt-out-election
+brokers_frameworks:
+- IRS Form 6781
+- Form 1040
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

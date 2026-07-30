@@ -1,17 +1,18 @@
 ---
 name: australian-securities-exchange-asx-api
-description: Institutional API integration adapter for the Australian Securities Exchange (ASX), supporting FIX 5.0 SP2, OUCH, and ITCH protocols.
+description: Institutional API integration adapter for the Australian Securities Exchange
+  (ASX), supporting FIX 5.0 SP2, OUCH, and ITCH protocols.
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - asx
-  - australia
-  - fix
-  - ouch
-  - itch
-  - market-connectivity
+- asx
+- australia
+- fix
+- ouch
+- itch
+- market-connectivity
 brokers_frameworks:
-  - direct-market-access
+- direct-market-access
 version: 1.1.0
 author: System
 license: MIT

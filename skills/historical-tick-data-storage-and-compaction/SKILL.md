@@ -3,8 +3,11 @@ name: historical-tick-data-storage-and-compaction
 description: Implementation for historical-tick-data-storage-and-compaction
 domain: data-management-global
 subdomain: data
-tags: [data, management]
-brokers_frameworks: [custom]
+tags:
+- data
+- management
+brokers_frameworks:
+- custom
 version: 1.0.0
 author: System
 license: MIT

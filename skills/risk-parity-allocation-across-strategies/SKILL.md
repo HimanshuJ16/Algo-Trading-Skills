@@ -1,15 +1,16 @@
 ---
 name: risk-parity-allocation-across-strategies
-description: Skill for risk-parity-allocation-across-strategies in portfolio multi strategy.
+description: Skill for risk-parity-allocation-across-strategies in portfolio multi
+  strategy.
 domain: Portfolio Management
 subdomain: Multi Strategy
 tags:
-  - portfolio
-  - strategy
-  - risk
+- portfolio
+- strategy
+- risk
 brokers_frameworks:
-  - Backtrader
-  - QuantConnect
+- Backtrader
+- QuantConnect
 version: 1.0.0
 author: System
 license: MIT

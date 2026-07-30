@@ -1,15 +1,16 @@
 ---
 name: strategy-capacity-estimation-before-scaling-capital
-description: Skill for strategy-capacity-estimation-before-scaling-capital in portfolio multi strategy.
+description: Skill for strategy-capacity-estimation-before-scaling-capital in portfolio
+  multi strategy.
 domain: Portfolio Management
 subdomain: Multi Strategy
 tags:
-  - portfolio
-  - strategy
-  - strategy
+- portfolio
+- strategy
+- strategy
 brokers_frameworks:
-  - Backtrader
-  - QuantConnect
+- Backtrader
+- QuantConnect
 version: 1.0.0
 author: System
 license: MIT

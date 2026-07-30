@@ -1,12 +1,22 @@
 ---
 name: cold-start-handling-for-newly-listed-instruments
-description: >-
-  Quantitative feature engineering and risk management module for handling newly listed instruments (IPOs, SPACs) using Bayesian volatility shrinkage, peer imputation, and position sizing caps during probation windows.
+description: Quantitative feature engineering and risk management module for handling
+  newly listed instruments (IPOs, SPACs) using Bayesian volatility shrinkage, peer
+  imputation, and position sizing caps during probation windows.
 domain: Portfolio & Risk Management
 subdomain: Feature Engineering & Risk
-tags: ["cold-start", "ipo", "shrinkage", "imputation", "volatility", "position-sizing"]
-brokers_frameworks: ["NumPy", "Pandas", "Generic Quantitative Pipeline"]
-version: "1.0.0"
+tags:
+- cold-start
+- ipo
+- shrinkage
+- imputation
+- volatility
+- position-sizing
+brokers_frameworks:
+- NumPy
+- Pandas
+- Generic Quantitative Pipeline
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,19 @@
 ---
 name: canada-iiroc-electronic-trading-rules
-description: >-
-  Pre-trade regulatory risk controls compliant with CIRO (formerly IIROC) UMIR Rule 7.1 and NI 23-103 for algorithmic trading in Canadian markets.
+description: Pre-trade regulatory risk controls compliant with CIRO (formerly IIROC)
+  UMIR Rule 7.1 and NI 23-103 for algorithmic trading in Canadian markets.
 domain: Compliance
 subdomain: Regulatory Controls
-tags: ["canada", "iiroc", "ciro", "umir", "pre-trade-risk", "compliance"]
-brokers_frameworks: ["Generic Execution"]
-version: "1.0.0"
+tags:
+- canada
+- iiroc
+- ciro
+- umir
+- pre-trade-risk
+- compliance
+brokers_frameworks:
+- Generic Execution
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -4,9 +4,9 @@ description: Integration or workflow skill for market-data-entitlement-and-licen
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - market-data-entitlement-and-licensing-per-venue
+- market-data-entitlement-and-licensing-per-venue
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

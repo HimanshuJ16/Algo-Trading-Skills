@@ -1,16 +1,17 @@
 ---
 name: adverse-selection-measurement-for-passive-orders
-description: Computes markout curves for passive limit order fills across multiple time horizons to quantify adverse selection and toxic liquidity exposure.
+description: Computes markout curves for passive limit order fills across multiple
+  time horizons to quantify adverse selection and toxic liquidity exposure.
 domain: algorithmic-trading
 subdomain: execution-quality
 tags:
-  - execution
-  - trading
-  - adverse-selection
-  - markouts
-  - market-microstructure
+- execution
+- trading
+- adverse-selection
+- markouts
+- market-microstructure
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

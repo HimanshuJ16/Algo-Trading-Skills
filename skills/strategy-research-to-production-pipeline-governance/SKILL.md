@@ -4,10 +4,10 @@ description: Skill for strategy research to production pipeline governance
 domain: Portfolio Multi-Strategy
 subdomain: Operations
 tags:
-  - multi-strategy
-  - portfolio
+- multi-strategy
+- portfolio
 brokers_frameworks:
-  - custom
+- custom
 version: 1.0.0
 author: System
 license: MIT

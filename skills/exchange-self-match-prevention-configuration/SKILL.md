@@ -4,10 +4,10 @@ description: Skill for exchange self match prevention configuration
 domain: Market Microstructure
 subdomain: Latency
 tags:
-  - latency
-  - microstructure
+- latency
+- microstructure
 brokers_frameworks:
-  - ccxt
+- ccxt
 version: 1.0.0
 author: System
 license: MIT

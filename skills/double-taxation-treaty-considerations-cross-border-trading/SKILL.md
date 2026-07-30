@@ -1,12 +1,23 @@
 ---
 name: double-taxation-treaty-considerations-cross-border-trading
-description: >-
-  Quantitative cross-border tax accounting engine for evaluating bilateral Double Taxation Treaties (DTT/DTAA), calculating dividend withholding tax (WHT) reductions, tax leakage savings, and Foreign Tax Credit (FTC) claims.
+description: Quantitative cross-border tax accounting engine for evaluating bilateral
+  Double Taxation Treaties (DTT/DTAA), calculating dividend withholding tax (WHT)
+  reductions, tax leakage savings, and Foreign Tax Credit (FTC) claims.
 domain: Tax Accounting & Reporting
 subdomain: Cross-Border Tax & Double Taxation Treaties
-tags: ["double-taxation", "dtta", "withholding-tax", "wht-reduction", "foreign-tax-credit", "w-8ben-e", "cross-border-trading"]
-brokers_frameworks: ["OECD Model Tax Convention", "IRS Form W-8BEN-E", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- double-taxation
+- dtta
+- withholding-tax
+- wht-reduction
+- foreign-tax-credit
+- w-8ben-e
+- cross-border-trading
+brokers_frameworks:
+- OECD Model Tax Convention
+- IRS Form W-8BEN-E
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

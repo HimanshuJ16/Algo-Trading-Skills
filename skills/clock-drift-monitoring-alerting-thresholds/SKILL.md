@@ -1,12 +1,21 @@
 ---
 name: clock-drift-monitoring-alerting-thresholds
-description: >-
-  Infrastructure compliance engine that continuously monitors PTP (Precision Time Protocol) clock drift against strict MiFID II RTS 25 microsecond thresholds, triggering automated circuit breakers.
+description: Infrastructure compliance engine that continuously monitors PTP (Precision
+  Time Protocol) clock drift against strict MiFID II RTS 25 microsecond thresholds,
+  triggering automated circuit breakers.
 domain: Compliance & Regulation
 subdomain: Infrastructure
-tags: ["mifid-ii", "clock-drift", "ptp", "hft", "compliance", "latency"]
-brokers_frameworks: ["Linux PTP", "Generic Infrastructure"]
-version: "1.0.0"
+tags:
+- mifid-ii
+- clock-drift
+- ptp
+- hft
+- compliance
+- latency
+brokers_frameworks:
+- Linux PTP
+- Generic Infrastructure
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

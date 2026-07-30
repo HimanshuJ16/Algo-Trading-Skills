@@ -4,9 +4,9 @@ description: Integration for kraken-websocket-v2-auth-and-subscriptions
 domain: global-market-integration
 subdomain: exchanges
 tags:
-  - kraken-websocket-v2-auth-and-subscriptions
+- kraken-websocket-v2-auth-and-subscriptions
 brokers_frameworks:
-  - Custom
+- Custom
 version: 1.0.0
 author: assistant
 license: MIT

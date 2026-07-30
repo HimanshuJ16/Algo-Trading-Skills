@@ -4,9 +4,9 @@ description: Integration or workflow skill for taiwan-stock-exchange-twse-api.
 domain: Execution
 subdomain: Venue Integration
 tags:
-  - taiwan-stock-exchange-twse-api
+- taiwan-stock-exchange-twse-api
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

@@ -1,12 +1,14 @@
 ---
 name: execution-algo-twap-vwap-slicing
-description: >-
-  Use when an order is large enough relative to typical market liquidity that placing it as a single order would move the price against the strategy, requiring a TWAP/VWAP-style slicing algorithm instead
+description: Use when an order is large enough relative to typical market liquidity
+  that placing it as a single order would move the price against the strategy, requiring
+  a TWAP/VWAP-style slicing algorithm instead
 domain: algorithmic-trading
 subdomain: execution-algorithms
-tags: ["execution-algorithms"]
+tags:
+- execution-algorithms
 brokers_frameworks: []
-version: "1.0"
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

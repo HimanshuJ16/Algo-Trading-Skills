@@ -4,10 +4,10 @@ description: Skill for multi model ensemble weight decay
 domain: Financial ML
 subdomain: Ensembling
 tags:
-  - ml
-  - trading
+- ml
+- trading
 brokers_frameworks:
-  - scikit-learn
+- scikit-learn
 version: 1.0.0
 author: System
 license: MIT

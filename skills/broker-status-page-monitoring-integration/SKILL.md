@@ -1,12 +1,21 @@
 ---
 name: broker-status-page-monitoring-integration
-description: >-
-  Use when building automated incident response and alerting systems to monitor public broker status pages and status APIs (e.g. Statuspage.io endpoints), distinguishing external broker platform outages from internal strategy bugs.
+description: Use when building automated incident response and alerting systems to
+  monitor public broker status pages and status APIs (e.g. Statuspage.io endpoints),
+  distinguishing external broker platform outages from internal strategy bugs.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "status-page", "outage-monitoring", "incident-response", "statuspage-io", "health-checks"]
-brokers_frameworks: ["Statuspage.io API", "Python Status Monitor"]
-version: "1.0"
+tags:
+- broker-integration
+- status-page
+- outage-monitoring
+- incident-response
+- statuspage-io
+- health-checks
+brokers_frameworks:
+- Statuspage.io API
+- Python Status Monitor
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

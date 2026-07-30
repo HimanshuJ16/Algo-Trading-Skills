@@ -1,12 +1,22 @@
 ---
 name: survivorship-bias-free-universe-construction
-description: >-
-  Use when building backtesting datasets to reconstruct point-in-time constituent universes including delisted and bankrupt instruments, preventing survivorship bias in historical performance evaluation
+description: Use when building backtesting datasets to reconstruct point-in-time constituent
+  universes including delisted and bankrupt instruments, preventing survivorship bias
+  in historical performance evaluation
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "survivorship-bias", "point-in-time", "delisted-stocks", "universe-selection"]
-brokers_frameworks: ["CRSP", "Sharadar", "Norgate Data", "QuantConnect Data"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- survivorship-bias
+- point-in-time
+- delisted-stocks
+- universe-selection
+brokers_frameworks:
+- CRSP
+- Sharadar
+- Norgate Data
+- QuantConnect Data
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -1,12 +1,22 @@
 ---
 name: monte-carlo-strategy-robustness-testing
-description: >-
-  Use when validating trading strategy robustness to run Monte Carlo trade sequence shuffling, bootstrap resampling, and price noise perturbations to compute Risk of Ruin and 95th percentile drawdown limits
+description: Use when validating trading strategy robustness to run Monte Carlo trade
+  sequence shuffling, bootstrap resampling, and price noise perturbations to compute
+  Risk of Ruin and 95th percentile drawdown limits
 domain: algorithmic-trading
 subdomain: backtesting-methodology
-tags: ["backtesting-methodology", "monte-carlo", "risk-of-ruin", "robustness-testing", "bootstrap-resampling"]
-brokers_frameworks: ["Backtrader", "VectorBT", "PyPFcon", "Custom Backtesting Engines"]
-version: "1.0"
+tags:
+- backtesting-methodology
+- monte-carlo
+- risk-of-ruin
+- robustness-testing
+- bootstrap-resampling
+brokers_frameworks:
+- Backtrader
+- VectorBT
+- PyPFcon
+- Custom Backtesting Engines
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

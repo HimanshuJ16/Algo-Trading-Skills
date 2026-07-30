@@ -1,12 +1,23 @@
 ---
 name: broker-order-type-capability-matrix
-description: >-
-  Use when building multi-broker quantitative trading systems to maintain a capability matrix of native order types (Bracket, OCO, Trailing Stop, Iceberg, PEG, TWAP, VWAP) supported by each broker, and synthesize software-emulated order triggers (via local EMS) when native support is missing.
+description: Use when building multi-broker quantitative trading systems to maintain
+  a capability matrix of native order types (Bracket, OCO, Trailing Stop, Iceberg,
+  PEG, TWAP, VWAP) supported by each broker, and synthesize software-emulated order
+  triggers (via local EMS) when native support is missing.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "order-types", "capability-matrix", "bracket-orders", "oco-orders", "synthetic-orders", "execution-algorithms"]
-brokers_frameworks: ["Multi-Broker Capability Matrix", "Python Order Synthesizer"]
-version: "2.0"
+tags:
+- broker-integration
+- order-types
+- capability-matrix
+- bracket-orders
+- oco-orders
+- synthetic-orders
+- execution-algorithms
+brokers_frameworks:
+- Multi-Broker Capability Matrix
+- Python Order Synthesizer
+version: '2.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

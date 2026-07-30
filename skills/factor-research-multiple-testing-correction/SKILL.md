@@ -3,7 +3,10 @@ name: factor-research-multiple-testing-correction
 description: Skill for factor research multiple testing correction
 domain: quant-research-alt-data
 subdomain: Alternative Data
-tags: [alt-data, python, research]
+tags:
+- alt-data
+- python
+- research
 brokers_frameworks: []
 version: 1.0.0
 author: AI

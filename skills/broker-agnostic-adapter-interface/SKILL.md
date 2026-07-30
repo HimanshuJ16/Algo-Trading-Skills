@@ -1,12 +1,25 @@
 ---
 name: broker-agnostic-adapter-interface
-description: >-
-  Use when designing quantitative trading systems to decouple strategy logic from broker APIs using a unified abstract adapter interface, standardized order models, and pluggable broker factories. This institutional-grade implementation utilizes precise Decimal arithmetic for all currency calculations, robust typed exceptions, and normalized cross-venue status mapping.
+description: Use when designing quantitative trading systems to decouple strategy
+  logic from broker APIs using a unified abstract adapter interface, standardized
+  order models, and pluggable broker factories. This institutional-grade implementation
+  utilizes precise Decimal arithmetic for all currency calculations, robust typed
+  exceptions, and normalized cross-venue status mapping.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "adapter-pattern", "broker-agnostic", "trading-architecture", "order-routing", "institutional-grade"]
-brokers_frameworks: ["Zerodha Kite", "Alpaca", "Interactive Brokers", "Upstox"]
-version: "2.0"
+tags:
+- broker-integration
+- adapter-pattern
+- broker-agnostic
+- trading-architecture
+- order-routing
+- institutional-grade
+brokers_frameworks:
+- Zerodha Kite
+- Alpaca
+- Interactive Brokers
+- Upstox
+version: '2.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

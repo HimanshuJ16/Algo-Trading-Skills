@@ -1,12 +1,23 @@
 ---
 name: employee-offboarding-procedure-for-custody-access
-description: >-
-  Quantitative crypto custody operational risk engine for executing mandatory 5-step employee offboarding procedures (SSO revocation, exchange API key destruction, MPC key shard rotation, hardware token wiping).
+description: Quantitative crypto custody operational risk engine for executing mandatory
+  5-step employee offboarding procedures (SSO revocation, exchange API key destruction,
+  MPC key shard rotation, hardware token wiping).
 domain: Crypto Custody & Security
 subdomain: Key Management & Operational Risk
-tags: ["offboarding-procedure", "custody-security", "key-rotation", "mpc-custody", "multi-sig", "api-key-revocation", "soc-2"]
-brokers_frameworks: ["Fireblocks API", "Anchorage Custody", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- offboarding-procedure
+- custody-security
+- key-rotation
+- mpc-custody
+- multi-sig
+- api-key-revocation
+- soc-2
+brokers_frameworks:
+- Fireblocks API
+- Anchorage Custody
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

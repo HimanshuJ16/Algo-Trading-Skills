@@ -1,16 +1,17 @@
 ---
 name: short-selling-borrow-cost-and-availability-modeling
-description: Modeling stock-borrow cost and availability constraints in a backtest for any strategy that shorts equities.
+description: Modeling stock-borrow cost and availability constraints in a backtest
+  for any strategy that shorts equities.
 domain: Backtesting
 subdomain: Constraints
 tags:
-  - backtesting
-  - short-selling
-  - borrow-cost
-  - constraints
+- backtesting
+- short-selling
+- borrow-cost
+- constraints
 brokers_frameworks:
-  - QuantConnect
-  - Zipline
+- QuantConnect
+- Zipline
 version: 1.0.0
 author: System
 license: MIT

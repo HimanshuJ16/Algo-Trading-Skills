@@ -1,14 +1,21 @@
 ---
 name: multi-strategy-capital-allocation-limits
-description: >-
-  Use when multiple concurrent strategies share a single trading account to allocate
-  and cap capital per strategy, preventing any single strategy from consuming disproportionate
-  capital and ensuring total allocated capital never exceeds available account equity.
+description: Use when multiple concurrent strategies share a single trading account
+  to allocate and cap capital per strategy, preventing any single strategy from consuming
+  disproportionate capital and ensuring total allocated capital never exceeds available
+  account equity.
 domain: algorithmic-trading
 subdomain: risk-management
-tags: ["risk-management", "capital-allocation", "multi-strategy", "portfolio-management", "position-limits"]
-brokers_frameworks: ["Custom Portfolio Engine", "NumPy"]
-version: "1.0"
+tags:
+- risk-management
+- capital-allocation
+- multi-strategy
+- portfolio-management
+- position-limits
+brokers_frameworks:
+- Custom Portfolio Engine
+- NumPy
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

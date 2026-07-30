@@ -4,10 +4,10 @@ description: Automation and handling of options greeks real time portfolio aggre
 domain: multi-asset-derivatives
 subdomain: derivatives-trading
 tags:
-  - options-greeks-real-time-portfolio-aggregation
-  - trading
+- options-greeks-real-time-portfolio-aggregation
+- trading
 brokers_frameworks:
-  - generic
+- generic
 version: 1.0.0
 author: System
 license: MIT

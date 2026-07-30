@@ -1,12 +1,24 @@
 ---
 name: database-backup-and-point-in-time-restore-testing
-description: >-
-  Quantitative database reliability engine for auditing Write-Ahead Log (WAL) continuous archiving, simulating Point-in-Time Recovery (PITR) to exact timestamps, and verifying RPO/RTO SLAs.
+description: Quantitative database reliability engine for auditing Write-Ahead Log
+  (WAL) continuous archiving, simulating Point-in-Time Recovery (PITR) to exact timestamps,
+  and verifying RPO/RTO SLAs.
 domain: Infrastructure & Operations
 subdomain: Database Disaster Recovery
-tags: ["database-backup", "pitr-restore", "wal-archiving", "rpo-rto-testing", "disaster-recovery", "timescaledb", "postgresql", "data-integrity"]
-brokers_frameworks: ["PostgreSQL WAL", "TimescaleDB", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- database-backup
+- pitr-restore
+- wal-archiving
+- rpo-rto-testing
+- disaster-recovery
+- timescaledb
+- postgresql
+- data-integrity
+brokers_frameworks:
+- PostgreSQL WAL
+- TimescaleDB
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

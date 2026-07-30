@@ -3,8 +3,12 @@ name: leverage-limit-enforcement-across-instruments
 description: Normalized leverage across options, futures, equities.
 domain: risk-management
 subdomain: compliance
-tags: [risk, compliance, automation]
-brokers_frameworks: [any]
+tags:
+- risk
+- compliance
+- automation
+brokers_frameworks:
+- any
 version: 1.0.0
 author: System
 license: MIT

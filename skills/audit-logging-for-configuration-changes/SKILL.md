@@ -1,16 +1,17 @@
 ---
 name: audit-logging-for-configuration-changes
-description: Immutable audit logging engine enforcing SEC Reg SCI and FINRA Rule 3110 compliance for algorithmic trading configuration changes.
+description: Immutable audit logging engine enforcing SEC Reg SCI and FINRA Rule 3110
+  compliance for algorithmic trading configuration changes.
 domain: deployment-ops
 subdomain: regulatory
 tags:
-  - compliance
-  - audit-logging
-  - sec-reg-sci
-  - finra-3110
-  - risk-controls
+- compliance
+- audit-logging
+- sec-reg-sci
+- finra-3110
+- risk-controls
 brokers_frameworks:
-  - generic
+- generic
 version: 1.1.0
 author: System
 license: MIT

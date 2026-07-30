@@ -1,17 +1,19 @@
 ---
 name: adversarial-robustness-of-trading-signals
-description: Tests financial machine learning models for adversarial vulnerability by injecting epsilon-bounded perturbations (simulating flash-crash noise or FGSM attacks) and measuring signal flip rates.
+description: Tests financial machine learning models for adversarial vulnerability
+  by injecting epsilon-bounded perturbations (simulating flash-crash noise or FGSM
+  attacks) and measuring signal flip rates.
 domain: algorithmic-trading
 subdomain: financial-ml-robustness
 tags:
-  - ml
-  - trading
-  - adversarial-robustness
-  - fgsm
-  - signal-processing
+- ml
+- trading
+- adversarial-robustness
+- fgsm
+- signal-processing
 brokers_frameworks:
-  - scikit-learn
-  - numpy
+- scikit-learn
+- numpy
 version: 1.1.0
 author: System
 license: MIT

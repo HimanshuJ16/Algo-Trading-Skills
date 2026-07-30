@@ -1,12 +1,19 @@
 ---
 name: capital-efficiency-across-cross-margined-strategies
-description: >-
-  Quantitative margin optimization engine to calculate capital efficiency gains using Portfolio/Cross-Margining based on asset correlation and directional delta.
+description: Quantitative margin optimization engine to calculate capital efficiency
+  gains using Portfolio/Cross-Margining based on asset correlation and directional
+  delta.
 domain: Risk Management
 subdomain: Margin & Capital
-tags: ["cross-margin", "portfolio-margin", "capital-efficiency", "correlation", "risk"]
-brokers_frameworks: ["Generic Risk Engineering"]
-version: "1.0.0"
+tags:
+- cross-margin
+- portfolio-margin
+- capital-efficiency
+- correlation
+- risk
+brokers_frameworks:
+- Generic Risk Engineering
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

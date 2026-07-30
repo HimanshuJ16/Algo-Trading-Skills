@@ -1,12 +1,21 @@
 ---
 name: multi-broker-consolidated-position-view
-description: >-
-  Use when running quantitative trading strategies across multiple brokers to aggregate, reconcile, and net position holdings, market values, and unrealized P&L into a single consolidated base-currency risk accounting view.
+description: Use when running quantitative trading strategies across multiple brokers
+  to aggregate, reconcile, and net position holdings, market values, and unrealized
+  P&L into a single consolidated base-currency risk accounting view.
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "multi-broker", "consolidated-view", "position-reconciliation", "risk-accounting", "netting"]
-brokers_frameworks: ["Multi-Broker Ledger", "Python Risk Engine"]
-version: "1.0"
+tags:
+- broker-integration
+- multi-broker
+- consolidated-view
+- position-reconciliation
+- risk-accounting
+- netting
+brokers_frameworks:
+- Multi-Broker Ledger
+- Python Risk Engine
+version: '1.0'
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

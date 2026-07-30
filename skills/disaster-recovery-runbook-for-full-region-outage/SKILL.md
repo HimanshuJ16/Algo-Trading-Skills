@@ -1,12 +1,23 @@
 ---
 name: disaster-recovery-runbook-for-full-region-outage
-description: >-
-  Quantitative infrastructure disaster recovery (DR) engine for orchestrating automated multi-region failover (DNS switchover, database promotion, emergency order cancellation, position reconciliation) under a 300-second RTO SLA.
+description: Quantitative infrastructure disaster recovery (DR) engine for orchestrating
+  automated multi-region failover (DNS switchover, database promotion, emergency order
+  cancellation, position reconciliation) under a 300-second RTO SLA.
 domain: Infrastructure & DevOps
 subdomain: Disaster Recovery & Multi-Region Resilience
-tags: ["disaster-recovery", "region-failover", "rto-rpo", "dns-switchover", "aurora-global-db", "order-cancel-killswitch", "multi-region"]
-brokers_frameworks: ["AWS Route 53 ARC", "Aurora Global DB", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- disaster-recovery
+- region-failover
+- rto-rpo
+- dns-switchover
+- aurora-global-db
+- order-cancel-killswitch
+- multi-region
+brokers_frameworks:
+- AWS Route 53 ARC
+- Aurora Global DB
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

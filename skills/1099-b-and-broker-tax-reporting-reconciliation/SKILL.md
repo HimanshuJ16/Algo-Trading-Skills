@@ -1,13 +1,14 @@
 ---
 name: 1099-b-and-broker-tax-reporting-reconciliation
-description: Institutional-grade reconciliation engine for matching internal trade ledgers against broker 1099-B tax reports.
+description: Institutional-grade reconciliation engine for matching internal trade
+  ledgers against broker 1099-B tax reports.
 domain: tax-accounting-reporting-global
 subdomain: tax-reporting
 tags:
-  - tax
-  - reconciliation
-  - compliance
-  - 1099-B
+- tax
+- reconciliation
+- compliance
+- 1099-B
 brokers_frameworks: []
 version: 1.0.0
 author: System

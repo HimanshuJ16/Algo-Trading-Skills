@@ -1,12 +1,22 @@
 ---
 name: cross-strategy-shared-infrastructure-resource-contention
-description: >-
-  Quantitative infrastructure management engine for auditing resource contention across co-located strategies, isolating CPU core affinity, rate-limiting FIX gateways, and preempting low-priority tasks.
+description: Quantitative infrastructure management engine for auditing resource contention
+  across co-located strategies, isolating CPU core affinity, rate-limiting FIX gateways,
+  and preempting low-priority tasks.
 domain: Real-Time Infrastructure
 subdomain: Shared Resource Management
-tags: ["resource-contention", "cpu-affinity", "fix-rate-limiting", "preemption", "multi-strategy", "latency-jitter", "noisy-neighbor"]
-brokers_frameworks: ["Linux Taskset", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- resource-contention
+- cpu-affinity
+- fix-rate-limiting
+- preemption
+- multi-strategy
+- latency-jitter
+- noisy-neighbor
+brokers_frameworks:
+- Linux Taskset
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

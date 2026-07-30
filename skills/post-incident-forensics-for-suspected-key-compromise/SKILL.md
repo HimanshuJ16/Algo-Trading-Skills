@@ -3,8 +3,13 @@ name: post-incident-forensics-for-suspected-key-compromise
 description: Skill to handle post incident forensics for suspected key compromise.
 domain: Crypto Custody
 subdomain: Security
-tags: [security, crypto, custody, post]
-brokers_frameworks: [None]
+tags:
+- security
+- crypto
+- custody
+- post
+brokers_frameworks:
+- None
 version: 1.0.0
 author: AI
 license: MIT

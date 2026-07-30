@@ -1,10 +1,15 @@
 ---
 name: singapore-mas-notice-on-cyber-hygiene-for-trading-systems
-description: Compliance tool for singapore mas notice on cyber hygiene for trading systems
+description: Compliance tool for singapore mas notice on cyber hygiene for trading
+  systems
 domain: regulatory-compliance-global
 subdomain: compliance
-tags: [regulatory, compliance, trading]
-brokers_frameworks: [generic]
+tags:
+- regulatory
+- compliance
+- trading
+brokers_frameworks:
+- generic
 version: 1.0.0
 author: AI
 license: MIT

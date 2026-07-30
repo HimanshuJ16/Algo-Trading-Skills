@@ -1,12 +1,23 @@
 ---
 name: esg-data-signal-research-and-vendor-comparison
-description: >-
-  Quantitative alternative data engine for normalizing cross-vendor ESG ratings (MSCI, Sustainalytics, Refinitiv), calculating consensus scores and vendor disagreement dispersion, and generating ESG factor overlay signals.
+description: Quantitative alternative data engine for normalizing cross-vendor ESG
+  ratings (MSCI, Sustainalytics, Refinitiv), calculating consensus scores and vendor
+  disagreement dispersion, and generating ESG factor overlay signals.
 domain: Quantitative Research & Alternative Data
 subdomain: ESG Data & Factor Investing
-tags: ["esg-data", "alternative-data", "msci-esg", "sustainalytics", "refinitiv-esg", "vendor-reconciliation", "greenwashing-risk"]
-brokers_frameworks: ["MSCI ESG Data", "Sustainalytics Risk API", "Python Dataclasses"]
-version: "1.0.0"
+tags:
+- esg-data
+- alternative-data
+- msci-esg
+- sustainalytics
+- refinitiv-esg
+- vendor-reconciliation
+- greenwashing-risk
+brokers_frameworks:
+- MSCI ESG Data
+- Sustainalytics Risk API
+- Python Dataclasses
+version: 1.0.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
