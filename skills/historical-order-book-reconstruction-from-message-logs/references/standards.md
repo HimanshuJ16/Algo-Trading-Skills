@@ -1,5 +1,7 @@
-# Standards
+# Standards for Historical Order Book Reconstruction
 
-| Standard | Description |
+| Metric | Engineering Standard |
 |---|---|
-| STD-1 | Standard 1 |
+| Order Lookup Complexity | Order ID map lookups MUST execute in $O(1)$ time complexity. |
+| BBO Sorting | Bids MUST be sorted descending; Asks MUST be sorted ascending. |
+| Book Integrity | Reconstructed books MUST trigger alerts if Best Bid $\ge$ Best Ask (Crossed Book). |

@@ -1,4 +1,7 @@
-# Standards for market-data-entitlement-and-licensing-per-venue
-| Standard | Value |
+# Standards for Market Data Entitlement Compliance
+
+| Metric | Engineering Standard |
 |---|---|
-| Protocol | API |
+| Algorithmic Non-Display | Automated trading algorithms MUST maintain active Non-Display licenses per exchange venue. |
+| Corporate Classification | All corporate entities and trading bots MUST be classified as Professional Subscribers. |
+| License Expiration Gate | Market data streams MUST be blocked immediately upon license expiration. |

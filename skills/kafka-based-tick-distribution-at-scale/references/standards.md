@@ -1,12 +1,7 @@
-# Real-Time Architecture Standards — kafka-based-tick-distribution-at-scale
+# Standards for Kafka Tick Streaming
 
-| Parameter | Specification | Description |
-|---|---|---|
-| Partition Strategy | Symbol Key Hashing | MD5(symbol) % N_partitions |
-| Producer Linger Delay | 5 ms | Throughput vs latency trade-off |
-| Compression Codec | Snappy / LZ4 | High-speed compression |
-| Offset Commit | Manual post-batch commit | Prevents tick loss on consumer failure |
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.
+| Metric | Engineering Standard |
+|---|---|
+| Partition Key | Ticker symbol MUST be used as partition key to guarantee per-symbol ordering. |
+| Producer Batching | `batch.size` MUST be $\ge 128\text{ KB}$ and `linger.ms` set to $5\text{ ms}$. |
+| Consumer Lag Limit | Consumer lag exceeding $10,000$ messages MUST trigger automated alerts. |

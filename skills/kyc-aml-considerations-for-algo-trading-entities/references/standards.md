@@ -1,5 +1,7 @@
-# Standards
+# Standards for Entity KYC/AML Governance
 
-| Standard | Description |
+| Metric | Engineering Standard |
 |---|---|
-| STD-1 | Description of standard |
+| UBO Threshold | All natural persons holding $\ge 25\%$ ownership MUST be verified. |
+| Sanctions Zero Tolerance | Any OFAC/PEP match MUST result in immediate onboarding rejection. |
+| FATF Blacklist | Entities incorporated or banked in FATF blacklisted countries MUST be rejected. |

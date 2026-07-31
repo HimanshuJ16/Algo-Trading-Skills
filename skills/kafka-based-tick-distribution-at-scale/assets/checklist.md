@@ -1,14 +1,6 @@
-# Pre-Flight / Sign-off Checklist — kafka-based-tick-distribution-at-scale
+# Pre-Flight Checklist
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Partition Hashing Verification:** Confirm symbol keys route deterministically to the same partition.
-- [ ] **Producer Batch Configuration:** Confirm `linger_ms` and batch size are tuned for throughput vs latency.
-- [ ] **Consumer Group Isolation:** Confirm distinct consumer groups manage independent offset checkpoints.
-- [ ] **Offset Commit Protocol:** Confirm manual offset commits execute post-batch processing.
-- [ ] **Automated Testing:** Run `python scripts/test_kafka_tick_engine.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Is `Key = Symbol` enforced for deterministic partition routing?
+- [ ] Is producer batching configured (`batch.size = 128KB`, `linger.ms = 5`)?
+- [ ] Is consumer lag monitored across all partition consumer groups?
+- [ ] Are max lag threshold alerts configured ($> 10,000$ ticks)?

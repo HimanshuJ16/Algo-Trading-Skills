@@ -1,4 +1,7 @@
-# Standards for moscow-exchange-moex-api-integration
-| Standard | Value |
+# Standards for Moscow Exchange (MOEX) Integration
+
+| Metric | Engineering Standard |
 |---|---|
-| Protocol | API |
+| Exchange Identifier | `SecurityExchange` MUST be set to `MISX` in FIX order tags. |
+| Board ID Tagging | Mandatory `BoardID` (`TQBR` Equities, `CETS` FX, `RFUD` Derivatives). |
+| Price Collar Ceiling | Orders breaching $\pm 5.0\%$ of reference price MUST be rejected. |

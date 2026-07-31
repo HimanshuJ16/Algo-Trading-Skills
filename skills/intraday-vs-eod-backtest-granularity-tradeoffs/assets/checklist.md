@@ -1,8 +1,6 @@
-# Checklist — intraday-vs-eod-backtest-granularity-tradeoffs
-- [ ] Strategy profiled by holding period and signal frequency
-- [ ] Granularity recommendation computed
-- [ ] Compute cost estimate generated
-- [ ] Tests pass: `python scripts/test_granularity_advisor.py`
-## Sign-off
-- Reviewed by: ___________________________
-- Date: ___________________________
+# Pre-Flight Checklist
+
+- [ ] Is strategy holding period defined (intraday vs swing vs positional)?
+- [ ] Is intraday stop-loss usage audited against OHLC sequence bias?
+- [ ] Is dataset storage size (GB) calculated before data ingestion?
+- [ ] Is data resolution matched to strategy trade frequency?

@@ -1,47 +1,37 @@
 ---
 name: kafka-based-tick-distribution-at-scale
-description: Use when building high-throughput distributed market data ingestion pipelines
-  (50k+ ticks/sec) using Apache Kafka to partition tick events by symbol, balance
-  consumer group loads, configure producer batching, and commit offset checkpoints
-  cleanly.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- kafka
-- tick-distribution
-- partitioning
-- consumer-groups
-- high-throughput
-brokers_frameworks:
-- Kafka Producer/Consumer
-- kafka-python
-- confluent-kafka
-version: '1.0'
+description: >-
+  Scalable market data messaging engine for Apache Kafka, implementing symbol-key partition routing, producer batching (128KB, 5ms linger), and real-time consumer lag monitoring.
+domain: Data Management Global
+subdomain: Real-Time Tick Streaming & Kafka Infrastructure
+tags: ["kafka", "tick-distribution", "market-data", "partition-routing", "consumer-lag", "batching", "streaming"]
+brokers_frameworks: ["Apache Kafka Python", "aiokafka / confluent-kafka", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when scaling market data ingestion beyond single-host in-memory message brokers (e.g., Redis Pub/Sub) to handle institutional tick volumes (50,000+ ticks/second) across multiple downstream analytical engines (strategy workers, historical archivers, compliance auditors). Kafka provides persistent topic partitions, symbol-keyed order preservation, offset checkpointing, and horizontal consumer group scaling.
+Use this skill when building high-throughput market data distribution systems streaming millions of market ticks per second via Apache Kafka. Market data pipelines require strict **per-symbol message ordering** (accomplished via symbol key partitioning), optimized producer batching (`linger.ms = 5`, `batch.size = 128KB`), and real-time **consumer lag monitoring** to prevent stale market quotes from reaching execution algorithms.
 
 ## Prerequisites
 
-- Apache Kafka cluster / MSK brokers.
-- Topic configuration with $N$ partitions (e.g., 16 partitions per `market-ticks` topic).
+- Market tick stream payload (`symbol`, `timestamp_ns`, `bid_price`, `ask_price`, `bid_size`, `ask_size`, `last_price`, `last_size`).
+- Kafka broker cluster topology config (`num_partitions`, `max_lag_threshold`).
 
 ## Workflow
 
-1. **Symbol-Keyed Partitioning**:
-   - Hash ticker symbol to partition key (`key = symbol.encode("utf-8")`) to ensure all ticks for `AAPL` or `BTCUSDT` land on the exact same partition, preserving sequence ordering.
-
-2. **Configure Producer Batching**:
-   - Set `linger_ms=5` and `batch_size=16384` (16KB) with `compression_type='snappy'` to maximize throughput while capping latency.
-
-3. **Consumer Group Load Balancing**:
-   - Register consumer groups (`strategy-workers`, `tick-archivers`).
-   - Process partition batches concurrently and commit offsets (`commit_offset`) after successful batch processing.
+1. **Symbol Key Partition Routing**:
+   - Route tick payload using deterministic symbol hashing:
+     $$\text{Partition} = \text{hash}(\text{symbol}) \pmod{\text{Num Partitions}}$$
+   - Guarantees strict chronological ordering for each ticker symbol.
+2. **Producer Batching & Throughput Optimization**:
+   - Batch ticks into 128 KB memory buffers with 5 ms linger windows.
+3. **Consumer Lag & Backpressure Audit**:
+   - Compute per-partition consumer lag: $\text{Lag} = \text{Log End Offset} - \text{Committed Offset}$.
+   - If $\text{Lag} > \text{max\_lag\_threshold}$ (e.g. 10,000 ticks) $\implies$ Trigger `CONSUMER_LAG_WARNING`.
+4. **Audit Report Generation**: Output structured `KafkaTickDistributionReport`.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -49,19 +39,17 @@ Invoke this skill when scaling market data ingestion beyond single-host in-memor
 
 ## Common Pitfalls
 
-- **Unkeyed Random Partitioning**: Omitting partition keys, causing ticks for the same symbol to arrive out-of-order across different partitions.
-- **Excessive Linger Delays**: Setting `linger_ms` too high (e.g., 100ms), introducing unacceptable latency for high-frequency strategy workers.
-- **Auto-Commit Data Loss**: Enabling `enable.auto.commit=true` without verifying downstream batch processing success, risking dropped ticks during worker crashes.
+- **Publishing Ticks Without a Symbol Key**: Publishing market ticks without setting `Key = Symbol`, causing random partition assignment and out-of-order quote execution crashes.
+- **Ignoring Consumer Lag**: Allowing consumer lag to build up silently during market volatility spikes, executing trades on stale quotes from 30 seconds ago.
+- **Under-Partitioning High-Volume Tickers**: Allocating insufficient partitions for active markets (e.g. 1 partition for 500 US tickers), causing single-threaded consumer bottlenecks.
 
 ## Verification
 
-- Publish 1,000 ticks across 4 partitions with symbol keys and verify strict per-symbol ordering.
-- Verify consumer group offset commits track processed records cleanly without duplication.
-- Run `python scripts/test_kafka_tick_engine.py` and confirm 100% pass rate.
+- Instantiate `KafkaTickDistributionEngine`. Ingest 50,000 market ticks across 16 partitions. Verify symbol key partitioning routes all `AAPL` ticks to the exact same partition index. Audit high consumer lag ($15,000$ ticks lag $> 10,000$ threshold) $\implies$ verify engine flags `CONSUMER_LAG_WARNING`.
+- Run `python scripts/test_kafka_tick_engine.py`.
 
 ## Related Skills
 
-- `redis-streams-multi-consumer-tick-fanout`
-- `producer-consumer-tick-pipeline`
-- `tick-buffering-burst-handling`
+- `historical-tick-data-storage-and-compaction`
+- `cross-region-data-replication-lag-monitoring`
 ---

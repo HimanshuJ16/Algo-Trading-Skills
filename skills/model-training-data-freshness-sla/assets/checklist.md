@@ -1,4 +1,6 @@
-# Checklist
+# Pre-Flight Checklist
 
-- [ ] Task 1
-- [ ] Task 2
+- [ ] Are target, warning, and breach SLA ceilings defined in hours?
+- [ ] Is event-time data lag ($\Delta t_{\text{lag}}$) calculated?
+- [ ] Are missing trading days/gaps detected?
+- [ ] Is automated retraining halt action configured for critical SLA breaches?

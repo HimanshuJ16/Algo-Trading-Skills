@@ -79,9 +79,10 @@ class TestHeadlessBrokerAuthPatterns(unittest.TestCase):
         self.assertEqual(cached, "access_token_12345")
 
         # Cache file must not be world/group readable -- it holds a plaintext bearer token.
-        cache_path = cache_mgr._get_cache_path(broker)
-        mode = stat.S_IMODE(os.stat(cache_path).st_mode)
-        self.assertEqual(mode, 0o600, f"Expected 0600 permissions, got {oct(mode)}")
+        if os.name != "nt":
+            cache_path = cache_mgr._get_cache_path(broker)
+            mode = stat.S_IMODE(os.stat(cache_path).st_mode)
+            self.assertEqual(mode, 0o600, f"Expected 0600 permissions, got {oct(mode)}")
 
     def test_token_cache_manager_metadata_roundtrip(self):
         cache_mgr = TokenCacheManager(cache_dir=self.temp_dir)

@@ -1,7 +1,10 @@
-# Workflow — intraday-vs-eod-backtest-granularity-tradeoffs
-## Procedure
-1. Profile strategy holding period and signal frequency.
-2. Score each granularity on accuracy and compute cost.
-3. Select optimal resolution balancing fidelity and budget.
-## Reference
-- `scripts/granularity_advisor.py`, `scripts/test_granularity_advisor.py`
+# Workflows for Backtest Granularity Assessment
+
+1. **Strategy Profile Ingestion**:
+   - Ingest holding period, trade frequency, stop-loss usage, and universe size.
+2. **OHLC Sequence Bias Audit**:
+   - Audit in-bar execution ambiguity for intraday stop-loss strategies on EOD data.
+3. **Granularity Recommendation & Footprint Estimation**:
+   - Recommend resolution (`TICK_L2`, `INTRADAY_1MIN`, `DAILY_EOD`) and calculate storage GB.
+4. **Audit Report Generation**:
+   - Output structured backtest granularity report.
