@@ -1,5 +1,7 @@
-# Standards
+# Standards for Point-in-Time Index Constituent Tracking
 
-| Standard | Description |
+| Metric | Engineering Standard |
 |---|---|
-| STD-1 | Standard 1 |
+| PIT Membership Rule | `add_date <= T` AND (`del_date IS NULL` OR `del_date > T`). |
+| Survivorship Bias Elimination | Delisted and bankrupt constituents MUST be included in historical backtest windows. |
+| Rebalance Effective Date | Membership changes MUST take effect on official exchange effective dates. |
