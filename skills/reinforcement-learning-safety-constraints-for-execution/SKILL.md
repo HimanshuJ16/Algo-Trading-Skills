@@ -1,74 +1,55 @@
 ---
 name: reinforcement-learning-safety-constraints-for-execution
-description: Use when training or deploying RL execution agents to implement hard
-  action masking, position limits, spread veto guards, and reward penalty shaping
-  to prevent unsafe policy exploration
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- reinforcement-learning
-- action-masking
-- safety-constraints
-- rl-execution
-brokers_frameworks:
-- Gymnasium
-- Stable-Baselines3
-- Ray RLLib
-- Custom RL Environments
-version: '1.0'
+description: >-
+  Action-space safety shield for reinforcement learning execution agents enforcing max order sizing, position cap limits, spread veto guards, terminal horizon inventory clearance, and reward penalty shaping.
+domain: Execution Algorithms & Machine Learning
+subdomain: Safe Reinforcement Learning & Risk Guardrails
+tags: ["reinforcement-learning", "safety-constraints", "action-shield", "execution-algo", "spread-veto", "reward-shaping"]
+brokers_frameworks: ["Safe RL (Shielding Architecture)", "Action-Space Clipping", "Reward Penalty Shaping", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this whenever deploying Reinforcement Learning (RL) agents for optimal trade execution, inventory management, or dynamic portfolio rebalancing. Pure RL agents optimize reward functions through trial-and-error exploration and can learn unsafe behaviors, such as placing orders that breach position limits, submitting market orders into wide bid-ask spreads, or failing to clear inventory before market close. Wrapping the RL agent's action space with a deterministic Safety Shield (`SafeRLExecutionGuard`) that clips unsafe actions, applies action masking, and shapes penalty rewards is mandatory.
+Use this skill when deploying Reinforcement Learning (RL) agents for optimal trade execution (TWAP/VWAP optimal liquidation, market making). Unconstrained RL agents can propose erratic or dangerous actions during out-of-distribution market conditions (e.g., massive order sizes, trading into illiquid spreads, holding inventory past execution horizons). This safety shield intercepts raw RL policy action proposals, applies deterministic risk rules (clipping order size, position caps, spread vetoes, terminal liquidation), and shapes penalty rewards to guide model training.
 
 ## Prerequisites
 
-- Base RL agent output action vector (e.g. proposed order quantity $\Delta Q$ and order type).
-- Current environment state (current inventory $Q$, bid-ask spread, time remaining $T$).
-- Hard risk limits ($Q_{\text{max}}$, $\text{MaxOrderSize}$, $\text{MaxSpread}$).
+- Execution state (`current_inventory`, `max_inventory`, `bid`, `ask`, `time_remaining_sec`, `max_spread`).
+- Guard configuration (`max_order_size`: default 100, `penalty_lambda`: default 10, `terminal_horizon_sec`: default 60).
 
 ## Workflow
 
-1. **Intercept Raw Policy Action**:
-   - Receive raw action proposal $a_{\text{raw}} = \Delta Q_{\text{proposed}}$ from RL policy network.
+1. **Spread Veto Check**:
+   - Veto market order proposal (`safe_qty = 0`) if bid-ask spread exceeds `max_spread`.
+2. **Terminal Inventory Clearance**:
+   - Force liquidation order if `time_remaining_sec` $\le$ `terminal_horizon_sec` and inventory is non-zero.
+3. **Max Order Size Clipping**:
+   - Clip action quantity to `max_order_size`.
+4. **Position Cap Limit Enforcement**:
+   - Cap order quantity so `current_inventory + safe_qty` $\le$ `max_inventory`.
+5. **Reward Penalty Shaping**:
+   - Deduct `penalty_lambda` penalty from base reward whenever action is intercepted.
 
-2. **Apply Deterministic Safety Masking & Clipping**:
-   - **Order Size Constraint**: Clip $|\Delta Q| \le \text{MaxOrderSize}$.
-   - **Position Limit Constraint**: Ensure $|Q_{\text{current}} + \Delta Q_{\text{clipped}}| \le Q_{\text{max}}$.
-   - **Spread Veto Constraint**: If $\text{Spread} > \text{MaxSpread}$, force limit order or cancel action.
-   - **Terminal Inventory Schedule**: If remaining time $T_{\text{rem}} \to 0$, override policy to force inventory clearance.
-
-3. **Shape Penalty Reward Signal**:
-   - Compute reward penalty for policy optimization:
-     $$R_{\text{safe}} = R_{\text{PnL}} - \lambda_{\text{penalty}} \cdot \mathbb{I}(\text{Action Intercepted})$$
-
-4. **Audit Intercepted Actions**:
-   - Record safety override count and ratio $P_{\text{override}} = \frac{N_{\text{intercepted}}}{N_{\text{total}}}$ to evaluate policy safety convergence.
-
-> Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
-> Broker/framework coverage table for this skill: see `references/standards.md`.
+> Full procedure: see `references/workflows.md`.
+> Standards reference: see `references/standards.md`.
 > Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Unshielded Production RL Execution**: Deploying raw neural network actions directly to broker APIs without a deterministic hard-constraint wrapper.
-- **Soft Penalties Only**: Relying solely on reward penalties without hard action clipping, allowing RL agents to occasionally breach risk limits during out-of-distribution market conditions.
-- **Overshooting Inventory Horizons**: Failing to force inventory clearance near market close, holding unwanted overnight risk.
+- **Unshielded Live RL Deployment**: Allowing raw RL policy outputs to route directly to broker APIs without a deterministic safety layer.
+- **No Penalty Reward Shaping**: Intercepting RL actions without penalizing the agent, leading to persistent unsafe policy proposals.
+- **Ignoring Terminal Horizon**: Failing to force inventory clearance near execution end, leaving unexecuted parent order shares.
 
 ## Verification
 
-- Propose unsafe RL order ($\Delta Q = 500$, $Q_{\text{current}} = 800$, $Q_{\text{max}} = 1000$) and verify `SafeRLExecutionGuard` clips action to $\Delta Q = 200$.
-- Propose market order during wide spread ($\text{Spread} = 2.50 > 1.00$) and verify action is vetoed.
-- Verify reward penalty is subtracted when action interception occurs.
-- Run unit test suite `python scripts/test_rl_safety_guard.py` and confirm 100% pass rate.
+- Instantiate `SafeRLExecutionGuard`. Propose +500 order when inventory is 800 (max 1000) $\implies$ verify clipped to +100 and reward penalized by -10. Propose order during wide spread $\implies$ verify vetoed to 0. Propose normal order $\implies$ passes unmodified.
+- Run `python scripts/test_rl_safety_guard.py`.
 
 ## Related Skills
 
-- `feature-store-for-live-and-backtest-parity`
-- `kill-switch-and-drawdown-circuit-breakers`
-- `regime-detection-for-strategy-switching`
+- `execution-algorithm-kill-switch-integration`
+- `algo-parameter-defaults-by-instrument-liquidity-tier`
 ---

@@ -1,15 +1,6 @@
-# Pre-Flight / Sign-off Checklist — reinforcement-learning-safety-constraints-for-execution
+# Pre-Flight Checklist
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Action Clipping:** Confirm orders exceeding max size are clipped deterministically.
-- [ ] **Position Cap Enforcement:** Confirm orders that would breach position caps are reduced to fit remaining capacity.
-- [ ] **Spread Veto Guard:** Confirm market orders during wide spreads are vetoed.
-- [ ] **Terminal Inventory Clearance:** Confirm remaining inventory is forced to liquidate near session end.
-- [ ] **Automated Testing:** Run `python scripts/test_rl_safety_guard.py` and confirm 100% test pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
-- Environment tested (paper/sandbox/live): ___________________________
+- [ ] Is deterministic safety shield active between RL model and order router?
+- [ ] Are max order size and position cap limits configured per target instrument?
+- [ ] Is spread veto active to prevent trading during illiquid market conditions?
+- [ ] Is reward penalty shaping active during RL training to discourage unsafe policy proposals?

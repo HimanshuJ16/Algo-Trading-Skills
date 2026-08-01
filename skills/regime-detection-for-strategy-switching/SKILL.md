@@ -1,76 +1,54 @@
 ---
 name: regime-detection-for-strategy-switching
-description: Use when building adaptive quantitative trading systems to detect market
-  regime shifts (trending, ranging, high-volatility) using ADX, ATR z-scores, and
-  hysteresis filters to dynamically route active strategy variants
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- regime-detection
-- adx-indicator
-- strategy-switching
-- hysteresis-filter
-brokers_frameworks:
-- scikit-learn
-- hmmlearn
-- TA-Lib
-- Custom Python Regimes
-version: '1.0'
+description: >-
+  Production-grade market regime classifier using ADX trend strength, ATR volatility z-scores, and hysteresis transition filters to route confirmed regimes to appropriate strategy variants.
+domain: Alpha Research & Signal Generation
+subdomain: Market Regime Classification & Strategy Routing
+tags: ["regime-detection", "adx", "atr", "volatility-zscore", "hysteresis", "strategy-switching", "trend-detection"]
+brokers_frameworks: ["ADX/DMI (Wilder)", "ATR (Wilder)", "Z-Score Statistics", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this whenever a quantitative trading bot operates across changing market regimes. Trend-following strategies experience severe drawdowns in choppy sideways markets, while mean-reversion strategies suffer catastrophic losses during strong directional trend breakouts. Running a static strategy regardless of market conditions causes structural underperformance. Implementing real-time regime classification (`BULL_TRENDING`, `BEAR_TRENDING`, `MEAN_REVERTING_RANGING`, `HIGH_VOLATILITY_CRASH`), multi-feature ADX/ATR z-score indicators, and hysteresis confirmation filters to dynamically switch active strategy modules is mandatory.
+Use this skill when running multiple strategy variants (trend-following, mean-reversion, risk-off) that each perform optimally under specific market conditions. Markets cycle through regimes — trending bull, trending bear, range-bound, and high-volatility crash — and deploying the wrong strategy in the wrong regime causes significant drawdowns. This engine classifies the current market regime using ADX for trend strength and ATR z-scores for volatility, applies a hysteresis confirmation filter to prevent whipsaw regime switches, and routes the confirmed regime to the appropriate strategy module.
 
 ## Prerequisites
 
-- Historical or streaming price bars (OHLCV) with minimum window length (e.g. 50 bars).
-- Defined strategy variants (`TrendStrategy`, `MeanReversionStrategy`, `HaltStrategy`).
-- Configured regime thresholds (ADX trend threshold $= 25.0$, ATR z-score threshold $= 2.0$).
+- OHLC bar data (`highs`, `lows`, `closes`) with minimum 20 bars.
+- Config options (`adx_trend_threshold`: default 25, `adx_ranging_threshold`: default 20, `volatility_z_threshold`: default 2.0, `hysteresis_bars`: default 3).
 
 ## Workflow
 
-1. **Calculate Microstructure Regime Features**:
-   - Calculate Average Directional Index (ADX) and Directional Movement (+DI, -DI).
-   - Calculate Normalized Volatility Z-score:
-     $$Z_{\text{vol}} = \frac{\text{ATR}_t - \mu_{\text{ATR}}}{\sigma_{\text{ATR}}}$$
-   - Calculate Price Trend Slope relative to SMA.
+1. **ATR Volatility Z-Score Calculation**:
+   - Compute 14-period ATR series; calculate z-score of latest ATR vs historical mean/stddev.
+2. **ADX/DMI Trend Strength Classification**:
+   - Compute ADX, +DI, -DI; classify trend direction and strength.
+3. **Raw Regime Classification**:
+   - If vol z-score $\ge 2.0$ → `HIGH_VOLATILITY_CRASH`. If ADX $\ge 25$ and +DI > -DI → `BULL_TRENDING`. If ADX $\ge 25$ and -DI > +DI → `BEAR_TRENDING`. Else → `MEAN_REVERTING_RANGING`.
+4. **Hysteresis Transition Filter**:
+   - Require $N$ consecutive bars ($N = 3$) confirming new regime before switching.
+5. **Strategy Variant Routing**: Map confirmed regime to strategy module.
 
-2. **Classify Raw Market Regime**:
-   - If $Z_{\text{vol}} \ge 2.0$: Classify as `HIGH_VOLATILITY_CRASH` (Route: Risk-off / De-leverage).
-   - Else if $\text{ADX} \ge 25.0$ and $+\text{DI} > -\text{DI}$: Classify as `BULL_TRENDING` (Route: Trend Long).
-   - Else if $\text{ADX} \ge 25.0$ and $-\text{DI} > +\text{DI}$: Classify as `BEAR_TRENDING` (Route: Trend Short).
-   - Else ($\text{ADX} < 20.0$): Classify as `MEAN_REVERTING_RANGING` (Route: Mean Reversion).
-
-3. **Apply Hysteresis Transition Filter**:
-   - Require $N=3$ consecutive bars of new regime classification before switching active strategy mode to prevent rapid strategy flapping.
-
-4. **Route Active Strategy Variant**:
-   - Execute `route_strategy_variant(regime)`. Deactivate incompatible strategies and initialize target strategy parameters.
-
-> Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
-> Broker/framework coverage table for this skill: see `references/standards.md`.
+> Full procedure: see `references/workflows.md`.
+> Standards reference: see `references/standards.md`.
 > Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Strategy Flapping**: Switching strategies on single-bar noise spikes without a hysteresis confirmation window ($N \ge 3$).
-- **Running Trend Strategies in Ranging Markets**: Leaving trend-following logic active during low-ADX range-bound consolidations.
-- **Ignoring Volatility Spikes**: Failing to detect high-volatility crash regimes where all directional signals become unreliable.
+- **No Hysteresis Filter**: Switching strategies on every bar causes whipsaw losses during regime transitions.
+- **Static Thresholds Across Instruments**: Using the same ADX/ATR thresholds for highly liquid and illiquid instruments.
+- **Ignoring Volatility Regime**: Treating high-volatility crash as just a "trending" market leads to outsized drawdowns.
 
 ## Verification
 
-- Submit trending bar series ($\text{ADX} = 35.0, +\text{DI} > -\text{DI}$) and verify classification is `BULL_TRENDING`.
-- Submit high-volatility spike bar series ($Z_{\text{vol}} = 2.5$) and verify classification is `HIGH_VOLATILITY_CRASH`.
-- Verify hysteresis filter requires 3 consecutive bars before changing active strategy routing.
-- Run unit test suite `python scripts/test_regime_detector.py` and confirm 100% pass rate.
+- Instantiate `MarketRegimeDetector`. Feed steady range-bound bars → verify `MEAN_REVERTING_RANGING`. Feed sharp volatility spike 3 times → verify hysteresis triggers `HIGH_VOLATILITY_CRASH`. Verify strategy variant routing maps correctly.
+- Run `python scripts/test_regime_detector.py`.
 
 ## Related Skills
 
-- `walk-forward-optimization-window-management`
-- `kill-switch-and-drawdown-circuit-breakers`
-- `ensemble-signal-combination-without-overfitting`
+- `hidden-markov-model-regime-switching`
+- `volatility-regime-adaptive-position-sizing`
 ---

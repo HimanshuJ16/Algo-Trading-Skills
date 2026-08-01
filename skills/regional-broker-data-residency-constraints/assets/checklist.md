@@ -1,14 +1,6 @@
-# Pre-Flight / Sign-off Checklist — regional-broker-data-residency-constraints
+# Pre-Flight Checklist
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Policy Registration:** Confirm broker jurisdiction and allowed AWS/GCP regions are registered.
-- [ ] **Region Probing:** Confirm active cloud environment region is ingested accurately.
-- [ ] **Data Residency Audit:** Confirm hosting region is verified against broker policy.
-- [ ] **Compliance Veto:** Confirm non-compliant regions raise `DataResidencyViolationError`.
-- [ ] **Automated Testing:** Run `python scripts/test_residency_guard.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Is active cloud hosting region detected accurately via environment variables?
+- [ ] Are broker data residency policies mapped for all target brokers?
+- [ ] Is region validation performed automatically prior to broker API connection setup?
+- [ ] Are violation errors configured to halt process startup immediately?

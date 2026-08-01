@@ -1,11 +1,7 @@
-# Broker Integration Standards — regional-broker-data-residency-constraints
+# Standards for Regional Broker Data Residency Constraints
 
-| Jurisdiction | Regulation | Allowed AWS Regions | Allowed GCP Regions |
-|---|---|---|---|
-| India (`IN`) | SEBI / RBI Data Localisation | `ap-south-1` (Mumbai), `ap-south-2` (Hyderabad) | `asia-south1`, `asia-south2` |
-| European Union (`EU`) | MiFID II / GDPR | `eu-central-1` (Frankfurt), `eu-west-1` (Ireland) | `europe-west1`, `europe-west3` |
-| United States (`US`) | SEC / FINRA Standards | `us-east-1`, `us-east-2`, `us-west-1`, `us-west-2` | `us-central1`, `us-east1` |
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.
+| Metric | Engineering Standard |
+|---|---|
+| India (SEBI/RBI) | MUST be hosted in Indian AWS/GCP regions (`ap-south-1`, `ap-south-2`, `asia-south1`, `asia-south2`). |
+| European Union (GDPR/MiFID II) | MUST be hosted in EU AWS/GCP regions (`eu-central-1`, `eu-west-1`, `europe-west1`, etc.). |
+| United States (SEC/FINRA) | MUST be hosted in US AWS/GCP regions (`us-east-1`, `us-west-2`, `us-central1`, etc.). |

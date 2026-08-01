@@ -1,17 +1,8 @@
-# Financial ML Standards — reinforcement-learning-safety-constraints-for-execution
+# Standards for Reinforcement Learning Safety Constraints for Execution
 
-| Risk Constraint | Enforced Mechanism | Action Transformation |
-|---|---|---|
-| Max Order Size | Clipping | $\text{Sign}(\Delta Q) \cdot \min(|\Delta Q|, \text{MaxOrderSize})$ |
-| Position Limit Cap | Hard Cap | Clip to remaining capacity $Q_{\text{max}} - |Q|$ |
-| Wide Spread Veto | Action Masking | Set $\Delta Q = 0.0$ if $\text{Spread} > \text{MaxSpread}$ |
-| Terminal Inventory Clearance | Policy Override | Force liquidation $\Delta Q = -Q_{\text{current}}$ near session close |
-
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
-## Regulatory & Operational Notes
-
-Intersects with SEC Rule 15c3-5 risk controls, autonomous trading agent safety governance, and institutional algorithmic execution standards.
+| Metric | Engineering Standard |
+|---|---|
+| Max Order Size | Order size MUST NOT exceed $max\_order\_size$ per single slice. |
+| Position Cap | Total inventory MUST NOT exceed $max\_inventory$ at any time. |
+| Terminal Horizon | Forced inventory liquidation MUST trigger when $time\_remaining \le 60\text{s}$. |
+| Reward Penalty | Intercepted actions MUST be penalized by deducting $\lambda \ge 10.0$ from step reward. |

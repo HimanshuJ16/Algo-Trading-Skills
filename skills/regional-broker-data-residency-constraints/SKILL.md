@@ -1,48 +1,35 @@
 ---
 name: regional-broker-data-residency-constraints
-description: Use when deploying trading infrastructure across global jurisdictions
-  to enforce regional data residency constraints (MiFID II, SEBI, GDPR, FINMA) and
-  verify that trading bots run strictly within legally compliant cloud regions.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- data-residency
-- compliance
-- mifid-ii
-- sebi
-- cloud-regions
-- regulatory-guard
-brokers_frameworks:
-- Data Residency Compliance Guard
-- Python Cloud Security
-version: '1.0'
+description: >-
+  Regional data residency compliance guard verifying cloud hosting region alignment with broker legal jurisdictions (SEBI, GDPR, SEC), enforcing AWS/GCP region allowlists per broker.
+domain: Broker Integration & Connectivity
+subdomain: Data Residency & Regulatory Hosting Compliance
+tags: ["data-residency", "cloud-region", "sebi", "gdpr", "sec", "broker-compliance", "aws", "gcp"]
+brokers_frameworks: ["SEBI/RBI Data Localisation (India)", "EU GDPR/MiFID II", "US SEC/FINRA", "AWS Regions", "GCP Regions"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when deploying trading bots and market data feeds connecting to national or regional brokerages across global jurisdictions (e.g., SEBI-regulated brokers in India, MiFID II/GDPR-regulated brokers in Europe, FINMA in Switzerland). Regulations mandate that order execution logs, client identifiers, and financial data reside within approved domestic cloud regions (e.g. AWS `ap-south-1` Mumbai for India; AWS `eu-central-1` Frankfurt for Germany/EU). Running bots in non-compliant regions risks regulatory fines and latency penalties.
+Use this skill when deploying algorithmic trading systems on cloud infrastructure (AWS, GCP) that connect to brokers in jurisdictions with data residency regulations. India's SEBI/RBI requires financial data to be processed within India, the EU's GDPR/MiFID II requires data to remain in EU regions, and US SEC/FINRA has its own standards. This guard validates that the active cloud hosting region complies with the target broker's jurisdictional data residency policy, raising a violation error if the deployment region is non-compliant.
 
 ## Prerequisites
 
-- Broker jurisdiction and allowed cloud region mapping table.
-- Hosting environment metadata (`AWS_REGION`, `GCP_REGION`, `AZURE_REGION`, or IP geolocation).
+- Broker residency policies (built-in: Zerodha/Upstox=India, DEGIRO=EU, Alpaca=US).
+- Cloud environment variables (`AWS_REGION`, `GCP_REGION`, or `TRADING_HOST_REGION`).
 
 ## Workflow
 
-1. **Register Broker Data Residency Rules**:
-   - Map broker names to mandatory legal jurisdictions (`IN`, `EU`, `US`, `SG`, `UK`) and allowed cloud region codes.
-
-2. **Probe Hosting Environment Region**:
-   - Inspect environment variables (`AWS_REGION`, `AWS_DEFAULT_REGION`, `GCP_REGION`) or query metadata services (`169.254.169.254`).
-
-3. **Audit Data Residency Compliance**:
-   - Verify active hosting region satisfies target broker jurisdiction requirements.
-
-4. **Enforce Compliance Veto**:
-   - If hosting region breaches data residency constraints (e.g. running Zerodha bot in US-East-1), trip security alarm and block connection setup.
+1. **Region Probe**:
+   - Detect active cloud provider and region from environment variables.
+2. **Policy Lookup**:
+   - Map broker name to jurisdictional residency policy with allowed AWS/GCP regions.
+3. **Compliance Validation**:
+   - Check if current region is in the broker's allowed region set.
+4. **Violation Handling**:
+   - If non-compliant, raise `DataResidencyViolationError` with regulatory citation.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -50,19 +37,17 @@ Invoke this skill when deploying trading bots and market data feeds connecting t
 
 ## Common Pitfalls
 
-- **Multiregional Failover Violations**: Failing over to a backup cloud region that crosses international data residency boundaries.
-- **Log Shipping Beyond Boundaries**: Centralizing raw order logs containing client PII into a US log aggregator from an EU/India bot without field redaction.
-- **Relying on Default Cloud Fallbacks**: Deploying serverless functions without explicitly setting the target region.
+- **Deploying Indian Broker Bots in US Regions**: Running Zerodha/Upstox strategies on `us-east-1` violates SEBI data localisation.
+- **Ignoring GCP Region Naming**: GCP uses different naming (`asia-south1`) vs AWS (`ap-south-1`); both must be checked.
+- **No Policy for New Brokers**: Adding a new broker without registering its residency policy allows silent violations.
 
 ## Verification
 
-- Simulate connecting to Zerodha (India jurisdiction) from AWS `ap-south-1` (Mumbai) and verify compliance approval.
-- Simulate connecting to Zerodha from AWS `us-east-1` (N. Virginia) and verify data residency compliance veto.
-- Run `python scripts/test_residency_guard.py` and confirm 100% pass rate.
+- Instantiate `DataResidencyComplianceGuard`. Validate Zerodha in `ap-south-1` $\implies$ compliant (True). Validate Zerodha in `us-east-1` $\implies$ raises `DataResidencyViolationError` citing SEBI. Validate unregistered broker $\implies$ passes (no strict policy).
+- Run `python scripts/test_residency_guard.py`.
 
 ## Related Skills
 
-- `mifid-ii-algo-trading-compliance-eu`
-- `multi-region-failover-for-broker-connectivity`
-- `structured-logging-for-post-incident-forensics`
+- `regulatory-custody-requirements-by-jurisdiction`
+- `record-retention-periods-by-jurisdiction`
 ---
