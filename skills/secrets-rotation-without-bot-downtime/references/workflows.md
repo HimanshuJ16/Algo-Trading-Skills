@@ -1,15 +1,10 @@
-# Deep Workflow Reference — secrets-rotation-without-bot-downtime
+# Workflows for Secrets Rotation Without Bot Downtime
 
-## Full Procedure
-
-1. Generate new credentials at broker/secrets store.
-2. Validate new credentials with a read-only API call.
-3. Atomically hot-swap active credential reference.
-4. Verify live traffic works with new credentials.
-5. Revoke old credentials only after confirmation.
-6. If validation fails, keep old credentials and alert.
-
-## Production Implementation Reference
-
-- Code: `scripts/secrets_rotator.py` (`SecretsRotator`).
-- Tests: `scripts/test_secrets_rotator.py`.
+1. **Pre-Validation**:
+   - Test new API key against broker endpoint prior to hot-swap.
+2. **In-Memory Hot-Swap**:
+   - Promote new key to active while storing previous key as fallback.
+3. **Health Monitor & Emergency Rollback**:
+   - Revert to previous key if HTTP 401/403 errors occur post-swap.
+4. **Revocation**:
+   - Mark previous key as invalid after successful rotation validation window.

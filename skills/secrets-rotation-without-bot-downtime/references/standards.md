@@ -1,11 +1,7 @@
-# Standards Reference — secrets-rotation-without-bot-downtime
+# Standards for Secrets Rotation Without Bot Downtime
 
-| Parameter | Description |
+| Rotation Stage | Standard Requirement |
 |---|---|
-| Validate-before-swap | New credentials tested before old ones are revoked |
-| Atomic hot-swap | Single reference update, no restart required |
-| Fallback retention | Old credential kept until new one is confirmed |
-
-## Category
-
-`deployment-ops`
+| Zero Downtime | Bot process MUST NOT be restarted during secret rotation. |
+| Dual-Token Overlap | Previous key MUST remain valid as fallback during 5-minute validation window. |
+| Automatic Rollback | Bot MUST automatically revert to previous key on HTTP 401/403 response. |

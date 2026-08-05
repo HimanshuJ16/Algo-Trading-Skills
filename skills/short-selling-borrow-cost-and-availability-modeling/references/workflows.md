@@ -1,16 +1,10 @@
-# Workflow: Short Selling Borrow Cost and Availability Modeling
+# Workflows for Short-Selling Borrow Cost and Availability Modeling
 
-1. **Initialize Modeler**
-   Instantiate `BorrowCostModeler` with the broker's GC rate, base HTB rate, and max HTB rate.
-
-2. **Load Utilization Data**
-   Load historical short interest/utilization data for the universe.
-   Create `BorrowStatus` objects and update the modeler: `modeler.update_status(BorrowStatus("TICKER", util))`.
-
-3. **Check Availability (Pre-Trade)**
-   Before emitting a short signal, call `modeler.can_short(ticker, requested_shares)`.
-   If False, skip the trade.
-
-4. **Calculate Drag (Post-Trade)**
-   For every short position held overnight, calculate the drag by invoking `modeler.calculate_borrow_cost(trade)`.
-   Subtract this cost from the daily P&L.
+1. **Share Locate Pre-Check**:
+   - Query share availability and utilization rate before placing short order.
+2. **Borrow Fee Rate Calculation**:
+   - Determine whether stock is General Collateral (GC) or Hard-To-Borrow (HTB).
+3. **Holding Drag Accounting**:
+   - Deduct daily borrow fee ($\text{Value} \times \frac{\text{Rate}}{365}$) from short strategy P&L.
+4. **Squeeze & Recall Risk Audit**:
+   - Monitor utilization spikes ($\ge 90\%$) for potential forced borrow recalls.

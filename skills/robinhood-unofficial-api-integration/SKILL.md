@@ -1,72 +1,54 @@
 ---
 name: robinhood-unofficial-api-integration
-description: Use when integrating Robinhood via its unofficial API for algorithmic
-  trading, with explicit acknowledgment of Terms of Service risk, authentication via
-  device token and MFA challenge, and order placement/status polling patterns.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- robinhood
-- unofficial-api
-- mfa-auth
-- commission-free
-brokers_frameworks:
-- Robinhood (unofficial)
-- robin_stocks
-- Python requests
-version: '1.0'
+description: >-
+  Production-grade client for Robinhood's unofficial/reverse-engineered API handling device-token OAuth2 authentication with MFA resolution, order placement, and position polling.
+domain: Broker Integration & Connectivity
+subdomain: Unofficial API Adapters
+tags: ["robinhood", "broker-integration", "unofficial-api", "mfa-auth", "oauth2", "order-routing"]
+brokers_frameworks: ["Robinhood Unofficial API", "OAuth2 Password Grant", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when building a trading bot targeting Robinhood's commission-free platform.
-Robinhood does **not** provide an official public API — all integrations rely on reverse-engineered
-unofficial endpoints. This carries inherent risk:
-- API may break without warning on any Robinhood app update.
-- May violate Robinhood's Terms of Service; account suspension is possible.
-- No official support or SLA.
-
-This skill covers authentication (device token + MFA), order placement, position polling,
-and structured error handling for the unofficial API.
+Use this skill when connecting automated trading applications to Robinhood accounts using their unofficial/reverse-engineered REST endpoints. Because Robinhood does not provide an official public trading API for retail accounts, retail algorithmic trading requires device-token based OAuth2 password grants, multi-factor authentication (MFA) challenge resolution, and position/order endpoints. Note: Unofficial APIs may break without warning upon broker backend updates.
 
 ## Prerequisites
 
-- Robinhood account credentials (email/password).
-- MFA device token or TOTP authenticator setup.
-- Understanding of ToS risk and willingness to accept it.
+- Robinhood credentials (`email`, `password`, optional `mfa_code`).
+- Generated or cached UUID device token (`device_token`).
+- Pluggable HTTP transport function (`http_fn`).
 
 ## Workflow
 
-1. **Authenticate**: Login with email/password + MFA challenge/response.
-2. **Obtain Bearer Token**: Store short-lived OAuth2 bearer token with refresh.
-3. **Query Positions**: Poll `/positions/` endpoint for current holdings.
-4. **Place Orders**: Submit market/limit orders via `/orders/` endpoint.
-5. **Poll Order Status**: Check fill status since WebSocket feeds are unavailable.
-6. **Handle Token Expiry**: Auto-refresh bearer token before expiry.
+1. **OAuth2 Device Token Authentication**:
+   - Issue POST request to `/oauth2/token/` with client ID, username, password, and `device_token`.
+2. **MFA Challenge Resolution**:
+   - If HTTP 400 with `mfa_required` is returned, prompt for MFA code and re-authenticate.
+3. **Order Placement**:
+   - Place market or limit orders via `/orders/` with time-in-force `gfd` and immediate trigger.
+4. **Position Polling & Filtering**:
+   - Poll `/positions/` and filter out zero-quantity holdings.
 
 > Full procedure: see `references/workflows.md`.
-> Standards: see `references/standards.md`.
-> Checklist: see `assets/checklist.md`.
+> Standards reference: see `references/standards.md`.
+> Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **MFA Challenge Loop**: Not caching the device token causes repeated MFA prompts.
-- **Rate Limiting**: Unofficial API has undocumented rate limits that cause 429 errors.
-- **API Breaking Changes**: Endpoint paths/schemas change without notice.
-- **ToS Violation Risk**: Automated trading may trigger account review or suspension.
+- **Uncached Device Token**: Generating a new UUID device token on every login triggers repeated MFA challenges and account locks.
+- **Unannounced Endpoint Deprecation**: Reverse-engineered endpoints can change schema or break without notice from the broker.
+- **Rate Limit Bans**: Polling endpoints too aggressively without rate-limit throttling can cause IP or account bans.
 
 ## Verification
 
-- Simulate authentication with MFA challenge and verify token acquisition.
-- Simulate order placement and verify correct payload construction.
-- Run `python scripts/test_robinhood_client.py` and confirm 100% pass rate.
+- Instantiate `RobinhoodUnofficialClient`. Authenticate with credentials $\implies$ verify access token issued. Test MFA flow $\implies$ verify `MFA_REQUIRED` exception raised without code, succeeds with code. Place market order $\implies$ verify order created in `queued` state. Poll positions $\implies$ verify non-zero positions returned.
+- Run `python scripts/test_robinhood_client.py`.
 
 ## Related Skills
 
-- `headless-broker-auth-patterns`
 - `broker-agnostic-adapter-interface`
-- `token-lifecycle-live-probing`
+- `broker-api-deprecation-notice-monitoring`
 ---

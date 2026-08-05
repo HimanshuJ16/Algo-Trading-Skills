@@ -1,14 +1,6 @@
-# Pre-Flight Checklist — robinhood-unofficial-api-integration
+# Pre-Flight Checklist
 
-- [ ] Device token cached to avoid repeated MFA challenges.
-- [ ] MFA challenge/response flow tested.
-- [ ] Bearer token refresh before expiry implemented.
-- [ ] Order placement constructs correct API payload.
-- [ ] Position polling filters zero-quantity holdings.
-- [ ] ToS risk acknowledged and documented.
-- [ ] Run `python scripts/test_robinhood_client.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Is persistent device token UUID generated and saved locally?
+- [ ] Is MFA resolution tested for SMS/app authentication challenges?
+- [ ] Are rate limits throttled to prevent account security flags?
+- [ ] Is error handling active for unexpected endpoint schema changes?

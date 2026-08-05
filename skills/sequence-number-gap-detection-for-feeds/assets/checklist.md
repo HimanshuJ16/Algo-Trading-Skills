@@ -1,14 +1,6 @@
-# Pre-Flight / Sign-off Checklist — sequence-number-gap-detection-for-feeds
+# Pre-Flight Checklist
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Monotonic Sequence Tracking:** Confirm expected sequence IDs update per channel.
-- [ ] **Gap Detection & Buffering:** Confirm missing sequence numbers trigger `DIRTY_SYNC_PENDING` and buffer out-of-order frames.
-- [ ] **Re-transmission Integration:** Confirm missing sequence ranges are requested from gap-fill API.
-- [ ] **Buffer Drain:** Confirm contiguous buffered frames are emitted in order after gap reconciliation.
-- [ ] **Automated Testing:** Run `python scripts/test_gap_detector.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Is sequence tracking active on all market data channels?
+- [ ] Are out-of-order frames buffered up to max buffer limit?
+- [ ] Is trading suspended whenever feed state transitions to `DIRTY_SYNC_PENDING`?
+- [ ] Are TCP retransmission requests issued for missing sequence ranges?

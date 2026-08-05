@@ -8306,43 +8306,47 @@
     },
     {
       "name": "risk-control-configuration-change-approval-workflow",
-      "description": "Two-person approval workflow for risk config changes.",
-      "domain": "Risk Management",
-      "subdomain": "Calibration",
+      "description": "Design or review maker-checker change control for trading risk configurations, including immutable payload approval, RBAC separation, expiry, optimistic concurrency, idempotent application, audit evidence, reconciliation, and rollback readiness. Use for production changes to order, position, exposure, credit, drawdown, throttling, or kill-switch parameters; do not use as a substitute for the runtime pre-trade risk gate or emergency kill switch.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
       "tags": [
-        "risk",
-        "risk-control-configuration-change-approval-workflow"
+        "risk-management",
+        "change-control",
+        "maker-checker",
+        "configuration-governance"
       ],
       "brokers_frameworks": [
-        "any"
+        "Broker-agnostic"
       ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "1.1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/risk-control-configuration-change-approval-workflow",
       "skill_md": "skills/risk-control-configuration-change-approval-workflow/SKILL.md"
     },
     {
       "name": "risk-control-dependency-mapping",
-      "description": "Blast radius mapping for risk control feed dependencies.",
-      "domain": "risk-management",
-      "subdomain": "risk-controls",
+      "description": "Build or review dependency graphs and blast-radius analyses for trading risk controls, covering market/reference data, positions, orders, balances, FX, clocks, state stores, services, broker/exchange inputs, control decisions, and execution actuators. Use for architecture reviews, change impact, incident response, resilience testing, fail-open detection, redundancy validation, recovery planning, and operational ownership; do not use a static graph as a substitute for runtime health, freshness, lineage, or control enforcement.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
       "tags": [
-        "risk",
-        "controls"
+        "risk-management",
+        "dependency-mapping",
+        "blast-radius",
+        "resilience"
       ],
       "brokers_frameworks": [
-        "Any"
+        "Broker-agnostic"
       ],
-      "version": "1.0.0",
-      "author": "AI Builder",
-      "license": "MIT",
+      "version": "1.1.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/risk-control-dependency-mapping",
       "skill_md": "skills/risk-control-dependency-mapping/SKILL.md"
     },
     {
       "name": "risk-control-latency-budget",
-      "description": "Use when engineering live risk management controls to profile, bound, and audit total risk evaluation latency (ingestion + evaluation + order transmission), ensuring slow risk controls do not fail during fast market crashes.",
+      "description": "Measure, budget, and audit live trading risk-control latency from event observation through decision, local dispatch, and optionally broker/exchange acknowledgement. Use for pre-trade checks, drawdown breakers, kill switches, position limits, cancel paths, regressions, and incident review; do not equate local submission with effective containment.",
       "domain": "algorithmic-trading",
       "subdomain": "risk-management",
       "tags": [
@@ -8356,7 +8360,7 @@
         "Risk Control Latency Budgeter",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/risk-control-latency-budget",

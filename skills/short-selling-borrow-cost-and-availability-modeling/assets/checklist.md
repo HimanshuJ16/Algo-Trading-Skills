@@ -1,7 +1,6 @@
-# Pre-Flight Checklist: Borrow Cost Modeling
+# Pre-Flight Checklist
 
-- [ ] Ensure GC rate matches broker's fee schedule.
-- [ ] Confirm utilization data is point-in-time and avoids look-ahead bias.
-- [ ] Verify that HTB rates are applied daily (divided by 365 or 360).
-- [ ] Check that short sale requests exceeding available shares are completely rejected or partially filled.
-- [ ] Validate that extreme HTB rates correctly draw down portfolio equity in backtest.
+- [ ] Is short share locate availability verified before issuing short sell orders?
+- [ ] Are Hard-To-Borrow (HTB) rates dynamically scaled based on utilization %?
+- [ ] Are daily borrow costs deducted from short position P&L in backtests?
+- [ ] Are short squeeze alerts active for stocks with utilization $> 90\%$?

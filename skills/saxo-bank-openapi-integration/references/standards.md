@@ -1,14 +1,7 @@
-# Broker Integration Standards — saxo-bank-openapi-integration
+# Standards for Saxo Bank OpenAPI Integration
 
-| Parameter | Specification | Description |
-|---|---|---|
-| SIM Gateway Base URL | `https://gateway.saxobank.com/sim/openapi` | Simulation / Sandbox Environment |
-| LIVE Gateway Base URL | `https://gateway.saxobank.com/openapi` | Production Live Environment |
-| Auth Scheme | OAuth2 Bearer Header | `Authorization: Bearer {TOKEN}` |
-| Instrument Lookup | `/ref/v1/instruments` | UIC Universal Instrument Code Lookup |
-| Order Placement | `/trade/v1/orders` | Multi-asset Order Routing Endpoint |
-| Portfolio Positions | `/port/v1/positions` | Position Snapshot & P&L Endpoint |
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.
+| Parameter | Mandatory Value / Standard |
+|---|---|
+| Instrument Identifier | Must use numeric `Uic` resolved via instrument search API. |
+| AssetType Values | `FxSpot`, `Stock`, `ContractFutures`, `OptionRoot`, `CfdOnStock`. |
+| Bearer Token Auth | Headers MUST include `Authorization: Bearer {token}`. |

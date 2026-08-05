@@ -1,5 +1,7 @@
-# Standards
+# Standards for Singapore MAS Notice on Cyber Hygiene for Trading Systems
 
-| Standard | Description |
+| Control Requirement | Mandatory MAS Standard |
 |---|---|
-| STD-1 | Description of standard |
+| Admin MFA | MFA MUST be enforced for ALL administrative access to trading systems. |
+| Patch Management SLA | Critical security patches MUST be applied within 30 days of release. |
+| Baseline Hardening | Systems MUST conform to written baseline security standards (CIS benchmarks). |

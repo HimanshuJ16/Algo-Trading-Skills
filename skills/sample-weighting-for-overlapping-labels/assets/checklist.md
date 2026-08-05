@@ -1,4 +1,6 @@
-# Checklist
+# Pre-Flight Checklist
 
-- [ ] Task 1
-- [ ] Task 2
+- [ ] Are label start and end timestamps recorded for every training sample?
+- [ ] Is active concurrency $c_t$ calculated across all time steps?
+- [ ] Are average uniqueness scores computed per sample span?
+- [ ] Are normalized sample weights passed into the ML model fitting function?

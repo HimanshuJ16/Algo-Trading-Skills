@@ -1,14 +1,6 @@
-# Pre-Flight / Sign-off Checklist — sandbox-credential-leakage-prevention
+# Pre-Flight Checklist
 
-Use this before considering the skill's implementation complete.
-
-- [ ] **Environment Scope Declaration:** Confirm active mode (`SANDBOX` vs `PRODUCTION`) is explicitly configured.
-- [ ] **Key Prefix Inspection:** Confirm API key prefix is checked against environment rules.
-- [ ] **Gateway URL Boundary Check:** Confirm target domain matches environment mode.
-- [ ] **Runtime Execution Veto:** Confirm sandbox keys attempting to reach live gateways raise `SecurityViolationError`.
-- [ ] **Automated Testing:** Run `python scripts/test_credential_guard.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Is trading environment explicitly configured as SANDBOX or PRODUCTION?
+- [ ] Are API key prefixes validated before every HTTP broker call?
+- [ ] Are destination URL domain names validated against environment rules?
+- [ ] Are sandbox credentials strictly isolated from production `.env` files?

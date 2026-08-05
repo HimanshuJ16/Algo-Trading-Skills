@@ -1,16 +1,7 @@
-# Standards Reference — robinhood-unofficial-api-integration
+# Standards for Robinhood Unofficial API Integration
 
-| Parameter | Value | Description |
-|---|---|---|
-| Base URL | `https://api.robinhood.com` | Unofficial API base |
-| Auth Endpoint | `/oauth2/token/` | Device-token + MFA auth |
-| Token Lifetime | ~86400s (24h) | Bearer token expiry |
-| API Status | **Unofficial** | No SLA, may break without notice |
-
-## Category
-
-`broker-integration`
-
-## Risk Warning
-
-Unofficial API usage may violate Robinhood's Terms of Service and result in account suspension.
+| Metric | Engineering Standard |
+|---|---|
+| Device Token | Device UUID MUST be cached and reused across login sessions. |
+| Polling Frequency | Position polling MUST NOT exceed 1 request per 2 seconds. |
+| MFA Handling | System MUST support programmatic MFA code injection. |

@@ -1,47 +1,35 @@
 ---
 name: sandbox-credential-leakage-prevention
-description: Use when building broker adapters to enforce strict runtime isolation
-  between sandbox/paper test credentials and live production endpoints, preventing
-  test keys from reaching live gateways and blocking accidental real-money order routing.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- sandbox-prevention
-- credential-leakage
-- environment-guard
-- security
-- production-safety
-brokers_frameworks:
-- Credential Security Guard
-- Python Security
-version: '1.0'
+description: >-
+  Production-grade runtime environment guard enforcing strict isolation between paper/sandbox test credentials and live production broker endpoints to prevent credential leakage and accidental live trade execution.
+domain: DevSecOps & Security Governance
+subdomain: Environment Isolation & Credential Security
+tags: ["sandbox-isolation", "credential-leakage", "devsecops", "secret-guard", "broker-endpoints", "alpaca-paper"]
+brokers_frameworks: ["Credential Environment Guard", "Python Dataclasses", "DevSecOps Standards"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill whenever initializing broker API adapters or setting up deployment pipelines. Mixing sandbox (paper/testnet) credentials with live production gateway URLs — or vice versa — leads to severe operational hazards: paper test runs accidentally sending real-money orders to exchanges, or live bots crashing due to invalid sandbox keys. This skill enforces key prefix validation, endpoint gateway URL matching, and runtime execution vetoes.
+Use this skill when deploying automated trading applications that operate in dual modes (paper trading / sandbox vs live production trading). Mixing sandbox credentials with live production broker endpoints or using production API keys against testnet endpoints causes catastrophic live capital losses or paper order rejections. This engine enforces strict runtime validation over API key prefixes and target gateway URLs, throwing `SecurityViolationError` if cross-environment leakage occurs.
 
 ## Prerequisites
 
-- Active trading environment mode (`SANDBOX` or `PRODUCTION`).
-- Key prefix and URL pattern rules per broker (e.g. Alpaca Paper `PK...` vs Live `AK...`).
+- Declared trading environment (`SANDBOX` or `PRODUCTION`).
+- Broker environment rules (`BrokerEnvironmentRules`: `broker_name`, `sandbox_key_prefixes`, `production_key_prefixes`, `sandbox_url_keywords`, `production_url_keywords`).
 
 ## Workflow
 
-1. **Configure Environment Mode**:
-   - Explicitly define `TRADING_ENVIRONMENT` (`SANDBOX` vs `PRODUCTION`).
-
-2. **Validate Key Signature & Prefix**:
-   - Inspect API key pattern (e.g. Alpaca paper keys `PK*`, Binance testnet keys).
-
-3. **Verify Target Endpoint URL Boundary**:
-   - Confirm target API gateway URL matches environment rules (e.g. `paper-api.alpaca.markets` for `SANDBOX`, `api.alpaca.markets` for `PRODUCTION`).
-
-4. **Runtime Execution Veto**:
-   - Intercept outbound HTTP requests. If a sandbox key attempts to reach a live production URL, trip security alarm and abort execution.
+1. **Environment Initialization**:
+   - Instantiate `CredentialEnvironmentGuard` with target `TradingEnvironment` (`SANDBOX` or `PRODUCTION`).
+2. **Request Boundary Inspection**:
+   - Inspect broker name, API key string, and target endpoint URL before issuing HTTP requests.
+3. **Prefix & URL Pattern Matching**:
+   - If in `SANDBOX` mode: verify API key does not start with production prefixes (`AK_`, `LIVE_`) and target URL does not match live gateways (`api.alpaca.markets`).
+   - If in `PRODUCTION` mode: verify API key does not start with sandbox prefixes (`PK_`, `PAPER_`) and target URL does not match paper gateways (`paper-api.alpaca.markets`).
+4. **Security Exception Enforcement**: Throw `SecurityViolationError` on any breach.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -49,19 +37,17 @@ Invoke this skill whenever initializing broker API adapters or setting up deploy
 
 ## Common Pitfalls
 
-- **Environment Variable Contamination**: Inheriting production `.env` credentials in staging or paper testing containers.
-- **Hardcoded Gateway Fallbacks**: Broker SDKs defaulting to live production endpoints when base URL parameters are omitted.
-- **Dynamic URL Redirection**: OAuth redirects sending sandbox-authenticated sessions to live production endpoints.
+- **Hardcoding Production API Keys in Test Suites**: Checking in live API keys into GitHub or sandbox unit tests.
+- **Shared Environment Config Files**: Using a single `.env` file for both paper testing and production live trading.
+- **Bypassing Pre-Request Guard Checks**: Calling HTTP libraries directly without routing through the `CredentialEnvironmentGuard`.
 
 ## Verification
 
-- Attempt to dispatch an order with sandbox `PK...` key to live production `api.alpaca.markets` and verify execution veto.
-- Confirm valid sandbox key to sandbox URL and live key to live URL pass environment guard.
-- Run `python scripts/test_credential_guard.py` and confirm 100% pass rate.
+- Instantiate `CredentialEnvironmentGuard(SANDBOX)`. Validate paper key to paper URL $\implies$ returns True. Validate paper key to live production URL $\implies$ throws `SecurityViolationError("ENDPOINT LEAK DETECTED")`. Instantiate `CredentialEnvironmentGuard(PRODUCTION)` with paper key $\implies$ throws `SecurityViolationError("CREDENTIAL LEAK DETECTED")`.
+- Run `python scripts/test_credential_guard.py`.
 
 ## Related Skills
 
-- `alpaca-paper-live-key-separation`
-- `sandbox-vs-production-endpoint-drift`
-- `api-key-least-privilege-audit-tool`
+- `robinhood-unofficial-api-integration`
+- `binance-futures-testnet-to-mainnet-promotion`
 ---

@@ -1,68 +1,53 @@
 ---
 name: secrets-rotation-without-bot-downtime
-description: Use when rotating broker API keys, secrets, or tokens on a schedule without
-  requiring a full bot restart, ensuring continuous trading coverage during credential
-  transitions.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment
-- secrets-rotation
-- credentials
-- zero-downtime
-- api-keys
-brokers_frameworks:
-- Vault
-- AWS Secrets Manager
-- Custom Secrets Store
-version: '1.0'
+description: >-
+  Production-grade zero-downtime secret rotator for live algorithmic trading bots supporting hot-swapping credentials, dual-token overlap validation, emergency fallback, and old credential revocation.
+domain: DevSecOps & High-Availability Operations
+subdomain: Zero-Downtime Secret Rotation
+tags: ["secrets-rotation", "zero-downtime", "hot-swap", "dual-token", "vault", "bot-reliability"]
+brokers_frameworks: ["Dual-Token Rotation Pattern", "Secrets Rotator Engine", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill whenever broker API keys, OAuth tokens, or secrets need periodic rotation
-for security hygiene. Naive rotation (stop bot → update secret → restart bot) creates trading
-gaps. This skill implements hot-swap credential rotation where:
-- New credentials are validated before the old ones are revoked.
-- The bot atomically switches to new credentials without restart.
-- Failed rotation falls back to existing credentials with an alert.
+Use this skill when rotating API keys, OAuth secrets, or database credentials for live high-frequency or algorithmic trading bots without restarting the bot process or missing trading opportunities. Restarting trading bots to reload updated environment variables causes execution downtime, lost market data ticks, and unhedged positions. This engine implements the dual-token overlap pattern: validating new credentials before hot-swapping, retaining previous credentials as fallback, and revoking old keys once new credentials are confirmed.
 
 ## Prerequisites
 
-- Secrets store (Vault, environment, config file) with versioned credential slots.
-- Broker API that supports overlapping validity of old and new credentials.
-- Health check to validate new credentials before switchover.
+- Initial active credential (`key_id`, `secret`).
+- Pluggable validation function (`validate_fn`).
 
 ## Workflow
 
-1. **Generate New Credentials**: Create new API key/secret pair at broker.
-2. **Validate New Credentials**: Test connectivity with new credentials (read-only call).
-3. **Hot-Swap**: Atomically update the bot's active credential reference.
-4. **Verify Live Traffic**: Confirm orders/fills work with new credentials.
-5. **Revoke Old Credentials**: Only after new credentials are confirmed working.
-6. **Fallback**: If validation fails, keep old credentials and alert ops team.
+1. **New Credential Pre-Validation**:
+   - Validate new API key against broker test endpoint before initiating switchover (`RotationState.VALIDATING_NEW`).
+2. **Atomic Hot-Swap**:
+   - Set new credential as active while retaining previous credential in memory (`RotationState.SWAPPED`).
+3. **Emergency Fallback / Rollback**:
+   - If post-swap API errors occur, instantly revert active credential back to previous valid credential (`RotationState.FAILED_ROLLBACK`).
+4. **Old Credential Revocation**:
+   - Revoke and purge old credential once new key is confirmed (`RotationState.REVOKED_OLD`).
 
 > Full procedure: see `references/workflows.md`.
-> Standards: see `references/standards.md`.
-> Checklist: see `assets/checklist.md`.
+> Standards reference: see `references/standards.md`.
+> Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Revoking Before Validating**: Deleting old key before confirming new key works.
-- **Race Conditions**: In-flight requests using old credentials during switchover.
-- **No Fallback**: Failing rotation with no way to revert to old credentials.
+- **Restarting Bots for Key Updates**: Killing bot processes to update environment variables, causing trade execution gaps and missed fills.
+- **Revoking Old Key Before New Key Verification**: Deleting the old API key on the broker side before verifying that the bot can authenticate with the new key.
+- **Uncached Fallback Credentials**: Discarding previous credentials immediately upon swap, preventing instant rollback during API error spikes.
 
 ## Verification
 
-- Rotate credentials and verify bot continues trading without restart.
-- Simulate new credential validation failure and confirm fallback to old credentials.
-- Run `python scripts/test_secrets_rotator.py` and confirm 100% pass rate.
+- Instantiate `SecretsRotator`. Rotate to valid key `key_v2` $\implies$ verify `state = RotationState.SWAPPED` and `active_key_id = "key_v2"`. Attempt rotation with invalid key $\implies$ verify `RotationState.FAILED_ROLLBACK` and old key retained active. Trigger `fallback_to_previous()` $\implies$ verify active key reverts to `key_v1`. Revoke previous key $\implies$ verify `RotationState.REVOKED_OLD`.
+- Run `python scripts/test_secrets_rotator.py`.
 
 ## Related Skills
 
+- `sandbox-credential-leakage-prevention`
 - `blue-green-deployment-for-live-strategy-updates`
-- `headless-broker-auth-patterns`
-- `token-lifecycle-live-probing`
 ---

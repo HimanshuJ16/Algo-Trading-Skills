@@ -1,11 +1,6 @@
-# Broker Integration Standards — sandbox-credential-leakage-prevention
+# Standards for Sandbox Credential Leakage Prevention
 
-| Broker | Sandbox Key Prefix | Production Key Prefix | Sandbox Gateway | Production Gateway |
-|---|---|---|---|---|
-| Alpaca | `PK...` | `AK...` | `paper-api.alpaca.markets` | `api.alpaca.markets` |
-| Binance | `testnet_` | `live_` | `testnet.binance.vision` | `api.binance.com` |
-| Saxo Bank | `sim_` | `prod_` | `gateway.saxobank.com/sim` | `gateway.saxobank.com/openapi` |
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.
+| Environment | Permitted API Key Prefixes | Disallowed Target URL Keywords |
+|---|---|---|
+| SANDBOX | `PK_`, `PAPER_`, `testnet_`, `sim_` | `api.alpaca.markets`, `api.binance.com` |
+| PRODUCTION | `AK_`, `LIVE_`, `prod_` | `paper-api.alpaca.markets`, `testnet.binance.vision` |

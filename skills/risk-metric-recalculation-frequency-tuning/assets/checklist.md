@@ -1,12 +1,6 @@
-# Pre-Flight / Sign-off Checklist — risk-metric-recalculation-frequency-tuning
+# Pre-Flight Checklist
 
-- [ ] Tiered risk metric classification configured.
-- [ ] P&L velocity calculation active.
-- [ ] Volatility acceleration trigger tested.
-- [ ] CPU cycle savings verified.
-- [ ] Automated Testing: Run `python scripts/test_risk_frequency_tuner.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Are risk metrics categorized into 4 calculation tiers based on computational cost?
+- [ ] Is Tier 1 (drawdown/position cap) executed on 100% of ticks?
+- [ ] Is P&L velocity ($/sec) monitored continuously to trigger accelerated mode?
+- [ ] Are CPU cycle savings verified under normal market conditions?

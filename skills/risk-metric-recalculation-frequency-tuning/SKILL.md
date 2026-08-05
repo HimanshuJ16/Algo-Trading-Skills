@@ -1,50 +1,37 @@
 ---
 name: risk-metric-recalculation-frequency-tuning
-description: Use when engineering risk monitoring architecture to tune and schedule
-  differential recalculation frequencies across risk metrics (real-time tick checks
-  vs periodic VaR/Greeks/stress tests), optimizing compute budget without compromising
-  risk protection.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- risk-cadence
-- recalculation-frequency
-- compute-efficiency
-- event-driven-risk
-- var-tuning
-brokers_frameworks:
-- Risk Metric Frequency Tuner Engine
-- Python
-version: '1.0'
+description: >-
+  Production-grade differential risk metric recalculation scheduler tuning computation cadences across 4 tiers (Per-tick drawdown, 1s Greeks, 30s VaR, 300s stress tests) with dynamic P&L velocity volatility acceleration.
+domain: Risk Management & Computational Optimization
+subdomain: Risk Engine Performance & Frequency Tuning
+tags: ["risk-frequency", "recalculation-tuning", "volatility-acceleration", "pnl-velocity", "cpu-optimization", "tiered-cadence"]
+brokers_frameworks: ["Risk Metric Scheduler", "Python Dataclasses", "Unittest"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when building multi-metric live risk monitoring engines. Computing intensive risk metrics (10,000-scenario Monte Carlo VaR, full option surface Greeks, multi-counterparty CVA) on every single incoming price tick causes CPU starvation and delays critical order processing. This skill establishes differential recalculation cadences: real-time tick evaluation for drawdown/position limits, fast cadence for Delta/Gamma, and periodic/event-driven acceleration for heavy VaR and stress tests.
+Use this skill when optimizing computational efficiency and latency budgets for real-time risk engines. Naively recalculating all risk metrics (VaR, CVaR, option Greeks, portfolio stress tests) on every incoming market data tick consumes excessive CPU resources and introduces execution thread lag. This engine establishes a 4-tier differential calculation schedule (per-tick drawdown, 2s option Greeks, 30s 1-day VaR, 300s stress testing) and dynamically accelerates calculation frequencies when P&L velocity spikes above threshold.
 
 ## Prerequisites
 
-- Risk metric definitions (Drawdown, Delta, Vega, VaR, Stress Test).
-- Target recalculation interval configurations ($T_{\text{target\_ms}}$) and volatility acceleration thresholds.
+- Risk metric schedule configuration (`metric_name`, `tier`, `base_interval_sec`, `accelerated_interval_sec`).
+- P&L velocity threshold ($/sec; default $500/sec).
 
 ## Workflow
 
-1. **Classify Risk Metric Cadence Tier**:
-   - Tier 1 (Tick-level, $0$ ms delay): Pre-trade order caps, intraday drawdown kill-switch.
-   - Tier 2 (Fast Intraday, $1,000–5,000$ ms): Delta, Gamma, position concentration.
-   - Tier 3 (Medium Intraday, $30,000$ ms): 1-Day VaR, Expected Shortfall (ES).
-   - Tier 4 (Slow / Scheduled, $300,000$ ms): Stress testing, CVA.
-
-2. **Evaluate Due Recalculation Metrics**:
-   Check elapsed time $\Delta t_{\text{elapsed}} = T_{\text{now}} - T_{\text{last\_calc}}$.
-
-3. **Trigger Volatility Acceleration**:
-   If P&L velocity $\left|\frac{d\text{PnL}}{dt}\right| > \text{Threshold}$, accelerate Tier 3/4 cadences by $5\times$.
-
-4. **Execute Scheduled Calculations & Audit Efficiency**: Log CPU time saved by tiered scheduling.
+1. **Tiered Metric Registration**:
+   - Tier 1: Per-tick (`TICK_DRAWDOWN` - 0.0s interval).
+   - Tier 2: Fast (`GREEKS_DELTA` - 2.0s base / 0.5s accelerated).
+   - Tier 3: Medium (`VAR_1DAY` - 30.0s base / 5.0s accelerated).
+   - Tier 4: Slow (`STRESS_TEST` - 300.0s base / 30.0s accelerated).
+2. **P&L Velocity Monitoring**:
+   - Compute P&L change rate: $\text{Velocity} = \frac{|\Delta \text{PnL}|}{\Delta t}$.
+3. **Dynamic Acceleration**:
+   - If velocity $\ge \text{threshold}$, switch scheduler to accelerated intervals.
+4. **Tuner Execution Report**: Output structured `TunerExecutionReport`.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -52,17 +39,17 @@ Invoke this skill when building multi-metric live risk monitoring engines. Compu
 
 ## Common Pitfalls
 
-- **Recalculating Monte Carlo VaR Per Tick**: Freezing order processing threads by running 100,000-path simulations on 100 Hz market data feeds.
-- **Static Cadence During Fast Crashes**: Keeping VaR recalculation fixed at 5 minutes during a flash crash instead of dynamically accelerating.
+- **Per-Tick Recalculation of Heavy VaR/Monte Carlo**: Running 10,000-scenario Monte Carlo simulations on every tick freezes pre-trade risk threads.
+- **Static Calculation Cadences During Crashes**: Keeping VaR updates at 300s intervals during market volatility spikes delays risk detection.
+- **Ignoring CPU Cycle Savings**: Failing to measure CPU cycles saved by tiering calculations.
 
 ## Verification
 
-- Simulate 100 ticks with normal and high-velocity price moves, verify Tier 1 runs every tick, Tier 3 runs every 30s, and high P&L velocity triggers automatic 5x acceleration.
-- Run `python scripts/test_risk_frequency_tuner.py` and confirm 100% pass rate.
+- Instantiate `RiskMetricFrequencyTuner`. Evaluate at normal P&L velocity $\implies$ verify only `TICK_DRAWDOWN` due between intervals, saving ~75% CPU cycles. Sudden $2,000/s P&L drop $\implies$ verify `is_accelerated_mode=True` and `GREEKS_DELTA` / `VAR_1DAY` intervals accelerated.
+- Run `python scripts/test_risk_frequency_tuner.py`.
 
 ## Related Skills
 
-- `value-at-risk-var-live-monitoring`
-- `real-time-greeks-recalculation-on-market-moves`
 - `risk-control-latency-budget`
+- `risk-limit-calibration-against-historical-drawdowns`
 ---

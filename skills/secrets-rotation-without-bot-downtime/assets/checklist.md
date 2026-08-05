@@ -1,12 +1,6 @@
-# Pre-Flight Checklist — secrets-rotation-without-bot-downtime
+# Pre-Flight Checklist
 
-- [ ] New credentials validated before switchover.
-- [ ] Hot-swap is atomic (no restart required).
-- [ ] Fallback to old credentials works on validation failure.
-- [ ] Old credentials revoked only after new ones confirmed.
-- [ ] Run `python scripts/test_secrets_rotator.py` — 100% pass rate.
-
-## Sign-off
-
-- Reviewed by: ___________________________
-- Date: ___________________________
+- [ ] Is secret rotation performed without restarting the live trading bot?
+- [ ] Are new credentials pre-validated against broker endpoints before hot-swapping?
+- [ ] Is dual-token overlap active to support instant emergency fallback?
+- [ ] Are previous credentials revoked only after new key is verified in production?

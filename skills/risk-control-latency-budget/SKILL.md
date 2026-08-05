@@ -1,8 +1,7 @@
 ---
 name: risk-control-latency-budget
-description: Use when engineering live risk management controls to profile, bound,
-  and audit total risk evaluation latency (ingestion + evaluation + order transmission),
-  ensuring slow risk controls do not fail during fast market crashes.
+description: >-
+  Measure, budget, and audit live trading risk-control latency from event observation through decision, local dispatch, and optionally broker/exchange acknowledgement. Use for pre-trade checks, drawdown breakers, kill switches, position limits, cancel paths, regressions, and incident review; do not equate local submission with effective containment.
 domain: algorithmic-trading
 subdomain: risk-management
 tags:
@@ -14,7 +13,7 @@ tags:
 brokers_frameworks:
 - Risk Control Latency Budgeter
 - Python
-version: '1.0'
+version: 1.1.0
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

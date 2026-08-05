@@ -1,49 +1,36 @@
 ---
 name: sequence-number-gap-detection-for-feeds
-description: Use when consuming exchange market data feeds (WebSockets, ITCH, UDP
-  multicast) to detect sequence number gaps, trigger gap-fill re-transmission requests,
-  and mark orderbook feeds as dirty until state reconciliation completes.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- sequence-gaps
-- feed-monitoring
-- packet-loss
-- orderbook-sync
-- retransmission
-brokers_frameworks:
-- Sequence Gap Detector
-- Python Real-Time Engine
-version: '1.0'
+description: >-
+  Production-grade monotonic sequence tracker, out-of-order buffer manager, and order book sync guard engine detecting packet drops in market data feeds (Nasdaq ITCH, CME MDP 3.0, Binance WebSocket) and triggering retransmission recovery.
+domain: Market Data & Messaging Protocols
+subdomain: Feed Gap Detection & State Reconciliation
+tags: ["gap-detection", "sequence-number", "itch-protocol", "udp-packet-loss", "order-book-sync", "retransmission"]
+brokers_frameworks: ["Nasdaq ITCH Protocol", "MoldUDP64", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when processing high-frequency WebSocket, UDP multicast, or binary market data streams where packets may drop or arrive out-of-order. Missing a single sequence number in an orderbook feed invalidates book depth integrity. This skill tracks expected sequence IDs ($S_{\text{expected}} = S_{\text{last}} + 1$), buffers out-of-order frames, flags the orderbook as out-of-sync, and requests missing sequence ranges before resuming live processing.
+Use this skill when processing high-frequency market data feeds (Nasdaq ITCH, CME MDP 3.0, Binance WebSocket) where packets can be dropped, delayed, or delivered out-of-order due to network UDP loss or congestion. Undetected sequence gaps corrupt local order book state, resulting in phantom orders, incorrect price quotes, and bad trade execution. This engine tracks expected sequence IDs per channel, buffers out-of-order frames, detects missing ranges, and reconciles state via TCP retransmission or snapshot services.
 
 ## Prerequisites
 
-- Market data feed providing incrementing integer sequence numbers per channel/symbol.
-- Historical tick/packet re-transmission mechanism (REST API or multicast re-transmission server).
+- Feed frame payload (`FeedFrame`: `symbol`, `sequence_id`, `payload`).
+- Max out-of-order buffer size (`max_buffer_size`: default 1000 frames).
 
 ## Workflow
 
-1. **Track Monotonic Sequence Numbers**:
-   - Maintain $S_{\text{expected}} = S_{\text{last}} + 1$ for each feed channel.
-
-2. **Evaluate Incoming Frame Sequence $S$**:
-   - $S = S_{\text{expected}}$: Process in-order frame and increment $S_{\text{expected}}$.
-   - $S > S_{\text{expected}}$: Sequence gap detected. Buffer frame in out-of-order queue and flag feed state as `DIRTY_SYNC_PENDING`.
-   - $S < S_{\text{expected}}$: Stale/duplicate frame. Log and discard.
-
-3. **Issue Re-Transmission / Gap-Fill Request**:
-   - Request missing sequence range $[S_{\text{expected}}, S - 1]$ from historical storage or re-transmission endpoint.
-
-4. **Reconcile State & Resume**:
-   - Ingest missing gap frames, drain out-of-order buffer in sequence, and clear `DIRTY_SYNC_PENDING` flag.
+1. **Monotonic Sequence Inspection**:
+   - Compare incoming `sequence_id` with expected sequence ($S_{\text{expected}}$).
+   - If $S_{\text{incoming}} == S_{\text{expected}}$: process frame, increment sequence, and drain contiguous buffered frames (`FeedSyncState.SYNCED`).
+2. **Gap Detection & Out-of-Order Buffering**:
+   - If $S_{\text{incoming}} > S_{\text{expected}}$: flag gap, identify missing range [$S_{\text{expected}} .. S_{\text{incoming}} - 1$], buffer incoming frame, and transition to `FeedSyncState.DIRTY_SYNC_PENDING`.
+3. **Stale Frame Suppression**:
+   - If $S_{\text{incoming}} < S_{\text{expected}}$: ignore stale / duplicate frame.
+4. **Retransmission Reconciliation**:
+   - Ingest missing frames from retransmission endpoint; drain out-of-order buffer and restore `FeedSyncState.SYNCED`.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -51,19 +38,17 @@ Invoke this skill when processing high-frequency WebSocket, UDP multicast, or bi
 
 ## Common Pitfalls
 
-- **Trading on Out-of-Sync Orderbook**: Placing limit or market orders while sequence gap recovery is actively pending.
-- **Unbounded Out-of-Order Buffer Growth**: Allowing out-of-order queue size to grow indefinitely during sustained network outages.
-- **Ignoring Per-Symbol Channels**: Conflating multi-symbol sequence numbers when the exchange maintains per-symbol sequence counters.
+- **Trading on Unsynced Order Books**: Processing trading signals while the feed state is `DIRTY_SYNC_PENDING`, executing trades against corrupted order books.
+- **Unbounded Out-of-Order Buffers**: Allowing out-of-order message buffers to grow indefinitely during prolonged network outages, causing memory exhaustion.
+- **Ignoring Secondary Feed Arbitration**: Requesting TCP retransmissions without first checking if the missing packet is available on a secondary redundant UDP multicast feed (Feed B).
 
 ## Verification
 
-- Process in-order sequences (1, 2, 3) and verify `SYNCED` state.
-- Inject gap sequence (1, 2, 6), verify `DIRTY_SYNC_PENDING` state and gap range request [3, 4, 5].
-- Run `python scripts/test_gap_detector.py` and confirm 100% pass rate.
+- Instantiate `SequenceGapDetector`. Ingest in-order sequence 100 and 101 $\implies$ verify `state = FeedSyncState.SYNCED`. Ingest sequence 103 (missing 101, 102) $\implies$ verify `is_gap_detected=True`, `missing_range=(101, 102)`, and `DIRTY_SYNC_PENDING` state. Reconcile missing frames 101 and 102 $\implies$ verify frames 101, 102, and 103 processed contiguous and state restored to `SYNCED`.
+- Run `python scripts/test_gap_detector.py`.
 
 ## Related Skills
 
-- `websocket-reconnection-with-state-recovery`
-- `orderbook-l2-l3-reconstruction`
-- `market-data-snapshot-plus-delta-reconciliation`
+- `binary-protocol-parsing-for-low-latency-feeds`
+- `smart-order-router-failover-on-venue-outage`
 ---

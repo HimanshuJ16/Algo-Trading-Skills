@@ -1,72 +1,54 @@
 ---
 name: sandbox-vs-production-endpoint-drift
-description: Use when testing broker API integrations to detect schema drift, response
-  payload mismatches, header variations, and status code discrepancies between sandbox
-  and production environments
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- sandbox-drift
-- api-schema-audit
-- environment-parity
-- regression-testing
-brokers_frameworks:
-- All Broker REST APIs
-version: '1.0'
+description: >-
+  Production-grade API schema drift detector, response payload comparator, header audit tool, and environment parity reporter auditing discrepancies between sandbox test environments and live production broker endpoints.
+domain: DevSecOps & Quality Assurance
+subdomain: API Schema Drift & Environment Parity
+tags: ["schema-drift", "sandbox-parity", "api-contract", "broker-integration", "devsecops", "openapi-diff"]
+brokers_frameworks: ["Endpoint Drift Detector", "Python Dataclasses", "DevSecOps Standards"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this whenever promoting a trading bot or broker API integration from a paper/sandbox environment to live production. Broker sandboxes frequently deviate from live production environments in subtle ways: missing optional fields in order objects, returning 200 OK with inline error messages instead of HTTP 4xx, formatting timestamps differently, or omitting rate-limit headers. Auditing response schema parity between environments before live deployment prevents unexpected runtime crashes.
+Use this skill when auditing or maintaining parity between broker sandbox/paper environments and live production endpoints. Broker developers frequently update sandbox endpoints to test upcoming features or alter production payload schemas without updating paper trading documentation. Schema drift (missing fields, data type shifts like string vs float, missing rate-limit headers, or status code discrepancies) causes production algorithms to crash when promoted from sandbox to live trading.
 
 ## Prerequisites
 
-- Access credentials for both sandbox and production broker endpoints.
-- Read-only probe endpoints (e.g., GET `/v2/account`, GET `/v2/orders`, GET `/v2/instruments`).
-- Dict/Schema comparison utility.
+- Sample JSON responses from sandbox and production endpoints (`sandbox_json`, `prod_json`).
+- Sample HTTP headers and status codes (`sandbox_headers`, `prod_headers`, `sandbox_status`, `prod_status`).
 
 ## Workflow
 
-1. **Capture Benchmark Responses**:
-   - Issue identical GET requests to equivalent sandbox and production endpoints (e.g., sandbox `https://paper-api.alpaca.markets/v2/account` vs production `https://api.alpaca.markets/v2/account`).
+1. **JSON Payload Schema Comparison**:
+   - Compare field presence: flag fields present in production but missing in sandbox as `CRITICAL`.
+   - Flag fields present in sandbox but absent in production as `WARNING`.
+2. **Data Type Mismatch Audit**:
+   - Audit data types for common fields (e.g. `price`: float vs string $\implies$ `CRITICAL`).
+3. **Header & Rate Limit Audit**:
+   - Check for missing rate-limit headers (`x-ratelimit-limit`, `retry-after`) in sandbox.
+4. **Status Code Discrepancy Check**:
+   - Flag status code mismatches (e.g. sandbox 200 vs prod 400 for identical invalid payload). Output `EndpointDriftReport`.
 
-2. **Schema & Field Type Comparison**:
-   - Execute `EndpointDriftDetector.compare_schemas()`:
-     - Check for missing fields present in production but absent in sandbox.
-     - Check for data type mismatches (e.g. `price` returned as `float` in sandbox vs `string` in production).
-
-3. **HTTP Header & Rate-Limit Audit**:
-   - Inspect response headers across environments. Verify rate-limit headers (`X-RateLimit-Remaining`, `Retry-After`) exist in sandbox.
-
-4. **Status Code Behavior Audit**:
-   - Submit intentional invalid requests (e.g., bad symbol name) to both environments. Confirm both return identical HTTP status codes (e.g. 400 Bad Request).
-
-5. **Generate Parity Audit Report**:
-   - Export structured `EndpointDriftReport` categorizing drift findings by severity (`CRITICAL`, `WARNING`, `INFO`). Block live deployment if `CRITICAL` schema drift is detected.
-
-> Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
-> Broker/framework coverage table for this skill: see `references/standards.md`.
+> Full procedure: see `references/workflows.md`.
+> Standards reference: see `references/standards.md`.
 > Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Un-Audited Live Promotion**: Assuming that code passing in sandbox will run identically in live production without schema verification.
-- **Type Coercion Vulnerability**: Assuming float inputs when production returns string representations of price or quantity.
-- **Missing Header Guards**: Relying on rate-limit headers that are present in sandbox but missing in production or vice versa.
+- **False Sense of Security in Sandbox**: Assuming identical code behavior in production because unit tests passed in sandbox.
+- **Ignoring String vs Numeric Type Shifts**: Accepting string numbers `"150.5"` in production when sandbox returned numeric `150.5`, causing type error crashes.
+- **Unmonitored Rate Limit Header Drift**: Failing to handle rate-limit headers because the sandbox environment did not return `X-RateLimit-Remaining`.
 
 ## Verification
 
-- Run `compare_schemas()` on identical sandbox and production payloads and verify zero drift is reported.
-- Introduce a missing field and type mismatch into a mock response and verify `CRITICAL` drift is detected.
-- Verify status code audit flags 200 OK vs 400 Bad Request discrepancies.
-- Run unit test suite `python scripts/test_drift_detector.py` and confirm 100% pass rate.
+- Instantiate `EndpointDriftDetector`. Compare identical JSON payloads $\implies$ verify `passed=True`, zero critical/warning findings. Compare payload with missing production field $\implies$ verify `passed=False` with `CRITICAL` finding. Compare float vs string type mismatch $\implies$ verify `CRITICAL` finding. Compare status code mismatch (200 vs 400) $\implies$ verify status code finding.
+- Run `python scripts/test_drift_detector.py`.
 
 ## Related Skills
 
-- `paper-to-live-promotion-checklist`
-- `alpaca-paper-live-key-separation`
-- `multi-broker-rate-limit-handling`
+- `sandbox-credential-leakage-prevention`
+- `broker-api-changelog-diffing-tool`
 ---

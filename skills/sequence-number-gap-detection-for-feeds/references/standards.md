@@ -1,11 +1,7 @@
-# Real-Time Architecture Standards — sequence-number-gap-detection-for-feeds
+# Standards for Sequence Number Gap Detection for Feeds
 
-| Condition | Sync State | Action |
+| State | Condition | Trading Authorization |
 |---|---|---|
-| In-order sequence ($S = S_{\text{expected}}$) | `SYNCED` | Process immediately; drain buffer |
-| Out-of-order gap ($S > S_{\text{expected}}$) | `DIRTY_SYNC_PENDING` | Buffer frame; request missing range |
-| Duplicate / Stale ($S < S_{\text{expected}}$) | Unchanged | Discard frame; log warning |
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.
+| SYNCED | All contiguous sequence numbers processed | ENABLED |
+| DIRTY_SYNC_PENDING | Sequence gap detected ($S_{\text{incoming}} > S_{\text{expected}}$) | DISABLED / HOLD |
+| RECOVERING | Ingesting missing retransmission frames | DISABLED / HOLD |
