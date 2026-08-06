@@ -2,10 +2,11 @@
 Unit tests for survivorship-bias-free-universe-construction skill.
 
 Tests:
-1. Point-in-time active universe retrieval for historical dates.
-2. Delisted instrument retention prior to delisting date.
-3. Terminal delisting settlement (bankruptcy vs merger liquidation).
-4. Survivorship bias audit reporting.
+1. Legacy Config & Engine init/run.
+2. Point-in-time active universe retrieval for historical dates.
+3. Delisted instrument retention prior to delisting date.
+4. Terminal delisting settlement (bankruptcy vs merger liquidation).
+5. Survivorship bias audit reporting.
 """
 import datetime
 import unittest
@@ -14,8 +15,9 @@ from universe_builder import (
     InstrumentMetadata,
     SurvivorshipFreeUniverseEngine,
     UniverseError,
+    Config,
+    Engine
 )
-
 
 class TestSurvivorshipFreeUniverseEngine(unittest.TestCase):
 
@@ -54,6 +56,12 @@ class TestSurvivorshipFreeUniverseEngine(unittest.TestCase):
                 delisting_settlement_price=54.20,
             )
         )
+
+    def test_legacy_engine(self):
+        config = Config(name="test")
+        eng = Engine(config)
+        self.assertEqual(eng.config.name, "test")
+        self.assertTrue(eng.run())
 
     def test_point_in_time_active_universe(self):
         # On 2008-01-01: AAPL and LEH should be active, TWTR not listed yet

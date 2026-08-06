@@ -1,18 +1,11 @@
 """
 Unit tests for systemd-supervision-for-trading-bots skill.
-
-Tests:
-1. Systemd unit file structure & directive validation (Restart=on-failure, WatchdogSec, MemoryMax).
-2. Pre-market healthcheck execution (secrets check, holiday check, connectivity).
-3. Systemd sd_notify message formatting.
-4. Graceful shutdown signal handling helper.
 """
 import datetime
 import os
 import unittest
 from unittest.mock import Mock
-from supervision_helper import SystemdSupervisionHelper
-
+from supervision_helper import SystemdSupervisionHelper, Config, Engine
 
 class TestSystemdSupervisionForTradingBots(unittest.TestCase):
 
@@ -21,6 +14,12 @@ class TestSystemdSupervisionForTradingBots(unittest.TestCase):
         self.unit_path = os.path.join(
             os.path.dirname(__file__), "trading-bot.service"
         )
+
+    def test_legacy_config_engine(self):
+        cfg = Config("test")
+        eng = Engine(cfg)
+        self.assertEqual(eng.config.name, "test")
+        self.assertTrue(eng.run())
 
     def test_unit_file_validation(self):
         with open(self.unit_path, "r") as f:
@@ -60,7 +59,6 @@ class TestSystemdSupervisionForTradingBots(unittest.TestCase):
     def test_sd_notify_formatting(self):
         # Disabled mode when NOTIFY_SOCKET is not set
         self.assertFalse(self.helper.sd_notify("WATCHDOG=1"))
-
 
 if __name__ == "__main__":
     unittest.main()

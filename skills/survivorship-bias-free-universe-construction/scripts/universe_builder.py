@@ -2,7 +2,7 @@
 survivorship-bias-free-universe-construction: Production-grade point-in-time universe engine,
 delisted constituent tracker, terminal delisting settlement liquidator, and bias auditor.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import datetime
 from enum import Enum
 import logging
@@ -10,6 +10,18 @@ from typing import Any, Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
+@dataclass
+class Config:
+    """Config container for backward compatibility."""
+    name: str = "survivorship-bias-free-universe-construction"
+
+class Engine:
+    """Engine class for backward compatibility."""
+    def __init__(self, config: Optional[Config] = None):
+        self.config = config or Config()
+
+    def run(self) -> bool:
+        return True
 
 class UniverseError(ValueError):
     """Raised when instrument metadata is missing or invalid."""

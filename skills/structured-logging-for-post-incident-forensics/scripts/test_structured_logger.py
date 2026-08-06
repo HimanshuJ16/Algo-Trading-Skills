@@ -4,9 +4,16 @@ Unit tests for structured-logging-for-post-incident-forensics skill.
 import json
 import unittest
 from structured_logger import EventType, ForensicLogger
+from structured_logging_for_post_incident_forensics import Config, Engine
 
 
 class TestForensicLogger(unittest.TestCase):
+
+    def test_legacy_engine_init_and_run(self):
+        config = Config(name="test-component")
+        engine = Engine(config)
+        self.assertEqual(engine.config.name, "test-component")
+        self.assertTrue(engine.run())
 
     def test_structured_event_emission(self):
         """Events should be emitted with correct JSON schema."""

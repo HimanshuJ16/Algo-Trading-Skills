@@ -1,41 +1,34 @@
 ---
 name: synthetic-data-generation-for-backtest-augmentation
-description: Use when historical dataset length is limited to generate synthetic price
-  paths via Geometric Brownian Motion (GBM) and block bootstrapping, enabling stress-testing
-  and robustness evaluation.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- synthetic-data
-- gbm
-- bootstrap
-- data-augmentation
-- robustness-testing
-brokers_frameworks:
-- Synthetic Data Generator
-- Python NumPy
-version: '1.0'
+description: >-
+  Production-grade Synthetic Data Generation Engine for backtest augmentation implementing Geometric Brownian Motion (GBM), GARCH(1,1) stochastic volatility clustering, circular block bootstrapping, and statistical moment validation.
+domain: Backtesting & Quantitative Research
+subdomain: Synthetic Data & Scenario Augmentation
+tags: ["synthetic-data", "backtest-augmentation", "gbm", "garch", "bootstrap", "monte-carlo"]
+brokers_frameworks: ["Quantitative Research Pipeline", "NumPy", "Python Dataclasses"]
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this skill when backtesting strategies on asset classes or regimes with limited historical data history (e.g. newly listed IPOs, crypto pairs, rare economic events). Relying solely on a short 6-month historical path leads to overfitting. Generating synthetic price paths preserving empirical drift, volatility, and autocorrelation allows testing strategy robustness across thousands of plausible alternative market paths.
+Use this skill when historical asset data is limited or when evaluating strategy robustness under unobserved market scenarios (e.g., regime shifts, extreme volatility clustering, tail risk shocks). Backtesting solely on short or single-regime historical datasets causes severe overfitting. This engine generates synthetic price/return paths using Geometric Brownian Motion (GBM), GARCH(1,1) conditional volatility clustering, and Circular Stationary Block Bootstrapping, followed by statistical moment validation (`SyntheticValidationReport`).
 
 ## Prerequisites
 
-- Historical return series or drift ($\mu$) and volatility ($\sigma$) parameters.
-- Block size parameter for block bootstrapping autocorrelation preservation.
+- Empirical historical return series for bootstrap resampling or parameter estimation.
+- Target path length (`steps`) and starting price ($S_0$).
 
 ## Workflow
 
-1. **Estimate Empirical Parameters**: Calculate daily drift $\mu$, volatility $\sigma$, and autocorrelation.
-2. **Generate Geometric Brownian Motion (GBM) Paths**:
-   $$S_t = S_0 \exp\left( (\mu - 0.5 \sigma^2) t + \sigma \sqrt{t} Z_t \right)$$
-3. **Generate Block Bootstrapped Return Paths**: Sample contiguous blocks of historical returns to preserve volatility clustering.
-4. **Evaluate Strategy Across Synthetic Ensemble**: Compute distribution of Sharpe ratios across synthetic paths.
+1. **Generation Method Selection**:
+   - For diffusion modeling: Use `generate_gbm(GBMConfig(mu, sigma, S0, dt, steps))`.
+   - For volatility clustering: Use `generate_garch(GARCHConfig(omega, alpha, beta, mu, S0, steps))`.
+   - For empirical non-parametric sampling: Use `block_bootstrap_returns(historical_returns, steps, block_size)`.
+2. **Statistical Moment Reconciliation**:
+   - Evaluate synthetic return paths via `validate_synthetic_path(historical_returns, synthetic_returns)`.
+3. **Execution Output**: Output structured `SyntheticValidationReport`.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -43,16 +36,17 @@ Invoke this skill when backtesting strategies on asset classes or regimes with l
 
 ## Common Pitfalls
 
-- **Pure Random Walk Without Volatility Clustering**: Using standard IID Gaussian noise, ignoring real-world fat tails and volatility clustering.
-- **Ignoring Regime Shifts**: Generating synthetic paths assuming constant drift during changing macroeconomic regimes.
+- **i.i.d. Resampling Destroys Autocorrelation**: Using simple random sampling instead of block bootstrapping, destroying volatility clustering and time-series serial correlation.
+- **Overestimating Unconditional Volatility**: Setting GARCH parameters $\alpha + \beta \ge 1.0$, creating explosive non-stationary variance.
+- **Unvalidated Synthetic Paths**: Using synthetic data without validating statistical moment parity (mean, volatility, skewness, kurtosis) against empirical baselines.
 
 ## Verification
 
-- Generate 100 synthetic GBM price paths, verify statistical mean drift and volatility match input parameters.
-- Run `python scripts/test_synthetic_data_generator.py` and confirm 100% pass rate.
+- Generate GARCH(1,1) paths ($\alpha=0.1, \beta=0.85$) and verify return paths exhibit volatility clustering. Perform block bootstrap resampling with block size 5 and verify output length. Validate synthetic paths against empirical distributions $\implies$ verify `is_statistically_consistent = True`.
+- Run `python scripts/test_synthetic_data_generator.py`.
 
 ## Related Skills
 
-- `monte-carlo-strategy-robustness-testing`
-- `multi-year-regime-coverage-requirement`
+- `survivorship-bias-free-universe-construction`
+- `portfolio-stress-test-including-liquidity-crunch-scenarios`
 ---

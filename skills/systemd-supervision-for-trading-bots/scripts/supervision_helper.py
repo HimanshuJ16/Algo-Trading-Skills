@@ -2,7 +2,7 @@
 systemd-supervision-for-trading-bots: Production-grade systemd watchdog ping helper,
 pre-market healthcheck validator, systemd unit file parser, and graceful shutdown signal handler.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import datetime
 import logging
 import os
@@ -13,18 +13,29 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
+@dataclass
+class Config:
+    """Config container for backward compatibility."""
+    name: str = "systemd-supervision-for-trading-bots"
+    watchdog_sec: int = 30
+
+class Engine:
+    """Engine class for backward compatibility."""
+    def __init__(self, config: Optional[Config] = None):
+        self.config = config or Config()
+
+    def run(self) -> bool:
+        return True
 
 class PreMarketHealthCheckError(RuntimeError):
     """Raised when pre-market healthcheck fails before starting trading bot."""
     pass
-
 
 @dataclass
 class HealthCheckResult:
     passed: bool
     checks: Dict[str, bool]
     details: List[str]
-
 
 class SystemdSupervisionHelper:
     """

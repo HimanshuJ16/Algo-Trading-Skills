@@ -1,15 +1,10 @@
-# Broker & Framework Coverage — systemd-supervision-for-trading-bots
+# Standards for Systemd Supervision for Trading Bots
 
-| Framework / Service Manager | Relevance to this skill |
-|---|---|
-| systemd (Linux Service Manager) | Standard process supervision, watchdog timers, unit dependencies, and journald logging. |
-| systemd `sd_notify` protocol | Process readiness and watchdog status communication. |
-
-## Category
-
-`deployment-ops` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
-## Regulatory & Operational Notes
-
-Intersects with high-availability infrastructure requirements, business continuity planning under MiFID II RTS 6 Article 14, and SEBI algo system uptime mandates.
+| Systemd Directive | Standard Setting | Rationale |
+|---|---|---|
+| `Type` | `notify` | Allows bot to signal initialization readiness and watchdog pings. |
+| `WatchdogSec` | `30` seconds | Systemd sends SIGABRT if no ping received within 30s. |
+| `Ping Frequency` | 15 seconds ($< \frac{1}{2} \text{WatchdogSec}$) | Prevents false-positive timeouts during mild loop latency. |
+| `Restart` | `on-failure` | Prevents restarting when bot cleanly exits on deliberate shutdown. |
+| `StartLimitBurst` | `5` restarts per 600s | Caps infinite rapid crash loops during upstream broker outages. |
+| `MemoryMax` | `1G` (or tailored limit) | Prevents memory leaks from crashing the OS host. |

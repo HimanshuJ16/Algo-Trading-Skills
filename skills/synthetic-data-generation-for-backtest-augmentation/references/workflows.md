@@ -1,5 +1,10 @@
-# Synthetic Data Generation Workflow
+# Workflows for Synthetic Data Generation for Backtest Augmentation
 
-1. Identify the need for synthetic data (e.g. robustness check).
-2. Use GBM for parametric generation or bootstrap methods for non-parametric.
-3. Validate properties (mean, variance, autocorrelation) of the synthetic data against historical.
+1. **Parameter Estimation / Data Ingestion**:
+   - Estimate drift ($\mu$), volatility ($\sigma$), or GARCH parameters ($\omega, \alpha, \beta$) from historical returns.
+2. **Path Simulation**:
+   - Generate synthetic price/return series using GBM, GARCH, or Block Bootstrap.
+3. **Statistical Validation**:
+   - Audit mean return, volatility, skewness, and kurtosis vs empirical distributions.
+4. **Backtest Augmentation Integration**:
+   - Inject synthetic paths into strategy backtester to measure Sharpe stability across 1,000 Monte Carlo paths.
