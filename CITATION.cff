@@ -6,10 +6,11 @@ authors:
   - name: "algo-trading-skills-contributors"
 version: "1.0.0"
 date-released: "2026-07-24"
-url: "https://github.com/<your-org>/algo-trading-skills"
+url: "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills"
 license: Apache-2.0
 abstract: >-
-  18 structured algorithmic trading skills for AI coding agents, covering
+  504 structured algorithmic trading skills for AI coding agents, covering
   broker integration, real-time market data architecture, backtesting
   methodology, financial machine learning, risk management, and deployment
   operations, in the agentskills.io standard format.
+

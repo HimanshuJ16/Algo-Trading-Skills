@@ -1,13 +1,13 @@
 {
   "name": "algo-trading-skills",
   "displayName": "Algo Trading Skills",
-  "description": "18 production-grade algorithmic trading skills for AI coding agents, covering broker integration, real-time market data architecture, backtesting methodology, financial ML, risk management, and deployment ops. agentskills.io standard.",
+  "description": "504 production-grade algorithmic trading skills for AI coding agents, covering broker integration, real-time market data architecture, backtesting methodology, financial ML, risk management, and deployment ops. agentskills.io standard.",
   "version": "1.0.0",
   "author": {
     "name": "algo-trading-skills-contributors"
   },
   "license": "Apache-2.0",
-  "homepage": "https://github.com/<your-org>/algo-trading-skills",
+  "homepage": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "skillsPath": "skills",
   "categories": [
     "broker-integration",
@@ -31,3 +31,4 @@
     "ibkr"
   ]
 }
+

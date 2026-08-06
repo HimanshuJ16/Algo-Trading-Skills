@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-06T08:01:30.357394+00:00",
+  "generated_at": "2026-08-06T14:54:03.704503+00:00",
   "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -11000,17 +11000,24 @@
     },
     {
       "name": "tase-israel-exchange-api",
-      "description": "Integration or workflow skill for tase-israel-exchange-api.",
+      "description": "Institutional connectivity engine for the Tel Aviv Stock Exchange (TASE), supporting FIX 5.0 SP2 session management, Agorot-ILS currency scaling, Sunday-Thursday trading calendar compliance, and pre-trade risk controls.",
       "domain": "Execution",
       "subdomain": "Venue Integration",
       "tags": [
-        "tase-israel-exchange-api"
+        "tase",
+        "israel",
+        "fix-protocol",
+        "order-routing",
+        "market-data",
+        "agorot-conversion",
+        "sunday-trading"
       ],
       "brokers_frameworks": [
-        "generic"
+        "quickfix",
+        "tase-data-hub"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/tase-israel-exchange-api",
       "skill_md": "skills/tase-israel-exchange-api/SKILL.md"
@@ -11041,40 +11048,54 @@
     },
     {
       "name": "test-transaction-verification-before-large-transfers",
-      "description": "Skill to handle test transaction verification before large transfers.",
+      "description": "Institutional crypto custody & treasury verification engine requiring mandatory dust test transactions, address whitelisting, on-chain confirmation depth verification, and time-decay security windows prior to releasing high-value transfers.",
       "domain": "Crypto Custody",
       "subdomain": "Security",
       "tags": [
-        "security",
         "crypto",
         "custody",
-        "test"
+        "treasury",
+        "security",
+        "test-transaction",
+        "dust-verification",
+        "mpc-vault",
+        "multi-sig"
       ],
       "brokers_frameworks": [
-        "None"
+        "fireblocks",
+        "bitgo",
+        "coinbase-custody",
+        "safe-multisig"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/test-transaction-verification-before-large-transfers",
       "skill_md": "skills/test-transaction-verification-before-large-transfers/SKILL.md"
     },
     {
       "name": "third-party-custody-audit-report-review-cadence",
-      "description": "Skill to handle third party custody audit report review cadence.",
+      "description": "Institutional audit review engine for third-party crypto & asset custodians, enforcing annual SOC 1/2 Type II reviews, gap letter coverage, Proof of Reserves attestations, and CUEC control compliance.",
       "domain": "Crypto Custody",
       "subdomain": "Security",
       "tags": [
-        "security",
-        "crypto",
         "custody",
-        "third"
+        "audit",
+        "soc1",
+        "soc2",
+        "proof-of-reserves",
+        "cuec",
+        "risk-management",
+        "compliance"
       ],
       "brokers_frameworks": [
-        "None"
+        "fireblocks",
+        "bitgo",
+        "coinbase-custody",
+        "bny-mellon"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/third-party-custody-audit-report-review-cadence",
       "skill_md": "skills/third-party-custody-audit-report-review-cadence/SKILL.md"
@@ -11119,34 +11140,51 @@
     },
     {
       "name": "tick-size-pilot-program-impact-assessment",
-      "description": "Skill to handle tick size pilot program impact assessment",
+      "description": "Institutional market microstructure analytics skill for assessing tick size regime changes (e.g. SEC Tick Size Pilot $0.05 widening, sub-penny regimes, MiFID II bands), measuring spread components, queue dynamics, and recalibrating algo execution strategies.",
       "domain": "Market Microstructure",
-      "subdomain": "Latency",
+      "subdomain": "Order Book Dynamics",
       "tags": [
-        "latency",
-        "hft"
+        "market-microstructure",
+        "tick-size-pilot",
+        "spread-decomposition",
+        "queue-dynamics",
+        "algo-execution",
+        "order-book"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "assistant",
+      "brokers_frameworks": [
+        "direct-market-access",
+        "qtg",
+        "kdb-plus"
+      ],
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/tick-size-pilot-program-impact-assessment",
       "skill_md": "skills/tick-size-pilot-program-impact-assessment/SKILL.md"
     },
     {
       "name": "tick-to-trade-latency-measurement",
-      "description": "Skill for tick-to-trade-latency-measurement",
+      "description": "Institutional high-frequency trading (HFT) latency profiling skill for sub-microsecond Tick-to-Trade (T2T) measurement, hardware timestamping, stage-by-stage pipeline decomposition, and percentile SLA breach monitoring.",
       "domain": "Market Microstructure",
-      "subdomain": "Latency",
+      "subdomain": "Ultra-Low Latency & High-Frequency Trading",
       "tags": [
-        "trading",
-        "latency"
+        "latency",
+        "tick-to-trade",
+        "hft",
+        "low-latency",
+        "ptp-clock-sync",
+        "kernel-bypass",
+        "hardware-timestamping",
+        "percentile-sla"
       ],
       "brokers_frameworks": [
-        "custom"
+        "solarflare-onload",
+        "dpdk",
+        "fpga",
+        "quickfix"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/tick-to-trade-latency-measurement",
       "skill_md": "skills/tick-to-trade-latency-measurement/SKILL.md"
@@ -11175,17 +11213,26 @@
     },
     {
       "name": "total-return-swap-synthetic-exposure",
-      "description": "Skill for total return swap synthetic exposure",
+      "description": "Institutional financial engineering skill for Total Return Swaps (TRS), pricing synthetic asset exposure, modeling total return legs (capital gains + manufactured dividends), SOFR funding legs, periodic net resets, and ISDA variation margin calls.",
       "domain": "Multi-Asset Derivatives",
-      "subdomain": "Swaps",
+      "subdomain": "Swaps & Synthetic Structures",
       "tags": [
-        "Multi-Asset Derivatives"
+        "total-return-swap",
+        "trs",
+        "synthetic-exposure",
+        "derivatives",
+        "sofr-funding",
+        "manufactured-dividends",
+        "isda-margin",
+        "prime-brokerage"
       ],
       "brokers_frameworks": [
-        "Generic"
+        "isda-master-agreement",
+        "qtg",
+        "quantlib"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/total-return-swap-synthetic-exposure",
       "skill_md": "skills/total-return-swap-synthetic-exposure/SKILL.md"
@@ -11236,91 +11283,131 @@
     },
     {
       "name": "transfer-learning-across-correlated-instruments",
-      "description": "Skill for transfer-learning-across-correlated-instruments",
-      "domain": "financial-ml",
-      "subdomain": "ml-ops",
+      "description": "Institutional financial Machine Learning skill for solving cold-start problems in illiquid or newly-listed instruments by transferring pre-trained feature representations & model weights from correlated liquid assets via L2-regularized fine-tuning.",
+      "domain": "Financial Machine Learning",
+      "subdomain": "Model Optimization & Transfer Learning",
       "tags": [
-        "ml",
-        "ops",
-        "finance"
+        "machine-learning",
+        "transfer-learning",
+        "cold-start",
+        "feature-transfer",
+        "covariate-shift",
+        "regularization",
+        "model-adaptation"
       ],
       "brokers_frameworks": [
-        "scikit-learn"
+        "scikit-learn",
+        "pytorch",
+        "xgboost"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/transfer-learning-across-correlated-instruments",
       "skill_md": "skills/transfer-learning-across-correlated-instruments/SKILL.md"
     },
     {
       "name": "transfer-pricing-considerations-for-multi-entity-trading-operations",
-      "description": "Implementation for transfer-pricing-considerations-for-multi-entity-trading-operations",
-      "domain": "tax-accounting-reporting-global",
-      "subdomain": "tax-reporting",
+      "description": "Institutional tax engineering & transfer pricing skill for multi-entity quantitative trading operations, enforcing OECD BEPS guidelines, Arm's Length Principle, Cost-Plus markups, CUP benchmarks, DEMPE residual profit split, and Berry Ratio compliance.",
+      "domain": "Tax, Accounting & Global Compliance",
+      "subdomain": "Transfer Pricing & Multi-Entity Allocation",
       "tags": [
-        "tax",
-        "reporting"
+        "transfer-pricing",
+        "oecd-beps",
+        "dempe",
+        "arm-length-principle",
+        "cost-plus",
+        "berry-ratio",
+        "multi-entity",
+        "tax-compliance"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "System",
+      "brokers_frameworks": [
+        "oecd-transfer-pricing-guidelines",
+        "irs-section-482",
+        "hmrc-transfer-pricing"
+      ],
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/transfer-pricing-considerations-for-multi-entity-trading-operations",
       "skill_md": "skills/transfer-pricing-considerations-for-multi-entity-trading-operations/SKILL.md"
     },
     {
       "name": "uk-fca-algorithmic-trading-systems-controls",
-      "description": "Compliance controls for uk fca algorithmic trading systems controls",
-      "domain": "regulatory-compliance-global",
-      "subdomain": "regulatory",
+      "description": "Institutional regulatory compliance skill for UK FCA MiFID II RTS 6 (Commission Delegated Regulation 2017/589) & FG18/9 guidelines, enforcing pre-trade risk controls, OTR limits, system capacity thresholds, and automated Kill Switches.",
+      "domain": "Global Regulatory Compliance & Risk Control",
+      "subdomain": "Algorithmic Systems Governance (UK FCA RTS 6)",
       "tags": [
         "compliance",
-        "risk",
-        "regulatory"
+        "uk-fca",
+        "mifid2-rts6",
+        "fg18-9",
+        "pre-trade-controls",
+        "kill-switch",
+        "price-collars",
+        "otr-limits",
+        "risk-governance"
       ],
       "brokers_frameworks": [
-        "any"
+        "fca-handbook",
+        "mifid2-rts6",
+        "quickfix"
       ],
-      "version": "1.0.0",
-      "author": "skill-builder",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/uk-fca-algorithmic-trading-systems-controls",
       "skill_md": "skills/uk-fca-algorithmic-trading-systems-controls/SKILL.md"
     },
     {
       "name": "uk-senior-managers-regime-algo-accountability",
-      "description": "Compliance tool for uk senior managers regime algo accountability",
-      "domain": "regulatory-compliance-global",
-      "subdomain": "compliance",
+      "description": "Institutional regulatory governance skill for UK FCA Senior Managers & Certification Regime (SM&CR under SUP 10C & FG18/9), mapping SMF functions (SMF24, SMF16, SMF4), developer Certification F&P checks, Reasonable Steps sign-offs, and Management Responsibilities Map (MRM) reports.",
+      "domain": "Global Regulatory Compliance & Risk Governance",
+      "subdomain": "Senior Managers Regime & Executive Accountability (UK FCA)",
       "tags": [
-        "regulatory",
-        "compliance",
-        "trading"
+        "smcr",
+        "uk-fca",
+        "smf24",
+        "smf16",
+        "smf4",
+        "fg18-9",
+        "reasonable-steps",
+        "fitness-and-propriety",
+        "algo-governance"
       ],
       "brokers_frameworks": [
-        "generic"
+        "fca-handbook-sup10c",
+        "fca-fg18-9",
+        "pra-rulebook"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/uk-senior-managers-regime-algo-accountability",
       "skill_md": "skills/uk-senior-managers-regime-algo-accountability/SKILL.md"
     },
     {
       "name": "unicode-and-encoding-issues-in-global-instrument-names",
-      "description": "Implementation of unicode-and-encoding-issues-in-global-instrument-names",
-      "domain": "Data Management",
-      "subdomain": "Global",
+      "description": "Institutional reference data skill for resolving Unicode character encoding issues, byte-order-mark (BOM) stripping, Mojibake text repair, NFC/NFD normalization, invisible control character removal, and ASCII slug generation across global exchange feeds.",
+      "domain": "Global Reference Data & Security Master",
+      "subdomain": "Character Encoding & Data Sanitization",
       "tags": [
-        "data",
-        "python"
+        "unicode",
+        "encoding",
+        "mojibake",
+        "nfc-normalization",
+        "reference-data",
+        "security-master",
+        "ascii-slug",
+        "multi-exchange"
       ],
       "brokers_frameworks": [
-        "generic"
+        "quickfix",
+        "pandas",
+        "sqlalchemy"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/unicode-and-encoding-issues-in-global-instrument-names",
       "skill_md": "skills/unicode-and-encoding-issues-in-global-instrument-names/SKILL.md"
@@ -11348,38 +11435,52 @@
     },
     {
       "name": "us-reg-nms-order-protection-rule-compliance",
-      "description": "Compliance tool for us reg nms order protection rule compliance",
-      "domain": "regulatory-compliance-global",
-      "subdomain": "compliance",
+      "description": "Institutional regulatory compliance skill for US SEC Regulation NMS Rule 611 (Order Protection Rule), verifying executions against Protected NBBO, detecting trade-through violations, and validating statutory exemptions (ISO, Self-Help, VWAP/Benchmark, Flickering Quotes).",
+      "domain": "US Regulatory Compliance & Market Structure",
+      "subdomain": "SEC Regulation NMS (Rule 611 Order Protection)",
       "tags": [
-        "regulatory",
-        "compliance",
-        "trading"
+        "sec-reg-nms",
+        "rule-611",
+        "trade-through",
+        "protected-nbbo",
+        "iso-orders",
+        "self-help",
+        "market-structure",
+        "finra-compliance"
       ],
       "brokers_frameworks": [
-        "generic"
+        "sec-reg-nms",
+        "finra-cats",
+        "quickfix"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/us-reg-nms-order-protection-rule-compliance",
       "skill_md": "skills/us-reg-nms-order-protection-rule-compliance/SKILL.md"
     },
     {
       "name": "us-reg-sho-short-sale-locate-requirements",
-      "description": "Compliance tool for us reg sho short sale locate requirements",
-      "domain": "regulatory-compliance-global",
-      "subdomain": "compliance",
+      "description": "Institutional regulatory compliance skill for US SEC Regulation SHO (17 CFR \u00a7 242.200-204), validating Rule 200 order markings (LONG, SHORT, SHORT_EXEMPT), Rule 203(b)(1) short sale locates, Rule 201 Short Sale Restriction (SSR / Alternative Uptick Rule) price tests, and locate pool inventory.",
+      "domain": "US Regulatory Compliance & Market Structure",
+      "subdomain": "SEC Regulation SHO (Short Sale Regulations)",
       "tags": [
-        "regulatory",
-        "compliance",
-        "trading"
+        "sec-reg-sho",
+        "rule-200",
+        "rule-203",
+        "rule-201",
+        "locate-requirements",
+        "short-sale",
+        "order-marking",
+        "ssr-uptick-rule"
       ],
       "brokers_frameworks": [
-        "generic"
+        "sec-reg-sho",
+        "finra-cats",
+        "quickfix"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/us-reg-sho-short-sale-locate-requirements",
       "skill_md": "skills/us-reg-sho-short-sale-locate-requirements/SKILL.md"
@@ -11412,34 +11513,53 @@
     },
     {
       "name": "variance-swap-and-volatility-derivative-pricing",
-      "description": "Automation and handling of variance swap and volatility derivative pricing.",
-      "domain": "multi-asset-derivatives",
-      "subdomain": "derivatives-trading",
+      "description": "Institutional quantitative pricing skill for Variance Swaps, Volatility Swaps, and volatility derivatives using static log-contract option strip replication (Demeterfi et al., 1999), realized log-return variance calculation, convexity adjustment, and Mark-to-Market (MTM) valuation.",
+      "domain": "Multi-Asset Quantitative Derivatives & Volatility Trading",
+      "subdomain": "Exotics & Volatility Derivative Pricing",
       "tags": [
-        "variance-swap-and-volatility-derivative-pricing",
-        "trading"
+        "variance-swap",
+        "volatility-swap",
+        "static-replication",
+        "log-contract",
+        "convexity-adjustment",
+        "realized-variance",
+        "options-pricing",
+        "mtm-valuation"
       ],
       "brokers_frameworks": [
-        "generic"
+        "isda-matrix",
+        "quantlib",
+        "scipy"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/variance-swap-and-volatility-derivative-pricing",
       "skill_md": "skills/variance-swap-and-volatility-derivative-pricing/SKILL.md"
     },
     {
       "name": "vat-gst-treatment-of-trading-related-services",
-      "description": "Implementation for vat-gst-treatment-of-trading-related-services",
-      "domain": "tax-accounting-reporting-global",
-      "subdomain": "tax-reporting",
+      "description": "Institutional indirect tax accounting skill for assessing VAT/GST treatment of trading-related services (exchange execution fees, clearing fees, co-location, market data feeds, software licenses, management fees), applying cross-border Reverse Charge Mechanism (RCM), and calculating Partial Exemption Pro-Rata Input Tax Recovery Ratios under UK HMRC, EU, Singapore IRAS, and Australia ATO tax rules.",
+      "domain": "Global Tax Accounting & Regulatory Reporting",
+      "subdomain": "Indirect Tax (VAT/GST) Compliance",
       "tags": [
-        "tax",
-        "reporting"
+        "vat",
+        "gst",
+        "reverse-charge-mechanism",
+        "rcm",
+        "partial-exemption",
+        "input-tax-recovery",
+        "trading-expenses",
+        "tax-accounting"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "System",
+      "brokers_frameworks": [
+        "uk-vata-1994",
+        "eu-vat-directive-2006-112",
+        "singapore-iras-gst",
+        "australia-ato-gst"
+      ],
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/vat-gst-treatment-of-trading-related-services",
       "skill_md": "skills/vat-gst-treatment-of-trading-related-services/SKILL.md"
@@ -11470,73 +11590,112 @@
     },
     {
       "name": "vendor-lock-in-risk-for-proprietary-custody-formats",
-      "description": "Skill to handle vendor lock in risk for proprietary custody formats.",
-      "domain": "Crypto Custody",
-      "subdomain": "Security",
+      "description": "Institutional risk management skill for evaluating crypto custody vendor lock-in risks, key format portability (BIP-39, SLIP-0039, BIP-32, WIF vs proprietary MPC/HSM blobs), open-source recovery tool availability, migration cost/friction estimation, and disaster recovery self-sovereignty.",
+      "domain": "Crypto Custody & Infrastructure Security",
+      "subdomain": "Vendor Risk Management & Key Portability",
       "tags": [
-        "security",
-        "crypto",
-        "custody",
-        "vendor"
+        "crypto-custody",
+        "vendor-lock-in",
+        "key-portability",
+        "bip-39",
+        "slip-0039",
+        "mpc-key-shares",
+        "disaster-recovery",
+        "self-sovereignty"
       ],
       "brokers_frameworks": [
-        "None"
+        "fireblocks",
+        "bitgo",
+        "anchorage",
+        "copper",
+        "safe-gnosis"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/vendor-lock-in-risk-for-proprietary-custody-formats",
       "skill_md": "skills/vendor-lock-in-risk-for-proprietary-custody-formats/SKILL.md"
     },
     {
       "name": "vendor-outage-fallback-data-source-hierarchy",
-      "description": "Implementation of vendor-outage-fallback-data-source-hierarchy",
-      "domain": "Data Management",
-      "subdomain": "Global",
+      "description": "Institutional market data resilience skill for managing multi-vendor fallback hierarchies (Primary, Secondary, Tertiary, Synthetic Cache), detecting feed staleness/disconnections, executing automated failover, enforcing anti-flapping recovery cooling periods, and maintaining quote continuity.",
+      "domain": "Market Data Infrastructure & Quantitative Execution",
+      "subdomain": "Feed Resilience & High Availability",
       "tags": [
-        "data",
-        "management"
+        "market-data",
+        "vendor-outage",
+        "fallback-hierarchy",
+        "failover",
+        "staleness-detection",
+        "anti-flapping",
+        "synthetic-cache",
+        "high-availability"
       ],
       "brokers_frameworks": [
-        "custom"
+        "bloomberg-bpipe",
+        "refinitiv-elektron",
+        "polygon-io",
+        "iex-cloud",
+        "exchange-direct-itch"
       ],
-      "version": "1.0.0",
-      "author": "Agent",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/vendor-outage-fallback-data-source-hierarchy",
       "skill_md": "skills/vendor-outage-fallback-data-source-hierarchy/SKILL.md"
     },
     {
       "name": "vendor-specific-adjustment-methodology-reconciliation",
-      "description": "Implementation for vendor-specific-adjustment-methodology-reconciliation",
-      "domain": "data-management-global",
-      "subdomain": "data",
+      "description": "Institutional market data skill for modeling vendor corporate action adjustment methodologies (CRSP Total Return, Bloomberg Proportional, Refinitiv Split-Only, Raw Unadjusted), computing price/volume cumulative adjustment factors, detecting cross-vendor divergence anomalies, and generating audit reconciliation reports.",
+      "domain": "Market Data Architecture & Quantitative Research",
+      "subdomain": "Corporate Action Adjustments & Data Hygiene",
       "tags": [
-        "data",
-        "management"
+        "corporate-actions",
+        "vendor-reconciliation",
+        "crsp",
+        "bloomberg",
+        "refinitiv",
+        "adjustment-factors",
+        "stock-splits",
+        "cash-dividends"
       ],
       "brokers_frameworks": [
-        "custom"
+        "crsp",
+        "bloomberg-bpipe",
+        "refinitiv-elektron",
+        "factset",
+        "polygon-io"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/vendor-specific-adjustment-methodology-reconciliation",
       "skill_md": "skills/vendor-specific-adjustment-methodology-reconciliation/SKILL.md"
     },
     {
       "name": "vix-and-volatility-index-derivative-strategies",
-      "description": "Skill for vix and volatility index derivative strategies",
-      "domain": "Multi-Asset Derivatives",
-      "subdomain": "Volatility",
+      "description": "Institutional volatility trading skill for analyzing VIX futures term structure (Contango vs Backwardation), calculating roll yield decay, executing VIX Roll Yield Harvesting (Short VIX Futures) and Tail Risk Protection (VIX Call Spreads), and pricing options off forward VIX futures curves.",
+      "domain": "Multi-Asset Derivatives & Volatility Trading",
+      "subdomain": "VIX Futures & Options Strategies",
       "tags": [
-        "Multi-Asset Derivatives"
+        "vix",
+        "volatility-derivatives",
+        "vix-futures",
+        "term-structure",
+        "contango",
+        "backwardation",
+        "roll-yield",
+        "tail-hedging"
       ],
       "brokers_frameworks": [
-        "Generic"
+        "cboe",
+        "vix-futures",
+        "vix-options",
+        "svxy",
+        "uvxy"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/vix-and-volatility-index-derivative-strategies",
       "skill_md": "skills/vix-and-volatility-index-derivative-strategies/SKILL.md"
@@ -11605,104 +11764,167 @@
     },
     {
       "name": "warrants-and-structured-product-integration",
-      "description": "Skill for warrants and structured product integration",
-      "domain": "Multi-Asset Derivatives",
-      "subdomain": "Structured Products",
+      "description": "Institutional equity derivatives skill for pricing covered warrants, Turbo Warrants / CBBCs, and structured products, modeling Entitlement Ratios (R_ent), evaluating Mandatory Call Event (MCE) knock-out barriers, computing Effective Gearing, and generating real-time Delta Hedge rebalancing signals.",
+      "domain": "Multi-Asset Derivatives & Structured Products",
+      "subdomain": "Warrants & Exotic Derivatives Integration",
       "tags": [
-        "Multi-Asset Derivatives"
+        "warrants",
+        "covered-warrants",
+        "cbbc",
+        "turbo-warrants",
+        "entitlement-ratio",
+        "effective-gearing",
+        "knock-out-barrier",
+        "delta-hedging"
       ],
       "brokers_frameworks": [
-        "Generic"
+        "hkex-warrants",
+        "euronext-warrants",
+        "sgx-warrants",
+        "cboe",
+        "borsa-italiana"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/warrants-and-structured-product-integration",
       "skill_md": "skills/warrants-and-structured-product-integration/SKILL.md"
     },
     {
       "name": "wash-sale-rule-tracking-us",
-      "description": "Implementation for wash-sale-rule-tracking-us",
-      "domain": "tax-accounting-reporting-global",
-      "subdomain": "tax-reporting",
+      "description": "Institutional tax accounting skill for tracking US IRS 26 U.S. Code \u00a7 1091 Wash Sale rules, scanning the 61-day window (30 days prior, trade date, 30 days post), matching replacement shares, disallowing loss deductions, adjusting replacement cost basis, and generating Form 1099-B Box 1g audit disclosures.",
+      "domain": "Global Tax Accounting & Regulatory Reporting",
+      "subdomain": "US IRS Tax Compliance (IRC \u00a7 1091)",
       "tags": [
-        "tax",
-        "reporting"
+        "wash-sale",
+        "irs-section-1091",
+        "cost-basis-adjustment",
+        "form-1099-b",
+        "capital-loss-disallowance",
+        "tax-lots",
+        "fifo-matching"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "System",
+      "brokers_frameworks": [
+        "us-irc-1091",
+        "form-1099-b",
+        "finra",
+        "sec"
+      ],
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/wash-sale-rule-tracking-us",
       "skill_md": "skills/wash-sale-rule-tracking-us/SKILL.md"
     },
     {
       "name": "wash-trade-and-spoofing-self-detection",
-      "description": "Compliance controls for wash trade and spoofing self detection",
-      "domain": "regulatory-compliance-global",
-      "subdomain": "regulatory",
+      "description": "Institutional market integrity skill for real-time self-detection of Wash Trades (self-cross executions without change in beneficial ownership) and Spoofing / Layering patterns (non-bona fide order cancellations following opposite-side fills) under CFTC, SEC, FINRA, and MiFID II RTS 6 rules.",
+      "domain": "Global Regulatory Compliance & Market Integrity",
+      "subdomain": "Algorithmic Market Abuse Surveillance (MiFID II RTS 6 / CFTC Rule 1.38)",
       "tags": [
-        "compliance",
-        "risk",
-        "regulatory"
+        "wash-trade",
+        "spoofing",
+        "layering",
+        "market-manipulation",
+        "self-match-prevention",
+        "mifid-ii-rts-6",
+        "cftc-rule-1-38",
+        "finra-rule-5210"
       ],
       "brokers_frameworks": [
-        "any"
+        "cftc",
+        "sec",
+        "finra",
+        "mifid-ii-rts-6",
+        "ice",
+        "cme"
       ],
-      "version": "1.0.0",
-      "author": "skill-builder",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/wash-trade-and-spoofing-self-detection",
       "skill_md": "skills/wash-trade-and-spoofing-self-detection/SKILL.md"
     },
     {
       "name": "weather-data-signal-research-for-commodity-strategies",
-      "description": "Skill for weather data signal research for commodity strategies",
-      "domain": "quant-research-alt-data",
-      "subdomain": "Alternative Data",
+      "description": "Institutional alternative data skill for researching weather signals, calculating population-weighted Heating Degree Days (HDD), Cooling Degree Days (CDD), and Growing Degree Days (GDD), computing 10-year climate anomaly Z-scores, and generating directional trading signals for Energy (Natural Gas, Power) and Agricultural futures (Corn, Soybeans).",
+      "domain": "Quantitative Research & Alternative Data",
+      "subdomain": "Meteorological & Commodity Signal Research",
       "tags": [
         "alt-data",
-        "python",
-        "research"
+        "weather-signals",
+        "degree-days",
+        "hdd",
+        "cdd",
+        "gdd",
+        "natural-gas",
+        "commodities",
+        "z-score"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "AI",
+      "brokers_frameworks": [
+        "cbot",
+        "nymex",
+        "ice",
+        "noaa",
+        "ecmwf",
+        "gfs"
+      ],
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/weather-data-signal-research-for-commodity-strategies",
       "skill_md": "skills/weather-data-signal-research-for-commodity-strategies/SKILL.md"
     },
     {
       "name": "weather-derivatives-and-niche-instrument-handling",
-      "description": "Skill for weather derivatives and niche instrument handling",
-      "domain": "Multi-Asset Derivatives",
-      "subdomain": "Exotics",
+      "description": "Institutional exotics skill for pricing and settling CME Weather Derivatives (HDD, CDD, CAT futures & options) and OTC niche instruments (capped weather swaps), executing Burn Analysis historical simulation, and applying the standard $20 per index point tick multiplier.",
+      "domain": "Multi-Asset Derivatives & Exotic Instruments",
+      "subdomain": "Weather Derivatives & Niche Instrument Pricing",
       "tags": [
-        "Multi-Asset Derivatives"
+        "weather-derivatives",
+        "cme-weather",
+        "hdd-futures",
+        "cdd-futures",
+        "burn-analysis",
+        "otc-swaps",
+        "tick-multiplier",
+        "niche-instruments"
       ],
       "brokers_frameworks": [
-        "Generic"
+        "cme",
+        "ice",
+        "noaa",
+        "otc-isda"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/weather-derivatives-and-niche-instrument-handling",
       "skill_md": "skills/weather-derivatives-and-niche-instrument-handling/SKILL.md"
     },
     {
       "name": "web-scraped-sentiment-data-pipeline",
-      "description": "A quant research alternative data skill for web-scraped-sentiment-data-pipeline.",
-      "domain": "quant-research-alt-data",
-      "subdomain": "alt-data",
+      "description": "Institutional alternative data skill for scraping, cleaning, tokenizing, and scoring financial text using the Loughran-McDonald Lexicon, aggregating volume-weighted sentiment metrics, calculating 30-day baseline Z-score anomalies, and generating directional trading signals.",
+      "domain": "Quantitative Research & Alternative Data",
+      "subdomain": "Financial NLP & Web-Scraped Sentiment Analysis",
       "tags": [
         "alt-data",
-        "quant-research"
+        "sentiment-analysis",
+        "nlp",
+        "loughran-mcdonald",
+        "web-scraping",
+        "z-score",
+        "feature-engineering"
       ],
       "brokers_frameworks": [
-        "none"
+        "news-feed",
+        "reddit-wsb",
+        "twitter-x",
+        "stocktwits",
+        "sec-edgar"
       ],
-      "version": "1.0.0",
-      "author": "AI",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/web-scraped-sentiment-data-pipeline",
       "skill_md": "skills/web-scraped-sentiment-data-pipeline/SKILL.md"
@@ -11779,34 +12001,56 @@
     },
     {
       "name": "withdrawal-velocity-limits-and-anomaly-detection",
-      "description": "Implementation for withdrawal-velocity-limits-and-anomaly-detection",
-      "domain": "Crypto",
-      "subdomain": "Custody Security",
+      "description": "Institutional crypto custody security skill for enforcing multi-window rolling withdrawal velocity caps (1-hour, 24-hour) per account and global hot wallet, calculating 90-day user historical anomaly Z-scores, verifying destination address whitelisting age, and executing automated circuit breakers (APPROVED, TIMELOCK_HOLD, REJECTED_FREEZE).",
+      "domain": "Crypto Custody & Exchange Risk Engineering",
+      "subdomain": "Automated Hot Wallet Security & Velocity Controls",
       "tags": [
         "crypto",
         "custody",
-        "security"
+        "security",
+        "velocity-limits",
+        "anomaly-detection",
+        "hot-wallet-freeze",
+        "timelock-escrow",
+        "z-score"
       ],
       "brokers_frameworks": [
-        "None"
+        "bitgo",
+        "fireblocks",
+        "coinbase-custody",
+        "anchorage",
+        "custom-hsm"
       ],
-      "version": "1.0.0",
-      "author": "System",
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/withdrawal-velocity-limits-and-anomaly-detection",
       "skill_md": "skills/withdrawal-velocity-limits-and-anomaly-detection/SKILL.md"
     },
     {
       "name": "zero-downtime-database-schema-migrations",
-      "description": "Skill for zero-downtime-database-schema-migrations",
-      "domain": "deployment-ops",
-      "subdomain": "deployment",
+      "description": "Institutional deployment engineering skill for orchestrating 5-Phase Expand-Contract zero-downtime database schema migrations, generating non-blocking DDL scripts (CREATE INDEX CONCURRENTLY), executing batched asynchronous backfills, and verifying reader cutover safety.",
+      "domain": "Deployment Operations & Database Infrastructure",
+      "subdomain": "Zero-Downtime Schema Evolution & Lock-Free DDL",
       "tags": [
-        "zero-downtime-database-schema-migrations"
+        "zero-downtime",
+        "database-migration",
+        "expand-contract",
+        "concurrent-index",
+        "postgresql",
+        "mysql-innodb",
+        "cockroachdb",
+        "dual-write"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
-      "author": "System",
+      "brokers_frameworks": [
+        "alembic",
+        "flyway",
+        "liquibase",
+        "gh-ost",
+        "pt-online-schema-change"
+      ],
+      "version": "1.1.0",
+      "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/zero-downtime-database-schema-migrations",
       "skill_md": "skills/zero-downtime-database-schema-migrations/SKILL.md"

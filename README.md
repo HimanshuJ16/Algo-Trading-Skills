@@ -80,8 +80,8 @@ See `docs/architecture.md` for how these fit together as a system, and `mappings
 ## Quick start
 
 ```bash
-git clone https://github.com/<your-org>/algo-trading-skills.git
-cd algo-trading-skills
+git clone https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills.git
+cd Anthropic-Algo-Trading-Skills
 python tools/validate_skills.py   # verifies every skill's structure and frontmatter (504/504 pass)
 ```
 

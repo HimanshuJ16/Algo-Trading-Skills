@@ -1,6 +1,6 @@
 # Reference Architecture
 
-The 28 built skills in this repo (of 502 tracked on the global roadmap — see
+The 504 built skills in this repo (spanning all 16 engineering domains on the global roadmap — see
 `docs/ROADMAP_500.md`) assume (and are easiest to apply within) a system shaped
 roughly like this — the architecture the skills were extracted from:
 

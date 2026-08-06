@@ -1,7 +1,7 @@
 # Skill Anatomy
 
 Every skill follows a consistent directory structure so agents can rely on the same
-loading pattern for all 18 (and any future) skills:
+loading pattern for all 504 (and any future) skills:
 
 ```
 skills/<skill-name>/
