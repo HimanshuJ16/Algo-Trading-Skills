@@ -1,4 +1,4 @@
-![Algo-Trading-Skills banner](assets/banner.svg)
+![Algo-Trading-Skills banner](assets/banner.png)
 
 # Algo-Trading-Skills
 
