@@ -1,0 +1,12 @@
+---
+description: Automatically discover and load algorithmic trading skills from the 504-skill library in skills/
+globs: ["**/*.py", "**/*.json", "**/*.md", "skills/**"]
+---
+# Algo-Trading-Skills Rule for Cursor
+
+When building or modifying algorithmic trading code, financial ML models, backtesting loops, risk controls, or broker integrations:
+
+1. **Scan `skills/` Frontmatter**: Read the `SKILL.md` frontmatter in `skills/<skill-name>/SKILL.md` or query `index.json` to find relevant skills matching the task.
+2. **Follow `agentskills.io` Standard**: Use the `Workflow`, `Common Pitfalls`, and `Verification` sections in `skills/<skill-name>/SKILL.md`.
+3. **Reference Deep Context**: Read `references/standards.md`, `references/workflows.md`, and `scripts/` inside the target skill directory for implementation details.
+4. **Verify Implementation**: Always verify code against the skill's verification checklist (`assets/checklist.md`) and run corresponding unit tests.
