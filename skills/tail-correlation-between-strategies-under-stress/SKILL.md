@@ -1,39 +1,54 @@
 ---
 name: tail-correlation-between-strategies-under-stress
-description: Skill implementation for tail-correlation-between-strategies-under-stress
-domain: Portfolio Multi-Strategy
-subdomain: Skill Management
-tags:
-- algo-trading
-- python
-brokers_frameworks:
-- general
+description: Quantify lower-tail dependence and non-linear correlation spikes between strategies during market crash regimes.
+domain: portfolio-multi-strategy
+subdomain: tail-risk
+tags: [tail-correlation, lower-tail-dependence, copula, diversification-breakdown, stress-testing]
+brokers_frameworks: [numpy, pandas, scipy]
 version: 1.0.0
-author: System
+author: Quant Team
 license: MIT
 ---
 
-# tail-correlation-between-strategies-under-stress
+# Tail Correlation Between Strategies Under Stress
+
+The `tail-correlation-between-strategies-under-stress` skill measures lower-tail dependence ($\lambda_L$) and conditional exceedance correlation between multi-strategy portfolios during extreme downside market stress. It detects diversification breakdown where sub-strategies that appear uncorrelated during normal regimes become highly correlated during crashes.
 
 ## When to Use
-Use when implementing tail-correlation-between-strategies-under-stress.
+
+- When allocating capital across multi-strategy hedge fund portfolios.
+- When auditing diversification benefits prior to deploying capital to newly onboarded sub-strategies.
+- During stress testing and Tail Risk Value-at-Risk (tVaR) modeling.
+- When configuring portfolio-level risk limits for extreme market regimes.
 
 ## Prerequisites
-- Python 3.10+
-- Algo trading knowledge
+
+- Overlapping daily return series for all evaluated strategy pairs ($\ge 20$ observations minimum).
+- Python 3.9+ with `numpy` and `pandas`.
 
 ## Workflow
-1. Analyze requirements.
-2. Initialize components.
-3. Execute strategy.
+
+1. **Calculate Quantiles**: Determine the 10th percentile ($\alpha = 0.10$) downside return threshold for each strategy.
+2. **Compute Unconditional Correlation**: Calculate standard Pearson correlation over the full evaluation period.
+3. **Compute Lower Tail Dependence**: Evaluate empirical conditional probability $\lambda_L = \mathbb{P}(R_B \le q_B \mid R_A \le q_A)$.
+4. **Compute Conditional Exceedance Correlation**: Calculate correlation conditioned on downside stress events ($R_A \le q_A$ or $R_B \le q_B$).
+5. **Detect Diversification Breakdown**: Flag pair if conditional tail correlation $\ge 0.70$ or if $\Delta \rho = \rho_{\text{tail}} - \rho_{\text{uncond}} \ge 0.40$.
 
 ## Common Pitfalls
-- Ignoring edge cases.
-- Missing configuration validation.
+
+- **Assuming Gaussian Joint Distributions**: Assuming normal distribution understates extreme downside joint crash probabilities.
+- **Short Sample Windows**: Using small sample sizes yields noisy quantile estimates; ensure sufficient historical crash data or synthetic stress scenarios.
+- **Ignoring Non-linear Regime Shifts**: Relying solely on full-sample linear correlation masks hidden tail dependencies.
 
 ## Verification
-- Unit tests verify core logic.
-- Run `python -m unittest scripts/test_*.py`.
+
+Run the test suite:
+```bash
+python -m unittest test_tail_correlation_between_strategies_under_stress.py
+```
 
 ## Related Skills
-- other-skills-in-domain
+
+- `cross-strategy-correlation-monitoring`
+- `tail-correlation-between-strategies-under-stress`
+- `portfolio-stress-test-including-liquidity-crunch-scenarios`
