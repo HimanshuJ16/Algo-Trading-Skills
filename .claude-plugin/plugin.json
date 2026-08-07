@@ -8,15 +8,8 @@
   },
   "license": "Apache-2.0",
   "homepage": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
-  "skillsPath": "skills",
-  "categories": [
-    "broker-integration",
-    "real-time-architecture",
-    "backtesting-methodology",
-    "financial-ml",
-    "risk-management",
-    "deployment-ops"
-  ],
+  "skills": ["./skills"],
+  "category": "trading-and-finance",
   "keywords": [
     "algorithmic-trading",
     "quant",
@@ -31,4 +24,3 @@
     "ibkr"
   ]
 }
-
