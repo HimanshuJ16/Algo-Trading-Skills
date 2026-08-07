@@ -65,7 +65,7 @@ def build_index():
     index_data = {
         "version": "1.0.0",
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
+        "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
         "domain": "algorithmic-trading",
         "total_skills": len(skills_metadata),
         "skills": skills_metadata,

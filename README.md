@@ -5,7 +5,7 @@
 ### The largest open-source algorithmic trading skills library for AI agents
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](LICENSE)
-[![Validate & Test Skills](https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills/actions/workflows/validate-skills.yml)
+[![Validate & Test Skills](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml)
 [![Skills Built](https://img.shields.io/badge/skills_built-504-brightgreen?style=flat-square)](#whats-inside--16-categories)
 [![Roadmap](https://img.shields.io/badge/roadmap-504_built-brightgreen?style=flat-square)](docs/ROADMAP_500.md)
 [![Domains](https://img.shields.io/badge/domains-16-9cf?style=flat-square)](#whats-inside--16-categories)
@@ -63,8 +63,8 @@ Each skill maps to the industry standards, exchange protocols, and regulatory ma
 
 ```bash
 # Option 1: Git clone (recommended)
-git clone https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills.git
-cd Anthropic-Algo-Trading-Skills
+git clone https://github.com/HimanshuJ16/Algo-Trading-Skills.git
+cd Algo-Trading-Skills
 
 # Option 2: Validate all 504 skills locally
 python tools/validate_skills.py   # verifies structure & frontmatter (504/504 pass)
@@ -80,7 +80,7 @@ The quantitative trading and financial software engineering domain requires deep
 
 Existing trading libraries give you broker SDKs, indicator formulas, or naive strategy backtests. None of them give an AI agent the structured decision-making workflow a senior quant infrastructure engineer follows: when to use each technique, what prerequisites to check, how to execute step-by-step, and how to verify results in production. That is the gap this project fills.
 
-**Anthropic Algo-Trading-Skills** is not a collection of toy scripts. It is an AI-native knowledge base built from the ground up for the [agentskills.io](https://agentskills.io) standard — YAML frontmatter for sub-second discovery, structured Markdown for step-by-step execution, and reference files for deep technical context. Every skill encodes real practitioner workflows, not generic LLM summaries.
+**Algo-Trading-Skills** is not a collection of toy scripts. It is an AI-native knowledge base built from the ground up for the [agentskills.io](https://agentskills.io) standard — YAML frontmatter for sub-second discovery, structured Markdown for step-by-step execution, and reference files for deep technical context. Every skill encodes real practitioner workflows, not generic LLM summaries.
 
 ---
 
@@ -231,11 +231,11 @@ Every PR is reviewed for technical accuracy and `agentskills.io` standard compli
 If you use this project in research or publications:
 
 ```bibtex
-@software{anthropic_algo_trading_skills,
+@software{algo_trading_skills,
   author       = {Jangir, Himanshu},
-  title        = {Anthropic Algo-Trading-Skills},
+  title        = {Algo-Trading-Skills},
   year         = {2026},
-  url          = {https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills},
+  url          = {https://github.com/HimanshuJ16/Algo-Trading-Skills},
   license      = {Apache-2.0},
   note         = {504 structured algorithmic trading skills for AI agents,
                   mapped to SEC Rule 15c3-5, Reg NMS, MiFID II, FCA, SEBI, and ISDA standards}

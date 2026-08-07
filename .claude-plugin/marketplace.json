@@ -1,8 +1,8 @@
 {
-  "name": "anthropic-algo-trading-skills",
+  "name": "algo-trading-skills",
   "owner": {
-    "name": "algo-trading-skills-contributors",
-    "email": "contributors@algotradingskills.org"
+    "name": "HimanshuJ16",
+    "email": "himanshujangir16@gmail.com"
   },
   "metadata": {
     "description": "504 production-grade algorithmic trading skills for AI coding agents, covering broker integration, real-time market data architecture, backtesting methodology, financial ML, risk management, and deployment ops.",
@@ -15,7 +15,7 @@
       "description": "504 production-grade algorithmic trading skills covering broker APIs, real-time tick architecture, backtesting methodology, financial ML, risk management, and deployment ops. Mapped to regulatory and exchange frameworks.",
       "version": "1.0.0",
       "author": {
-        "name": "algo-trading-skills-contributors"
+        "name": "HimanshuJ16"
       },
       "license": "Apache-2.0",
       "keywords": [
@@ -33,8 +33,8 @@
         "ibkr"
       ],
       "category": "trading-and-finance",
-      "homepage": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills",
-      "repository": "https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills"
+      "homepage": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
+      "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills"
     }
   ]
 }
