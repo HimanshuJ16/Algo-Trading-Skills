@@ -1,5 +1,5 @@
 {
-  "name": "algo-trading-skills-v2",
+  "name": "anthropic-algo-trading-skills",
   "owner": {
     "name": "HimanshuJ16",
     "email": "himanshujangir16@gmail.com"
@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "trading-skills",
+      "name": "algo-trading-skills",
       "source": "./",
       "description": "504 production-grade algorithmic trading skills covering broker APIs, real-time tick architecture, backtesting methodology, financial ML, risk management, and deployment ops. Mapped to regulatory and exchange frameworks.",
       "version": "1.0.0",
