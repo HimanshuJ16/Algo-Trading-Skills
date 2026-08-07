@@ -16,7 +16,7 @@ brokers_frameworks:
 - Coinbase Advanced L2
 - Bybit L2
 - Crypto/Forex Orderbooks
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

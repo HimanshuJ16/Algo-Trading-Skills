@@ -18,7 +18,7 @@ brokers_frameworks:
 - Eurex T7 ETI
 - T7 EMDI Multicast
 - Python Dataclasses
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -54,5 +54,5 @@ Use this skill when optimizing model hyperparameters (e.g. LightGBM `max_depth`,
 ## Related Skills
 
 - `feature-engineering-without-leakage`
-- `cross-validation-for-time-series-strategies`
+- `walk-forward-validation-setup`
 ---

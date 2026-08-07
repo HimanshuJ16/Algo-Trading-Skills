@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - Coinbase Advanced Trade API v3
 - Coinbase Pro (Legacy)
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

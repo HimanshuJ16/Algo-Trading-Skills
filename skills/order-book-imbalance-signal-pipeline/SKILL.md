@@ -16,7 +16,7 @@ tags:
 brokers_frameworks:
 - Order Book Imbalance Pipeline
 - Python Real-Time Engine
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -68,5 +68,5 @@ Invoke this skill when building high-frequency market-making or order-book momen
 
 - `binary-protocol-parsing-for-low-latency-feeds`
 - `memory-mapped-ring-buffer-for-ultra-low-latency`
-- `microstructure-signals`
+- `order-book-imbalance-signal-pipeline`
 ---

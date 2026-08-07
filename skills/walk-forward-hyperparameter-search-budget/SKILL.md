@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - Hyperparameter Search Budgeter
 - Python
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

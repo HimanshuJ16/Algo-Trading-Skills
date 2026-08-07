@@ -14,7 +14,7 @@ tags:
 brokers_frameworks:
 - scikit-learn
 - numpy
-version: 1.1.0
+version: "1.1.0"
 author: System
 license: MIT
 ---
@@ -47,5 +47,5 @@ Run `python scripts/test_signal_adversarial_tester.py` to confirm the injection 
 
 ## Related Skills
 
-- `feature-engineering`
+- `feature-engineering-without-leakage`
 - `backtest-outlier-and-bad-tick-filtering`

@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - Realized Volatility Position Sizer
 - Python NumPy
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -62,7 +62,7 @@ Invoke this skill when executing trend-following, mean-reversion, or multi-asset
 
 ## Related Skills
 
-- `position-sizing-and-portfolio-optimization`
+- `correlation-aware-exposure-limits`
 - `liquidity-adjusted-position-sizing`
 - `value-at-risk-var-live-monitoring`
 ---

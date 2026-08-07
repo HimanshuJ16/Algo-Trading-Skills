@@ -16,7 +16,7 @@ brokers_frameworks:
 - oecd-transfer-pricing-guidelines
 - irs-section-482
 - hmrc-transfer-pricing
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---
@@ -63,7 +63,7 @@ python -m unittest discover -s skills/transfer-pricing-considerations-for-multi-
 ## Related Skills
 
 - `vat-gst-treatment-of-trading-related-services`
-- `cross-border-regulatory-reporting-aggregation`
-- `withholding-tax-optimization-on-cross-border-dividends`
-- `multi-jurisdictional-entity-structure-tax-routing`
+- `mifid-ii-algo-trading-compliance-eu`
+- `vat-gst-treatment-of-trading-related-services`
+- `transfer-pricing-considerations-for-multi-entity-trading-operations`
 

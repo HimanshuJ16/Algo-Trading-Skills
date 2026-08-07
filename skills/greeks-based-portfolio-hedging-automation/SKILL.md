@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - Greeks Hedging Engine
 - Python NumPy
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -59,7 +59,7 @@ Invoke this skill when operating options portfolios, market-making books, or del
 
 ## Related Skills
 
-- `options-greeks-risk-management`
+- `options-greeks-real-time-portfolio-aggregation`
 - `options-backtesting-with-realistic-iv-surface`
 - `real-time-greeks-recalculation-on-market-moves`
 ---

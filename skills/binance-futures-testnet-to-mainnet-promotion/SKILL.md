@@ -11,7 +11,7 @@ tags:
 - institutional-standards
 brokers_frameworks:
 - Binance Futures
-version: 1.0.0
+version: "1.0.0"
 author: assistant
 license: MIT
 ---

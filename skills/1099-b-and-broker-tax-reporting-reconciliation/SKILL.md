@@ -10,7 +10,7 @@ tags:
 - compliance
 - 1099-B
 brokers_frameworks: []
-version: 1.0.0
+version: "1.0.0"
 author: System
 license: MIT
 ---

@@ -16,7 +16,7 @@ brokers_frameworks:
 - form-1099-b
 - finra
 - sec
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---
@@ -66,6 +66,6 @@ python -m unittest discover -s skills/wash-sale-rule-tracking-us/scripts
 
 - `vat-gst-treatment-of-trading-related-services`
 - `transfer-pricing-considerations-for-multi-entity-trading-operations`
-- `multi-jurisdictional-entity-structure-tax-routing`
+- `transfer-pricing-considerations-for-multi-entity-trading-operations`
 - `third-party-custody-audit-report-review-cadence`
 

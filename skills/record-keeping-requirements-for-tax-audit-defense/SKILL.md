@@ -51,5 +51,5 @@ Use this skill when managing algorithmic trading operations subject to tax repor
 ## Related Skills
 
 - `mark-to-market-election-for-active-traders-us`
-- `wash-sale-rule-tracking-across-accounts`
+- `wash-sale-rule-tracking-us`
 ---

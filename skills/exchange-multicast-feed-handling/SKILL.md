@@ -16,7 +16,7 @@ tags:
 brokers_frameworks:
 - Multicast Feed Handler
 - Python Socket Engine
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -65,5 +65,5 @@ Invoke this skill when operating co-located ultra-low-latency trading servers re
 
 - `binary-protocol-parsing-for-low-latency-feeds`
 - `sequence-number-gap-detection-for-feeds`
-- `high-frequency-time-synchronization-ptp-ntp`
+- `clock-synchronization-ptp-for-trading-hosts`
 ---

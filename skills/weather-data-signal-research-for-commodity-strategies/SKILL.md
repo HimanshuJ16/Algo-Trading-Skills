@@ -20,7 +20,7 @@ brokers_frameworks:
 - noaa
 - ecmwf
 - gfs
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

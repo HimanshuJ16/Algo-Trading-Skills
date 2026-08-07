@@ -17,7 +17,7 @@ brokers_frameworks:
 - AWS Route 53 ARC
 - Aurora Global DB
 - Python Dataclasses
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

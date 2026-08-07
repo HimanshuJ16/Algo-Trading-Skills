@@ -17,7 +17,7 @@ brokers_frameworks:
 - "Deutsche B\xF6rse T7 ETI"
 - FIX 5.0 SP2
 - Python Dataclasses
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

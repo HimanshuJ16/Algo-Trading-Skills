@@ -14,7 +14,7 @@ tags:
 brokers_frameworks:
 - Universe Lookahead Auditor
 - Python
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -51,5 +51,5 @@ Invoke this skill when building or validating strategy universe selection rules.
 ## Related Skills
 
 - `backtest-database-schema-for-point-in-time-queries`
-- `backtest-survivorship-bias-auditing`
+- `survivorship-bias-free-universe-construction`
 ---

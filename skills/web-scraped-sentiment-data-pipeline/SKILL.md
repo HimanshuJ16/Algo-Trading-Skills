@@ -17,7 +17,7 @@ brokers_frameworks:
 - twitter-x
 - stocktwits
 - sec-edgar
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

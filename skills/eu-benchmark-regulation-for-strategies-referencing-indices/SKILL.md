@@ -17,7 +17,7 @@ brokers_frameworks:
 - ESMA BMR Register
 - Regulation (EU) 2016/1011
 - Python Dataclasses
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

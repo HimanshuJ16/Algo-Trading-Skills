@@ -14,7 +14,7 @@ brokers_frameworks:
 - direct-market-access
 - qtg
 - kdb-plus
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

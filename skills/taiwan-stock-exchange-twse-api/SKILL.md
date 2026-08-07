@@ -11,7 +11,7 @@ tags:
 - execution
 brokers_frameworks:
 - generic
-version: 1.0.0
+version: "1.0.0"
 author: System
 license: MIT
 ---

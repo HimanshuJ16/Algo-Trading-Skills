@@ -16,7 +16,7 @@ tags:
 brokers_frameworks:
 - WebSocket Manager
 - Python Async Engine
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -63,7 +63,7 @@ Invoke this skill when operating real-time market data streaming components or o
 
 ## Related Skills
 
-- `orderbook-l2-l3-reconstruction`
-- `high-frequency-time-synchronization-ptp-ntp`
+- `historical-order-book-reconstruction-from-message-logs`
+- `clock-synchronization-ptp-for-trading-hosts`
 - `broker-status-page-monitoring-integration`
 ---

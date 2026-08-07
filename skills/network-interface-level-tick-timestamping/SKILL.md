@@ -16,7 +16,7 @@ tags:
 brokers_frameworks:
 - NIC Hardware Timestamper
 - Python Socket Engine
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -65,7 +65,7 @@ Invoke this skill when building sub-microsecond latency-sensitive feed handlers 
 
 ## Related Skills
 
-- `high-frequency-time-synchronization-ptp-ntp`
+- `clock-synchronization-ptp-for-trading-hosts`
 - `binary-protocol-parsing-for-low-latency-feeds`
 - `feed-handler-cpu-pinning-and-numa-awareness`
 ---

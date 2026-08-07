@@ -10,7 +10,7 @@ tags:
 - finra-rule-4210-(pattern-day-trader)
 brokers_frameworks:
 - FINRA Rule 4210 (Pattern Day Trader)
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

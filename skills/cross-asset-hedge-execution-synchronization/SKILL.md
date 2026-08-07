@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - Generic FIX / OMS
 - Python Dataclasses
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -59,5 +59,5 @@ Use this skill in multi-leg trading algorithms (e.g. Options Delta Hedging, Conv
 ## Related Skills
 
 - `cross-venue-latency-arbitrage-defensive-design`
-- `delta-hedging-cadence-gamma-vs-theta`
+- `tail-risk-hedging-with-options`
 ---

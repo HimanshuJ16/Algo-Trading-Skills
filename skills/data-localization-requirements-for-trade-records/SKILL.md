@@ -19,7 +19,7 @@ brokers_frameworks:
 - EU GDPR
 - SEC Rule 17a-4
 - Python Dataclasses
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

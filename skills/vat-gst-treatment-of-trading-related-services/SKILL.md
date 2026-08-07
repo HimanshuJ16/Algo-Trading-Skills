@@ -17,7 +17,7 @@ brokers_frameworks:
 - eu-vat-directive-2006-112
 - singapore-iras-gst
 - australia-ato-gst
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---
@@ -65,7 +65,7 @@ python -m unittest discover -s skills/vat-gst-treatment-of-trading-related-servi
 ## Related Skills
 
 - `transfer-pricing-considerations-for-multi-entity-trading-operations`
-- `multi-jurisdictional-entity-structure-tax-routing`
+- `transfer-pricing-considerations-for-multi-entity-trading-operations`
 - `uk-fca-algorithmic-trading-systems-controls`
 - `third-party-custody-audit-report-review-cadence`
 

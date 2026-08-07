@@ -16,7 +16,7 @@ brokers_frameworks:
 - Zipline
 - VectorBT
 - Custom Python Backtesters
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -74,7 +74,7 @@ Invoke this whenever optimizing trading strategy parameters over historical mark
 
 ## Related Skills
 
-- `backtest-overfitting-pbo-cscv`
-- `purge-and-embargo-cross-validation`
+- `synthetic-data-generation-for-backtest-augmentation`
+- `walk-forward-validation-setup`
 - `survivorship-bias-free-universe-construction`
 ---

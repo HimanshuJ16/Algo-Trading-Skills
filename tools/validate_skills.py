@@ -38,7 +38,7 @@ REQUIRED_SUBDIRS = ["references", "scripts", "assets"]
 ROOT = os.path.join(os.path.dirname(__file__), "..", "skills")
 
 
-def validate_skill_dir(skill_dir):
+def validate_skill_dir(skill_dir, valid_skill_names):
     errors = []
     name = os.path.basename(skill_dir)
 
@@ -65,10 +65,23 @@ def validate_skill_dir(skill_dir):
             f"{name}: frontmatter 'name' ({frontmatter.get('name')!r}) "
             f"does not match directory name ({name!r})")
 
+    # Validate version string format
+    version_val = str(frontmatter.get("version", "")).strip()
+    if not re.match(r"^\d+\.\d+(\.\d+)?$", version_val):
+        errors.append(f"{name}: version '{version_val}' is not a valid semver string (e.g. '1.0.0')")
+
     body = fm_match.group(2)
     for section in REQUIRED_SECTIONS:
         if f"## {section}" not in body:
             errors.append(f"{name}: missing required section '## {section}'")
+
+    # Validate Related Skills cross-references
+    if "## Related Skills" in body:
+        rel_section = body.split("## Related Skills")[1].split("\n## ")[0]
+        refs = re.findall(r"`([a-z0-9\-]+)`", rel_section)
+        for r in refs:
+            if r != name and r not in valid_skill_names and len(r) > 3:
+                errors.append(f"{name}: broken Related Skills reference `{r}`")
 
     for subdir in REQUIRED_SUBDIRS:
         subdir_path = os.path.join(skill_dir, subdir)
@@ -88,9 +101,10 @@ def main():
         print("No skill directories found under skills/ -- check ROOT path.")
         sys.exit(1)
 
+    valid_skill_names = set(os.path.basename(d) for d in skill_dirs)
     all_errors = []
     for skill_dir in skill_dirs:
-        all_errors.extend(validate_skill_dir(skill_dir))
+        all_errors.extend(validate_skill_dir(skill_dir, valid_skill_names))
 
     print(f"Validated {len(skill_dirs)} skills.")
     if all_errors:
@@ -99,8 +113,9 @@ def main():
             print(f"  - {e}")
         sys.exit(1)
 
-    print("All skills passed structural and frontmatter validation.")
+    print("All skills passed structural, frontmatter, version, and cross-reference validation.")
 
 
 if __name__ == "__main__":
     main()
+

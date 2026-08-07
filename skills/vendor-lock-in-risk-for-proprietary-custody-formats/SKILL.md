@@ -18,7 +18,7 @@ brokers_frameworks:
 - anchorage
 - copper
 - safe-gnosis
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

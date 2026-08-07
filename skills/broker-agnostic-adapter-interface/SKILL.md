@@ -19,7 +19,7 @@ brokers_frameworks:
 - Alpaca
 - Interactive Brokers
 - Upstox
-version: '2.0'
+version: "2.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

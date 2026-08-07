@@ -15,7 +15,7 @@ brokers_frameworks:
 - E*TRADE
 - OAuth1
 - HMAC-SHA1
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -13,7 +13,7 @@ tags:
 brokers_frameworks:
 - quickfix
 - bistech-api
-version: 1.0.0
+version: "1.0.0"
 author: Quant Engineering
 license: MIT
 ---

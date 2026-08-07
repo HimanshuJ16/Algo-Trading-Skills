@@ -19,7 +19,7 @@ brokers_frameworks:
 - mifid-ii-rts-6
 - ice
 - cme
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

@@ -17,7 +17,7 @@ brokers_frameworks:
 - fca-handbook
 - mifid2-rts6
 - quickfix
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---
@@ -64,7 +64,7 @@ python -m unittest discover -s skills/uk-fca-algorithmic-trading-systems-control
 ## Related Skills
 
 - `uk-senior-managers-regime-algo-accountability`
-- `pre-trade-risk-checks-for-low-latency-trading`
-- `circuit-breaker-and-kill-switch-architecture`
+- `sec-rule-15c3-5-risk-controls-us`
+- `kill-switch-and-drawdown-circuit-breakers`
 - `us-reg-nms-order-protection-rule-compliance`
 

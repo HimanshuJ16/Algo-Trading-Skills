@@ -17,7 +17,7 @@ brokers_frameworks:
 - Eurex FDBX
 - CME Dividend Futures
 - Python Math / Dataclasses
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

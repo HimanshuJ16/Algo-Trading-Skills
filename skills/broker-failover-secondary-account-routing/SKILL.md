@@ -2,7 +2,7 @@
 name: broker-failover-secondary-account-routing
 description: Institutional-grade circuit breaker and failover router for high-availability
   algorithmic trading systems.
-version: 1.1.0
+version: "1.1.0"
 domain: algorithmic-trading
 subdomain: general
 tags:

@@ -14,7 +14,7 @@ tags:
 - binary-order-entry
 brokers_frameworks:
 - direct-market-access
-version: 1.1.0
+version: "1.1.0"
 author: System
 license: MIT
 ---

@@ -16,7 +16,7 @@ brokers_frameworks:
 - Nasdaq NOII
 - NYSE Closing Auction
 - Generic Execution
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

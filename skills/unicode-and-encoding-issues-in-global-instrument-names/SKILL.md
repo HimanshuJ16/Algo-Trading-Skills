@@ -16,7 +16,7 @@ brokers_frameworks:
 - quickfix
 - pandas
 - sqlalchemy
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---
@@ -66,5 +66,5 @@ python -m unittest discover -s skills/unicode-and-encoding-issues-in-global-inst
 - `vendor-specific-adjustment-methodology-reconciliation`
 - `binary-protocol-parsing-for-low-latency-feeds`
 - `zero-downtime-database-schema-migrations`
-- `corporate-action-entitlement-and-adjustment-engine`
+- `corporate-action-adjusted-backtesting`
 

@@ -17,7 +17,7 @@ brokers_frameworks:
 - fca-handbook-sup10c
 - fca-fg18-9
 - pra-rulebook
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---
@@ -64,7 +64,7 @@ python -m unittest discover -s skills/uk-senior-managers-regime-algo-accountabil
 ## Related Skills
 
 - `uk-fca-algorithmic-trading-systems-controls`
-- `pre-trade-risk-checks-for-low-latency-trading`
-- `circuit-breaker-and-kill-switch-architecture`
-- `multi-jurisdictional-entity-structure-tax-routing`
+- `sec-rule-15c3-5-risk-controls-us`
+- `kill-switch-and-drawdown-circuit-breakers`
+- `transfer-pricing-considerations-for-multi-entity-trading-operations`
 

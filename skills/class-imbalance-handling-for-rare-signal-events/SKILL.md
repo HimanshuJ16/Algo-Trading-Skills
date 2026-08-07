@@ -15,7 +15,7 @@ brokers_frameworks:
 - Scikit-Learn
 - Pandas
 - NumPy
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -52,5 +52,5 @@ Use this skill when building quantitative models to predict highly asymmetric, r
 
 ## Related Skills
 
-- `walk-forward-optimization-for-model-selection`
+- `walk-forward-optimization-window-management`
 - `cross-sectional-vs-time-series-model-design`

@@ -53,5 +53,5 @@ Use this skill when rebalancing multi-asset or multi-strategy portfolios where t
 ## Related Skills
 
 - `rebalancing-frequency-optimization-cost-vs-drift`
-- `execution-cost-model-reallocation-cadence`
+- `execution-cost-model-recalibration-cadence`
 ---

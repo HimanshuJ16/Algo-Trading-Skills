@@ -48,6 +48,6 @@ Use this skill when connecting algorithmic trading algorithms to Singapore Excha
 
 ## Related Skills
 
-- `hong-kong-exchange-hkex-connect-integration`
+- `hong-kong-exchange-hkex-orion-api`
 - `binary-protocol-parsing-for-low-latency-feeds`
 ---

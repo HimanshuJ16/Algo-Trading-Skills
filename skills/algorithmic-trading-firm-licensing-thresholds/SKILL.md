@@ -13,7 +13,7 @@ tags:
 - hft
 brokers_frameworks:
 - generic
-version: 1.1.0
+version: "1.1.0"
 author: System
 license: MIT
 ---
@@ -48,5 +48,5 @@ Run `python scripts/test_algorithmic_trading_firm_licensing_thresholds.py` to as
 
 ## Related Skills
 
-- `algorithmic-trading-disclosure-to-exchange-membership`
+- `finra-algo-trading-registration-requirements`
 - `finra-algo-trading-registration-requirements`

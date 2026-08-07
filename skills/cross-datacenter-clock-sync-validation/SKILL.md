@@ -16,7 +16,7 @@ tags:
 brokers_frameworks:
 - Clock Sync Validator
 - Python Real-Time Engine
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -64,7 +64,7 @@ Invoke this skill when operating multi-region trading infrastructure (e.g., Chic
 
 ## Related Skills
 
-- `high-frequency-time-synchronization-ptp-ntp`
+- `clock-synchronization-ptp-for-trading-hosts`
 - `multi-region-active-active-tick-ingestion`
 - `market-data-feed-arbitration-across-vendors`
 ---

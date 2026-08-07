@@ -12,7 +12,7 @@ tags:
 brokers_frameworks:
 - AWS
 - GCP
-version: 1.0.0
+version: "1.0.0"
 author: System
 license: MIT
 ---

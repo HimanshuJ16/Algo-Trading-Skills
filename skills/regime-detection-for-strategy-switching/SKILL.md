@@ -49,6 +49,6 @@ Use this skill when running multiple strategy variants (trend-following, mean-re
 
 ## Related Skills
 
-- `hidden-markov-model-regime-switching`
-- `volatility-regime-adaptive-position-sizing`
+- `model-staleness-detection`
+- `strategy-specific-vs-shared-risk-budget-allocation`
 ---

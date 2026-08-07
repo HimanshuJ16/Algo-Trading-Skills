@@ -13,7 +13,7 @@ tags:
 brokers_frameworks:
 - MiFID II / MiFIR
 - RTS 6 (Regulatory Technical Standard on algorithmic trading)
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

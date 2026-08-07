@@ -14,7 +14,7 @@ brokers_frameworks:
 - Fyers API v3
 - ICICI Breeze API
 - Zerodha Kite Connect
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

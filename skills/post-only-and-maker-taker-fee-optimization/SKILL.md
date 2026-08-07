@@ -16,7 +16,7 @@ tags:
 brokers_frameworks:
 - Exchange Fee Optimizer
 - Python Trading Engine
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

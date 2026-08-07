@@ -50,6 +50,6 @@ Use this skill when routing equities, debt, or index derivatives to the New Zeal
 
 ## Related Skills
 
-- `asx-australian-securities-exchange-api`
+- `australian-securities-exchange-asx-api`
 - `binary-protocol-parsing-for-low-latency-feeds`
 ---

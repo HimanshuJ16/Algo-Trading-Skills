@@ -17,7 +17,7 @@ brokers_frameworks:
 - Options IV Surface Engine
 - Python SciPy
 - NumPy
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -68,5 +68,5 @@ Invoke this skill when backtesting options trading strategies (e.g., delta-neutr
 
 - `vectorized-vs-event-driven-backtest-tradeoffs`
 - `transaction-cost-analysis-tca-integration`
-- `options-greeks-risk-management`
+- `options-greeks-real-time-portfolio-aggregation`
 ---

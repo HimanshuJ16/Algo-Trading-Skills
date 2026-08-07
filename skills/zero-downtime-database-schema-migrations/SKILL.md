@@ -18,7 +18,7 @@ brokers_frameworks:
 - liquibase
 - gh-ost
 - pt-online-schema-change
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

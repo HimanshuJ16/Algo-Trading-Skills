@@ -16,7 +16,7 @@ brokers_frameworks:
 - isda-matrix
 - quantlib
 - scipy
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

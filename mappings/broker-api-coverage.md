@@ -1,42 +1,64 @@
-# Broker / API Coverage
+# Broker & Exchange API Coverage Index
 
-This is the cross-cutting index of which skills touch which broker or framework,
-analogous in spirit to a framework-coverage matrix — but for broker APIs rather
-than security frameworks, since that's the relevant "standard" in this domain.
+This is the comprehensive cross-cutting matrix of broker APIs, exchange protocols, market data feeds, and trading infrastructure software referenced across the 504 skills in this repository.
 
-| Broker / Framework | Skills that reference it |
-|---|---|
-| Fyers API v3 | `headless-broker-auth-patterns`, `token-lifecycle-live-probing`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` |
-| Zerodha Kite Connect | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `websocket-reconnect-without-duplicate-subscriptions` |
-| ICICI Breeze API | `headless-broker-auth-patterns`, `token-lifecycle-live-probing`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` |
-| Upstox API v2 | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` |
-| Alpaca Trading API | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` |
-| IBKR TWS/Gateway API | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` |
-| WebSocket streaming (broker-agnostic) | `producer-consumer-tick-pipeline`, `tick-buffering-burst-handling`, `backpressure-drop-degrade-policy`, `websocket-reconnect-without-duplicate-subscriptions` |
-| systemd | `systemd-supervision-for-trading-bots` |
-| Binance Spot/Futures API | `crypto-exchange-api-integration` |
-| Coinbase Advanced Trade API | `crypto-exchange-api-integration` |
-| Kraken REST/WebSocket v2 | `crypto-exchange-api-integration` |
-| OANDA v20 REST API | `forex-broker-integration-oanda-mt5` |
-| MetaTrader 5 (Python bridge) | `forex-broker-integration-oanda-mt5` |
-| exchange_calendars / pandas_market_calendars | `global-exchange-holiday-calendar-handling` |
-| IANA tz database (zoneinfo/pytz) | `multi-timezone-session-scheduling` |
-| SPAN (Standard Portfolio Analysis of Risk) | `options-margin-span-calculation-global` |
-| FINRA Rule 4210 (Pattern Day Trader) | `pattern-day-trader-rule-compliance-us` |
-| MiFID II / MiFIR, RTS 6 | `mifid-ii-algo-trading-compliance-eu` |
+> **Disclaimer**: Broker APIs and exchange specifications change over time. This index serves as an engineering discovery guide. Always verify parameter requirements, rate limits, and endpoint definitions against your broker/exchange's live documentation before deploying production code.
 
-See `docs/ROADMAP_500.md` for planned coverage of additional global venues (CME
-Globex, Eurex, HKEX, SGX, ASX, JPX, Schwab, TradeStation, and others) not yet
-built out as full skills.
+---
 
-## Notes
+## 1. US Equities, Options & Derivatives Brokers
+| Broker / Platform | Relevant Skills | Operational Focus |
+|---|---|---|
+| **Alpaca Trading API** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `alpaca-trading-api-integration` | Paper/live OAuth & API keys, sub-second order placement, polygon/alpaca tick streaming |
+| **Interactive Brokers (IBKR TWS/Gateway API)** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `interactive-brokers-ib-kr-api` | ib_insync / ibapi async order routing, margin monitoring, contract resolution |
+| **Tastytrade API** | `tastytrade-api-integration`, `options-greeks-real-time-portfolio-aggregation` | Options chain streaming, multi-leg order execution, DXFeed websocket integration |
+| **TradeStation API** | `tradestation-websocket-order-updates`, `execution-algo-twap-vwap-slicing` | Streaming order execution, execution quality scorecards, streaming tick feeds |
+| **Charles Schwab API** | `broker-api-versioning-migration-playbook`, `order-placement-idempotency` | OAuth2 refresh token rotation, equity & options REST endpoints |
 
-- This table reflects the brokers referenced when each skill was written. Broker APIs
-  change without notice — treat this as a starting index for discovery, not a
-  guarantee of current accuracy. Verify against the broker's live documentation
-  before implementation.
-- Coverage is intentionally weighted toward Indian equity/derivatives brokers
-  (Fyers, Zerodha, ICICI Breeze, Upstox) reflecting the origin of this repo's first
-  pass, alongside Alpaca and IBKR for broader applicability. Contributions extending
-  coverage to other brokers (e.g. Interactive Brokers regional variants, Binance/crypto
-  exchanges, other equities markets) are welcome — see `CONTRIBUTING.md`.
+---
+
+## 2. Indian Equity & Derivatives Brokers (NSE / BSE)
+| Broker / Platform | Relevant Skills | Operational Focus |
+|---|---|---|
+| **Fyers API v3** | `headless-broker-auth-patterns`, `token-lifecycle-live-probing`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` | Checksum generation (`app_id + secret_key`), WebSocket binary tick parsing, TOTP safety window |
+| **Zerodha Kite Connect** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `websocket-reconnect-without-duplicate-subscriptions`, `zerodha-kite-postback-webhook-verification` | SHA-256 `api_key + request_token + api_secret` checksum, postback SHA256 HMAC verification |
+| **ICICI Breeze API** | `headless-broker-auth-patterns`, `token-lifecycle-live-probing`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` | Session token validation, checksum hashing, customer session lifecycle |
+| **Upstox API v2** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `upstox-oauth-refresh-token-rotation` | OAuth 2.0 token rotation, protobuf WebSocket feeds, GTT order handling |
+
+---
+
+## 3. Global Equity, Futures & Options Exchanges
+| Venue / Exchange | Relevant Skills | Protocol / Interface |
+|---|---|---|
+| **CME Globex** | `cme-globex-futures-api-integration`, `futures-contract-roll-automation` | iLink 3 binary protocol, MDP 3.0 market data, SPAN margin risk |
+| **Eurex Exchange** | `eurex-market-data-and-order-api`, `options-margin-span-calculation-global` | ETI (Enhanced Trading Interface), MDI market data, Prisma margin |
+| **Hong Kong Exchange (HKEX)** | `hong-kong-exchange-hkex-orion-api`, `shanghai-shenzhen-connect-programs` | Orion Market Data Platform (OMD), OMD-C / OMD-D, Stock Connect Northbound |
+| **Singapore Exchange (SGX)** | `singapore-exchange-sgx-api-integration`, `multi-currency-pnl-and-fx-conversion` | REACH TITAN matching engine, OUCH/ITCH protocol, multi-currency derivatives |
+| **Australian Securities Exchange (ASX)** | `australian-securities-exchange-asx-api`, `asic-market-integrity-rules-automated-trading` | ASX Trade matching engine, ITCH/OUCH, Market Integrity Rules (MIR) |
+| **Japan Exchange Group (JPX / TSE)** | `japan-exchange-group-jpx-tse-api`, `japan-fsa-high-speed-trading-registration` | Arrowhead matching engine, J-GATE derivatives, High-Speed Trading (HST) registration |
+| **Tel Aviv Stock Exchange (TASE)** | `tase-israel-exchange-api`, `vat-gst-treatment-of-trading-related-services` | TASE binary FIX/ITCH protocol, NIS currency settlement, regulatory reporting |
+| **Borsa Istanbul (BIST)** | `borsa-istanbul-api-integration`, `dma-direct-market-access-gateways` | BISTECH ITCH/OUCH protocol, TRY settlement, circuit breaker filters |
+| **Bursa Malaysia** | `bursa-malaysia-api-integration`, `shariah-compliant-screening-for-equities` | BTS trading engine, Shariah compliance screening, Islamic derivatives |
+| **Taiwan Stock Exchange (TWSE)** | `taiwan-stock-exchange-twse-api`, `unicode-and-encoding-issues-in-global-instrument-names` | TMP binary protocol, odd-lot trading, Big5/UTF-8 character encoding |
+| **London Stock Exchange (LSE)** | `order-to-trade-ratio-fee-penalty-avoidance`, `mifid-ii-algo-trading-compliance-eu` | MillenniumIT matching engine, MITCH market data, OTR fee tiers |
+
+---
+
+## 4. Crypto Exchanges & Digital Asset Custody
+| Platform / Provider | Relevant Skills | Operational Focus |
+|---|---|---|
+| **Binance (Spot & Futures)** | `crypto-exchange-api-integration`, `binance-futures-testnet-to-mainnet-promotion`, `perpetual-futures-funding-rate-arbitrage` | SBE WebSocket streams, HMAC-SHA256 REST signatures, testnet promotion |
+| **Coinbase Advanced Trade** | `crypto-exchange-api-integration`, `crypto-tax-lot-tracking-fifo-lifo-hifo` | JWT auth, WebSocket user order feeds, tax lot identification |
+| **Kraken REST & WebSocket v2** | `crypto-exchange-api-integration`, `crypto-staking-yield-and-slashing-risk` | HMAC-SHA512 auth signatures, WebSocket v2 private/public feeds |
+| **Deribit Options & Perpetual Futures** | `deribit-options-and-perpetuals-api`, `options-greeks-real-time-portfolio-aggregation` | JSON-RPC WebSocket API, BTC/ETH volatility surface & Greeks |
+| **Fireblocks / BitGo / HSM Custody** | `hardware-security-module-hsm-for-signing-keys`, `multi-sig-approval-workflows-for-treasury-transfers`, `withdrawal-velocity-limits-and-anomaly-detection` | PKCS#11 HSM key signing, MPC threshold signatures, withdrawal velocity limits |
+
+---
+
+## 5. Foreign Exchange (FX) & Protocol Bridges
+| Protocol / System | Relevant Skills | Protocol / Infrastructure Focus |
+|---|---|---|
+| **FIX Protocol (v4.2 / v4.4 / v5.0)** | `fix-protocol-engine-implementation`, `fix-protocol-session-management-and-logon-handshake` | Session logon/heartbeat, tag 35 message routing, Sequence Reset |
+| **OANDA v20 REST API** | `forex-broker-integration-oanda-mt5`, `multi-currency-pnl-and-fx-conversion` | Bearer token auth, v20 streaming pricing & position management |
+| **MetaTrader 5 (MT5 Python Bridge)** | `forex-broker-integration-oanda-mt5`, `systemd-supervision-for-trading-bots` | `MetaTrader5` Python module IPC, retcode handling, zero-margin deal validation |
+| **Saxo Bank OpenAPI** | `saxo-bank-openapi-integration`, `multi-asset-backtest-currency-normalization` | OAuth2 PKCE auth, SignalR WebSocket streaming, multi-asset order routing |

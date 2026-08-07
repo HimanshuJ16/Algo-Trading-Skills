@@ -47,6 +47,6 @@ Use this skill when routing Northbound equity orders from Hong Kong / internatio
 
 ## Related Skills
 
-- `china-qfii-rqfii-quota-and-repatriation-tracking`
-- `cross-border-settlement-fx-auto-conversion`
+- `shanghai-shenzhen-connect-programs`
+- `multi-currency-pnl-and-fx-conversion`
 ---

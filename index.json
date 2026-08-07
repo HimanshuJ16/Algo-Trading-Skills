@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-07T02:25:02.266498+00:00",
+  "generated_at": "2026-08-07T02:41:42.647978+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -40,7 +40,7 @@
         "Adaptive Batch Tuner",
         "Python Real-Time Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/adaptive-batch-size-tuning-under-load",
@@ -85,7 +85,7 @@
         "Adaptive Tick Sampler",
         "Python Real-Time Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/adaptive-sampling-under-extreme-tick-rates",
@@ -108,7 +108,7 @@
         "Price Adjustment Auditor",
         "Python"
       ],
-      "version": "1.1",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/adjusted-vs-unadjusted-price-series-pitfalls",
@@ -277,7 +277,7 @@
       "brokers_frameworks": [
         "Alpaca Trading API v2"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/alpaca-paper-live-key-separation",
@@ -383,7 +383,7 @@
         "Security Audit Engine",
         "Python Security"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/api-key-least-privilege-audit-tool",
@@ -615,7 +615,7 @@
         "real-time-architecture"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backpressure-drop-degrade-policy",
@@ -638,7 +638,7 @@
         "Regulatory Audit Trail Engine",
         "Python Cryptography"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-audit-trail-for-regulatory-review",
@@ -660,7 +660,7 @@
         "Point-in-Time Schema Engine",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-database-schema-for-point-in-time-queries",
@@ -685,7 +685,7 @@
         "Python NumPy",
         "Random"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-determinism-and-reproducibility",
@@ -728,7 +728,7 @@
         "Universe Lookahead Auditor",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-look-ahead-in-universe-selection",
@@ -751,7 +751,7 @@
         "Outlier Bad Tick Filter Engine",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-outlier-and-bad-tick-filtering",
@@ -774,7 +774,7 @@
         "Parameter Sensitivity Analyzer",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-parameter-sensitivity-analysis",
@@ -797,7 +797,7 @@
         "Standardized Tearsheet Generator",
         "Python NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-reporting-standardized-tearsheet",
@@ -820,7 +820,7 @@
         "Divergence Tracking Engine",
         "Python Statistics"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-vs-live-performance-divergence-tracking",
@@ -842,7 +842,7 @@
         "Pandas",
         "Point-in-Time Enforcement"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtesting-alt-data-strategies-with-realistic-availability-lag",
@@ -864,7 +864,7 @@
         "NumPy",
         "ML Backtesting"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtesting-ml-models-against-transaction-costs",
@@ -887,7 +887,7 @@
         "NumPy",
         "Portfolio Benchmarking"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/benchmark-portfolio-for-multi-strategy-performance-context",
@@ -911,7 +911,7 @@
         "QuantStats",
         "Custom Performance Evaluators"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/benchmark-relative-performance-attribution",
@@ -1038,7 +1038,7 @@
         "Black Swan Halted Market Engine",
         "Python"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/black-swan-playbook-for-halted-markets",
@@ -1105,7 +1105,7 @@
         "Alpaca Margin API",
         "CME SPAN"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "quantitative-systems-engineer",
       "license": "Apache-2.0",
       "path": "skills/broker-account-margin-call-handling",
@@ -1130,7 +1130,7 @@
         "Interactive Brokers",
         "Upstox"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
@@ -1155,7 +1155,7 @@
         "Python OpenAPI Parser",
         "Quantitative Standards"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-changelog-diffing-tool",
@@ -1180,7 +1180,7 @@
         "Python Requests",
         "RFC 8594"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-deprecation-notice-monitoring",
@@ -1205,7 +1205,7 @@
         "Python Trading Engine",
         "FIX Protocol Concepts"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-idempotent-cancel-requests",
@@ -1272,7 +1272,7 @@
         "Python PnL Accounting",
         "Interactive Brokers"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-margin-interest-accrual-tracking",
@@ -1296,7 +1296,7 @@
         "Multi-Broker Capability Matrix",
         "Python Order Synthesizer"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-order-type-capability-matrix",
@@ -1320,7 +1320,7 @@
         "Broker Throttle Detector",
         "Python High-Frequency Engine"
       ],
-      "version": "2.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-side-order-throttle-detection",
@@ -1343,7 +1343,7 @@
         "Statuspage.io API",
         "Python Status Monitor"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-status-page-monitoring-integration",
@@ -2275,7 +2275,7 @@
         "NumPy",
         "Custom Portfolio Risk"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/correlation-aware-exposure-limits",
@@ -2564,7 +2564,7 @@
         "Clock Sync Validator",
         "Python Real-Time Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-datacenter-clock-sync-validation",
@@ -2784,7 +2784,7 @@
         "Historical Commission Modeler",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-validation-of-commission-schedules-over-time",
@@ -2857,7 +2857,7 @@
         "Coinbase Advanced Trade API",
         "Kraken REST/WebSocket v2"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/crypto-exchange-api-integration",
@@ -2896,7 +2896,7 @@
         "crypto-custody-security"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/crypto-wallet-key-custody-security",
@@ -3217,7 +3217,7 @@
         "Data Vendor Cross Validator",
         "Python Statistics"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/data-vendor-cross-validation-for-backtests",
@@ -3317,7 +3317,7 @@
         "Python requests",
         "Custom Risk Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/degiro-unofficial-api-risk-assessment",
@@ -3340,7 +3340,7 @@
         "Broker Environment Assessor",
         "Python Analytics"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/demo-account-realism-gap-assessment",
@@ -3591,7 +3591,7 @@
         "Realized Volatility Position Sizer",
         "Python NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/dynamic-position-sizing-based-on-realized-volatility",
@@ -3715,7 +3715,7 @@
         "NumPy",
         "Custom Signal Ensembles"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/ensemble-signal-combination-without-overfitting",
@@ -3836,7 +3836,7 @@
         "OAuth1",
         "HMAC-SHA1"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/etrade-oauth1-signature-flow",
@@ -4089,7 +4089,7 @@
         "Multicast Feed Handler",
         "Python Socket Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/exchange-multicast-feed-handling",
@@ -4258,7 +4258,7 @@
         "execution-algorithms"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/execution-algo-twap-vwap-slicing",
@@ -4351,7 +4351,7 @@
         "backtesting-methodology"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/execution-realistic-simulation",
@@ -4426,7 +4426,7 @@
         "XGBoost",
         "Custom Explainers"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/explainability-for-live-trading-signals",
@@ -4499,7 +4499,7 @@
         "Feature Cost-Benefit Tracker Engine",
         "Python NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/feature-engineering-cost-benefit-tracking",
@@ -4514,7 +4514,7 @@
         "financial-ml"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/feature-engineering-without-leakage",
@@ -4589,7 +4589,7 @@
         "NumPy",
         "Custom Feature Engines"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/feature-store-for-live-and-backtest-parity",
@@ -4613,7 +4613,7 @@
         "Canary Feed Router",
         "Python Real-Time Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/feed-handler-canary-deployment",
@@ -4636,7 +4636,7 @@
         "CPU Affinity Manager",
         "Python psutil"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/feed-handler-cpu-pinning-and-numa-awareness",
@@ -4732,7 +4732,7 @@
         "OANDA v20 REST API",
         "MetaTrader 5 Python integration"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/forex-broker-integration-oanda-mt5",
@@ -4879,7 +4879,7 @@
         "exchange_calendars (Python)",
         "pandas_market_calendars"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/global-exchange-holiday-calendar-handling",
@@ -4979,7 +4979,7 @@
         "WebSockets",
         "REST APIs"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/graceful-degradation-to-polling-fallback",
@@ -5002,7 +5002,7 @@
         "Graceful Shutdown Manager",
         "Python Signal Handler"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/graceful-shutdown-draining-in-flight-ticks",
@@ -5078,7 +5078,7 @@
         "Greeks Hedging Engine",
         "Python NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/greeks-based-portfolio-hedging-automation",
@@ -5103,7 +5103,7 @@
         "Protocol Buffers",
         "Python asyncio"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/grpc-streaming-for-internal-service-communication",
@@ -5181,7 +5181,7 @@
         "Alpaca Trading API",
         "IBKR TWS/Gateway API"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/headless-broker-auth-patterns",
@@ -5385,7 +5385,7 @@
         "IB Gateway",
         "IBC"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/ibkr-tws-gateway-headless-launch",
@@ -5984,7 +5984,7 @@
         "risk-management"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/kill-switch-and-drawdown-circuit-breakers",
@@ -6184,7 +6184,7 @@
         "Liquidity Position Sizer Engine",
         "Python NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/liquidity-adjusted-position-sizing",
@@ -6301,7 +6301,7 @@
         "backtesting-methodology"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/lookahead-bias-elimination",
@@ -6351,7 +6351,7 @@
         "Zerodha",
         "Alpaca"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/margin-utilization-circuit-breaker",
@@ -6452,7 +6452,7 @@
         "Feed Arbitrator Engine",
         "Python Real-Time Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-feed-arbitration-across-vendors",
@@ -6500,7 +6500,7 @@
         "Tick Replay Harness",
         "Python Async Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-replay-harness-for-integration-testing",
@@ -6548,7 +6548,7 @@
         "Bybit L2",
         "Crypto/Forex Orderbooks"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-snapshot-plus-delta-reconciliation",
@@ -6651,7 +6651,7 @@
         "mmap Ring Buffer",
         "Python mmap Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/memory-mapped-ring-buffer-for-ultra-low-latency",
@@ -6771,7 +6771,7 @@
         "MiFID II / MiFIR",
         "RTS 6 (Regulatory Technical Standard on algorithmic trading)"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/mifid-ii-algo-trading-compliance-eu",
@@ -6872,7 +6872,7 @@
         "Model Monitoring Dashboard Engine",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-monitoring-dashboard-for-non-technical-stakeholders",
@@ -6911,7 +6911,7 @@
         "financial-ml"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-staleness-detection",
@@ -6985,7 +6985,7 @@
         "PyPFcon",
         "Custom Backtesting Engines"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/monte-carlo-strategy-robustness-testing",
@@ -7061,7 +7061,7 @@
         "Multi-Account Manager",
         "Python Concurrent"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-account-same-strategy-fan-out",
@@ -7084,7 +7084,7 @@
         "Backtrader Multi-Asset",
         "VectorBT FX"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-asset-backtest-currency-normalization",
@@ -7107,7 +7107,7 @@
         "Multi-Broker Ledger",
         "Python Risk Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-broker-consolidated-position-view",
@@ -7132,7 +7132,7 @@
         "Alpaca Trading API",
         "IBKR API"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-broker-rate-limit-handling",
@@ -7147,7 +7147,7 @@
         "data-management-global"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-currency-pnl-and-fx-conversion",
@@ -7223,7 +7223,7 @@
         "IBKR",
         "Kraken"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-exchange-feed-normalization",
@@ -7396,7 +7396,7 @@
         "Active-Active Ingest Engine",
         "Python Async Real-Time"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-region-active-active-tick-ingestion",
@@ -7420,7 +7420,7 @@
         "Azure",
         "Custom HA"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-region-failover-for-broker-connectivity",
@@ -7492,7 +7492,7 @@
         "Custom Portfolio Engine",
         "NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-strategy-capital-allocation-limits",
@@ -7539,7 +7539,7 @@
         "Timeframe Consistency Checker",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-timeframe-backtest-consistency-checks",
@@ -7559,7 +7559,7 @@
         "IANA tz database",
         "pytz/zoneinfo"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-timezone-session-scheduling",
@@ -7583,7 +7583,7 @@
         "Python Pandas",
         "NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-year-regime-coverage-requirement",
@@ -7632,7 +7632,7 @@
         "NIC Hardware Timestamper",
         "Python Socket Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/network-interface-level-tick-timestamping",
@@ -7770,7 +7770,7 @@
         "financial-ml"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/offline-train-online-infer-deployment",
@@ -7868,7 +7868,7 @@
         "Online Adaptive Model Engine",
         "Python NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/online-learning-for-adaptive-signal-models",
@@ -7941,7 +7941,7 @@
         "Python SciPy",
         "NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/options-backtesting-with-realistic-iv-surface",
@@ -8085,7 +8085,7 @@
         "SPAN (Standard Portfolio Analysis of Risk)",
         "broker-specific portfolio margin models"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/options-margin-span-calculation-global",
@@ -8132,7 +8132,7 @@
         "Coinbase L3",
         "Binance Depth Stream"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/order-book-depth-processing-l2-l3",
@@ -8156,7 +8156,7 @@
         "Order Book Imbalance Pipeline",
         "Python Real-Time Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/order-book-imbalance-signal-pipeline",
@@ -8206,7 +8206,7 @@
         "Alpaca Trading API",
         "IBKR API"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/order-placement-idempotency",
@@ -8246,7 +8246,7 @@
         "deployment-ops"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/paper-to-live-promotion-checklist",
@@ -8312,7 +8312,7 @@
       "brokers_frameworks": [
         "FINRA Rule 4210 (Pattern Day Trader)"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/pattern-day-trader-rule-compliance-us",
@@ -8456,7 +8456,7 @@
         "Point-In-Time ML Database Engine",
         "Python Pandas"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/point-in-time-database-for-ml-training-data",
@@ -8720,7 +8720,7 @@
         "Exchange Fee Optimizer",
         "Python Trading Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/post-only-and-maker-taker-fee-optimization",
@@ -8815,7 +8815,7 @@
         "IBKR",
         "Alpaca market data streams"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/producer-consumer-tick-pipeline",
@@ -8838,7 +8838,7 @@
         "Quantile Regression Signal Engine",
         "Python NumPy"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/quantile-regression-for-uncertainty-aware-signals",
@@ -8886,7 +8886,7 @@
         "Python requests",
         "Token Bucket Rate Limiter"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/questrade-api-rate-limit-and-account-types",
@@ -10732,7 +10732,7 @@
         "Pandas",
         "Custom Risk Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/stress-testing-against-historical-crash-scenarios",
@@ -10757,7 +10757,7 @@
         "ELK Stack",
         "Datadog"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/structured-logging-for-post-incident-forensics",
@@ -10805,7 +10805,7 @@
         "Norgate Data",
         "QuantConnect Data"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/survivorship-bias-free-universe-construction",
@@ -11040,7 +11040,7 @@
         "Python requests",
         "tastytrade-sdk"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/tastytrade-api-integration",
@@ -11109,7 +11109,7 @@
         "real-time-architecture"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/tick-buffering-burst-handling",
@@ -11132,7 +11132,7 @@
         "Tick Schema Versioner",
         "Python Real-Time Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/tick-data-schema-versioning",
@@ -11205,7 +11205,7 @@
         "ICICI Breeze API",
         "Zerodha Kite Connect"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/token-lifecycle-live-probing",
@@ -11252,7 +11252,7 @@
       "brokers_frameworks": [
         "TradeStation WebAPI v2/v3"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/tradestation-websocket-order-updates",
@@ -11275,7 +11275,7 @@
         "TCA Backtest Integrator",
         "Python Real-Time Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/transaction-cost-analysis-tca-integration",
@@ -11427,7 +11427,7 @@
       "brokers_frameworks": [
         "Upstox API v2"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/upstox-oauth-refresh-token-rotation",
@@ -11505,7 +11505,7 @@
         "Pandas",
         "Custom Live Risk Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/value-at-risk-var-live-monitoring",
@@ -11582,7 +11582,7 @@
         "NumPy",
         "Pandas"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/vectorized-vs-event-driven-backtest-tradeoffs",
@@ -11717,7 +11717,7 @@
         "Hyperparameter Search Budgeter",
         "Python"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/walk-forward-hyperparameter-search-budget",
@@ -11741,7 +11741,7 @@
         "VectorBT",
         "Custom Python Backtesters"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/walk-forward-optimization-window-management",
@@ -11756,7 +11756,7 @@
         "backtesting-methodology"
       ],
       "brokers_frameworks": [],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/walk-forward-validation-setup",
@@ -11947,7 +11947,7 @@
         "TradeStation",
         "Alpaca"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/webhook-based-order-fill-notifications",
@@ -11970,7 +11970,7 @@
         "IBKR",
         "Alpaca market data streams"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/websocket-reconnect-without-duplicate-subscriptions",
@@ -11993,7 +11993,7 @@
         "WebSocket Manager",
         "Python Async Engine"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/websocket-reconnection-with-state-recovery",
@@ -12069,7 +12069,7 @@
       "brokers_frameworks": [
         "Zerodha Kite Connect v3 API"
       ],
-      "version": "1.0",
+      "version": "1.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/zerodha-kite-postback-webhook-verification",

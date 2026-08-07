@@ -16,7 +16,7 @@ brokers_frameworks:
 - Sharadar
 - Norgate Data
 - QuantConnect Data
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -68,5 +68,5 @@ Invoke this whenever constructing historical asset universes for quantitative ba
 
 - `walk-forward-optimization-window-management`
 - `corporate-action-adjusted-backtesting`
-- `purge-and-embargo-cross-validation`
+- `walk-forward-validation-setup`
 ---

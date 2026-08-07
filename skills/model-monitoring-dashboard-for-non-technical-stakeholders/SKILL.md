@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - Model Monitoring Dashboard Engine
 - Python
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

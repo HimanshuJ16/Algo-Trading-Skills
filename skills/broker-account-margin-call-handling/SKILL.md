@@ -18,7 +18,7 @@ brokers_frameworks:
 - Zerodha RMS
 - Alpaca Margin API
 - CME SPAN
-version: '2.0'
+version: "2.0.0"
 author: quantitative-systems-engineer
 license: Apache-2.0
 ---

@@ -14,7 +14,7 @@ tags:
 brokers_frameworks:
 - Price Adjustment Auditor
 - Python
-version: '1.1'
+version: "1.1.0"
 author: System
 license: MIT
 ---

@@ -16,7 +16,7 @@ brokers_frameworks:
 - GCP
 - Azure
 - Custom HA
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

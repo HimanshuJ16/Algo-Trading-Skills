@@ -13,7 +13,7 @@ tags:
 - risk-management
 brokers_frameworks:
 - generic
-version: 1.0.0
+version: "1.0.0"
 author: System
 license: MIT
 ---
@@ -51,4 +51,4 @@ Run the provided unit tests to verify the regime switching logic and parameter a
 
 - VWAP execution
 - TWAP execution
-- execution-algorithm-kill-switch-integration
+- execution-algo-twap-vwap-slicing-algorithm-kill-switch-integration

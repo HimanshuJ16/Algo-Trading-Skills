@@ -48,6 +48,6 @@ Use this skill when onboarding institutional trading funds, proprietary trading 
 
 ## Related Skills
 
-- `alt-data-insider-trading-compliance`
+- `alternative-data-vendor-due-diligence-checklist`
 - `insider-trading-controls-for-alternative-data-usage`
 ---

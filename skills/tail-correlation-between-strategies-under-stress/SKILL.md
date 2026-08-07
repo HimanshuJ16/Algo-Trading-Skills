@@ -5,7 +5,7 @@ domain: portfolio-multi-strategy
 subdomain: tail-risk
 tags: [tail-correlation, lower-tail-dependence, copula, diversification-breakdown, stress-testing]
 brokers_frameworks: [numpy, pandas, scipy]
-version: 1.0.0
+version: "1.0.0"
 author: Quant Team
 license: MIT
 ---

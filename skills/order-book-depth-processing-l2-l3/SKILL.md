@@ -16,7 +16,7 @@ brokers_frameworks:
 - Nasdaq TotalView L3
 - Coinbase L3
 - Binance Depth Stream
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -73,5 +73,5 @@ Invoke this whenever a high-frequency trading bot processes Level 2 (price aggre
 
 - `market-data-snapshot-plus-delta-reconciliation`
 - `producer-consumer-tick-pipeline`
-- `microstructure-order-flow-imbalance`
+- `opening-auction-imbalance-based-execution`
 ---

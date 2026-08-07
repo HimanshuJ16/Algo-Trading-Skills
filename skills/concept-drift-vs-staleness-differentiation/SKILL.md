@@ -17,7 +17,7 @@ brokers_frameworks:
 - NumPy
 - Pandas
 - Scikit-Learn
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -69,5 +69,5 @@ Use this skill when monitoring live machine learning strategies whose predictive
 
 ## Related Skills
 
-- `walk-forward-optimization-for-model-selection`
+- `walk-forward-optimization-window-management`
 - `class-imbalance-handling-for-rare-signal-events`

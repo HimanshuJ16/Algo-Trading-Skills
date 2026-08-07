@@ -17,7 +17,7 @@ brokers_frameworks:
 - bitgo
 - coinbase-custody
 - bny-mellon
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

@@ -12,7 +12,7 @@ tags:
 - audit
 brokers_frameworks:
 - any
-version: 2.0.0
+version: "2.0.0"
 author: skill-builder
 license: MIT
 ---
@@ -44,5 +44,5 @@ Use this skill when processing trade executions across global markets to ensure 
 - Stress testing slippage calculations across edge cases.
 
 ## Related Skills
-- compliance-base
-- trade-surveillance
+- us-reg-nms-order-protection-rule-compliance
+- eu-market-abuse-regulation-mar-surveillance

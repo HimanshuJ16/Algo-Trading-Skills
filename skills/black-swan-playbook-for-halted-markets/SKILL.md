@@ -18,7 +18,7 @@ tags:
 brokers_frameworks:
 - Black Swan Halted Market Engine
 - Python
-version: '2.0'
+version: "2.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -71,7 +71,7 @@ Invoke this skill during Black Swan events, elevated market volatility, or whene
 ## Related Skills
 
 - `greeks-based-portfolio-hedging-automation`
-- `fallback-and-redundancy-architecture`
+- `vendor-outage-fallback-data-source-hierarchy`
 - `kill-switch-and-drawdown-circuit-breakers`
-- `fat-tail-risk-management`
+- `tail-risk-hedging-with-options`
 ---

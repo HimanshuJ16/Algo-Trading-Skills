@@ -5,7 +5,7 @@ domain: risk-management
 subdomain: tail-risk
 tags: [options-hedging, tail-risk, otm-puts, black-scholes, convex-payoff, carry-budget]
 brokers_frameworks: [numpy, scipy]
-version: 1.0.0
+version: "1.0.0"
 author: Quant Team
 license: MIT
 ---

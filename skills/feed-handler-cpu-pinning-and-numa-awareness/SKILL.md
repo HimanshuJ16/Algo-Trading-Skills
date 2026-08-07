@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - CPU Affinity Manager
 - Python psutil
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -67,5 +67,5 @@ Invoke this skill when optimizing latency-critical feed handler processes or hig
 
 - `memory-mapped-ring-buffer-for-ultra-low-latency`
 - `binary-protocol-parsing-for-low-latency-feeds`
-- `high-frequency-time-synchronization-ptp-ntp`
+- `clock-synchronization-ptp-for-trading-hosts`
 ---

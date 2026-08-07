@@ -18,7 +18,7 @@ brokers_frameworks:
 - polygon-io
 - iex-cloud
 - exchange-direct-itch
-version: 1.1.0
+version: "1.1.0"
 author: Quant Engineering
 license: MIT
 ---

@@ -16,7 +16,7 @@ brokers_frameworks:
 - IBKR Allocations
 - Multi-Account Manager
 - Python Concurrent
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

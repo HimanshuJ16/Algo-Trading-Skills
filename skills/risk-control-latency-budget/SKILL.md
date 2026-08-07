@@ -13,7 +13,7 @@ tags:
 brokers_frameworks:
 - Risk Control Latency Budgeter
 - Python
-version: 1.1.0
+version: "1.1.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

@@ -13,7 +13,7 @@ tags:
 brokers_frameworks:
 - OANDA v20 REST API
 - MetaTrader 5 Python integration
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

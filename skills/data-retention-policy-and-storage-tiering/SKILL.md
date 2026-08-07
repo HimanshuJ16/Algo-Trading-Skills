@@ -17,7 +17,7 @@ brokers_frameworks:
 - AWS S3 Lifecycle
 - Glacier Deep Archive
 - Python Dataclasses
-version: 1.0.0
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

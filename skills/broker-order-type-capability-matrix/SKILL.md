@@ -17,7 +17,7 @@ tags:
 brokers_frameworks:
 - Multi-Broker Capability Matrix
 - Python Order Synthesizer
-version: '2.0'
+version: "2.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

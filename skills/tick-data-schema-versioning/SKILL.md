@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - Tick Schema Versioner
 - Python Real-Time Engine
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---

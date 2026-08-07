@@ -15,7 +15,7 @@ tags:
 brokers_frameworks:
 - Quantile Regression Signal Engine
 - Python NumPy
-version: '1.0'
+version: "1.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -55,6 +55,6 @@ Invoke this skill when building signal generation models for position sizing. Tr
 
 ## Related Skills
 
-- `position-sizing-and-portfolio-optimization`
+- `correlation-aware-exposure-limits`
 - `explainable-boosting-machines-for-regulated-signals`
 ---

@@ -12,7 +12,7 @@ tags:
 - urgency
 brokers_frameworks:
 - generic
-version: 1.1.0
+version: "1.1.0"
 author: System
 license: MIT
 ---

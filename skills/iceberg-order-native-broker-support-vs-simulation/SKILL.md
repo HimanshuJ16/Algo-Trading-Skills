@@ -51,6 +51,6 @@ Use this skill in smart order routers, institutional execution algorithms, and b
 
 ## Related Skills
 
-- `iceberg-order-execution-algorithm`
-- `algo-order-type-capability-matrix`
+- `iceberg-order-simulation-and-detection`
+- `execution-algo-twap-vwap-slicing`
 ---
