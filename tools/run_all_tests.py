@@ -12,6 +12,8 @@ import sys
 import time
 import unittest
 
+import io
+
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILLS_DIR = os.path.join(ROOT_DIR, "skills")
 
@@ -31,6 +33,7 @@ def run_all_tests():
     total_failures = 0
     total_errors = 0
     failed_files = []
+    devnull_stream = io.StringIO()
 
     for test_file in test_files:
         rel_path = os.path.relpath(test_file, ROOT_DIR)
@@ -48,7 +51,7 @@ def run_all_tests():
         try:
             loader = unittest.TestLoader()
             suite = loader.discover(script_dir, pattern=os.path.basename(test_file))
-            runner = unittest.TextTestRunner(stream=open(os.devnull, "w"), verbosity=0)
+            runner = unittest.TextTestRunner(stream=devnull_stream, verbosity=0)
             result = runner.run(suite)
 
             total_runs += result.testsRun

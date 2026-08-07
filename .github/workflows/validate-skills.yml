@@ -2,17 +2,9 @@ name: Validate & Test Skills
 
 on:
   push:
-    paths:
-      - "skills/**"
-      - "index.json"
-      - "tools/**"
-      - "requirements*.txt"
+    branches: [ main, master ]
   pull_request:
-    paths:
-      - "skills/**"
-      - "index.json"
-      - "tools/**"
-      - "requirements*.txt"
+    branches: [ main, master ]
 
 jobs:
   validate-and-test:
