@@ -5,6 +5,7 @@
 ### The largest open-source algorithmic trading skills library for AI agents
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](LICENSE)
+[![Validate & Test Skills](https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/HimanshuJ16/Anthropic-Algo-Trading-Skills/actions/workflows/validate-skills.yml)
 [![Skills Built](https://img.shields.io/badge/skills_built-504-brightgreen?style=flat-square)](#whats-inside--16-categories)
 [![Roadmap](https://img.shields.io/badge/roadmap-504_built-brightgreen?style=flat-square)](docs/ROADMAP_500.md)
 [![Domains](https://img.shields.io/badge/domains-16-9cf?style=flat-square)](#whats-inside--16-categories)
@@ -20,7 +21,7 @@
 
 > ⚠️ **Community Project** — This is an independent, community-created project. Not affiliated with Anthropic PBC or any broker, exchange, or vendor referenced in this repository.
 > 
-> 📈 **Engineering Guidance, Not Financial Advice** — Authorized & lawful use only. These skills encode production engineering practices for trading infrastructure. They do not guarantee strategy profitability and do not eliminate the risk of capital loss in live trading. Only deploy against paper accounts or live environments where risk limits are strictly enforced. See [SECURITY.md](SECURITY.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+> 📈 **Engineering Guidance, Not Financial, Legal, or Compliance Advice** — Authorized & lawful use only. These skills encode production engineering practices for trading infrastructure. They do not constitute financial, legal, tax, or regulatory compliance advice, do not guarantee strategy profitability, and do not eliminate the risk of capital loss in live trading. Only deploy against paper accounts or live environments where risk limits are strictly enforced. Consult qualified legal, tax, and compliance professionals in your jurisdiction before deploying live trading systems. See [SECURITY.md](SECURITY.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ---
 

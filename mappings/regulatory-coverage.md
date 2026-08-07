@@ -15,7 +15,6 @@ for that verification.
 
 ## Disclaimer
 
-Nothing in this repo constitutes legal, tax, or regulatory advice. Regulations governing
-algorithmic trading vary by jurisdiction and change over time. Consult a qualified
-professional and your broker/exchange's current documentation before deploying a live
-trading system.
+Nothing in this repo constitutes financial, legal, tax, or regulatory compliance advice. Regulations governing
+algorithmic trading vary by jurisdiction and change over time. Consult qualified legal, tax, and compliance
+professionals alongside your broker/exchange's current documentation before deploying a live trading system.

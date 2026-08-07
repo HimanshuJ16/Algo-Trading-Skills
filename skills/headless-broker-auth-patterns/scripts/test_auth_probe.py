@@ -13,11 +13,16 @@ Tests:
 """
 import os
 import stat
-import pyotp
 import shutil
 import tempfile
 import unittest
 from unittest.mock import MagicMock, Mock, patch
+
+try:
+    import pyotp
+except ImportError:
+    pyotp = None
+
 from auth_probe import (
     AuthArchetype,
     ChecksumHelper,
@@ -34,7 +39,7 @@ class TestHeadlessBrokerAuthPatterns(unittest.TestCase):
 
     def setUp(self):
         self.temp_dir = tempfile.mkdtemp()
-        self.totp_secret = pyotp.random_base32()
+        self.totp_secret = pyotp.random_base32() if pyotp is not None else "JBSWY3DPEHPK3PXP"
 
     def tearDown(self):
         shutil.rmtree(self.temp_dir, ignore_errors=True)

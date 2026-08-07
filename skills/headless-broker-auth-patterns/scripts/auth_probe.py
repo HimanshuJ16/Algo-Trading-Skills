@@ -15,8 +15,15 @@ import json
 import logging
 import os
 import time
+import base64
+import hmac
+import struct
 from typing import Any, Callable, Dict, Optional
-import pyotp
+
+try:
+    import pyotp
+except ImportError:
+    pyotp = None
 
 try:
     from selenium.webdriver.support.ui import WebDriverWait
@@ -28,6 +35,18 @@ except ImportError:  # pragma: no cover - selenium is an Archetype-B-only depend
     By = None
 
 logger = logging.getLogger(__name__)
+
+
+def generate_pure_python_totp(secret_b32: str) -> str:
+    secret_clean = secret_b32.upper().replace(" ", "")
+    padding = '=' * (-len(secret_clean) % 8)
+    key = base64.b32decode(secret_clean + padding)
+    intervals_no = int(time.time()) // 30
+    msg = struct.pack(">Q", intervals_no)
+    h = hmac.new(key, msg, hashlib.sha1).digest()
+    o = h[19] & 15
+    h_int = (struct.unpack(">I", h[o:o+4])[0] & 0x7fffffff) % 1000000
+    return f"{h_int:06d}"
 
 
 class AuthArchetype(str, Enum):
@@ -42,7 +61,6 @@ class TOTPHelper:
 
     @staticmethod
     def get_totp_safe(totp_secret: str, min_remaining_sec: float = 5.0) -> str:
-        totp = pyotp.TOTP(totp_secret)
         now = time.time()
         time_remaining = 30.0 - (now % 30.0)
 
@@ -50,7 +68,10 @@ class TOTPHelper:
             logger.info(f"TOTP near window expiry ({time_remaining:.1f}s remaining). Waiting for fresh window...")
             time.sleep(time_remaining + 0.5)
 
-        return pyotp.TOTP(totp_secret).now()
+        if pyotp is not None:
+            return pyotp.TOTP(totp_secret).now()
+        return generate_pure_python_totp(totp_secret)
+
 
 
 class ChecksumHelper:

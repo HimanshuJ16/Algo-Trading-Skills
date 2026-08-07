@@ -1,0 +1,5 @@
+# Production dependencies for Algo-Trading-Skills
+pyyaml>=6.0
+numpy>=1.21.0
+pandas>=1.3.0
+pyotp>=2.6.0

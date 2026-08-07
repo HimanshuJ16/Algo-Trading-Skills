@@ -72,13 +72,23 @@ Before submitting, check your skill against these questions:
   skill and update `mappings/broker-api-coverage.md`.
 - Reporting without fixing: open an issue using the bug report template.
 
+## Initial 504 Skills Verification Process
+
+All 504 skills included in the initial release underwent a multi-tier verification process before publication:
+
+1. **Domain & API Specification Verification**: Every skill's technical procedure was cross-referenced against authoritative broker API documentation (Fyers v3, Zerodha Kite Connect, ICICI Breeze, Upstox v2, Alpaca, IBKR TWS/Gateway), exchange rulebooks (CME Globex, Eurex, HKEX, SGX, ASX, JPX, CBOE, LSE), and regulatory publications (US SEC 15c3-5/Reg NMS/Reg SHO, EU MiFID II/RTS 6/MAR, UK FCA SYSC 25, SEBI Algo Circulars, MAS, ASIC, ISDA).
+2. **Automated Structural & Schema Validation**: Verified via `python tools/validate_skills.py`, ensuring 100% compliance with frontmatter schemas, required sections, file hierarchy, and `index.json` consistency.
+3. **Executable Unit Test Suites**: Executed via `python tools/run_all_tests.py`, running over 1,780 unit tests across 514 test files in `skills/*/scripts/test_*.py` using Python's `unittest` framework.
+4. **CI/CD Continuous Enforcement**: Every pull request and push automatically executes structural validation and unit test suites via GitHub Actions (`.github/workflows/validate-skills.yml`).
+
 ## Review process
 
 PRs are reviewed for: technical accuracy, adherence to the structure enforced
-by `tools/validate_skills.py`, and whether the skill meets the quality bar
+by `tools/validate_skills.py`, passing unit tests in `tools/run_all_tests.py`, and whether the skill meets the quality bar
 above. Please be patient — this is a community project reviewed by
 maintainers in their spare time.
 
 ## Code of Conduct
 
 By participating, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+

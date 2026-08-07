@@ -79,7 +79,7 @@ class TestBackpressurePolicy(unittest.TestCase):
 
     def test_degrade_tick_aggregator(self):
         aggregator = TickAggregator(symbol="NIFTY", interval_sec=1.0)
-        now = time.time()
+        now = 1000.0  # Use deterministic integer timestamp for boundary alignment
 
         # Add 3 ticks in first second
         b1 = aggregator.add_tick({"price": 100.0, "volume": 10, "timestamp": now})
