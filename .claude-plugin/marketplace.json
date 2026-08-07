@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "algo-trading-skills",
-      "source": "./",
+      "source": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
       "description": "504 production-grade algorithmic trading skills covering broker APIs, real-time tick architecture, backtesting methodology, financial ML, risk management, and deployment ops. Mapped to regulatory and exchange frameworks.",
       "version": "1.0.0",
       "author": {
