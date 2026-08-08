@@ -1,27 +1,6 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "algo-trading-skills",
-  "displayName": "Algo Trading Skills",
-  "description": "504 production-grade algorithmic trading skills for AI coding agents, covering broker integration, real-time market data architecture, backtesting methodology, financial ML, risk management, and deployment ops. agentskills.io standard.",
+  "description": "504 structured algorithmic trading skills for AI agents covering broker integration, real-time market data architecture, backtesting methodology, financial ML, risk management, execution algorithms, crypto custody, regulatory compliance, and 8 more engineering domains. Mapped to SEC Rule 15c3-5, Reg NMS, MiFID II, FCA, SEBI, and ISDA standards. agentskills.io standard.",
   "version": "1.0.0",
-  "author": {
-    "name": "HimanshuJ16"
-  },
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
-  "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
-  "skillsPath": "skills",
-  "keywords": [
-    "algorithmic-trading",
-    "quant",
-    "trading-bot",
-    "backtesting",
-    "risk-management",
-    "fyers",
-    "zerodha",
-    "icici-breeze",
-    "upstox",
-    "alpaca",
-    "ibkr"
-  ]
+  "skills_directory": "skills"
 }
