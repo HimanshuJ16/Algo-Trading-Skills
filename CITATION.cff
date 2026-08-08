@@ -3,7 +3,9 @@ message: "If you use this project, please cite it as below."
 title: "Algo-Trading-Skills"
 type: software
 authors:
-  - name: "algo-trading-skills-contributors"
+  - name: "Himanshu Jangir"
+    email: himanshujangir16@gmail.com
+    alias: HimanshuJ16
 version: "1.0.0"
 date-released: "2026-07-24"
 url: "https://github.com/HimanshuJ16/Algo-Trading-Skills"
