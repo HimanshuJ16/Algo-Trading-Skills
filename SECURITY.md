@@ -39,3 +39,4 @@ Several skills describe risk-control mechanisms (kill switches, drawdown
 limits) whose entire purpose is protecting real capital. If you find a gap in
 one of these designs, please treat it with the same urgency as a security
 vulnerability — a broken risk control is a financial-safety issue.
+ 
