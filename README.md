@@ -62,11 +62,13 @@ Each skill maps to the industry standards, exchange protocols, and regulatory ma
 ## Quick start
 
 ```bash
-# Option 1: Git clone (recommended)
+# Option 1: Install directly with skills CLI (recommended)
+npx skills add HimanshuJ16/Algo-Trading-Skills
+
+# Option 2: Git clone
 git clone https://github.com/HimanshuJ16/Algo-Trading-Skills.git
 cd Algo-Trading-Skills
 
-# Option 2: Validate all 504 skills locally
 python tools/validate_skills.py   # verifies structure & frontmatter (504/504 pass)
 ```
 
