@@ -1,5 +1,8 @@
 {
   "name": "algo-trading-skills",
   "description": "504 structured algorithmic trading skills for AI agents covering broker integration, real-time market data architecture, backtesting methodology, financial ML, risk management, execution algorithms, crypto custody, regulatory compliance, and 8 more engineering domains.",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "author": {
+    "name": "HimanshuJ16"
+  }
 }

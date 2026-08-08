@@ -2,36 +2,18 @@
   "name": "algo-trading-skills",
   "owner": {
     "name": "HimanshuJ16",
-    "email": ""
+    "email": "himanshujangir16@gmail.com",
+    "url": "https://github.com/HimanshuJ16"
   },
   "metadata": {
-    "description": "504 structured algorithmic trading skills for AI agents covering 16 engineering domains. Mapped to SEC Rule 15c3-5, Reg NMS, MiFID II, FCA, SEBI, and ISDA standards.",
+    "description": "504 structured algorithmic trading skills for AI agents covering 16 engineering domains.",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "algo-trading-skills",
       "source": "./",
-      "description": "504 algorithmic trading skills covering broker integration, real-time architecture, backtesting, financial ML, risk management, execution algorithms, crypto custody, regulatory compliance, derivatives, data management, portfolio strategy, market microstructure, quant research, and tax accounting.",
-      "version": "1.0.0",
-      "author": {
-        "name": "HimanshuJ16"
-      },
-      "license": "Apache-2.0",
-      "keywords": [
-        "algorithmic-trading",
-        "quant",
-        "trading-infrastructure",
-        "risk-management",
-        "market-data",
-        "backtesting",
-        "financial-ml",
-        "execution-algorithms",
-        "crypto-custody"
-      ],
-      "category": "finance",
-      "homepage": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
-      "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills"
+      "description": "504 algorithmic trading skills covering broker integration, real-time architecture, backtesting, financial ML, risk management, execution algorithms, crypto custody, regulatory compliance, derivatives, data management, portfolio strategy, market microstructure, quant research, and tax accounting."
     }
   ]
 }
