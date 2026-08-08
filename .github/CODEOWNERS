@@ -1,0 +1,11 @@
+# Global owners for the Algo-Trading-Skills repository
+* @HimanshuJ16
+
+# Tooling and validation
+/tools/ @HimanshuJ16
+/.github/ @HimanshuJ16
+
+# Skill definitions and reference scripts
+/skills/ @HimanshuJ16
+/tests/ @HimanshuJ16
+/examples/ @HimanshuJ16

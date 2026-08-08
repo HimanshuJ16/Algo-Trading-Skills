@@ -1,0 +1,41 @@
+# Algo-Trading-Skills — Extended Documentation for LLM Context Windows
+
+## Overview
+Algo-Trading-Skills is an open-source engineering library of 504 algorithmic trading playbooks designed specifically for AI coding agents (Claude Code, GitHub Copilot, Cursor, Windsurf, Cline, Gemini CLI, OpenAI Codex CLI, Aider, Continue, Devin, OpenHands).
+
+## Architectural Design Pattern
+Each skill follows progressive disclosure:
+1. YAML Frontmatter (~30-50 tokens): Fast indexing and relevance matching without loading complete files.
+2. SKILL.md Body (500-1500 tokens): Structured sections (`When to Use`, `Prerequisites`, `Workflow`, `Common Pitfalls`, `Verification`, `Related Skills`).
+3. `references/`: Detailed regulatory specifications, exchange API specs, and sequence diagrams.
+4. `scripts/`: Production-tested Python helper scripts with matching `test_*.py` unit test suites.
+5. `assets/`: Printable sign-off checklists (`checklist.md`).
+
+## Full Domain Breakdown (16 Domains)
+1. broker-integration (20 skills)
+2. real-time-architecture (30 skills)
+3. backtesting-methodology (35 skills)
+4. financial-ml (38 skills)
+5. risk-management (39 skills)
+6. deployment-ops (30 skills)
+7. global-market-integration (44 skills)
+8. regulatory-compliance-global (38 skills)
+9. multi-asset-derivatives (28 skills)
+10. execution-algorithms (33 skills)
+11. data-management-global (37 skills)
+12. crypto-custody-security (29 skills)
+13. portfolio-multi-strategy (30 skills)
+14. market-microstructure-latency (24 skills)
+15. quant-research-alt-data (20 skills)
+16. tax-accounting-reporting-global (16 skills)
+
+## Platform Rule Files
+- Cursor: `.cursor/rules/algo-trading-skills.mdc`
+- Cline / Roo Code: `.clinerules`
+- Windsurf: `.windsurfrules`
+- GitHub Copilot: `.github/copilot-instructions.md`
+- Claude Code: `CLAUDE.md` and `.claude/config.json`
+- OpenAI Codex / OpenHands: `AGENTS.md`
+- Gemini CLI: `GEMINI.md`
+- Continue: `.continue/rules/algo-trading-skills.md`
+- Aider: `CONVENTIONS.md` and `.aider.conf.yml`

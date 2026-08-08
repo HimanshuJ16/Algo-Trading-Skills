@@ -1,0 +1,5 @@
+read:
+  - CONVENTIONS.md
+  - index.json
+lint-cmd: [python, tools/validate_skills.py]
+test-cmd: [python, tools/run_all_tests.py]

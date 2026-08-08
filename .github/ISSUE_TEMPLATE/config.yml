@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions & Questions
+    url: https://github.com/HimanshuJ16/Algo-Trading-Skills/discussions
+    about: Ask Q&A questions, request design advice, or discuss quantitative strategy implementation.
+  - name: Security Vulnerability Reporting
+    url: https://github.com/HimanshuJ16/Algo-Trading-Skills/security/policy
+    about: Privately report security concerns or potential vulnerabilities.

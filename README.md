@@ -190,7 +190,21 @@ license: Apache-2.0
 
 ---
 
-## Compatible platforms
+## Compatible platforms & Zero-Config Auto-Discovery
+
+This repository includes native auto-discovery instructions for all major AI coding platforms:
+
+| Platform / Agent | Zero-Config Rule File | Auto-Discovery Standard |
+|---|---|---|
+| **Claude Code** | [`CLAUDE.md`](CLAUDE.md) / [`.claude/config.json`](.claude/config.json) | Anthropic Claude Code project convention |
+| **OpenAI Codex CLI / OpenHands** | [`AGENTS.md`](AGENTS.md) | Open cross-tool agent instruction format |
+| **Gemini CLI** | [`GEMINI.md`](GEMINI.md) | Google Gemini CLI project instructions |
+| **GitHub Copilot** | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) | GitHub Copilot repo-level rules |
+| **Cursor** | [`.cursor/rules/algo-trading-skills.mdc`](.cursor/rules/algo-trading-skills.mdc) | Cursor MDC rule format |
+| **Cline / Roo Code** | [`.clinerules`](.clinerules) | Cline / Roo Code system rule |
+| **Windsurf** | [`.windsurfrules`](.windsurfrules) | Windsurf rule configuration |
+| **Continue** | [`.continue/rules/algo-trading-skills.md`](.continue/rules/algo-trading-skills.md) | Continue dev auto-discovery rule |
+| **Aider** | [`CONVENTIONS.md`](CONVENTIONS.md) / [`.aider.conf.yml`](.aider.conf.yml) | Aider project conventions |
 
 ### AI code assistants
 Claude Code (Anthropic) · GitHub Copilot (Microsoft) · Cursor · Windsurf · Cline · Aider · Continue · Roo Code · Amazon Q Developer · Tabnine · Sourcegraph Cody · JetBrains AI
@@ -204,7 +218,26 @@ Devin · Replit Agent · SWE-agent · OpenHands
 ### Agent frameworks & SDKs
 LangChain · CrewAI · AutoGen · Semantic Kernel · Haystack · Vercel AI SDK · Any MCP-compatible agent
 
-All platforms that support the [agentskills.io](https://agentskills.io) standard can load these skills with zero configuration.
+All platforms that support the [agentskills.io](https://agentskills.io) standard load these skills with zero configuration.
+
+---
+
+## 🏃 Runnable Examples & Cookbook
+
+To see how skills chain together in institutional production pipelines, explore the runnable walkthroughs in [`examples/`](examples/):
+
+- [`examples/01_resilient_order_execution_and_circuit_breaker.py`](examples/01_resilient_order_execution_and_circuit_breaker.py) — Order idempotency + drawdown circuit breakers + live token probing.
+- [`examples/02_lookahead_free_backtest_with_slippage.py`](examples/02_lookahead_free_backtest_with_slippage.py) — Point-in-time signal engine + market impact slippage simulation + performance tear-sheet.
+- [`examples/03_cross_strategy_risk_parity_allocation.py`](examples/03_cross_strategy_risk_parity_allocation.py) — Rolling strategy correlations + risk parity rebalancing + automated strategy retirement.
+
+---
+
+## 🤖 LLM-Crawler Discoverability (`llms.txt`)
+
+This repository supports machine-discoverable documentation standards for LLMs and AI crawlers:
+- [`llms.txt`](llms.txt) — Concise index of core documentation, skill categories, and developer entrypoints.
+- [`llms-full.txt`](llms-full.txt) — Full architecture breakdown and domain mapping for large context windows.
+
 
 ---
 
