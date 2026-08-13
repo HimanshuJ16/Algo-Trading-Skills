@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+- Verified claude[bot] commit attribution fix (2026-08-13)
+
+---
+
 ## [2.0.0] - 2026-08-07
 
 ### Major Enhancements (10 Architecture Core Skills)
