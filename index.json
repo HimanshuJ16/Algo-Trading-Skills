@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-13T16:52:09.627524+00:00",
+  "generated_at": "2026-08-13T17:06:53.595088+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1130,7 +1130,7 @@
     },
     {
       "name": "broker-account-margin-call-handling",
-      "description": "Use when monitoring margin account health to calculate real-time maintenance margin ratios, enforce multi-tiered margin warning thresholds, evaluate predictive order impacts, and trigger automated liquidity-aware de-leveraging before broker forced liquidation.",
+      "description": "Use when monitoring margin account health to calculate real-time maintenance margin ratios, cross-check them against the broker's own excess-liquidity cushion, enforce multi-tiered margin warning thresholds, gate new orders on initial margin, and trigger liquidity-aware de-leveraging before broker forced liquidation.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1147,8 +1147,8 @@
         "Alpaca Margin API",
         "CME SPAN"
       ],
-      "version": "2.0.0",
-      "author": "quantitative-systems-engineer",
+      "version": "3.0.0",
+      "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-account-margin-call-handling",
       "skill_md": "skills/broker-account-margin-call-handling/SKILL.md"
