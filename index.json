@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-13T06:38:31.453988+00:00",
+  "generated_at": "2026-08-13T08:27:07.667293+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1038,19 +1038,23 @@
     },
     {
       "name": "binary-protocol-parsing-for-low-latency-feeds",
-      "description": "Zero-copy binary struct unpacker for NASDAQ ITCH / CME MDP style binary market data feeds.",
+      "description": "Fixed-layout binary struct unpacking for low-latency market data feeds -- frame validation, message-type dispatch, fixed-point tick handling, and offset-based zero-copy buffer walking, worked through NASDAQ ITCH 5.0.",
       "domain": "algorithmic-trading",
-      "subdomain": "general",
+      "subdomain": "real-time-architecture",
       "tags": [
-        "trading",
-        "algo",
-        "skill"
+        "real-time-architecture",
+        "binary-protocol",
+        "struct-unpack",
+        "fixed-point-pricing",
+        "zero-copy"
       ],
       "brokers_frameworks": [
-        "Python",
-        "Dataclasses"
+        "Nasdaq TotalView-ITCH 5.0",
+        "CME MDP 3.0 (SBE)",
+        "Python struct",
+        "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/binary-protocol-parsing-for-low-latency-feeds",
