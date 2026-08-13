@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-13T08:27:07.667293+00:00",
+  "generated_at": "2026-08-13T12:02:26.458024+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1062,7 +1062,7 @@
     },
     {
       "name": "black-swan-playbook-for-halted-markets",
-      "description": "Institutional quant standard playbook for handling exchange trading halts (LULD, volatility halts, market-wide circuit breakers). Includes microstructure awareness, basis-risk filtered dynamic proxy index hedging, and fair-value auction resumption management.",
+      "description": "Institutional quant standard playbook for handling US NMS equity trading halts (LULD single-name pauses, market-wide circuit breakers). Includes microstructure awareness, notional-scaled basis-risk-filtered proxy hedging, market-wide-halt hedge suppression, and fair-value auction resumption management.",
       "domain": "algorithmic-trading",
       "subdomain": "risk-management",
       "tags": [
@@ -1079,7 +1079,7 @@
         "Black Swan Halted Market Engine",
         "Python"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/black-swan-playbook-for-halted-markets",

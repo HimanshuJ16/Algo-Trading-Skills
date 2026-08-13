@@ -1,21 +1,29 @@
-import unittest
 import threading
-from blue_green_deployer import BlueGreenDeployer, SlotColor, SlotState, DeployError
+import unittest
 
-class TestBlueGreenDeployer(unittest.TestCase):
+from blue_green_deployer import (
+    BlueGreenDeployer,
+    DeployError,
+    SlotColor,
+    SlotState,
+)
+
+
+class TestDeployment(unittest.TestCase):
     def test_successful_deployment_and_cutover(self):
         deployer = BlueGreenDeployer(warmup_seconds=0.0)
         self.assertEqual(deployer.active_slot, SlotColor.BLUE)
         self.assertEqual(deployer.slots[SlotColor.BLUE].state, SlotState.LIVE)
 
-        slot = deployer.deploy_to_inactive("v2.0")
+        slot = deployer.deploy_to_inactive("v2.0", authorised_by="head-of-trading")
         self.assertEqual(slot.color, SlotColor.GREEN)
         self.assertEqual(slot.state, SlotState.READY)
         self.assertTrue(slot.health_ok)
 
-        result = deployer.cutover()
+        result = deployer.cutover(authorised_by="head-of-trading")
         self.assertTrue(result.success)
         self.assertEqual(result.active_slot, SlotColor.GREEN)
+        self.assertEqual(result.previous_slot, SlotColor.BLUE)
         self.assertEqual(deployer.slots[SlotColor.BLUE].state, SlotState.DRAINING)
 
     def test_health_check_failure(self):
@@ -28,46 +36,324 @@ class TestBlueGreenDeployer(unittest.TestCase):
         self.assertFalse(result.success)
         self.assertEqual(result.active_slot, SlotColor.BLUE)
 
+    def test_raising_health_check_fails_slot_without_bricking_pipeline(self):
+        """A callback that raises must not strand the slot in DEPLOYING forever."""
+        calls = []
+
+        def flaky_health(color):
+            calls.append(color)
+            if len(calls) == 1:
+                raise RuntimeError("risk service unreachable")
+            return True
+
+        deployer = BlueGreenDeployer(health_check_fn=flaky_health, warmup_seconds=0.0)
+        first = deployer.deploy_to_inactive("v1.1")
+        self.assertEqual(first.state, SlotState.FAILED)
+
+        # FAILED is deployable, so the operator can retry without restarting.
+        second = deployer.deploy_to_inactive("v1.2")
+        self.assertEqual(second.state, SlotState.READY)
+        self.assertEqual(second.version, "v1.2")
+
+    def test_deploy_rejects_empty_version(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0)
+        with self.assertRaises(ValueError):
+            deployer.deploy_to_inactive("   ")
+
+    def test_invalid_warmup_seconds_rejected(self):
+        for bad in (-1.0, float("nan"), float("inf")):
+            with self.assertRaises(ValueError):
+                BlueGreenDeployer(warmup_seconds=bad)
+
+    def test_getters_return_snapshots_not_shared_state(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0)
+        snapshot = deployer.get_inactive_slot()
+        snapshot.state = SlotState.LIVE
+        snapshot.version = "spoofed"
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.IDLE)
+        self.assertEqual(deployer.slots[SlotColor.GREEN].version, "")
+
+
+class TestCutover(unittest.TestCase):
     def test_state_sync_failure_blocks_cutover(self):
-        def failing_sync(active, inactive):
-            return False
-        
-        deployer = BlueGreenDeployer(state_sync_fn=failing_sync, warmup_seconds=0.0)
+        deployer = BlueGreenDeployer(state_sync_fn=lambda a, b: False, warmup_seconds=0.0)
         deployer.deploy_to_inactive("v4.0")
-        
+
         result = deployer.cutover()
         self.assertFalse(result.success)
         self.assertEqual(deployer.active_slot, SlotColor.BLUE)
         self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.FAILED)
 
+    def test_raising_state_sync_blocks_cutover(self):
+        def exploding_sync(source, target):
+            raise ConnectionError("shared-memory segment unavailable")
+
+        deployer = BlueGreenDeployer(state_sync_fn=exploding_sync, warmup_seconds=0.0)
+        deployer.deploy_to_inactive("v4.1")
+
+        result = deployer.cutover()
+        self.assertFalse(result.success)
+        self.assertEqual(deployer.active_slot, SlotColor.BLUE)
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.FAILED)
+
+    def test_cutover_rechecks_health_at_swap_time(self):
+        """READY is stamped at deploy time; the instance can die before cutover."""
+        healthy = {"value": True}
+        deployer = BlueGreenDeployer(
+            health_check_fn=lambda _: healthy["value"], warmup_seconds=0.0
+        )
+        slot = deployer.deploy_to_inactive("v5.0")
+        self.assertEqual(slot.state, SlotState.READY)
+
+        healthy["value"] = False  # GREEN loses its market data feed while staged
+        result = deployer.cutover()
+
+        self.assertFalse(result.success)
+        self.assertEqual(deployer.active_slot, SlotColor.BLUE)
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.FAILED)
+
+    def test_cutover_syncs_state_from_live_to_standby(self):
+        calls = []
+        deployer = BlueGreenDeployer(
+            state_sync_fn=lambda a, b: calls.append((a, b)) or True, warmup_seconds=0.0
+        )
+        deployer.deploy_to_inactive("v6.0")
+        deployer.cutover()
+        self.assertEqual(calls, [(SlotColor.BLUE, SlotColor.GREEN)])
+
+
+class TestRollback(unittest.TestCase):
     def test_rollback_restores_previous(self):
         deployer = BlueGreenDeployer(warmup_seconds=0.0)
         deployer.deploy_to_inactive("v2.0")
         deployer.cutover()
-        
         self.assertEqual(deployer.active_slot, SlotColor.GREEN)
-        result = deployer.rollback()
-        
+
+        result = deployer.rollback(authorised_by="risk-officer")
+
         self.assertTrue(result.success)
         self.assertEqual(deployer.active_slot, SlotColor.BLUE)
         self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.FAILED)
 
-    def test_thread_safety(self):
-        deployer = BlueGreenDeployer(warmup_seconds=0.1)
-        
-        def deploy_job():
-            deployer.deploy_to_inactive("v_thread")
-            deployer.cutover()
+    def test_rollback_refused_when_target_never_deployed(self):
+        """Regression: a bare pointer swap would route live flow to an empty slot."""
+        deployer = BlueGreenDeployer(warmup_seconds=0.0)
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.IDLE)
 
-        t1 = threading.Thread(target=deploy_job)
-        t1.start()
-        
-        # Test concurrent read
-        active = deployer.get_active_slot()
-        self.assertEqual(active.color, SlotColor.BLUE)
-        
-        t1.join()
+        result = deployer.rollback()
+
+        self.assertFalse(result.success)
+        self.assertEqual(deployer.active_slot, SlotColor.BLUE)
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.IDLE)
+        self.assertEqual(deployer.slots[SlotColor.BLUE].state, SlotState.LIVE)
+
+    def test_rollback_refused_when_target_failed_health(self):
+        deployer = BlueGreenDeployer(health_check_fn=lambda _: False, warmup_seconds=0.0)
+        deployer.deploy_to_inactive("v7.0")
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.FAILED)
+
+        result = deployer.rollback()
+
+        self.assertFalse(result.success)
+        self.assertEqual(deployer.active_slot, SlotColor.BLUE)
+
+    def test_second_rollback_refused(self):
+        """Rollback ping-pong would hand routing back to the version just rejected."""
+        deployer = BlueGreenDeployer(warmup_seconds=0.0)
+        deployer.deploy_to_inactive("v8.0")
+        deployer.cutover()
+        self.assertTrue(deployer.rollback().success)
+
+        result = deployer.rollback()
+
+        self.assertFalse(result.success)
+        self.assertEqual(deployer.active_slot, SlotColor.BLUE)
+
+    def test_rollback_resyncs_state_backwards_from_live_slot(self):
+        """The rollback target's book is stale by the length of the live window."""
+        calls = []
+        deployer = BlueGreenDeployer(
+            state_sync_fn=lambda a, b: calls.append((a, b)) or True, warmup_seconds=0.0
+        )
+        deployer.deploy_to_inactive("v9.0")
+        deployer.cutover()
+        calls.clear()
+
+        deployer.rollback()
+
+        self.assertEqual(calls, [(SlotColor.GREEN, SlotColor.BLUE)])
+
+    def test_rollback_refused_when_backward_sync_fails(self):
+        sync_ok = {"value": True}
+        deployer = BlueGreenDeployer(
+            state_sync_fn=lambda a, b: sync_ok["value"], warmup_seconds=0.0
+        )
+        deployer.deploy_to_inactive("v10.0")
+        deployer.cutover()
+
+        sync_ok["value"] = False
+        result = deployer.rollback()
+
+        self.assertFalse(result.success)
         self.assertEqual(deployer.active_slot, SlotColor.GREEN)
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.LIVE)
+        self.assertIn("kill switch", result.message)
+
+    def test_forced_rollback_overrides_failed_sync(self):
+        sync_ok = {"value": True}
+        deployer = BlueGreenDeployer(
+            state_sync_fn=lambda a, b: sync_ok["value"], warmup_seconds=0.0
+        )
+        deployer.deploy_to_inactive("v11.0")
+        deployer.cutover()
+
+        sync_ok["value"] = False
+        result = deployer.rollback(force=True)
+
+        self.assertTrue(result.success)
+        self.assertEqual(deployer.active_slot, SlotColor.BLUE)
+
+
+class TestStandbyLifecycle(unittest.TestCase):
+    def test_deploy_refuses_to_overwrite_draining_rollback_target(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0)
+        deployer.deploy_to_inactive("v2.0")
+        deployer.cutover()
+        self.assertEqual(deployer.slots[SlotColor.BLUE].state, SlotState.DRAINING)
+
+        with self.assertRaises(DeployError):
+            deployer.deploy_to_inactive("v3.0")
+
+        # The rollback target survives the refused deployment.
+        self.assertEqual(deployer.slots[SlotColor.BLUE].state, SlotState.DRAINING)
+
+    def test_decommission_frees_slot_and_removes_rollback_target(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0, initial_version="v1.0")
+        deployer.deploy_to_inactive("v2.0")
+        deployer.cutover()
+
+        released = deployer.decommission_standby()
+        self.assertEqual(released.state, SlotState.IDLE)
+        self.assertEqual(released.version, "")
+
+        # Rollback is no longer possible: the operator gave that capability up.
+        self.assertFalse(deployer.rollback().success)
+
+        # But the slot now accepts the next version.
+        self.assertEqual(deployer.deploy_to_inactive("v3.0").state, SlotState.READY)
+
+    def test_decommission_refuses_live_slot(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0)
+        deployer.slots[SlotColor.GREEN].state = SlotState.LIVE  # corrupt state
+        with self.assertRaises(DeployError):
+            deployer.decommission_standby()
+
+
+class TestAuditTrail(unittest.TestCase):
+    def test_history_records_authoriser_for_each_action(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0)
+        deployer.deploy_to_inactive("v2.0", authorised_by="alice")
+        deployer.cutover(authorised_by="bob")
+
+        actions = [(r["action"], r["authorised_by"], r["success"]) for r in deployer.deployment_history]
+        self.assertIn(("DEPLOY", "alice", True), actions)
+        self.assertIn(("CUTOVER", "bob", True), actions)
+        for record in deployer.deployment_history:
+            self.assertGreater(record["timestamp"], 0)
+
+    def test_history_records_refused_operations(self):
+        """A blocked rollback is exactly the event a post-incident review needs."""
+        deployer = BlueGreenDeployer(warmup_seconds=0.0)
+        deployer.rollback(authorised_by="carol")
+
+        refused = [r for r in deployer.deployment_history if r["action"] == "ROLLBACK"]
+        self.assertEqual(len(refused), 1)
+        self.assertFalse(refused[0]["success"])
+        self.assertEqual(refused[0]["authorised_by"], "carol")
+
+
+class TestConcurrency(unittest.TestCase):
+    def test_concurrent_deploy_to_same_slot_is_rejected(self):
+        """Two deployments must not race onto one standby slot."""
+        entered = threading.Event()
+        release = threading.Event()
+
+        def blocking_health(_):
+            entered.set()
+            release.wait(timeout=5)
+            return True
+
+        deployer = BlueGreenDeployer(health_check_fn=blocking_health, warmup_seconds=0.0)
+        thread = threading.Thread(target=deployer.deploy_to_inactive, args=("v2.0",))
+        thread.start()
+        self.assertTrue(entered.wait(timeout=5))
+
+        with self.assertRaises(DeployError):
+            deployer.deploy_to_inactive("v2.0-hotfix")
+
+        release.set()
+        thread.join(timeout=5)
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.READY)
+
+    def test_deploy_abandons_slot_that_went_live_during_warmup(self):
+        """
+        The warmup/health window runs without the lock. If routing moves onto the
+        slot meanwhile, stamping READY/FAILED on it would mislabel the running
+        strategy and disarm the rollback guard.
+        """
+        entered = threading.Event()
+        release = threading.Event()
+        result = {}
+
+        def blocking_health(_):
+            entered.set()
+            release.wait(timeout=5)
+            return True
+
+        deployer = BlueGreenDeployer(health_check_fn=blocking_health, warmup_seconds=0.0)
+
+        def deploy():
+            result["slot"] = deployer.deploy_to_inactive("v2.0")
+
+        thread = threading.Thread(target=deploy)
+        thread.start()
+        self.assertTrue(entered.wait(timeout=5))
+
+        # Operator forces routing onto GREEN while it is still DEPLOYING.
+        deployer.rollback(force=True)
+        self.assertEqual(deployer.active_slot, SlotColor.GREEN)
+
+        release.set()
+        thread.join(timeout=5)
+
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.LIVE)
+        self.assertEqual(result["slot"].state, SlotState.LIVE)
+        abandoned = [r for r in deployer.deployment_history
+                     if r["action"] == "DEPLOY" and not r["success"]]
+        self.assertEqual(len(abandoned), 1)
+        self.assertIn("abandoned", str(abandoned[0]["detail"]))
+
+    def test_deploy_abandons_slot_decommissioned_during_warmup(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        def blocking_health(_):
+            entered.set()
+            release.wait(timeout=5)
+            return True
+
+        deployer = BlueGreenDeployer(health_check_fn=blocking_health, warmup_seconds=0.0)
+        thread = threading.Thread(target=deployer.deploy_to_inactive, args=("v2.0",))
+        thread.start()
+        self.assertTrue(entered.wait(timeout=5))
+
+        deployer.decommission_standby()
+        release.set()
+        thread.join(timeout=5)
+
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.IDLE)
+        self.assertEqual(deployer.slots[SlotColor.GREEN].version, "")
+
 
 if __name__ == "__main__":
     unittest.main()
