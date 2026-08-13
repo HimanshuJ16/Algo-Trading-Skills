@@ -37,16 +37,21 @@ Limitations the caller must handle:
   - The deployer cannot interrupt ``health_check_fn`` or ``state_sync_fn``.
     ``cutover()`` and ``rollback()`` hold the internal lock while those callbacks
     run so the swap is atomic, which means a hung callback blocks every other
-    deployer operation. Bound them with your own timeout.
+    deployer operation — including ``is_authorised_to_route()``, and therefore
+    order submission itself. Blocking submission for the duration of the handover
+    is the intended semantics (no order may be sent while the book is mid-transfer),
+    but it only stays safe if you bound both callbacks with your own timeout.
   - Enforcement of "only the LIVE slot may route" belongs to the execution layer:
-    it must consult the deployer before every submission and reject orders from a
-    slot that is not ``SlotState.LIVE``.
+    it must call ``is_authorised_to_route(color)`` before every submission and
+    reject orders from a slot that is not authorised. Do not read ``slots``
+    directly for this — that dict is mutable shared state and reading it outside
+    the lock can observe a half-completed cutover.
   - Rollback restores *routing*, not *executions*. Fills GREEN already booked at
     the venue are real; reconciliation is ``state_sync_fn``'s job.
 
 See ``references/standards.md`` for the MiFID II RTS 6 authorisation and
 change-record obligations that ``authorised_by`` and ``deployment_history``
-are designed to satisfy.
+are designed to satisfy, and for the jurisdictional limits of those obligations.
 """
 import dataclasses
 import logging
@@ -105,6 +110,12 @@ class DeploymentSlot:
     version: str = ""
     health_ok: bool = False
     deploy_time: float = 0.0
+    # Monotonic per-deployer counter identifying *which* deployment attempt owns
+    # this slot. (state, version) alone cannot: a slot decommissioned and then
+    # redeployed with the same version during a warmup window looks unchanged to
+    # the thread that is still warming up the previous instance, which would then
+    # stamp its stale health result onto the new one.
+    deploy_generation: int = 0
 
 
 @dataclass
@@ -151,15 +162,20 @@ class BlueGreenDeployer:
                 standby) and on rollback (live -> rollback target). An exception is
                 treated as a failed sync.
             initial_version: Version already running in the initially-live BLUE
-                slot, recorded in ``deployment_history`` so a rollback to it is
-                identifiable in an audit trail.
+                slot. Written as the opening ``INITIALIZE`` record of
+                ``deployment_history`` so the audit trail states which version was
+                live at t0 instead of beginning mid-stream, and so a later rollback
+                to it is identifiable.
         """
         if not isinstance(warmup_seconds, (int, float)) or isinstance(warmup_seconds, bool):
             raise ValueError("warmup_seconds must be a number")
         if not math.isfinite(warmup_seconds) or warmup_seconds < 0:
             raise ValueError(f"warmup_seconds must be finite and >= 0, got {warmup_seconds!r}")
+        if not isinstance(initial_version, str):
+            raise ValueError(f"initial_version must be a string, got {type(initial_version).__name__}")
 
         self._lock = threading.RLock()
+        self._deploy_seq = 0
         self.slots: Dict[SlotColor, DeploymentSlot] = {
             SlotColor.BLUE: DeploymentSlot(
                 color=SlotColor.BLUE,
@@ -174,6 +190,16 @@ class BlueGreenDeployer:
         self.state_sync_fn = state_sync_fn or (lambda _, __: True)
         self.warmup_seconds = warmup_seconds
         self.deployment_history: List[Dict[str, object]] = []
+        self._record(
+            "INITIALIZE", SlotColor.BLUE, SlotColor.BLUE, initial_version, True, "",
+            "initial live slot at construction"
+            + ("" if initial_version else " (no initial_version supplied)"),
+        )
+        if not initial_version:
+            logger.warning(
+                "BlueGreenDeployer constructed without initial_version; the audit trail "
+                "cannot identify which strategy version was live before the first cutover."
+            )
 
     # ------------------------------------------------------------------
     # Inspection
@@ -195,6 +221,30 @@ class BlueGreenDeployer:
         with self._lock:
             return dataclasses.replace(self.slots[self._inactive_color()])
 
+    def is_authorised_to_route(self, color: SlotColor) -> bool:
+        """
+        Whether ``color`` is the slot currently authorised to submit orders.
+
+        This is the check the execution layer must make before *every* order
+        submission — the deployer only owns the routing pointer, so nothing else
+        stops a draining or failed instance from sending to the venue.
+
+        It deliberately takes the lock rather than reading ``active_slot``
+        unsynchronised: during a cutover or rollback the pointer and the two slot
+        states are updated together, and an unsynchronised read can land between
+        those writes and see either no live slot or two.
+
+        A consequence worth designing for: while ``cutover()`` or ``rollback()``
+        is running its ``state_sync_fn``, this call blocks. That is the intended
+        behaviour — orders must not be submitted while positions and open orders
+        are being handed between instances — but it means an unbounded sync
+        callback stalls order submission, not just deployment.
+        """
+        if not isinstance(color, SlotColor):
+            raise TypeError(f"color must be a SlotColor, got {type(color).__name__}")
+        with self._lock:
+            return self.active_slot == color and self.slots[color].state is SlotState.LIVE
+
     def _inactive_color(self) -> SlotColor:
         with self._lock:
             return SlotColor.GREEN if self.active_slot == SlotColor.BLUE else SlotColor.BLUE
@@ -208,15 +258,25 @@ class BlueGreenDeployer:
         success: bool,
         authorised_by: str,
         detail: str,
+        forced: bool = False,
     ) -> None:
         """
         Append one immutable change record.
 
-        MiFID II RTS 6 Art. 5(7) requires records of material changes to
-        algorithmic trading software identifying when the change was made, who
-        made it, who approved it and its nature. Refused operations are recorded
-        too: an attempted rollback that was blocked is exactly the event a
-        post-incident review needs to see.
+        For EU investment firms, MiFID II RTS 6 Art. 5(7) requires records of
+        material changes to algorithmic trading software identifying when the
+        change was made, who made it, who approved it and its nature. Refused
+        operations are recorded too: an attempted rollback that was blocked is
+        exactly the event a post-incident review needs to see.
+
+        ``forced`` records that an operator overrode a safety guard. Without it a
+        forced rollback is indistinguishable from a clean one in the history,
+        which is precisely the "nature of the change" a reviewer must be able to
+        determine.
+
+        ``timestamp`` is wall-clock (``time.time()``), not monotonic, because an
+        audit record needs a real date; list order, not the timestamp, is the
+        authoritative ordering of events.
         """
         with self._lock:
             self.deployment_history.append({
@@ -228,6 +288,7 @@ class BlueGreenDeployer:
                 "success": success,
                 "authorised_by": authorised_by,
                 "detail": detail,
+                "forced": forced,
             })
 
     # ------------------------------------------------------------------
@@ -270,10 +331,13 @@ class BlueGreenDeployer:
                 )
 
             live_color = self.active_slot
+            self._deploy_seq += 1
+            generation = self._deploy_seq
             slot.state = SlotState.DEPLOYING
             slot.version = version
             slot.health_ok = False
             slot.deploy_time = time.time()
+            slot.deploy_generation = generation
             logger.info(f"Deploying quant version '{version}' to {color.value} slot.")
 
         # Warmup and the health check run OUTSIDE the lock: warmup is unbounded
@@ -290,15 +354,19 @@ class BlueGreenDeployer:
 
         with self._lock:
             slot = self.slots[color]
-            # Routing may have moved while the lock was released. Writing READY or
-            # FAILED onto a slot that has since gone LIVE would mislabel the
-            # running strategy and could disarm the rollback guard.
-            if (slot.state is not SlotState.DEPLOYING
-                    or slot.version != version
+            # Routing may have moved, or the slot may have been released and
+            # redeployed, while the lock was open. Writing READY or FAILED onto a
+            # slot this attempt no longer owns would mislabel the running strategy
+            # and could disarm the rollback guard. The generation check is what
+            # makes this sound: a slot decommissioned and redeployed with the same
+            # version is indistinguishable by (state, version) alone.
+            if (slot.deploy_generation != generation
+                    or slot.state is not SlotState.DEPLOYING
                     or color == self.active_slot):
                 logger.warning(
                     f"Deployment of '{version}' to {color.value} abandoned: slot changed during warmup "
-                    f"(state={slot.state.value}, version='{slot.version}', active={self.active_slot.value})."
+                    f"(state={slot.state.value}, version='{slot.version}', active={self.active_slot.value}, "
+                    f"generation={slot.deploy_generation} != {generation})."
                 )
                 self._record("DEPLOY", live_color, color, version, False, authorised_by,
                              "abandoned: slot changed during warmup")
@@ -314,7 +382,7 @@ class BlueGreenDeployer:
                          "health check passed" if healthy else "health check failed")
             return dataclasses.replace(slot)
 
-    def decommission_standby(self) -> DeploymentSlot:
+    def decommission_standby(self, authorised_by: str = "") -> DeploymentSlot:
         """
         Release the standby slot back to ``IDLE``, freeing it for a new version.
 
@@ -322,6 +390,12 @@ class BlueGreenDeployer:
         no rollback target: ``rollback()`` will refuse until a new version has
         been deployed and cut over. Call it only once the live version has proven
         stable over a full observation window.
+
+        Args:
+            authorised_by: Person accepting the loss of rollback capability.
+                Recorded in ``deployment_history``; giving up the last-known-good
+                target is an operational decision a post-incident review needs to
+                be able to attribute.
         """
         with self._lock:
             color = self._inactive_color()
@@ -335,6 +409,7 @@ class BlueGreenDeployer:
             slot.version = ""
             slot.health_ok = False
             slot.deploy_time = 0.0
+            slot.deploy_generation = 0
 
             if previous_state is SlotState.DRAINING:
                 logger.warning(
@@ -345,7 +420,7 @@ class BlueGreenDeployer:
                 logger.info(
                     f"Decommissioned {color.value} (was {previous_state.value}, ver '{released_version}')."
                 )
-            self._record("DECOMMISSION", self.active_slot, color, released_version, True, "",
+            self._record("DECOMMISSION", self.active_slot, color, released_version, True, authorised_by,
                          f"released from {previous_state.value}")
             return dataclasses.replace(slot)
 
@@ -436,18 +511,26 @@ class BlueGreenDeployer:
             authorised_by: Person authorising the rollback.
             force: Override both guards. The rollback proceeds with an
                 unreconciled book and is logged at CRITICAL. Use only when a
-                human has confirmed the target's state by other means.
+                human has confirmed the target's state by other means. Whichever
+                guards were actually overridden are named in the history record's
+                ``detail`` and flagged by its ``forced`` field, so a forced
+                rollback is never indistinguishable from a clean one.
         """
         with self._lock:
             target_color = self._inactive_color()
             target = self.slots[target_color]
             live_color = self.active_slot
+            # Which safety guards this call actually overrode. force=True alone is
+            # not the fact a reviewer needs — an operator may pass it defensively
+            # without any guard having tripped.
+            overridden: List[str] = []
 
             if target.state not in ROLLBACK_ELIGIBLE_STATES:
                 msg = (f"Rollback refused: {target_color.value} is {target.state.value} and is not a viable "
                        f"rollback target (never deployed, already failed, or decommissioned). "
                        f"Use the kill switch to stop trading, then redeploy.")
                 if force:
+                    overridden.append(f"target-eligibility ({target.state.value})")
                     logger.critical(f"FORCED rollback onto non-viable slot. {msg}")
                 else:
                     logger.critical(msg)
@@ -470,6 +553,7 @@ class BlueGreenDeployer:
                     logger.critical(msg)
                     self._record("ROLLBACK", live_color, target_color, target.version, False, authorised_by, msg)
                     return CutoverResult(False, live_color, live_color, msg)
+                overridden.append("state-reconciliation")
                 logger.critical(
                     f"FORCED rollback to {target_color.value} with UNRECONCILED state — "
                     f"the restored strategy's book may not match the broker's."
@@ -479,8 +563,10 @@ class BlueGreenDeployer:
             target.state = SlotState.LIVE
             self.slots[live_color].state = SlotState.FAILED
 
+            suffix = f" [FORCED, overrode: {', '.join(overridden)}]" if overridden else ""
             msg = (f"EMERGENCY ROLLBACK EXECUTED: Restored to {target_color.value} slot "
-                   f"(ver '{target.version}'){' [FORCED]' if force and not sync_ok else ''}.")
+                   f"(ver '{target.version}'){suffix}.")
             logger.warning(msg)
-            self._record("ROLLBACK", live_color, target_color, target.version, True, authorised_by, msg)
+            self._record("ROLLBACK", live_color, target_color, target.version, True, authorised_by, msg,
+                         forced=bool(overridden))
             return CutoverResult(True, target_color, live_color, msg)
