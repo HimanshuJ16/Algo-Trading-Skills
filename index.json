@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-13T17:06:53.595088+00:00",
+  "generated_at": "2026-08-13T17:18:16.212582+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1155,7 +1155,7 @@
     },
     {
       "name": "broker-agnostic-adapter-interface",
-      "description": "Use when designing quantitative trading systems to decouple strategy logic from broker APIs using a unified abstract adapter interface, standardized order models, and pluggable broker factories. This institutional-grade implementation utilizes precise Decimal arithmetic for all currency calculations, robust typed exceptions, and normalized cross-venue status mapping.",
+      "description": "Use when designing quantitative trading systems to decouple strategy logic from broker APIs using a unified abstract adapter interface, standardized order models, and pluggable broker factories. Enforces Decimal arithmetic at the boundary, typed exceptions, and cross-venue status normalization that reports an unrecognized broker status as UNKNOWN rather than guessing the order is live.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1164,15 +1164,15 @@
         "broker-agnostic",
         "trading-architecture",
         "order-routing",
-        "institutional-grade"
+        "status-normalization"
       ],
       "brokers_frameworks": [
-        "Zerodha Kite",
-        "Alpaca",
-        "Interactive Brokers",
-        "Upstox"
+        "Zerodha Kite Connect",
+        "Alpaca Trading API",
+        "Interactive Brokers TWS API",
+        "Upstox API"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
