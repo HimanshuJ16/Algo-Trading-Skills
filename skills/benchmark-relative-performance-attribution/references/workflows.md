@@ -3,30 +3,111 @@
 This file holds the full technical procedure referenced by `SKILL.md`. Load this when
 actually implementing the skill, not just when deciding whether it applies.
 
-## Full Procedure
+## Full procedure
 
-1. **Synchronize Portfolio & Benchmark Return Series:**
-   - Align daily return vectors $R_p$ and $R_b$.
+### 1. Align the series and fix the conventions
 
-2. **Compute Alpha ($\alpha$) and Beta ($\beta$):**
-   - Calculate Beta: $\beta = \frac{\text{Cov}(R_p, R_b)}{\text{Var}(R_b)}$.
-   - Calculate Annualized Alpha: $\alpha = (R_p - R_f) - \beta (R_b - R_f)$.
+- Align $R_p$ and $R_b$ on an explicit date index **upstream**. `evaluate_alpha_beta`
+  enforces equal length only; a one-period shift passes that check and corrupts every
+  statistic downstream.
+- Confirm the benchmark series is **total return**, not price-only.
+- Set `annualization_factor` to the true data frequency (252 / 52 / 12 / 365). This
+  parameter appears linearly in alpha and as $\sqrt{N}$ in $TE$ and $IR$.
+- Set `risk_free_rate` as an annual decimal. It is converted per period by simple
+  division, matching the arithmetic alpha convention.
 
-3. **Compute Active Return & Information Ratio ($IR$):**
-   - Calculate Tracking Error: $TE = \text{Std}(R_p - R_b) \cdot \sqrt{252}$.
-   - Calculate Information Ratio: $IR = \frac{\text{Active Return}}{TE}$.
+### 2. Alpha and beta
 
-4. **Execute Brinson-Fachler Sector Attribution:**
-   - Allocation Effect: $A_i = (w_{p,i} - w_{b,i}) \cdot (R_{b,i} - R_b)$.
-   - Selection Effect: $S_i = w_{b,i} \cdot (R_{p,i} - R_{b,i})$.
-   - Interaction Effect: $I_i = (w_{p,i} - w_{b,i}) \cdot (R_{p,i} - R_{b,i})$.
+$$\beta = \frac{\text{Cov}(R_p, R_b)}{\text{Var}(R_b)} \quad \text{(sample, ddof=1)}$$
 
-## Failure Modes Observed in Production
+$$\alpha_{\text{period}} = \left(\bar{R}_p - \tfrac{R_f}{N}\right) - \beta\left(\bar{R}_b - \tfrac{R_f}{N}\right), \qquad \alpha = \alpha_{\text{period}} \cdot N$$
 
-- **Beta Mistaken for Alpha:** Attributing gains from market bull runs to strategy alpha without Beta adjustment.
-- **Un-Synchronized Dates:** Mismatching strategy and benchmark returns by date.
+Notes:
 
-## Production Implementation Reference
+- Annualization is arithmetic. `empyrical`/`pyfolio` compound instead; see
+  `references/standards.md` for the size of the gap.
+- $\text{Var}(R_b) \le 10^{-12}$ raises `AttributionError`. Beta is unidentified against
+  a constant benchmark and a substituted $\beta = 1.0$ would flow straight into a
+  sign-off gate as if it had been measured.
+- Non-finite values raise. A NaN would otherwise reach `is_alpha_positive`, which
+  evaluates `nan > 0` as `False` — an undefined result presented as a legitimate fail.
 
-- Reference code: `scripts/attribution_engine.py` (`PerformanceAttributionEngine`, `AttributionSummary`, `BrinsonSectorResult`).
+### 3. Active return, tracking error, information ratio
+
+$$D_t = R_{p,t} - R_{b,t}, \qquad TE = \text{Std}(D_t)\sqrt{N}, \qquad IR = \frac{\bar{D} \cdot N}{TE}$$
+
+- $\text{Std}$ is the sample standard deviation (`ddof=1`).
+- $TE \le 10^{-12}$ with non-zero active return returns $\pm\infty$, not `0.0`: a portfolio
+  that beats its benchmark by a constant every period has taken no active risk, and
+  scoring that as average is a reporting error, not a conservative choice.
+- Active return is **not** alpha — it still carries the beta mismatch.
+
+### 4. Significance
+
+$$t = \frac{\sqrt{n}\,\bar{D}}{s_D} = IR \cdot \sqrt{T}, \qquad T = n/N \text{ years}$$
+
+Reported as `information_ratio_t_stat`. Report it beside the IR. An IR of 0.5 measured
+over one year of daily data gives $t \approx 0.5$; the same IR needs roughly 15 years to
+reach $\lvert t \rvert \ge 1.96$. Assumes serially independent active returns.
+
+The engine warns below 30 observations and refuses below 5. Both are numerical floors,
+not statistical sufficiency.
+
+### 5. Brinson-Fachler sector attribution (single period)
+
+Inputs must be **start-of-period** weights over a mutually exclusive and exhaustive
+sector partition; both weight vectors must sum to 1.0.
+
+For each sector $i$:
+
+- Allocation: $A_i = (w_{p,i} - w_{b,i})(R_{b,i} - R_b)$
+- Selection: $S_i = w_{b,i}(R_{p,i} - R_{b,i})$
+- Interaction: $I_i = (w_{p,i} - w_{b,i})(R_{p,i} - R_{b,i})$
+
+$R_b$ is derived from `benchmark_weights` and `benchmark_sector_returns` when
+`total_benchmark_return` is left as `None`. Supplying it explicitly is validated against
+the derived value; a mismatch raises.
+
+Off-benchmark sectors ($w_b = 0$) are assigned $R_{b,i} = 0$. That does not affect the
+reconciliation — a zero benchmark weight cancels the term — but it does shift value
+between the allocation and interaction effects, so state the convention when reporting.
+
+### 6. Reconcile
+
+$$\sum_i (A_i + S_i + I_i) = R_p - R_b$$
+
+Asserted by the engine before returning. If you re-implement the formulas, assert it
+yourself: a decomposition that does not reconcile is not an attribution.
+
+### 7. Sign-off
+
+Apply the gates in `references/standards.md`, and record the $t$-statistic and sample
+length alongside any alpha or IR figure. A gate on a point estimate with $\lvert t \rvert < 1.96$
+should be recorded as such rather than reported as a pass.
+
+## Failure modes observed in production
+
+- **Beta mistaken for alpha.** Bull-market gains attributed to strategy skill with no
+  beta adjustment.
+- **Multi-period Brinson effects summed.** Monthly allocation effects added to produce an
+  "annual" figure that does not reconcile to the annual active return, because arithmetic
+  effects do not compound. Requires a linking method.
+- **End-of-period weights.** The Brinson model is defined on start-of-period weights;
+  end-of-period weights embed the return being attributed.
+- **Partial sector coverage.** Top-N sector tables whose weights sum to less than 1.0
+  produce effects that silently fail to reconcile.
+- **Inconsistent total benchmark return.** A compounded annual benchmark return passed
+  into a single-period call, producing allocation effects that look reasonable and do not
+  add up.
+- **Un-synchronized dates.** Equal-length but date-shifted series.
+- **Silent NaN.** A single missing observation propagating through covariance into every
+  reported metric and into the sign-off flag.
+- **Flat benchmark.** A cash or risk-free comparator yielding a fabricated $\beta = 1.0$.
+
+## Production implementation reference
+
+- Reference code: `scripts/attribution_engine.py`
+  (`PerformanceAttributionEngine`, `AttributionSummary`, `BrinsonSectorResult`,
+  `AttributionError`).
 - Automated unit tests: `scripts/test_attribution_engine.py`.
+- Run with `python -m unittest discover -s skills/benchmark-relative-performance-attribution/scripts`.

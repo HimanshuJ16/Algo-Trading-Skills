@@ -1,5 +1,4 @@
-"""
-alpaca-paper-live-key-separation: Production-grade Alpaca API environment segregation guard,
+"""alpaca-paper-live-key-separation: Production-grade Alpaca API environment segregation guard,
 credential prefix validator (PK... vs AK...), base URL endpoint matcher,
 and live trading safety gate to prevent accidental live capital loss.
 """
@@ -7,7 +6,7 @@ from dataclasses import dataclass
 from enum import Enum
 import logging
 import os
-from typing import Any, Callable, Dict, Optional, Tuple
+from typing import Any, Callable, Dict, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -25,13 +24,26 @@ class TradingEnvironment(str, Enum):
 PAPER_BASE_URL = "https://paper-api.alpaca.markets"
 LIVE_BASE_URL = "https://api.alpaca.markets"
 
+PAPER_KEY_PREFIX = "PK"
+LIVE_KEY_PREFIX = "AK"
 
-@dataclass
+
+@dataclass(frozen=True)
 class AlpacaConfig:
+    """Immutable configuration container — credentials cannot be mutated after validation."""
+
     environment: TradingEnvironment
     key_id: str
     secret_key: str
     base_url: str
+
+    def __post_init__(self) -> None:
+        if not self.key_id or not self.key_id.strip():
+            raise ValueError("key_id must not be empty or whitespace.")
+        if not self.secret_key or not self.secret_key.strip():
+            raise ValueError("secret_key must not be empty or whitespace.")
+        if not self.base_url or not self.base_url.strip():
+            raise ValueError("base_url must not be empty or whitespace.")
 
 
 class AlpacaEnvironmentManager:
@@ -44,20 +56,18 @@ class AlpacaEnvironmentManager:
         self.allow_live_env_var = allow_live_trading_env_var
 
     def validate_config(self, config: AlpacaConfig) -> bool:
-        """
-        Validates key prefix, base URL matching, and live safety flags.
-        """
+        """Validates key prefix, base URL matching, and live safety flags."""
         env = config.environment
         key_id = config.key_id.strip()
         base_url = config.base_url.strip().rstrip("/")
 
-        # 1. Key Prefix Validation
         if env == TradingEnvironment.PAPER:
-            if base_url == LIVE_BASE_URL:
+            if base_url != PAPER_BASE_URL:
                 raise EnvironmentMismatchError(
-                    f"CRITICAL SAFETY BREACH: Paper mode configured but base_url points to LIVE endpoint ({LIVE_BASE_URL})!"
+                    f"CRITICAL SAFETY BREACH: Paper mode configured but base_url does not match "
+                    f"PAPER endpoint ({PAPER_BASE_URL}). Got: {base_url}"
                 )
-            if key_id.startswith("AK"):
+            if key_id.startswith(LIVE_KEY_PREFIX):
                 raise EnvironmentMismatchError(
                     "Key ID starts with 'AK' (live format) while operating in PAPER mode. "
                     "Cannot use live credentials for a paper environment."
@@ -66,14 +76,14 @@ class AlpacaEnvironmentManager:
         elif env == TradingEnvironment.LIVE:
             if base_url != LIVE_BASE_URL:
                 raise EnvironmentMismatchError(
-                    f"LIVE mode configured but base_url does not match LIVE endpoint ({LIVE_BASE_URL})!"
+                    f"LIVE mode configured but base_url does not match LIVE endpoint ({LIVE_BASE_URL}). "
+                    f"Got: {base_url}"
                 )
-            if key_id.startswith("PK"):
+            if key_id.startswith(PAPER_KEY_PREFIX):
                 raise EnvironmentMismatchError(
                     "LIVE mode configured but key_id starts with 'PK' (paper format)!"
                 )
 
-            # Check explicit environment variable flag for LIVE trading
             allow_live = os.environ.get(self.allow_live_env_var, "").lower() == "true"
             if not allow_live:
                 raise EnvironmentMismatchError(
@@ -88,6 +98,10 @@ class AlpacaEnvironmentManager:
     ) -> bool:
         """
         Probes Alpaca GET /v2/account endpoint and verifies account flags match environment.
+
+        Fail-safe: if the ``is_paper`` field is missing from the API response, this
+        method treats it as a live account (``is_paper=False``) rather than silently
+        defaulting to paper, preventing a live account from passing paper-mode checks.
         """
         self.validate_config(config)
 
@@ -96,7 +110,7 @@ class AlpacaEnvironmentManager:
         except Exception as e:
             raise EnvironmentMismatchError(f"Failed to probe Alpaca account endpoint: {e}")
 
-        is_paper = account_data.get("is_paper", True)
+        is_paper = account_data.get("is_paper", False)
         status = account_data.get("status", "ACTIVE")
 
         if status != "ACTIVE":
@@ -125,6 +139,10 @@ class AlpacaEnvironmentManager:
     ) -> bool:
         """
         Veto gate executed before submitting any order to Alpaca.
+
+        If ``get_account_fn`` is supplied, a live account probe is performed in
+        addition to the static config validation, providing a runtime defense
+        against environment drift after initialisation.
         """
         self.validate_config(config)
 

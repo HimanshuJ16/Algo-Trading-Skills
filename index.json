@@ -1,23 +1,26 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-08T03:26:35.628942+00:00",
+  "generated_at": "2026-08-13T06:38:31.453988+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
   "skills": [
     {
       "name": "1099-b-and-broker-tax-reporting-reconciliation",
-      "description": "Institutional-grade reconciliation engine for matching internal trade ledgers against broker 1099-B tax reports.",
+      "description": "Use when reconciling internal algorithmic trading trade ledgers (realized tax lots) against official broker 1099-B filings for end-of-year tax preparation, broker-error detection, or Form 8949 generation. Compares lots on (symbol, quantity, dates, proceeds, cost basis) within configurable tolerances, surfaces wash-sale mismatches, missing records, and basis out-of-tolerance events. Single-jurisdiction (US/IRS) scope.",
       "domain": "tax-accounting-reporting-global",
       "subdomain": "tax-reporting",
       "tags": [
         "tax",
         "reconciliation",
         "compliance",
-        "1099-B"
+        "1099-B",
+        "form-8949",
+        "wash-sale",
+        "decimal-arithmetic"
       ],
       "brokers_frameworks": [],
-      "version": "1.0.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/1099-b-and-broker-tax-reporting-reconciliation",
@@ -25,7 +28,7 @@
     },
     {
       "name": "adaptive-batch-size-tuning-under-load",
-      "description": "Use when writing market data or order logs to downstream databases (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch sizes and flush timeouts based on queue pressure and sink write latency.",
+      "description": "Use when writing market data or order logs to downstream databases (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch sizes and flush timeouts based on queue pressure and sink write latency. Hysteresis-shaped, EWMA-smoothed, back-pressure-aware. Single-writer / multi-producer thread-safe engine, not a generic embedder.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -34,13 +37,11 @@
         "dynamic-tuning",
         "throughput-optimization",
         "database-sink",
-        "load-balancing"
+        "backpressure",
+        "ewma"
       ],
-      "brokers_frameworks": [
-        "Adaptive Batch Tuner",
-        "Python Real-Time Engine"
-      ],
-      "version": "1.0.0",
+      "brokers_frameworks": [],
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/adaptive-batch-size-tuning-under-load",
@@ -48,7 +49,7 @@
     },
     {
       "name": "adaptive-execution-under-volatility-spikes",
-      "description": "Execution algorithm logic for dynamically adjusting order sizing, participation rates, and routing during severe market volatility and flash crashes.",
+      "description": "Execution overlay for TWAP, VWAP, and POV schedules that fails closed during abnormal volatility by bounding participation, child size, and limit offsets before routing. It is an advisory decision engine; order cancellation, pre-trade risk, venue controls, and recovery remain with the execution management system.",
       "domain": "execution-algorithms",
       "subdomain": "execution-strategies",
       "tags": [
@@ -62,7 +63,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/adaptive-execution-under-volatility-spikes",
@@ -70,7 +71,7 @@
     },
     {
       "name": "adaptive-sampling-under-extreme-tick-rates",
-      "description": "Use during extreme market volatility or flash-crash volume spikes to dynamically sample tick streams (1:N systematic sampling), preserving strategy engine throughput and cumulative volume/VWAP tracking while preventing memory buffer overflow.",
+      "description": "Use for high-rate trade-tick streams when downstream processing capacity is bounded and systematic 1:N aggregation can preserve traded volume and price-volume notional. The sampler is thread-safe and fail-closed for malformed or out-of-order input, but it is not a quote, order-book, microstructure, or compliance feed replacement.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -85,7 +86,7 @@
         "Adaptive Tick Sampler",
         "Python Real-Time Engine"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/adaptive-sampling-under-extreme-tick-rates",
@@ -93,7 +94,7 @@
     },
     {
       "name": "adjusted-vs-unadjusted-price-series-pitfalls",
-      "description": "Audits historical price and volume series for corporate action discontinuities (splits/dividends) to prevent look-ahead bias and false signals in backtesting pipelines.",
+      "description": "Audit historical OHLCV series and corporate-action metadata for split, dividend, adjustment-mode, and continuity errors before backtesting. Separates raw price-return, split-adjusted, and total-return semantics; it does not infer point-in-time vendor provenance from prices alone.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -108,7 +109,7 @@
         "Price Adjustment Auditor",
         "Python"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/adjusted-vs-unadjusted-price-series-pitfalls",
@@ -116,7 +117,7 @@
     },
     {
       "name": "adversarial-robustness-of-trading-signals",
-      "description": "Tests financial machine learning models for adversarial vulnerability by injecting epsilon-bounded perturbations (simulating flash-crash noise or FGSM attacks) and measuring signal flip rates.",
+      "description": "Pre-deployment governance gate that measures how often an ML trading signal can be flipped by epsilon-bounded feature perturbations (FGSM-lite / market microstructure noise). Deterministic, domain-clipped, multi-noise-model robustness tester producing a vulnerability score and flipped-sample indices. Rejects models whose signal flips faster than the configured tolerance before they go live.",
       "domain": "algorithmic-trading",
       "subdomain": "financial-ml-robustness",
       "tags": [
@@ -124,21 +125,23 @@
         "trading",
         "adversarial-robustness",
         "fgsm",
-        "signal-processing"
+        "signal-processing",
+        "model-governance",
+        "pre-deployment-gate"
       ],
       "brokers_frameworks": [
         "scikit-learn",
         "numpy"
       ],
-      "version": "1.1.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "1.2.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/adversarial-robustness-of-trading-signals",
       "skill_md": "skills/adversarial-robustness-of-trading-signals/SKILL.md"
     },
     {
       "name": "adverse-selection-measurement-for-passive-orders",
-      "description": "Computes markout curves for passive limit order fills across multiple time horizons to quantify adverse selection and toxic liquidity exposure.",
+      "description": "Post-trade markout engine for passive (resting limit) fills. Computes forward-horizon markouts in basis points across a sorted, lookahead-safe market mid series to quantify adverse selection (toxic flow). Per-horizon distribution stats, quantity-weighting, fill-to-mid and arrival-to-mid bases, no-lookahead as-of guard, and explicit truncation accounting. Flags a curve as toxic when a majority of horizons are negative.",
       "domain": "algorithmic-trading",
       "subdomain": "execution-quality",
       "tags": [
@@ -146,20 +149,22 @@
         "trading",
         "adverse-selection",
         "markouts",
-        "market-microstructure"
+        "market-microstructure",
+        "execution-quality",
+        "no-lookahead"
       ],
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "1.2.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/adverse-selection-measurement-for-passive-orders",
       "skill_md": "skills/adverse-selection-measurement-for-passive-orders/SKILL.md"
     },
     {
       "name": "air-gapped-signing-workflow-for-cold-storage",
-      "description": "Simulates and enforces a strict air-gapped signing workflow (Coordinator -> QR/SD -> Offline Vault -> Sign -> Broadcast) for institutional crypto custody.",
+      "description": "Models a strict air-gapped Ethereum-style signing workflow (Coordinator -> QR/SD -> Offline Vault -> Sign -> Broadcast) for institutional crypto custody.",
       "domain": "crypto-custody-security",
       "subdomain": "Key Management",
       "tags": [
@@ -167,7 +172,7 @@
         "custody",
         "security",
         "air-gap",
-        "psbt"
+        "clear-signing"
       ],
       "brokers_frameworks": [
         "Generic"
@@ -180,7 +185,7 @@
     },
     {
       "name": "algo-parameter-defaults-by-instrument-liquidity-tier",
-      "description": "Dynamically assigns algorithmic execution parameters (participation rates, aggression, TWAP/VWAP defaults) based on the instrument's liquidity tier (ADV).",
+      "description": "Assign validated, versioned execution starting profiles from instrument liquidity tiers while requiring fresh market-state and independent risk checks before routing. ADV thresholds are calibration inputs, not universal market rules or permission to cross a spread.",
       "domain": "algorithmic-trading",
       "subdomain": "execution-algorithms",
       "tags": [
@@ -193,7 +198,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algo-parameter-defaults-by-instrument-liquidity-tier",
@@ -201,20 +206,21 @@
     },
     {
       "name": "algo-trading-disclosure-to-exchange-membership",
-      "description": "Evaluates outbound orders to ensure compliance with algorithmic trading disclosure regulations (e.g., MiFID II, SEBI) requiring unique Algo ID tagging and registration verification.",
+      "description": "Designs and validates a venue-aware pre-trade control that identifies algorithmic orders, checks disclosed algorithm registrations, and blocks orders whose exchange-facing metadata is missing, stale, or unauthorized.",
       "domain": "regulatory-compliance",
       "subdomain": "exchange-connectivity",
       "tags": [
         "compliance",
         "regulatory",
         "mifid-ii",
+        "sebi",
         "algo-id",
         "pre-trade-risk"
       ],
       "brokers_frameworks": [
         "generic-fix"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algo-trading-disclosure-to-exchange-membership",
@@ -222,7 +228,7 @@
     },
     {
       "name": "algo-wheel-broker-execution-quality-comparison",
-      "description": "Implements an Algorithmic Wheel that dynamically routes orders to brokers based on historical Transaction Cost Analysis (TCA), explicitly minimizing Implementation Shortfall (IS).",
+      "description": "Compares broker execution quality with validated, notional-weighted implementation shortfall and produces deterministic canary-preserving flow allocations for an algorithmic broker wheel.",
       "domain": "execution-algorithms",
       "subdomain": "smart-order-routing",
       "tags": [
@@ -230,12 +236,13 @@
         "algo-wheel",
         "tca",
         "implementation-shortfall",
-        "broker-routing"
+        "broker-routing",
+        "best-execution"
       ],
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algo-wheel-broker-execution-quality-comparison",
@@ -254,7 +261,7 @@
         "hft"
       ],
       "brokers_frameworks": [
-        "generic"
+        "Generic"
       ],
       "version": "1.1.0",
       "author": "System",
@@ -277,7 +284,7 @@
       "brokers_frameworks": [
         "Alpaca Trading API v2"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/alpaca-paper-live-key-separation",
@@ -298,7 +305,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/alternative-data-feature-integration",
@@ -319,7 +326,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/alternative-data-vendor-due-diligence-checklist",
@@ -339,7 +346,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/american-vs-european-style-option-exercise-handling",
@@ -347,20 +354,22 @@
     },
     {
       "name": "annual-compliance-attestation-workflow",
-      "description": "Automated compliance verification engine for SEC Rule 206(4)-7 and FINRA Rule 3130 annual attestations in quantitative hedge funds.",
+      "description": "Automated compliance verification engine for SEC Rule 206(4)-7, FINRA Rule 3130, FINRA Rule 3120, and SEC Rule 15c3-5 annual attestations in quantitative hedge funds and broker-dealers.",
       "domain": "regulatory-compliance",
       "subdomain": "institutional-reporting",
       "tags": [
         "compliance",
         "sec-20647",
         "finra-3130",
+        "finra-3120",
+        "sec-15c3-5",
         "regulatory",
         "attestation"
       ],
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/annual-compliance-attestation-workflow",
@@ -383,7 +392,7 @@
         "Security Audit Engine",
         "Python Security"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/api-key-least-privilege-audit-tool",
@@ -404,7 +413,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/app-download-and-usage-data-for-consumer-companies",
@@ -425,7 +434,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/arrival-price-benchmark-execution-algo",
@@ -446,7 +455,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/asic-market-integrity-rules-automated-trading",
@@ -467,7 +476,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/auction-only-order-types-for-illiquid-names",
@@ -488,7 +497,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/audit-logging-for-configuration-changes",
@@ -512,7 +521,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/australia-asic-drt-obligations",
@@ -520,7 +529,7 @@
     },
     {
       "name": "australian-securities-exchange-asx-api",
-      "description": "Institutional API integration adapter for the Australian Securities Exchange (ASX), supporting FIX 5.0 SP2, OUCH, and ITCH protocols.",
+      "description": "Institutional API integration adapter for the Australian Securities Exchange (ASX), supporting FIX 5.0 SP2, OUCH, and ITCH protocols with AEST/AEDT session-schedule awareness, ALC topology enforcement, and FIX session-state primitives.",
       "domain": "global-market-integration",
       "subdomain": "exchanges",
       "tags": [
@@ -534,7 +543,7 @@
       "brokers_frameworks": [
         "direct-market-access"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/australian-securities-exchange-asx-api",
@@ -542,7 +551,7 @@
     },
     {
       "name": "automated-rollback-triggers-on-anomaly-detection",
-      "description": "Deployment ops engine that monitors post-deployment health metrics and triggers automated rollbacks if trading or technical anomalies are detected.",
+      "description": "Deployment ops engine that monitors post-deployment health metrics and triggers automated rollbacks if trading or technical anomalies are detected, with flapping and rollback-loop protection.",
       "domain": "deployment-ops",
       "subdomain": "deployment",
       "tags": [
@@ -555,7 +564,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/automated-rollback-triggers-on-anomaly-detection",
@@ -577,7 +586,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/automated-tax-lot-reporting-pipeline",
@@ -585,7 +594,7 @@
     },
     {
       "name": "b3-brazil-exchange-api-integration",
-      "description": "Connectivity engine for the B3 Exchange (Brasil Bolsa Balc\u00e3o) PUMA Trading System, supporting both Legacy (FIX/FAST) and Modern (Binary SBE) architectures.",
+      "description": "Configuration validator and connection-state manager for B3 (Brasil Bolsa Balc\u00e3o) PUMA Trading System connectivity, enforcing the gap-recovery constraint that separates the legacy FIX/FAST stack from the Binary (SBE/FIXP) stack.",
       "domain": "global-market-integration",
       "subdomain": "exchanges",
       "tags": [
@@ -595,27 +604,42 @@
         "fix-fast",
         "umdf",
         "sbe",
-        "binary-order-entry"
+        "binary-order-entry",
+        "direct-market-access",
+        "low-latency"
       ],
       "brokers_frameworks": [
-        "direct-market-access"
+        "B3 PUMA Trading System",
+        "B3 UMDF (Unified Market Data Feed)",
+        "B3 Binary Order Entry (FIXP/SBE)",
+        "FIX 4.4"
       ],
-      "version": "1.1.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/b3-brazil-exchange-api-integration",
       "skill_md": "skills/b3-brazil-exchange-api-integration/SKILL.md"
     },
     {
       "name": "backpressure-drop-degrade-policy",
-      "description": "Use when a real-time pipeline's consumers fall persistently behind producers and the system needs an explicit, chosen policy rather than an accidental one",
+      "description": "Use when a real-time pipeline's consumers fall persistently behind producers and the system needs an explicit, chosen drop/sample/degrade policy per stream rather than an accidental one inherited from a queue library default",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
-        "real-time-architecture"
+        "real-time-architecture",
+        "backpressure",
+        "queue-overflow",
+        "drop-policy",
+        "degradation",
+        "tick-pipeline"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "Python asyncio.Queue / collections.deque",
+        "ZeroMQ",
+        "Apache Kafka / Redis Streams",
+        "RxPY / ReactiveX"
+      ],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backpressure-drop-degrade-policy",
@@ -623,7 +647,7 @@
     },
     {
       "name": "backtest-audit-trail-for-regulatory-review",
-      "description": "Use when conducting production backtests to record and sign a immutable audit trail capturing code git commit SHA, data version checksum, hyperparameter manifest, and execution environment metadata for regulatory review (e.g. SEC/FINRA/MiFID II).",
+      "description": "Use when conducting production backtests to record an HMAC-authenticated audit trail capturing code git commit SHA, per-file data checksums (SHA256), hyperparameter manifest, and execution environment metadata for internal governance and regulatory review (SEC Rule 17a-4 recordkeeping context).",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -632,13 +656,14 @@
         "audit-trail",
         "reproducibility",
         "sec-compliance",
-        "data-lineage"
+        "data-lineage",
+        "hmac-integrity"
       ],
       "brokers_frameworks": [
         "Regulatory Audit Trail Engine",
-        "Python Cryptography"
+        "Python hashlib/hmac (standard library)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-audit-trail-for-regulatory-review",
@@ -646,7 +671,7 @@
     },
     {
       "name": "backtest-database-schema-for-point-in-time-queries",
-      "description": "Use when designing a database schema that natively supports point-in-time queries to make lookahead-bias mistakes structurally harder to introduce in backtests.",
+      "description": "Use when designing a database schema that natively supports bitemporal point-in-time as-of queries, so lookahead-bias mistakes become structurally harder to introduce in backtests.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -660,7 +685,7 @@
         "Point-in-Time Schema Engine",
         "Python"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-database-schema-for-point-in-time-queries",
@@ -668,7 +693,7 @@
     },
     {
       "name": "backtest-determinism-and-reproducibility",
-      "description": "Use when designing backtest execution frameworks to enforce deterministic random seeding, sort input data streams strictly, eliminate async race conditions, and verify bit-identical P&L results via cryptographic audit checksums.",
+      "description": "Use when designing backtest execution frameworks to enforce deterministic random seeding, sort input data streams strictly, replace wall-clock reads with a simulated clock, and detect run-to-run divergence via exact-bit trade log checksums.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -682,10 +707,10 @@
       ],
       "brokers_frameworks": [
         "Determinism Reproducibility Engine",
-        "Python NumPy",
-        "Random"
+        "Python random / hashlib",
+        "NumPy"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-determinism-and-reproducibility",
@@ -693,28 +718,30 @@
     },
     {
       "name": "backtest-infrastructure-cost-budgeting",
-      "description": "Budgeting compute/storage cost for large-scale backtesting before it becomes a surprise cloud bill.",
+      "description": "Budgeting compute and storage cost for large-scale backtest sweeps before it becomes a surprise cloud bill, with explicit modelling of spot interruption overhead, per-task billing minimums, and non-linear parallel scaling.",
       "domain": "Backtesting",
       "subdomain": "Infrastructure",
       "tags": [
         "backtesting",
         "cost",
         "budgeting",
-        "cloud"
+        "cloud",
+        "capacity-planning",
+        "spot-instances"
       ],
       "brokers_frameworks": [
-        "AWS",
-        "GCP"
+        "AWS Fargate / EC2",
+        "Google Cloud Run / Compute Engine"
       ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/backtest-infrastructure-cost-budgeting",
       "skill_md": "skills/backtest-infrastructure-cost-budgeting/SKILL.md"
     },
     {
       "name": "backtest-look-ahead-in-universe-selection",
-      "description": "Use when auditing strategy universe selection logic to detect and prevent lookahead bias (e.g. selecting top 50 S&P 500 stocks by today's market cap retroactively for 2015 backtests).",
+      "description": "Use when auditing strategy universe selection logic to detect and prevent lookahead bias (e.g. selecting top 50 S&P 500 stocks by today's market cap retroactively for 2015 backtests). Audits membership timestamps only; it does not recompute rankings or prove a vendor's data is point-in-time.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -726,9 +753,11 @@
       ],
       "brokers_frameworks": [
         "Universe Lookahead Auditor",
-        "Python"
+        "Python",
+        "S&P Dow Jones Indices",
+        "FTSE Russell"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-look-ahead-in-universe-selection",
@@ -736,7 +765,7 @@
     },
     {
       "name": "backtest-outlier-and-bad-tick-filtering",
-      "description": "Use when cleaning historical tick and bar data for backtesting to detect and filter erroneous price prints, fat-finger quotes, stale prices, and out-of-sequence ticks before they distort signal generation.",
+      "description": "Use when cleaning historical tick and bar data for backtesting to detect and filter erroneous price prints, fat-finger quotes, stale prices, and out-of-sequence ticks before they distort signal generation. Purges bad prints; it does not interpolate, reprice, or reconstruct the ticks it removes.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -749,9 +778,11 @@
       ],
       "brokers_frameworks": [
         "Outlier Bad Tick Filter Engine",
-        "Python"
+        "Python",
+        "NIST/SEMATECH e-Handbook",
+        "FINRA Clearly Erroneous Transactions"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-outlier-and-bad-tick-filtering",
@@ -759,7 +790,7 @@
     },
     {
       "name": "backtest-parameter-sensitivity-analysis",
-      "description": "Use when evaluating strategy robustness by perturbing backtest parameters across a grid and measuring Sharpe ratio sensitivity to detect overfitting sweet spots vs genuinely robust parameter plateaus.",
+      "description": "Use when evaluating strategy robustness by perturbing backtest parameters across a grid and measuring Sharpe ratio sensitivity to detect overfitting sweet spots vs genuinely robust parameter plateaus. Screens one parameter at a time; it does not correct the reported best Sharpe for selection bias.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -774,7 +805,7 @@
         "Parameter Sensitivity Analyzer",
         "Python"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-parameter-sensitivity-analysis",
@@ -782,7 +813,7 @@
     },
     {
       "name": "backtest-reporting-standardized-tearsheet",
-      "description": "Use when evaluating completed backtests to generate a standardized performance tearsheet computing Sharpe, Sortino, Calmar, max drawdown, win rate, and profit factor for objective strategy comparison.",
+      "description": "Use when evaluating completed backtests to generate a standardized performance tearsheet computing Sharpe, Sortino, Calmar, max drawdown, win rate, and profit factor for objective strategy comparison. Computes per-period statistics from a returns series; it does not read a trade log or judge whether a strategy is deployable.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -797,7 +828,7 @@
         "Standardized Tearsheet Generator",
         "Python NumPy"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-reporting-standardized-tearsheet",
@@ -805,7 +836,7 @@
     },
     {
       "name": "backtest-vs-live-performance-divergence-tracking",
-      "description": "Use when monitoring promoted strategies to systematically measure, decompose, and alert on divergence between backtested (hypothetical) performance and realized live trading performance across Sharpe ratio, drawdown, fill rate, and slippage dimensions.",
+      "description": "Use when monitoring promoted strategies to systematically measure, decompose, and alert on divergence between backtested (hypothetical) performance and realized live trading performance across Sharpe ratio, drawdown, fill rate, and slippage dimensions. Periodic snapshot comparison; not real-time monitoring and not an automatic kill switch.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -820,7 +851,7 @@
         "Divergence Tracking Engine",
         "Python Statistics"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtest-vs-live-performance-divergence-tracking",
@@ -828,7 +859,7 @@
     },
     {
       "name": "backtesting-alt-data-strategies-with-realistic-availability-lag",
-      "description": "Use when backtesting trading strategies driven by alternative data (e.g., credit card receipts, satellite imagery) to mathematically enforce Point-in-Time (PIT) publication lags and prevent catastrophic lookahead bias.",
+      "description": "Use when backtesting trading strategies driven by alternative data (e.g., credit card receipts, satellite imagery) to mathematically enforce Point-in-Time (PIT) publication lags and prevent catastrophic lookahead bias. Daily-granularity knowledge-time filter; it does not license, source, or validate the data itself.",
       "domain": "algorithmic-trading",
       "subdomain": "data-management",
       "tags": [
@@ -842,7 +873,7 @@
         "Pandas",
         "Point-in-Time Enforcement"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtesting-alt-data-strategies-with-realistic-availability-lag",
@@ -850,7 +881,7 @@
     },
     {
       "name": "backtesting-ml-models-against-transaction-costs",
-      "description": "Use when backtesting Machine Learning (ML) return predictions to apply rigorous Trade Frequency Drag (TCA), turnover tracking, and confidence thresholding. Prevents deploying high-turnover ML models that lose money after slippage.",
+      "description": "Use when backtesting Machine Learning (ML) return predictions to apply rigorous Transaction Cost Analysis (TCA), turnover tracking, and confidence thresholding. Prevents deploying high-turnover ML models that lose money after slippage.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -864,7 +895,7 @@
         "NumPy",
         "ML Backtesting"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/backtesting-ml-models-against-transaction-costs",
@@ -887,7 +918,7 @@
         "NumPy",
         "Portfolio Benchmarking"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/benchmark-portfolio-for-multi-strategy-performance-context",
@@ -911,7 +942,7 @@
         "QuantStats",
         "Custom Performance Evaluators"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/benchmark-relative-performance-attribution",
@@ -929,10 +960,9 @@
         "metrics"
       ],
       "brokers_frameworks": [
-        "Pandas",
         "NumPy"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/benchmark-selection-for-strategy-evaluation",
@@ -953,7 +983,7 @@
       "brokers_frameworks": [
         "any"
       ],
-      "version": "2.0.0",
+      "version": "2.1.0",
       "author": "skill-builder",
       "license": "MIT",
       "path": "skills/best-execution-record-keeping-global",
@@ -961,39 +991,46 @@
     },
     {
       "name": "binance-futures-testnet-to-mainnet-promotion",
-      "description": "Institutional quantitative standards for promoting a trading strategy from Binance Futures Testnet to Mainnet.",
+      "description": "Use when promoting a Binance Futures strategy from testnet to mainnet, to bind each base URL to its declared environment, keep testnet and mainnet API credentials strictly separate, fail closed on missing or malformed risk limits, and require explicit operator authorization before real leveraged capital is at risk",
       "domain": "global-market-integration",
       "subdomain": "exchanges",
       "tags": [
         "binance-futures",
         "deployment",
         "risk-management",
-        "institutional-standards"
+        "environment-segregation",
+        "live-capital-guard"
       ],
       "brokers_frameworks": [
-        "Binance Futures"
+        "Binance USD\u24c8-M Futures API",
+        "Binance COIN-M Futures API"
       ],
-      "version": "1.0.0",
-      "author": "assistant",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/binance-futures-testnet-to-mainnet-promotion",
       "skill_md": "skills/binance-futures-testnet-to-mainnet-promotion/SKILL.md"
     },
     {
       "name": "binary-options-regulatory-and-risk-considerations",
-      "description": "Institutional quant standards for regulatory compliance and risk management in binary options trading.",
+      "description": "Use before designing, backtesting, or deploying any strategy in binary options or binary-payout event contracts, to establish whether the trade is lawful for the client category and jurisdiction at all, whether the venue is registered, and how to size discontinuous-payoff exposure",
       "domain": "algorithmic-trading",
-      "subdomain": "general",
+      "subdomain": "regulatory-compliance-global",
       "tags": [
-        "trading",
-        "algo",
-        "skill"
+        "regulatory-compliance-global",
+        "binary-options",
+        "product-intervention",
+        "event-contracts",
+        "pre-trade-compliance"
       ],
       "brokers_frameworks": [
-        "Python",
-        "Dataclasses"
+        "CFTC / SEC (US)",
+        "FCA Handbook COBS 22.4 (UK)",
+        "MiFIR Article 42 national measures (EU)",
+        "ASIC Instrument 2021/240 (AU)",
+        "CSA Multilateral Instrument 91-102 (CA)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/binary-options-regulatory-and-risk-considerations",

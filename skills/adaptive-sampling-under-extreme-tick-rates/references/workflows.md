@@ -1,24 +1,49 @@
-# Deep Workflow Reference — adaptive-sampling-under-extreme-tick-rates
+# Production Workflows for Adaptive Sampling Under Extreme Tick Rates
 
-This file holds the full technical procedure referenced by `SKILL.md`.
+## Ingestion Pipeline
 
-## Full Procedure
+1. **Initialize**: Create one `AdaptiveTickSamplerEngine` for each compatible sequence domain and record the target-rate configuration version.
+2. **Validate feed identity upstream**: Confirm symbol, instrument, sequence domain, event timestamp, price scale, volume scale, and feed health before calling the sampler.
+3. **Ingest**: Call `ingest_tick` for each valid trade. The call is synchronized and either returns a `SampledTick` or returns `None` while accumulating a sampled block.
+4. **Persist/consume outside the lock**: Immediately hand emitted samples to the downstream queue or sink. Do not perform network I/O while holding the engine lock.
+5. **Reconcile aggregates**: Maintain per-symbol input and output volume/notional counters and alert on tolerance breaches.
+6. **Monitor**: Emit metrics for input/output rate, sampling factor, aggregate count, validation failures, flushes, queue latency, and consumer lag.
 
-1. **Monitor Rolling Tick Frequency**:
-   - Compute 1-second rolling tick arrival frequency $F_t$ per symbol.
+## Feed Recovery Workflow
 
-2. **Evaluate Sampling Mode**:
-   - $F_t \le F_{\text{target}}$: `PASSTHROUGH` mode ($100\%$ ticks emitted).
-   - $F_t > F_{\text{target}}$: Set sampling factor $k = \lceil F_t / F_{\text{target}} \rceil$ (emit 1 out of every $k$ ticks).
+1. Detect transport failure, sequence gap, duplicate policy violation, stale timestamp, or venue restart.
+2. Stop treating the affected symbol as a continuous valid stream; quarantine or pause downstream decisions as required.
+3. Flush accepted residual state using `flush(symbol)` and persist the synthetic output.
+4. Reconcile the missing range using the venue/vendor recovery mechanism; the sampler must not invent missing trades.
+5. Call `reset_symbol(flush=False)` only after the residual has been explicitly handled and the sequence domain is intentionally restarting.
+6. Resume ingestion at the documented restart point and verify that sequence and timestamp monotonicity hold.
 
-3. **Accumulate Skipped Volume & VWAP**:
-   - Accumulate volume $V_{\text{skipped}}$ of non-emitted ticks.
-   - Attach $V_{\text{total}} = V_{\text{current}} + V_{\text{skipped}}$ on emitted sampled ticks.
+## Shutdown and Checkpoint Workflow
 
-4. **Flush Residual Volume**:
-   - Flush remaining accumulated volume upon stream completion or quiet period.
+```python
+flushed_ticks = sampler.flush_all()
+for tick in flushed_ticks:
+    downstream_sink.write(tick)
+```
 
-## Production Implementation Reference
+Persist the configuration version, flush timestamp, symbol, aggregate count, volume, notional, and reconciliation status. A flush record is synthetic and must not be mistaken for a raw exchange event.
 
-- Reference code: `scripts/tick_sampler.py` (`AdaptiveTickSamplerEngine`, `SamplingMode`, `SampledTick`).
-- Automated unit tests: `scripts/test_tick_sampler.py`.
+## Failure Handling Matrix
+
+| Failure | Sampler behavior | Required integration behavior |
+|---|---|---|
+| Invalid symbol/price/volume/timestamp | Raises `TypeError` or `ValueError`; state is unchanged | Reject and alert; do not retry unchanged input. |
+| Duplicate/decreasing sequence | Raises `ValueError` when enforcement is enabled | Quarantine and reconcile the feed or intentionally reset the sequence domain. |
+| Backwards event timestamp | Raises `ValueError` | Investigate clock/feed ordering; do not move rate state backwards. |
+| Sampling overload | Emits aggregate samples with metadata | Apply downstream backpressure and monitor lag; sampling is not unlimited buffering. |
+| Symbol retirement | `reset_symbol(flush=True)` returns residual aggregate and removes state | Persist residual output before deleting symbol state. |
+| Process shutdown | `flush_all()` returns deterministic residual aggregates | Persist all outputs and verify volume/notional reconciliation. |
+
+## Replay and Load-Test Workflow
+
+1. Replay a baseline stream below target capacity and assert one output per valid trade.
+2. Replay bursts above target capacity and verify factor changes, aggregate counts, output volume, and output notional.
+3. Inject zero timestamps, NaN/∞ values, negative volume, duplicate sequence IDs, sequence gaps, and backwards timestamps; verify rejection and unchanged state.
+4. Test multiple symbols concurrently and confirm state isolation and no race-induced accounting drift.
+5. Exercise checkpoint, symbol reset, feed restart, and process shutdown; verify no residual volume is lost.
+6. Compare raw-input and sampled-output reconciliation within the declared numerical tolerance before deployment.

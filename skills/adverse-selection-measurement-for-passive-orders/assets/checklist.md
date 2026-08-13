@@ -1,11 +1,77 @@
-# Checklist for Adverse Selection Measurement
+# Pre-Promotion / Sign-off Checklist — adverse-selection-measurement-for-passive-orders
 
-- [ ] Ensure only PASSIVE (limit) orders are passed to the evaluator.
-- [ ] Verify that time horizons match the holding period of the strategy (e.g., HFT needs 10ms horizons, Swing trading needs 60s horizons).
-- [ ] Confirm Sell side markout math is inverted relative to Buy side.
-- [ ] Check that `test_adverse_selection_measurement_for_passive_orders.py` passes.
-- [ ] Review the `AdverseSelectionReport` for toxicity warnings before scaling capital.
+Use this before acting on a toxicity verdict or scaling a passive strategy's
+capital based on its markout curve.
+
+---
+
+## 1. Fill data integrity
+
+- [ ] **Passive only** — market/aggressing fills filtered out upstream; every
+      row passed to the engine is a resting fill.
+- [ ] **Side correct** — `BUY`/`SELL` matches the ledger (a flipped side
+      inverts the entire sell curve).
+- [ ] **Price/quantity positive & finite** — `PassiveFill` validates; verify
+      no zero/negative rows slipped through pre-filtering.
+- [ ] **Clock base** — fill timestamps share the epoch and time base of the
+      market-data series.
+
+## 2. Market-data window
+
+- [ ] **Strictly ascending timestamps** — engine validates; preserve if
+      pre-processing externally.
+- [ ] **Forward coverage** — window extends to `max(fill_ts) + max(horizons)`;
+      `stats[h].truncated == 0` on a full-day sample.
+- [ ] **Backward coverage** — window starts at or before `min(fill_ts)`;
+      `missing_pre_fill == 0` on a full-day sample.
+- [ ] **Mid quality** — mids are finite, positive, from a clean L1 source
+      (`multi-source-price-reconciliation-tie-breaking` if gappy).
+
+## 3. Configuration
+
+- [ ] **Horizons span ≥ 2 orders of magnitude** (e.g. 100 ms, 1 s, 10 s) — a
+      single horizon cannot diagnose latency vs directional toxicity.
+- [ ] **Includes a sub-second horizon** — microstructure toxicity lives in
+      ms; an EOD-only or 1-min-only curve hides it.
+- [ ] **`markout_basis` chosen deliberately** — `fill_to_mid` for execution
+      quality, `arrival_to_mid` to isolate adverse drift; run both and compare.
+- [ ] **`quantity_weighted`** — True for notional-aware aggregation (default
+      for production); record unweighted for comparison.
+- [ ] **`require_asof_mid = True`** — never disabled in backtests.
+
+## 4. Verdict interpretation
+
+- [ ] **Read the distribution, not just the mean** — `median`, `p25`, `p75`
+      reported per horizon; a mean-negative / median-positive split is not
+      robustly toxic.
+- [ ] **`count ≥ 30` per horizon** — otherwise gate on the median, not the
+      mean; report the IQR.
+- [ ] **`toxicity_ratio` read alongside `is_toxic`** — one negative horizon
+      among six is not "toxic"; a uniformly negative curve is.
+- [ ] **Curve shape diagnosed** — short-horizon negative (latency) vs long-
+      horizon negative (directional) route to different remediation skills.
+
+## 5. Reproducibility
+
+- [ ] **Frozen fill ledger + market snapshot** — same inputs reproduce the
+      same `as_dict()`.
+- [ ] **Report persisted** to the day's TCA / model card with `horizons_sec`,
+      `markout_basis`, `quantity_weighted`, `fills_used`, `missing_pre_fill`.
+- [ ] **Day-over-day comparison** — a regression in the curve (e.g. 1 s
+      markout -8 → -15 bps) is investigated before it hits P&L.
+
+## 6. Action
+
+- [ ] **Latency-shape toxicity** routed to `tick-to-trade-latency-measurement`.
+- [ ] **Directional toxicity** routed to signal/alpha review.
+- [ ] **Persistently toxic curve** considered as a strategy-level kill-switch
+      trigger (`kill-switch-and-drawdown-circuit-breakers`).
 
 ## Sign-off
+
 - Execution Quant: ___________________________
 - Date: ___________________________
+- Symbol / strategy: ___________________________
+- `MarkoutConfig` snapshot (paste JSON): ___________________________
+- `AdverseSelectionReport.as_dict()` snapshot: ___________________________
+- `missing_pre_fill` / `truncated` audit (must be 0): ___________________________

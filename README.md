@@ -9,13 +9,13 @@
 [![Skills Built](https://img.shields.io/badge/skills_built-504-brightgreen?style=flat-square)](#whats-inside--16-categories)
 [![Roadmap](https://img.shields.io/badge/roadmap-504_built-brightgreen?style=flat-square)](docs/ROADMAP_500.md)
 [![Domains](https://img.shields.io/badge/domains-16-9cf?style=flat-square)](#whats-inside--16-categories)
-[![Platforms](https://img.shields.io/badge/platforms-26%2B-blueviolet?style=flat-square)](#compatible-platforms--zero-config-auto-discovery)
+[![Platforms](https://img.shields.io/badge/platforms-26%2B-blueviolet?style=flat-square)](#compatible-platforms)
 [![agentskills.io](https://img.shields.io/badge/standard-agentskills.io-ff6600?style=flat-square)](https://agentskills.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
 **504 production-grade algorithmic trading skills · 16 engineering domains · 5 regulatory & exchange frameworks · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 26+ platforms · Apache 2.0**
 
-[Get Started](#quick-start) · [What's Inside](#whats-inside--16-categories) · [Frameworks & Standards](#five-regulatory--exchange-frameworks-one-skill-library) · [Platforms](#compatible-platforms--zero-config-auto-discovery) · [Contributing](#contributing)
+[Get Started](#quick-start) · [What's Inside](#whats-inside--16-categories) · [Frameworks & Standards](#five-regulatory--exchange-frameworks-one-skill-library) · [Platforms](#compatible-platforms) · [Contributing](#contributing)
 
 ---
 
@@ -69,9 +69,7 @@ npx skills add HimanshuJ16/Algo-Trading-Skills
 git clone https://github.com/HimanshuJ16/Algo-Trading-Skills.git
 cd Algo-Trading-Skills
 
-pip install -r requirements.txt   # pyyaml, numpy, pandas, scipy, pyotp
 python tools/validate_skills.py   # verifies structure & frontmatter (504/504 pass)
-python tools/run_all_tests.py     # runs the skill unit test suites
 ```
 
 Works immediately with Claude Code, GitHub Copilot, OpenAI Codex CLI, Cursor, Gemini CLI, and any agentskills.io-compatible platform.
@@ -94,9 +92,9 @@ The library covers 16 core engineering domains spanning domestic and global mark
 
 | Domain | Built | Total Tracked | Key capabilities |
 |---|---|---|---|
-| [`broker-integration`](skills/) | **36** | 36 | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting, borrow cost modeling, cost budgeting |
-| [`real-time-architecture`](skills/) | **31** | 31 | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket reconnection without duplicate subscriptions |
-| [`backtesting-methodology`](skills/) | **31** | 31 | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation, synthetic data generation, standardized tearsheets |
+| [`broker-integration`](skills/) | **20** | 20 | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting, borrow cost modeling, cost budgeting |
+| [`real-time-architecture`](skills/) | **30** | 30 | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket reconnection without duplicate subscriptions |
+| [`backtesting-methodology`](skills/) | **35** | 35 | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation, synthetic data generation, standardized tearsheets |
 | [`financial-ml`](skills/) | **38** | 38 | Leakage-free feature engineering, offline-train/online-infer deployment, triple barrier labeler, sample weighting, model staleness detection |
 | [`risk-management`](skills/) | **39** | 39 | Kill switches and drawdown circuit breakers, correlation-aware exposure limits, Kupiec test VaR backtesting, tail risk hedging, risk escalation matrices |
 | [`deployment-ops`](skills/) | **30** | 30 | systemd process supervision, paper-to-live promotion checklist, IaC for trading hosts, canary releases, chaos engineering, secrets vault |
@@ -111,7 +109,7 @@ The library covers 16 core engineering domains spanning domestic and global mark
 | [`quant-research-alt-data`](skills/) | **20** | 20 | Satellite imagery signals, credit card transaction data, web-scraped sentiment, supply chain networks, Google Trends, social media bot filtering, transcript NLP |
 | [`tax-accounting-reporting-global`](skills/) | **16** | 16 | US wash sale tracking, FIFO vs specific-lot accounting, Section 475 MTM election, crypto tax lot tracking, 1099-B reconciliation, Section 1256 futures tax |
 
-Full indexed list with build status: [`index.json`](index.json). Full 504-entry roadmap with one-line scope for every skill: [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md). For the reference system architecture these skills assume, see [`docs/architecture.md`](docs/architecture.md). Cross-cutting broker/exchange and regulatory coverage indexes: [`mappings/broker-api-coverage.md`](mappings/broker-api-coverage.md) and [`mappings/regulatory-coverage.md`](mappings/regulatory-coverage.md).
+Full indexed list with build status: [`index.json`](index.json). Full 504-entry roadmap with one-line scope for every skill: [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md).
 
 ---
 
@@ -188,7 +186,7 @@ license: Apache-2.0
 ## Related Skills       Cross-links to other skills in this repo.
 ```
 
-`tools/validate_skills.py` enforces this structure in CI (see `.github/workflows/validate-skills.yml`). Full contract: [`docs/skill-anatomy.md`](docs/skill-anatomy.md). Repo-wide terminology (lookahead bias, walk-forward validation, idempotency key, etc.): [`docs/glossary.md`](docs/glossary.md).
+`tools/validate_skills.py` enforces this structure in CI (see `.github/workflows/validate-skills.yml`).
 
 ---
 
