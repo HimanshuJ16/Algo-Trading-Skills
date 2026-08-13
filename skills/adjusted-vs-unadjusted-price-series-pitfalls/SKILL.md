@@ -1,7 +1,7 @@
 ---
 name: adjusted-vs-unadjusted-price-series-pitfalls
-description: Audits historical price and volume series for corporate action discontinuities
-  (splits/dividends) to prevent look-ahead bias and false signals in backtesting pipelines.
+description: Audit historical OHLCV series and corporate-action metadata for split, dividend, adjustment-mode, and continuity errors before backtesting.
+  Separates raw price-return, split-adjusted, and total-return semantics; it does not infer point-in-time vendor provenance from prices alone.
 domain: algorithmic-trading
 subdomain: backtesting-methodology
 tags:
@@ -14,37 +14,70 @@ tags:
 brokers_frameworks:
 - Price Adjustment Auditor
 - Python
-version: "1.1.0"
+version: "1.2.0"
 author: System
 license: MIT
 ---
 
 ## When to Use
 
-Invoke this skill when loading raw historical OHLCV data for backtesting. Mixing adjusted and unadjusted data, or using backward-adjusted dividend data, introduces severe look-ahead bias and false signals. A stock split in unadjusted data creates a phantom -50% price drop (triggering false momentum signals), while unadjusted volume breaks liquidity filters.
+Invoke this skill before loading historical OHLCV data into a backtest when corporate actions, vendor adjustment factors, or mixed price-series conventions may affect signals, returns, liquidity, or universe comparisons.
+
+Declare the intended `SeriesAdjustmentMode` explicitly:
+
+- `UNADJUSTED`: historical prices retain split and cash-dividend ex-date moves; model splits and dividends separately.
+- `SPLIT_ADJUSTED`: split history is normalized, while cash dividends remain explicit events unless the vendor contract says otherwise.
+- `TOTAL_RETURN_ADJUSTED`: split and dividend effects are embedded for return analysis; validate the factor methodology and point-in-time availability.
+- `UNKNOWN`: audit continuity and actions, but do not infer provenance merely because no discontinuity is found.
+
+## When NOT to Use
+
+- Do not infer vendor adjustment provenance from a smooth series alone; continuity is not evidence of correct adjustment factors.
+- Do not treat every ex-dividend price drop as look-ahead bias. A raw price series can legitimately drop by the cash dividend amount; the portfolio must separately receive the dividend.
+- Do not use a price-only audit to satisfy point-in-time or vendor-revision requirements. Those require as-of corporate-action snapshots and adjustment-factor history.
+- Do not apply split adjustment to data already adjusted by the vendor without recording the factor source and convention.
+- Do not use adjusted close as a substitute for executable OHLC, intraday prices, quotes, or volume without validating the vendor's field definitions.
 
 ## Prerequisites
 
-- Historical OHLCV series.
-- Corporate action event log (splits, dividends).
+- Historical dates, closes, volumes, and preferably actual next-session opens.
+- Corporate-action records with ISO dates, action type, and ratio convention: `SPLIT` ratio is post-split shares per pre-split share; `DIVIDEND` ratio is cash per share.
+- A declared `SeriesAdjustmentMode` and documented vendor/factor provenance.
+- A point-in-time policy for when corporate actions and adjustment factors become available to the backtest.
+- A tolerance policy for price, volume, and notional reconciliation.
 
 ## Workflow
 
-1. **Discontinuity Detection**: Scan for overnight price jumps $\ge 30\%$. 
-2. **Volume Consistency Check**: If a split is detected, verify that the volume series was scaled inversely. (e.g., if price drops by half, volume must double to preserve notional traded).
-3. **Adjustment Application**: 
-   - **Splits**: Apply backward-adjustment to both Price (divide by ratio) and Volume (multiply by ratio).
-   - **Dividends**: Flag as cash-inflow events (Total Return) rather than backward-adjusting historical prices, which prevents look-ahead bias.
+1. **Declare semantics**: Select `UNADJUSTED`, `SPLIT_ADJUSTED`, `TOTAL_RETURN_ADJUSTED`, or `UNKNOWN` before auditing. Do not let the auditor guess the series mode.
+2. **Validate inputs**: Confirm strictly increasing ISO dates, aligned lengths, finite positive prices, non-negative volumes, and valid corporate-action records.
+3. **Scan the correct boundary**: Provide `opens` so discontinuities are measured from prior close to next open. If opens are unavailable, the auditor uses the next close as a documented fallback.
+4. **Match actions**: Compare observed price ratios with split ratios or dividend amounts. For splits, compare volume scaling to the action ratio using the configured relative tolerance.
+5. **Interpret the report**:
+   - `is_consistent` means no detected discontinuity, not that adjustment provenance is proven.
+   - `unexplained_discontinuities` identifies jumps not explained by the declared mode and known actions.
+   - `has_look_ahead_bias_risk` is raised for dividend discontinuities that conflict with `TOTAL_RETURN_ADJUSTED`; point-in-time availability still requires an external audit.
+6. **Transform only with provenance**: Use `apply_split_adjustment` for a documented split ratio and index convention. It adjusts prices before the split by dividing by the ratio and volumes by multiplying by the ratio, without lossy rounding.
+7. **Validate the universe**: Run `validate_universe_consistency` and reject mixed declared series modes or incompatible detected types before calculating cross-asset signals.
+8. **Persist evidence**: Store raw data identifiers, action records, series mode, factor source/version, as-of timestamp, tolerance settings, audit report, and transformation parameters.
 
 ## Common Pitfalls
 
-- **Look-Ahead Bias via Dividends**: Using data where historical prices are backward-adjusted for dividends. This injects future yield information into past prices.
-- **Volume Neglect**: Adjusting price for a stock split but forgetting to multiply historical volume by the split ratio, breaking volume-weighted indicators.
-- **Double Adjustment**: Applying split factors to a series that the data vendor already adjusted.
+- **Close-to-close substitution**: Using a close value while labeling it `next_open` can miss overnight gaps and misclassify actions.
+- **Dividend semantic collapse**: Cash dividends, split-adjusted prices, and total-return prices answer different research questions.
+- **Ratio convention mismatch**: A `2.0` split means two post-split shares per old share; a `0.5` reverse split doubles historical prices under backward adjustment.
+- **Lossy rounding**: Rounding every adjusted bar to four decimals can accumulate tracking error in long histories and volume-weighted calculations.
+- **Multiple same-day actions**: A split and dividend can share an ex-date; a single action-per-date dictionary loses information.
+- **False provenance**: No detected jump does not prove a series is adjusted, correctly adjusted, or point-in-time safe.
 
 ## Verification
 
-Run the unit tests to verify that both price and volume are adjusted correctly, and that look-ahead bias warnings are generated for improper dividend handling.
+Run the focused tests:
+
+```text
+python -m unittest discover -s skills/adjusted-vs-unadjusted-price-series-pitfalls/scripts
+```
+
+The tests cover split and dividend semantics, close/open detection, total-return risk, no-jump ambiguity, forward and reverse splits, precision, multiple same-day actions, invalid inputs, and universe-mode consistency. Production sign-off additionally requires replaying vendor factors and comparing raw versus transformed price, volume, dividend, and total-return ledgers.
 
 ## Related Skills
 
