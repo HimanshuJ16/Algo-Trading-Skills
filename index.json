@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-13T17:18:16.212582+00:00",
+  "generated_at": "2026-08-13T17:38:33.209223+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1180,7 +1180,7 @@
     },
     {
       "name": "broker-api-changelog-diffing-tool",
-      "description": "Use when updating broker SDKs or API integrations to automatically diff release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals, renamed parameters, mutated enums, request body changes, and response model alterations before production deployment.",
+      "description": "Use when updating broker SDKs or API integrations to diff release-over-release OpenAPI schemas, resolving $ref models and detecting breaking endpoint removals, removed response codes and content types, requirement changes, direction-aware enum mutations, and type changes before production deployment.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1189,15 +1189,13 @@
         "schema-diffing",
         "openapi",
         "breaking-changes",
-        "ci-cd-security",
-        "quantitative-engineering"
+        "ci-cd"
       ],
       "brokers_frameworks": [
-        "Schema Diffing Engine",
-        "Python OpenAPI Parser",
-        "Quantitative Standards"
+        "OpenAPI 3.x",
+        "Swagger 2.0 (reference resolution only)"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-changelog-diffing-tool",
