@@ -1,3 +1,4 @@
+import itertools
 import threading
 import unittest
 
@@ -72,6 +73,44 @@ class TestDeployment(unittest.TestCase):
         snapshot.version = "spoofed"
         self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.IDLE)
         self.assertEqual(deployer.slots[SlotColor.GREEN].version, "")
+
+
+class TestRoutingAuthority(unittest.TestCase):
+    """
+    The execution layer gates every order submission on is_authorised_to_route.
+    If it ever authorises two slots, or none, live flow is either duplicated or
+    dropped.
+    """
+
+    def test_exactly_one_slot_is_authorised_before_and_after_cutover(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0, initial_version="v1.0")
+        self.assertTrue(deployer.is_authorised_to_route(SlotColor.BLUE))
+        self.assertFalse(deployer.is_authorised_to_route(SlotColor.GREEN))
+
+        deployer.deploy_to_inactive("v2.0", authorised_by="ops")
+        # Staging a version must not confer routing authority on its own.
+        self.assertFalse(deployer.is_authorised_to_route(SlotColor.GREEN))
+
+        deployer.cutover(authorised_by="ops")
+        self.assertTrue(deployer.is_authorised_to_route(SlotColor.GREEN))
+        # BLUE is DRAINING: it holds state for rollback but must not send orders.
+        self.assertFalse(deployer.is_authorised_to_route(SlotColor.BLUE))
+
+    def test_refused_cutover_leaves_routing_authority_with_the_live_slot(self):
+        deployer = BlueGreenDeployer(
+            state_sync_fn=lambda a, b: False, warmup_seconds=0.0, initial_version="v1.0"
+        )
+        deployer.deploy_to_inactive("v2.0", authorised_by="ops")
+        self.assertFalse(deployer.cutover(authorised_by="ops").success)
+
+        self.assertTrue(deployer.is_authorised_to_route(SlotColor.BLUE))
+        self.assertFalse(deployer.is_authorised_to_route(SlotColor.GREEN))
+
+    def test_rejects_non_slotcolor_argument(self):
+        """A truthy string must not be mistaken for an authorised slot."""
+        deployer = BlueGreenDeployer(warmup_seconds=0.0, initial_version="v1.0")
+        with self.assertRaises(TypeError):
+            deployer.is_authorised_to_route("BLUE")
 
 
 class TestCutover(unittest.TestCase):
@@ -261,6 +300,76 @@ class TestAuditTrail(unittest.TestCase):
         for record in deployer.deployment_history:
             self.assertGreater(record["timestamp"], 0)
 
+    def test_history_opens_with_the_version_that_was_already_live(self):
+        """
+        A history that begins at the first deployment cannot say what was running
+        before it, so a rollback to the pre-existing version is unidentifiable.
+        """
+        deployer = BlueGreenDeployer(warmup_seconds=0.0, initial_version="v1.0")
+
+        first = deployer.deployment_history[0]
+        self.assertEqual(first["action"], "INITIALIZE")
+        self.assertEqual(first["version"], "v1.0")
+        self.assertEqual(first["to"], "BLUE")
+        self.assertFalse(first["forced"])
+
+    def test_clean_rollback_is_not_flagged_as_forced(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0, initial_version="v1.0")
+        deployer.deploy_to_inactive("v2.0", authorised_by="ops")
+        deployer.cutover(authorised_by="ops")
+
+        self.assertTrue(deployer.rollback(authorised_by="risk-officer").success)
+
+        rollbacks = [r for r in deployer.deployment_history if r["action"] == "ROLLBACK"]
+        self.assertEqual(len(rollbacks), 1)
+        self.assertFalse(rollbacks[0]["forced"])
+
+    def test_forced_rollback_over_ineligible_target_is_marked_in_the_audit_trail(self):
+        """
+        Regression: a forced rollback whose state sync happened to succeed was
+        recorded as an ordinary successful rollback, so the override of the
+        target-eligibility guard left no trace for a post-incident review.
+        """
+        deployer = BlueGreenDeployer(warmup_seconds=0.0, initial_version="v1.0")
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.IDLE)
+
+        result = deployer.rollback(authorised_by="head-of-trading", force=True)
+
+        self.assertTrue(result.success)
+        self.assertIn("FORCED", result.message)
+        record = [r for r in deployer.deployment_history if r["action"] == "ROLLBACK"][-1]
+        self.assertTrue(record["forced"])
+        self.assertIn("target-eligibility", str(record["detail"]))
+        self.assertEqual(record["authorised_by"], "head-of-trading")
+
+    def test_forced_rollback_over_failed_sync_names_the_overridden_guard(self):
+        sync_ok = {"value": True}
+        deployer = BlueGreenDeployer(
+            state_sync_fn=lambda a, b: sync_ok["value"],
+            warmup_seconds=0.0,
+            initial_version="v1.0",
+        )
+        deployer.deploy_to_inactive("v2.0", authorised_by="ops")
+        deployer.cutover(authorised_by="ops")
+
+        sync_ok["value"] = False
+        self.assertTrue(deployer.rollback(authorised_by="risk-officer", force=True).success)
+
+        record = [r for r in deployer.deployment_history if r["action"] == "ROLLBACK"][-1]
+        self.assertTrue(record["forced"])
+        self.assertIn("state-reconciliation", str(record["detail"]))
+
+    def test_decommission_records_who_released_rollback_capability(self):
+        deployer = BlueGreenDeployer(warmup_seconds=0.0, initial_version="v1.0")
+        deployer.deploy_to_inactive("v2.0", authorised_by="ops")
+        deployer.cutover(authorised_by="ops")
+
+        deployer.decommission_standby(authorised_by="head-of-trading")
+
+        record = [r for r in deployer.deployment_history if r["action"] == "DECOMMISSION"][-1]
+        self.assertEqual(record["authorised_by"], "head-of-trading")
+        self.assertEqual(record["version"], "v1.0")
+
     def test_history_records_refused_operations(self):
         """A blocked rollback is exactly the event a post-incident review needs."""
         deployer = BlueGreenDeployer(warmup_seconds=0.0)
@@ -328,6 +437,62 @@ class TestConcurrency(unittest.TestCase):
 
         self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.LIVE)
         self.assertEqual(result["slot"].state, SlotState.LIVE)
+        abandoned = [r for r in deployer.deployment_history
+                     if r["action"] == "DEPLOY" and not r["success"]]
+        self.assertEqual(len(abandoned), 1)
+        self.assertIn("abandoned", str(abandoned[0]["detail"]))
+
+    def test_stale_health_result_cannot_land_on_a_redeployed_slot(self):
+        """
+        Regression: the post-warmup guard identified the slot by (state, version).
+        Decommissioning the standby and redeploying the *same* version while the
+        first attempt was still warming up produced two indistinguishable
+        deployments, letting the first attempt's stale (unhealthy) verdict be
+        stamped onto the second attempt's instance.
+        """
+        entered = [threading.Event(), threading.Event()]
+        release = [threading.Event(), threading.Event()]
+        counter = itertools.count()
+        counter_lock = threading.Lock()
+
+        def health(_):
+            with counter_lock:
+                i = next(counter)
+            if i > 1:
+                return True
+            entered[i].set()
+            release[i].wait(timeout=5)
+            return i == 1  # first attempt unhealthy, second healthy
+
+        deployer = BlueGreenDeployer(
+            health_check_fn=health, warmup_seconds=0.0, initial_version="v1.0"
+        )
+
+        first = threading.Thread(target=deployer.deploy_to_inactive, args=("v2.0",))
+        first.start()
+        self.assertTrue(entered[0].wait(timeout=5))
+
+        # Operator releases the standby and redeploys the same version while the
+        # first attempt is still blocked in its health check.
+        deployer.decommission_standby(authorised_by="ops")
+        second_result = {}
+
+        def redeploy():
+            second_result["slot"] = deployer.deploy_to_inactive("v2.0")
+
+        second = threading.Thread(target=redeploy)
+        second.start()
+        self.assertTrue(entered[1].wait(timeout=5))
+
+        release[0].set()   # stale attempt finishes first, carrying health=False
+        first.join(timeout=5)
+        release[1].set()
+        second.join(timeout=5)
+
+        self.assertEqual(deployer.slots[SlotColor.GREEN].state, SlotState.READY)
+        self.assertTrue(deployer.slots[SlotColor.GREEN].health_ok)
+        self.assertEqual(second_result["slot"].state, SlotState.READY)
+
         abandoned = [r for r in deployer.deployment_history
                      if r["action"] == "DEPLOY" and not r["success"]]
         self.assertEqual(len(abandoned), 1)

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-13T12:02:26.458024+00:00",
+  "generated_at": "2026-08-13T17:38:33.209223+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1087,19 +1087,18 @@
     },
     {
       "name": "blue-green-deployment-for-live-strategy-updates",
-      "description": "Institutional quant standards for zero-downtime, state-synchronized blue-green deployments for live trading systems.",
+      "description": "Use when updating a trading strategy that is already live and holding positions \u2014 staging the new version on a standby slot, health-checking it, synchronizing portfolio and open-order state, cutting over order routing atomically, and keeping a guarded rollback path \u2014 without a gap in market coverage or duplicate order risk.",
       "domain": "algorithmic-trading",
-      "subdomain": "general",
+      "subdomain": "deployment-ops",
       "tags": [
-        "trading",
-        "algo",
-        "skill"
+        "deployment-ops",
+        "blue-green",
+        "zero-downtime-cutover",
+        "rollback",
+        "state-synchronization"
       ],
-      "brokers_frameworks": [
-        "Python",
-        "Dataclasses"
-      ],
-      "version": "1.0.0",
+      "brokers_frameworks": [],
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/blue-green-deployment-for-live-strategy-updates",
@@ -1107,29 +1106,31 @@
     },
     {
       "name": "borsa-istanbul-api-integration",
-      "description": "Advanced institutional integration skill for Borsa Istanbul (BIST) via BISTECH FIX 5.0 SP2 and OUCH/ITCH protocols.",
-      "domain": "Execution",
-      "subdomain": "Venue Integration",
+      "description": "Use when routing orders to Borsa Istanbul (BIST) over the BISTECH platform via FIX 5.0 SP2 \u2014 modelling the order lifecycle, handling cancel request/confirm/reject correctly, and applying execution reports idempotently so resends and cancel races do not corrupt position state.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
       "tags": [
+        "broker-integration",
         "borsa-istanbul",
         "fix-protocol",
         "bistech",
-        "order-routing",
-        "market-data"
+        "order-lifecycle"
       ],
       "brokers_frameworks": [
-        "quickfix",
-        "bistech-api"
+        "BISTECH FIX 5.0 SP2",
+        "BISTECH OUCH",
+        "BISTECH ITCH",
+        "QuickFIX"
       ],
-      "version": "1.0.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/borsa-istanbul-api-integration",
       "skill_md": "skills/borsa-istanbul-api-integration/SKILL.md"
     },
     {
       "name": "broker-account-margin-call-handling",
-      "description": "Use when monitoring margin account health to calculate real-time maintenance margin ratios, enforce multi-tiered margin warning thresholds, evaluate predictive order impacts, and trigger automated liquidity-aware de-leveraging before broker forced liquidation.",
+      "description": "Use when monitoring margin account health to calculate real-time maintenance margin ratios, cross-check them against the broker's own excess-liquidity cushion, enforce multi-tiered margin warning thresholds, gate new orders on initial margin, and trigger liquidity-aware de-leveraging before broker forced liquidation.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1146,15 +1147,15 @@
         "Alpaca Margin API",
         "CME SPAN"
       ],
-      "version": "2.0.0",
-      "author": "quantitative-systems-engineer",
+      "version": "3.0.0",
+      "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-account-margin-call-handling",
       "skill_md": "skills/broker-account-margin-call-handling/SKILL.md"
     },
     {
       "name": "broker-agnostic-adapter-interface",
-      "description": "Use when designing quantitative trading systems to decouple strategy logic from broker APIs using a unified abstract adapter interface, standardized order models, and pluggable broker factories. This institutional-grade implementation utilizes precise Decimal arithmetic for all currency calculations, robust typed exceptions, and normalized cross-venue status mapping.",
+      "description": "Use when designing quantitative trading systems to decouple strategy logic from broker APIs using a unified abstract adapter interface, standardized order models, and pluggable broker factories. Enforces Decimal arithmetic at the boundary, typed exceptions, and cross-venue status normalization that reports an unrecognized broker status as UNKNOWN rather than guessing the order is live.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1163,15 +1164,15 @@
         "broker-agnostic",
         "trading-architecture",
         "order-routing",
-        "institutional-grade"
+        "status-normalization"
       ],
       "brokers_frameworks": [
-        "Zerodha Kite",
-        "Alpaca",
-        "Interactive Brokers",
-        "Upstox"
+        "Zerodha Kite Connect",
+        "Alpaca Trading API",
+        "Interactive Brokers TWS API",
+        "Upstox API"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-agnostic-adapter-interface",
@@ -1179,7 +1180,7 @@
     },
     {
       "name": "broker-api-changelog-diffing-tool",
-      "description": "Use when updating broker SDKs or API integrations to automatically diff release-over-release OpenAPI/JSON schemas, detecting breaking endpoint removals, renamed parameters, mutated enums, request body changes, and response model alterations before production deployment.",
+      "description": "Use when updating broker SDKs or API integrations to diff release-over-release OpenAPI schemas, resolving $ref models and detecting breaking endpoint removals, removed response codes and content types, requirement changes, direction-aware enum mutations, and type changes before production deployment.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1188,15 +1189,13 @@
         "schema-diffing",
         "openapi",
         "breaking-changes",
-        "ci-cd-security",
-        "quantitative-engineering"
+        "ci-cd"
       ],
       "brokers_frameworks": [
-        "Schema Diffing Engine",
-        "Python OpenAPI Parser",
-        "Quantitative Standards"
+        "OpenAPI 3.x",
+        "Swagger 2.0 (reference resolution only)"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-changelog-diffing-tool",
