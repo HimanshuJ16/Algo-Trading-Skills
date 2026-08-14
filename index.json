@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-13T17:38:33.209223+00:00",
+  "generated_at": "2026-08-14T17:10:58.591233+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1203,7 +1203,7 @@
     },
     {
       "name": "broker-api-deprecation-notice-monitoring",
-      "description": "Use when building production broker adapters to monitor HTTP deprecation headers (RFC 8594 / Sunset header) and developer changelog RSS feeds, alerting ops teams before API endpoint retirements break live trading bots. Highly robust implementation suitable for quantitative trading desks.",
+      "description": "Use when building production broker adapters to detect impending API endpoint retirements \u2014 parsing RFC 8594 Sunset headers, RFC 9745 Deprecation headers, RFC 8288 sunset/deprecation Link relations, and developer changelog feeds \u2014 so ops teams get a dated migration deadline before a live trading bot starts calling an endpoint that no longer answers.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1211,16 +1211,17 @@
         "deprecation-monitoring",
         "sunset-headers",
         "rfc-8594",
+        "rfc-9745",
         "changelog-parser",
-        "api-maintenance",
-        "quantitative-engineering"
+        "api-maintenance"
       ],
       "brokers_frameworks": [
-        "Deprecation Monitor",
-        "Python Requests",
-        "RFC 8594"
+        "RFC 8594 (Sunset header)",
+        "RFC 9745 (Deprecation header)",
+        "RFC 8288 (Web Linking)",
+        "Python Requests"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-deprecation-notice-monitoring",
@@ -1228,7 +1229,7 @@
     },
     {
       "name": "broker-api-idempotent-cancel-requests",
-      "description": "Use when managing order lifecycles to execute idempotent order cancel requests, handling Cancel-vs-Fill race conditions, network timeouts, 5xx server errors, and duplicate cancel retries without unhandled broker API exceptions.",
+      "description": "Use when cancelling live orders to de-duplicate cancel retries, classify Cancel-vs-Fill race responses, and distinguish a cancel the broker *acknowledged* from one it *completed* \u2014 so a timeout, 5xx, 429, or \"order not found\" is never mistaken for proof that a working order is dead.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1241,11 +1242,13 @@
         "concurrency"
       ],
       "brokers_frameworks": [
-        "Idempotent Cancel Manager",
-        "Python Trading Engine",
-        "FIX Protocol Concepts"
+        "FIX 4.4 (OrderCancelRequest 35=F / OrdStatus 39)",
+        "Alpaca Trading API",
+        "Binance Spot REST API",
+        "Zerodha Kite Connect v3",
+        "Python Trading Engine"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-idempotent-cancel-requests",
@@ -1253,21 +1256,25 @@
     },
     {
       "name": "broker-api-versioning-migration-playbook",
-      "description": "Institutional-grade playbook and automation for zero-downtime broker API version migrations.",
+      "description": "Use when moving a live trading system from one broker API version to the next \u2014 phase-gated shadow reads, deterministic per-order canary routing that survives retries and replicas, latched rollback, and a translator that refuses to silently change an order's time-in-force or invent a target-version field.",
       "domain": "algorithmic-trading",
-      "subdomain": "general",
+      "subdomain": "broker-integration",
       "tags": [
-        "trading",
-        "infrastructure",
+        "broker-integration",
         "api-migration",
-        "devops",
-        "quantitative-engineering"
+        "canary-deployment",
+        "shadow-traffic",
+        "schema-drift",
+        "rollback",
+        "deployment-ops"
       ],
       "brokers_frameworks": [
-        "Python",
-        "Dataclasses"
+        "Coinbase Advanced Trade API (CreateOrder)",
+        "MiFID II RTS 6 (Reg (EU) 2017/589)",
+        "SEC Rule 15c3-5",
+        "Python Trading Engine"
       ],
-      "version": "1.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-api-versioning-migration-playbook",
@@ -1275,19 +1282,26 @@
     },
     {
       "name": "broker-failover-secondary-account-routing",
-      "description": "Institutional-grade circuit breaker and failover router for high-availability algorithmic trading systems.",
+      "description": "Use when routing live orders to a backup broker account after the primary degrades \u2014 classifying which failures are safe to fail over, refusing to re-send an order that may already be working, keeping terminal rejections off the second account, and pinning position-reducing orders to the account that actually holds the position.",
       "domain": "algorithmic-trading",
-      "subdomain": "general",
+      "subdomain": "broker-integration",
       "tags": [
-        "trading",
-        "algo",
-        "skill"
+        "broker-integration",
+        "failover",
+        "circuit-breaker",
+        "high-availability",
+        "duplicate-order-prevention",
+        "position-integrity",
+        "resilience"
       ],
       "brokers_frameworks": [
-        "Python",
-        "Dataclasses"
+        "Binance Spot REST API",
+        "RFC 9110 (503 / Retry-After)",
+        "SEC Regulation SHO (17 CFR 242.200/203)",
+        "SEC Rule 15c3-5",
+        "MiFID II RTS 6 (Reg (EU) 2017/589)"
       ],
-      "version": "1.1.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-failover-secondary-account-routing",
@@ -1295,7 +1309,7 @@
     },
     {
       "name": "broker-margin-interest-accrual-tracking",
-      "description": "Institutional-grade margin interest and short borrow fee tracker. Uses progressive blended rate schedules (e.g. IBKR style), accounts for 360-day vs 365-day conventions, applies weekend T+1/T+2 compounding rules, and deducts cost of leverage and borrow from net P&L.",
+      "description": "Use when accounting for the financing cost of leveraged or short positions \u2014 margin loan interest on tiered blended rate schedules, short borrow fees on collateral value, 360 vs 365 day-count conventions, calendar-day accrual across weekends and holidays \u2014 and deducting that cost from gross P&L to get a net figure a backtest can be trusted on.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1312,7 +1326,7 @@
         "Python PnL Accounting",
         "Interactive Brokers"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-margin-interest-accrual-tracking",
