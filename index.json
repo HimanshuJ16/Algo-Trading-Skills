@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-14T17:10:58.591233+00:00",
+  "generated_at": "2026-08-20T07:24:45.294475+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1334,7 +1334,7 @@
     },
     {
       "name": "broker-order-type-capability-matrix",
-      "description": "Use when building multi-broker quantitative trading systems to maintain a capability matrix of native order types (Bracket, OCO, Trailing Stop, Iceberg, PEG, TWAP, VWAP) supported by each broker, and synthesize software-emulated order triggers (via local EMS) when native support is missing.",
+      "description": "Use when building multi-broker quantitative trading systems to maintain a capability matrix of native order types (Bracket, OCO, Trailing Stop, Iceberg, PEG, TWAP, VWAP) supported by each broker, and synthesize software-emulated order triggers (via local EMS) when native support is missing. Conserves the parent quantity exactly across synthesized slices and rejects exit legs placed on the wrong side of the market rather than routing an order that triggers instantly.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1347,10 +1347,12 @@
         "execution-algorithms"
       ],
       "brokers_frameworks": [
-        "Multi-Broker Capability Matrix",
-        "Python Order Synthesizer"
+        "Interactive Brokers TWS API",
+        "Alpaca Trading API",
+        "Zerodha Kite Connect",
+        "Binance Spot API"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-order-type-capability-matrix",
@@ -1358,7 +1360,7 @@
     },
     {
       "name": "broker-side-order-throttle-detection",
-      "description": "Use when operating high-frequency or high-volume trading bots to measure order acknowledgment round-trip latency (ACK RTT), detect silent broker-side order throttling during market volatility using Exponentially Weighted Moving Average (EWMA) and Variance (EWMVar), and dynamically back off order dispatch using an AIMD congestion control engine.",
+      "description": "Use when a bot's broker does not signal congestion explicitly, to detect undeclared broker-side order throttling from acknowledgment round-trip latency (ACK RTT) using an exponentially weighted mean and variance baseline plus an acknowledgment timeout sweep, and to pace order dispatch with AIMD backoff.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1371,10 +1373,12 @@
         "ewma-anomaly-detection"
       ],
       "brokers_frameworks": [
-        "Broker Throttle Detector",
+        "Interactive Brokers TWS API",
+        "Interactive Brokers Web API",
+        "Binance Spot REST API",
         "Python High-Frequency Engine"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-side-order-throttle-detection",
@@ -1382,7 +1386,7 @@
     },
     {
       "name": "broker-status-page-monitoring-integration",
-      "description": "Use when building automated incident response and alerting systems to monitor public broker status pages and status APIs (e.g. Statuspage.io endpoints), distinguishing external broker platform outages from internal strategy bugs.",
+      "description": "Use when building automated incident response and alerting for trading bots to poll public broker status pages and status APIs (Atlassian Statuspage v2 `/api/v2/summary.json` endpoints) and decide whether an execution failure is a broker-side outage or a bug in your own code. Requires positive, fresh evidence before it will suppress a bug ticket or escalate one, and returns an explicit undetermined verdict when the status feed is stale, unreachable or merely ambiguous.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -1394,10 +1398,11 @@
         "health-checks"
       ],
       "brokers_frameworks": [
-        "Statuspage.io API",
-        "Python Status Monitor"
+        "Atlassian Statuspage Status API v2",
+        "Alpaca Status Page",
+        "Coinbase Status Page"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/broker-status-page-monitoring-integration",
@@ -1405,21 +1410,23 @@
     },
     {
       "name": "bursa-malaysia-api-integration",
-      "description": "Institutional-grade FIX 5.0 SP1 engine for Bursa Malaysia BTS2 (Bursa Trade Securities 2) trading gateway integration.",
-      "domain": "Execution",
-      "subdomain": "Venue Integration",
+      "description": "Use when routing orders to Bursa Malaysia's BTS2 (Bursa Trade Securities 2) gateway over FIXT.1.1 / FIX 5.0 SP1 \u2014 enforcing the ClOrdID uniqueness BTS2 itself does not check, modelling cancel request/confirm/reject instead of assuming a cancel succeeded, applying execution reports idempotently, and matching broker codes and boards to the FIXTRADER or FIXNEGDEAL connection type.",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
       "tags": [
+        "broker-integration",
         "bursa-malaysia",
         "fix-protocol",
         "bts2",
-        "order-routing",
-        "asian-equities"
+        "order-lifecycle"
       ],
       "brokers_frameworks": [
-        "Bursa Malaysia BTS2",
-        "FIX 5.0 SP1"
+        "Bursa Malaysia BTS2 FIX (Order Management)",
+        "Bursa Direct Access (BDA)",
+        "FIXT.1.1 / FIX 5.0 SP1",
+        "Nasdaq X-stream"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/bursa-malaysia-api-integration",
@@ -1427,7 +1434,7 @@
     },
     {
       "name": "bybit-derivatives-api-integration",
-      "description": "Institutional-grade Bybit V5 API integration handling HMAC-SHA256 signature generation, NTP timestamp compliance, and REST rate limit tracking.",
+      "description": "Use when signing Bybit V5 REST requests directly instead of through an SDK, to build the HMAC-SHA256 signature over the exact bytes transmitted, keep the timestamp inside Bybit's asymmetric acceptance window, pace against the per-UID and per-IP rate limits separately, and make an order retry safe with orderLinkId.",
       "domain": "Execution",
       "subdomain": "Venue Integration",
       "tags": [
@@ -1435,12 +1442,14 @@
         "crypto-derivatives",
         "v5-api",
         "hmac-sha256",
-        "rate-limiting"
+        "rate-limiting",
+        "request-signing",
+        "order-idempotency"
       ],
       "brokers_frameworks": [
         "Bybit V5 REST"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/bybit-derivatives-api-integration",
