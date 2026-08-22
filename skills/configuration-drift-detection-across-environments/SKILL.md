@@ -1,47 +1,100 @@
 ---
 name: configuration-drift-detection-across-environments
-description: Quantitative infrastructure module for auditing configuration drift across
-  trading environments (DEV, STAGING, PROD) against a Golden Source baseline using
-  allowed-override rules and severity scoring.
-domain: Infrastructure
-subdomain: DevOps & Configuration Management
+description: Use when a trading configuration must be proven identical to an approved
+  Golden Source before it goes live — auditing DEV/STAGING/PROD/CANARY config trees for
+  missing keys, changed values and silent type coercion, separating legitimate
+  environment overrides from risk-parameter drift, and blocking startup or CI/CD
+  promotion when critical drift is found.
+domain: algorithmic-trading
+subdomain: deployment-ops
 tags:
 - configuration-drift
-- devops
-- gitops
+- deployment-ops
 - env-parity
 - golden-source
-- audit
+- pre-trade-gate
 - risk-control
-brokers_frameworks:
-- Generic Infrastructure
-- Python Dataclasses
-version: "1.0.0"
+brokers_frameworks: []
+version: "1.1.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Use this skill in CI/CD deployment pipelines or pre-trade startup routines to verify environment parity across trading hosts (`DEV`, `STAGING`, `PROD`, `CANARY`). Unintended configuration drift (e.g., a developer changing `max_drawdown_stop_pct` in staging and accidentally deploying it to production, or mismatched API endpoints) is a major root cause of quantitative trading outages. This module compares target configs against a Golden Source baseline, accounting for allowed environment-specific overrides.
+Invoke this skill when a configuration tree is about to take effect in an environment
+that can send orders, and you need positive evidence that it matches the baseline someone
+actually approved. The failure it prevents is specific: a risk parameter edited in
+staging for a debugging session and carried into production, a `broker_endpoint` still
+pointing at sandbox after a promotion, a `max_order_usd` that arrived as the string
+`"100000"` and silently disabled a numeric comparison downstream.
+
+Use it in two places, not one: as a CI/CD gate before an artifact is promoted, and again
+during process initialization before the trading socket opens. The first catches the
+mistake earlier; the second is the one that actually protects live capital, because it
+runs on the host and against the file the engine will really read.
+
+Do **not** use it when:
+
+- **The two environments are supposed to differ structurally.** This detector compares
+  one tree against one baseline. A research sandbox with a different schema entirely will
+  produce noise, not signal — see `research-environment-vs-production-environment-parity`
+  for that comparison.
+- **You need to know what changed over time in one environment.** This is a two-way
+  comparison at a point in time, not a change log. Use
+  `audit-logging-for-configuration-changes` for the who/when/why record.
+- **You have not decided which config is authoritative.** If two candidate baselines
+  exist, the audit result is arbitrary. Designate the Golden Source first
+  (`reference-data-golden-source-designation`).
+- **What you actually need is approval workflow.** Detecting that a risk limit drifted is
+  not the same as governing who may change it; see
+  `risk-control-configuration-change-approval-workflow`.
+- **The value you care about is not in the config file.** A limit injected at runtime by
+  a feature-flag service or mutated by an operator after startup is invisible to this
+  audit, which compares configuration to configuration.
 
 ## Prerequisites
 
-- Golden Source configuration (e.g. `prod_baseline.json` or GitOps main config).
-- Target environment configuration dictionary or file.
-- List of whitelisted environment-specific key overrides (`allowed_overrides`).
+- A single designated Golden Source configuration tree, version-controlled, loaded as a
+  dict.
+- The target environment configuration, loaded from the same source the trading process
+  will actually read — not a copy prepared for the audit.
+- An explicit override policy, split two ways:
+  - `allowed_overrides` — connectivity, naming and logging keys that legitimately differ
+    (`env_name`, `api_url`, `broker_endpoint`, `log_level`, `port`, `host`, `db_name`).
+    Pass an empty set for zero-tolerance auditing.
+  - `protected_keys` — risk-control parameters that may never be whitelisted. The
+    built-in `DEFAULT_PROTECTED_KEYS` is a starting point keyed on leaf name; extend it
+    with the risk parameters your own schema uses.
+- A caller that treats `is_compliant is False` as a hard stop, with the authority to fail
+  the pipeline or abort startup.
 
 ## Workflow
 
-1. **Baseline Ingestion**: Load the Golden Source configuration tree.
-2. **Target Ingestion**: Load the target environment configuration tree.
-3. **Recursive Drift Audit**:
-   - Compare nested keys and values recursively.
-   - Categorize differences:
-     - `ALLOWED`: Keys in `allowed_overrides` (e.g. `api_url`, `env_name`, `log_level`).
-     - `WARNING`: Extra non-critical keys present in target.
-     - `CRITICAL`: Missing required keys or value mismatches in core risk/trading parameters (e.g. `max_order_usd`, `position_limit`, `kill_switch_enabled`).
-4. **Validation Enforcement**: Return boolean pass/fail (`is_compliant`). If `CRITICAL` drift exists, block deployment / prevent trading engine startup.
+1. **Ingest both trees.** Load `golden_baseline` and `target_config` as dicts. Non-dict
+   input raises `TypeError` rather than being audited partially.
+2. **Flatten to dot-separated paths.** Nested dicts collapse to `system.api_url`. Two
+   distinct keys that flatten to the same path (a literal `"a.b"` alongside a nested
+   `{"a": {"b": ...}}`) raise `ValueError` — one branch would otherwise be dropped from
+   the audit and real drift could surface as a PASS. An empty nested dict is kept as a
+   leaf so a whole missing section is still reported.
+3. **Classify every key in the union of both trees:**
+   - Key in baseline, **missing** from target → `CRITICAL`. This holds even for
+     whitelisted keys: an override may change a value, not delete a setting the engine
+     expects to read.
+   - Value or type differs on a **protected** key → `CRITICAL`, regardless of the
+     whitelist.
+   - Value or type differs on a **whitelisted, non-protected** key → `ALLOWED`.
+   - Value or type differs otherwise → `CRITICAL`.
+   - Key in target, **absent** from baseline → `WARNING`.
+4. **Decide.** `critical_drift_count > 0` sets `is_compliant = False`. Block the
+   promotion or abort initialization before the socket opens — do not connect first and
+   alert afterwards. On a compliant report with warnings, proceed but route the WARNING
+   items to human review.
+5. **Record.** Persist `report.drift_items` to the deployment audit log alongside the
+   authorizing person. For firms in scope of MiFID II RTS 6 this record supports the
+   Art. 5(7) and Art. 11 obligations — see `references/standards.md` for what those
+   articles do and do not require.
 
 > Full procedure: see `references/workflows.md`.
 > Standards reference: see `references/standards.md`.
@@ -49,17 +102,52 @@ Use this skill in CI/CD deployment pipelines or pre-trade startup routines to ve
 
 ## Common Pitfalls
 
-- **Hardcoding Allowed Overrides**: Forgetting to whitelist environment-specific parameters like IP addresses or database URLs, causing constant false-positive alarms.
-- **Ignoring Type Mismatches**: Failing to detect type coercion drift (e.g. `max_order_qty` configured as string `"100"` instead of integer `100`).
-- **Post-Startup Auditing**: Running config drift checks only after trading has started. Drift checks MUST run pre-trade during process initialization.
+- **Whitelisting a risk parameter to silence a noisy alert.** Adding `max_position_size`
+  to `allowed_overrides` does not fix the drift; it disables the gate on exactly the
+  value the gate exists to protect. The detector refuses this at construction time, but
+  the same instinct reappears as "let me just widen `protected_keys`'s exceptions" —
+  resolve the drift instead.
+- **Assuming an empty whitelist means strict.** It does now, and that is a fix, not a
+  given: this detector previously treated `allowed_overrides=set()` as falsy and
+  substituted the permissive built-in default, turning the strictest possible request
+  into the loosest available policy. If you have forked or reimplemented this pattern,
+  check that line.
+- **Reading a PASS as "the environments are identical."** Extra keys in the target are
+  `WARNING` and never block, because the baseline cannot know what a legitimately-added
+  key means. A config with an unreviewed extra flag passes this audit.
+- **Whitelisting by bare leaf name when you meant one section.** `api_url` in
+  `allowed_overrides` whitelists that name *everywhere* in the tree, including under a
+  section you never intended to relax. Use the exact path `system.api_url` when the
+  override should be scoped.
+- **Ignoring type coercion drift.** `max_order_qty` as the string `"100"` instead of the
+  integer `100` compares as drift here precisely because it will not compare as a number
+  downstream. Do not "fix" a type-mismatch alert by relaxing the comparison.
+- **Post-startup auditing.** Running the check after the trading engine is live reports a
+  breach rather than preventing one.
+- **Auditing a file the engine never opens.** A pipeline that audits `prod_baseline.json`
+  from the repo while the host loads a locally-templated config proves nothing about the
+  host.
 
 ## Verification
 
-- Instantiate `ConfigurationDriftDetector`. Feed a Golden Source config and a PROD target config with a modified `max_order_usd` parameter ($100,000$ vs $1,000,000$). Verify that the detector flags `CRITICAL` drift and fails compliance (`is_compliant = False`). Whitelist `api_endpoint` and verify it is logged as an `ALLOWED` override.
-- Run `python scripts/test_config_drift_detector.py`.
+- Instantiate `ConfigurationDriftDetector` with `allowed_overrides={"api_url"}`. Feed a
+  Golden Source config and a target whose `max_order_usd` is 1,000,000 against a baseline
+  of 100,000: the report must show `CRITICAL` severity, the description must name it as a
+  protected risk-control parameter, and `is_compliant` must be `False`. Change only
+  `api_url` instead: `allowed_override_count` must be 1 and `is_compliant` `True`.
+- Confirm the gate cannot be disabled: `ConfigurationDriftDetector(allowed_overrides={"max_position_size"})`
+  must raise `ValueError`.
+- Confirm zero tolerance is honoured: `ConfigurationDriftDetector(allowed_overrides=set())`
+  must flag a `broker_endpoint` change as `CRITICAL`, not `ALLOWED`.
+- Run `python -m unittest discover -s skills/configuration-drift-detection-across-environments/scripts`
+  (28 tests), or `python scripts/test_config_drift_detector.py` from within the scripts
+  directory.
 
 ## Related Skills
 
 - `research-environment-vs-production-environment-parity`
+- `environment-parity-dev-staging-production`
 - `blue-green-deployment-for-live-strategy-updates`
----
+- `audit-logging-for-configuration-changes`
+- `risk-control-configuration-change-approval-workflow`
+- `reference-data-golden-source-designation`

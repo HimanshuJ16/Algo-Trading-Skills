@@ -1,8 +1,8 @@
 ---
 name: close-auction-participation-strategy
-description: Quantitative execution strategy for parsing Net Order Imbalance Indicator
-  (NOII) feed data and placing contra-side Limit-On-Close (LOC) / Imbalance-Only (IO)
-  orders before exchange cutoff times.
+description: Quantitative execution strategy for parsing closing-auction imbalance
+  feeds (Nasdaq NOII, NYSE closing imbalance publication) and placing venue-compliant
+  contra-side Limit-On-Close (LOC) orders before exchange entry cutoffs.
 domain: Execution Algorithms
 subdomain: Auction Mechanics
 tags:
@@ -13,49 +13,65 @@ tags:
 - imbalance
 - execution-algo
 brokers_frameworks:
-- Nasdaq NOII
-- NYSE Closing Auction
+- Nasdaq TotalView-ITCH 5.0 (NOII)
+- NYSE Closing Auction (Rule 7.35B)
 - Generic Execution
-version: "1.0.0"
+version: "2.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Use this skill when participating in exchange closing auctions (e.g., Nasdaq Closing Cross, NYSE Closing Auction) to capture liquidity or execute large portfolio rebalance orders with minimal market impact. The strategy processes the Net Order Imbalance Indicator (NOII) data stream (paired shares, imbalance shares, imbalance direction, far/near indicative prices) to calculate optimal Limit-On-Close (LOC) or Imbalance-Only (IO) order parameters before hard exchange regulatory cutoffs (e.g., 3:50 PM / 3:55 PM ET).
+Use this skill when participating in a US equity closing auction (Nasdaq Closing Cross, NYSE Closing Auction) to provide contra-side liquidity against a published imbalance, or to execute a rebalance order at the official closing price with price protection. The strategy consumes closing-auction imbalance data (paired shares, imbalance shares, imbalance side, near/far indicative clearing prices) and derives a Limit-On-Close (LOC) order that is legal to enter at the intended submission time.
+
+**Do NOT use it** for the opening cross (see `opening-auction-imbalance-based-execution`), for halt/IPO crosses or the Extended Trading Close (different order types and cutoffs — the strategy rejects those NOII cross types), or as a way to *take* liquidity in the same direction as an imbalance. It is also not a substitute for a venue order-entry gateway: it produces order parameters, it does not submit or cancel orders.
 
 ## Prerequisites
 
-- Access to exchange NOII (Net Order Imbalance Indicator) or equivalent auction feed data.
-- System clock synchronized via PTP to prevent submitting orders after exchange cutoff times.
+- A closing-auction imbalance feed: Nasdaq TotalView-ITCH NOII message (type `I`, Cross Type `C`) or the NYSE closing imbalance publication.
+- Timezone-aware timestamps. The module converts everything to `America/New_York` and **rejects naive datetimes** — a naive UTC timestamp compared against an ET cutoff is how orders get sent after the deadline.
+- System clock synchronized (PTP/NTP), because every gate in this skill is a wall-clock deadline (see `clock-synchronization-ptp-for-trading-hosts`).
+- Knowledge of which venue's rules apply — the listing venue's cutoffs, not your broker's, govern acceptance.
 
 ## Workflow
 
-1. **Feed Ingestion**: Receive real-time NOII updates (paired shares, imbalance shares, imbalance side, far price, near price).
-2. **Imbalance Analysis**: Calculate net imbalance ratio: $\text{Imbalance Ratio} = \frac{\text{Imbalance Shares}}{\text{Paired Shares} + \text{Imbalance Shares}}$.
-3. **Cutoff Guard**: Check time relative to the regulatory cutoff (e.g. 3:55 PM ET for Nasdaq MOC/LOC entry).
-4. **Order Sizing & Pricing**:
-   - If providing liquidity (contra-side), place a Limit-On-Close (LOC) order opposing the imbalance direction.
-   - Price the LOC order conservatively at or inside the Far Indicative Price to ensure execution while providing price improvement.
-5. **Execution Verification**: Verify order receipt and lock-in prior to final cross execution at 4:00 PM ET.
+1. **Feed ingestion**: Parse the imbalance message into `NoiiMessage`. Discard anything whose `cross_type` is not `C`; an opening or halt-cross NOII carries different semantics.
+2. **Imbalance analysis**: Compute the ratio with `imbalance_ratio(paired_shares, imbalance_shares)` = imbalance / (paired + imbalance). It returns `0.0` on an empty book rather than dividing by zero. Screen with `min_imbalance_shares` / `min_imbalance_ratio` so noise imbalances do not trigger orders.
+3. **Entry-window gate** — this is venue-specific, not a single "3:55 cutoff":
+   - **Nasdaq**: MOC entry ends at 15:55 ET, LOC entry at 15:58 ET. An LOC entered from 15:55 onward may be re-priced to the 15:50/15:55 Reference Price, and is rejected outright if no 15:55 Reference Price exists — the returned order flags this as `late_entry_reprice_risk`.
+   - **NYSE**: unconditional MOC/LOC entry ends at 15:50 ET. From 15:50 to 16:00 only orders contra to a **published** MOC/LOC Significant Imbalance are accepted, so set `significant_imbalance_published=True` only when the venue has actually published one.
+   - Both venues freeze cancel/modify of on-close orders at 15:50 ET. Check `can_cancel_or_modify(now)` before assuming an order can be pulled.
+   - Gate on the *submission* time, not the feed timestamp: pass `submission_time` so feed lag plus `safety_buffer_seconds` cannot push the order past the cutoff. An observation older than `max_message_age_seconds` at submission is refused as stale.
+4. **Pricing**: Derive the limit from the chosen `price_basis`. The Far price is the clearing price of the auction-only book; the Near price includes the continuous book. A **non-positive far/near price means the venue has not disseminated one** — Nasdaq publishes no indicative clearing price for the closing cross before 15:55 ET — and the strategy refuses to price an order rather than submitting a $0.00 limit. `price_concession_bps` trades price improvement for fill probability, and limits are rounded away from the aggressive side at `tick_size`.
+5. **Sizing**: Quantity is the floor of the smallest of `max_participation_pct × imbalance_shares`, `max_auction_volume_pct × (paired + imbalance)`, and the caller's `target_qty`.
+6. **Post-cross reconciliation**: Match execution reports after the 16:00 cross against the official closing price (NOCP / NYSE Official Closing Price) and attribute any unfilled LOC quantity as opportunity cost.
 
 > Full procedure: see `references/workflows.md`.
-> Standards reference: see `references/standards.md`.
+> Standards and rule citations: see `references/standards.md`.
 > Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Missing the Regulatory Cutoff**: Submitting or modifying MOC/LOC orders after the strict exchange cutoff (e.g., 3:50 PM ET for NYSE or 3:55 PM ET for Nasdaq). Late orders are automatically rejected by the exchange.
-- **Ignoring Far vs. Near Price**: Using the continuous market price instead of the Near/Far Indicative Clearing Price. Near price includes continuous market orders; Far price includes auction-only orders. Misinterpreting these leads to bad pricing.
-- **Sweeping Toxic Flow**: Placing unpriced MOC orders on the same side as a massive institutional imbalance, incurring severe adverse selection at the close.
+- **Assuming one cutoff time for all venues**: there is no universal 3:55 PM deadline. Nasdaq MOC 15:55 / LOC 15:58, NYSE 15:50 (contra-side to a published imbalance until 16:00). Hard-coding one number either rejects legal orders or sends rejected ones.
+- **Pricing off a far/near price that was never disseminated**: Nasdaq sends no Near/Far Indicative Clearing Price for the closing cross before 15:55 ET. A naive parser reads the unsigned ITCH price field as `0` and submits a limit of $0.00. Treat any non-positive indicative price as *absent*.
+- **Comparing naive timestamps to an ET cutoff**: a UTC-stamped feed at 20:56Z is 15:56 ET, but compared raw it looks like it is well past every cutoff (or, in the other direction, safely before one). Always convert.
+- **Checking the cutoff against the feed timestamp**: the deadline applies to when the exchange *receives* the order. Budget for feed lag, strategy latency and broker hops with `safety_buffer_seconds`.
+- **Acting on a stalled feed**: closing-cross imbalance data updates every 1–10 seconds. If the last observation is minutes old the book has moved on, and sizing against it commits capital to an imbalance that may no longer exist — `max_message_age_seconds` blocks that.
+- **Forgetting the 15:50 cancel/modify freeze**: after 15:50 the contra-side order cannot be pulled on either venue. Size it as capital you are committed to trading at an unknown cross price.
+- **Trading an imbalance that isn't one**: ITCH imbalance direction `O` means "insufficient orders to calculate" and `P` means the security is paused; neither is a tradable side.
+- **Adding to the imbalance**: an unpriced MOC on the same side as a large institutional imbalance takes the worst of the cross print. This strategy is deliberately contra-side and always limit-priced.
 
 ## Verification
 
-- Feed a mock NOII stream with a 100,000 share BUY imbalance. Verify that `CloseAuctionParticipationStrategy` places a contra-side (SELL) LOC order priced at the Far Indicative Price, and rejects any order attempt after the 3:55 PM cutoff.
-- Run `python scripts/test_close_auction_participation_strategy.py`.
+- Run `python -m unittest discover -s skills/close-auction-participation-strategy/scripts`.
+- Feed a Nasdaq NOII with a 100,000-share buy imbalance and 500,000 paired shares at 15:56 ET: expect a `SELL` LOC for 10,000 shares (10% of the imbalance) priced at the far indicative price, with `imbalance_ratio ≈ 0.1667`.
+- Feed the same message at 15:52 ET: expect no order and reason `INDICATIVE_PRICE_UNAVAILABLE` (Nasdaq has not published a far price yet). At 15:58 ET expect `PAST_ENTRY_CUTOFF`.
+- Feed it with `venue=AuctionVenue.NYSE` at 15:52 ET: expect `ENTRY_FROZEN_NO_PUBLISHED_IMBALANCE` unless `significant_imbalance_published=True`.
 
 ## Related Skills
 
 - `auction-only-order-types-for-illiquid-names`
+- `opening-auction-imbalance-based-execution`
 - `clock-synchronization-ptp-for-trading-hosts`
+- `minimum-fill-size-and-lot-rounding-logic`

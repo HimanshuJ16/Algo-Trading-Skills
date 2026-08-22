@@ -15,59 +15,98 @@ tags:
 - monitoring
 brokers_frameworks:
 - NumPy
-- Pandas
-- Scikit-Learn
-version: "1.0.0"
+- SciPy
+version: "2.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Use this skill when monitoring live machine learning strategies whose predictive performance ($R^2$, directional accuracy, Sharpe ratio) begins to degrade. Simply triggering a full model retrain upon performance drop is inefficient and can be harmful if the degradation is caused by **stale data feeds** (pipeline timestamp lag) or simple **covariate shift** ($P(X)$ shift). This module isolates whether the root cause is **Data Staleness**, **Covariate Shift**, or true **Concept Drift** (structural alpha decay where $P(Y|X)$ changes).
+Use this skill when a live ML trading signal's predictive performance ($R^2$, directional accuracy, Sharpe) degrades and you must decide **what to fix** before you spend anything fixing it. The three plausible root causes call for three different, mutually exclusive remediations:
+
+| Root cause | What changed | Remediation |
+|---|---|---|
+| `DATA_STALENESS` | Nothing about the market. The feature pipeline is replaying old values. | Fix the pipeline. **Do not retrain** — the model has not been shown to be at fault. |
+| `COVARIATE_SHIFT` | $P(X)$ moved; $P(Y \mid X)$ intact. The model is extrapolating. | Refit on the updated input distribution. |
+| `CONCEPT_DRIFT` | $P(Y \mid X)$ itself moved. The alpha decayed. | Re-specify features, shorten the lookback, or retire the strategy. Refitting the same feature set rarely recovers the edge. |
+
+Terminology follows Moreno-Torres et al. (2012) — see `references/standards.md`.
+
+## When NOT to Use
+
+- **As a kill switch.** This returns a classification, not an action. Halting the strategy, cancelling working orders and flattening positions belong to `kill-switch-and-drawdown-circuit-breakers`.
+- **As a continuous staleness monitor.** It compares two timestamps you supply. Tracking feature age continuously across a multi-source feed is `model-staleness-detection`.
+- **On classification models where the target distribution moved.** Prior probability shift ($P(Y)$ changing with $P(X \mid Y)$ fixed) is a fourth regime this module does not separate; it will surface as an elevated error ratio and be labelled `CONCEPT_DRIFT`.
+- **On windows smaller than ~100 observations.** PSI's distributional properties are not established below that (see `references/standards.md`); the module returns `INSUFFICIENT_DATA` rather than a number you should not trust.
+- **As an automatic retraining trigger.** `recommended_action` is advisory text for a human or a governed pipeline, not an instruction to execute.
 
 ## Prerequisites
 
-- Reference feature matrix $X_{ref}$ (training set) and current production feature matrix $X_{curr}$.
-- Reference target residuals $e_{ref} = \hat{Y}_{ref} - Y_{ref}$ and current residuals $e_{curr}$.
-- Current feature timestamp $T_{feat}$ and system evaluation timestamp $T_{sys}$.
+- Reference feature matrix $X_{ref}$ (training window) and current production matrix $X_{curr}$, `(observations, features)`, same feature set in the same order. Observation counts may differ.
+- Reference residuals $e_{ref} = \hat{Y}_{ref} - Y_{ref}$ and current residuals $e_{curr}$, both computed **out-of-sample** — in-sample reference residuals understate `mse_ref` and inflate every subsequent ratio.
+- Feature timestamp $T_{feat}$ and evaluation timestamp $T_{sys}$, in the **same clock domain and the same units (epoch seconds)**.
+- `numpy`, `scipy`.
 
 ## Workflow
 
-1. **Feature Shift Scoring (PSI / Wasserstein)**:
-   - Compute Population Stability Index (PSI) or 1D Wasserstein distance per feature between $X_{ref}$ and $X_{curr}$.
-   - Aggregate into an overall `Feature Shift Score`.
-2. **Residual Error Ratio Scoring**:
-   - Compute Mean Squared Error (MSE) ratio: $\text{Error Ratio} = \frac{\text{MSE}(e_{curr})}{\text{MSE}(e_{ref})}$.
-3. **Data Staleness Audit**:
-   - Compute age delta $\Delta T = T_{sys} - T_{feat}$.
-   - Flag `Stale` if $\Delta T > \text{Staleness\_Threshold\_Sec}$.
-4. **Diagnostic Classification**:
-   - $\Delta T > \text{Threshold} \implies$ `DATA_STALENESS` (Fix: Refresh data ingestion pipeline).
-   - High Feature Shift + Low Error Ratio $\implies$ `COVARIATE_SHIFT` (Fix: Retrain model on updated $P(X)$).
-   - Low/Medium Feature Shift + High Error Ratio $\implies$ `CONCEPT_DRIFT` (Fix: Strategy alpha decay / Structural shift; adjust lookback window or refactor model).
-   - Low Feature Shift + Low Error Ratio $\implies$ `STABLE`.
+Evaluation order is fixed. Each step short-circuits.
+
+1. **Clock skew.** If $T_{feat} > T_{sys} + \text{tolerance}$, return `CLOCK_SKEW`. A negative feature age is not a fresh feature; it is a timestamp of unknown provenance, and nothing downstream can be trusted. Fix the clock (NTP/PTP), not the model.
+2. **Staleness.** If $\Delta T = T_{sys} - T_{feat} > \text{max\_staleness\_sec}$, return `DATA_STALENESS`. This **must** precede every distribution test: a frozen feed replays the reference distribution exactly, so a stale snapshot scores a near-zero PSI and a near-1.0 error ratio — it looks pristine.
+3. **Data sufficiency.** If any input has fewer than `min_samples` observations, or contains any NaN/Inf, return `INSUFFICIENT_DATA`. Do **not** impute or drop: a partially broken feed that keeps producing confident verdicts is worse than one that stops.
+4. **Residual error ratio** — the $P(Y \mid X)$ signal. $\text{ratio} = \text{MSE}(e_{curr}) / \text{MSE}(e_{ref})$. If $\text{MSE}(e_{ref}) = 0$ the ratio is undefined; return `INSUFFICIENT_DATA` rather than dividing by a fudge factor.
+5. **Feature shift** — the $P(X)$ signal. Compute PSI **per feature** against reference-quantile bins with unbounded outer edges. Trigger on the per-feature **maximum**, never the mean: one broken feature in a hundred is a broken pipeline, and the mean dilutes it below any threshold.
+6. **Classify**, in this precedence:
+   - error ratio breached $\implies$ `CONCEPT_DRIFT`. If features also breached, the result still says `CONCEPT_DRIFT` but names the shifted features, because a large enough $P(X)$ move inflates residuals through extrapolation alone. A human adjudicates that case.
+   - features breached, error ratio held $\implies$ `COVARIATE_SHIFT`.
+   - neither $\implies$ `STABLE`.
+
+Step 5 may use 1-D Wasserstein distance instead of PSI; the helper in `scripts/` implements PSI only.
 
 > Full procedure: see `references/workflows.md`.
-> Standards reference: see `references/standards.md`.
+> Standards, thresholds and their provenance: see `references/standards.md`.
 > Printable pre-flight checklist: see `assets/checklist.md`.
 
 ## Common Pitfalls
 
-- **Retraining on Stale Data**: Triggering an expensive automated retraining pipeline when the real issue is a frozen feature pipeline returning yesterday's prices.
-- **Confusing Covariate Shift with Concept Drift**: Assuming a model is broken because input features moved into an unobserved market regime (e.g. VIX spike), even though the underlying relationship $P(Y|X)$ remains completely intact.
-- **Ignoring Prediction Residuals**: Monitoring input features only. True concept drift (alpha decay) can happen with zero shift in $P(X)$ if market participants adapt to your strategy.
+- **Bounded PSI bins silently discard the evidence.** `numpy.histogram` *ignores* values outside the supplied edges. Building edges from reference percentiles and passing them straight to `histogram` therefore drops exactly the current observations that have left the historical support. Measured on this skill's own construction: a feature with 40% of its mass relocated far outside the reference range scores **0.205** with bounded edges — under the 0.25 rule of thumb, i.e. "no action" — versus **0.741** with $-\infty/+\infty$ outer edges. Always make the outer edges unbounded.
+- **Averaging PSI across the feature universe.** One of 100 features fully relocated gives a mean PSI of 0.075 and a `STABLE` verdict. Report the mean, trigger on the max, and name the offending feature — "covariate shift detected" is unactionable if the operator cannot tell which feature moved.
+- **Quantile bins collapsing on a sparse indicator.** Bin edges built from reference percentiles de-duplicate. A 95/5 binary flag over 10 bins de-duplicates to *two* edges — one bin spanning everything — and PSI is then identically **0.0** whatever the current sample does. Measured: a 95/5 indicator that flipped to 50/50 scored 0.0. Halt flags, regime flags and mostly-zero event counts are common trading features, so detect the collapse and fall back to bins between the distinct reference values.
+- **Letting NaN decide.** A single NaN residual makes the MSE ratio NaN, and every `>=` comparison against NaN is `False`. A naive classifier therefore reports **`STABLE`** on poisoned data. Non-finite input must be its own status.
+- **Absorbing a future-dated timestamp.** A clock-skewed feature timestamp produces a *negative* age, which passes an `age > limit` test unchallenged. The snapshot then gets scored on data of unknown vintage.
+- **Reporting placeholder values as measurements.** A staleness verdict short-circuits before PSI is computed. Returning `psi = 0.0` for that snapshot puts "no drift observed" on a dashboard for a statistic that was never calculated. Return `None`.
+- **Treating PSI > 0.25 as a test.** It is a credit-scoring rule of thumb with no controlled error rate, and its **power decreases as sample size grows** (Yurdakul and Naranjo 2020). Trading monitors run on large windows — precisely where the fixed band goes blind. Set `psi_significance_level` to use the chi-square benchmark instead.
+- **Retraining on stale data.** The most expensive of these mistakes: an automated retrain fits the model to yesterday's prices being replayed as today's, and ships the result to production.
+- **Reading a very large PSI as a distance.** PSI's magnitude for two distributions with disjoint support is an artefact of the zero-bin floor constant, not a measure of how far apart they are. Read it as "disjoint", never as "$n$ times worse".
 
 ## Verification
 
-- Instantiate `DriftVsStalenessClassifier`. Test 4 synthetic scenarios:
-  1. Stale timestamp ($\Delta T = 3600\text{s}$) $\implies$ returns `DATA_STALENESS`.
-  2. High feature shift (PSI = 0.45), low error ratio (1.05) $\implies$ returns `COVARIATE_SHIFT`.
-  3. Low feature shift (PSI = 0.02), high error ratio (2.80) $\implies$ returns `CONCEPT_DRIFT`.
-  4. Low shift (PSI = 0.03), low error ratio (0.98) $\implies$ returns `STABLE`.
-- Run `python scripts/test_drift_vs_staleness_classifier.py`.
+Run the unit suite:
+
+```
+python -m unittest discover -s skills/concept-drift-vs-staleness-differentiation/scripts
+```
+
+37 tests cover, among others:
+
+- **PSI mass conservation** — a hand-constructed reference/current pair whose bin proportions are known exactly (reference 0.1 per decile; current 0.06 in bins 0–8 and 0.46 in bin 9). Expected PSI is derived from the closed form on those proportions, independently of the implementation's binning: 0.733278.
+- **Chi-square calibration** — `psi_benchmark()` reproduces the published benchmark table of Yurdakul and Naranjo (2020), Table 2 ($B = 10$, $\alpha = 0.05$): 0.338 at $n = m = 100$, 0.085 at $n = m = 400$, 0.102 at $n = 200, m = 1000$.
+- **Low-cardinality bin collapse** — a 95/5 indicator flipping to 50/50, expected PSI 1.324998 derived from the two-bin proportions (0.95/0.05 versus 0.50/0.50); the pre-fix code returned 0.0.
+- **Regressions** for every pitfall above: out-of-support mass, mean-PSI dilution, NaN-to-`STABLE`, empty residuals, zero reference MSE, future-dated timestamps, placeholder result fields, `numpy` scalar timestamps.
+- **Boundaries** — staleness at exactly `max_staleness_sec` (not stale), error ratio at exactly `error_ratio_threshold` (drift).
+- **Structural validation** — mismatched feature counts, 3-D input, duplicate or miscounted `feature_names`, non-finite or non-numeric timestamps, invalid configuration.
+
+Repository checks:
+
+```
+python tools/validate_skills.py
+```
 
 ## Related Skills
 
+- `model-staleness-detection`
+- `feature-importance-drift-monitoring`
+- `kill-switch-and-drawdown-circuit-breakers`
 - `walk-forward-optimization-window-management`
 - `class-imbalance-handling-for-rare-signal-events`

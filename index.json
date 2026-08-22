@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-20T07:24:45.294475+00:00",
+  "generated_at": "2026-08-22T02:13:28.816710+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -1470,7 +1470,7 @@
       "brokers_frameworks": [
         "Generic Execution"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/calendar-spread-and-multi-leg-order-atomicity",
@@ -1478,7 +1478,7 @@
     },
     {
       "name": "canada-iiroc-electronic-trading-rules",
-      "description": "Pre-trade regulatory risk controls compliant with CIRO (formerly IIROC) UMIR Rule 7.1 and NI 23-103 for algorithmic trading in Canadian markets.",
+      "description": "Automated pre-trade risk and order-marking controls for Canadian marketplaces under CIRO (formerly IIROC) UMIR Rule 7.1, UMIR 6.2 designations, and NI 23-103.",
       "domain": "Compliance",
       "subdomain": "Regulatory Controls",
       "tags": [
@@ -1492,7 +1492,7 @@
       "brokers_frameworks": [
         "Generic Execution"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/canada-iiroc-electronic-trading-rules",
@@ -1500,20 +1500,18 @@
     },
     {
       "name": "canary-releases-for-strategy-code-changes",
-      "description": "Quantitative execution engine for safely transitioning strategies through SHADOW, CANARY, and PRODUCTION stages with strict order size scaling.",
-      "domain": "CI/CD",
-      "subdomain": "Live Deployment",
+      "description": "Use when a new or materially changed trading strategy must reach live capital gradually \u2014 running it in shadow first, then routing deliberately shrunken live orders bounded by absolute notional limits, then full size \u2014 with attributable phase promotions and lot/minimum-size handling that keeps the canary's fill data meaningful.",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
       "tags": [
+        "deployment-ops",
         "canary",
         "shadow-mode",
-        "deployment",
-        "risk-management",
+        "controlled-deployment",
         "order-scaling"
       ],
-      "brokers_frameworks": [
-        "Generic Execution"
-      ],
-      "version": "1.0.0",
+      "brokers_frameworks": [],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/canary-releases-for-strategy-code-changes",
@@ -1534,7 +1532,7 @@
       "brokers_frameworks": [
         "Generic Systems Engineering"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/capacity-planning-for-symbol-universe-growth",
@@ -1542,20 +1540,25 @@
     },
     {
       "name": "capital-efficiency-across-cross-margined-strategies",
-      "description": "Quantitative margin optimization engine to calculate capital efficiency gains using Portfolio/Cross-Margining based on asset correlation and directional delta.",
-      "domain": "Risk Management",
-      "subdomain": "Margin & Capital",
+      "description": "Use when deciding how much collateral a portfolio-margined account frees up versus margining each strategy standalone \u2014 estimating spread credits between opposing legs the way SPAN-style inter-commodity credits work, netting the same instrument across strategy sleeves first, and keeping the estimate conservative enough that capital is never sized against an offset the broker will not actually grant.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
       "tags": [
+        "risk-management",
         "cross-margin",
         "portfolio-margin",
         "capital-efficiency",
-        "correlation",
-        "risk"
+        "margin-offset",
+        "collateral",
+        "institutional"
       ],
       "brokers_frameworks": [
-        "Generic Risk Engineering"
+        "CME SPAN",
+        "OCC TIMS / Customer Portfolio Margin",
+        "Interactive Brokers",
+        "Bybit Unified Trading Account"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/capital-efficiency-across-cross-margined-strategies",
@@ -1563,7 +1566,7 @@
     },
     {
       "name": "capital-gains-vs-business-income-classification",
-      "description": "Quantitative tax classification engine to automatically categorize trading activity as Capital Gains vs Business Income (Speculative / Non-Speculative) based on holding periods and asset class.",
+      "description": "Jurisdiction-aware post-trade tax classification engine that sorts closed trades into capital gains versus business income under Indian (s.43(5), s.2(42A)), US (IRC s.1222, s.475(f), s.1256) and Canadian (ITA s.39(4), IT-479R, IT-346R) rules.",
       "domain": "Back-Office",
       "subdomain": "Taxation & Compliance",
       "tags": [
@@ -1576,7 +1579,7 @@
       "brokers_frameworks": [
         "Generic Post-Trade"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/capital-gains-vs-business-income-classification",
@@ -1584,7 +1587,7 @@
     },
     {
       "name": "capital-preservation-mode-for-degraded-conditions",
-      "description": "Quantitative kill-switch and capital preservation engine that monitors order rates, daily drawdowns, and API errors to automatically halt trading during degraded conditions.",
+      "description": "Use when a live trading system needs a strategy-independent gate that blocks new orders once peak-to-trough drawdown, order submission rate, consecutive venue errors, or mark-to-market feed staleness breach hard limits, and that stays halted until a human clears it.",
       "domain": "Risk Management",
       "subdomain": "Emergency Controls",
       "tags": [
@@ -1597,7 +1600,7 @@
       "brokers_frameworks": [
         "Generic Risk Engineering"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/capital-preservation-mode-for-degraded-conditions",
@@ -1605,20 +1608,20 @@
     },
     {
       "name": "capital-reallocation-based-on-live-performance",
-      "description": "Quantitative capital allocation engine that dynamically re-weights funding across multiple active strategies based on real-time performance metrics (Sharpe, Kelly).",
+      "description": "Fractional-Kelly capital allocation engine that re-weights funding across multiple active strategies from their trailing live trade statistics, bounded by per-strategy capacity ceilings and total fund capital.",
       "domain": "Portfolio Management",
       "subdomain": "Capital Allocation",
       "tags": [
         "capital-allocation",
         "dynamic-weighting",
         "kelly-criterion",
-        "sharpe-ratio",
+        "position-sizing",
         "portfolio"
       ],
       "brokers_frameworks": [
         "Generic Portfolio Management"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/capital-reallocation-based-on-live-performance",
@@ -1626,21 +1629,22 @@
     },
     {
       "name": "categorical-feature-encoding-for-instrument-identity",
-      "description": "Quantitative feature engineering pipeline for safely encoding high-cardinality instrument identities (tickers) using smoothed target encoding without lookahead bias.",
-      "domain": "Machine Learning",
-      "subdomain": "Feature Engineering",
+      "description": "Use when instrument identity (ticker, symbol, contract) must become a numeric feature for a cross-sectional trading model \u2014 replacing a high-cardinality symbol column with a smoothed target encoding computed only from labels already realized at each row's timestamp, so newly listed symbols cold-start onto a prior instead of a spurious extreme and no row is encoded using its own or a later label.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
       "tags": [
+        "financial-ml",
         "categorical-encoding",
         "target-encoding",
         "instrument-identity",
-        "feature-engineering",
-        "machine-learning"
+        "point-in-time"
       ],
       "brokers_frameworks": [
-        "Scikit-Learn",
-        "Pandas"
+        "pandas",
+        "NumPy",
+        "scikit-learn"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/categorical-feature-encoding-for-instrument-identity",
@@ -1648,7 +1652,7 @@
     },
     {
       "name": "cboe-options-exchange-api-integration",
-      "description": "Quantitative integration for Cboe Options Exchange API, specializing in Complex Order Book (COB) multi-leg routing and Complex Order Auction (COA) participation.",
+      "description": "Quantitative integration for Cboe Options Exchange API, specializing in Complex Order Book (COB) multi-leg routing, ratio normalization, and Complex Order Auction (COA) participation.",
       "domain": "Market Connectivity",
       "subdomain": "Exchange API",
       "tags": [
@@ -1656,12 +1660,16 @@
         "options",
         "complex-order-book",
         "multi-leg",
-        "fix-protocol"
+        "fix-protocol",
+        "boe-protocol",
+        "coa"
       ],
       "brokers_frameworks": [
-        "Generic FIX Engine"
+        "Generic FIX Engine",
+        "Cboe Titanium FIX",
+        "Cboe BOEv3"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cboe-options-exchange-api-integration",
@@ -1669,7 +1677,7 @@
     },
     {
       "name": "central-bank-communication-nlp-analysis",
-      "description": "Quantitative NLP engine for extracting hawkish vs. dovish sentiment from central bank statements, featuring n-gram negation handling and standardized scoring.",
+      "description": "Quantitative NLP engine for extracting hawkish, dovish, and policy uncertainty sentiment from central bank communications, featuring sentence-boundary negation isolation, multi-word phrase matching, and sequential statement diffing.",
       "domain": "Alpha Generation",
       "subdomain": "Alternative Data",
       "tags": [
@@ -1678,12 +1686,16 @@
         "central-bank",
         "fomc",
         "hawkish",
-        "dovish"
+        "dovish",
+        "macro",
+        "statement-diff"
       ],
       "brokers_frameworks": [
-        "Generic NLP"
+        "Generic NLP",
+        "Apel-Grimaldi Lexicon",
+        "Hansen-McMahon Framework"
       ],
-      "version": "1.0.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/central-bank-communication-nlp-analysis",
@@ -1691,7 +1703,7 @@
     },
     {
       "name": "centralized-secrets-management-vault-integration",
-      "description": "Secure, centralized API key management using HashiCorp Vault. Enforces AppRole authentication, environment isolation, and secret caching for trading bots.",
+      "description": "Use when a trading process must obtain exchange API keys or database credentials from HashiCorp Vault instead of .env files \u2014 AppRole login, KV v2 reads, explicit token TTL/max-TTL handling, a TTL-bounded in-memory cache so a rotated credential is actually picked up, and a redacting secret container that keeps keys out of logs.",
       "domain": "Infrastructure",
       "subdomain": "Security",
       "tags": [
@@ -1700,12 +1712,15 @@
         "secrets",
         "api-keys",
         "approle",
-        "security"
+        "security",
+        "kv-v2",
+        "token-lifetime"
       ],
       "brokers_frameworks": [
-        "HashiCorp Vault"
+        "HashiCorp Vault",
+        "HashiCorp Vault KV v2"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/centralized-secrets-management-vault-integration",
@@ -1713,7 +1728,7 @@
     },
     {
       "name": "cftc-commodity-pool-operator-registration",
-      "description": "Regulatory compliance engine that continuously monitors portfolio exposure against the CFTC Rule 4.13(a)(3) de minimis exemption thresholds for CPO registration.",
+      "description": "Pre-trade gate that evaluates a proposed commodity interest position against the two quantitative trading tests of the CFTC Rule 4.13(a)(3) de minimis exemption from Commodity Pool Operator registration.",
       "domain": "Compliance & Regulation",
       "subdomain": "US Regulatory",
       "tags": [
@@ -1728,7 +1743,7 @@
         "CFTC",
         "NFA"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cftc-commodity-pool-operator-registration",
@@ -1736,20 +1751,19 @@
     },
     {
       "name": "chaos-engineering-for-trading-infrastructure",
-      "description": "Quantitative infrastructure testing tool that injects controlled network latency, packet drops, and process terminations to validate trading system resilience.",
-      "domain": "Infrastructure",
-      "subdomain": "Reliability",
+      "description": "Use when a trading system's failover, timeout and gap-recovery paths have never actually been exercised \u2014 injecting reproducible latency, message loss and simulated process death at an I/O boundary, behind a fail-closed activation gate, and counting what was injected so a green run cannot be mistaken for a resilient one.",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
       "tags": [
+        "deployment-ops",
         "chaos-engineering",
         "resilience",
-        "latency",
+        "fault-injection",
         "failover",
-        "infrastructure"
+        "grey-failure"
       ],
-      "brokers_frameworks": [
-        "Generic Infrastructure"
-      ],
-      "version": "1.0.0",
+      "brokers_frameworks": [],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/chaos-engineering-for-trading-infrastructure",
@@ -1757,20 +1771,24 @@
     },
     {
       "name": "circuit-breaker-for-downstream-service-calls",
-      "description": "Resilience engineering pattern implementing a Circuit Breaker to prevent cascading failures when downstream trading services or data APIs experience degraded performance.",
-      "domain": "Infrastructure",
-      "subdomain": "Reliability",
+      "description": "Use when a trading process calls a downstream service \u2014 reference data, historical or alt-data vendors, internal microservices \u2014 and a slow or failing dependency must be cut off before it exhausts threads and connection pools. Covers the thread-safe CLOSED/OPEN/HALF_OPEN state machine, single-probe recovery, escalating backoff, slow-call detection, and which exceptions must never trip a breaker.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
       "tags": [
+        "real-time-architecture",
         "circuit-breaker",
         "resilience",
-        "microservices",
-        "api",
-        "fail-fast"
+        "fail-fast",
+        "downstream-dependency",
+        "graceful-degradation",
+        "thread-safety"
       ],
       "brokers_frameworks": [
-        "Generic Infrastructure"
+        "Generic Infrastructure",
+        "Python",
+        "requests"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/circuit-breaker-for-downstream-service-calls",
@@ -1778,7 +1796,7 @@
     },
     {
       "name": "class-imbalance-handling-for-rare-signal-events",
-      "description": "Machine learning utility pipeline for mitigating class imbalance when predicting rare financial events, supporting cost-sensitive weighting and random undersampling without lookahead bias.",
+      "description": "Machine learning utility pipeline for mitigating class imbalance when predicting rare financial events, supporting cost-sensitive weighting, random undersampling, and post-undersampling probability recalibration.",
       "domain": "Machine Learning",
       "subdomain": "Model Training",
       "tags": [
@@ -1793,7 +1811,7 @@
         "Pandas",
         "NumPy"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/class-imbalance-handling-for-rare-signal-events",
@@ -1801,22 +1819,23 @@
     },
     {
       "name": "clock-drift-monitoring-alerting-thresholds",
-      "description": "Infrastructure compliance engine that continuously monitors PTP (Precision Time Protocol) clock drift against strict MiFID II RTS 25 microsecond thresholds, triggering automated circuit breakers.",
+      "description": "Use when a trading host must prove its business clock stays inside a regulatory divergence limit \u2014 evaluating PTP offset and daemon state against the MiFID II RTS 25 Table 2 limit for the activity actually being run, escalating a lost grandmaster and stalled telemetry as well as raw drift, and latching an automated halt so non-compliant timestamps stop being written.",
       "domain": "Compliance & Regulation",
       "subdomain": "Infrastructure",
       "tags": [
         "mifid-ii",
+        "rts-25",
         "clock-drift",
         "ptp",
         "hft",
         "compliance",
-        "latency"
+        "kill-switch"
       ],
       "brokers_frameworks": [
         "Linux PTP",
         "Generic Infrastructure"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/clock-drift-monitoring-alerting-thresholds",
@@ -1824,12 +1843,12 @@
     },
     {
       "name": "clock-skew-correction-for-tick-timestamps",
-      "description": "Quantitative market data pipeline utility for estimating and correcting clock drift between venue feeds and local recorders using minimum-delay filtering without violating time monotonicity.",
+      "description": "Use when captured tick data carries two timestamps \u2014 the venue's and the local recorder's \u2014 and the local clock runs at a slightly different rate, to estimate the drift from windowed minimum one-way delays, re-express local timestamps on the venue timescale, and keep the result strictly monotonic without mistaking network congestion for clock drift.",
       "domain": "Data Management",
       "subdomain": "Market Data Infrastructure",
       "tags": [
         "clock-skew",
-        "paxson-algorithm",
+        "minimum-delay-filtering",
         "timestamps",
         "market-data",
         "hft",
@@ -1837,10 +1856,9 @@
       ],
       "brokers_frameworks": [
         "Generic Infrastructure",
-        "NumPy",
-        "Pandas"
+        "NumPy"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/clock-skew-correction-for-tick-timestamps",
@@ -1848,7 +1866,7 @@
     },
     {
       "name": "clock-synchronization-ptp-for-trading-hosts",
-      "description": "Quantitative infrastructure management module for configuring, parsing, and validating PTP (IEEE 1588v2) hardware clock synchronization across trading host NICs and system CLOCK_REALTIME.",
+      "description": "Use when a Linux trading host must be disciplined to a PTP grandmaster and prove it \u2014 configuring ptp4l and phc2sys against the grandmaster's actual PTP profile, parsing linuxptp telemetry as it is really emitted (message tags, negative path delay, summary lines), and evaluating the grandmaster-to-PHC and PHC-to-CLOCK_REALTIME offsets as the serial error pair they are rather than picking the larger one.",
       "domain": "Infrastructure",
       "subdomain": "Network & Hardware Architecture",
       "tags": [
@@ -1864,7 +1882,7 @@
         "linuxptp",
         "Generic Infrastructure"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/clock-synchronization-ptp-for-trading-hosts",
@@ -1872,7 +1890,7 @@
     },
     {
       "name": "close-auction-participation-strategy",
-      "description": "Quantitative execution strategy for parsing Net Order Imbalance Indicator (NOII) feed data and placing contra-side Limit-On-Close (LOC) / Imbalance-Only (IO) orders before exchange cutoff times.",
+      "description": "Quantitative execution strategy for parsing closing-auction imbalance feeds (Nasdaq NOII, NYSE closing imbalance publication) and placing venue-compliant contra-side Limit-On-Close (LOC) orders before exchange entry cutoffs.",
       "domain": "Execution Algorithms",
       "subdomain": "Auction Mechanics",
       "tags": [
@@ -1884,11 +1902,11 @@
         "execution-algo"
       ],
       "brokers_frameworks": [
-        "Nasdaq NOII",
-        "NYSE Closing Auction",
+        "Nasdaq TotalView-ITCH 5.0 (NOII)",
+        "NYSE Closing Auction (Rule 7.35B)",
         "Generic Execution"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/close-auction-participation-strategy",
@@ -1896,7 +1914,7 @@
     },
     {
       "name": "cme-globex-futures-api-integration",
-      "description": "Quantitative market connectivity module for CME Globex futures order entry, enforcing Tag 50 (Operator ID) Rule 576 compliance, Market-With-Protection (MWP) limits, and price banding.",
+      "description": "Use when assembling CME Globex futures order entry messages, to validate the Operator ID (Tag 50, Rule 576) and Manual Order Indicator (Tag 1028, Rule 536.B.) a message is rejected without, apply price banding on the side CME actually constrains, keep prices on the product's tick, and compute where Market-with-Protection residual quantity will rest.",
       "domain": "Market Connectivity",
       "subdomain": "Exchange API",
       "tags": [
@@ -1904,14 +1922,16 @@
         "ilink3",
         "futures",
         "tag50",
+        "tag1028",
         "mwp",
-        "price-banding"
+        "price-banding",
+        "tick-conformance"
       ],
       "brokers_frameworks": [
         "CME Globex iLink 3",
         "CME FIX"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cme-globex-futures-api-integration",
@@ -1919,7 +1939,7 @@
     },
     {
       "name": "cme-group-fix-api-for-futures",
-      "description": "Quantitative market connectivity module for CME Group FIX API futures order entry and session management, implementing Tag 1028 (ManualOrderIndicator), Tag 7928/8000 (Self-Match Prevention), and MsgSeqNum gap-fill sequence recovery.",
+      "description": "Use when encoding or decoding tag=value FIX for CME Group \u2014 building wire-valid FIX 4.2/4.4 messages (BodyLength, CheckSum, SOH, SendingTime), driving the inbound MsgSeqNum recovery state machine without a resend storm, and getting the CME order tags right (1028 ManualOrderIndicator, 7928/8000 Self-Match Prevention, 50 operator ID) \u2014 including how each maps onto iLink 3, which replaced tag=value FIX order entry at CME.",
       "domain": "Market Connectivity",
       "subdomain": "FIX Protocol",
       "tags": [
@@ -1929,13 +1949,15 @@
         "tag1028",
         "smp",
         "self-match-prevention",
-        "seqnum"
+        "seqnum",
+        "ilink3"
       ],
       "brokers_frameworks": [
-        "CME FIX 4.2",
-        "CME FIX 4.4"
+        "CME STP FIX 4.4",
+        "CME iLink 2 (decommissioned)",
+        "CME iLink 3 (SBE/FIXP)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cme-group-fix-api-for-futures",
@@ -1943,7 +1965,7 @@
     },
     {
       "name": "co-location-provider-selection-and-network-topology",
-      "description": "Quantitative evaluation framework for scoring co-location data centers, modeling cross-venue fiber/microwave network topologies, and decomposing microsecond latency budgets.",
+      "description": "Use when choosing where to place trading servers across co-location facilities and cross-venue fiber/microwave links: decomposes one-way and round-trip latency budgets from first-principles propagation physics, computes monthly TCO, and ranks candidate facilities with a weighted latency/cost score.",
       "domain": "Infrastructure",
       "subdomain": "Network Architecture",
       "tags": [
@@ -1952,12 +1974,14 @@
         "equinix-ny4",
         "cme-aurora",
         "slough-ld4",
-        "network-topology"
+        "network-topology",
+        "propagation-delay",
+        "facility-scoring"
       ],
       "brokers_frameworks": [
         "Generic Infrastructure"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/co-location-provider-selection-and-network-topology",
@@ -1965,7 +1989,7 @@
     },
     {
       "name": "coinbase-advanced-trade-api-migration",
-      "description": "Quantitative broker migration adapter for translating legacy Coinbase Pro API requests into Coinbase Advanced Trade v3 endpoints and nested order_configuration payloads.",
+      "description": "Use when porting an existing Coinbase Pro / Coinbase Exchange order path onto the Coinbase Advanced Trade v3 API, to fold time-in-force and stop direction into the nested order_configuration key instead of dropping them, keep a market buy's quote amount out of base_size, and treat a create-order response as acceptance rather than a live order state.",
       "domain": "Market Connectivity",
       "subdomain": "Crypto API",
       "tags": [
@@ -1980,7 +2004,7 @@
         "Coinbase Advanced Trade API v3",
         "Coinbase Pro (Legacy)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/coinbase-advanced-trade-api-migration",
@@ -1988,23 +2012,19 @@
     },
     {
       "name": "cold-start-handling-for-newly-listed-instruments",
-      "description": "Quantitative feature engineering and risk management module for handling newly listed instruments (IPOs, SPACs) using Bayesian volatility shrinkage, peer imputation, and position sizing caps during probation windows.",
-      "domain": "Portfolio & Risk Management",
-      "subdomain": "Feature Engineering & Risk",
+      "description": "Use when an instrument's own price history is too short to estimate risk from \u2014 IPOs, spin-offs, new listings, freshly launched tokens \u2014 and a rolling volatility window would otherwise return NaN or a number built from five days of noise; shrinks the short sample toward a peer prior in variance space with conjugate degrees-of-freedom weighting, and ramps a separate size cap across the probation window.",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
       "tags": [
+        "risk-management",
         "cold-start",
         "ipo",
         "shrinkage",
-        "imputation",
-        "volatility",
+        "volatility-estimation",
         "position-sizing"
       ],
-      "brokers_frameworks": [
-        "NumPy",
-        "Pandas",
-        "Generic Quantitative Pipeline"
-      ],
-      "version": "1.0.0",
+      "brokers_frameworks": [],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cold-start-handling-for-newly-listed-instruments",
@@ -2012,7 +2032,7 @@
     },
     {
       "name": "cold-storage-geographic-distribution-strategy",
-      "description": "Institutional crypto custody module for analyzing Shamir Secret Sharing (SSS) M-of-N key shard distribution across geographically and jurisdictionally diverse vaults, auditing single-point-of-failure (SPOF) risks.",
+      "description": "Institutional crypto custody module for auditing Shamir Secret Sharing (SSS) M-of-N key shard distribution across geographically and jurisdictionally diverse vaults, flagging both single-point-of-failure (SPOF) directions - single-group key reconstruction and single-group key loss.",
       "domain": "Crypto Custody & Security",
       "subdomain": "Key Management",
       "tags": [
@@ -2025,9 +2045,9 @@
       ],
       "brokers_frameworks": [
         "Generic Crypto Security",
-        "NumPy"
+        "Python Standard Library"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cold-storage-geographic-distribution-strategy",
@@ -2035,7 +2055,7 @@
     },
     {
       "name": "colocation-latency-budget-accounting",
-      "description": "Quantitative co-location telemetry module for decomposing tick-to-trade (T2T) latency budgets into nanosecond phases, detecting SLA breaches, and computing P99/P99.9 tail jitter statistics.",
+      "description": "Use when accounting for the in-host tick-to-trade (T2T) latency budget of a co-located trading server: decomposes a NIC-ingress-to-NIC-egress trace into nanosecond phases, audits each trace against total and per-phase SLAs, names the phase most over its budget, and reports P50/P95/P99/P99.9 tail jitter.",
       "domain": "Infrastructure",
       "subdomain": "Latency Optimization",
       "tags": [
@@ -2045,13 +2065,14 @@
         "colocation",
         "hardware-timestamping",
         "sla",
-        "tail-jitter"
+        "tail-jitter",
+        "clock-domain"
       ],
       "brokers_frameworks": [
         "Generic Infrastructure",
         "NumPy"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/colocation-latency-budget-accounting",
@@ -2059,7 +2080,7 @@
     },
     {
       "name": "commodity-futures-storage-and-carry-cost-modeling",
-      "description": "Quantitative commodity pricing model for calculating theoretical futures prices, extracting implied convenience yields, detecting contango vs. backwardation regimes, and evaluating cash-and-carry arbitrage opportunities.",
+      "description": "Quantitative commodity pricing model for calculating theoretical futures prices, extracting implied convenience yields, detecting contango vs. backwardation regimes, and auditing futures prices against the full-carry no-arbitrage bound.",
       "domain": "Derivatives & Pricing",
       "subdomain": "Commodity Futures",
       "tags": [
@@ -2071,10 +2092,9 @@
         "storage-cost"
       ],
       "brokers_frameworks": [
-        "NumPy",
         "Generic Derivatives Pricing"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/commodity-futures-storage-and-carry-cost-modeling",
@@ -2097,7 +2117,7 @@
         "NumPy",
         "Generic Risk Engine"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/concentration-risk-single-name-limits",
@@ -2119,10 +2139,9 @@
       ],
       "brokers_frameworks": [
         "NumPy",
-        "Pandas",
-        "Scikit-Learn"
+        "SciPy"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/concept-drift-vs-staleness-differentiation",
@@ -2130,7 +2149,7 @@
     },
     {
       "name": "conditional-order-logic-for-execution-triggers",
-      "description": "Quantitative execution engine for evaluating nested Boolean condition trees (price, volume, time, cross-asset benchmarks) to trigger conditional order submission.",
+      "description": "Use when simulating conditional orders client-side \u2014 evaluating nested Boolean condition trees (price, volume, time, cross-asset) against market data to release child orders exactly once, with fail-safe handling of missing or stale quotes.",
       "domain": "Execution Algorithms",
       "subdomain": "Order Logic & Triggers",
       "tags": [
@@ -2138,14 +2157,16 @@
         "execution-triggers",
         "boolean-tree",
         "cross-asset-trigger",
+        "oco",
         "oms",
         "ems"
       ],
       "brokers_frameworks": [
         "Generic Execution",
+        "FIX TriggeringInstruction",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/conditional-order-logic-for-execution-triggers",
@@ -2153,23 +2174,19 @@
     },
     {
       "name": "configuration-drift-detection-across-environments",
-      "description": "Quantitative infrastructure module for auditing configuration drift across trading environments (DEV, STAGING, PROD) against a Golden Source baseline using allowed-override rules and severity scoring.",
-      "domain": "Infrastructure",
-      "subdomain": "DevOps & Configuration Management",
+      "description": "Use when a trading configuration must be proven identical to an approved Golden Source before it goes live \u2014 auditing DEV/STAGING/PROD/CANARY config trees for missing keys, changed values and silent type coercion, separating legitimate environment overrides from risk-parameter drift, and blocking startup or CI/CD promotion when critical drift is found.",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
       "tags": [
         "configuration-drift",
-        "devops",
-        "gitops",
+        "deployment-ops",
         "env-parity",
         "golden-source",
-        "audit",
+        "pre-trade-gate",
         "risk-control"
       ],
-      "brokers_frameworks": [
-        "Generic Infrastructure",
-        "Python Dataclasses"
-      ],
-      "version": "1.0.0",
+      "brokers_frameworks": [],
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/configuration-drift-detection-across-environments",
@@ -2177,7 +2194,7 @@
     },
     {
       "name": "conflict-of-interest-disclosure-for-prop-vs-client-flow",
-      "description": "Compliance engine for auditing Proprietary (Prop) vs. Client Agency order flow, enforcing FINRA Rule 5320 (Manning Rule) front-running prohibitions, information barriers, and mandatory disclosures.",
+      "description": "Pre-trade gate auditing proprietary orders against the firm's own unexecuted customer orders under FINRA Rule 5320 (Manning), covering the no-knowledge information barrier, negative-consent and minimum-price-improvement exceptions.",
       "domain": "Compliance & Regulation",
       "subdomain": "Order Handling & Conflicts",
       "tags": [
@@ -2193,7 +2210,7 @@
         "SEC Rule 605/606",
         "Generic Broker Engine"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/conflict-of-interest-disclosure-for-prop-vs-client-flow",
@@ -2201,7 +2218,7 @@
     },
     {
       "name": "constructive-sale-rule-considerations-us",
-      "description": "US tax compliance module for detecting Section 1259 Constructive Sale triggers (Short-Against-The-Box, Offsetting Swaps) and auditing Section 1259(c)(3) 30-day/60-day Safe Harbor requirements.",
+      "description": "US tax compliance module for detecting IRC Section 1259 constructive sales of appreciated financial positions (short-against-the-box, offsetting notional principal contracts, futures/forwards) and auditing the Section 1259(c)(3) 30-day/60-day safe harbor.",
       "domain": "Tax Accounting & Compliance",
       "subdomain": "US Tax Rules",
       "tags": [
@@ -2216,7 +2233,7 @@
         "IRS Section 1259",
         "Generic Tax Compliance"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/constructive-sale-rule-considerations-us",
@@ -2224,7 +2241,7 @@
     },
     {
       "name": "consumer-group-rebalance-safety",
-      "description": "Quantitative streaming infrastructure module for handling Kafka consumer group rebalances safely, preventing zombie execution, flushing in-flight orders, and enforcing offset commit idempotency.",
+      "description": "Use when a trading workload consumes market data or order events from a Kafka consumer group and a rebalance can move a partition mid-flight. Fences revoked partitions, drains in-flight work before committing, commits the next offset rather than the last processed one, and handles lost partitions without committing offsets it no longer owns.",
       "domain": "Infrastructure",
       "subdomain": "Event-Driven Systems & Streaming",
       "tags": [
@@ -2234,13 +2251,15 @@
         "event-driven",
         "idempotency",
         "zombie-consumer",
+        "offset-management",
         "streaming"
       ],
       "brokers_frameworks": [
         "Apache Kafka / Redpanda",
+        "confluent-kafka-python",
         "Generic Event Stream"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/consumer-group-rebalance-safety",
@@ -2248,7 +2267,7 @@
     },
     {
       "name": "convertible-bond-arbitrage-data-requirements",
-      "description": "Quantitative fixed-income and equity derivatives module for evaluating Convertible Bond (CB) Arbitrage data requirements, parity, conversion premium, delta hedge ratios, and credit spread inputs.",
+      "description": "Quantitative fixed-income and equity derivatives module for auditing Convertible Bond (CB) Arbitrage data completeness and computing parity, conversion premium, bond floor from the issuer credit spread, delta hedge sizing, and the full carry breakdown of a delta-hedged CB package.",
       "domain": "Derivatives & Fixed Income",
       "subdomain": "Convertible Securities",
       "tags": [
@@ -2261,10 +2280,10 @@
         "borrow-rate"
       ],
       "brokers_frameworks": [
-        "NumPy",
+        "Python Standard Library",
         "Generic Fixed Income"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/convertible-bond-arbitrage-data-requirements",
@@ -2272,7 +2291,7 @@
     },
     {
       "name": "corporate-action-adjusted-backtesting",
-      "description": "Quantitative backtesting module for processing corporate action event logs (stock splits, cash dividends, reverse splits), computing Cumulative Adjustment Factors (CAF), and separating raw vs. adjusted price data.",
+      "description": "Use when a backtest reads historical equity or ETF prices that span a split, reverse split or cash dividend \u2014 builds a CRSP-convention backward-adjusted price series for signals (dividend factor referenced to the close *preceding* the ex-date, volume adjusted by share-count events only) while keeping the raw series intact for order sizing and cash accounting, with a point-in-time `as_of` view that hides events which had not gone ex yet.",
       "domain": "Data Management & Backtesting",
       "subdomain": "Corporate Actions",
       "tags": [
@@ -2289,7 +2308,7 @@
         "NumPy",
         "Generic Backtester"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/corporate-action-adjusted-backtesting",

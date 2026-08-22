@@ -19,6 +19,7 @@ secrets/
 Thumbs.db
 .vscode/
 .idea/
+.agents/
 
 # Local databases produced by example scripts (e.g. order_ledger.sqlite3)
 *.sqlite3

@@ -3,7 +3,7 @@ description: Audit, research, validate, and upgrade one Algo-Trading-Skills skil
 argument-hint: [skill-slug]
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash, WebSearch, WebFetch
 model: claude-opus-5
-effort: high
+effort: medium
 ---
 
 # /improve-skill — Institutional Skill Engineering Protocol
