@@ -243,6 +243,57 @@ class TestCorrelationExposureLimits(unittest.TestCase):
         )
         self.assertTrue(res.approved)
 
+    def test_portfolio_cap_enforced_for_new_symbol(self):
+        # Regression: the aggregate portfolio cap summed only over symbols
+        # already present in current_positions, so a brand-new position
+        # contributed nothing to the post-trade total and the cap was
+        # unenforceable for every opening order. Book is 1.40M against a
+        # 1.50M cap; opening 400k in a fresh symbol must be vetoed.
+        self.manager.clusters = [{"A"}, {"B"}, {"NEW"}]
+        self.manager.matrix_timestamp = datetime.datetime.now(datetime.timezone.utc)
+
+        res = self.manager.evaluate_proposed_position(
+            symbol="NEW",
+            proposed_notional=400_000.0,
+            current_positions={"A": 700_000.0, "B": 700_000.0},
+        )
+        self.assertFalse(res.approved)
+        self.assertIn("max portfolio cap", res.reason)
+        # Headroom to the 1.5M cap is 100k.
+        self.assertAlmostEqual(res.allowed_notional, 100_000.0)
+
+    def test_portfolio_cap_new_symbol_within_headroom_approved(self):
+        # Same book, an order that fits inside the 100k headroom passes.
+        self.manager.clusters = [{"A"}, {"B"}, {"NEW"}]
+        self.manager.matrix_timestamp = datetime.datetime.now(datetime.timezone.utc)
+
+        res = self.manager.evaluate_proposed_position(
+            symbol="NEW",
+            proposed_notional=100_000.0,
+            current_positions={"A": 700_000.0, "B": 700_000.0},
+        )
+        self.assertTrue(res.approved)
+
+    def test_portfolio_cap_nets_against_existing_position(self):
+        # A symbol present in the book must still net: flipping a +900k
+        # long to -900k short leaves gross unchanged, so the cap is untouched.
+        self.manager.clusters = [{"A"}, {"B"}]
+        self.manager.matrix_timestamp = datetime.datetime.now(datetime.timezone.utc)
+
+        res = self.manager.evaluate_proposed_position(
+            symbol="A",
+            proposed_notional=-500_000.0,
+            current_positions={"A": 900_000.0, "B": 600_000.0},
+        )
+        # Post-trade gross = |900k - 500k| + 600k = 1.0M <= 1.5M cap.
+        self.assertTrue(res.approved)
+
+    def test_bool_price_rejected(self):
+        # bool is a subclass of int, so True would otherwise be accepted as
+        # a price of 1.0 and silently corrupt the return series.
+        with self.assertRaises(ValueError):
+            self.manager.update_correlation_matrix({"A": [100.0, True, 102.0]})
+
     def test_delta_weights_apply_to_existing_positions(self):
         # Symmetric delta treatment: the existing CE position must also be
         # delta-adjusted (400k * 0.5 = 200k), not just the proposed leg.

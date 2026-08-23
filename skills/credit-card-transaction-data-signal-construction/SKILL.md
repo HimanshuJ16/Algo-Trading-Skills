@@ -13,10 +13,12 @@ tags:
 - consensus-surprise
 - panel-normalization
 brokers_frameworks:
-- Pandas
-- NumPy
-- Scikit-Learn
-version: "1.1.0"
+- Python Dataclasses
+- Yodlee
+- Bloomberg Second Measure
+- Earnest Analytics
+- Facteus
+version: "1.2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -35,6 +37,7 @@ Use this skill when processing consumer credit/debit card transaction panel feed
 ## Prerequisites
 
 - Aggregated transaction panel feed (`ticker`, `date`, `total_spend_usd`, `transaction_count`).
+- Fiscal-quarter labels in `YYYY-Qn` form (e.g. `2025-Q1`) so the engine can verify t vs t-4 alignment; other labelling schemes are accepted but the alignment check is skipped with a warning.
 - Point-in-time Wall Street consensus revenue estimate for the upcoming fiscal quarter (restated consensus leaks information).
 - Historical panel-to-reported-revenue scaling factor ($\gamma_{\text{panel}}$), calibrated against reported 10-Q revenue.
 
@@ -45,10 +48,11 @@ Use this skill when processing consumer credit/debit card transaction panel feed
 2. **YoY Growth Calculation & Decomposition** (seasonality-aligned quarters, $t$ vs $t-4$):
    - $\text{YoY Growth} = \frac{\text{Implied Revenue}_t - \text{Implied Revenue}_{t-4}}{\text{Implied Revenue}_{t-4}}$.
    - Decompose multiplicatively: $(1 + g_{\text{revenue}}) = (1 + g_{\text{ticket}}) \times (1 + g_{\text{volume}})$ via `decompose_growth` — average ticket = panel spend / transaction count.
+   - The engine enforces the alignment: prior-year data must be the same ticker and exactly four quarters earlier, otherwise `generate_signal`/`decompose_growth` raise `ValueError` rather than labelling sequential growth as YoY.
    - Decision point: volume growth collapsing while ticket growth stays stable suggests a panel composition shift, not true demand contraction — recalibrate $\gamma$ before trading the signal.
 3. **Consensus Surprise Model**:
    - Calculate $\text{Surprise Pct} = \frac{\text{Implied Revenue} - \text{Consensus Revenue}}{\text{Consensus Revenue}} \times 100\%$.
-4. **Signal Generation** (boundaries inclusive; threshold is a calibratable default, not a regulatory constant — tune it to measured panel noise):
+4. **Signal Generation** (classification uses the unrounded surprise, boundaries inclusive; the reported `predicted_surprise_pct` is rounded to 2 dp, so a reported `2.50` can still be `NEUTRAL`. Threshold is a calibratable default, not a regulatory constant — tune it to measured panel noise):
    - If $\text{Surprise Pct} \ge +2.5\% \implies$ `BEAT_BUY`.
    - If $\text{Surprise Pct} \le -2.5\% \implies$ `MISS_SELL`.
    - Else $\implies$ `NEUTRAL`.
@@ -63,13 +67,14 @@ Use this skill when processing consumer credit/debit card transaction panel feed
 - **Assuming a universal vendor lag**: delivery lags range from ~12 hours to 5-7 days or weekly depending on vendor and product tier; a blanket 3-day assumption both under- and over-states availability. Always use the vendor's documented availability timestamps.
 - **Ignoring Panel Revisions**: card panels restate as late-posting transactions settle — backtesting on final restated values rather than as-delivered snapshots introduces look-ahead bias.
 - **Ignoring Availability Lag**: Backtesting using transaction data on the date it occurred rather than the date it became available from the vendor.
-- **Overlooking Seasonality Gaps**: Comparing Q4 holiday spending directly against non-aligned periods; align on fiscal (e.g. NRF 4-5-4) calendars and handle 53-week-year restatements.
+- **Overlooking Seasonality Gaps**: Comparing Q4 holiday spending directly against non-aligned periods produces sequential growth mislabelled as YoY — the engine rejects `YYYY-Qn` pairs that are not exactly four quarters apart, but it cannot police custom labels, so align on fiscal (e.g. NRF 4-5-4) calendars and handle 53-week-year restatements yourself.
 - **Silent data errors**: a zero or negative prior-year panel base is a data problem, not 0% growth — the engine raises `ValueError` rather than emitting a false flat-growth number; missing prior-year data yields `NaN`, distinguishable from a true 0.0.
 
 ## Verification
 
 - Instantiate `CreditCardTransactionSignalEngine(panel_scaling_multiplier=50.0)`. For ticker `CMG` (Chipotle), current quarter panel spend $40M ($\text{Implied Revenue} = \$2.0\text{B}$), consensus $\$1.90\text{B}$: verify signal `BEAT_BUY`, predicted surprise $+5.26\%$, heuristic confidence $0.76$, and `yoy_growth_pct = NaN` (no prior year supplied).
 - With prior year `2024-Q1` panel spend $30M / 1.5M transactions and current $33M / 1.6M: verify YoY $= +10.0\%$, ticket-size growth $+3.125\%$, transaction-volume growth $+6.6667\%$, and $1.03125 \times 1.066667 - 1 = 10\%$ (multiplicative identity).
+- Pass a `2024-Q4` prior against a `2025-Q1` current: verify `ValueError` (misaligned quarters), not a silently mislabelled 10% "YoY".
 - Run `python -m unittest discover -s skills/credit-card-transaction-data-signal-construction/scripts`.
 
 ## Related Skills

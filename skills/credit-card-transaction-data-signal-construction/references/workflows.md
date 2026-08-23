@@ -9,6 +9,9 @@
 
 2. **Growth Metrics** (seasonality-aligned quarters, $t$ vs $t-4$):
    - $\text{YoY Growth} = \frac{R_{implied, t} - R_{implied, t-4}}{R_{implied, t-4}}$.
+   - Alignment is enforced: `YYYY-Qn` labels that are not exactly four
+     quarters apart raise `ValueError`; other label schemes only warn, so
+     verify fiscal alignment (including 53-week restatements) upstream.
    - Decompose via `decompose_growth`: $g_{ticket}$ from average ticket
      (spend / transaction count) and $g_{volume}$ from transaction count,
      linked by $(1 + g_{spend}) = (1 + g_{ticket})(1 + g_{volume})$.
@@ -23,7 +26,8 @@
      against the panel's historical absolute prediction error before trusting
      directional signals.
 
-4. **Signal Output** (boundaries inclusive):
+4. **Signal Output** (boundaries inclusive, evaluated on the unrounded
+   surprise; the reported value is rounded to 2 dp):
    - If $\text{Surprise Pct} \ge +2.5\% \implies$ `BEAT_BUY`.
    - If $\text{Surprise Pct} \le -2.5\% \implies$ `MISS_SELL`.
    - Else $\implies$ `NEUTRAL`.

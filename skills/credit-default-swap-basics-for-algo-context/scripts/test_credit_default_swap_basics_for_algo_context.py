@@ -36,6 +36,42 @@ class TestCreditDefaultSwapEngine(unittest.TestCase):
         zero_rate_engine = CreditDefaultSwapEngine(risk_free_rate=0.0)
         self.assertEqual(zero_rate_engine.calculate_rpv01(0.0, 5.0), 5.0)
 
+    def test_rpv01_negative_total_rate_exceeds_maturity(self):
+        # Regression: r + lambda < 0 (negative policy rate, tight IG hazard)
+        # is a valid annuity, NOT the T limit. r = -6%, lambda = 1% ->
+        # x = -0.05, T = 5: RPV01 = (e^0.25 - 1)/0.05, independently
+        # derived from integral_0^5 e^(0.05t) dt.
+        engine = CreditDefaultSwapEngine(risk_free_rate=-0.06)
+        expected = (math.exp(0.25) - 1.0) / 0.05      # 5.680508...
+        rpv01 = engine.calculate_rpv01(0.01, 5.0)
+        self.assertAlmostEqual(rpv01, expected, places=10)
+        # The old clamp returned exactly T here; the annuity must exceed it.
+        self.assertGreater(rpv01, 5.0)
+
+    def test_rpv01_near_zero_total_rate_precision(self):
+        # (1 - e^-xT)/x cancels catastrophically for tiny x; the series
+        # value is T*(1 - xT/2 + ...). x = 1e-12, T = 5 -> 5.0 to full
+        # double precision (relative error < 1e-11).
+        engine = CreditDefaultSwapEngine(risk_free_rate=1e-12)
+        self.assertAlmostEqual(engine.calculate_rpv01(0.0, 5.0), 5.0, places=10)
+
+    def test_default_probability_precision_at_tiny_hazard(self):
+        # 1 bp spread, R = 0.40 -> lambda = 1/600000; T = 1.
+        # PD = -expm1(-lambda) = lambda - lambda^2/2 + ... to full precision.
+        engine = CreditDefaultSwapEngine()
+        hazard = engine.calculate_hazard_rate(0.01)
+        survival, pd = engine.calculate_default_probabilities(hazard, 1.0)
+        expected_pd = hazard - hazard ** 2 / 2.0 + hazard ** 3 / 6.0
+        self.assertAlmostEqual(pd / expected_pd, 1.0, places=12)
+        self.assertAlmostEqual(survival + pd, 1.0, places=15)
+
+    def test_rpv01_extreme_negative_rate_raises_rather_than_overflows(self):
+        # Guard introduced with the negative-rate branch: (r+lambda)*T < -700
+        # would overflow expm1. Fail loudly with ValueError, not OverflowError.
+        engine = CreditDefaultSwapEngine(risk_free_rate=-100.0)
+        with self.assertRaises(ValueError):
+            engine.calculate_rpv01(0.0, 10.0)
+
     def test_upfront_payment_independently_derived(self):
         # Par 200, coupon 100, R 0.40, r 4%, T 5, N $10M:
         # lambda = 0.02/0.6 = 1/30; r + lambda = 11/150

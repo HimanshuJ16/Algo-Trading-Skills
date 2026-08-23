@@ -1,12 +1,12 @@
 import logging
 import math
 from dataclasses import dataclass
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
 
-def _require_finite(value: float, label: str, minimum: float = None) -> None:
+def _require_finite(value: float, label: str, minimum: Optional[float] = None) -> None:
     """Rejects non-finite values — a NaN would make every threshold
     comparison False and silently approve the routing decision."""
     if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value):
@@ -31,8 +31,8 @@ class BrokerProfile:
             raise ValueError("broker_id must be a non-empty string")
         if not isinstance(self.name, str) or not self.name:
             raise ValueError(f"name must be a non-empty string (broker {self.broker_id})")
-        _require_finite(self.max_nav_pct_limit, f"max_nav_pct_limit ({self.broker_id})", minimum=0.0)
-        if self.max_nav_pct_limit > 1.0:
+        _require_finite(self.max_nav_pct_limit, f"max_nav_pct_limit ({self.broker_id})")
+        if not 0.0 < self.max_nav_pct_limit <= 1.0:
             raise ValueError(
                 f"max_nav_pct_limit for {self.broker_id} must be a fraction in (0, 1], "
                 f"got {self.max_nav_pct_limit}"
@@ -75,6 +75,10 @@ class CounterpartyConcentrationMonitor:
     advisory: route_order never mutates broker state; the caller executes the
     selected route. A decision with blocked=True must NOT be routed anywhere.
 
+    Concentration is measured on exposure *magnitude* (|cash + margin +
+    position value|), so a net-negative balance at a broker counts as
+    exposure rather than as headroom. NAV itself remains the signed sum.
+
     Concentration limits, CDS thresholds, and the HHI alert level are
     engineering defaults, not regulatory prescriptions — calibrate them to
     the fund's counterparty risk policy and PB agreements.
@@ -82,9 +86,9 @@ class CounterpartyConcentrationMonitor:
 
     def __init__(
         self,
-        brokers: List[BrokerProfile] = None,
+        brokers: Optional[List[BrokerProfile]] = None,
         hhi_alert_threshold: float = 0.35,
-    ):
+    ) -> None:
         _require_finite(hhi_alert_threshold, "hhi_alert_threshold", minimum=0.0)
         if hhi_alert_threshold > 1.0:
             raise ValueError(f"hhi_alert_threshold must be in [0, 1], got {hhi_alert_threshold}")
@@ -93,7 +97,7 @@ class CounterpartyConcentrationMonitor:
         for b in (brokers or []):
             self.register_broker(b)
 
-    def register_broker(self, broker: BrokerProfile):
+    def register_broker(self, broker: BrokerProfile) -> None:
         if broker.broker_id in self.brokers:
             logger.info(
                 "Re-registering broker %s - existing profile replaced (update semantics).",
@@ -111,21 +115,49 @@ class CounterpartyConcentrationMonitor:
         b = self.brokers[broker_id]
         return b.current_cash + b.current_margin + b.current_positions_value
 
+    def calculate_concentration_exposure(self, broker_id: str) -> float:
+        """Exposure *magnitude* at a broker, used for concentration measurement.
+
+        Balances are signed, so a financed book or a net debit balance nets to
+        a negative number. Concentration is about the size of the position sat
+        with a counterparty, not its direction: a -$100k net balance is $100k
+        of counterparty exposure, not $100k of extra headroom. Measured on the
+        signed value, a net-negative broker looks emptier than a flat one and
+        wins every failover selection - the opposite of the intended control.
+
+        This is a deliberately conservative engineering convention for
+        custody / prime-broker balances. It is NOT a regulatory large-exposure
+        measure: there are no netting sets, collateral haircuts, or
+        short-position offsetting rules here (see "When NOT to Use").
+        """
+        return abs(self.calculate_total_broker_exposure(broker_id))
+
     def calculate_portfolio_nav(self) -> float:
         return sum(self.calculate_total_broker_exposure(bid) for bid in self.brokers)
 
     def compute_hhi(self) -> float:
-        """Herfindahl-Hirschman Index over broker exposure weights
+        """Herfindahl-Hirschman Index over broker exposure magnitudes
         (1/n for perfectly equal exposure, 1.0 for a single broker).
-        Logs a warning when the index exceeds hhi_alert_threshold."""
-        total_nav = self.calculate_portfolio_nav()
-        if total_nav <= 0:
-            logger.warning(
-                "Portfolio NAV is %s - HHI undefined; returning 0.0.", total_nav
+
+        Shares are |exposure_k| / sum_j |exposure_j|, which keeps the index a
+        well-defined concentration measure in [1/n, 1] even when some brokers
+        carry net-negative balances. With all-positive balances the
+        denominator equals portfolio NAV, so the result is unchanged.
+
+        Raises:
+            ValueError: when every registered broker is flat, leaving the
+                index undefined. Returning 0.0 - the value that means
+                "perfectly diversified" - would silently pass a downstream
+                `hhi > threshold` check.
+        """
+        exposures = [self.calculate_concentration_exposure(bid) for bid in self.brokers]
+        gross_exposure = sum(exposures)
+        if gross_exposure <= 0:
+            raise ValueError(
+                "HHI is undefined: gross broker exposure is "
+                f"{gross_exposure} (registered: {sorted(self.brokers)})."
             )
-            return 0.0
-        weights = [self.calculate_total_broker_exposure(bid) / total_nav for bid in self.brokers]
-        hhi = round(float(sum(w ** 2 for w in weights)), 4)
+        hhi = round(float(sum((e / gross_exposure) ** 2 for e in exposures)), 4)
         if hhi > self.hhi_alert_threshold:
             logger.warning(
                 "Broker concentration HHI %.4f exceeds alert threshold %.2f "
@@ -166,7 +198,9 @@ class CounterpartyConcentrationMonitor:
 
         primary = self.brokers[target_broker_id]
         primary_current_exp = self.calculate_total_broker_exposure(target_broker_id)
-        primary_proj_weight = (primary_current_exp + proposed_order_value) / total_nav
+        # abs() of the *projected* balance: the order nets against the existing
+        # signed balance first, then concentration is measured on magnitude.
+        primary_proj_weight = abs(primary_current_exp + proposed_order_value) / total_nav
 
         # Check Primary Broker Compliance
         is_cds_distressed = primary.cds_spread_bps > primary.max_cds_bps_threshold
@@ -196,7 +230,7 @@ class CounterpartyConcentrationMonitor:
                 continue
 
             curr_exp = self.calculate_total_broker_exposure(bid)
-            proj_weight = (curr_exp + proposed_order_value) / total_nav
+            proj_weight = abs(curr_exp + proposed_order_value) / total_nav
             if proj_weight <= b.max_nav_pct_limit:
                 candidate_brokers.append((bid, proj_weight))
 

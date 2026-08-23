@@ -23,7 +23,7 @@ actually implementing the skill, not while deciding whether it applies.
 
 4. **Validate Proposed Order** (`evaluate_proposed_position`):
    - Fail closed first: no matrix built → raises `CorrelationMatrixUnavailableError`; matrix older than `max_matrix_age_days` (default 7) raises under `stale_matrix_policy="block"` or logs under `"warn"` (use `"block"` in production).
-   - Portfolio cap: post-trade gross notional must be within `max_portfolio_notional`.
+   - Portfolio cap: post-trade RAW gross notional must be within `max_portfolio_notional`. The proposed leg is counted whether or not the symbol already appears in `current_positions`, so opening orders consume aggregate headroom. Unlike the cluster cap this is deliberately not delta-adjusted — it is a capital/notional limit. Reductions that leave the portfolio over cap are approved (remediation required), increases are vetoed with `allowed_notional` = remaining headroom.
    - Cluster cap with exact post-trade math: a new position adds $|V_{\text{proposed}}|$; an increment against an existing position nets first ($|\text{Position}_i + V_{\text{proposed}}|$). Risk-REDUCING orders are approved even at breach (reason flags "remediation required"); exposure-increasing or neutral orders are vetoed with `RiskCheckResult(approved=False)` and an indicative `allowed_notional = remaining cap / delta weight`.
    - Symbols absent from the matrix are treated as their own single-symbol cluster (warning logged) — feed new listings into the next matrix refresh.
    - Every decision is appended to `audit_trail` (`PositionAuditLog`).

@@ -10,13 +10,19 @@
 3. **Risky PV01 (RPV01)**:
    - $RPV01 = \frac{1 - e^{-(r + \lambda) T}}{r + \lambda}$; the continuous-annuity
      approximation of the survival-discounted premium leg.
-   - Limit: $RPV01 \to T$ as $(r + \lambda) \to 0$.
+   - Limit: $RPV01 = T$ when $(r + \lambda)$ is exactly zero.
+   - Decision point: $(r + \lambda) < 0$ (negative policy rate, tight IG hazard)
+     is a valid annuity equal to $(e^{|r+\lambda|T} - 1)/|r+\lambda| > T$ —
+     evaluate it; do not fold it into the zero limit.
 4. **Indicative Upfront Payment**:
    - $\text{Upfront} = \text{Notional} \times RPV01 \times (s_{par} - s_{coupon})$.
    - Buyer pays when $s_{par} > s_{coupon}$; seller pays the reverse; zero at par.
+   - This is the CLEAN upfront. Cash settlement nets accrued premium since
+     the last IMM date, rebated by the seller to the buyer.
    - Decision point: for settlement-exact figures, run the ISDA CDS Standard
-     Model (cdsmodel.com) — quarterly IMM premiums and Act/360 accrual will
-     move the number vs. this continuous approximation.
+     Model (cdsmodel.com) — quarterly IMM premiums, Act/360 accrual and the
+     accrued rebate will all move the number vs. this continuous
+     approximation.
 5. **Credit Tier Classification**:
    - Boundaries 150 / 1000 bps (informal desk conventions; parameterisable in
      the constructor). 500 bps = standard HY coupon, hence NOT distressed.

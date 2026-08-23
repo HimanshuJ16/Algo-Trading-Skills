@@ -1,7 +1,7 @@
 import math
 import unittest
 from credit_card_transaction_data_signal_construction import (
-    CreditCardTransactionSignalEngine, QuarterlyPanelData
+    CreditCardTransactionSignalEngine, QuarterlyPanelData, validate_yoy_alignment
 )
 
 class TestCreditCardTransactionSignalEngine(unittest.TestCase):
@@ -222,6 +222,84 @@ class TestCreditCardTransactionSignalEngine(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             self.engine.decompose_growth(current, prior2)  # prior count <= 0
+
+    def test_near_threshold_surprise_is_not_rounded_up_into_a_signal(self):
+        # Regression: classification used the 2-dp rounded surprise, so a
+        # +2.496% surprise rounded to 2.50 and was emitted as BEAT_BUY even
+        # though it never reached the documented +2.5% threshold.
+        consensus = 1_900_000_000.0
+        # Implied revenue = consensus * 1.02496 -> panel spend at gamma = 50.0
+        spend = consensus * 1.02496 / 50.0
+        current = QuarterlyPanelData(
+            ticker="CMG", fiscal_quarter="2025-Q1",
+            panel_spend_usd=spend, panel_transaction_count=1_950_000,
+            consensus_revenue_usd=consensus
+        )
+        res = self.engine.generate_signal(current)
+        self.assertEqual(res.predicted_surprise_pct, 2.5)   # reported, rounded
+        self.assertEqual(res.signal, "NEUTRAL")             # classified, unrounded
+        self.assertEqual(res.confidence_score, 0.50)
+
+        # Symmetric on the downside
+        down = QuarterlyPanelData(
+            ticker="CMG", fiscal_quarter="2025-Q1",
+            panel_spend_usd=consensus * 0.97504 / 50.0, panel_transaction_count=1_850_000,
+            consensus_revenue_usd=consensus
+        )
+        self.assertEqual(self.engine.generate_signal(down).signal, "NEUTRAL")
+
+    def test_misaligned_quarters_rejected(self):
+        # t vs t-1 is sequential growth, not YoY: must not be reported as YoY
+        prior = QuarterlyPanelData(
+            ticker="SBUX", fiscal_quarter="2024-Q4",
+            panel_spend_usd=30_000_000.0, panel_transaction_count=1_500_000,
+            consensus_revenue_usd=1_500_000_000.0
+        )
+        current = QuarterlyPanelData(
+            ticker="SBUX", fiscal_quarter="2025-Q1",
+            panel_spend_usd=33_000_000.0, panel_transaction_count=1_600_000,
+            consensus_revenue_usd=1_650_000_000.0
+        )
+        with self.assertRaises(ValueError):
+            self.engine.generate_signal(current, prior_year_data=prior)
+        with self.assertRaises(ValueError):
+            self.engine.decompose_growth(current, prior)
+
+        # Two years apart is equally misaligned
+        two_years = QuarterlyPanelData(
+            ticker="SBUX", fiscal_quarter="2023-Q1",
+            panel_spend_usd=30_000_000.0, panel_transaction_count=1_500_000,
+            consensus_revenue_usd=1_500_000_000.0
+        )
+        with self.assertRaises(ValueError):
+            self.engine.generate_signal(current, prior_year_data=two_years)
+
+    def test_aligned_quarter_label_variants_accepted(self):
+        validate_yoy_alignment("2025-Q1", "2024-Q1")
+        validate_yoy_alignment("FY2025-Q4", "FY2024-Q4")
+        validate_yoy_alignment("2025 q2", "2024 q2")
+        with self.assertRaises(ValueError):
+            validate_yoy_alignment("2025-Q2", "2024-Q1")
+
+    def test_unrecognised_quarter_labels_warn_but_do_not_block(self):
+        # Non-'YYYY-Qn' schemes cannot be checked from the label alone; the
+        # engine warns and proceeds rather than rejecting valid callers.
+        prior = QuarterlyPanelData(
+            ticker="SBUX", fiscal_quarter="FQ1-prior",
+            panel_spend_usd=30_000_000.0, panel_transaction_count=1_500_000,
+            consensus_revenue_usd=1_500_000_000.0
+        )
+        current = QuarterlyPanelData(
+            ticker="SBUX", fiscal_quarter="FQ1-current",
+            panel_spend_usd=33_000_000.0, panel_transaction_count=1_600_000,
+            consensus_revenue_usd=1_650_000_000.0
+        )
+        with self.assertLogs(
+            "credit_card_transaction_data_signal_construction", level="WARNING"
+        ) as captured:
+            res = self.engine.generate_signal(current, prior_year_data=prior)
+        self.assertTrue(any("alignment" in m for m in captured.output))
+        self.assertEqual(res.yoy_growth_pct, 10.0)
 
 if __name__ == '__main__':
     unittest.main()

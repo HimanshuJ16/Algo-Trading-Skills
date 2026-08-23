@@ -18,7 +18,7 @@ brokers_frameworks:
 - ISDA Standard
 - SA-CCR
 - Python Dataclasses
-version: "1.1.0"
+version: "1.2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -39,24 +39,26 @@ Formula grounding: BCBS 279, *"The standardised approach for measuring counterpa
 ## Prerequisites
 
 - Active OTC contract mark-to-market (MTM) values and notionals.
-- ISDA/CSA parameters: `threshold`, `minimum_transfer_amount` (MTA), posted collateral, net independent collateral amount (NICA, default 0), counterparty probability of default ($PD$), and recovery rate ($R$).
+- ISDA/CSA parameters: `threshold` (TH), `minimum_transfer_amount` (MTA), net collateral held ($C$), net independent collateral amount (NICA, default 0), counterparty probability of default ($PD$), and recovery rate ($R$).
+- Note the BCBS 279 definition of $C$: it is *net collateral held under the para 143 NICA methodology* — variation margin **plus** net independent collateral. Any independent amount must be included in `posted_collateral_usd` **and** passed as `net_independent_collateral_usd`; NICA legitimately appears twice (once inside $C$, once in the RC floor). Passing it only as NICA overstates both RC and PFE.
 - A verified, legally enforceable ISDA Master Agreement before applying netting (see `references/standards.md`).
 
 ## Workflow
 
 1. **Netting Set Grouping**: Aggregate all active MTM contract values under the same ISDA Netting Set ID. Only net under a legally enforceable Master Agreement.
 2. **Replacement Cost (RC)** — BCBS 279 para 144, margined netting set:
-   - $V = \sum V_{mtm, i}$, $C$ = posted collateral, $NICA$ = net independent collateral.
+   - $V = \sum V_{mtm, i}$; $C$ = net collateral held (VM + NICA, para 143 methodology); $NICA$ = net independent collateral.
    - $RC = \max(V - C,\ TH + MTA - NICA,\ 0)$. The $TH + MTA$ term is a **floor**: a margined netting set always carries at least the uncollateralised band as exposure, even when MTM is deeply negative.
    - Decision point: an *unmargined* netting set is represented by $TH = MTA = NICA = 0$, which collapses the formula to $\max(V - C, 0)$ (para 136).
 3. **PFE Add-On & Multiplier**:
-   - Add-on aggregate: $\text{AddOn} = \sum_i (\text{Notional}_i \times SF_i)$ with $SF$ from the canonical supervisory factor table in the script (`SA_CCR_SUPERVISORY_FACTORS`, BCBS 279 Table 2 — interest rate 0.5%, FX 4%, equity single-name 32%, equity index 20%).
+   - Add-on aggregate: $\text{AddOn} = \sum_i (\text{Notional}_i \times SF_i)$ with $SF$ from the canonical supervisory factor table in the script — call `supervisory_factor("EQUITY_SINGLE")` rather than typing a literal (`SA_CCR_SUPERVISORY_FACTORS`, BCBS 279 Table 2 — interest rate 0.5%, FX 4%, equity single-name 32%, equity index 20%, credit single-name 0.38%–6.0% by rating). Per para 184, halve the factor for a basis hedging set and multiply it by five for a volatility hedging set.
    - Multiplier (para 149): $m = \min\left(1,\ 0.05 + 0.95 \cdot e^{(V - C) / (2 \cdot 0.95 \cdot \text{AddOn})}\right)$; $PFE = m \times \text{AddOn}$.
    - Decision point: if $V - C \ge 0$ the multiplier is exactly 1 and can be skipped; it only reduces PFE when the set is over-collateralised.
 4. **Exposure at Default** — BCBS 279 para 128: $EAD = 1.4 \times (RC + PFE)$. The $\alpha = 1.4$ multiplier is mandatory in SA-CCR; omitting it understates EAD by 40%.
 5. **CVA Proxy**: $CVA = (1 - R) \times EAD \times PD$ — single-period, undiscounted; see When NOT to Use before quoting this as a price.
 6. **Pre-Trade Limit & CSA Collateral Call Audit**:
-   - Delivery amount $= \max(0,\ V - C - TH)$. A margin call triggers only when the delivery amount $\ge MTA$ (inclusive boundary).
+   - Delivery amount $= \max(0,\ V - C - TH)$. A margin call triggers only when the delivery amount is **strictly positive and** $\ge MTA$ (inclusive boundary). The strict-positivity condition matters because an unmargined set is modelled with $MTA = 0$, where a bare $\ge MTA$ test would fire a \$0 call on every out-of-the-money set.
+   - Decision point: this engine computes **Delivery Amounts only**. An over-collateralised set owes the counterparty a CSA *Return Amount*, which is not calculated here — "no margin call" means "nothing is owed to us", not "no collateral movement is due".
    - If $EAD >$ Max Credit Limit, block the trade or trigger a mandatory collateral top-up.
 
 > Full procedure: see `references/workflows.md`.
@@ -71,6 +73,9 @@ Formula grounding: BCBS 279, *"The standardised approach for measuring counterpa
 - **Dropping the TH + MTA floor in RC**: using $\max(0, V - C - TH)$ (a common textbook shortcut) understates a margined set's exposure whenever $V - C$ falls below the threshold band — para 144 floors RC at $TH + MTA - NICA$.
 - **Ignoring the PFE multiplier for over-collateralised sets**: when $V - C < 0$, PFE must be scaled by the para 149 multiplier (floor 5%), otherwise collateralised sets are over-penalised.
 - **Ignoring Margin Transfer Thresholds (MTA)**: Failing to factor Minimum Transfer Amount (MTA) into collateral call triggers, leading to un-collateralized micro-exposure drift; the trigger fires only at delivery amount ≥ MTA.
+- **Firing a zero-dollar margin call**: testing `delivery_amount >= MTA` alone makes `0 >= 0` true, so every out-of-the-money unmargined netting set (modelled as TH = MTA = 0) reports a triggered call for \$0. Require a strictly positive delivery amount as well.
+- **Reading "no margin call" as "no collateral action"**: this engine computes Delivery Amounts only. An over-collateralised set owes a CSA Return Amount that is not modelled here; leaving it unreturned understates the counterparty's exposure to *you* and can breach the CSA.
+- **Passing NICA only as NICA**: $C$ is net collateral held including the independent amount. Supplying an independent amount solely via `net_independent_collateral_usd`, and not inside `posted_collateral_usd`, leaves $V - C$ un-offset and overstates RC and PFE.
 - **Static Default Probabilities ($PD$)**: Using static credit ratings without updating market-implied $PD$ derived from CDS spreads.
 
 ## Verification
@@ -81,6 +86,7 @@ Formula grounding: BCBS 279, *"The standardised approach for measuring counterpa
   - $EAD = 1.4 \times (150k + 350k) = \$700k$.
   - $CVA = 0.60 \times 700k \times 0.02 = \$8{,}400$.
   - Delivery amount $= \max(0, 400k - 300k - 100k) = 0 <$ MTA → no margin call.
+- Regression check: a netting set with TH = MTA = C = 0 and net MTM −\$900k must report `is_margin_call_triggered = False` and `margin_call_amount_usd = 0.0` (not a triggered \$0 call).
 - Run `python -m unittest discover -s skills/counterparty-credit-risk-for-otc-derivatives/scripts`.
 
 ## Related Skills

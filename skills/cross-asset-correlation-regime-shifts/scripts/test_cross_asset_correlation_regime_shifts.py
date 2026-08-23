@@ -163,5 +163,79 @@ class TestCrossAssetCorrelationRegimeDetector(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.detector.detect_regime(self.signs, np.eye(4))
 
+    def test_two_row_window_rejected_as_degenerate(self):
+        # Any two observations are perfectly correlated, so a 2-row window
+        # produces off-diagonal entries of exactly +/-1 regardless of the data
+        # and previously classified as CRISIS_CONVERGENCE (0.5x leverage).
+        two_rows = np.array([[0.01, -0.02, 0.003], [0.004, 0.005, -0.001]])
+        self.assertTrue(
+            np.allclose(np.abs(np.corrcoef(two_rows, rowvar=False)), 1.0),
+            "premise: 2-row windows are algebraically degenerate",
+        )
+        with self.assertRaises(ValueError):
+            self.detector.compute_correlation_matrix(two_rows)
+        with self.assertRaises(ValueError):
+            self.detector.detect_regime(two_rows, self.signs)
+
+    def test_min_observations_floor_is_configurable(self):
+        strict = CrossAssetCorrelationRegimeDetector(min_observations=30)
+        rng = np.random.default_rng(7)
+        short_20d = rng.normal(size=(20, 3))
+        long_100d = rng.normal(size=(100, 3))
+        with self.assertRaises(ValueError):
+            strict.detect_regime(short_20d, long_100d)      # 20 < 30 -> raises
+        # The same 20-row window is accepted at the default floor.
+        self.assertEqual(
+            self.detector.compute_correlation_matrix(short_20d).shape, (3, 3)
+        )
+        with self.assertRaises(ValueError):
+            CrossAssetCorrelationRegimeDetector(min_observations=2)
+        with self.assertRaises(ValueError):
+            CrossAssetCorrelationRegimeDetector(min_observations=30.5)
+
+    def test_non_correlation_matrix_rejected(self):
+        # A covariance matrix silently inflates D_F into CRISIS_CONVERGENCE.
+        covariance = np.array([[4.0e-4, 1.0e-4], [1.0e-4, 9.0e-4]])
+        with self.assertRaises(ValueError):
+            self.detector.calculate_frobenius_distance(np.eye(2), covariance)
+        with self.assertRaises(ValueError):
+            self.detector.calculate_average_off_diagonal_correlation(covariance)
+        asymmetric = np.array([[1.0, 0.5], [0.2, 1.0]])
+        with self.assertRaises(ValueError):
+            self.detector.calculate_frobenius_distance(np.eye(2), asymmetric)
+        out_of_range = np.array([[1.0, 1.4], [1.4, 1.0]])
+        with self.assertRaises(ValueError):
+            self.detector.calculate_frobenius_distance(np.eye(2), out_of_range)
+        # Float noise of a few ULPs on the diagonal/off-diagonal is tolerated.
+        noisy = np.array([[1.0 + 1e-15, 1.0 + 1e-15], [1.0 + 1e-15, 1.0]])
+        self.assertAlmostEqual(
+            self.detector.calculate_average_off_diagonal_correlation(noisy), 1.0, places=12
+        )
+
+    def test_documented_single_pair_stock_bond_flip_is_not_crisis(self):
+        # SKILL.md verification claim: a stock-bond flip from -0.40 to +0.75
+        # alone, K=4, gives D_F = sqrt(2)*1.15/4 ~ 0.4066 -> SHIFT, not crisis.
+        base = np.eye(4)
+        base[0, 1] = base[1, 0] = -0.40
+        short = np.eye(4)
+        short[0, 1] = short[1, 0] = 0.75
+        dist = self.detector.calculate_frobenius_distance(short, base)
+        self.assertAlmostEqual(dist, math.sqrt(2.0) * 1.15 / 4.0, places=9)
+        self.assertAlmostEqual(dist, 0.4066, places=4)
+        self.assertGreaterEqual(dist, self.detector.shift_threshold)
+        self.assertLess(dist, self.detector.crisis_threshold)
+
+    def test_swapped_window_arguments_warn(self):
+        rng = np.random.default_rng(11)
+        short_window = rng.normal(size=(20, 3))
+        baseline = rng.normal(size=(60, 3))
+        with self.assertLogs(
+            "cross_asset_correlation_regime_shifts", level="WARNING"
+        ) as captured:
+            self.detector.detect_regime(baseline, short_window)   # swapped
+        self.assertTrue(
+            any("may be swapped" in line for line in captured.output), captured.output
+        )
+
 if __name__ == '__main__':
     unittest.main()

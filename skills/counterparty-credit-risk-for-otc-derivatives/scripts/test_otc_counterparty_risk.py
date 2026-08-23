@@ -1,6 +1,7 @@
 import unittest
 from otc_counterparty_risk import (
-    OtcCounterpartyRiskEngine, OtcContract, CsaTerms, SA_CCR_SUPERVISORY_FACTORS
+    OtcCounterpartyRiskEngine, OtcContract, CsaTerms, SA_CCR_SUPERVISORY_FACTORS,
+    supervisory_factor
 )
 
 class TestOtcCounterpartyRiskEngine(unittest.TestCase):
@@ -179,6 +180,116 @@ class TestOtcCounterpartyRiskEngine(unittest.TestCase):
         self.assertEqual(SA_CCR_SUPERVISORY_FACTORS["COMMODITY_OTHER"], 0.18)
         self.assertEqual(SA_CCR_SUPERVISORY_FACTORS["CREDIT_INDEX_IG"], 0.0038)
         self.assertEqual(SA_CCR_SUPERVISORY_FACTORS["CREDIT_INDEX_SG"], 0.0106)
+        self.assertEqual(SA_CCR_SUPERVISORY_FACTORS["COMMODITY_OIL_GAS"], 0.18)
+        self.assertEqual(SA_CCR_SUPERVISORY_FACTORS["COMMODITY_METALS"], 0.18)
+        self.assertEqual(SA_CCR_SUPERVISORY_FACTORS["COMMODITY_AGRICULTURAL"], 0.18)
+
+    def test_credit_single_name_factors_are_rating_dependent(self):
+        # BCBS 279 Table 2, credit single-name row, independently transcribed:
+        # AAA 0.38% | AA 0.38% | A 0.42% | BBB 0.54% | BB 1.06% | B 1.6% | CCC 6.0%
+        expected = {
+            "CREDIT_SINGLE_AAA": 0.0038, "CREDIT_SINGLE_AA": 0.0038,
+            "CREDIT_SINGLE_A": 0.0042, "CREDIT_SINGLE_BBB": 0.0054,
+            "CREDIT_SINGLE_BB": 0.0106, "CREDIT_SINGLE_B": 0.016,
+            "CREDIT_SINGLE_CCC": 0.06,
+        }
+        for key, value in expected.items():
+            self.assertEqual(SA_CCR_SUPERVISORY_FACTORS[key], value, msg=key)
+        # Ratings must be monotonically non-decreasing in riskiness.
+        ordered = [expected[k] for k in (
+            "CREDIT_SINGLE_AAA", "CREDIT_SINGLE_AA", "CREDIT_SINGLE_A",
+            "CREDIT_SINGLE_BBB", "CREDIT_SINGLE_BB", "CREDIT_SINGLE_B",
+            "CREDIT_SINGLE_CCC")]
+        self.assertEqual(ordered, sorted(ordered))
+
+    def test_supervisory_factor_lookup(self):
+        self.assertEqual(supervisory_factor("EQUITY_SINGLE"), 0.32)
+        self.assertEqual(supervisory_factor("FX"), 0.04)
+        # An unknown key must fail loudly rather than default to a factor that
+        # would silently understate the add-on.
+        with self.assertRaises(KeyError) as ctx:
+            supervisory_factor("EQUITY")
+        self.assertIn("EQUITY_SINGLE", str(ctx.exception))
+
+    def test_zero_delivery_amount_never_triggers_a_margin_call(self):
+        # Regression: an unmargined netting set is represented as TH = MTA = 0
+        # (SKILL.md workflow step 2). A plain `delivery >= MTA` test makes
+        # 0 >= 0 true, reporting a triggered margin call for $0 on every
+        # out-of-the-money unmargined set.
+        unmargined = CsaTerms(
+            netting_set_id="ISDA_BANK_ALPHA_UNMARGINED", threshold_usd=0.0,
+            minimum_transfer_amount=0.0, posted_collateral_usd=0.0,
+            counterparty_pd=0.02, recovery_rate=0.40
+        )
+        report = self.engine.analyze_netting_set(
+            [OtcContract("SWAP_OTM", "FX", 500_000.0, -900_000.0, 0.04)], unmargined
+        )
+        self.assertFalse(report.is_margin_call_triggered)
+        self.assertEqual(report.margin_call_amount_usd, 0.0)
+
+        # Exactly flat (V - C - TH == 0) must likewise not call for collateral.
+        flat = self.engine.analyze_netting_set(
+            [OtcContract("SWAP_FLAT", "FX", 500_000.0, 0.0, 0.04)], unmargined
+        )
+        self.assertFalse(flat.is_margin_call_triggered)
+
+    def test_zero_mta_still_calls_on_any_positive_delivery_amount(self):
+        # Guard against over-correcting the above: with MTA = 0 the CSA has no
+        # transfer minimum, so any positive delivery amount must call.
+        no_mta = CsaTerms(
+            netting_set_id="ISDA_BANK_ALPHA_NO_MTA", threshold_usd=100_000.0,
+            minimum_transfer_amount=0.0, posted_collateral_usd=390_000.0,
+            counterparty_pd=0.02, recovery_rate=0.40
+        )
+        # V = 400k; delivery = 400k - 390k - 100k -> floored at 0 -> no call.
+        self.assertFalse(
+            self.engine.analyze_netting_set(self.contracts, no_mta).is_margin_call_triggered
+        )
+        # V = 400k, C = 250k: delivery = 50k > 0 -> call for the full 50k.
+        calls = CsaTerms(
+            netting_set_id="ISDA_BANK_ALPHA_NO_MTA", threshold_usd=100_000.0,
+            minimum_transfer_amount=0.0, posted_collateral_usd=250_000.0,
+            counterparty_pd=0.02, recovery_rate=0.40
+        )
+        report = self.engine.analyze_netting_set(self.contracts, calls)
+        self.assertTrue(report.is_margin_call_triggered)
+        self.assertEqual(report.margin_call_amount_usd, 50_000.0)
+
+    def test_nica_reduces_the_rc_floor(self):
+        # Para 144/145: NICA is subtracted from the TH + MTA floor.
+        # TH + MTA = 150k, NICA = 40k -> floor 110k; V - C = 100k -> RC = 110k.
+        csa = CsaTerms(
+            netting_set_id="ISDA_BANK_ALPHA", threshold_usd=100_000.0,
+            minimum_transfer_amount=50_000.0, posted_collateral_usd=300_000.0,
+            counterparty_pd=0.02, recovery_rate=0.40,
+            net_independent_collateral_usd=40_000.0
+        )
+        self.assertEqual(
+            self.engine.calculate_current_exposure(self.contracts, csa), 110_000.0
+        )
+        # NICA above TH + MTA drives the floor negative; para 145 floors RC at
+        # max(V - C, 0) and never below zero.
+        big_nica = CsaTerms(
+            netting_set_id="ISDA_BANK_ALPHA", threshold_usd=100_000.0,
+            minimum_transfer_amount=50_000.0, posted_collateral_usd=300_000.0,
+            counterparty_pd=0.02, recovery_rate=0.40,
+            net_independent_collateral_usd=900_000.0
+        )
+        self.assertEqual(
+            self.engine.calculate_current_exposure(self.contracts, big_nica), 100_000.0
+        )
+
+    def test_numeric_validation_rejects_bools_and_non_numerics(self):
+        # bool is a subclass of int: True would otherwise be accepted as a
+        # $1 notional, and a string would raise TypeError, not ValueError.
+        with self.assertRaises(ValueError):
+            OtcContract("SWAP_1", "EQUITY", True, 0.0, 0.32)
+        with self.assertRaises(ValueError):
+            OtcContract("SWAP_1", "EQUITY", "1000000", 0.0, 0.32)
+        with self.assertRaises(ValueError):
+            OtcContract("SWAP_1", "EQUITY", 1_000_000.0, None, 0.32)
+        with self.assertRaises(ValueError):
+            CsaTerms("X", 0.0, 0.0, 0.0, True, 0.40)
 
     def test_contract_input_validation(self):
         with self.assertRaises(ValueError):

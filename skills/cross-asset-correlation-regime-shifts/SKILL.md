@@ -14,7 +14,7 @@ tags:
 - diversification-breakdown
 brokers_frameworks:
 - NumPy
-version: "1.1.0"
+version: "1.2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -34,10 +34,13 @@ Use this skill in multi-asset macro strategies, risk-parity portfolios, or stati
 
 - Synchronized historical return series across multiple asset classes ($K \ge 2$ assets, e.g. `SPY`, `TLT`, `GLD`, `BTC`), with no constant/stale series (zero-variance columns are rejected as data errors).
 - Short-term window $W_{short}$ (e.g. 20 days) and baseline window $W_{long}$ (e.g. 100 days; ~5× the short window is a reasonable default, not a rule).
+- A minimum observation count per window. The engine's hard floor is 3 rows (below that every off-diagonal correlation is algebraically $\pm 1$ regardless of the data); set `min_observations` to your own calibrated floor — e.g. 30, where sample-correlation noise $pprox 1/\sqrt{W} pprox 0.18$ — so a truncated or gapped feed raises instead of emitting a de-leverage directive.
+- Column order must be identical across both windows. The engine can verify that $K$ matches, not that column 0 is the same instrument in both — align the universe upstream.
 
 ## Workflow
 
 1. **Correlation Matrix Computation**:
+   - Reject the window before estimating if it is shorter than `min_observations`, contains non-finite values, or holds a zero-variance (stale/flat) column — all three fabricate correlation structure rather than measuring it.
    - Compute Pearson correlation matrix $C_{short}$ over short window $W_{short}$.
    - Compute Pearson correlation matrix $C_{long}$ over baseline window $W_{long}$.
 2. **Frobenius Matrix Distance Calculation** (K-normalized, per-element RMS):
@@ -46,6 +49,7 @@ Use this skill in multi-asset macro strategies, risk-parity portfolios, or stati
 3. **Average Cross-Asset Correlation**:
    - $\bar{\rho}_{short} = \frac{1}{K(K-1)} \sum_{i \neq j} C_{short, i,j}$.
 4. **Regime Classification** (boundaries inclusive; thresholds are tunable defaults):
+   - Decision point: if $D_F$ is large, check *why* before de-leveraging — a full-matrix convergence and a single mis-scaled input (e.g. a covariance matrix supplied where a correlation matrix was expected, which the engine now rejects) produce the same headline number.
    - If $D_F \ge 0.60$ or $\bar{\rho}_{short} \ge 0.65 \implies$ `CRISIS_CONVERGENCE` (High Risk).
    - If $0.30 \le D_F < 0.60 \implies$ `CORRELATION_SHIFT` (Moderate Risk).
    - Else $\implies$ `STABLE_NORMAL`.
@@ -63,6 +67,8 @@ Use this skill in multi-asset macro strategies, risk-parity portfolios, or stati
 - **Imputing Stale Series**: a flat feed yields undefined correlations; this engine raises rather than silently substituting 0.0 — never bypass that by pre-filling zeros.
 - **Ignoring Matrix Distance Signatures**: Monitoring only pairwise scalar correlations without evaluating full-matrix structural breakdown via Frobenius distance.
 - **Sample Window Misalignment**: Comparing non-overlapping or poorly aligned asset return series across different timezones.
+- **Degenerate Short Windows**: a data gap that leaves 1-2 observations in the short window yields off-diagonal correlations of exactly $\pm 1$ — a pure algebraic artefact that reads as `CRISIS_CONVERGENCE` and halves leverage. The engine rejects such windows; raise `min_observations` to your calibrated floor rather than relying on the hard floor of 3.
+- **Passing a Covariance Matrix**: covariance and correlation matrices are both square, symmetric and finite, but covariance entries are on the variance scale, inflating $D_F$ by orders of magnitude into a false crisis. The engine validates unit diagonal, symmetry and $[-1, 1]$ range before computing distances.
 - **Whipsaw on Boundary Values**: classification boundaries are inclusive — a $D_F$ oscillating around 0.60 flaps between regimes; require confirmation (e.g. N consecutive days) before de-leveraging.
 
 ## Verification
@@ -70,6 +76,7 @@ Use this skill in multi-asset macro strategies, risk-parity portfolios, or stati
 - Construct a 3-asset baseline from orthogonal sign vectors (exact identity correlation) and a short window of lockstep rows (exact ones matrix): verify $D_F = \sqrt{6}/3 \approx 0.8165 \ge 0.60$, $\bar{\rho}_{short} = 1.0$, regime `CRISIS_CONVERGENCE`, multiplier 0.50.
 - Construct a short window with exact pairwise correlations (0.5, 0.5, 0.25) against the identity baseline: verify $D_F = 1/(2\sqrt{2}) \approx 0.3536$, $\bar{\rho}_{short} = 1.25/3 \approx 0.4167 < 0.65$, regime `CORRELATION_SHIFT`, multiplier 0.80.
 - A stock-bond flip from $-0.40$ to $+0.75$ alone (other pairs stable, K=4) gives $D_F = \sqrt{2} \times 1.15 / 4 \approx 0.4066$ → `CORRELATION_SHIFT`, **not** crisis convergence — full-matrix confirmation is required before de-leveraging.
+- Feed a 2-row short window: the engine must raise, **not** return `CRISIS_CONVERGENCE`.
 - Run `python -m unittest discover -s skills/cross-asset-correlation-regime-shifts/scripts`.
 
 ## Related Skills

@@ -7,6 +7,14 @@ Basel Framework as CRE52:
 
 - Replacement cost (margined netting set), BCBS 279 para 144:
       RC = max(V - C, TH + MTA - NICA, 0)
+  where V is the net MTM of the netting set and C is, per paras 136 and 143,
+  "the haircut value of net collateral held ... calculated in accordance with
+  the NICA methodology" - that is, C is variation margin held PLUS the net
+  independent collateral amount, not variation margin alone. NICA therefore
+  enters the calculation twice: inside C, and again as the subtracted term of
+  the TH + MTA - NICA floor (para 145). Supplying an independent amount only
+  as `net_independent_collateral_usd` while omitting it from
+  `posted_collateral_usd` overstates both RC and PFE.
   An unmargined netting set (or one modelled without a CSA) is represented by
   TH = MTA = NICA = 0, which degenerates to the unmargined form of para 136:
       RC = max(V - C, 0)
@@ -24,7 +32,11 @@ Deliberate simplifications (do not use for regulatory capital reporting):
   applied (the cap only binds because margined maturity factors are below 1,
   which this engine does not model).
 - Collateral is taken at value without haircuts, and the CSA is assumed
-  one-way (the counterparty posts; we never do).
+  one-way (the counterparty posts; we never do). Only the CSA *Delivery
+  Amount* is computed: an over-collateralised netting set owes the
+  counterparty a *Return Amount*, which this engine does not calculate.
+  `is_margin_call_triggered is False` therefore means "no collateral is owed
+  to us", not "no collateral movement is due".
 - CVA is a single-period, undiscounted proxy, CVA = (1 - R) * EAD * PD, not
   the canonical time-bucketed sum of discounted expected exposures.
 """
@@ -36,36 +48,76 @@ from typing import Dict, List
 
 logger = logging.getLogger(__name__)
 
-# SA-CCR supervisory factors, BCBS 279 Table 2 (para 183). Credit single-name
-# factors are rating-dependent (0.38% to 6.0%) and must be looked up per
-# counterparty; "basis" positions halve and "volatility" positions multiply by
-# 5 the factor of the primary risk factor. Crypto has no SA-CCR asset class.
+# SA-CCR supervisory factors, BCBS 279 Table 2 (para 183), transcribed in full
+# for the asset classes this engine covers. Credit single-name factors are
+# rating-dependent, so they are keyed by rating rather than collapsed into a
+# range. Per para 184, a "basis" hedging set halves and a "volatility" hedging
+# set multiplies by five the factor of the primary risk factor - apply that
+# adjustment at the call site. Crypto has no SA-CCR asset class.
 SA_CCR_SUPERVISORY_FACTORS: Dict[str, float] = {
-    "INTEREST_RATE": 0.005,        # 0.50%
-    "FX": 0.04,                    # 4.0%
-    "EQUITY_SINGLE": 0.32,         # 32%
-    "EQUITY_INDEX": 0.20,          # 20%
-    "CREDIT_INDEX_IG": 0.0038,     # 0.38%
-    "CREDIT_INDEX_SG": 0.0106,     # 1.06%
-    "COMMODITY_ELECTRICITY": 0.40, # 40%
-    "COMMODITY_OTHER": 0.18,       # 18%
+    "INTEREST_RATE": 0.005,          # 0.50%
+    "FX": 0.04,                      # 4.0%
+    "EQUITY_SINGLE": 0.32,           # 32%
+    "EQUITY_INDEX": 0.20,            # 20%
+    "CREDIT_SINGLE_AAA": 0.0038,     # 0.38%
+    "CREDIT_SINGLE_AA": 0.0038,      # 0.38%
+    "CREDIT_SINGLE_A": 0.0042,       # 0.42%
+    "CREDIT_SINGLE_BBB": 0.0054,     # 0.54%
+    "CREDIT_SINGLE_BB": 0.0106,      # 1.06%
+    "CREDIT_SINGLE_B": 0.016,        # 1.6%
+    "CREDIT_SINGLE_CCC": 0.06,       # 6.0%
+    "CREDIT_INDEX_IG": 0.0038,       # 0.38%
+    "CREDIT_INDEX_SG": 0.0106,       # 1.06%
+    "COMMODITY_ELECTRICITY": 0.40,   # 40%
+    "COMMODITY_OIL_GAS": 0.18,       # 18%
+    "COMMODITY_METALS": 0.18,        # 18%
+    "COMMODITY_AGRICULTURAL": 0.18,  # 18%
+    "COMMODITY_OTHER": 0.18,         # 18%
 }
 
 _PFE_MULTIPLIER_FLOOR = 0.05
 
 
 def _require_finite(name: str, value: float) -> None:
-    if not math.isfinite(value):
-        raise ValueError(f"{name} must be finite, got {value!r}")
+    """Rejects non-numeric, boolean and non-finite inputs.
+
+    A bare ``math.isfinite`` check would silently accept ``True`` as 1.0 and
+    raise ``TypeError`` rather than ``ValueError`` on a string, so callers
+    could not handle bad input uniformly.
+    """
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value):
+        raise ValueError(f"{name} must be a finite number, got {value!r}")
+
+
+def supervisory_factor(key: str) -> float:
+    """Looks up a BCBS 279 Table 2 supervisory factor by asset-class key.
+
+    Prefer this over hard-coding a factor: mis-remembered values (notably a
+    "6%" equity factor, which is in fact 32% for single names and 20% for
+    indices) are a recurring source of understated PFE. Raises ``KeyError``
+    listing the valid keys rather than silently returning a default.
+    """
+    try:
+        return SA_CCR_SUPERVISORY_FACTORS[key]
+    except KeyError:
+        raise KeyError(
+            f"unknown SA-CCR supervisory factor key {key!r}; valid keys: "
+            f"{sorted(SA_CCR_SUPERVISORY_FACTORS)}"
+        ) from None
 
 
 @dataclass
 class OtcContract:
     contract_id: str
-    asset_class: str                   # 'EQUITY', 'FX', 'RATES', 'COMMODITY', 'CREDIT', 'CRYPTO'
+    # Free-text label used for reporting only; it does NOT drive the
+    # calculation. Use a SA_CCR_SUPERVISORY_FACTORS key (e.g. 'EQUITY_SINGLE',
+    # 'FX', 'INTEREST_RATE') so the label and the factor below cannot drift.
+    asset_class: str
     notional_usd: float
     mtm_value_usd: float
-    sa_ccr_add_on_factor: float        # supervisory factor, e.g. 0.32 (equity single-name), 0.04 (FX)
+    # Supervisory factor of the primary risk driver (para 151). Source it via
+    # supervisory_factor(...) rather than typing a literal.
+    sa_ccr_add_on_factor: float
 
     def __post_init__(self) -> None:
         if not self.contract_id or not self.contract_id.strip():
@@ -87,12 +139,20 @@ class OtcContract:
 @dataclass
 class CsaTerms:
     netting_set_id: str
-    threshold_usd: float               # Uncollateralized threshold (e.g. $100,000)
+    threshold_usd: float               # TH: uncollateralized threshold (e.g. $100,000)
     minimum_transfer_amount: float     # MTA (e.g. $50,000)
+    # C in BCBS 279 paras 136/144: the haircut value of net collateral HELD,
+    # under the para 143 NICA methodology. It must include variation margin
+    # *and* any net independent collateral - NICA below is a component of this
+    # figure, not an alternative to it. Constrained to >= 0 because this engine
+    # models a one-way CSA in the bank's favour (para 138: a one-way agreement
+    # in the counterparty's favour is treated as unmargined instead).
     posted_collateral_usd: float
-    counterparty_pd: float            # Annual Probability of Default (e.g. 0.02 = 2%)
+    counterparty_pd: float             # Annual Probability of Default (e.g. 0.02 = 2%)
     recovery_rate: float               # e.g. 0.40 (40%, ISDA CDS Standard Model convention)
-    net_independent_collateral_usd: float = 0.0  # NICA: net independent collateral received (may be negative)
+    # NICA (para 143), used only in the TH + MTA - NICA floor. May be negative
+    # when the bank posts more unsegregated collateral than it receives.
+    net_independent_collateral_usd: float = 0.0
 
     def __post_init__(self) -> None:
         if not self.netting_set_id or not self.netting_set_id.strip():
@@ -152,9 +212,13 @@ class OtcCounterpartyRiskEngine:
         """
         Replacement cost per BCBS 279 para 144 (margined netting set):
             RC = max(V - C, TH + MTA - NICA, 0)
-        where V is net MTM, C is collateral held, and NICA is net independent
-        collateral received. With TH = MTA = NICA = 0 this degenerates to the
+        where V is net MTM and C (``csa.posted_collateral_usd``) is the net
+        collateral held under the para 143 NICA methodology - variation margin
+        *plus* net independent collateral. NICA is then subtracted again in the
+        floor term (para 145). With TH = MTA = NICA = 0 this degenerates to the
         unmargined form RC = max(V - C, 0) of para 136.
+
+        ``contracts`` supplies V only; it is not otherwise inspected.
         """
         net_mtm = sum(c.mtm_value_usd for c in contracts)
         rc = max(
@@ -242,10 +306,16 @@ class OtcCounterpartyRiskEngine:
         # CSA Margin Call Audit (BCBS 279 para 140 footnotes 8-9): the delivery
         # amount closes the gap above threshold; a transfer is required only
         # when the delivery amount is at least the Minimum Transfer Amount.
+        # The amount must also be strictly positive: with MTA = 0 - the
+        # representation this engine prescribes for an unmargined netting set -
+        # a plain `>= MTA` test would report a triggered call for $0 on every
+        # set that is at or below its threshold.
         uncollateralized_raw = net_mtm - csa.posted_collateral_usd
         margin_call_amount = max(0.0, uncollateralized_raw - csa.threshold_usd)
 
-        is_margin_call = margin_call_amount >= csa.minimum_transfer_amount
+        is_margin_call = (
+            margin_call_amount > 0.0 and margin_call_amount >= csa.minimum_transfer_amount
+        )
         is_limit_breached = ead > self.max_ead_limit_usd
 
         if is_limit_breached:

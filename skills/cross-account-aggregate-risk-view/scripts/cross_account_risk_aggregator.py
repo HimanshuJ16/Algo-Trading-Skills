@@ -11,6 +11,10 @@ Conventions:
 - FAIL-CLOSED PRICING: a held symbol with a missing, non-finite, or non-positive
   price cannot be valued. It is listed in ``unvalued_symbols``, forces a violation,
   and blocks approval -- GMV is never silently computed against a $0.00 placeholder.
+- MARGIN IS NOT MODELLED: this engine consolidates the margin figures the broker
+  reports; it does not compute Reg T / portfolio-margin / SPAN requirements. A
+  pre-trade check projects the order's margin impact only if the caller passes
+  ``additional_margin_usd``; otherwise the margin cap gates existing balances only.
 
 Thread safety: account registration and aggregation snapshots are serialized
 internally, so an aggregation never observes a half-updated registry. The
@@ -227,21 +231,41 @@ class CrossAccountRiskAggregator:
         symbol: str,
         proposed_qty: float,
         price: float,
-        market_prices: Dict[str, float]
+        market_prices: Dict[str, float],
+        additional_margin_usd: float = 0.0
     ) -> Tuple[bool, str]:
         """
         Evaluates proposed order in account_id against firm-wide aggregate risk caps.
 
-        Raises ValueError for a non-finite quantity or a non-finite/non-positive
-        price (caller bugs); returns (False, reason) for policy rejections such as
-        unknown accounts or post-trade limit breaches. Risk-reducing orders are
-        evaluated on their exact projected net position and can be approved even
-        while the firm is currently over a cap.
+        ``additional_margin_usd`` is the incremental margin the order is expected to
+        consume in that sub-account (negative to model margin RELEASED by a
+        risk-reducing order; the projected account figure is floored at 0). It
+        defaults to 0.0, which means **margin utilization is NOT projected** for the
+        order -- the margin cap can then only fire on a breach that already exists in
+        the registered balances. Supply this argument whenever the firm-wide margin
+        utilization cap is meant to gate new orders; the caller owns the broker- and
+        product-specific margin calculation (Reg T, portfolio margin, SPAN, exchange
+        initial margin), which this engine does not model.
+
+        Raises ValueError for a non-finite quantity, a non-finite/non-positive price,
+        a blank symbol, a non-dict ``market_prices``, or a non-finite
+        ``additional_margin_usd`` (caller bugs); returns (False, reason) for policy
+        rejections such as unknown accounts or post-trade limit breaches.
+        Risk-reducing orders are evaluated on their exact projected net position and
+        can be approved even while the firm is currently over a cap.
         """
+        if not isinstance(symbol, str) or not symbol.strip():
+            raise ValueError(f"symbol must be a non-empty string, got {symbol!r}")
         if not isinstance(proposed_qty, (int, float)) or not math.isfinite(float(proposed_qty)):
             raise ValueError(f"proposed_qty must be a finite number, got {proposed_qty!r}")
         if not isinstance(price, (int, float)) or not math.isfinite(float(price)) or price <= 0:
             raise ValueError(f"price must be a positive finite number, got {price!r}")
+        if not isinstance(market_prices, dict):
+            raise ValueError(f"market_prices must be a dict of {{symbol: price}}, got {type(market_prices)!r}")
+        if not isinstance(additional_margin_usd, (int, float)) or not math.isfinite(float(additional_margin_usd)):
+            raise ValueError(
+                f"additional_margin_usd must be a finite number, got {additional_margin_usd!r}"
+            )
 
         with self._lock:
             if account_id not in self.accounts:
@@ -251,14 +275,17 @@ class CrossAccountRiskAggregator:
         temp_aggregator = CrossAccountRiskAggregator(self.max_firm_gmv_limit_usd, self.max_margin_utilization_pct)
         for acc in self._snapshot_accounts():
             new_positions = dict(acc.positions)
+            new_margin_used = acc.margin_used_usd
             if acc.account_id == account_id:
                 new_positions[symbol] = new_positions.get(symbol, 0.0) + proposed_qty
+                # Margin used can never go below zero, however much the order releases.
+                new_margin_used = max(0.0, acc.margin_used_usd + float(additional_margin_usd))
 
             temp_aggregator.register_account(SubAccountState(
                 account_id=acc.account_id,
                 broker_name=acc.broker_name,
                 cash_usd=acc.cash_usd,
-                margin_used_usd=acc.margin_used_usd,
+                margin_used_usd=new_margin_used,
                 margin_limit_usd=acc.margin_limit_usd,
                 positions=new_positions
             ))

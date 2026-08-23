@@ -239,6 +239,59 @@ class TestCrossAccountRiskAggregator(unittest.TestCase):
         self.assertFalse(approved)
         self.assertIn("Firm GMV limit breached", msg)
 
+    # ---------- Pre-trade margin projection ----------
+
+    def test_pre_trade_margin_not_projected_by_default(self):
+        # Documented default: without additional_margin_usd the order's margin
+        # impact is NOT modelled, so a GMV-compliant order passes even though it
+        # would consume margin. Callers relying on the margin cap must pass it.
+        approved, _ = self.aggregator.evaluate_pre_trade_order(
+            "ACC_IBKR_01", "AAPL", proposed_qty=100.0, price=150.0,
+            market_prices=self.market_prices)
+        self.assertTrue(approved)
+
+    def test_pre_trade_rejects_order_breaching_margin_cap(self):
+        # Regression: the pre-trade gate previously carried margin_used unchanged,
+        # so an order consuming huge margin was approved on GMV alone.
+        # Firm margin: $80k used / $400k capacity = 20%. A $250k margin draw takes
+        # it to $330k / $400k = 82.5% > the 80% cap.
+        approved, msg = self.aggregator.evaluate_pre_trade_order(
+            "ACC_IBKR_01", "AAPL", proposed_qty=100.0, price=150.0,
+            market_prices=self.market_prices, additional_margin_usd=250_000.0)
+        self.assertFalse(approved)
+        self.assertIn("margin utilization limit breached", msg)
+
+    def test_pre_trade_margin_draw_exactly_at_cap_approved(self):
+        # Boundary: $240k draw -> $320k / $400k = exactly 80.0%, which is the cap
+        # and not a breach (the check is strictly greater-than).
+        approved, msg = self.aggregator.evaluate_pre_trade_order(
+            "ACC_IBKR_01", "AAPL", proposed_qty=100.0, price=150.0,
+            market_prices=self.market_prices, additional_margin_usd=240_000.0)
+        self.assertTrue(approved, msg)
+
+    def test_pre_trade_margin_release_floors_at_zero(self):
+        # A release larger than the account's margin used must not produce a
+        # negative margin_used_usd (which would fail SubAccountState validation).
+        approved, msg = self.aggregator.evaluate_pre_trade_order(
+            "ACC_IBKR_01", "AAPL", proposed_qty=-500.0, price=150.0,
+            market_prices=self.market_prices, additional_margin_usd=-999_000.0)
+        self.assertTrue(approved, msg)
+
+    def test_pre_trade_validates_symbol_prices_and_margin_arg(self):
+        base = dict(account_id="ACC_IBKR_01", proposed_qty=10.0, price=150.0)
+        for kwargs in (
+            {"symbol": "", "market_prices": self.market_prices},
+            {"symbol": "   ", "market_prices": self.market_prices},
+            {"symbol": None, "market_prices": self.market_prices},
+            {"symbol": "AAPL", "market_prices": [("AAPL", 150.0)]},
+            {"symbol": "AAPL", "market_prices": self.market_prices,
+             "additional_margin_usd": float("nan")},
+            {"symbol": "AAPL", "market_prices": self.market_prices,
+             "additional_margin_usd": "1000"},
+        ):
+            with self.assertRaises(ValueError, msg=str(kwargs)):
+                self.aggregator.evaluate_pre_trade_order(**base, **kwargs)
+
     # ---------- Registry semantics ----------
 
     def test_reregistration_replaces_account_record(self):

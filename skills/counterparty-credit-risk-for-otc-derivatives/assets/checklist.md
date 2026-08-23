@@ -7,10 +7,13 @@
 - [ ] Are supervisory factors sourced from `SA_CCR_SUPERVISORY_FACTORS` / BCBS 279 Table 2 (equity single-name 32%, FX 4%, interest rate 0.5%) rather than memory?
 - [ ] Is the PFE multiplier applied when the netting set is over-collateralised (V − C < 0)?
 - [ ] Is EAD computed as 1.4 × (RC + PFE)?
-- [ ] Is NICA (net independent collateral) included if the CSA has an independent amount?
+- [ ] Is NICA (net independent collateral) included if the CSA has an independent amount — both **inside** the net collateral figure C (`posted_collateral_usd`) and as `net_independent_collateral_usd`?
 - [ ] Are collateral haircuts considered before feeding posted collateral at value?
 - [ ] Is Current Exposure (CE) calculated on a net MTM basis after deducting posted collateral?
-- [ ] Does the margin call trigger fire only at delivery amount ≥ MTA (inclusive)?
+- [ ] Does the margin call trigger fire only at delivery amount > 0 **and** ≥ MTA (inclusive) — so a TH = MTA = 0 unmargined set cannot raise a $0 call?
+- [ ] Is it understood that only CSA Delivery Amounts are computed, and that a Return Amount owed on an over-collateralised set must be handled outside this engine?
+- [ ] Are supervisory factors adjusted per para 184 (× 0.5 basis hedging sets, × 5 volatility hedging sets)?
+- [ ] Is the netting set covered by a single margin agreement (para 185 requires sub-netting sets otherwise)?
 - [ ] Is counterparty PD refreshed from market-implied (CDS-derived) levels rather than stale ratings?
 - [ ] Is the recovery rate justified (40% ISDA convention for senior unsecured, or entity-specific)?
 - [ ] Is Credit Valuation Adjustment (CVA) understood as a single-period proxy, not a pricing-quality CVA?

@@ -144,7 +144,12 @@ class CorrelationExposureManager:
                     f"got {len(prices) if isinstance(prices, (list, tuple)) else type(prices).__name__}"
                 )
             for p in prices:
-                if not isinstance(p, (int, float)) or not math.isfinite(p) or p <= 0:
+                if (
+                    not isinstance(p, (int, float))
+                    or isinstance(p, bool)
+                    or not math.isfinite(p)
+                    or p <= 0
+                ):
                     raise ValueError(
                         f"price history for {sym} contains a non-positive or "
                         f"non-finite price ({p!r}); refusing to correlate on bad data"
@@ -290,9 +295,16 @@ class CorrelationExposureManager:
           the proposed increment alike, converting option notional to
           underlying-equivalent exposure.
 
+        The portfolio cap (``max_portfolio_notional``) is applied to RAW
+        gross notional with no delta adjustment — it is a capital/notional
+        limit, unlike the cluster cap, which is delta-adjusted. Both are
+        evaluated on exact post-trade exposure, and a symbol absent from
+        ``current_positions`` still contributes to the post-trade portfolio
+        total.
+
         Returns a RiskCheckResult; ``allowed_notional`` on a veto is the
-        indicative raw increment that would fit under the cluster cap
-        (remaining cap / delta weight).
+        indicative raw increment that would fit under the breached cap
+        (for the cluster cap: remaining cap / delta weight).
 
         Veto rule is never allowed to block de-risking: when a cluster or
         the portfolio is ALREADY over its cap, an order that strictly
@@ -331,12 +343,18 @@ class CorrelationExposureManager:
         def weight_of(sym: str) -> float:
             return abs(weights.get(sym, 1.0))
 
-        # 1. Total Portfolio Check (raw gross notional, no delta adjustment)
-        pre_trade_total = sum(abs(v) for v in current_positions.values())
-        post_trade_total = sum(
-            abs(v + proposed_notional) if k == symbol else abs(v)
-            for k, v in current_positions.items()
+        # 1. Total Portfolio Check (raw gross notional, no delta adjustment).
+        # The symbol's own leg is computed separately from the rest of the
+        # book so that a symbol ABSENT from current_positions (a brand-new
+        # position) still contributes |proposed_notional| to the post-trade
+        # total. Summing only over existing keys made the aggregate cap
+        # unenforceable for every new position.
+        existing = current_positions.get(symbol, 0.0)
+        others_total = sum(
+            abs(v) for k, v in current_positions.items() if k != symbol
         )
+        pre_trade_total = others_total + abs(existing)
+        post_trade_total = others_total + abs(existing + proposed_notional)
         if post_trade_total > self.max_portfolio_notional and post_trade_total >= pre_trade_total:
             res = RiskCheckResult(
                 approved=False,
@@ -371,7 +389,6 @@ class CorrelationExposureManager:
         # Post-trade, delta-adjusted gross exposure of the cluster. If the
         # symbol already has a position in current_positions, the increment
         # nets against it (a reduction lowers exposure instead of adding).
-        existing = current_positions.get(symbol, 0.0)
         others_cluster = sum(
             abs(v * weight_of(k))
             for k, v in current_positions.items()

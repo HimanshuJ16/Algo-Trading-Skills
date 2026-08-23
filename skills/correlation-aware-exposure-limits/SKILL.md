@@ -17,7 +17,7 @@ brokers_frameworks:
 - Pandas
 - NumPy
 - Custom Portfolio Risk
-version: "1.1.0"
+version: "1.2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -25,6 +25,14 @@ license: Apache-2.0
 ## When to Use
 
 Invoke this whenever a portfolio trades multiple instruments within the same sector, asset class, or macro factor (e.g., holding multiple tech stocks `NVDA`, `AMD`, `MSFT`, or crypto assets `BTC`, `ETH`, `SOL`). Setting individual position limits per ticker alone creates hidden concentration risk: when correlated instruments fall in tandem during market sell-offs, total portfolio drawdown spikes unexpectedly. Estimating rolling return correlation matrices ($C_{i,j}$), grouping instruments into correlated clusters ($\rho \ge 0.70$), and capping total cluster exposure (e.g. $\le 30\%$ NAV) before approving order executions is mandatory.
+
+## When NOT to Use
+
+- **As the only pre-trade control.** Cluster caps bound concentration, not leverage, margin adequacy, drawdown, or per-symbol size. Compose with the risk skills under Related Skills; SEC Rule 15c3-5 expects a control suite, not a single check.
+- **When the correlation estimate cannot be trusted.** Fewer than ~30 overlapping returns, a newly listed instrument, or a regime break makes the Pearson estimate too noisy to cluster on. The module fails closed on a missing matrix, but it cannot detect a *statistically weak* one — widen the lookback or fall back to sector-only clustering.
+- **For linear factor-risk budgeting.** Connected-component clustering answers "which names move together enough to share a cap," not "how much of my variance is one factor." Use a factor/covariance model for the latter; a single 0.70 edge can chain a long clustering chain into one pocket.
+- **As a substitute for netting-aware margin math.** Exposure here is deliberately GROSS, so it will not match broker margin, which does grant offsets. Do not drive collateral decisions from these numbers.
+- **For a single-instrument or deliberately paired mandate**, unless caps are set to what the mandate actually authorises.
 
 ## Prerequisites
 
@@ -49,6 +57,7 @@ Invoke this whenever a portfolio trades multiple instruments within the same sec
 
 4. **Validate Proposed Order Execution**:
    - Fail closed: if no correlation matrix has been built, evaluation **raises** — never approve orders against silently-empty clusters. A stale matrix (default > 7 days) either warns or blocks, per `stale_matrix_policy`.
+   - Check the aggregate portfolio cap on post-trade GROSS notional, counting the proposed leg even when the symbol is not yet in the book — an opening order in a fresh symbol must consume portfolio headroom like any other. This cap is raw notional (not delta-adjusted); the cluster cap below is delta-adjusted.
    - For a proposed signed increment $V_{\text{proposed}}$ on symbol $i$, compute the exact post-trade cluster exposure: $\text{Exposure}(G_k) + |V_{\text{proposed}}|$ for a new position, or $|\text{Position}_i + V_{\text{proposed}}|$ netting against an existing one — risk-REDUCING orders are never vetoed, even when a cluster is already over cap (they are approved with a remediation flag).
    - If post-trade exposure exceeds the cap and the order does not reduce it, veto with `RiskCheckResult(approved=False)`; `allowed_notional` carries the indicative downsized size.
 
@@ -65,12 +74,14 @@ Invoke this whenever a portfolio trades multiple instruments within the same sec
 - **Asymmetric Delta Treatment**: Delta-adjusting the proposed option order but counting existing options at full notional overstates exposure — apply underlying delta weights to both sides.
 - **Netting Longs Against Shorts in a Cluster**: Netted cluster exposure assumes the correlation hedge holds through the crash; gross (sum of absolute) exposure is the conservative basis for concentration caps.
 - **Misaligned Return Windows**: Correlating truncated prefixes of different-length histories compares returns from different dates. Align on the most recent overlapping returns, and reject (don't skip) bad price data.
+- **Aggregate Cap Blind to New Positions**: Computing the post-trade portfolio total by iterating only over symbols already held silently exempts every opening order from the aggregate cap — the book grows past the limit one new symbol at a time while each individual cluster check still passes. Count the proposed leg explicitly when the symbol is absent from the current book.
 - **Check-Then-Trade Races**: two concurrent orders can each pass against the same cap and jointly breach it. The manager serializes its own matrix/audit state, but the caller must serialize check-then-place sequences when orders can arrive from multiple threads.
 
 ## Verification
 
 - Submit returns for highly correlated assets (`NVDA` & `AMD`, $\rho = 0.85$) and verify `CorrelationExposureManager` groups them into the same cluster.
 - Submit proposed order that breaches the cluster notional limit and verify it is vetoed: `RiskCheckResult(approved=False)` with the indicative `allowed_notional` for downsizing.
+- Verify an opening order in a symbol not yet held is vetoed when it would push post-trade portfolio gross notional past `max_portfolio_notional`.
 - Verify a risk-reducing order on an at-cap cluster is approved, and that evaluating any order before `update_correlation_matrix()` raises `CorrelationMatrixUnavailableError`.
 - Run unit test suite `python scripts/test_exposure_limits.py` (or `python -m unittest discover -s skills/correlation-aware-exposure-limits/scripts`) and confirm 100% pass rate.
 

@@ -2,6 +2,7 @@
 
 1. **Matrix Estimation**:
    - Estimate short-term matrix $C_{short}$ (20 days) and baseline matrix $C_{long}$ (100 days) on synchronized returns; zero-variance series raise data errors.
+   - Decision point: set `min_observations` to the calibrated window floor before going live. Windows below 3 rows are rejected outright (correlations are then exactly $\pm 1$ by construction); between 3 and ~30 rows the estimate is dominated by sampling noise, so a gapped feed should raise rather than trigger a de-leverage.
    - Decision point: if windows shorter than ~30 days are too noisy for your universe (sample-correlation std $\approx 1/\sqrt{W}$), prefer EWMA estimation (RiskMetrics decay $\lambda = 0.94$ daily, ~11-day half-life) over a hard two-window split.
 2. **Frobenius Distance Calculation** (K-normalized per-element RMS):
    - $D_F = \frac{1}{K}\sqrt{\sum_{i,j} (C_{short, i,j} - C_{long, i,j})^2}$.

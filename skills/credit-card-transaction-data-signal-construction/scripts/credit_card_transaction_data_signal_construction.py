@@ -13,12 +13,15 @@ Limitations (documented, deliberate):
   Backtests must enforce the vendor's actual delivery lag and use
   as-delivered (point-in-time) panel snapshots — see the related skill
   `backtesting-alt-data-strategies-with-realistic-availability-lag`.
+- The +/-2.5% default surprise threshold is an engineering default, not a
+  validated constant; calibrate it to the panel's measured prediction error.
 - gamma must be recalibrated against reported 10-Q revenue whenever panel
   composition shifts; a stale gamma silently biases every signal.
 """
 
 import logging
 import math
+import re
 from dataclasses import dataclass
 from typing import Optional
 
@@ -28,6 +31,51 @@ logger = logging.getLogger(__name__)
 def _require_finite(name: str, value: float) -> None:
     if not math.isfinite(value):
         raise ValueError(f"{name} must be finite, got {value!r}")
+
+
+_FISCAL_QUARTER_RE = re.compile(r"^\s*(?:FY)?(\d{4})[-\s]?Q([1-4])\s*$", re.IGNORECASE)
+
+
+def _parse_fiscal_quarter(label: str) -> Optional[int]:
+    """
+    Parse a 'YYYY-Qn' fiscal-quarter label into an absolute quarter index.
+
+    Returns None when the label does not follow that convention, so callers
+    using a different labelling scheme are not rejected outright.
+    """
+    match = _FISCAL_QUARTER_RE.match(label)
+    if match is None:
+        return None
+    year, quarter = int(match.group(1)), int(match.group(2))
+    return year * 4 + (quarter - 1)
+
+
+def validate_yoy_alignment(current_quarter: str, prior_year_quarter: str) -> None:
+    """
+    Enforce the documented t vs t-4 seasonality alignment for YoY comparisons.
+
+    Comparing a quarter against anything other than the same quarter of the
+    prior fiscal year produces a number that is not YoY growth (a t vs t-1
+    pair is sequential growth contaminated by seasonality). Raises ValueError
+    when both labels parse as 'YYYY-Qn' and are not exactly four quarters
+    apart; logs a warning and skips the check when either label uses another
+    convention, since alignment then cannot be verified from the label alone.
+    """
+    current_index = _parse_fiscal_quarter(current_quarter)
+    prior_index = _parse_fiscal_quarter(prior_year_quarter)
+    if current_index is None or prior_index is None:
+        logger.warning(
+            "Cannot verify t vs t-4 seasonality alignment for %r vs %r: labels are "
+            "not in 'YYYY-Qn' form. Confirm fiscal alignment upstream.",
+            current_quarter, prior_year_quarter,
+        )
+        return
+    offset = current_index - prior_index
+    if offset != 4:
+        raise ValueError(
+            "YoY comparison requires seasonality-aligned quarters (t vs t-4): "
+            f"{current_quarter!r} is {offset} quarter(s) after {prior_year_quarter!r}"
+        )
 
 
 @dataclass
@@ -144,6 +192,7 @@ class CreditCardTransactionSignalEngine:
         Diverging volume growth with stable ticket growth suggests a panel
         composition shift rather than a true demand signal.
         """
+        validate_yoy_alignment(current.fiscal_quarter, prior_year.fiscal_quarter)
         if current.panel_transaction_count <= 0 or prior_year.panel_transaction_count <= 0:
             raise ValueError(
                 "decompose_growth requires panel_transaction_count > 0 in both periods "
@@ -176,6 +225,8 @@ class CreditCardTransactionSignalEngine:
 
         yoy_growth_pct is NaN when no prior-year data is supplied; a real
         0.0 always reflects computed flat growth between aligned quarters.
+        Prior-year data must be the same ticker and exactly four quarters
+        earlier (see `validate_yoy_alignment`).
         """
         implied_rev = self.estimate_implied_revenue(current_data.panel_spend_usd)
 
@@ -187,6 +238,7 @@ class CreditCardTransactionSignalEngine:
                     f"Prior-year ticker {prior_year_data.ticker!r} does not match "
                     f"current ticker {current_data.ticker!r}"
                 )
+            validate_yoy_alignment(current_data.fiscal_quarter, prior_year_data.fiscal_quarter)
             prior_implied_rev = self.estimate_implied_revenue(prior_year_data.panel_spend_usd)
             yoy_growth = self.calculate_yoy_growth(implied_rev, prior_implied_rev)
             try:
@@ -204,11 +256,13 @@ class CreditCardTransactionSignalEngine:
         )
         surprise_pct_rounded = round(float(surprise_pct), 2)
 
-        if surprise_pct_rounded >= self.surprise_threshold_pct:
+        # Classify on the unrounded surprise: rounding first would promote a
+        # 2.496% surprise to the +2.5% threshold it has not actually reached.
+        if surprise_pct >= self.surprise_threshold_pct:
             signal = "BEAT_BUY"
             # Naive linear heuristic rank; NOT a calibrated probability.
             confidence = min(1.0, round(0.50 + abs(surprise_pct_rounded) / 20.0, 2))
-        elif surprise_pct_rounded <= -self.surprise_threshold_pct:
+        elif surprise_pct <= -self.surprise_threshold_pct:
             signal = "MISS_SELL"
             confidence = min(1.0, round(0.50 + abs(surprise_pct_rounded) / 20.0, 2))
         else:

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-22T12:20:44.830786+00:00",
+  "generated_at": "2026-08-23T11:15:02.106303+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -2332,7 +2332,7 @@
         "Generic Market Data",
         "Python Dataclasses"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/corporate-action-event-calendar-integration",
@@ -2357,7 +2357,7 @@
         "NumPy",
         "Custom Portfolio Risk"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/correlation-aware-exposure-limits",
@@ -2382,7 +2382,7 @@
         "Generic Cloud",
         "NumPy"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cost-monitoring-for-cloud-trading-infrastructure",
@@ -2390,7 +2390,7 @@
     },
     {
       "name": "counterparty-and-broker-concentration-risk",
-      "description": "Quantitative treasury and risk management module for auditing prime broker counterparty concentration, enforcing max % NAV limits, credit rating/CDS spread bounds, and smart failover order routing.",
+      "description": "Quantitative treasury and risk management module for auditing prime broker counterparty concentration, enforcing max % NAV exposure limits and CDS spread bounds, and returning smart failover order routing decisions.",
       "domain": "Risk Management & Treasury",
       "subdomain": "Counterparty Risk",
       "tags": [
@@ -2405,7 +2405,7 @@
         "Generic Risk Engine",
         "Python Dataclasses"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/counterparty-and-broker-concentration-risk",
@@ -2431,7 +2431,7 @@
         "SA-CCR",
         "Python Dataclasses"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/counterparty-credit-risk-for-otc-derivatives",
@@ -2451,11 +2451,13 @@
         "panel-normalization"
       ],
       "brokers_frameworks": [
-        "Pandas",
-        "NumPy",
-        "Scikit-Learn"
+        "Python Dataclasses",
+        "Yodlee",
+        "Bloomberg Second Measure",
+        "Earnest Analytics",
+        "Facteus"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/credit-card-transaction-data-signal-construction",
@@ -2479,7 +2481,7 @@
         "ISDA CDS Conventions",
         "Python Math"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/credit-default-swap-basics-for-algo-context",
@@ -2502,7 +2504,7 @@
         "Generic Risk Engine",
         "Python Dataclasses"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-account-aggregate-risk-view",
@@ -2524,7 +2526,7 @@
       "brokers_frameworks": [
         "NumPy"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-asset-correlation-regime-shifts",
@@ -2547,7 +2549,7 @@
         "Generic FIX / OMS",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-asset-hedge-execution-synchronization",
@@ -2555,7 +2557,7 @@
     },
     {
       "name": "cross-border-data-transfer-restrictions-for-trade-data",
-      "description": "Quantitative data governance engine for enforcing cross-border trade data transfer compliance (GDPR, PIPL, Swiss Secrecy), tokenizing PII, and auditing cross-jurisdiction telemetry egress.",
+      "description": "Quantitative data governance engine for enforcing cross-border trade data transfer compliance (GDPR, PIPL, Swiss Secrecy), pseudonymizing PII, and auditing cross-jurisdiction telemetry egress.",
       "domain": "Compliance & Data Governance",
       "subdomain": "Cross-Border Data Regulations",
       "tags": [
@@ -2571,7 +2573,7 @@
         "Generic Compliance Engine",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-border-data-transfer-restrictions-for-trade-data",
@@ -2595,7 +2597,7 @@
         "BIP-44 Standard",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-chain-address-reuse-privacy-risk",
@@ -2620,7 +2622,7 @@
         "DeFi Protocols",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-chain-bridge-risk-for-multi-chain-strategies",
@@ -2628,7 +2630,7 @@
     },
     {
       "name": "cross-datacenter-clock-sync-validation",
-      "description": "Use when deploying multi-region or cross-datacenter trading nodes (NY4, LD4, AWS us-east-1) to measure pairwise PTP/NTP clock drift, detect clock sync degradation (>1ms), and enforce safety vetoes on cross-region arbitration.",
+      "description": "Use when a multi-region trading system merges or arbitrates ticks across datacenters (NY4, LD4, AWS us-east-1) and must prove the sites' clocks agree closely enough to order events correctly \u2014 evaluating pairwise inter-region drift with its measurement uncertainty, and failing closed on missing, imprecise or corrupt probes.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -2644,7 +2646,7 @@
         "Clock Sync Validator",
         "Python Real-Time Engine"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-datacenter-clock-sync-validation",
@@ -2652,7 +2654,7 @@
     },
     {
       "name": "cross-jurisdiction-regulatory-conflict-resolution",
-      "description": "Quantitative compliance resolution engine for managing cross-jurisdiction regulatory conflicts (SEC vs MiFID II vs FCA), enforcing Strictest Rule Primacy, and auditing pre-trade order routing.",
+      "description": "Pre-trade compliance gate for cross-jurisdiction regulatory conflicts (SEC vs MiFIR vs FCA), resolving PFOF, LEI tagging, and short-selling rules under Strictest Rule Primacy and recording an auditable decision per order.",
       "domain": "Compliance & Legal",
       "subdomain": "Cross-Jurisdiction Regulation",
       "tags": [
@@ -2671,7 +2673,7 @@
         "FCA",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-jurisdiction-regulatory-conflict-resolution",
@@ -2679,7 +2681,7 @@
     },
     {
       "name": "cross-margining-across-asset-classes",
-      "description": "Quantitative multi-asset treasury and margin optimization module for computing cross-margining offsets across clearing houses (CME, OCC, FICC), reducing initial margin, and calculating capital efficiency.",
+      "description": "Quantitative multi-asset treasury module that estimates cross-margining offsets across clearing houses (CME, OCC, FICC), the initial-margin reduction they imply, and the resulting capital efficiency \u2014 for planning, not as a substitute for the clearing house's own margin calculation.",
       "domain": "Treasury & Clearing Operations",
       "subdomain": "Portfolio & Cross Margining",
       "tags": [
@@ -2692,11 +2694,12 @@
         "capital-efficiency"
       ],
       "brokers_frameworks": [
-        "CME SPAN",
+        "CME SPAN 2",
         "OCC STANS",
+        "ISDA SIMM (aggregation methodology)",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-margining-across-asset-classes",
@@ -2721,7 +2724,7 @@
         "Aurora",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-region-data-replication-lag-monitoring",
@@ -2729,7 +2732,7 @@
     },
     {
       "name": "cross-sectional-vs-time-series-model-design",
-      "description": "Quantitative model architecture selector for distinguishing between Cross-Sectional (relative ranking, market-neutral) and Time-Series (absolute trend, volatility-scaled) alpha strategies.",
+      "description": "Quantitative model architecture selector for distinguishing between Cross-Sectional (relative ranking, dollar-neutral) and Time-Series (absolute trend, volatility-scaled) alpha strategies.",
       "domain": "Quant Research & Modeling",
       "subdomain": "Model Architecture Design",
       "tags": [
@@ -2746,7 +2749,7 @@
         "NumPy",
         "Scikit-Learn"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-sectional-vs-time-series-model-design",
@@ -2766,11 +2769,9 @@
         "correlation-breach"
       ],
       "brokers_frameworks": [
-        "NumPy",
-        "Pandas",
-        "SciPy"
+        "NumPy"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-strategy-correlation-monitoring",
@@ -2778,7 +2779,7 @@
     },
     {
       "name": "cross-strategy-shared-infrastructure-resource-contention",
-      "description": "Quantitative infrastructure management engine for auditing resource contention across co-located strategies, isolating CPU core affinity, rate-limiting FIX gateways, and preempting low-priority tasks.",
+      "description": "Advisory contention manager for co-located trading strategies sharing a host and a FIX gateway - classifies CPU, memory, and gateway-rate telemetry into contention states and emits hysteresis-gated preemption and throttling directives for a supervisor to enforce.",
       "domain": "Real-Time Infrastructure",
       "subdomain": "Shared Resource Management",
       "tags": [
@@ -2794,7 +2795,7 @@
         "Linux Taskset",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-strategy-shared-infrastructure-resource-contention",
@@ -2802,7 +2803,7 @@
     },
     {
       "name": "cross-strategy-signal-reuse-and-licensing",
-      "description": "Quantitative alpha governance engine for managing cross-strategy signal reuse, entitlement access control, internal transfer pricing fee attribution, and AUM capacity limits.",
+      "description": "Use when multiple strategy pods or group entities consume the same proprietary alpha signal, to gate entitlement against a signal AUM capacity cap, attribute an internal licence fee, and produce an auditable licensing record",
       "domain": "Signal Governance & Licensing",
       "subdomain": "Alpha Marketplace & Transfer Pricing",
       "tags": [
@@ -2815,10 +2816,10 @@
         "aum-capacity"
       ],
       "brokers_frameworks": [
-        "OECD Transfer Pricing",
+        "OECD Transfer Pricing Guidelines 2022",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-strategy-signal-reuse-and-licensing",
@@ -2826,7 +2827,7 @@
     },
     {
       "name": "cross-strategy-tax-lot-optimization",
-      "description": "Quantitative tax optimization engine for cross-strategy tax-lot selection (HIFO, Specific ID, LTCG optimization), internal order netting, and wash-sale rule interception.",
+      "description": "US tax-lot selection engine for multi-strategy entities - HIFO / Specific Lot Identification and LTCG-preferring ordering under Treas. Reg. 1.1012-1(c), internal cross-strategy order netting, and an IRC 1091 wash-sale interception screen across sub-strategies.",
       "domain": "Tax Accounting & Optimization",
       "subdomain": "Tax-Lot Accounting",
       "tags": [
@@ -2842,7 +2843,7 @@
         "IRS Form 8949",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-strategy-tax-lot-optimization",
@@ -2864,7 +2865,7 @@
         "Historical Commission Modeler",
         "Python"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-validation-of-commission-schedules-over-time",
@@ -2872,7 +2873,7 @@
     },
     {
       "name": "cross-vendor-timestamp-precision-reconciliation",
-      "description": "Quantitative market data reconciliation engine for normalizing multi-vendor timestamps (s, ms, us, ns, ISO-8601) to 64-bit nanosecond UTC epoch, detecting clock drift, and aligning tick sequences.",
+      "description": "Market data reconciliation engine normalizing multi-vendor timestamps (s, ms, us, ns, ISO-8601) to 64-bit nanosecond UTC epoch with exact integer arithmetic, flagging out-of-order arrivals, precision shortfalls, and matched-event vendor skew.",
       "domain": "Data Management Global",
       "subdomain": "Market Data Reconciliation",
       "tags": [
@@ -2891,7 +2892,7 @@
         "Bloomberg B-PIPE",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-vendor-timestamp-precision-reconciliation",
@@ -2899,7 +2900,7 @@
     },
     {
       "name": "cross-venue-latency-arbitrage-defensive-design",
-      "description": "Quantitative HFT market-making module for detecting cross-venue latency arbitrage, calculating micro-price toxicity, and executing defensive quote pulls, spread widening, and size reductions.",
+      "description": "Defensive market-making module scoring lead-venue depth imbalance and the cancel-versus-sweep latency race, returning asymmetric spread skew, size reduction, and preemptive quote-pull directives for the secondary venue.",
       "domain": "Market Microstructure & HFT",
       "subdomain": "Latency Arbitrage & Adverse Selection",
       "tags": [
@@ -2915,7 +2916,7 @@
         "Order Book Engine",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-venue-latency-arbitrage-defensive-design",
@@ -2923,7 +2924,7 @@
     },
     {
       "name": "crypto-exchange-api-integration",
-      "description": "Use when integrating a crypto exchange (Binance, Coinbase Advanced Trade, Kraken) for spot or derivatives trading, where 24/7 markets, different rate-limit models, and exchange-specific order semantics break assumptions carried over from equities broker integration",
+      "description": "Use when integrating a crypto exchange (Binance, Coinbase Advanced Trade, Kraken) for spot or derivatives trading, where 24/7 markets, structurally different rate-limit models, and exchange-specific order semantics break assumptions carried over from equities broker integration",
       "domain": "algorithmic-trading",
       "subdomain": "global-market-integration",
       "tags": [
@@ -2937,7 +2938,7 @@
         "Coinbase Advanced Trade API",
         "Kraken REST/WebSocket v2"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/crypto-exchange-api-integration",
@@ -2945,7 +2946,7 @@
     },
     {
       "name": "crypto-transaction-tax-lot-tracking",
-      "description": "Quantitative crypto tax accounting engine for tracking tax lots across crypto-to-crypto swaps, DEX trades, gas fee deductions, and enforcing HIFO/FIFO tax optimization for IRS Form 8949 reporting.",
+      "description": "Quantitative crypto tax accounting engine for tracking tax lots per wallet across crypto-to-crypto swaps, DEX trades, and gas fee dispositions, with FIFO/HIFO/LIFO matching and per-lot IRS Form 8949 output.",
       "domain": "Tax Accounting & Optimization",
       "subdomain": "Crypto Tax Accounting",
       "tags": [
@@ -2961,7 +2962,7 @@
         "IRS Form 8949",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/crypto-transaction-tax-lot-tracking",
@@ -2976,7 +2977,7 @@
         "crypto-custody-security"
       ],
       "brokers_frameworks": [],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/crypto-wallet-key-custody-security",
@@ -2984,7 +2985,7 @@
     },
     {
       "name": "currency-gain-loss-tax-treatment-for-forex-trading",
-      "description": "Quantitative tax model for evaluating US IRC Section 988 (Ordinary Income/Loss) vs Section 1256 (60/40 Capital Gains Opt-Out Election) tax treatment for spot forex, futures, and currency forwards.",
+      "description": "US federal tax characterization model for forex trading gains and losses \u2014 IRC Section 988 ordinary treatment, the Section 988(a)(1)(B) capital election, and Section 1256 60/40 treatment including the Section 1212(c) loss carryback.",
       "domain": "Tax Accounting & Global Reporting",
       "subdomain": "Forex Tax Accounting",
       "tags": [
@@ -2998,10 +2999,10 @@
       ],
       "brokers_frameworks": [
         "IRS Form 6781",
-        "Form 1040",
+        "IRS Form 1040 Schedule D",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/currency-gain-loss-tax-treatment-for-forex-trading",
@@ -3009,7 +3010,7 @@
     },
     {
       "name": "currency-pair-quoting-convention-normalization",
-      "description": "Quantitative FX market data normalization module for enforcing ISO 4217 currency priority, converting inverted quotes (USD/EUR -> EUR/USD), and recalibrating bid-ask spreads.",
+      "description": "FX market data normalization module that ranks currency pairs against the de-facto interbank base/terms convention, cross-inverts backwards quotes (USD/EUR -> EUR/USD), sizes pips and spreads, and refuses to transform any pair it cannot rank.",
       "domain": "Data Management Global",
       "subdomain": "FX Market Data Normalization",
       "tags": [
@@ -3025,7 +3026,7 @@
         "ISO 4217",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/currency-pair-quoting-convention-normalization",
@@ -3033,7 +3034,7 @@
     },
     {
       "name": "custodial-vs-non-custodial-tradeoff-assessment",
-      "description": "Quantitative institutional framework for evaluating trade-offs between Custodial CEX, Off-Exchange Settlement (Fireblocks/Copper), and Non-Custodial DEX architectures based on latency, gas, and counterparty risk.",
+      "description": "Use when choosing between custodial exchange execution, off-exchange settlement, and non-custodial on-chain execution, to disqualify architectures that breach a mandate's key-control, counterparty-exposure or latency limits before ranking the survivors",
       "domain": "Crypto Custody & Security",
       "subdomain": "Custody Architecture Design",
       "tags": [
@@ -3046,11 +3047,11 @@
         "mpc-wallet"
       ],
       "brokers_frameworks": [
-        "Fireblocks MPC",
+        "Fireblocks Off-Exchange",
         "Copper ClearLoop",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/custodial-vs-non-custodial-tradeoff-assessment",
@@ -3058,7 +3059,7 @@
     },
     {
       "name": "custody-solution-uptime-and-liveness-guarantees",
-      "description": "Quantitative custody liveness monitoring engine for tracking API uptime SLAs (99.9%+), MPC threshold quorum (k-of-n), and signing latency SLAs, triggering failover upon availability breaches.",
+      "description": "Fail-closed custody liveness monitor tracking API uptime against a contractual SLA target, MPC signing quorum (k-of-n) with early warning at zero redundancy, and sample-gated P99 signing latency, recommending failover on breach, stale telemetry, or no telemetry.",
       "domain": "Crypto Custody & Security",
       "subdomain": "Custody SLA & Liveness",
       "tags": [
@@ -3075,7 +3076,7 @@
         "SOC 2 Type II",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/custody-solution-uptime-and-liveness-guarantees",
@@ -3083,12 +3084,12 @@
     },
     {
       "name": "custody-solution-vendor-due-diligence-checklist",
-      "description": "Quantitative institutional due diligence framework for auditing digital asset custodians across SEC Qualified Custodian status, SOC 2 Type II compliance, bankruptcy remoteness, crime insurance, and MPC key security.",
+      "description": "Institutional due diligence framework for auditing digital asset custodians across Advisers Act qualified custodian categories, SOC 2 Type II scope, bankruptcy remoteness, insurance coverage relative to assets under custody, and FIPS-validated key management.",
       "domain": "Crypto Custody & Security",
       "subdomain": "Vendor Risk Management",
       "tags": [
         "custody-due-diligence",
-        "sec-qualified-custodian",
+        "qualified-custodian",
         "soc2-type2",
         "bankruptcy-remoteness",
         "crime-insurance",
@@ -3097,9 +3098,10 @@
       "brokers_frameworks": [
         "SEC Rule 206(4)-2",
         "SOC 2 Type II",
+        "FIPS 140-3",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/custody-solution-vendor-due-diligence-checklist",

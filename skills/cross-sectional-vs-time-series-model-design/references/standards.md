@@ -1,7 +1,23 @@
 # Standards for Cross-Sectional vs Time-Series Model Design
 
-| Metric | Engineering Standard |
-|---|---|
-| Dollar Neutrality | Cross-sectional weights MUST satisfy $\sum w_{i,t} = 0.0 \pm 10^{-5}$ at every timestamp. |
-| Volatility Targeting | Time-series positions MUST be scaled by annualized target volatility $\sigma_{target}$. |
-| Outlier Windsorization | Raw alpha factors MUST be windsorized at $\pm 3.0 \sigma$ prior to Z-score calculation. |
+Primary sources (all consulted 2026-08-23):
+
+- **Moskowitz, Ooi & Pedersen (2012)**, "Time Series Momentum", *Journal of Financial Economics* 104(2): 228-250: https://w4.stern.nyu.edu/facdir/lpederse/papers/TimeSeriesMomentum.pdf — Section 2.4 and Section 4.1 give the ex-ante volatility estimate and the $\sigma_{target}/\sigma_{t-1}$ position-sizing rule.
+- **Asness, Moskowitz & Pedersen (2013)**, "Value and Momentum Everywhere", *The Journal of Finance* 68(3): 929-985: https://w4.stern.nyu.edu/facdir/lpederse/papers/ValMomEverywhere.pdf — eq. (1) gives the rank-based dollar-neutral weighting scheme.
+- **Jegadeesh & Titman (1993)**, "Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency", *The Journal of Finance* 48(1): 65-91: https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.1993.tb04702.x — the founding cross-sectional (relative-strength) momentum result.
+
+| Metric | Engineering Standard | Source |
+|---|---|---|
+| Dollar neutrality | Cross-sectional weights MUST satisfy $\sum w_{i,t} = 0.0 \pm 10^{-5}$ at every timestamp, measured on the weights **actually returned**. Rounding weights to 4dp injects up to $K \times 5\times10^{-5}$ of net exposure and breaches this bound. | AMP (2013) eq. 1 ("weights across all stocks sum to zero, representing a dollar-neutral long-short portfolio"); engine requirement |
+| Dollar vs beta neutrality | $\sum w_i = 0$ does NOT imply $\sum w_i \beta_i = 0$. Documentation and mandates MUST NOT use "dollar-neutral" and "market-neutral" interchangeably; beta neutrality requires a separate beta estimate and hedge, which this engine does not provide. | Algebraic; AMP (2013) describe their construction as dollar-neutral only |
+| Weight normalization convention | This engine normalizes $\sum|w| = 1$ ($0.50 long / $0.50 short). AMP (2013) scale $c_t$ so the book is $1 long and $1 short, i.e. $\sum|w| = 2$. Rescale before comparing to published factor returns. | AMP (2013) eq. 1 |
+| Effect of cross-sectional standardization | Under $\sum|w|=1$ normalization, $\sigma_{cs,t}$ cancels exactly: $w = (X-\mu_{cs})/\sum_j|X_j-\mu_{cs}|$. Z-scoring is a diagnostic, NOT a risk normalization, and does not change the book. | Algebraic identity; verified in the test suite |
+| Volatility targeting | Time-series positions MUST be sized $\sigma_{target}/\sigma_{i,t-1}$ using an **annualized** volatility. MOP use a 40% target ("the choice of 40% is inconsequential... similar to the risk of an average individual stock"); the engine's 15% default is a policy choice, not a research result. | MOP (2012) §4.1 |
+| Look-ahead in the vol estimate | The realized volatility MUST be estimated from data strictly before the bar being sized. MOP: "we use the volatility estimates at time $t-1$ applied to time-$t$ returns throughout the analysis" — chosen for its "lack of look-ahead bias". | MOP (2012) §2.4 |
+| Ex-ante volatility estimator | MOP estimate $\sigma_t^2 = 261 \sum_i (1-\delta)\delta^i (r_{t-1-i} - \bar{r}_t)^2$, with 261 annualizing and $\delta$ set so the weights' centre of mass $\delta/(1-\delta) = 60$ days. Supplied by the caller here; this engine does not estimate volatility. | MOP (2012) eq. 1 |
+| Leverage cap | MOP apply **no** cap to $\sigma_{target}/\sigma_{t-1}$. The engine's `max_leverage` (default 2.0x) is a risk-policy overlay — size it to the mandate and integrate with portfolio-level exposure limits. | Engineering default |
+| Outlier winsorization | Sigma-clipping at $\pm k\sigma$ CANNOT BIND when $k \ge (K-1)/\sqrt{K}$, since that is the largest attainable $|z|$ for $K$ observations (population std). At $k=3.0$ this makes the clip inert for all $K \le 10$. Small cross-sections MUST use MAD-based clipping ($\pm k \times 1.4826 \times \mathrm{MAD}$) or rank weighting. | Algebraic bound; AMP (2013) adopt ranks explicitly to "mitigate the influence of outliers" |
+| MAD scaling constant | $1.4826 = 1/\Phi^{-1}(0.75)$ makes the MAD a consistent estimator of $\sigma$ for Gaussian data, so a MAD threshold is comparable to a sigma threshold. | Standard robust-statistics result |
+| Data hygiene | Non-finite (NaN/Inf) factor values MUST be rejected, never imputed: NaN propagates through mean/std into every weight, and a NaN weight is an unhandled order size rather than a flat position. | Engine requirement |
+| Degenerate inputs | A non-positive or non-finite realized volatility MUST raise. Flooring it (e.g. to 0.01) converts invalid input into MAXIMUM leverage. Histories shorter than `min_history` MUST raise rather than defaulting to $\mu=0,\sigma=1$, which sizes a full position off no evidence. | Engine requirement |
+| Signal magnitude | Under the MOP trend rule only $\mathrm{sign}(Z)$ enters the time-series weight; magnitude is discarded by design. A zero or undefined $Z$ MUST produce a flat weight, not an arbitrary direction. | MOP (2012) §3.2 |

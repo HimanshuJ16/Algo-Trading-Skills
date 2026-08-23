@@ -129,6 +129,68 @@ class TestCloudCostAnomalyDetector(unittest.TestCase):
         self.assertIn("no baseline history", report.recommendation)
         self.assertIn("UNKNOWN", report.recommendation)
 
+    def test_zero_trading_volume_unit_cost_is_unbounded(self):
+        # $500 of spend with zero executed trades is the worst possible unit
+        # economics; the old behavior reported $0.00/trade, which reads as
+        # perfect efficiency for a halted strategy still burning compute.
+        report = self.detector.analyze_service_cost(
+            self._record(500.0), self.history, trading_volume=0.0
+        )
+        self.assertEqual(report.unit_cost_usd, float("inf"))
+
+    def test_zero_volume_zero_spend_unit_cost_is_zero(self):
+        report = self.detector.analyze_service_cost(
+            self._record(0.0), self.history, trading_volume=0.0
+        )
+        self.assertEqual(report.unit_cost_usd, 0.0)
+
+    # --- Flat-baseline materiality floor -------------------------------------
+
+    def test_flat_baseline_immaterial_deviation_does_not_warn(self):
+        # $3 on a $100,000/day reserved-capacity baseline is +0.003%, but the
+        # flat-baseline "z" is a dollar deviation, so it reaches 3.0 and the
+        # old behavior paged on-call.
+        flat_large = [self._record(100_000.0) for _ in range(14)]
+        report = self.detector.analyze_service_cost(
+            self._record(100_003.0), flat_large, trading_volume=1000.0
+        )
+        self.assertEqual(report.severity, "NORMAL")
+        self.assertEqual(report.z_score, 3.0)
+        self.assertIn("materiality floor", report.recommendation)
+
+    def test_flat_baseline_material_deviation_still_warns(self):
+        # Same $3 absolute deviation, but on a $100/day baseline it is +3% -
+        # above the 1% floor, so the warning must survive.
+        flat_small = [self._record(100.0) for _ in range(14)]
+        report = self.detector.analyze_service_cost(
+            self._record(103.0), flat_small, trading_volume=1000.0
+        )
+        self.assertEqual(report.severity, "WARNING")
+
+    def test_materiality_floor_does_not_suppress_real_z_scores(self):
+        # Non-flat baseline (std ~ $500 on a $100k mean): +$1,500 is only
+        # +1.5% but a genuine 3-sigma statistical outlier. The floor must not
+        # apply here.
+        history = [
+            self._record(100_000.0 + offset)
+            for offset in (-500.0, 500.0) * 7
+        ]
+        report = self.detector.analyze_service_cost(
+            self._record(101_500.0), history, trading_volume=1000.0
+        )
+        self.assertEqual(report.severity, "WARNING")
+        self.assertLess(report.percentage_change_pct, 2.0)
+
+    def test_flat_baseline_floor_is_configurable_and_validated(self):
+        lenient = CloudCostAnomalyDetector(flat_baseline_min_pct_change=0.0)
+        flat_large = [self._record(100_000.0) for _ in range(14)]
+        report = lenient.analyze_service_cost(self._record(100_003.0), flat_large)
+        self.assertEqual(report.severity, "WARNING")
+        with self.assertRaises(ValueError):
+            CloudCostAnomalyDetector(flat_baseline_min_pct_change=-1.0)
+        with self.assertRaises(ValueError):
+            CloudCostAnomalyDetector(flat_baseline_min_pct_change=float("nan"))
+
     def test_compute_z_score_public_api_unchanged(self):
         z, mean, std = self.detector.compute_z_score(110.0, [100.0, 100.0, 100.0])
         self.assertEqual((z, mean, std), (10.0, 100.0, 0.0))

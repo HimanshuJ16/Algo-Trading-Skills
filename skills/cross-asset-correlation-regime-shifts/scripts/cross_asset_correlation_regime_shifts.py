@@ -23,6 +23,11 @@ Limitations (documented, deliberate):
   Herdin et al.'s correlation matrix distance); values scale with K.
 - Series with zero sample variance (stale/flat feeds) produce undefined
   correlations and are rejected as data errors rather than imputed.
+- Windows with fewer than three observations are algebraically degenerate
+  (any two points are perfectly correlated, so every off-diagonal entry is
+  exactly +/-1 regardless of the data) and are rejected. Callers should
+  raise ``min_observations`` to their own calibrated floor so that a data
+  gap raises instead of fabricating a crisis signal.
 """
 
 import logging
@@ -33,13 +38,27 @@ import numpy as np
 logger = logging.getLogger(__name__)
 
 
-def _validate_returns_matrix(returns_matrix: np.ndarray) -> np.ndarray:
-    """Validates an N x K returns matrix: 2-D, N >= 2, K >= 2, all finite."""
+# Two observations always produce off-diagonal correlations of exactly +/-1,
+# independent of the underlying data, so anything below three rows carries no
+# information about the correlation structure.
+DEGENERATE_WINDOW_ROWS = 3
+
+
+def _validate_returns_matrix(
+    returns_matrix: np.ndarray,
+    min_observations: int = DEGENERATE_WINDOW_ROWS,
+) -> np.ndarray:
+    """Validates an N x K returns matrix: 2-D, N >= min_observations, K >= 2, all finite."""
     arr = np.asarray(returns_matrix, dtype=float)
     if arr.ndim != 2:
         raise ValueError(f"returns_matrix must be 2-D (N x K), got ndim={arr.ndim}")
-    if arr.shape[0] < 2:
-        raise ValueError("Insufficient rows to calculate correlation matrix.")
+    if arr.shape[0] < max(min_observations, DEGENERATE_WINDOW_ROWS):
+        raise ValueError(
+            f"Insufficient rows to calculate correlation matrix: got N={arr.shape[0]}, "
+            f"require at least {max(min_observations, DEGENERATE_WINDOW_ROWS)}. Windows of "
+            "1-2 observations yield off-diagonal correlations of exactly +/-1 regardless "
+            "of the data, which would be read as a spurious regime shift."
+        )
     if arr.shape[1] < 2:
         raise ValueError(f"At least 2 assets required, got K={arr.shape[1]}")
     if not np.all(np.isfinite(arr)):
@@ -47,8 +66,22 @@ def _validate_returns_matrix(returns_matrix: np.ndarray) -> np.ndarray:
     return arr
 
 
+# Absolute tolerance for the structural checks below: sample correlation
+# matrices returned by numpy/shrinkage estimators can carry unit-diagonal and
+# symmetry error of a few ULPs, and entries marginally outside [-1, 1].
+_CORR_ATOL = 1e-8
+
+
 def _validate_correlation_matrix(corr: np.ndarray) -> np.ndarray:
-    """Validates a square K x K (K >= 2) finite correlation matrix."""
+    """
+    Validates a square K x K (K >= 2) finite correlation matrix: symmetric,
+    unit diagonal, entries within [-1, 1] (all to ``_CORR_ATOL``).
+
+    The structural checks exist because a covariance matrix passed where a
+    correlation matrix is expected is silently accepted by the distance
+    arithmetic and inflates D_F by orders of magnitude, which would be
+    classified as CRISIS_CONVERGENCE and de-leverage the book.
+    """
     arr = np.asarray(corr, dtype=float)
     if arr.ndim != 2 or arr.shape[0] != arr.shape[1]:
         raise ValueError(f"Correlation matrix must be square, got shape {arr.shape}.")
@@ -56,6 +89,20 @@ def _validate_correlation_matrix(corr: np.ndarray) -> np.ndarray:
         raise ValueError("Correlation matrix requires K >= 2.")
     if not np.all(np.isfinite(arr)):
         raise ValueError("Correlation matrix contains non-finite values.")
+    diagonal = np.diagonal(arr)
+    if not np.allclose(diagonal, 1.0, rtol=0.0, atol=_CORR_ATOL):
+        raise ValueError(
+            "Correlation matrix must have a unit diagonal, got "
+            f"{np.array2string(diagonal, precision=4)} — a covariance matrix was "
+            "most likely supplied instead of a correlation matrix."
+        )
+    if not np.allclose(arr, arr.T, rtol=0.0, atol=_CORR_ATOL):
+        raise ValueError("Correlation matrix must be symmetric.")
+    if np.any(np.abs(arr) > 1.0 + _CORR_ATOL):
+        raise ValueError(
+            "Correlation matrix entries must lie within [-1, 1], got range "
+            f"[{arr.min():.6f}, {arr.max():.6f}]."
+        )
     return arr
 
 
@@ -79,8 +126,20 @@ class CrossAssetCorrelationRegimeDetector:
         self,
         shift_threshold: float = 0.30,
         crisis_threshold: float = 0.60,
-        high_corr_threshold: float = 0.65
+        high_corr_threshold: float = 0.65,
+        min_observations: int = DEGENERATE_WINDOW_ROWS
     ):
+        """
+        Thresholds are uncalibrated defaults — calibrate them to the empirical
+        rolling-D_F distribution of your own universe and window lengths.
+
+        ``min_observations`` is the minimum number of rows accepted in either
+        window. The floor of ``DEGENERATE_WINDOW_ROWS`` (3) only rules out the
+        algebraically degenerate case; set it to your calibrated window floor
+        (e.g. 30, at which sample-correlation noise ~ 1/sqrt(W) is around 0.18)
+        so a truncated or gapped feed raises instead of producing a
+        noise-driven regime flip.
+        """
         for name, value in (
             ("shift_threshold", shift_threshold),
             ("crisis_threshold", crisis_threshold),
@@ -97,6 +156,15 @@ class CrossAssetCorrelationRegimeDetector:
             raise ValueError(
                 f"high_corr_threshold must be within [-1, 1], got {high_corr_threshold}"
             )
+        if isinstance(min_observations, bool) or not isinstance(min_observations, (int, np.integer)):
+            raise ValueError(
+                f"min_observations must be an int, got {min_observations!r}"
+            )
+        if min_observations < DEGENERATE_WINDOW_ROWS:
+            raise ValueError(
+                f"min_observations must be >= {DEGENERATE_WINDOW_ROWS}, got {min_observations}"
+            )
+        self.min_observations = int(min_observations)
         self.shift_threshold = shift_threshold
         self.crisis_threshold = crisis_threshold
         self.high_corr_threshold = high_corr_threshold
@@ -106,9 +174,11 @@ class CrossAssetCorrelationRegimeDetector:
         Computes Pearson correlation matrix for N x K returns array
         (N timestamps, K assets). A constant series yields undefined
         correlations and raises ValueError instead of being silently
-        imputed — treat it as a stale/flat data feed.
+        imputed — treat it as a stale/flat data feed. Windows shorter than
+        ``min_observations`` are rejected for the same reason: they carry no
+        usable correlation structure.
         """
-        arr = _validate_returns_matrix(returns_matrix)
+        arr = _validate_returns_matrix(returns_matrix, self.min_observations)
         # Zero-variance columns make corrcoef emit invalid-division warnings
         # before producing NaNs; the finiteness check below reports the actual
         # data error, so the transient numpy warning is suppressed here.
@@ -156,8 +226,20 @@ class CrossAssetCorrelationRegimeDetector:
     ) -> CorrelationRegimeReport:
         """
         Analyzes short-term vs baseline return series to classify the
-        correlation regime. Both windows must cover the same K assets.
+        correlation regime. Both windows must cover the same K assets, in the
+        same column order — the engine can only verify that K matches, not
+        that column 0 is the same instrument in both windows.
         """
+        short_arr = _validate_returns_matrix(short_term_returns, self.min_observations)
+        base_arr = _validate_returns_matrix(baseline_returns, self.min_observations)
+        if short_arr.shape[0] > base_arr.shape[0]:
+            logger.warning(
+                "Short window (%d rows) is longer than the baseline window (%d rows) — "
+                "arguments may be swapped. The high-correlation trigger and the reported "
+                "short_term_avg_correlation are taken from the FIRST argument.",
+                short_arr.shape[0], base_arr.shape[0],
+            )
+
         c_short = self.compute_correlation_matrix(short_term_returns)
         c_base = self.compute_correlation_matrix(baseline_returns)
 

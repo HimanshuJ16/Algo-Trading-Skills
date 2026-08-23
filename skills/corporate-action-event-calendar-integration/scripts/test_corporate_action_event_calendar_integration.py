@@ -13,17 +13,21 @@ class TestCorporateActionEventCalendarEngine(unittest.TestCase):
             declaration_date=date(2025, 5, 1), ex_date=date(2025, 5, 10),
             record_date=date(2025, 5, 11), payment_date=date(2025, 5, 25), value=1.50
         )
+        # A forward split distributes 25%+ of the security's value, so under
+        # FINRA Rule 11140(b)(2) it goes ex on the first business day AFTER the
+        # payable date: declaration -> record -> payment -> ex.
         self.split_event = CorporateActionEvent(
             event_id="EVT_SPLIT_01", symbol="NVDA", event_type="STOCK_SPLIT",
-            declaration_date=date(2025, 5, 1), ex_date=date(2025, 5, 12),
-            record_date=date(2025, 5, 13), payment_date=date(2025, 5, 20), value=4.0
+            declaration_date=date(2025, 5, 1), record_date=date(2025, 5, 9),
+            payment_date=date(2025, 5, 12), ex_date=date(2025, 5, 13), value=4.0,
+            ex_date_convention="POST_PAYABLE"
         )
         self.engine.register_event(self.div_event)
         self.engine.register_event(self.split_event)
 
     def test_query_upcoming_events(self):
         # Query on May 8 with 5 day window (May 8 - May 13)
-        # Should return both AAPL (May 10) and NVDA (May 12)
+        # Should return both AAPL (ex May 10) and NVDA (ex May 13)
         upcoming = self.engine.query_upcoming_events(current_date=date(2025, 5, 8), lookahead_days=5)
         self.assertEqual(len(upcoming), 2)
         self.assertEqual(upcoming[0].symbol, "AAPL")
@@ -194,6 +198,146 @@ class TestCorporateActionEventCalendarEngine(unittest.TestCase):
                 symbol="AAPL", shares_held_on_record_date=100.0,
                 current_date=datetime(2025, 5, 15)
             )
+
+    # --- ex-date convention (FINRA Rule 11140(b)) -------------------------
+
+    def test_post_payable_convention_accepts_ex_date_after_payment(self):
+        # NVIDIA's real 10-for-1 split: declared 2024-05-22, record 2024-06-06,
+        # payable 2024-06-07, ex-distribution 2024-06-10. A distribution of 25%
+        # or more goes ex the first business day after the payable date
+        # (FINRA Rule 11140(b)(2)), so ex > record > declaration. Validating
+        # ex <= record unconditionally rejected this valid event outright.
+        ev = CorporateActionEvent(
+            event_id="EVT_NVDA_SPLIT", symbol="NVDA", event_type="STOCK_SPLIT",
+            declaration_date=date(2024, 5, 22), record_date=date(2024, 6, 6),
+            payment_date=date(2024, 6, 7), ex_date=date(2024, 6, 10), value=10.0,
+            ex_date_convention="POST_PAYABLE"
+        )
+        self.assertTrue(self.engine.register_event(ev))
+        self.assertEqual(
+            self.engine.query_upcoming_events(date(2024, 6, 9), lookahead_days=2), [ev]
+        )
+
+    def test_post_payable_convention_rejects_ex_date_before_payment(self):
+        with self.assertRaises(ValueError):
+            CorporateActionEvent(
+                event_id="EVT_BAD_06", symbol="NVDA", event_type="STOCK_SPLIT",
+                declaration_date=date(2024, 5, 22), record_date=date(2024, 6, 6),
+                payment_date=date(2024, 6, 10), ex_date=date(2024, 6, 7), value=10.0,
+                ex_date_convention="POST_PAYABLE"
+            )
+
+    def test_pre_record_is_the_default_and_still_rejects_ex_after_record(self):
+        # Defaulting to PRE_RECORD keeps every pre-existing caller's semantics:
+        # a large distribution must be declared explicitly, never inferred.
+        self.assertEqual(self.div_event.ex_date_convention, "PRE_RECORD")
+        with self.assertRaises(ValueError):
+            CorporateActionEvent(
+                event_id="EVT_BAD_07", symbol="NVDA", event_type="STOCK_SPLIT",
+                declaration_date=date(2024, 5, 22), record_date=date(2024, 6, 6),
+                payment_date=date(2024, 6, 7), ex_date=date(2024, 6, 10), value=10.0
+            )
+
+    def test_event_validation_rejects_unknown_ex_date_convention(self):
+        with self.assertRaises(ValueError):
+            CorporateActionEvent(
+                event_id="EVT_BAD_08", symbol="AAPL", event_type="CASH_DIVIDEND",
+                declaration_date=date(2025, 5, 1), ex_date=date(2025, 5, 10),
+                record_date=date(2025, 5, 11), payment_date=date(2025, 5, 25),
+                value=1.50, ex_date_convention="AFTER_RECORD"
+            )
+
+    def test_declaration_after_record_is_rejected_under_post_payable(self):
+        # Under POST_PAYABLE the ex-date no longer bounds the declaration, so
+        # the declaration must be checked against the record date instead.
+        with self.assertRaises(ValueError):
+            CorporateActionEvent(
+                event_id="EVT_BAD_09", symbol="NVDA", event_type="STOCK_SPLIT",
+                declaration_date=date(2024, 6, 8), record_date=date(2024, 6, 6),
+                payment_date=date(2024, 6, 7), ex_date=date(2024, 6, 10), value=10.0,
+                ex_date_convention="POST_PAYABLE"
+            )
+
+    # --- reconciliation: identity fields ----------------------------------
+
+    def test_reconciliation_flags_symbol_and_event_type_mismatch(self):
+        # Same event_id mapped to a different security is a security-master
+        # failure that would credit the entitlement to the wrong position;
+        # comparing only the dates and value passed it as agreement.
+        ev_b = CorporateActionEvent(
+            event_id="EVT_DIV_01", symbol="AAPL.L", event_type="RIGHTS_OFFERING",
+            declaration_date=date(2025, 5, 1), ex_date=date(2025, 5, 10),
+            record_date=date(2025, 5, 11), payment_date=date(2025, 5, 25), value=1.50
+        )
+        discrepancies = self.engine.reconcile_vendor_feeds([self.div_event], [ev_b])
+        self.assertEqual(len(discrepancies), 2)
+        self.assertTrue(any("Symbol mismatch" in d for d in discrepancies))
+        self.assertTrue(any("Event Type mismatch" in d for d in discrepancies))
+
+    def test_reconciliation_flags_ex_date_convention_mismatch(self):
+        ev_b = CorporateActionEvent(
+            event_id="EVT_SPLIT_01", symbol="NVDA", event_type="STOCK_SPLIT",
+            declaration_date=date(2025, 5, 1), record_date=date(2025, 5, 9),
+            ex_date=date(2025, 5, 9), payment_date=date(2025, 5, 12), value=4.0
+        )
+        discrepancies = self.engine.reconcile_vendor_feeds([self.split_event], [ev_b])
+        self.assertTrue(any("Ex-Date Convention mismatch" in d for d in discrepancies))
+
+    # --- amendments vs duplicates -----------------------------------------
+
+    def test_amended_rebroadcast_is_logged_as_error_and_not_applied(self):
+        # Vendors re-publish amended events under the same id (ISO 15022
+        # MT 564 REPL). Treating a moved ex-date as a routine duplicate hides
+        # a change that invalidates downstream sizing.
+        amended = CorporateActionEvent(
+            event_id="EVT_DIV_01", symbol="AAPL", event_type="CASH_DIVIDEND",
+            declaration_date=date(2025, 5, 1), ex_date=date(2025, 5, 14),
+            record_date=date(2025, 5, 14), payment_date=date(2025, 5, 28), value=1.75
+        )
+        with self.assertLogs(
+            "corporate_action_event_calendar_integration", level="ERROR"
+        ) as captured:
+            self.assertFalse(self.engine.register_event(amended))
+        self.assertIn("possible amendment", captured.output[0])
+        self.assertIn("Ex-Date", captured.output[0])
+        self.assertIn("Value", captured.output[0])
+
+        # The registered event is unchanged: still $1.50, ex May 10.
+        ent = self.engine.calculate_dividend_entitlement(
+            symbol="AAPL", shares_held_on_record_date=100.0, current_date=date(2025, 5, 15)
+        )
+        self.assertEqual(ent.dividend_per_share, 1.50)
+
+    def test_identical_rebroadcast_stays_a_warning_not_an_error(self):
+        with self.assertLogs(
+            "corporate_action_event_calendar_integration", level="WARNING"
+        ) as captured:
+            self.assertFalse(self.engine.register_event(self.div_event))
+        self.assertEqual(len(captured.records), 1)
+        self.assertEqual(captured.records[0].levelname, "WARNING")
+
+    # --- same-date special dividend ---------------------------------------
+
+    def test_special_dividend_sharing_record_date_is_flagged_not_silent(self):
+        # A special dividend paid alongside the regular one shares both dates.
+        # Only one entitlement is returned, so the omission must be logged and
+        # the choice deterministic rather than dependent on insertion order.
+        special = CorporateActionEvent(
+            event_id="EVT_DIV_01_SPECIAL", symbol="AAPL", event_type="CASH_DIVIDEND",
+            declaration_date=date(2025, 5, 1), ex_date=date(2025, 5, 10),
+            record_date=date(2025, 5, 11), payment_date=date(2025, 5, 25), value=5.00
+        )
+        self.engine.register_event(special)
+        with self.assertLogs(
+            "corporate_action_event_calendar_integration", level="WARNING"
+        ) as captured:
+            ent = self.engine.calculate_dividend_entitlement(
+                symbol="AAPL", shares_held_on_record_date=100.0,
+                current_date=date(2025, 5, 15)
+            )
+        self.assertIn("share record date", captured.output[0])
+        self.assertEqual(ent.dividend_per_share, 1.50)  # lowest event_id, deterministic
+
 
 if __name__ == '__main__':
     unittest.main()

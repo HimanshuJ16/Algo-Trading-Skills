@@ -107,6 +107,8 @@ class TestCounterpartyConcentrationMonitor(unittest.TestCase):
         with self.assertRaises(ValueError):
             self._profile("PB_BAD", max_nav_pct_limit=-0.2)
         with self.assertRaises(ValueError):
+            self._profile("PB_BAD", max_nav_pct_limit=0.0)     # (0, 1], not [0, 1]
+        with self.assertRaises(ValueError):
             self._profile("PB_BAD", cds_spread_bps=-10.0)
         with self.assertRaises(ValueError):
             self._profile("")                                  # empty broker id
@@ -136,9 +138,53 @@ class TestCounterpartyConcentrationMonitor(unittest.TestCase):
         )
         self.assertEqual(self.monitor.calculate_total_broker_exposure("PB_BETA"), 50_000.0)
 
-    def test_hhi_zero_nav_returns_zero(self):
+    def test_hhi_undefined_on_flat_book_raises(self):
+        # Regression: compute_hhi used to return 0.0 - the value meaning
+        # "perfectly diversified" - when the denominator was undefined, so a
+        # downstream `hhi > threshold` alert silently passed. Fail loud.
         empty = CounterpartyConcentrationMonitor([self._profile("PB_X", current_cash=0.0)])
-        self.assertEqual(empty.compute_hhi(), 0.0)
+        with self.assertRaises(ValueError):
+            empty.compute_hhi()
+
+    # --- Signed balances must not read as concentration headroom -------------
+
+    def test_negative_exposure_broker_is_not_a_failover_haven(self):
+        # Regression: with signed exposures, PB_DEBIT's weight was
+        # (-100k + 10k)/100k = -0.90, which passed the 35% cap and sorted
+        # lowest, so every failover dumped into the broker the fund already
+        # owed $100k. Measured on magnitude the projected weight is 0.90 and
+        # no broker is compliant -> blocked.
+        m = CounterpartyConcentrationMonitor([
+            self._profile("PB_LONG", current_cash=200_000),
+            self._profile("PB_DEBIT", current_cash=-100_000),
+        ])
+        self.assertEqual(m.calculate_total_broker_exposure("PB_DEBIT"), -100_000.0)
+        self.assertEqual(m.calculate_concentration_exposure("PB_DEBIT"), 100_000.0)
+        decision = m.route_order("PB_LONG", proposed_order_value=10_000.0)
+        self.assertTrue(decision.blocked)
+        self.assertNotEqual(decision.selected_broker_id, "PB_DEBIT")
+
+    def test_projected_weight_never_reported_negative(self):
+        m = CounterpartyConcentrationMonitor([
+            self._profile("PB_LONG", current_cash=200_000),
+            self._profile("PB_DEBIT", current_cash=-100_000),
+        ])
+        decision = m.route_order("PB_DEBIT", proposed_order_value=10_000.0)
+        # |(-100k + 10k)| / 100k NAV = 90.0%, not -90.0%.
+        self.assertEqual(decision.projected_nav_pct, 90.0)
+
+    def test_hhi_bounded_with_negative_balances(self):
+        # Regression: signed weights (2.0 and -1.0) gave HHI = 5.0, outside
+        # the [1/n, 1] range the index is defined on. Magnitude shares
+        # (200/300, 100/300) give 0.5556.
+        m = CounterpartyConcentrationMonitor([
+            self._profile("PB_LONG", current_cash=200_000),
+            self._profile("PB_DEBIT", current_cash=-100_000),
+        ])
+        hhi = m.compute_hhi()
+        self.assertAlmostEqual(hhi, 0.5556, places=4)
+        self.assertLessEqual(hhi, 1.0)
+        self.assertGreaterEqual(hhi, 0.5)   # >= 1/n
 
 
 if __name__ == '__main__':

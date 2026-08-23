@@ -14,6 +14,9 @@ Limitations (documented, deliberate):
   (1 - e^-(r+lambda)T)/(r+lambda), NOT the ISDA Standard Model's
   quarterly Act/360 annuity: upfront figures are indicative and will
   not exactly match ISDA cash settlement.
+- The upfront returned is a CLEAN figure. ISDA cash settlement nets the
+  accrued premium from the last IMM date, which the protection seller
+  rebates to the buyer; that term is not modelled here.
 - The hazard rate uses the flat credit-triangle approximation
   lambda = s_par / (1 - R) with constant recovery, no curve stripping.
 - Credit-tier boundaries (150 / 1000 bps) are informal desk
@@ -108,17 +111,24 @@ class CreditDefaultSwapEngine:
         _require_finite("maturity_years", maturity_years)
         if maturity_years <= 0:
             raise ValueError(f"maturity_years must be positive, got {maturity_years}")
+        # Each leg is computed in the form that is accurate in its own
+        # regime: exp() stays accurate as survival -> 0 (long horizon /
+        # distressed hazard), while expm1() avoids the cancellation that
+        # 1 - exp(-x) suffers as PD -> 0 (tight spreads, short horizons).
         survival = math.exp(-hazard_rate * maturity_years)
-        cum_default = 1.0 - survival
+        cum_default = -math.expm1(-hazard_rate * maturity_years)
         return float(survival), float(cum_default)
 
     def calculate_rpv01(self, hazard_rate: float, maturity_years: float) -> float:
         """
         Risky PV01, continuous-annuity approximation:
         RPV01 = (1 - exp(-(r + lambda) * T)) / (r + lambda).
-        As (r + lambda) -> 0 the expression converges to T, which is
-        returned by the limit branch. This is NOT the ISDA Standard
-        Model's quarterly Act/360 annuity.
+        At (r + lambda) == 0 exactly the expression is evaluated at its
+        limit, T. For a negative (r + lambda) — possible under negative
+        policy rates with a tight investment-grade hazard — the integral
+        is still well defined and strictly greater than T; it is
+        evaluated, not clamped. This is NOT the ISDA Standard Model's
+        quarterly Act/360 annuity.
         """
         _require_finite("hazard_rate", hazard_rate)
         if hazard_rate < 0:
@@ -127,9 +137,21 @@ class CreditDefaultSwapEngine:
         if maturity_years <= 0:
             raise ValueError(f"maturity_years must be positive, got {maturity_years}")
         total_rate = self.risk_free_rate + hazard_rate
-        if total_rate <= 0:
+        exponent = -total_rate * maturity_years
+        if total_rate == 0.0:
             return float(maturity_years)
-        return (1.0 - math.exp(-total_rate * maturity_years)) / total_rate
+        if exponent > 700.0:
+            raise ValueError(
+                "risk_free_rate + hazard_rate is too negative for the given "
+                f"maturity: (r + lambda) * T = {-exponent!r} overflows the "
+                "annuity integral"
+            )
+        # expm1 keeps the ratio accurate as (r + lambda) -> 0, where
+        # 1 - exp(-x*T) loses precision to cancellation. A NEGATIVE
+        # (r + lambda) — a negative policy rate against a tight
+        # investment-grade hazard — is a valid input, not the T limit:
+        # the annuity is then strictly greater than T.
+        return float(-math.expm1(exponent) / total_rate)
 
     def classify_credit_tier(self, par_spread_bps: float) -> str:
         """
@@ -160,6 +182,10 @@ class CreditDefaultSwapEngine:
         buyer pays when the par spread exceeds the fixed coupon. Sign and
         magnitude follow the continuous-annuity approximation, so treat
         the figure as indicative rather than an ISDA cash-settlement match.
+
+        This is a CLEAN upfront: the accrued premium since the last IMM
+        date, which the seller rebates to the buyer at cash settlement,
+        is not netted off here.
         """
         _require_finite("notional_usd", notional_usd)
         if notional_usd <= 0:
