@@ -17,7 +17,7 @@ brokers_frameworks:
 - Pandas
 - NumPy
 - Custom Portfolio Risk
-version: "1.0.0"
+version: "1.1.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -30,27 +30,27 @@ Invoke this whenever a portfolio trades multiple instruments within the same sec
 
 - Historical return series for portfolio instruments over rolling lookback window (e.g. 60 days).
 - Defined correlation threshold $\rho_{\text{threshold}}$ (default 0.70).
-- Defined maximum allowed cluster exposure cap (default 30% of total portfolio NAV).
+- Defined maximum allowed cluster exposure cap, expressed as an absolute notional (default 1,000,000; convert a NAV-percentage policy to notional as $\text{cap} = \text{pct} \times \text{NAV}$ at construction time).
 
 ## Workflow
 
 1. **Estimate Rolling Correlation Matrix**:
    - Compute pairwise Pearson correlation matrix $C$ over historical return vectors $R_1, R_2, \dots, R_K$:
      $$C_{i,j} = \frac{\text{Cov}(R_i, R_j)}{\sigma_i \cdot \sigma_j}$$
+   - Price series must be chronological, positive, finite, and date-aligned at their most recent point; differing lengths are correlated over their most recent overlapping returns. Bad data (zero/negative/NaN prices) is **rejected**, never silently correlated.
 
 2. **Form Correlation Clusters**:
-   - Group assets into clusters $G_1, G_2, \dots, G_m$ where pairwise correlation $C_{i,j} \ge \rho_{\text{threshold}}$.
+   - Group assets into connected clusters $G_1, G_2, \dots, G_m$ where pairwise correlation $C_{i,j} \ge \rho_{\text{threshold}}$ (transitively: A–B and B–C at threshold join A, B, C even if A–C is below). Symbols sharing a `sector_mapping` label are forced into one cluster regardless of measured correlation — sector co-membership is treated as one risk pocket.
 
 3. **Compute Current Cluster Exposures**:
-   - Calculate current dollar exposure for cluster $k$:
-     $$\text{Exposure}(G_k) = \sum_{i \in G_k} |\text{Position}_i \cdot P_i|$$
-   - Calculate percentage of portfolio NAV:
-     $$\text{ExposurePct}(G_k) = \frac{\text{Exposure}(G_k)}{\text{Portfolio NAV}}$$
+   - Calculate current GROSS dollar exposure for cluster $k$ (sum of absolute notionals; netting longs against shorts inside a correlated cluster is deliberately not done, because correlations converge in stress and the hedge fails exactly when it matters):
+     $$\text{Exposure}(G_k) = \sum_{i \in G_k} |w_i \cdot \text{Position}_i|$$
+     where $w_i$ is the underlying delta (options delta-adjusted to underlying-equivalent exposure). Divide by NAV for a percentage view.
 
 4. **Validate Proposed Order Execution**:
-   - For proposed order on symbol $i$ with value $V_{\text{proposed}}$:
-     - Compute projected cluster exposure: $\text{ProjectedExposurePct}(G_k) = \frac{\text{Exposure}(G_k) + |V_{\text{proposed}}|}{\text{Portfolio NAV}}$.
-     - If $\text{ProjectedExposurePct}(G_k) > \text{MaxClusterExposurePct}$, veto or downsize order.
+   - Fail closed: if no correlation matrix has been built, evaluation **raises** — never approve orders against silently-empty clusters. A stale matrix (default > 7 days) either warns or blocks, per `stale_matrix_policy`.
+   - For a proposed signed increment $V_{\text{proposed}}$ on symbol $i$, compute the exact post-trade cluster exposure: $\text{Exposure}(G_k) + |V_{\text{proposed}}|$ for a new position, or $|\text{Position}_i + V_{\text{proposed}}|$ netting against an existing one — risk-REDUCING orders are never vetoed, even when a cluster is already over cap (they are approved with a remediation flag).
+   - If post-trade exposure exceeds the cap and the order does not reduce it, veto with `RiskCheckResult(approved=False)`; `allowed_notional` carries the indicative downsized size.
 
 > Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
 > Broker/framework coverage table for this skill: see `references/standards.md`.
@@ -60,13 +60,19 @@ Invoke this whenever a portfolio trades multiple instruments within the same sec
 
 - **Per-Ticker Limit Blind Spot**: Assuming single-ticker limits (e.g. 5% per stock) prevent risk concentration across 8 tech stocks (40% total tech exposure).
 - **Static Correlation Assumptions**: Using static historical correlations without updating rolling matrices, missing correlation breakdown during market crashes.
-- **Ignoring Short Positions**: Failing to account for directional correlation when computing net cluster exposures.
+- **Fail-Open Risk Gates**: Approving orders when the correlation matrix is missing or stale turns every symbol into an uncorrelated singleton and silently disables cluster limits. Missing matrix must block; stale matrix should block in production (`stale_matrix_policy="block"`).
+- **Vetoing De-Risking Orders**: Adding $|V_{\text{proposed}}|$ on top of current exposure vetoes position REDUCTIONS when a cluster sits near its cap. Net the increment against the existing position and only block exposure-increasing orders.
+- **Asymmetric Delta Treatment**: Delta-adjusting the proposed option order but counting existing options at full notional overstates exposure — apply underlying delta weights to both sides.
+- **Netting Longs Against Shorts in a Cluster**: Netted cluster exposure assumes the correlation hedge holds through the crash; gross (sum of absolute) exposure is the conservative basis for concentration caps.
+- **Misaligned Return Windows**: Correlating truncated prefixes of different-length histories compares returns from different dates. Align on the most recent overlapping returns, and reject (don't skip) bad price data.
+- **Check-Then-Trade Races**: two concurrent orders can each pass against the same cap and jointly breach it. The manager serializes its own matrix/audit state, but the caller must serialize check-then-place sequences when orders can arrive from multiple threads.
 
 ## Verification
 
 - Submit returns for highly correlated assets (`NVDA` & `AMD`, $\rho = 0.85$) and verify `CorrelationExposureManager` groups them into the same cluster.
-- Submit proposed order that breaches 30% cluster exposure limit and verify order is vetoed with `CorrelationLimitBreachError`.
-- Run unit test suite `python scripts/test_correlation_manager.py` and confirm 100% pass rate.
+- Submit proposed order that breaches the cluster notional limit and verify it is vetoed: `RiskCheckResult(approved=False)` with the indicative `allowed_notional` for downsizing.
+- Verify a risk-reducing order on an at-cap cluster is approved, and that evaluating any order before `update_correlation_matrix()` raises `CorrelationMatrixUnavailableError`.
+- Run unit test suite `python scripts/test_exposure_limits.py` (or `python -m unittest discover -s skills/correlation-aware-exposure-limits/scripts`) and confirm 100% pass rate.
 
 ## Related Skills
 

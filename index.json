@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-22T02:13:28.816710+00:00",
+  "generated_at": "2026-08-22T12:20:44.830786+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -2332,7 +2332,7 @@
         "Generic Market Data",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/corporate-action-event-calendar-integration",
@@ -2357,7 +2357,7 @@
         "NumPy",
         "Custom Portfolio Risk"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/correlation-aware-exposure-limits",
@@ -2382,7 +2382,7 @@
         "Generic Cloud",
         "NumPy"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cost-monitoring-for-cloud-trading-infrastructure",
@@ -2405,7 +2405,7 @@
         "Generic Risk Engine",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/counterparty-and-broker-concentration-risk",
@@ -2431,7 +2431,7 @@
         "SA-CCR",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/counterparty-credit-risk-for-otc-derivatives",
@@ -2455,7 +2455,7 @@
         "NumPy",
         "Scikit-Learn"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/credit-card-transaction-data-signal-construction",
@@ -2463,7 +2463,7 @@
     },
     {
       "name": "credit-default-swap-basics-for-algo-context",
-      "description": "Quantitative credit trading module for calculating Credit Default Swap (CDS) hazard rates, implied default probabilities, ISDA standard upfront payments, RPV01, and equity-CDS cross-asset signals.",
+      "description": "Quantitative credit trading module for calculating Credit Default Swap (CDS) hazard rates, implied default probabilities, indicative ISDA-convention upfront payments, RPV01, and equity-CDS cross-asset signals.",
       "domain": "Derivatives & Fixed Income",
       "subdomain": "Credit Derivatives",
       "tags": [
@@ -2476,10 +2476,10 @@
         "cross-asset"
       ],
       "brokers_frameworks": [
-        "ISDA Standard Model",
-        "NumPy"
+        "ISDA CDS Conventions",
+        "Python Math"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/credit-default-swap-basics-for-algo-context",
@@ -2487,7 +2487,7 @@
     },
     {
       "name": "cross-account-aggregate-risk-view",
-      "description": "Quantitative multi-account risk management engine for consolidating positions, margin, and PnL across sub-accounts/prime brokers, enforcing firm-wide GMV caps, and detecting internal wash trades.",
+      "description": "Quantitative multi-account risk management engine for consolidating positions, cash, and margin across sub-accounts/prime brokers, enforcing firm-wide GMV caps, and flagging internal long/short offsetting friction.",
       "domain": "Risk Management & Operations",
       "subdomain": "Multi-Account Risk",
       "tags": [
@@ -2502,7 +2502,7 @@
         "Generic Risk Engine",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-account-aggregate-risk-view",
@@ -2510,7 +2510,7 @@
     },
     {
       "name": "cross-asset-correlation-regime-shifts",
-      "description": "Quantitative macro risk engine for monitoring cross-asset correlation matrices (Equities, Bonds, Gold, Crypto), calculating Frobenius matrix distance, and detecting correlation breakdown regime shifts.",
+      "description": "Quantitative macro risk engine for monitoring cross-asset correlation matrices (Equities, Bonds, Gold, Crypto), calculating K-normalized Frobenius matrix distance, and detecting correlation breakdown regime shifts.",
       "domain": "Macro & Risk Management",
       "subdomain": "Correlation Regimes",
       "tags": [
@@ -2522,11 +2522,9 @@
         "diversification-breakdown"
       ],
       "brokers_frameworks": [
-        "NumPy",
-        "Pandas",
-        "SciPy"
+        "NumPy"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/cross-asset-correlation-regime-shifts",

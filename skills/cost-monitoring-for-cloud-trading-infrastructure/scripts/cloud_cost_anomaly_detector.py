@@ -1,9 +1,22 @@
-import numpy as np
 import logging
+import math
 from dataclasses import dataclass
-from typing import List, Dict, Optional, Tuple
+from typing import List, Optional, Tuple
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
+
+FLAT_BASELINE_STD_EPS = 1e-4
+
+
+def _require_finite_cost(value: float, label: str) -> None:
+    """Costs may be negative (credits/refunds) but must be finite — a NaN
+    telemetry value would otherwise make every threshold comparison False and
+    silently classify the day as NORMAL."""
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value):
+        raise ValueError(f"{label} must be a finite number, got {value!r}")
+
 
 @dataclass
 class CostRecord:
@@ -13,6 +26,7 @@ class CostRecord:
     environment: str                   # 'PROD', 'STAGING', 'DEV'
     cost_usd: float
     units_consumed: float              # e.g. GB transferred, hours run, or trade volume
+
 
 @dataclass
 class CostAnomalyReport:
@@ -26,33 +40,73 @@ class CostAnomalyReport:
     unit_cost_usd: float
     recommendation: str
 
+
 class CloudCostAnomalyDetector:
     """
     Quantitative FinOps engine for evaluating cloud infrastructure expenditure,
     detecting cost spikes using rolling Z-scores, and auditing unit economics.
+
+    Baselines are scoped to (service_name, environment): PROD and DEV spend
+    for the same service never share a baseline. When the baseline std is
+    ~0 (flat spend, e.g. reserved capacity), the Z-score degenerates to the
+    absolute dollar deviation from the mean; the percentage-change gate on
+    CRITICAL keeps small absolute deviations on large flat baselines from
+    firing alert storms.
     """
+
     def __init__(self, z_warning_threshold: float = 2.0, z_critical_threshold: float = 3.0):
+        if not (
+            isinstance(z_warning_threshold, (int, float))
+            and isinstance(z_critical_threshold, (int, float))
+            and math.isfinite(z_warning_threshold)
+            and math.isfinite(z_critical_threshold)
+            and 0.0 <= z_warning_threshold <= z_critical_threshold
+        ):
+            raise ValueError(
+                "thresholds must be finite with 0 <= warning <= critical, got "
+                f"warning={z_warning_threshold!r}, critical={z_critical_threshold!r}"
+            )
         self.z_warning_threshold = z_warning_threshold
         self.z_critical_threshold = z_critical_threshold
 
-    def compute_z_score(self, current_cost: float, historical_costs: List[float]) -> Tuple[float, float, float]:
+    def compute_z_score(
+        self, current_cost: float, historical_costs: List[float]
+    ) -> Tuple[float, float, float]:
         """
-        Calculates Z-score, baseline mean, and baseline std dev.
+        Calculates Z-score, baseline mean, and baseline std dev (population
+        std, ddof=0), each rounded to 2 decimals for reporting. With an empty
+        baseline returns (0.0, current_cost, 0.0).
         """
+        z, mean, std = self._z_components(current_cost, historical_costs)
+        return round(z, 2), round(mean, 2), round(std, 2)
+
+    def _z_components(
+        self, current_cost: float, historical_costs: List[float]
+    ) -> Tuple[float, float, float]:
+        """Unrounded z/mean/std — severity decisions must compare unrounded
+        values (a z of 1.996 rounds to 2.0 but is below the threshold)."""
+        _require_finite_cost(current_cost, "current_cost")
         if not historical_costs:
-            return 0.0, current_cost, 0.0
-            
-        arr = np.array(historical_costs)
+            return 0.0, float(current_cost), 0.0
+
+        arr = np.array(historical_costs, dtype=float)
+        if not np.all(np.isfinite(arr)):
+            raise ValueError(
+                "historical_costs contains a non-finite value; fix the "
+                "telemetry before computing a baseline"
+            )
         mean = float(np.mean(arr))
         std = float(np.std(arr))
-        
-        if std < 1e-4:
-            # Avoid divide-by-zero if std is near 0
-            z_score = 0.0 if abs(current_cost - mean) < 1e-4 else (current_cost - mean) / 1.0
+
+        if std < FLAT_BASELINE_STD_EPS:
+            # Flat baseline: z degenerates to the absolute dollar deviation.
+            z_score = 0.0 if abs(current_cost - mean) < FLAT_BASELINE_STD_EPS else (
+                current_cost - mean
+            )
         else:
             z_score = (current_cost - mean) / std
 
-        return round(float(z_score), 2), round(mean, 2), round(std, 2)
+        return float(z_score), mean, std
 
     def analyze_service_cost(
         self,
@@ -61,18 +115,61 @@ class CloudCostAnomalyDetector:
         trading_volume: float = 1.0
     ) -> CostAnomalyReport:
         """
-        Analyzes a current service cost record against historical baseline records.
+        Analyzes a current service cost record against historical baseline
+        records for the SAME service AND environment. `trading_volume` is the
+        period's executed-trade count (default 1.0 => unit cost equals raw
+        spend; always pass the real volume for meaningful unit economics).
         """
-        hist_costs = [r.cost_usd for r in historical_records if r.service_name == current_record.service_name]
-        z_score, mean, std = self.compute_z_score(current_record.cost_usd, hist_costs)
+        _require_finite_cost(current_record.cost_usd, f"cost_usd ({current_record.service_name})")
+        if (
+            not isinstance(trading_volume, (int, float))
+            or isinstance(trading_volume, bool)
+            or not math.isfinite(trading_volume)
+            or trading_volume < 0
+        ):
+            raise ValueError(
+                f"trading_volume must be a non-negative finite number, got {trading_volume!r}"
+            )
 
-        pct_change = ((current_record.cost_usd - mean) / mean * 100.0) if mean > 0 else 0.0
-        unit_cost = current_record.cost_usd / (trading_volume if trading_volume > 0 else 1.0)
+        hist_costs = [
+            r.cost_usd for r in historical_records
+            if r.service_name == current_record.service_name
+            and r.environment == current_record.environment
+        ]
+        if len(hist_costs) < len(historical_records):
+            logger.info(
+                "Baseline for %s scoped to environment %s (%d of %d history records).",
+                current_record.service_name, current_record.environment,
+                len(hist_costs), len(historical_records),
+            )
+        if not hist_costs:
+            logger.warning(
+                "No baseline history for %s in environment %s - cannot assess "
+                "anomaly status; treating as NORMAL until a baseline accrues.",
+                current_record.service_name, current_record.environment,
+            )
 
-        # Severity Classification
+        z_score, mean, std = self._z_components(current_record.cost_usd, hist_costs)
+
+        if mean > 0:
+            pct_change = (current_record.cost_usd - mean) / mean * 100.0
+        elif current_record.cost_usd > 0:
+            # Baseline mean of $0 with positive spend: the percentage increase
+            # is unbounded; report it as infinite so the CRITICAL gate cannot
+            # be defeated by a zero-cost baseline.
+            pct_change = float("inf")
+        else:
+            pct_change = 0.0
+        unit_cost = (
+            current_record.cost_usd / trading_volume if trading_volume > 0 else 0.0
+        )
+
+        # Severity Classification — CRITICAL requires BOTH the z gate and a
+        # >30% mean increase, so flat baselines with trivial absolute
+        # deviations do not page anyone.
         if z_score >= self.z_critical_threshold and pct_change > 30.0:
             severity = "CRITICAL"
-            rec = f"CRITICAL COST SPIKE: {current_record.service_name} spend (${current_record.cost_usd}) is {z_score} std dev above baseline. Inspect runaway workers or cross-AZ egress."
+            rec = f"CRITICAL COST SPIKE: {current_record.service_name} spend (${current_record.cost_usd}) is {round(z_score, 2)} std dev above baseline. Inspect runaway workers or cross-AZ egress."
             logger.critical(rec)
         elif z_score >= self.z_warning_threshold:
             severity = "WARNING"
@@ -81,14 +178,21 @@ class CloudCostAnomalyDetector:
         else:
             severity = "NORMAL"
             rec = f"Service {current_record.service_name} spend is within expected baseline bounds."
+            if not hist_costs:
+                rec = (
+                    f"Service {current_record.service_name} has no baseline history in "
+                    f"environment {current_record.environment}; anomaly status UNKNOWN."
+                )
 
         return CostAnomalyReport(
             service_name=current_record.service_name,
             current_cost_usd=round(current_record.cost_usd, 2),
-            baseline_mean_usd=mean,
-            baseline_std_usd=std,
-            z_score=z_score,
-            percentage_change_pct=round(pct_change, 2),
+            baseline_mean_usd=round(mean, 2),
+            baseline_std_usd=round(std, 2),
+            z_score=round(z_score, 2),
+            percentage_change_pct=(
+                round(pct_change, 2) if math.isfinite(pct_change) else pct_change
+            ),
             severity=severity,
             unit_cost_usd=round(unit_cost, 6),
             recommendation=rec

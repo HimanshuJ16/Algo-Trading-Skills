@@ -1,14 +1,17 @@
 # Workflows for Cross-Asset Correlation Regime Shifts
 
 1. **Matrix Estimation**:
-   - Estimate short-term matrix $C_{short}$ (20 days) and baseline matrix $C_{long}$ (100 days).
-2. **Frobenius Distance Calculation**:
-   - $D_F = \sqrt{\sum_{i,j} (C_{short, i,j} - C_{long, i,j})^2}$.
+   - Estimate short-term matrix $C_{short}$ (20 days) and baseline matrix $C_{long}$ (100 days) on synchronized returns; zero-variance series raise data errors.
+   - Decision point: if windows shorter than ~30 days are too noisy for your universe (sample-correlation std $\approx 1/\sqrt{W}$), prefer EWMA estimation (RiskMetrics decay $\lambda = 0.94$ daily, ~11-day half-life) over a hard two-window split.
+2. **Frobenius Distance Calculation** (K-normalized per-element RMS):
+   - $D_F = \frac{1}{K}\sqrt{\sum_{i,j} (C_{short, i,j} - C_{long, i,j})^2}$.
+   - Sensitivity: one pairwise flip of $\Delta\rho$ moves $D_F$ by $\sqrt{2}|\Delta\rho|/K$.
 3. **Average Correlation**:
    - $\bar{\rho}_{short} = \frac{1}{K(K-1)} \sum_{i \neq j} C_{short, i,j}$.
-4. **Regime Classification**:
-   - If $D_F > 0.80$ or $\bar{\rho}_{short} > 0.65 \implies$ `CRISIS_CONVERGENCE`.
-   - If $0.40 < D_F \le 0.80 \implies$ `CORRELATION_SHIFT`.
+4. **Regime Classification** (inclusive boundaries, tunable thresholds):
+   - If $D_F \ge 0.60$ or $\bar{\rho}_{short} \ge 0.65 \implies$ `CRISIS_CONVERGENCE`.
+   - If $0.30 \le D_F < 0.60 \implies$ `CORRELATION_SHIFT`.
    - Else $\implies$ `STABLE_NORMAL`.
+   - Decision point: calibrate 0.30/0.60 to rolling $D_F$ percentiles (e.g. 80th/95th) on at least several years of history for the same universe and windows; require N consecutive days above threshold before acting (whipsaw guard).
 5. **Portfolio Action**:
-   - Reduce risk-parity portfolio leverage when `CRISIS_CONVERGENCE` is active.
+   - Leverage multipliers: `CRISIS_CONVERGENCE` 0.50, `CORRELATION_SHIFT` 0.80, `STABLE_NORMAL` 1.00 — policy defaults, not mandated constants; confirm with exposure-limit and drawdown controls before executing.

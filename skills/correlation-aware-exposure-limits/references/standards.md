@@ -13,4 +13,4 @@ across the full skill library.
 
 ## Regulatory & Operational Notes
 
-Intersects with SEC Rule 15c3-5 risk management controls, Basel III concentration risk guidelines, and institutional portfolio risk management standards.
+Intersects with SEC [Rule 15c3-5](https://www.sec.gov/files/rules/final/2010/34-63241-secg.htm) (Market Access Rule — broker-dealers with market access must implement pre-trade risk controls that systematically limit financial exposure to credit/capital thresholds; US jurisdiction, mandatory for covered broker-dealers), Basel III large-exposure/concentration risk guidance (banking-sector framework, applicable indirectly), and institutional portfolio risk management standards. Parameter values above are engineering defaults, not regulatory prescriptions — map them to your firm's mandate and applicable regime.

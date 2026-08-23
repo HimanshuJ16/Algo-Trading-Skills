@@ -1,6 +1,10 @@
 # Pre-Flight Checklist
 
 - [ ] Are per-broker NAV concentration limits (e.g. 35% NAV) configured for all active counterparties?
-- [ ] Are Credit Default Swap (CDS) spread alerts and max thresholds ($>250\text{ bps}$) monitored?
-- [ ] Does pre-trade order routing automatically failover to secondary brokers upon limit breach?
-- [ ] Is broker HHI computed continuously to track counterparty diversification?
+- [ ] Are Credit Default Swap (CDS) spread alerts and max thresholds (>250 bps) monitored — with missing/NaN quotes treated as blocking, not healthy?
+- [ ] Does pre-trade order routing fail over to the compliant secondary broker with the lowest projected weight on limit breach?
+- [ ] When ALL brokers are non-compliant, does the pipeline honor `blocked=True` (route nothing, escalate) instead of falling back to the primary?
+- [ ] Is the fail-closed path active for unassessable NAV (≤ 0), with no substituted denominator?
+- [ ] Are broker profiles re-registered with fresh balances before routing (no stale opening-of-day exposure)?
+- [ ] Are unknown broker ids rejected loudly (no silent 0.0 exposure)?
+- [ ] Is broker HHI computed continuously to track counterparty diversification, with the >0.35 alert level calibrated to policy?

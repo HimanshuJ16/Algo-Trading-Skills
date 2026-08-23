@@ -24,10 +24,21 @@ class TestCounterpartyConcentrationMonitor(unittest.TestCase):
         # Total NAV = $300k + $150k + $150k = $600k
         self.monitor = CounterpartyConcentrationMonitor([self.b1, self.b2, self.b3])
 
+    @staticmethod
+    def _profile(broker_id: str, **overrides) -> BrokerProfile:
+        defaults = dict(
+            broker_id=broker_id, name=f"{broker_id} Prime", max_nav_pct_limit=0.35,
+            cds_spread_bps=80.0, max_cds_bps_threshold=250.0,
+            current_cash=100_000, current_margin=0.0, current_positions_value=0.0,
+        )
+        defaults.update(overrides)
+        return BrokerProfile(**defaults)
+
     def test_approved_primary_routing(self):
         # Route small order $5,000 to PB_BETA ($150k + $5k = $155k / $600k = 25.8% <= 35%)
         decision = self.monitor.route_order("PB_BETA", proposed_order_value=5000.0)
         self.assertFalse(decision.is_rerouted)
+        self.assertFalse(decision.blocked)
         self.assertEqual(decision.selected_broker_id, "PB_BETA")
 
     def test_failover_routing_on_limit_breach(self):
@@ -35,6 +46,7 @@ class TestCounterpartyConcentrationMonitor(unittest.TestCase):
         # Breaches PB_ALPHA limit -> Re-routes to PB_BETA ($150k + $10k = $160k / $600k = 26.6% <= 35%)
         decision = self.monitor.route_order("PB_ALPHA", proposed_order_value=10000.0)
         self.assertTrue(decision.is_rerouted)
+        self.assertFalse(decision.blocked)
         self.assertEqual(decision.selected_broker_id, "PB_BETA")
 
     def test_cds_distress_blocks_routing(self):
@@ -49,6 +61,85 @@ class TestCounterpartyConcentrationMonitor(unittest.TestCase):
         # HHI = 0.5^2 + 0.25^2 + 0.25^2 = 0.25 + 0.0625 + 0.0625 = 0.375
         hhi = self.monitor.compute_hhi()
         self.assertEqual(hhi, 0.375)
+
+    # --- Capital-protection paths (previously untested) -----------------------
+
+    def test_all_brokers_noncompliant_blocks_execution(self):
+        # ALPHA at 50% NAV breaches; BETA distressed via CDS; GAMMA distressed
+        # via CDS -> no compliant failover -> decision MUST be blocked=True and
+        # must not name a routable alternative.
+        self.b2.cds_spread_bps = 400.0
+        decision = self.monitor.route_order("PB_ALPHA", proposed_order_value=10_000.0)
+        self.assertTrue(decision.blocked)
+        self.assertFalse(decision.is_rerouted)
+        self.assertIn("blocked", decision.reason.lower())
+
+    def test_zero_nav_fails_closed(self):
+        # An empty book cannot be concentration-assessed: the old code
+        # substituted max(NAV, order) as the denominator; the fix blocks.
+        empty = CounterpartyConcentrationMonitor([self._profile("PB_SOLO", current_cash=0.0)])
+        decision = empty.route_order("PB_SOLO", proposed_order_value=50_000.0)
+        self.assertTrue(decision.blocked)
+        self.assertIn("NAV", decision.reason)
+
+    def test_unknown_broker_exposure_raises(self):
+        # A typo'd broker id must not silently return 0.0 exposure.
+        with self.assertRaises(ValueError):
+            self.monitor.calculate_total_broker_exposure("PB_TYPO")
+        with self.assertRaises(ValueError):
+            self.monitor.route_order("PB_TYPO", proposed_order_value=1000.0)
+
+    # --- Input validation: bad data must be loud, never approving -------------
+
+    def test_non_finite_inputs_rejected(self):
+        with self.assertRaises(ValueError):
+            self.monitor.route_order("PB_BETA", proposed_order_value=float("nan"))
+        with self.assertRaises(ValueError):
+            self.monitor.route_order("PB_BETA", proposed_order_value=-5_000.0)
+        with self.assertRaises(ValueError):
+            self._profile("PB_BAD", cds_spread_bps=float("nan"))
+        with self.assertRaises(ValueError):
+            self._profile("PB_BAD", current_cash=float("inf"))
+
+    def test_profile_parameter_validation(self):
+        with self.assertRaises(ValueError):
+            self._profile("PB_BAD", max_nav_pct_limit=1.5)   # not a fraction
+        with self.assertRaises(ValueError):
+            self._profile("PB_BAD", max_nav_pct_limit=-0.2)
+        with self.assertRaises(ValueError):
+            self._profile("PB_BAD", cds_spread_bps=-10.0)
+        with self.assertRaises(ValueError):
+            self._profile("")                                  # empty broker id
+
+    def test_negative_positions_value_allowed_but_finite(self):
+        # Short market value is a legitimate signed balance.
+        m = CounterpartyConcentrationMonitor(
+            [self._profile("PB_A", current_cash=200_000, current_positions_value=-50_000)]
+        )
+        self.assertEqual(m.calculate_total_broker_exposure("PB_A"), 150_000.0)
+
+    # --- Failover determinism and update semantics -----------------------------
+
+    def test_failover_selects_lowest_projected_weight(self):
+        # Two compliant secondaries with different exposure: BETA ($150k) and
+        # a fresh PB_DELTA ($0). Both fit; DELTA has the lowest projected
+        # weight and must win. Ties break on broker_id (deterministic).
+        self.monitor.register_broker(self._profile("PB_DELTA", current_cash=0.0))
+        decision = self.monitor.route_order("PB_ALPHA", proposed_order_value=10_000.0)
+        self.assertTrue(decision.is_rerouted)
+        self.assertEqual(decision.selected_broker_id, "PB_DELTA")
+
+    def test_register_broker_overwrites_existing_profile(self):
+        # Re-registration is the update mechanism (e.g. refreshed balances).
+        self.monitor.register_broker(
+            self._profile("PB_BETA", current_cash=50_000, current_margin=0.0)
+        )
+        self.assertEqual(self.monitor.calculate_total_broker_exposure("PB_BETA"), 50_000.0)
+
+    def test_hhi_zero_nav_returns_zero(self):
+        empty = CounterpartyConcentrationMonitor([self._profile("PB_X", current_cash=0.0)])
+        self.assertEqual(empty.compute_hhi(), 0.0)
+
 
 if __name__ == '__main__':
     unittest.main()
