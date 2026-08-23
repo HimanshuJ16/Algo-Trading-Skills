@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-23T11:15:02.106303+00:00",
+  "generated_at": "2026-08-23T15:28:43.675961+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -3109,7 +3109,7 @@
     },
     {
       "name": "dark-pool-routing-logic",
-      "description": "Quantitative Smart Order Router (SOR) module for routing block orders across dark pools / ATS, enforcing anti-pinging MinQty thresholds, and filtering toxic venues.",
+      "description": "Quantitative Smart Order Router (SOR) module for routing block orders across dark pools / ATS, enforcing anti-pinging MinQty (FIX tag 110) thresholds, and filtering venues by self-measured post-trade markout toxicity.",
       "domain": "Execution Algorithms",
       "subdomain": "Smart Order Routing & ATS",
       "tags": [
@@ -3125,7 +3125,7 @@
         "FIX Protocol",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/dark-pool-routing-logic",
@@ -3133,7 +3133,7 @@
     },
     {
       "name": "data-lineage-tracking-for-audit-and-debugging",
-      "description": "Quantitative data lineage tracking engine for auditing market data pipelines, feature store lineage, and model decision graphs to perform root cause debugging and impact analysis.",
+      "description": "Append-only DAG lineage tracking engine for auditing market data pipelines, feature store lineage, and model decision graphs to perform root cause debugging and impact analysis.",
       "domain": "Data Management Global",
       "subdomain": "Data Lineage & Auditability",
       "tags": [
@@ -3149,7 +3149,7 @@
         "OpenLineage Standard",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/data-lineage-tracking-for-audit-and-debugging",
@@ -3157,7 +3157,7 @@
     },
     {
       "name": "data-localization-requirements-for-trade-records",
-      "description": "Quantitative regulatory compliance engine for auditing cross-border trade record localization laws (China PIPL/DSL, India RBI/SEBI, EU GDPR, US SEC 17a-4) and blocking illegal cross-border egress.",
+      "description": "Storage-residency gate for trade records \u2014 audits destination cloud regions against origin-jurisdiction localization regimes (China CSL/PIPL/DSL, India RBI payment-data circular, GDPR Chapter V, SEC Rule 17a-4) and fails closed on unresolved routes.",
       "domain": "Data Management Global",
       "subdomain": "Regulatory Compliance & Sovereignty",
       "tags": [
@@ -3170,13 +3170,13 @@
         "cross-border-egress"
       ],
       "brokers_frameworks": [
-        "China PIPL/DSL",
-        "India RBI/SEBI CSCRF",
-        "EU GDPR",
+        "China CSL Art. 37 / PIPL Art. 40 / DSL",
+        "India RBI Payment System Data Circular",
+        "EU GDPR Chapter V / MiFID II",
         "SEC Rule 17a-4",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/data-localization-requirements-for-trade-records",
@@ -3226,7 +3226,7 @@
         "Grafana",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/data-quality-monitoring-dashboard",
@@ -3234,7 +3234,7 @@
     },
     {
       "name": "data-retention-policy-and-storage-tiering",
-      "description": "Quantitative data storage tiering and lifecycle engine for transitioning market data (L2/L3 ticks, Parquet backtests, trade logs) across HOT (NVMe), WARM (S3), COLD (Glacier), and DEEP ARCHIVE tiers.",
+      "description": "Storage tiering and retention engine that moves market data (L2/L3 ticks, Parquet backtests, trade logs) across HOT (NVMe), WARM (S3), COLD (Glacier Instant Retrieval) and DEEP ARCHIVE tiers without recommending deletion of records still inside their retention period.",
       "domain": "Data Management Global",
       "subdomain": "Storage Optimization & Retention",
       "tags": [
@@ -3251,7 +3251,7 @@
         "Glacier Deep Archive",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/data-retention-policy-and-storage-tiering",
@@ -3259,7 +3259,7 @@
     },
     {
       "name": "data-vendor-contractual-usage-restriction-tracking",
-      "description": "Quantitative market data compliance engine for tracking vendor license restrictions (Bloomberg, Refinitiv, ICE), non-display trading entitlements, and blocking illegal external data redistribution.",
+      "description": "Fail-closed pre-access gate enforcing market data vendor contract scope \u2014 licensed use cases, non-display entitlement, external redistribution, seat caps, and contract term \u2014 with an auditable reason recorded for every decision.",
       "domain": "Data Management Global",
       "subdomain": "Vendor Data Governance",
       "tags": [
@@ -3267,16 +3267,17 @@
         "data-licensing",
         "non-display-trading",
         "bloomberg-bpipe",
-        "refinitiv-dacs",
+        "lseg-dacs",
         "redistribution-audit",
         "entitlement-tracking"
       ],
       "brokers_frameworks": [
-        "Refinitiv DACS",
+        "LSEG DACS (formerly Refinitiv DACS)",
         "Bloomberg EMRS",
+        "Nasdaq Global Data Agreement",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/data-vendor-contractual-usage-restriction-tracking",
@@ -3299,7 +3300,7 @@
         "Data Vendor Cross Validator",
         "Python Statistics"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/data-vendor-cross-validation-for-backtests",
@@ -3307,7 +3308,7 @@
     },
     {
       "name": "database-backup-and-point-in-time-restore-testing",
-      "description": "Quantitative database reliability engine for auditing Write-Ahead Log (WAL) continuous archiving, simulating Point-in-Time Recovery (PITR) to exact timestamps, and verifying RPO/RTO SLAs.",
+      "description": "Drill harness for PostgreSQL/TimescaleDB continuous WAL archiving \u2014 replays archived backup metadata to a target timestamp, detects WAL gaps and unreachable recovery targets, and audits measured RPO/RTO against internal objectives.",
       "domain": "Infrastructure & Operations",
       "subdomain": "Database Disaster Recovery",
       "tags": [
@@ -3325,7 +3326,7 @@
         "TimescaleDB",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/database-backup-and-point-in-time-restore-testing",
@@ -3333,7 +3334,7 @@
     },
     {
       "name": "daylight-saving-time-transition-handling",
-      "description": "Quantitative market schedule and timezone engine for handling Daylight Saving Time (DST) shifts across US, EU, and Asian exchanges, calculating UTC session opens, and detecting 2-week desynchronization windows.",
+      "description": "IANA zone-aware market session engine for Daylight Saving Time transitions across US, EU, and Asian exchanges \u2014 computes UTC session opens and nanosecond epochs, flags skipped/repeated local wall times, and detects the US-EU desynchronization windows.",
       "domain": "Data Management Global",
       "subdomain": "Timezone & Session Scheduling",
       "tags": [
@@ -3350,7 +3351,7 @@
         "IANA Time Zone Database",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/daylight-saving-time-transition-handling",
@@ -3358,7 +3359,7 @@
     },
     {
       "name": "decentralized-exchange-dex-integration-uniswap-style",
-      "description": "Quantitative AMM DEX integration engine for Uniswap v2/v3 style pools, calculating constant product swap outputs (x*y=k), price impact, slippage tolerance, and MEV deadline protections.",
+      "description": "Pre-trade audit engine for Uniswap v2 style constant-product AMM pools, calculating swap outputs (x*y=k), price impact, the amountOutMin slippage floor, and the router deadline before a swap transaction is signed.",
       "domain": "Decentralized Finance (DeFi) & DEX",
       "subdomain": "AMM Trading & Execution",
       "tags": [
@@ -3371,11 +3372,13 @@
         "dex-trading"
       ],
       "brokers_frameworks": [
-        "Uniswap v2/v3",
+        {
+          "Uniswap v2 (and x*y=k forks": "Sushiswap, PancakeSwap v2)"
+        },
         "web3.py",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/decentralized-exchange-dex-integration-uniswap-style",
@@ -3383,7 +3386,7 @@
     },
     {
       "name": "degiro-unofficial-api-risk-assessment",
-      "description": "Use when connecting to DEGIRO via reverse-engineered Web API endpoints for European retail trading to evaluate ToS compliance, manage session tokens, calculate pre-trade order fees, and enforce fallback circuit breakers.",
+      "description": "Use when assessing or building automated access to DEGIRO via reverse-engineered Web API endpoints \u2014 DEGIRO states that API wrappers and custom scripts violate its terms of service, so this skill covers that contractual risk plus session handling, the two-step checkOrder/confirm flow, and duplicate-order safety.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -3395,11 +3398,11 @@
         "euronext"
       ],
       "brokers_frameworks": [
-        "DEGIRO Web API",
-        "Python requests",
+        "DEGIRO Web API (unofficial)",
+        "degiro-connector (community reference)",
         "Custom Risk Engine"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/degiro-unofficial-api-risk-assessment",
@@ -3430,7 +3433,7 @@
     },
     {
       "name": "dependency-pinning-and-reproducible-builds",
-      "description": "Quantitative software engineering tool for auditing Python dependency lockfiles, enforcing exact version pinning (==x.y.z), SHA-256 package hashes, and guaranteeing byte-for-byte reproducible builds.",
+      "description": "Auditor for pip requirements files that verifies exact version pinning (==x.y.z) and valid strong package hashes, so a lockfile can be checked before it is used with pip hash-checking mode (pip install --require-hashes).",
       "domain": "Infrastructure & DevOps",
       "subdomain": "Reproducible Builds & Dependency Governance",
       "tags": [
@@ -3448,7 +3451,7 @@
         "pip-compile",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/dependency-pinning-and-reproducible-builds",
@@ -3456,7 +3459,7 @@
     },
     {
       "name": "dependency-vulnerability-scanning-in-ci",
-      "description": "CI/CD supply chain security scanner for auditing Python dependencies against CVE/OSV advisory databases, blocking builds with CRITICAL/HIGH vulnerabilities, and generating SBOM reports.",
+      "description": "CI/CD supply chain security gate that matches a Python dependency inventory against registered CVE/OSV advisories using PEP 440 version ordering, blocks builds on CRITICAL/HIGH findings, and emits a CycloneDX 1.6 SBOM.",
       "domain": "Infrastructure & DevOps",
       "subdomain": "Supply Chain Security & CI/CD",
       "tags": [
@@ -3472,9 +3475,10 @@
         "pip-audit",
         "OSV Database",
         "PyPA Advisory DB",
+        "CycloneDX",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/dependency-vulnerability-scanning-in-ci",
@@ -3482,7 +3486,7 @@
     },
     {
       "name": "deployment-freeze-windows-around-market-events",
-      "description": "Quantitative DevOps risk guard for enforcing automated deployment freeze windows around high-volatility macro events (FOMC, CPI, NFP) and market open/close windows, with dual sign-off break-glass protocols.",
+      "description": "Deployment freeze guard for trading systems \u2014 blocks production releases inside macro-event windows (FOMC, CPI, NFP, expiry) and timezone-aware daily session windows, and enforces a named, two-person break-glass override.",
       "domain": "Infrastructure & DevOps",
       "subdomain": "CI/CD Governance & Risk Control",
       "tags": [
@@ -3499,7 +3503,7 @@
         "GitLab CI",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/deployment-freeze-windows-around-market-events",
@@ -3507,7 +3511,7 @@
     },
     {
       "name": "deribit-crypto-options-api",
-      "description": "Quantitative Deribit crypto options API engine for JSON-RPC 2.0 formatting, inverse option premium conversions (BTC/ETH to USD), portfolio Greeks aggregation, and margin safety audits.",
+      "description": "Deribit API v2 inverse options engine \u2014 JSON-RPC 2.0 payload construction with explicit post_only and order labels, coin-to-USD premium conversion, portfolio Greeks aggregation including the coin-settled premium leg, and a pre-trade capital gate that refuses to approve a short without an exchange margin quote.",
       "domain": "Decentralized Finance (DeFi) & Crypto Derivatives",
       "subdomain": "Crypto Options Trading",
       "tags": [
@@ -3525,7 +3529,7 @@
         "JSON-RPC 2.0",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/deribit-crypto-options-api",
@@ -3533,7 +3537,7 @@
     },
     {
       "name": "deutsche-borse-xetra-api-integration",
-      "description": "Quantitative venue integration engine for Deutsche B\u00f6rse Xetra T7 Enhanced Trading Interface (ETI), validating MiFID II RTS 28 order parameters, T7 tick size regimes, and binary message formatting.",
+      "description": "Client-side pre-dispatch validation and T7 ETI request-header framing for Deutsche B\u00f6rse Xetra cash orders \u2014 RTS 11 tick size by liquidity band, ETI field domains (TradingCapacity, Side, OrderOrigination), and scaled-integer price encoding.",
       "domain": "Venue Integration & Protocols",
       "subdomain": "European Exchange Integration (Xetra/Eurex)",
       "tags": [
@@ -3541,16 +3545,17 @@
         "t7-eti",
         "deutsche-borse",
         "mifid-ii",
+        "rts-11",
         "tick-size-regime",
         "binary-protocol",
         "european-equities"
       ],
       "brokers_frameworks": [
-        "Deutsche B\u00f6rse T7 ETI",
-        "FIX 5.0 SP2",
+        "Deutsche B\u00f6rse T7 ETI (Cash)",
+        "MiFID II RTS 11 (Delegated Regulation (EU) 2017/588)",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/deutsche-borse-xetra-api-integration",
@@ -3558,7 +3563,7 @@
     },
     {
       "name": "disaster-recovery-runbook-for-full-region-outage",
-      "description": "Quantitative infrastructure disaster recovery (DR) engine for orchestrating automated multi-region failover (DNS switchover, database promotion, emergency order cancellation, position reconciliation) under a 300-second RTO SLA.",
+      "description": "Gated executor for a cross-region trading-stack failover \u2014 sequences outage verification, order cancellation, database promotion, DNS switchover and reconciliation, and refuses to promote or resume trading until split-brain and open-order interlocks are evidenced.",
       "domain": "Infrastructure & DevOps",
       "subdomain": "Disaster Recovery & Multi-Region Resilience",
       "tags": [
@@ -3573,9 +3578,10 @@
       "brokers_frameworks": [
         "AWS Route 53 ARC",
         "Aurora Global DB",
+        "CME Cancel on Disconnect",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/disaster-recovery-runbook-for-full-region-outage",
@@ -3592,15 +3598,15 @@
         "discrete-dividends",
         "cash-and-carry",
         "cost-of-carry",
-        "eurex-fdbx",
+        "eurex-fexd",
         "cme-sda"
       ],
       "brokers_frameworks": [
-        "Eurex FDBX",
-        "CME Dividend Futures",
+        "Eurex FEXD",
+        "CME SDA",
         "Python Math / Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/dividend-futures-and-forward-modeling",
@@ -3608,7 +3614,7 @@
     },
     {
       "name": "double-taxation-treaty-considerations-cross-border-trading",
-      "description": "Quantitative cross-border tax accounting engine for evaluating bilateral Double Taxation Treaties (DTT/DTAA), calculating dividend withholding tax (WHT) reductions, tax leakage savings, and Foreign Tax Credit (FTC) claims.",
+      "description": "Cross-border withholding tax and Foreign Tax Credit audit engine for bilateral tax treaties \u2014 applies registered treaty rates per income article, and separates recoverable credit from tax withheld above an available treaty rate, which is generally not creditable.",
       "domain": "Tax Accounting & Reporting",
       "subdomain": "Cross-Border Tax & Double Taxation Treaties",
       "tags": [
@@ -3623,9 +3629,10 @@
       "brokers_frameworks": [
         "OECD Model Tax Convention",
         "IRS Form W-8BEN-E",
+        "IRC s.901 / s.904 Foreign Tax Credit",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/double-taxation-treaty-considerations-cross-border-trading",
@@ -3633,7 +3640,7 @@
     },
     {
       "name": "dubai-financial-market-dfm-api",
-      "description": "Quantitative venue integration engine for Dubai Financial Market (DFM) FIX 4.4 protocol, validating National Investor Numbers (NIN), AED tick size regimes, and 10% daily price band circuit breakers.",
+      "description": "Pre-trade validation and FIX 4.4 payload builder for Dubai Financial Market (DFM) orders, validating 10-digit National Investor Numbers (NIN), the tick size structure effective 6 April 2026, and per-security Upper/Lower Price Limits.",
       "domain": "Venue Integration & Protocols",
       "subdomain": "Middle East (GCC/MENA) Exchange Integration",
       "tags": [
@@ -3658,7 +3665,7 @@
     },
     {
       "name": "dynamic-position-sizing-based-on-realized-volatility",
-      "description": "Use when calculating portfolio position sizes to scale allocations inversely to recent realized volatility (volatility targeting), maintaining constant risk exposure across calm and volatile market regimes.",
+      "description": "Use when calculating portfolio position sizes to scale allocations inversely to recent realized volatility (volatility targeting), maintaining a constant ex-ante risk budget across calm and volatile market regimes.",
       "domain": "algorithmic-trading",
       "subdomain": "risk-management",
       "tags": [
@@ -3673,7 +3680,7 @@
         "Realized Volatility Position Sizer",
         "Python NumPy"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/dynamic-position-sizing-based-on-realized-volatility",

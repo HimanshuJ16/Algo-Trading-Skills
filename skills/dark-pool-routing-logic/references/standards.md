@@ -1,7 +1,26 @@
 # Standards for Dark Pool Routing Logic
 
-| Metric | Engineering Standard |
-|---|---|
-| Toxicity Ceiling | Dark pools with post-trade adverse selection $> 5.0\text{ bps}$ MUST be excluded from routing. |
-| MinQty Anti-Pinging | Child dark orders MUST enforce a Minimum Quantity ($\text{MinQty} \ge 200$ shares) to prevent HFT probing. |
-| Midpoint Pricing | Dark pool child orders MUST specify Midpoint PEG or Passive limit pricing. |
+Primary sources (all consulted 2026-08-23):
+
+- **FIX 4.4 / 5.0 SP2 dictionaries** — `MinQty(110)`, "Minimum quantity of an order to be executed": https://www.onixs.biz/fix-dictionary/4.4/tagnum_110.html · `ExecInst(18)='M'` and `PegPriceType(1094)=2`, "Mid-price peg (midprice of inside quote)": https://www.onixs.biz/fix-dictionary/5.0.sp2/tagnum_1094.html
+- **IEX**, "Minimum Execution Size with All or None Functionality" (2014): https://iextrading.com/trading/alerts/2014/026/ — when a partial fill leaves the remainder below MinQty, the venue either cancels the remainder or converts it to AON.
+- **SEC**, Rule 304 of Regulation ATS / Form ATS-N (Rel. 34-83663, 18 Jul 2018): https://www.sec.gov/files/rules/final/2018/34-83663.pdf — public, per-venue disclosure of NMS-stock ATS operations, order types and counterparty segmentation.
+- **SEC Press Release 2016-16** (31 Jan 2016), "Barclays, Credit Suisse Charged With Dark Pool Violations": https://www.sec.gov/newsroom/press-releases/2016-16
+- **FINRA**, OTC (ATS & Non-ATS) Transparency, Rules 6110/6610: https://www.finra.org/filing-reporting/otc-transparency — weekly ATS volume, published on a two-week delay for Tier 1 NMS stocks and four weeks for Tier 2 / OTC equities.
+- **Regulation (EU) 2024/791 (MiFIR review)**, in force 28 Mar 2024: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202400791 — replaces the double volume cap with a single 7% Union-wide cap applying to the reference-price waiver only. ESMA's discontinued DVC page and transition statement: https://www.esma.europa.eu/double-volume-cap-mechanism
+- **Brugler & Comerton-Forde (2025)**, "Differential access to dark markets and execution outcomes", *Journal of Financial Economics*: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3910952
+
+| Metric | Standard | Status | Source |
+|---|---|---|---|
+| MinQty semantics | `MinQty(110)` is the minimum quantity to be executed; on venues that publish their handling it binds on each execution, and a sub-MinQty remainder is cancelled or converted to AON. | FIX field definition + venue rule | FIX dictionaries; IEX (2014) |
+| MinQty vs child size | `MinQty` MUST NOT exceed the child order quantity — such an order can never trade. Hard engine invariant. | Engine requirement (arithmetic) | FIX definition; IEX (2014) |
+| Anti-pinging MinQty floor | $\text{MinQty} = \min(\max(\text{VenueMinQty}, \text{EngineFloor}, \lceil 0.20 \times \text{ChildQty} \rceil), \text{ChildQty})$. The 200-share floor and 20% fraction are **defaults, not standards**: no US or EU rule sets a minimum dark order size, and venue minimums range from none to block thresholds of 25,000+ shares. | Engineering default | Engine requirement; venue Form ATS-N filings |
+| Toxicity ceiling | Exclude venues whose measured post-trade markout exceeds the ceiling (default 5.0 bps, strictly-greater comparison). The number is a **calibration target**, not a regulatory limit. | Engineering default | Engine requirement |
+| Toxicity source | Toxicity MUST be measured from the router's own post-trade markouts, never taken from venue-published toxicity or "liquidity profiling" metrics. | Engine requirement, evidenced by enforcement | SEC PR 2016-16 |
+| Venue behaviour source | US NMS-stock ATS order-type, MinQty and segmentation behaviour SHOULD be taken from the operator's Form ATS-N filing, not vendor marketing. | Public regulatory disclosure | SEC Rule 304 / Form ATS-N |
+| Input staleness | Venue statistics derived from FINRA ATS transparency data are 2 weeks (Tier 1 NMS) to 4 weeks (Tier 2 / OTC) stale by construction; treat the toxicity ceiling as a slow control. | Publication rule | FINRA Rules 6110/6610 |
+| Access restriction premise | Dark venues with more access restrictions exhibit lower information leakage and adverse selection (causal, from exogenous venue closures) — at the cost of execution probability. Australian setting: the direction generalises, the magnitudes do not. | Peer-reviewed evidence | Brugler & Comerton-Forde (2025), JFE |
+| Midpoint pricing | Dark child orders SHOULD be priced at the midpoint via `ExecInst(18)='M'` / `PegPriceType(1094)=2`. This module emits size and MinQty only; pricing is the caller's. | Engineering default + FIX mapping | FIX dictionaries |
+| Sub-penny scope (US) | Reg NMS Rule 612 restricts quotations/orders, not execution prices, so midpoint dark prints in sub-penny increments are not a Rule 612 breach. The 2024 amendments (a $0.005 quoting increment for tick-constrained stocks) are under extended exemptive relief to the first business day of November 2027. | Regulatory scope | SEC Reg NMS Rule 612; 2024 amendments and subsequent exemptive relief |
+| Dark eligibility (EU) | For EU venues, dark execution under the reference-price waiver requires the name not be suspended under the single volume cap (7% Union-wide, MiFIR as amended by Reg (EU) 2024/791; first SVC file 9 Oct 2025, quarterly). Not implemented here — gate upstream. | Mandatory, EU/EEA only | Regulation (EU) 2024/791; ESMA |
+| Quantity conservation | `allocated_quantity + unallocated_quantity == total_parent_quantity` on every report, with `unallocated_reason` populated whenever a residual exists. | Engine requirement | Engine requirement |

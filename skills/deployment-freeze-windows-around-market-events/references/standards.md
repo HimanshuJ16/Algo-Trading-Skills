@@ -1,7 +1,25 @@
 # Standards for Deployment Freeze Windows Around Market Events
 
-| Metric | Engineering Standard |
-|---|---|
-| Pre-Event Freeze Buffer | Deployment freeze MUST initiate at least 60 minutes prior to major macro releases (FOMC/CPI). |
-| Post-Event Freeze Buffer | Deployment freeze MUST persist for at least 60 minutes following major macro releases. |
-| Break-Glass Dual Authorization | Emergency hotfixes during freeze windows MUST require dual sign-off from Risk Officer and Head of Trading. |
+Primary sources (all consulted 2026-08-23):
+
+- **Commission Delegated Regulation (EU) 2017/589 (RTS 6)** — organisational requirements for investment firms engaged in algorithmic trading: https://eur-lex.europa.eu/eli/reg_del/2017/589/oj/eng — Art. 5 (general methodology / authorisation of deployment), Art. 8 (controlled deployment), Art. 11 (management of material changes), Art. 12 (kill functionality).
+- **PRA Supervisory Statement SS5/18, "Algorithmic trading"** (effective 30 June 2018): https://www.bankofengland.co.uk/prudential-regulation/publication/2018/algorithmic-trading-ss — governance, algorithm approval process, testing and deployment, inventories, risk management.
+- **SEC Regulation SCI**, Rule 1001(a) (written policies for SCI systems) and Rule 1003 (material systems changes / SCI review): https://www.federalregister.gov/documents/2023/04/14/2023-05775/regulation-systems-compliance-and-integrity — applies to **SCI entities** (exchanges, FINRA, MSRB, registered clearing agencies, larger ATSs, plan processors), not to trading firms generally.
+- **Federal Reserve**, FOMC statement releases — "For release at 2:00 p.m. EDT", e.g. https://www.federalreserve.gov/monetarypolicy/files/monetary20260617a1.pdf; eight regularly scheduled meetings per year: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
+- **US Bureau of Labor Statistics** — CPI and Employment Situation release schedules (8:30 a.m. ET): https://www.bls.gov/schedule/news_release/cpi.htm · https://www.bls.gov/schedule/news_release/empsit.htm · revised dates after the 2025 lapse in appropriations: https://www.bls.gov/bls/2025-lapse-revised-release-dates.htm
+- **NYSE** holiday and hours calendar — core session 9:30 a.m.–4:00 p.m. ET; 1:00 p.m. ET early closes: https://www.nyse.com/markets/hours-calendars
+
+| Control | Standard | Status | Source |
+|---|---|---|---|
+| Authorised deployment | Deployment or substantial update of an algorithmic trading system must be authorised by a person designated by senior management. | **Mandatory**, EU/EEA investment firms | RTS 6 Art. 5 |
+| Change records | Records of any material change to algorithmic trading software must show when it was made, who made it, **who approved it**, and its nature. This is why the engine records approver identities rather than two booleans. | **Mandatory**, EU/EEA investment firms | RTS 6 Art. 11 |
+| Pre-deployment review | A proposed material change to the production environment must be preceded by review by a person designated by senior management, proportionate to the change. | **Mandatory**, EU/EEA investment firms | RTS 6 Art. 11 |
+| Governance of approval | Each function with a role in approving algorithms should be explicitly defined in the governance framework; testing and deployment is a named expectation area. | **Supervisory expectation**, UK PRA-regulated firms | PRA SS5/18 |
+| Systems change policies | Written policies and procedures for systems capacity, integrity, resiliency, availability and security; separate requirements for material systems changes. | **Mandatory**, but only for **SCI entities** — do not universalise to trading firms | Reg SCI Rules 1001(a), 1003 |
+| Freeze duration | No consulted regulator mandates a specific pre/post-release deployment freeze length. The 60-minute macro buffers and 15-minute session buffers here are **engineering defaults** to calibrate against your own incident history and rollback time. | Engineering default | — |
+| Dual authorisation | Break-glass requires two **distinct named** approvers plus a justification. Two booleans settable by one person do not constitute four-eyes control. | Engine requirement, aligned with RTS 6 Art. 11(c) | Engine requirement; RTS 6 Art. 11 |
+| Unknown environment | An environment name that is neither registered production nor registered exempt MUST be denied. Fail-open on a typo is the highest-frequency failure mode of this gate. | Engine requirement | Engine requirement |
+| Input hygiene | Non-finite timestamps and negative buffers MUST raise, never silently yield an unmatched window. | Engine requirement | Engine requirement |
+| Calendar freshness | If a staleness limit is configured, a calendar older than it (or never refreshed) blocks production. Release dates move: BLS shifted the September 2025 Employment Situation from 3 Oct to 20 Nov 2025 and did not publish October 2025 CPI. | Engine requirement, evidenced | BLS revised release dates |
+| Event anchors (US) | FOMC statement 2:00 p.m. ET with press conference at 2:30 p.m. ET (8 scheduled meetings/year); CPI and Employment Situation 8:30 a.m. ET. Anchor windows to the release instant, in ET, not in fixed UTC. | Publication fact | Federal Reserve; BLS |
+| Session anchors (US) | NYSE core session 9:30 a.m.–4:00 p.m. ET, with 1:00 p.m. ET early closes on several dates a year (options 1:15 p.m.). Daily windows MUST be timezone-aware and accept per-date overrides. | Publication fact | NYSE hours & calendars |
