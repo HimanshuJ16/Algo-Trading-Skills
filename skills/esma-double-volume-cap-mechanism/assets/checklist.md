@@ -1,6 +1,21 @@
 # Pre-Flight Checklist
 
-- [ ] Are ESMA DVC suspension files updated daily in the Smart Order Router?
-- [ ] Is rolling 12-month dark pool trading volume tracked against total EU market volume?
-- [ ] Are dark RPW orders blocked during active 4% or 8% DVC suspensions?
-- [ ] Are orders meeting Large-In-Scale (LIS $\ge €100\text{k}$) thresholds allowed dark execution?
+- [ ] Is the gate enforcing the **single 7% Union-wide cap** (MiFIR Art. 5(1) as amended by Reg. (EU) 2024/791), and **not** the repealed 4% per-venue / 8% Union-wide DVC?
+- [ ] Is the cap applied to the **reference price waiver only** (Art. 4(1)(a)), leaving negotiated (b), large-in-scale (c) and order-management-facility (d) orders unblocked?
+- [ ] Is the suspension decision taken from the **ESMA-published** quarterly suspension file, with your own volume ratio recorded separately as an estimate?
+- [ ] Is the register's publication date carried with it, and is an over-age file (default > 100 days) treated as *unknown* rather than as "nothing suspended"?
+- [ ] Does a missing or stale register **fail closed** — capped waiver blocked, order routed lit?
+- [ ] Is an empty-but-published suspension file distinguished from no file at all?
+- [ ] Is the breach comparison **strictly greater** and on the **unrounded** share, so 6.996% is not rounded into a suspension and exactly 7.000% is not treated as a breach?
+- [ ] Is the share computed as $u \times 100 / t$ rather than $(u/t) \times 100$, so a name sitting exactly on the cap does not read as through it?
+- [ ] Is the cap numerator **reference-price-waiver volume**, not total dark volume (which includes uncapped LIS and negotiated flow)?
+- [ ] Are the rolling 12-month inputs validated at ingest — finite, non-negative, RPW ≤ total, venue ≤ Union — rather than trusted from the upstream job?
+- [ ] Is every `LIS` order carrying that **instrument's** threshold (RTS 1 Annex II Table 1: €15,000–€650,000 by ADT), with no flat €100,000 default anywhere in the path?
+- [ ] Is an undersized `LIS` claim downgraded to `RPW` and re-evaluated against the cap, instead of being routed dark as exempt?
+- [ ] Are suspension windows applied **inclusive of both endpoint dates** (08:00 CET on the start date to the close of the trading day on the end date)?
+- [ ] Is the ISIN matched case- and whitespace-insensitively when reading the published Excel, so a stray space cannot read as "not suspended"?
+- [ ] Is the `as_of` date driving the regime, and is every `LEGACY_DVC` report confined to backtests over pre-29-September-2025 data?
+- [ ] Is the report persisted with `internal_estimate_status` and `official_register_status` as separate fields, plus the suspension end date?
+- [ ] Is `effective_waiver_type != intended_waiver_type` alerted on, as the signal that a router is repeatedly claiming LIS below the threshold?
+- [ ] Is the suspension file refreshed within two working days of each ESMA publication, and diffed against the previous quarter for newly suspended and released ISINs?
+- [ ] Is `cap_pct` configurable, given Art. 5(10) has ESMA reassessing the 7% figure annually from 29 September 2027?

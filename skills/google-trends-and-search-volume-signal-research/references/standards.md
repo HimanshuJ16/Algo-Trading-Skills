@@ -1,7 +1,33 @@
 # Standards for Google Trends Signal Research
 
-| Metric | Engineering Standard |
-|---|---|
-| Availability Lag | SVI data MUST be shifted by $\ge 24\text{ hours}$ to prevent lookahead bias. |
-| Z-Score Threshold | Attention surge MUST require SVI Z-score $Z_t \ge 2.0$. |
-| Rolling Lookback Window | Rolling statistics MUST use at least $N = 30$ periods. |
+These are engineering standards for this skill, not regulatory requirements. No
+regulator mandates a search-volume signal methodology; "MUST" below means "MUST, to
+produce a defensible research signal with this module".
+
+| Metric | Engineering Standard | Basis |
+|---|---|---|
+| Baseline Exclusion | The baseline mean and standard deviation MUST be computed over periods strictly **preceding** the observation being standardized. A series of $N$ points supports a baseline of at most $N-1$. | Preis et al. (2013): "$\Delta n(t, \Delta t) = n(t) - N(t - 1, \Delta t)$ with $N(t - 1, \Delta t) = (n(t - 1) + n(t - 2) + \dots + n(t - \Delta t))/\Delta t$". Da et al. (2011): ASVI is "the (log) SVI during the current week minus the (log) median SVI during the previous eight weeks". |
+| Degenerate Baseline | A baseline standard deviation at or below `min_baseline_std` MUST emit `INSUFFICIENT_DATA`. A floor value MUST NOT be substituted for the observed $\sigma$, and the reported $\sigma$ MUST always be the observed one. | A substituted denominator silently rescales $Z$ for every quiet keyword and writes a false statistic into the audit record. A flat baseline is the normal appearance of a low-volume keyword: "Trends only shows data for popular terms, so search terms with low volume appear as '0.'" |
+| Availability Lag | The publication lag MUST be **enforced** by filtering the series on an explicit `as_of` instant, not merely recorded on the data points. The lag value MUST be measured per pipeline and configurable per observation. | Google's current Trends FAQ publishes no guaranteed availability lag, so no fixed constant (24h, 36h, 48h) can be asserted as fact. Recording a lag without filtering on it produces a backtest that appears point-in-time correct and is not. |
+| Timestamp Time Base | Timestamps MUST be timezone-aware and MUST NOT be assumed to be UTC. | Google Trends FAQ, "Time zones": for ranges of 30 days or longer "the data shown in the graph uses Coordinated Universal Time (UTC)"; for ranges of 7 days or less it "uses your own local time zone as set in your browser or device". |
+| Series Integrity | The series MUST be ordered by timestamp before scoring and duplicate buckets MUST be rejected. | The series is consumed positionally; an out-of-order or duplicated feed standardizes the wrong observation against a double-weighted baseline. |
+| Cross-Request Scaling | 0–100 SVI values from different requests, date ranges, geographies or comparison sets MUST NOT be spliced into one history without re-normalizing on an overlapping period. | Google Trends FAQ: "Each data point is divided by the total searches of the geography and time range it represents"; "The resulting numbers are then scaled on a range of 0 to 100". The official Trends API (alpha) instead returns "consistently scaled data" that is "not scaled from 0 to 100". |
+| Sampling Non-Determinism | A re-pull returning different values MUST NOT be treated as a defect. Research that depends on exact reproducibility MUST average several independent pulls. | Google Trends FAQ: "only a sample of Google searches are used in Google Trends". Preis et al. (2013): "we therefore average over three realizations of its search volume time series, based on three independent data requests in consecutive weeks." |
+| Keyword Identification | Keywords MUST be screened for ambiguity. Ticker symbols are preferred over company names, subject to a reverse check that the ticker is not itself a common word. | Da et al. (2011): "investors may search the company name for reasons unrelated to investing… This problem is more severe if the company name has multiple meanings (e.g., 'Apple' or 'Amazon')… Searching for a stock using its ticker is less ambiguous." |
+| Threshold Calibration | `lookback_window` and `z_score_threshold` are illustrative defaults, NOT validated constants, and MUST be re-estimated out-of-sample per keyword universe before live use. | No published study establishes universal values for a rolling-$Z$ SVI spike rule. |
+| Direction and Horizon | The relationship's sign MUST be estimated per keyword, horizon and universe. `BULLISH_ATTENTION_SURGE` / `BEARISH_PANIC_SPIKE` describe co-movement of attention and price, not a predicted return. | Da et al. (2011): an ASVI increase predicts "more than 30 basis points … during the subsequent two weeks" but "this initial positive price pressure is almost completely reversed by the end of the year." Preis et al. (2013) trade the *opposite* way, selling the DJIA when `debt` search volume rises. |
+| Keyword Selection Bias | Keyword sets MUST be held out or multiple-testing corrected, not chosen by backtest performance. | Preis et al. screened 98 terms and reported the best performer. Challet & Bel Hadj Ayed: "random finance-related keywords do not to contain more exploitable predictive information than random keywords related to illnesses, classic cars and arcade games." |
+
+## Data-source notes
+
+- **pytrends** is an unofficial client: "This is not an official or supported API." Latest PyPI release 4.9.2 (April 2023); the project README carries a "Looking for maintainers!" notice. Treat breakage and rate limiting (HTTP 429) as expected operating conditions, not incidents.
+- **Google Trends API (alpha)**, announced July 2025, is application-gated, exposes "a rolling window of the last 5 years of data" with daily, weekly, monthly and yearly aggregation, and returns consistently scaled values across requests. It is the only first-party programmatic source; plan for its scaling semantics to differ from the UI.
+
+## Sources
+
+- Preis, T., Moat, H. S. & Stanley, H. E. (2013). "Quantifying Trading Behavior in Financial Markets Using Google Trends." *Scientific Reports* 3, 1684. <https://doi.org/10.1038/srep01684> (open access; Europe PMC PMC3635219). Baseline definition and the three-realization averaging procedure are in the Results section.
+- Da, Z., Engelberg, J. & Gao, P. (2011). "In Search of Attention." *Journal of Finance* 66(5), 1461–1499. <https://doi.org/10.1111/j.1540-6261.2011.01679.x>. ASVI definition, ticker-vs-company-name reasoning, and the two-week-drift/within-year-reversal result.
+- Challet, D. & Bel Hadj Ayed, A. (2013). "Predicting financial markets with Google Trends and not so random keywords." arXiv:1307.4643. Keyword selection bias in Google Trends backtests.
+- Google Trends Help, "FAQ about Google Trends data." <https://support.google.com/trends/answer/4365533> — normalization, sampling, filtered searches, and the time-zone rules.
+- Google Search Central, "Google Trends API (alpha)." <https://developers.google.com/search/apis/trends> and the launch post <https://developers.google.com/search/blog/2025/07/trends-api> (July 2025).
+- pytrends on PyPI. <https://pypi.org/project/pytrends/> — unofficial status, maintenance state, rate-limit guidance.

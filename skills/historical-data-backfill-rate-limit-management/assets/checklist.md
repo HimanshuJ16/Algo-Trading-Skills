@@ -1,6 +1,22 @@
 # Pre-Flight Checklist
 
-- [ ] Is vendor API rate limit quota (requests/min) configured?
-- [ ] Is Token Bucket algorithm enforcing pacing delays between requests?
-- [ ] Is exponential backoff + jitter active on HTTP 429 errors?
-- [ ] Is job progress checkpointed per completed date chunk?
+- [ ] Is `requests_per_minute` set from the vendor's **published** limit for the plan in use, not from a library default?
+- [ ] Has the vendor been checked for a **daily** quota (e.g. Alpha Vantage free = 25 requests/day) that per-minute pacing cannot satisfy?
+- [ ] Is the total request count for the job ($N = \lceil \text{days}/\text{chunk\_days} \rceil \times$ symbols) within that daily budget?
+- [ ] Are routes weight-priced (e.g. Binance `X-MBX-USED-WEIGHT-*`), and if so is a per-call weight passed rather than one token per request?
+- [ ] Does every request **consume a token before dispatch** — i.e. is the blocking `acquire()` used, never a computed-wait-then-send-anyway?
+- [ ] Is the limiter clock **monotonic**, so an NTP step backwards cannot drain the bucket?
+- [ ] Does the fetch callback return the vendor's real `status_code` and the raw `Retry-After` header, so server-directed pacing can work at all?
+- [ ] Is `Retry-After` parsed in **both** RFC 9110 forms — `delay-seconds` and `HTTP-date`?
+- [ ] Is backoff **full jitter** — $\text{random}(0, \min(\text{cap}, \text{base} \times 2^{n}))$ — rather than a small additive jitter that collapses to exactly the cap?
+- [ ] Are non-retryable errors (401/403/404 and other 4xx) failed fast instead of consuming the retry budget?
+- [ ] Is an IP-ban status (Binance `418`) deferred and checkpointed rather than retried in-process?
+- [ ] Is there a ceiling (`max_retry_after_sec`) on how long a server-directed wait will block a worker?
+- [ ] Is chunk state checkpointed to durable storage after **every** chunk, not at the end of the job?
+- [ ] Does the checkpoint write atomically (temp file + `os.replace`) so a crash mid-write cannot corrupt it?
+- [ ] Are `chunk_id` values unique, so checkpoint state cannot mark an unfetched range complete?
+- [ ] Do date chunks match the vendor's **inclusive/exclusive** bound convention, so boundary days are neither duplicated nor dropped?
+- [ ] Is `chunk_days` sized below the vendor's max-rows-per-response cap, so a chunk cannot be silently truncated?
+- [ ] Is only **one** process running against this API key/IP, or is a shared cross-process limiter in place?
+- [ ] After the run, has `total_pacing_wait_sec` vs `total_rate_limit_throttles` been reviewed to tune the configured rate?
+- [ ] Are `failed_chunks_count` and `deferred_chunks_count` alerted on, rather than a `BACKFILL_PARTIAL` result being treated as done?

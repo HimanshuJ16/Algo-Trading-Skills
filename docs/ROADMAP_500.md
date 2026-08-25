@@ -281,7 +281,7 @@ All 504 skills across all 16 engineering domains have been physically built, tes
 - **[BUILT]** `pattern-day-trader-rule-compliance-us` — see `skills/pattern-day-trader-rule-compliance-us/SKILL.md`
 - **[BUILT]** `sec-rule-15c3-5-risk-controls-us` — Implementing the pre-trade risk controls required under SEC Rule 15c3-5 (the 'market access rule') for US broker-dealer routed flow.
 - **[BUILT]** `finra-algo-trading-registration-requirements` — Understanding FINRA's algorithmic trading registration and testing requirements for US-based strategies.
-- **[BUILT]** `esma-double-volume-cap-mechanism` — Accounting for ESMA's double volume cap mechanism when trading EU dark-pool venues.
+- **[BUILT]** `esma-double-volume-cap-mechanism` — Accounting for the MiFIR Article 5 volume cap (the single 7% Union-wide cap that replaced the double volume cap) when trading EU dark-pool venues.
 - **[BUILT]** `uk-fca-algorithmic-trading-systems-controls` — Implementing the systems-and-controls requirements the UK FCA expects of algorithmic trading firms.
 - **[BUILT]** `asic-market-integrity-rules-automated-trading` — Complying with ASIC's market integrity rules for automated order processing in Australia.
 - **[BUILT]** `mas-singapore-algo-trading-guidelines` — Following MAS guidelines on automated trading systems risk management for Singapore-based operations.

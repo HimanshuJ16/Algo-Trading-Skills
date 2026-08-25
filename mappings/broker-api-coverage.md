@@ -32,7 +32,7 @@ This is the comprehensive cross-cutting matrix of broker APIs, exchange protocol
 |---|---|---|
 | **CME Globex** | `cme-globex-futures-api-integration`, `futures-contract-roll-automation` | iLink 3 binary protocol, MDP 3.0 market data, SPAN margin risk |
 | **Eurex Exchange** | `eurex-market-data-and-order-api`, `options-margin-span-calculation-global` | ETI (Enhanced Trading Interface), MDI market data, Prisma margin |
-| **Hong Kong Exchange (HKEX)** | `hong-kong-exchange-hkex-orion-api`, `shanghai-shenzhen-connect-programs` | Orion Market Data Platform (OMD), OMD-C / OMD-D, Stock Connect Northbound |
+| **Hong Kong Exchange (HKEX)** | `hong-kong-exchange-hkex-orion-api`, `shanghai-shenzhen-connect-programs` | OCG-C order entry (Binary / FIX), OMD-C market data, Second Schedule spread tables, Stock Connect Northbound |
 | **Singapore Exchange (SGX)** | `singapore-exchange-sgx-api-integration`, `multi-currency-pnl-and-fx-conversion` | REACH TITAN matching engine, OUCH/ITCH protocol, multi-currency derivatives |
 | **Australian Securities Exchange (ASX)** | `australian-securities-exchange-asx-api`, `asic-market-integrity-rules-automated-trading` | ASX Trade matching engine, ITCH/OUCH, Market Integrity Rules (MIR) |
 | **Japan Exchange Group (JPX / TSE)** | `japan-exchange-group-jpx-tse-api`, `japan-fsa-high-speed-trading-registration` | Arrowhead matching engine, J-GATE derivatives, High-Speed Trading (HST) registration |
