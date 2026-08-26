@@ -28,7 +28,7 @@ All 504 skills across all 16 engineering domains have been physically built, tes
 - **[BUILT]** `saxo-bank-openapi-integration` — Integrating Saxo Bank's OpenAPI for multi-asset European/global trading.
 - **[BUILT]** `tastytrade-api-integration` — Integrating Tastytrade's API for options-focused US retail trading.
 - **[BUILT]** `broker-failover-secondary-account-routing` — Routing orders to a secondary broker account automatically if the primary becomes unavailable mid-session.
-- **[BUILT]** `multi-account-same-strategy-fan-out` — Running one strategy's signals across multiple client accounts (e.g. for a fund) without cross-account order collision.
+- **[BUILT]** `multi-account-same-strategy-fan-out` — Splitting one strategy signal across client sub-accounts by largest-remainder apportionment so the per-account quantities sum exactly to the master order, with deterministic replay-safe client order IDs and an allocation record independently verifiable under 17 CFR 1.35(b)(5).
 - **[BUILT]** `broker-api-versioning-migration-playbook` — A structured playbook for migrating a live bot from one broker API version to the next without a trading-hours outage.
 - **[BUILT]** `demo-account-realism-gap-assessment` — Systematically comparing a broker's demo/practice account fill behavior against live behavior to know how much to trust demo-based testing.
 - **[BUILT]** `broker-order-type-capability-matrix` — Building a capability matrix of which order types (bracket, OCO, trailing stop, iceberg) each integrated broker actually supports, since support varies significantly.
@@ -284,7 +284,7 @@ All 504 skills across all 16 engineering domains have been physically built, tes
 - **[BUILT]** `esma-double-volume-cap-mechanism` — Accounting for the MiFIR Article 5 volume cap (the single 7% Union-wide cap that replaced the double volume cap) when trading EU dark-pool venues.
 - **[BUILT]** `uk-fca-algorithmic-trading-systems-controls` — Implementing the systems-and-controls requirements the UK FCA expects of algorithmic trading firms.
 - **[BUILT]** `asic-market-integrity-rules-automated-trading` — Complying with ASIC's market integrity rules for automated order processing in Australia.
-- **[BUILT]** `mas-singapore-algo-trading-guidelines` — Following MAS guidelines on automated trading systems risk management for Singapore-based operations.
+- **[BUILT]** `mas-singapore-algo-trading-guidelines` — Gating SGX order flow on SFA licensing, SGX Approved Trader registration, Clearing Member pre-execution limits, the Forced Order Range and the SGX-ST circuit breaker band.
 - **[BUILT]** `wash-trade-and-spoofing-self-detection` — Building self-checks that flag a strategy's own order pattern if it could resemble wash trading or spoofing, before a regulator does.
 - **[BUILT]** `best-execution-record-keeping-global` — Maintaining best-execution evidence across jurisdictions with differing regulatory expectations (US Reg NMS, EU MiFID II, etc.).
 - **[BUILT]** `cftc-commodity-pool-operator-registration` — Determining whether a multi-client algo strategy trading futures triggers CFTC commodity-pool-operator registration requirements.
@@ -370,7 +370,7 @@ All 504 skills across all 16 engineering domains have been physically built, tes
 - **[BUILT]** `auction-only-order-types-for-illiquid-names` — Using auction-only order types specifically for illiquid instruments where continuous-session execution would incur excessive impact.
 - **[BUILT]** `post-trade-execution-quality-scorecard` — Building a standardized post-trade scorecard comparing achieved execution against multiple benchmarks (arrival, TWAP, VWAP, close) for ongoing algo-selection decisions.
 - **[BUILT]** `smart-order-router-failover-on-venue-outage` — Ensuring a smart order router fails over gracefully to alternate venues if a primary venue experiences an outage mid-execution.
-- **[BUILT]** `minimum-fill-size-and-lot-rounding-logic` — Handling minimum-fill-size and lot-rounding constraints correctly when a slicing schedule's computed child-order size falls below an exchange's minimum.
+- **[BUILT]** `minimum-fill-size-and-lot-rounding-logic` — Sizing a computed order quantity for a venue with exact decimal arithmetic: per-security board lots and crypto step sizes, venue minimum quantity and minimum notional, odd-lot policy, and whether to attach the FIX Tag 110 MinQty constraint given its order-handling side effects.
 - **[BUILT]** `execution-algorithm-kill-switch-integration` — Ensuring execution algorithms respect the same kill-switch signal as the rest of the system (extends kill-switch-and-drawdown-circuit-breakers to in-flight multi-child-order executions specifically).
 - **[BUILT]** `queue-position-modeling-for-passive-orders` — Modeling expected queue position for passive limit orders to decide when to re-price versus wait, for latency-tolerant strategies.
 - **[BUILT]** `execution-algo-behavior-under-halted-instrument` — Defining explicit behavior for an in-progress execution algorithm if the underlying instrument is halted mid-execution.
@@ -414,7 +414,7 @@ All 504 skills across all 16 engineering domains have been physically built, tes
 - **[BUILT]** `synthetic-continuous-futures-contract-construction` — Constructing a synthetic continuous futures contract series (back-adjusted or ratio-adjusted across rolls) for backtesting futures strategies.
 - **[BUILT]** `options-implied-volatility-surface-construction` — Constructing and validating a smooth implied-volatility surface from raw options-chain quotes for use in pricing and backtesting.
 - **[BUILT]** `data-vendor-contractual-usage-restriction-tracking` — Tracking contractual usage restrictions per data vendor (e.g. no algorithmic redistribution, internal-use-only clauses) to avoid unintentional contract violation.
-- **[BUILT]** `multi-source-price-reconciliation-tie-breaking` — Defining explicit tie-breaking rules when two 'authoritative' data sources disagree on a price at the same timestamp.
+- **[BUILT]** `multi-source-price-reconciliation-tie-breaking` — Reducing three or more vendor quotes for one instrument to a single canonical price: staleness gating before any arithmetic, median-distance outlier attribution (and the deadlock it can reach), an agreement tolerance floored at one minimum price increment, order-independent tie-breaking, and an audit record that separates a usable price from a corroborated one.
 - **[BUILT]** `global-macro-economic-calendar-integration` — Integrating a global economic-release calendar (rate decisions, employment data) for strategies that need to avoid or specifically target these events.
 - **[BUILT]** `data-lineage-tracking-for-audit-and-debugging` — Tracking full data lineage (which vendor, which pipeline version, which transformation) for any figure that feeds a live trading decision, for post-incident debugging.
 - **[BUILT]** `market-data-simulator-for-offline-development` — Building a market-data simulator that lets developers work on strategy code offline without a live feed subscription, using realistic synthetic or replayed data.

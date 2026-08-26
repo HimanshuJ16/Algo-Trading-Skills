@@ -2,11 +2,62 @@
 
 Use this before considering the skill's implementation complete.
 
-- [ ] **Multi-Currency Cash Balances:** Confirm cash balances are tracked in local currencies.
-- [ ] **Point-in-Time FX Conversion:** Confirm FX rates are queried by date $T$.
-- [ ] **Position Valuation Conversion:** Confirm local asset valuations are multiplied by target FX rates.
-- [ ] **NAV Calculation:** Confirm total NAV is computed accurately in reporting base currency.
-- [ ] **Automated Testing:** Run `python scripts/test_currency_normalizer.py` and confirm 100% test pass rate.
+## Rate convention
+
+- [ ] **Direction pinned:** every stored rate is units of `to` per **one** unit of
+      `from`, so conversion is a multiplication.
+- [ ] **Vendor direction verified:** confirmed against a known anchor (1 USD is ~150 JPY,
+      not ~0.0067 JPY). ECB rows quote the euro as base (`EUR -> USD`).
+- [ ] **Inverses derived, not stored:** an explicitly quoted opposite direction cannot
+      overwrite an already-registered rate.
+- [ ] **Conflicting quotes rejected:** re-registering the same pair/date with a different
+      rate raises unless overwrite is explicitly requested.
+
+## Data validation
+
+- [ ] **Finiteness enforced with `math.isfinite`,** not with `rate <= 0` — `nan` passes a
+      comparison check and produces a NaN NAV.
+- [ ] **Currency codes normalized and validated** as three-letter ISO 4217 alphabetic
+      codes; `"USD "` cannot open a second ledger.
+- [ ] **Date type enforced:** `datetime.datetime` rejected, so it cannot hash to a key no
+      lookup will ever match.
+- [ ] **Non-finite cash, quantity and price rejected** at the ledger boundary.
+
+## Point-in-time integrity
+
+- [ ] **Rates queried by valuation date $T$,** never a single current-day rate applied
+      across history.
+- [ ] **Missing-rate policy chosen deliberately:** exact-match, or a bounded
+      `max_staleness_days` fallback.
+- [ ] **Fallback searches backwards only** — a rate dated after the valuation date is
+      never used (look-ahead guard).
+- [ ] **Staleness recorded and logged** (`fx_rate_dates_used`, `stale_fx_currencies`), so
+      a NAV marked on an old rate is auditable.
+
+## Valuation & NAV
+
+- [ ] **Per-currency cash balances held natively;** negative balances accepted as
+      foreign-currency margin loans.
+- [ ] **Local and reporting figures separately tagged** and never summed together.
+- [ ] **Per-symbol breakdown accumulates** repeated lots instead of overwriting them.
+- [ ] **A held currency with no usable rate aborts the valuation** rather than being
+      silently omitted from NAV.
+- [ ] **Reporting currency recorded on the snapshot** and used in every log line (no
+      hard-coded `$`).
+
+## Attribution & cost realism
+
+- [ ] **NAV change decomposed into local + FX translation + interaction,** with the three
+      components reconstructing the total exactly.
+- [ ] **External cash flows netted out** before reading the local effect as P&L.
+- [ ] **FX conversion costs modelled in the execution layer** (spread + broker fee on
+      trades that actually convert), and *not* charged against mid-rate translation.
+
+## Testing
+
+- [ ] Run `python scripts/test_currency_normalizer.py` and confirm 100% pass rate.
+- [ ] Confirm the negative cases raise: `nan`/`inf`/zero/negative rates, malformed
+      currency codes, `datetime` keys, missing rates, reversed attribution dates.
 
 ## Sign-off
 

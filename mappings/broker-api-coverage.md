@@ -10,7 +10,7 @@ This is the comprehensive cross-cutting matrix of broker APIs, exchange protocol
 | Broker / Platform | Relevant Skills | Operational Focus |
 |---|---|---|
 | **Alpaca Trading API** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `alpaca-trading-api-integration` | Paper/live OAuth & API keys, sub-second order placement, polygon/alpaca tick streaming |
-| **Interactive Brokers (IBKR TWS/Gateway API)** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `interactive-brokers-ib-kr-api` | ib_insync / ibapi async order routing, margin monitoring, contract resolution |
+| **Interactive Brokers (IBKR TWS/Gateway API)** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `interactive-brokers-ib-kr-api`, `multi-account-same-strategy-fan-out` | ib_insync / ibapi async order routing, margin monitoring, contract resolution, FA allocation groups (`faGroup`/`faMethod`: NetLiq, AvailableEquity, EqualQuantity, PctChange) |
 | **Tastytrade API** | `tastytrade-api-integration`, `options-greeks-real-time-portfolio-aggregation` | Options chain streaming, multi-leg order execution, DXFeed websocket integration |
 | **TradeStation API** | `tradestation-websocket-order-updates`, `execution-algo-twap-vwap-slicing` | Streaming order execution, execution quality scorecards, streaming tick feeds |
 | **Charles Schwab API** | `broker-api-versioning-migration-playbook`, `order-placement-idempotency` | OAuth2 refresh token rotation, equity & options REST endpoints |
@@ -35,7 +35,8 @@ This is the comprehensive cross-cutting matrix of broker APIs, exchange protocol
 | **Hong Kong Exchange (HKEX)** | `hong-kong-exchange-hkex-orion-api`, `shanghai-shenzhen-connect-programs` | OCG-C order entry (Binary / FIX), OMD-C market data, Second Schedule spread tables, Stock Connect Northbound |
 | **Singapore Exchange (SGX)** | `singapore-exchange-sgx-api-integration`, `multi-currency-pnl-and-fx-conversion` | REACH TITAN matching engine, OUCH/ITCH protocol, multi-currency derivatives |
 | **Australian Securities Exchange (ASX)** | `australian-securities-exchange-asx-api`, `asic-market-integrity-rules-automated-trading` | ASX Trade matching engine, ITCH/OUCH, Market Integrity Rules (MIR) |
-| **Japan Exchange Group (JPX / TSE)** | `japan-exchange-group-jpx-tse-api`, `japan-fsa-high-speed-trading-registration` | Arrowhead matching engine, J-GATE derivatives, High-Speed Trading (HST) registration |
+| **Japan Exchange Group (JPX / TSE)** | `japan-exchange-group-jpx-api-integration`, `japan-fsa-high-speed-trading-registration` | arrowhead4.0 matching engine, SICC alphanumeric securities codes, absolute-yen daily price limits, High-Speed Trading (HST) registration |
+| **Korea Exchange (KRX / KOSPI, KOSDAQ)** | `korea-exchange-krx-api-integration`, `exchange-tick-size-regime-tracking` | EXTURE 3.0 matching engine, six-character short codes (단축코드) with alphanumeric sixth character, 2023 tick size schedule, truncated-amount daily price limit band |
 | **Tel Aviv Stock Exchange (TASE)** | `tase-israel-exchange-api`, `vat-gst-treatment-of-trading-related-services` | TASE binary FIX/ITCH protocol, NIS currency settlement, regulatory reporting |
 | **Borsa Istanbul (BIST)** | `borsa-istanbul-api-integration`, `dma-direct-market-access-gateways` | BISTECH ITCH/OUCH protocol, TRY settlement, circuit breaker filters |
 | **Bursa Malaysia** | `bursa-malaysia-api-integration`, `shariah-compliant-screening-for-equities` | BTS trading engine, Shariah compliance screening, Islamic derivatives |
@@ -49,9 +50,9 @@ This is the comprehensive cross-cutting matrix of broker APIs, exchange protocol
 |---|---|---|
 | **Binance (Spot & Futures)** | `crypto-exchange-api-integration`, `binance-futures-testnet-to-mainnet-promotion`, `perpetual-futures-funding-rate-arbitrage` | SBE WebSocket streams, HMAC-SHA256 REST signatures, testnet promotion |
 | **Coinbase Advanced Trade** | `crypto-exchange-api-integration`, `crypto-tax-lot-tracking-fifo-lifo-hifo` | JWT auth, WebSocket user order feeds, tax lot identification |
-| **Kraken REST & WebSocket v2** | `crypto-exchange-api-integration`, `crypto-staking-yield-and-slashing-risk` | HMAC-SHA512 auth signatures, WebSocket v2 private/public feeds |
+| **Kraken REST & WebSocket v2** | `kraken-websocket-v2-auth-and-subscriptions`, `crypto-exchange-api-integration`, `crypto-staking-yield-and-slashing-risk` | HMAC-SHA512 auth signatures, WebSocket v2 private/public feeds |
 | **Deribit Options & Perpetual Futures** | `deribit-options-and-perpetuals-api`, `options-greeks-real-time-portfolio-aggregation` | JSON-RPC WebSocket API, BTC/ETH volatility surface & Greeks |
-| **Fireblocks / BitGo / HSM Custody** | `hardware-security-module-hsm-for-signing-keys`, `multi-sig-approval-workflows-for-treasury-transfers`, `withdrawal-velocity-limits-and-anomaly-detection` | PKCS#11 HSM key signing, MPC threshold signatures, withdrawal velocity limits |
+| **Fireblocks / BitGo / HSM Custody** | `hardware-security-module-hsm-for-signing-keys`, `multi-signature-approval-for-large-transfers`, `withdrawal-velocity-limits-and-anomaly-detection` | PKCS#11 HSM key signing, MPC threshold signatures, withdrawal velocity limits |
 
 ---
 
@@ -60,5 +61,5 @@ This is the comprehensive cross-cutting matrix of broker APIs, exchange protocol
 |---|---|---|
 | **FIX Protocol (v4.2 / v4.4 / v5.0)** | `fix-protocol-engine-implementation`, `fix-protocol-session-management-and-logon-handshake` | Session logon/heartbeat, tag 35 message routing, Sequence Reset |
 | **OANDA v20 REST API** | `forex-broker-integration-oanda-mt5`, `multi-currency-pnl-and-fx-conversion` | Bearer token auth, v20 streaming pricing & position management |
-| **MetaTrader 5 (MT5 Python Bridge)** | `forex-broker-integration-oanda-mt5`, `systemd-supervision-for-trading-bots` | `MetaTrader5` Python module IPC, retcode handling, zero-margin deal validation |
+| **MetaTrader 5 (MT5 Python Bridge)** | `mt5-python-bridge-for-forex-bots`, `forex-broker-integration-oanda-mt5`, `systemd-supervision-for-trading-bots` | `MetaTrader5` Python module IPC, `MqlTradeRequest` construction, `TRADE_RETCODE` triage, symbol-metadata-driven volume/stop/filling validation |
 | **Saxo Bank OpenAPI** | `saxo-bank-openapi-integration`, `multi-asset-backtest-currency-normalization` | OAuth2 PKCE auth, SignalR WebSocket streaming, multi-asset order routing |

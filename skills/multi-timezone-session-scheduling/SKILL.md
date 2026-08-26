@@ -1,8 +1,8 @@
 ---
 name: multi-timezone-session-scheduling
-description: Use when a bot's scheduling logic (session start/end, pre-market checks,
-  EOD tasks) must operate correctly across time zones and daylight saving transitions,
-  not just a single fixed local time
+description: Use when a bot's scheduling logic (session start/end, intraday breaks, pre-market
+  checks, EOD tasks) must resolve exchange-local trading hours to UTC correctly across time
+  zones and daylight saving transitions, not just at a single fixed offset
 domain: algorithmic-trading
 subdomain: data-management-global
 tags:
@@ -12,28 +12,40 @@ tags:
 brokers_frameworks:
 - IANA tz database
 - pytz/zoneinfo
-version: "1.0.0"
+version: "2.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
 
 ## When to Use
 
-Invoke this whenever a bot's scheduling logic references "market open" or "market close" for any exchange, especially if the bot itself runs on infrastructure in a different time zone than the exchange it trades on, or trades on more than one exchange. A schedule hardcoded as a fixed UTC offset (e.g. "market opens at UTC+5:30") silently breaks twice a year for any exchange whose local time observes daylight saving time, and breaks permanently if the bot's own host time zone changes (common when migrating cloud regions) without a corresponding schedule update.
+Invoke this whenever a bot's scheduling logic references "market open" or "market close" for any exchange, especially if the bot runs on infrastructure in a different time zone than the exchange it trades on, or trades on more than one exchange. A schedule hardcoded as a fixed UTC offset (e.g. "NYSE opens at UTC-5") is correct for roughly half the year and silently wrong for the other half, and breaks permanently if the bot's own host time zone changes — common when migrating cloud regions — without a corresponding schedule update.
+
+## When NOT to Use
+
+- **As a trading gate on its own.** The reference implementation is weekday-based and has no holiday or half-day calendar, so a public holiday and an early close are both reported as normal sessions. Compose it with `global-exchange-holiday-calendar-handling` before letting it authorise an order.
+- **For weekend-opening venues.** Sessions are anchored to weekdays, so a Sunday-evening futures open (CME Globex, 17:00 CT Sunday) is reported closed. Those need a weekly session model.
+- **As a substitute for a live exchange status feed.** A schedule says what was *planned*; it does not know about an unscheduled halt, a LULD pause, or an ad hoc closure.
+- **For DST forensics.** If the task is enumerating US/EU desynchronisation windows or auditing transition-day timestamps at nanosecond resolution, use `daylight-saving-time-transition-handling`; this skill only *flags* a session boundary landing on a transition.
+- **For per-instrument hours.** Exchange-level schedules do not model instrument-level variation (different closes per product, expiry-day sessions, auction-only names).
 
 ## Prerequisites
 
-- Use of the IANA time zone database (via `zoneinfo` in modern Python, or `pytz`) for all exchange-local time representations, not fixed UTC offsets
-- The trading host's own system clock and time zone configuration understood and controlled (ideally run the host in UTC and convert explicitly, rather than relying on host-local time matching any particular exchange)
+- IANA time zone database access via `zoneinfo` (Python 3.9+) or `pytz`, for all exchange-local time representation. On hosts with no system tz database — notably Windows — the `tzdata` package must be installed, or every `ZoneInfo` lookup fails at runtime.
+- The trading host's own clock and time zone understood and controlled. Run the host in UTC and convert explicitly rather than relying on host-local time happening to match an exchange.
+- A source of truth for each exchange's published local session times, including intraday breaks. Exchange hours change: the Tokyo Stock Exchange moved its close from 15:00 to 15:30 JST on 2024-11-05.
 
 ## Workflow
 
-1. Store and reason about exchange session times as IANA zone-aware times (e.g. `America/New_York`, `Europe/London`, `Asia/Kolkata`) rather than fixed UTC offsets — the IANA database encodes each region's actual DST transition rules and historical rule changes, which a fixed-offset constant cannot.
-2. Run the bot's own host clock in UTC and perform all scheduling comparisons by converting the exchange's zone-aware session times to UTC at the moment of comparison, not by pre-computing a UTC offset once and reusing it — pre-computing the offset is exactly the pattern that breaks across a DST boundary.
-3. Explicitly handle the two DST transition edge cases: the "spring forward" transition where a local time range (e.g. 2:00-3:00 AM) doesn't exist at all, and the "fall back" transition where a local time range occurs twice — scheduling logic that naively constructs a local datetime without DST-awareness can throw an error, silently pick the wrong occurrence, or schedule a task an hour off during these transition days specifically.
-4. For a bot trading multiple exchanges whose local sessions overlap or are sequential (e.g., Asian session handoff to European handoff to US session), compute each exchange's open/close independently in UTC rather than assuming a fixed sequential gap between them, since the gap changes across DST boundaries when the two exchanges' regions don't transition on the same date (the US and EU, for example, do not shift DST on the same weekend).
-5. Any "run daily at local time X" scheduled task (pre-market health checks, EOD reconciliation) should be scheduled against the exchange's zone-aware local time definition and recomputed each run, not fixed at deployment time — a cron-style scheduler configured with a fixed UTC time will systematically run an hour early or late relative to true exchange-local time for the portion of the year on the other side of a DST transition from when it was configured.
-6. Test explicitly across a synthetic calendar that includes both hemispheres' DST transition dates if trading exchanges in both the Northern and Southern Hemisphere (which transition DST on different calendar dates, in opposite directions) — Southern Hemisphere DST rules are a commonly-missed edge case even in otherwise DST-aware scheduling code.
+1. Store exchange session times as **local wall times plus an IANA zone key** (`America/New_York`, `Asia/Tokyo`), never as a UTC offset. The tz database encodes each region's actual transition rules and their historical amendments; a fixed-offset constant encodes one arbitrary moment's answer.
+2. Convert to UTC **at the moment of comparison, for the specific date being scheduled**. Pre-computing an offset once at startup and reusing it is exactly the pattern that breaks across a DST boundary — and it breaks silently, because the wrong answer is still a plausible timestamp.
+3. Before trusting a boundary, ask whether the local wall time **exists exactly once on that date**. On a "spring forward" day a local range (typically 02:00–03:00) does not occur, and on a "fall back" day a range occurs twice. Python's `fold=0` default will return *an* answer for both — the pre-transition offset for a skipped time, the first occurrence for a repeated one — so the failure is a silently wrong instant, not an exception. Detect the case (round-trip the local time through UTC to catch a skipped time; compare `fold=0` against `fold=1` offsets to catch a repeated one), then either fail loudly or record that the instant was resolved by convention.
+4. Model **intraday breaks explicitly**. An exchange with a lunch break — TSE halts 11:30–12:30 JST, HKEX 12:00–13:00 HKT — is not matching orders during it. A scheduler that only stores open and close reports REGULAR_TRADING for an hour a day when nothing can fill, which turns into unexplained rejected or resting orders rather than an obvious error.
+5. Decide session-boundary semantics and document them. Treat windows as **half-open `[open, close)`**: at exactly the closing instant the exchange is no longer in continuous trading, and reporting REGULAR_TRADING there invites an order sent into the closing auction or rejected outright.
+6. For multi-exchange handoffs, compute each exchange's open/close **independently in UTC on the query date** rather than assuming a fixed sequential gap. The US and EU do not shift DST on the same weekend — the US moves on the 2nd Sunday of March and 1st Sunday of November (local time), the EU on the last Sundays of March and October (01:00 GMT) — so the transatlantic gap changes by an hour for two multi-week windows a year.
+7. Schedule "run daily at local time X" tasks (pre-market health checks, EOD reconciliation) against the **zone-aware local definition, recomputed each run**. A cron entry fixed at a UTC time will run an hour early or late for the part of the year on the other side of a DST transition from when it was configured.
+8. Fail loudly on a **misconfigured exchange code or a naive timestamp**. Returning MARKET_CLOSED for an unrecognised code turns a typo into a bot that never trades and never explains why; accepting a naive datetime as "probably UTC" is the same guess this skill exists to eliminate.
+9. Test across a synthetic calendar covering **both hemispheres**. Southern Hemisphere exchanges transition on roughly opposite calendar dates in the opposite direction (Sydney is UTC+11 in January and UTC+10 in July), and are the most commonly missed case in otherwise DST-aware code.
 
 > Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
 > Broker/framework coverage table for this skill: see `references/standards.md`.
@@ -41,20 +53,31 @@ Invoke this whenever a bot's scheduling logic references "market open" or "marke
 
 ## Common Pitfalls
 
-- Hardcoding a fixed UTC offset for an exchange's local session time, which is correct for roughly half the year and silently wrong for the other half.
-- Configuring a cron job or scheduler with a fixed UTC time intended to correspond to an exchange's local open, without recomputing that UTC time as the exchange's local DST status changes.
-- Assuming the gap between two exchanges' sessions (e.g., "London opens 4.5 hours after Tokyo closes") is constant year-round, when the true gap fluctuates by an hour during the multi-week windows where the two regions' DST transitions don't align.
-- Not testing Southern Hemisphere exchange scheduling (which transitions DST on essentially opposite dates to Northern Hemisphere exchanges) if the bot ever expands to trade e.g. ASX or JSE.
-- Constructing a local datetime for a "spring forward" nonexistent hour or a "fall back" ambiguous hour without explicit handling, causing an exception or silently wrong scheduling on those specific days.
+- Hardcoding a fixed UTC offset for an exchange's session, which is correct for roughly half the year and silently wrong for the other half.
+- Configuring a cron job at a fixed UTC time intended to correspond to an exchange's local open, without recomputing it as the exchange's DST status changes.
+- Assuming the gap between two exchanges' sessions ("London opens 4.5 hours after Tokyo closes") is constant year-round, when it moves by an hour during the multi-week windows where the two regions' DST transitions do not align.
+- Applying Northern Hemisphere DST assumptions to a Southern Hemisphere exchange, e.g. treating Sydney as a constant UTC+10.
+- Constructing a local datetime on a "spring forward" or "fall back" day without checking existence or ambiguity — Python returns a plausible-looking timestamp under `fold=0` rather than raising, so the bug ships.
+- Storing only open and close for an exchange that halts intraday, so the lunch break is reported as regular trading.
+- Treating the closing instant as still-open by using an inclusive `close` comparison.
+- Returning "closed" instead of raising when an exchange code is unknown, converting a configuration typo into a silently dormant bot.
+- Passing `datetime.utcnow()` (naive) into a scheduler that assumes naive means UTC — correct until someone passes a naive *local* time, at which point the error is a whole UTC offset.
+- Mutating a shared module-level default schedule registry from one component, changing session times for every other component in the process.
+- Deriving the weekday from the UTC timestamp rather than the exchange-local date, which misclassifies the weekend edges for exchanges far from UTC (Sydney's Monday open is Sunday in UTC).
 
 ## Verification
 
-- Run the scheduling logic against a test calendar covering at least one Northern Hemisphere and one Southern Hemisphere DST transition date and confirm computed session open/close times match the exchange's actual published local times for each.
-- Confirm a "spring forward" and "fall back" transition day each produce a correctly-scheduled task time rather than an exception or an hour-off result.
-- Confirm the bot's own host clock is running in UTC (or that all scheduling logic explicitly converts from host-local time) by checking system configuration, not just by assuming a cloud deployment defaults to UTC.
+- Run the scheduling logic against a calendar covering at least one Northern and one Southern Hemisphere DST transition, and confirm the computed local open/close matches the exchange's published local times on each side of the transition.
+- Confirm a "spring forward" and a "fall back" boundary each produce either an explicit failure or a flagged, documented resolution — never an unannounced hour-off result.
+- Confirm the transatlantic gap between a US and an EU exchange is *different* inside and outside the March and October desynchronisation windows. If it is constant, an offset is being cached somewhere.
+- Confirm an exchange with an intraday break reports a non-trading state during it, and that the instant of close is not reported as regular trading.
+- Confirm an unknown exchange code and a naive timestamp both raise rather than returning a session state.
+- Confirm the host clock is running in UTC (or that all logic converts from host-local explicitly) by checking system configuration, not by assuming the cloud image defaults to UTC.
+- Run `python -m unittest discover -s skills/multi-timezone-session-scheduling/scripts`.
 
 ## Related Skills
 
+- `daylight-saving-time-transition-handling`
 - `global-exchange-holiday-calendar-handling`
 - `forex-broker-integration-oanda-mt5`
 - `systemd-supervision-for-trading-bots`

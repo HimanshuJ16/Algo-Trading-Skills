@@ -1,7 +1,30 @@
-# Standards for Liquidity Seeking Algorithms
+# Standards for Liquidity Seeking Across Lit and Dark Venues
 
-| Metric | Engineering Standard |
-|---|---|
-| Dark Midpoint Execution | Dark venue orders MUST be priced at the exact NBBO Midpoint price. |
-| Minimum Quantity Protection | Dark IOC pings MUST enforce $Q_{\text{min\_dark}}$ to prevent signal leakage. |
-| Rule 611 Compliance | Lit exchange routes MUST NOT trade through the NBBO. |
+Scope: **US NMS stocks**. Primary sources, all consulted 2026-08-25.
+
+- **17 CFR 242.611** — Order Protection Rule: https://www.ecfr.gov/current/title-17/chapter-II/part-242/section-242.611 · SEC staff FAQ on Rules 610/611: https://www.sec.gov/divisions/marketreg/nmsfaq610-11.htm
+- **17 CFR 242.600(b)** — definitions of *protected bid/offer*, *trading center*, and *intermarket sweep order*: https://www.law.cornell.edu/cfr/text/17/242.600
+- **17 CFR 242.610(e)** — locked and crossed quotations: https://www.law.cornell.edu/cfr/text/17/242.610
+- **17 CFR 242.612** — minimum pricing increment: https://www.law.cornell.edu/cfr/text/17/242.612
+- **SEC, Regulation NMS Adopting Release**, Exchange Act Release No. 34-51808 (9 Jun 2005), 70 FR 37496 — sub-penny midpoint executions discussed at 70 FR 37556: https://www.sec.gov/files/rules/final/34-51808.pdf
+- **SEC, "The Trade-Through Rule and Locked and Crossed Markets Provisions of Regulation NMS"**, Exchange Act Release No. 34-105655 (11 Jun 2026), File No. S7-2026-20, 91 FR (17 Jun 2026): https://www.sec.gov/rules-regulations/2026/06/s7-2026-20 — **proposal only**, comments closed 17 Aug 2026.
+- **SEC, Regulation NMS: Minimum Pricing Increments, Access Fees, and Transparency of Better Priced Orders**, Release No. 34-101070 (Sep 2024): https://www.sec.gov/files/rules/final/2024/34-101070.pdf — the $0.005 quoting increment, subsequently subject to a partial stay and extended exemptive relief.
+- **FINRA Rule 5310** — best execution and interpositioning: https://www.finra.org/rules-guidance/rulebooks/finra-rules/5310
+- **FIX 5.0 SP2 dictionary** — `ExecInst(18)`: `'f'` = "Intermarket Sweep", `'M'` = "Mid-price peg (midprice of inside quote)"; `MinQty(110)`: https://www.onixs.biz/fix-dictionary/5.0.sp2.ep299/tagnum_18.html
+
+| Metric | Standard | Status | Source |
+|---|---|---|---|
+| Protected quotation | A protected bid/offer is the **best** bid/offer of an automated exchange or association, disseminated under an effective NMS plan. Depth-of-book prices are **not** protected. | Mandatory, US | 17 CFR 242.600(b) |
+| Trade-through | A trading center must have policies reasonably designed to prevent executions at prices inferior to a protected quotation. The lit stage therefore sweeps in strict price priority — best price first, regardless of input order. | Mandatory, US | 17 CFR 242.611(a) |
+| ISO exception | An inferior-priced execution is excepted where limit orders are routed **simultaneously** against the **full displayed size** of every better-priced protected quotation, and the child is identified as an ISO (`ExecInst(18)='f'`). Marking alone does not create the exception. | Mandatory conditions, US | 17 CFR 242.611(b)(5)-(6); 600(b) ISO definition |
+| Rule 611 applicability | Rule 611 binds *trading centers* — exchanges, ATSs, market makers, and broker-dealers that execute internally. A pure router is not a trading center, but FINRA Rule 5310(a)(1) best execution (reasonable diligence to ascertain the best market) applies to it regardless. | Mandatory, US, scope-dependent | 17 CFR 242.600(b); FINRA Rule 5310 |
+| Dark midpoint pricing | Dark children SHOULD be sent as midpoint pegs (`ExecInst(18)='M'` / `PegPriceType(1094)=2`), not as explicit limit prices. | Engineering requirement + FIX mapping | FIX 5.0 SP2 dictionary |
+| Sub-penny scope | Rule 612 bars display/rank/**accept** of sub-penny-priced orders and quotations; it does **not** bar sub-penny *executions*. The Adopting Release: a sub-penny midpoint execution is permissible "so long as the execution did not result from an impermissible sub-penny order or quotation". A one-cent spread midpoints to a half cent — hence the peg. | Mandatory, US | 17 CFR 242.612; 70 FR 37496, 37556 |
+| Sub-penny (pending) | The 2024 amendments adding a $0.005 quoting increment for tick-constrained stocks were partially stayed and are under extended exemptive relief to the first business day of November 2027. Do not code the new increment as live. | Adopted, compliance deferred | Release 34-101070; subsequent stay and exemptive orders |
+| Locked/crossed | Exchanges and associations must have rules requiring members reasonably to avoid displaying quotations that lock or cross a protected quotation. A crossed consolidated book is therefore a data-integrity signal; its midpoint is not a valid reference price and the engine rejects it. | Mandatory on SROs, US | 17 CFR 242.610(e) |
+| **Pending rescission** | Release 34-105655 (11 Jun 2026) **proposes** rescinding Rule 611 and Rule 610(e) and related Rule 600 definitions. Comments closed 17 Aug 2026. It remains a proposal; both rules are in force as at 2026-08-25. Re-verify before relying on the trade-through logic. | Proposal, not final | SEC Release 34-105655, File S7-2026-20 |
+| NBBO derivation | Only lit venues **quoting size** may set a touch; a zero-size quote is not a quotation. The NBBO derived here is *synthetic* — the official NBBO is disseminated by the SIP under the CTA/UTP plans, and protected status also requires the quote be automated and immediately accessible (not modelled). | Engine requirement / limitation | 17 CFR 242.600(b) |
+| Limit-price binding | The parent limit binds on **every** stage including the dark midpoint, symmetrically on both sides. A stage the limit does not permit is skipped with a recorded reason, never repriced. | Engine requirement | Engine requirement |
+| Anti-pinging MinQty | $\text{MinQty} = \min(Q_{\text{min\_dark}}, Q_{\text{route}})$, gated on the **routed** quantity rather than venue liquidity, and a projected fill below the floor is treated as no fill (IOC + MinQty semantics). The 500-share default is an **engineering default, not a regulatory or venue constant** — no US rule sets a minimum dark order size. | Engineering default | FIX `MinQty(110)`; engine requirement |
+| Fill model | `historical_fill_rate` drives a deterministic expected-fill projection (`DETERMINISTIC_EXPECTED_FILL`), declared on every report. Report quantities are projections, not broker-reported executions. | Engine limitation, declared | Engine requirement |
+| Quantity conservation | `total_executed_qty + unfilled_qty == total_requested_qty` on every report; an input fill rate outside $[0, 1]$ is rejected at ingest rather than allowed to over-fill the parent. | Engine invariant | Engine requirement |

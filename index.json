@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-25T02:53:04.413720+00:00",
+  "generated_at": "2026-08-26T14:27:58.614553+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -5558,7 +5558,7 @@
         "IB Gateway",
         "IBC"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/ibkr-tws-gateway-headless-launch",
@@ -5566,7 +5566,7 @@
     },
     {
       "name": "ice-futures-us-eu-integration",
-      "description": "Quantitative market connectivity engine for Intercontinental Exchange (ICE Futures US & Europe), enforcing FIX Tag 207 MIC routing, contract month symbol formatting, and NCR reasonability price limits.",
+      "description": "Client-side pre-dispatch validation for ICE Futures Europe (IFEU) and ICE Futures U.S. (IFUS) outright futures orders \u2014 the directional Reasonability Limit check against the Exchange-set anchor price, per-contract minimum price fluctuation, quotation-convention-aware notional valuation, and post-trade No Cancellation Range exposure.",
       "domain": "Global Market Integration & FX",
       "subdomain": "Commodity & Energy Derivatives Gateway",
       "tags": [
@@ -5576,15 +5576,16 @@
         "fix-protocol",
         "ifeu",
         "ifus",
-        "ncr-price-banding"
+        "reasonability-limits",
+        "no-cancellation-range"
       ],
       "brokers_frameworks": [
-        "ICE iMpact Multicast",
-        "ICE FIX API",
+        "ICE Futures Europe",
+        "ICE Futures U.S.",
         "FIX 4.2 / 4.4",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/ice-futures-us-eu-integration",
@@ -5592,25 +5593,26 @@
     },
     {
       "name": "iceberg-order-native-broker-support-vs-simulation",
-      "description": "Execution routing engine for evaluating Native Exchange Iceberg orders vs Synthetic Client-Side Iceberg simulations, managing display slice randomization, and tracking refill latency.",
-      "domain": "Execution Algorithms",
-      "subdomain": "Order Slicing & Native Broker Capabilities",
+      "description": "Use when deciding whether to work a large parent order with a venue's native iceberg parameter, a broker-simulated iceberg, or a client-side synthetic slice schedule, including venue minimum-display and lot constraints, time-in-force restrictions on native iceberg fields, refill queue-priority loss, and the message-rate cost of client-side slicing.",
+      "domain": "algorithmic-trading",
+      "subdomain": "execution-algorithms",
       "tags": [
+        "execution-algorithms",
         "iceberg-orders",
         "order-slicing",
-        "native-iceberg",
-        "synthetic-simulation",
         "display-quantity",
-        "refill-latency",
+        "reserve-orders",
+        "queue-priority",
         "smart-order-routing"
       ],
       "brokers_frameworks": [
-        "Interactive Brokers (TWS displaySize)",
-        "Binance (icebergQty)",
-        "CME / NASDAQ Native",
-        "Python Dataclasses"
+        "CME Globex (tag 1138 DisplayQty)",
+        "Nasdaq Equity 4 Rule 4703(h) Reserve Orders",
+        "Deutsche Boerse T7 / Xetra (iceberg peak, randomised peak)",
+        "Binance Spot API (icebergQty)",
+        "Interactive Brokers TWS (Display Size)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/iceberg-order-native-broker-support-vs-simulation",
@@ -5618,7 +5620,7 @@
     },
     {
       "name": "iceberg-order-simulation-and-detection",
-      "description": "Quantitative market microstructure engine for detecting hidden institutional Iceberg orders by tracking trade volume vs visible book depth discrepancies and repeated price-level refills.",
+      "description": "Market microstructure screen for hidden institutional Iceberg / Reserve orders, flagging price levels where cumulative same-side trade volume exceeds displayed Level 2 depth with repeated visible refills, and estimating a lower bound on hidden size.",
       "domain": "Market Microstructure & Latency",
       "subdomain": "Order Flow Toxicity & Iceberg Detection",
       "tags": [
@@ -5635,7 +5637,7 @@
         "Bookmap / Sierra Chart",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/iceberg-order-simulation-and-detection",
@@ -5643,7 +5645,7 @@
     },
     {
       "name": "idx-indonesia-stock-exchange-api",
-      "description": "Quantitative market gateway engine for Indonesia Stock Exchange (IDX / BEI JATS system), enforcing 4-letter tickers, IDX Fraksi Harga tick sizes, and 100-share Board Lots.",
+      "description": "Quantitative market gateway engine for Indonesia Stock Exchange (IDX / BEI JATS system), enforcing 4-letter tickers, IDX Fraksi Harga tick sizes anchored to the previous close, 100-share Board Lots, and the asymmetric ARA/ARB Auto Rejection bands.",
       "domain": "Global Market Integration & FX",
       "subdomain": "Southeast Asian Market Connectivity & IDX Gateway",
       "tags": [
@@ -5660,7 +5662,7 @@
         "IDX FIX Gateway",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/idx-indonesia-stock-exchange-api",
@@ -5668,26 +5670,25 @@
     },
     {
       "name": "immutable-infrastructure-for-trading-bots",
-      "description": "DevOps engine for auditing and building immutable trading bot container images (Docker, Packer, Cosign signing, read-only rootfs) to eliminate configuration drift and prevent live hot-patching.",
-      "domain": "Infrastructure & DevOps",
-      "subdomain": "Immutable Container Deployments & Image Verification",
+      "description": "Use when a live trading bot, market gateway, or execution daemon is about to be deployed as a container and you need positive evidence that the running code cannot be changed without a rebuild \u2014 auditing a deployment spec for digest pinning, read-only rootfs, read-write host mounts that reopen the hot-patching path, attested Cosign signature verification, source-revision provenance, privilege hardening, and noexec ephemeral scratch space.",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
       "tags": [
+        "deployment-ops",
         "immutable-infrastructure",
-        "docker",
-        "packer",
-        "cosign",
         "container-security",
-        "read-only-rootfs",
-        "no-hot-patching"
+        "docker",
+        "kubernetes",
+        "cosign-sigstore",
+        "supply-chain-integrity"
       ],
       "brokers_frameworks": [
         "Docker",
-        "Packer",
+        "Kubernetes",
         "Cosign (Sigstore)",
-        "Kubernetes / Docker Compose",
-        "Python Dataclasses"
+        "OCI Image Spec"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/immutable-infrastructure-for-trading-bots",
@@ -5695,7 +5696,7 @@
     },
     {
       "name": "implementation-shortfall-minimization",
-      "description": "Quantitative execution engine implementing Almgren-Chriss optimal trajectory planning and Perold (1988) Implementation Shortfall cost decomposition (Impact, Opportunity, Explicit Fees) in basis points.",
+      "description": "Use when scheduling a large parent order or measuring what one cost: Almgren-Chriss (2000) optimal trajectories and the four-component Perold (1988) Implementation Shortfall decomposition (delay, market impact, opportunity cost, explicit fees) in USD and basis points of the intended notional.",
       "domain": "Execution Algorithms",
       "subdomain": "Optimal Execution & Transaction Cost Analysis (TCA)",
       "tags": [
@@ -5712,7 +5713,7 @@
         "Perold (1988) TCA",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/implementation-shortfall-minimization",
@@ -5720,7 +5721,7 @@
     },
     {
       "name": "incremental-capital-deployment-for-new-strategies",
-      "description": "Portfolio risk management engine implementing 4-tier stage-gated capital ramp-up (Paper -> 10% Seed -> 50% Scale -> 100% Full) with realized Sharpe and drawdown promotion gates.",
+      "description": "Portfolio risk management engine implementing 4-tier stage-gated capital ramp-up (Paper -> 10% Seed -> 50% Scale -> 100% Full) with realized Sharpe and drawdown promotion gates, one-step maintenance demotion, and an emergency drawdown deactivation gate.",
       "domain": "Portfolio Multi-Strategy",
       "subdomain": "Strategy Onboarding & Stage-Gated Scaling",
       "tags": [
@@ -5735,7 +5736,7 @@
         "Portfolio Multi-Strategy Engine",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/incremental-capital-deployment-for-new-strategies",
@@ -5743,7 +5744,7 @@
     },
     {
       "name": "india-sebi-algo-trading-tagging-requirements",
-      "description": "Regulatory compliance engine for Securities and Futures Board of India (SEBI) algorithmic trading circulars, enforcing unique Exchange Algo IDs, PRO/CLI tagging, 10 OPS limits, and Order-to-Trade Ratio (OTR) penalties.",
+      "description": "Use when a broker, algo provider or tech-savvy retail client sends algorithmic orders to an Indian exchange (NSE, BSE, MCX) and must satisfy the SEBI circular of 4 February 2025 on safer retail participation in algorithmic trading and the exchange implementation standards under it \u2014 an Exchange-provided unique algo ID on every algo order, exchange registration above the 10 orders-per-second threshold, whitelisted static IPs and vendor-specific API keys, the ban on algo market orders, PRO/CLI account tagging, and the member-level daily Order-to-Trade Ratio penalty and cooling-off framework.",
       "domain": "Regulatory Compliance Global",
       "subdomain": "Indian Market Regulation & SEBI Algo Governance",
       "tags": [
@@ -5757,12 +5758,15 @@
         "ops-threshold"
       ],
       "brokers_frameworks": [
-        "SEBI Algorithmic Trading Guidelines",
-        "NSE NOW / NEAT FIX",
+        "SEBI Circular SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/0000013 (4 Feb 2025)",
+        "NSE/INVG/67858 Implementation Standards (5 May 2025)",
+        "NSE/INVG/69255 Detailed Operational Modalities (22 Jul 2025)",
+        "SEBI/HO/MRD1/DSAP/CIR/P/2020/107 OTR Guidelines",
+        "NSE NNF order structure",
         "BSE Bolt Plus",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/india-sebi-algo-trading-tagging-requirements",
@@ -5770,7 +5774,7 @@
     },
     {
       "name": "infrastructure-as-code-for-trading-hosts",
-      "description": "Infrastructure-as-Code (IaC) engine for provisioning and auditing low-latency trading hosts via Terraform and Ansible, automating CPU core isolation (isolcpus), C-state disabling, socket buffer tuning, and PTP clock sync.",
+      "description": "Use when provisioning or auditing a low-latency trading host as code \u2014 validating a CPU isolation / C-state / socket-buffer / PTP specification before it is rendered into Terraform and Ansible, and generating kernel-argument and sysctl artifacts that actually take effect rather than staging changes a host never applies.",
       "domain": "Infrastructure & DevOps",
       "subdomain": "Low-Latency Host Provisioning & IaC Automation",
       "tags": [
@@ -5787,10 +5791,11 @@
       "brokers_frameworks": [
         "Terraform HCL",
         "Ansible Playbooks",
-        "Linux PTP4L",
+        "linuxptp (ptp4l / phc2sys)",
+        "AWS EC2 bare metal",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/infrastructure-as-code-for-trading-hosts",
@@ -5798,7 +5803,7 @@
     },
     {
       "name": "insider-trading-controls-for-alternative-data-usage",
-      "description": "Compliance governance engine for alternative data usage, auditing SEC Rule 10b-5 MNPI risks, PII anonymization thresholds, vendor due diligence sign-offs, and earnings blackout windows.",
+      "description": "Adviser-side trading-eligibility gate for onboarded alternative datasets, producing a per-control audit record across MNPI provenance, vendor diligence and terms-of-service posture, PII scrubbing with panel aggregation, and firm-policy earnings blackout windows.",
       "domain": "Quant Research & Alt Data",
       "subdomain": "Compliance & Legal Governance for Alt Data",
       "tags": [
@@ -5806,17 +5811,18 @@
         "insider-trading",
         "sec-rule-10b5",
         "mnpi",
+        "section-204a",
         "pii-anonymization",
-        "vendor-due-diligence",
         "compliance-governance"
       ],
       "brokers_frameworks": [
         "SEC Rule 10b-5",
+        "17 CFR 240.10b5-2",
         "Section 204A Investment Advisers Act",
-        "GDPR / CCPA PII Standards",
+        "GDPR Recital 26 / CCPA-CPRA 1798.140",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/insider-trading-controls-for-alternative-data-usage",
@@ -5824,23 +5830,26 @@
     },
     {
       "name": "insider-transaction-filing-signal-research",
-      "description": "Quantitative factor research engine for SEC Form 4 insider transaction filings, isolating opportunistic non-10b5-1 C-suite open-market purchases from routine scheduled sales.",
+      "description": "Point-in-time factor research on SEC Form 4 Section 16 insider filings \u2014 score open-market purchases and sales on the EDGAR dissemination timestamp rather than the trade date, weight by the filer's Section 16 capacity, and separate opportunistic from routine insiders with the Cohen-Malloy-Pomorski trade-timing test rather than the Rule 10b5-1 checkbox.",
       "domain": "Quant Research & Alt Data",
       "subdomain": "Insider Filing Analytics & Factor Research",
       "tags": [
         "insider-trading-signal",
         "sec-form-4",
+        "section-16",
         "rule-10b5-1",
-        "opportunistic-trading",
+        "point-in-time-data",
         "alpha-factors",
         "insider-sentiment"
       ],
       "brokers_frameworks": [
         "SEC EDGAR Form 4",
-        "Cohen-Malloy-Pomorski (2012) Factor Research",
-        "Python Dataclasses"
+        "17 CFR 240.16a-3",
+        "SEC Release 33-11138",
+        "EDGAR Ownership XML Technical Specification v3",
+        "Python standard library"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/insider-transaction-filing-signal-research",
@@ -5848,7 +5857,7 @@
     },
     {
       "name": "instrument-universe-change-detection-and-alerting",
-      "description": "Reference data management engine for detecting tradable universe changes (additions, de-listings, ticker renames, halts) across daily snapshots using permanent identifiers (FIGI / ISIN).",
+      "description": "Reference data engine that diffs daily tradable-universe snapshots keyed on permanent identifiers (FIGI / ISIN) to detect additions, delistings, ticker renames, venue migrations and trading-status transitions, with a churn guard that stops a truncated vendor file being actioned as a mass liquidation.",
       "domain": "Data Management Global",
       "subdomain": "Reference Data Universe Tracking & Alerting",
       "tags": [
@@ -5865,7 +5874,7 @@
         "Security Master Database",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/instrument-universe-change-detection-and-alerting",
@@ -5873,7 +5882,7 @@
     },
     {
       "name": "insurance-coverage-assessment-for-custodied-crypto",
-      "description": "Institutional audit engine for crypto custody insurance, evaluating Specie offline cold vault policies vs Crime hot/warm wallet policies, pro-rata pooled limit dilution, and uncovered shortfall risks.",
+      "description": "Quantifies how much custodied digital asset capital a custodian's insurance programme would actually return, bracketing recovery between an isolated-loss upper bound and a pro-rata pooled-loss lower bound, net of retentions, and sizing the residual uninsured exposure.",
       "domain": "Crypto Custody Security",
       "subdomain": "Institutional Treasury Audit & Custody Insurance",
       "tags": [
@@ -5890,7 +5899,7 @@
         "Lloyd's Specie & Crime Policies",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/insurance-coverage-assessment-for-custodied-crypto",
@@ -5898,24 +5907,22 @@
     },
     {
       "name": "interactive-brokers-global-multi-exchange-routing",
-      "description": "Quantitative order gateway engine for Interactive Brokers (IBKR / TWS API), configuring multi-exchange SmartRouting (NBBO, MaxRebate) vs Direct Routing across global venues (US, Europe, HKEX, Eurex).",
-      "domain": "Global Market Integration & FX",
-      "subdomain": "Broker Connectivity & IBKR SmartRouting",
+      "description": "Use when constructing Interactive Brokers (TWS API / ib_insync) contracts and choosing between SmartRouting and a direct venue across IBKR's global markets \u2014 validating symbol, secType, currency, exchange and primaryExchange before submission so contracts resolve to a single conId instead of failing with error 200 or an ambiguity error",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
       "tags": [
+        "broker-integration",
         "ibkr",
-        "interactive-brokers",
         "tws-api",
-        "smart-routing",
-        "nbbo",
-        "primary-exchange",
-        "multi-exchange-routing"
+        "ib-insync",
+        "smart-routing"
       ],
       "brokers_frameworks": [
         "Interactive Brokers TWS API",
         "ib_insync",
-        "Python Dataclasses"
+        "IB Gateway"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/interactive-brokers-global-multi-exchange-routing",
@@ -5923,7 +5930,7 @@
     },
     {
       "name": "interest-rate-swap-exposure-in-multi-asset-portfolios",
-      "description": "Fixed income risk analytics engine for Interest Rate Swaps (IRS), calculating Swap DV01/PV01 sensitivities, Pay-Fixed vs Receive-Fixed exposures, and multi-asset portfolio yield curve hedging.",
+      "description": "First-order interest-rate risk for vanilla fixed-vs-float swaps held beside bonds and equities: annuity-based swap DV01/PV01, signed Pay-Fixed vs Receive-Fixed exposure, USD-only aggregation, and the par-swap notional that flattens net portfolio DV01.",
       "domain": "Portfolio Multi-Strategy",
       "subdomain": "Fixed Income Risk & IRS Exposure Management",
       "tags": [
@@ -5931,17 +5938,17 @@
         "irs",
         "dv01",
         "pv01",
-        "yield-curve",
+        "annuity-factor",
         "sofr",
         "multi-asset-risk",
         "duration-hedging"
       ],
       "brokers_frameworks": [
-        "SOFR / ISDA Swap Conventions",
-        "Fixed Income DV01 Framework",
+        "SOFR fixed-vs-float swap conventions",
+        "PV01 annuity framework",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/interest-rate-swap-exposure-in-multi-asset-portfolios",
@@ -5949,7 +5956,7 @@
     },
     {
       "name": "intraday-vs-eod-backtest-granularity-tradeoffs",
-      "description": "Quantitative backtest engineering advisor for evaluating data resolution tradeoffs (Tick vs 1-Min vs Daily EOD), estimating storage/compute footprints, and eliminating OHLC in-bar order sequence biases.",
+      "description": "Backtest data-resolution advisor: audits the in-bar execution-path ambiguity that OHLC bars of any length leave unresolved for stop-loss strategies, matches resolution to the declared holding period, and sizes the dataset from a venue-specific session calendar.",
       "domain": "Quant Research & Alt Data",
       "subdomain": "Backtesting Engine Design & Data Granularity",
       "tags": [
@@ -5963,9 +5970,9 @@
       ],
       "brokers_frameworks": [
         "Vectorized / Event-Driven Backtesters",
-        "Python Dataclasses"
+        "Python Standard Library"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/intraday-vs-eod-backtest-granularity-tradeoffs",
@@ -5973,7 +5980,7 @@
     },
     {
       "name": "isin-cusip-sedol-cross-reference-service",
-      "description": "Security master cross-reference service implementing Modulo 10 Luhn checksum algorithms for ISIN, CUSIP, and SEDOL identifiers, resolving multi-vendor mappings to immutable OpenFIGI keys.",
+      "description": "Security master cross-reference service validating ISIN (ISO 6166 Luhn), CUSIP (ANSI X9.6 double-add-double), SEDOL (LSE weighted sum) and FIGI (ANSI X9.145) check digits, and resolving any of them to one canonical record keyed on an immutable OpenFIGI identifier.",
       "domain": "Data Management Global",
       "subdomain": "Security Master & Symbology Resolution",
       "tags": [
@@ -5988,10 +5995,11 @@
       "brokers_frameworks": [
         "OpenFIGI API",
         "CUSIP Global Services",
-        "LSE SEDOL",
+        "LSE SEDOL Masterfile",
+        "ANSI X9.145 FIGI",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/isin-cusip-sedol-cross-reference-service",
@@ -5999,7 +6007,7 @@
     },
     {
       "name": "japan-exchange-group-jpx-api-integration",
-      "description": "Quantitative market gateway engine for Japan Exchange Group (JPX / Tokyo Stock Exchange TSE arrowhead 3.0), enforcing 4-digit ticker codes, JPY price tick tiers, and 100-share Board Lots.",
+      "description": "Quantitative market gateway engine for Japan Exchange Group (JPX / Tokyo Stock Exchange, arrowhead4.0), enforcing four-character alphanumeric securities codes, the three published TSE tick size tables, 100-share trading units, and the absolute-yen daily price limit schedule.",
       "domain": "Global Market Integration & FX",
       "subdomain": "Japanese Market Connectivity & TSE Arrowhead Gateway",
       "tags": [
@@ -6012,11 +6020,11 @@
         "tick-sizes"
       ],
       "brokers_frameworks": [
-        "TSE Arrowhead 3.0 FIX API",
-        "J-GATE 3.0 Derivatives Gateway",
+        "TSE arrowhead4.0 Cash Equity Trading System",
+        "JPX Securities Identification Code Committee (SICC) codes",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/japan-exchange-group-jpx-api-integration",
@@ -6024,7 +6032,7 @@
     },
     {
       "name": "japan-fsa-high-speed-trading-registration",
-      "description": "Regulatory compliance engine for Japan Financial Services Agency (FSA) and Financial Instruments and Exchange Act (FIEA), auditing High-Speed Trader (HST) registration, co-location access, pre-trade risk controls, and kill switches.",
+      "description": "Regulatory compliance engine for Japan Financial Services Agency (FSA) High-Speed Trader registration under FIEA Article 2(41) and Article 66-50, classifying orders against the co-location and contention-free-transmission definition, auditing the registration or Article 29-2 notification route, kill switches, exchange order flagging, and firm pre-trade limits.",
       "domain": "Regulatory Compliance Global",
       "subdomain": "Japanese Market Regulation & FSA HST Governance",
       "tags": [
@@ -6038,11 +6046,16 @@
         "kill-switch"
       ],
       "brokers_frameworks": [
-        "Japan FSA FIEA Guidelines",
-        "TSE / OSE Exchange Rules",
+        "FIEA arts. 2(41)-(42), 29-2(1)(vii), 38(viii), 66-50 to 66-61",
+        "Cabinet Office Order on Definitions under FIEA art. 2, art. 26",
+        "Cabinet Office Order on Financial Instruments Business arts. 328, 336, 338",
+        "FSA Guidelines for Supervision of High-Speed Traders",
+        "FSA Notice No. 50 of 2017 designating transmission destinations",
+        "TSE Business Regulations art. 14(1)(7)",
+        "TSE Brokerage Agreement Standards art. 6(5)",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/japan-fsa-high-speed-trading-registration",
@@ -6066,7 +6079,7 @@
         "LinkUp / Coresignal Scraped Datasets",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/job-posting-data-as-a-growth-signal",
@@ -6074,7 +6087,7 @@
     },
     {
       "name": "jse-south-africa-api-integration",
-      "description": "Quantitative market gateway engine for Johannesburg Stock Exchange (JSE South Africa Millennium Exchange), enforcing 3-letter alpha tickers, ZAC South African Cents pricing, and JSE tick size tiers.",
+      "description": "Quantitative market gateway engine for the Johannesburg Stock Exchange equity market (JSE, LSEG Millennium Exchange), enforcing ZAC South African Cents pricing on a flat 1-cent tick, whole-share lots up to the 99,999,999 Maximum Order Size, the ZA01 +/-90% price band, and per-segment/per-session circuit breaker tolerances.",
       "domain": "Global Market Integration & FX",
       "subdomain": "African Market Connectivity & JSE Gateway",
       "tags": [
@@ -6083,15 +6096,16 @@
         "johannesburg-stock-exchange",
         "zac-cents",
         "millennium-exchange",
-        "naspers",
-        "tick-sizes"
+        "circuit-breakers",
+        "price-bands"
       ],
       "brokers_frameworks": [
-        "JSE Millennium Exchange FIX API",
-        "JSE Nutron / YieldX Gateway",
+        "JSE Millennium Exchange (LSEG Technology)",
+        "JSE Trading Gateway (FIX 5.0 SP2)",
+        "JSE Native Trading Gateway",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/jse-south-africa-api-integration",
@@ -6099,7 +6113,7 @@
     },
     {
       "name": "kafka-based-tick-distribution-at-scale",
-      "description": "Scalable market data messaging engine for Apache Kafka, implementing symbol-key partition routing, producer batching (128KB, 5ms linger), and real-time consumer lag monitoring.",
+      "description": "Symbol-keyed tick distribution over Apache Kafka: partition routing that reproduces each client library's actual hash (librdkafka CRC32 vs Java/kafka-python murmur2), producer settings that make per-symbol ordering real rather than assumed, and a consumer-lag, staleness and hot-partition audit.",
       "domain": "Data Management Global",
       "subdomain": "Real-Time Tick Streaming & Kafka Infrastructure",
       "tags": [
@@ -6116,7 +6130,7 @@
         "aiokafka / confluent-kafka",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/kafka-based-tick-distribution-at-scale",
@@ -6124,25 +6138,28 @@
     },
     {
       "name": "key-rotation-schedule-for-hot-wallet-keys",
-      "description": "Cryptographic key lifecycle management engine enforcing a mandatory 90-day key rotation policy, signature/volume triggers, zero-downtime dual-key grace periods, and secure key shredding for trading bot hot wallets.",
+      "description": "Lifecycle policy evaluator for online trading keys \u2014 blockchain hot wallet signing keys and exchange API credentials \u2014 deciding when age, signature count or signed volume force rotation, holding the old key through a settlement grace period, and blocking destruction of an on-chain key until its address is actually swept.",
       "domain": "Crypto Custody Security",
       "subdomain": "Hot Wallet Cryptographic Lifecycle & Key Governance",
       "tags": [
         "key-rotation",
         "hot-wallet",
         "crypto-custody",
+        "cryptoperiod",
         "key-shredding",
-        "api-keys",
         "grace-period",
-        "kms"
+        "fund-sweep",
+        "api-keys"
       ],
       "brokers_frameworks": [
-        "AWS Secrets Manager",
+        "NIST SP 800-57 Part 1 Rev. 5 (cryptoperiods)",
+        "CCSS v9.0 (CryptoCurrency Security Standard)",
+        "AWS Secrets Manager / AWS Config ACCESS_KEYS_ROTATED",
         "HashiCorp Vault",
-        "ECDSA / Ed25519 Keys",
+        "ECDSA secp256k1 / Ed25519 signing keys",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/key-rotation-schedule-for-hot-wallet-keys",
@@ -6157,7 +6174,7 @@
         "risk-management"
       ],
       "brokers_frameworks": [],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/kill-switch-and-drawdown-circuit-breakers",
@@ -6165,7 +6182,7 @@
     },
     {
       "name": "korea-exchange-krx-api-integration",
-      "description": "Quantitative market gateway engine for Korea Exchange (KRX KOSPI / KOSDAQ EXTURE+ engine), enforcing 6-digit stock codes, KRW price tick tiers, and +/- 30% daily price expansion limits.",
+      "description": "Quantitative market gateway engine for Korea Exchange (KRX KOSPI / KOSDAQ, EXTURE 3.0), enforcing six-character short codes that may end in a letter, the tick size schedule KRX revised on 25 January 2023, the flat KRW 5 ETF/ETN tick, and the truncated-amount daily price limit band.",
       "domain": "Global Market Integration & FX",
       "subdomain": "South Korean Market Connectivity & KRX Gateway",
       "tags": [
@@ -6173,16 +6190,17 @@
         "korea-exchange",
         "kospi",
         "kosdaq",
-        "exture-plus",
-        "samsung-electronics",
-        "krw-tick-sizes"
+        "exture-3",
+        "krw-tick-sizes",
+        "price-limit"
       ],
       "brokers_frameworks": [
-        "KRX EXTURE+ FIX API",
+        "KRX EXTURE 3.0 matching engine",
+        "KRX short codes (\ub2e8\ucd95\ucf54\ub4dc)",
         "Koscom Gateway",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/korea-exchange-krx-api-integration",
@@ -6190,8 +6208,8 @@
     },
     {
       "name": "kraken-websocket-v2-auth-and-subscriptions",
-      "description": "Crypto exchange API client for Kraken WebSocket v2 API, computing HMAC-SHA512 signatures for REST token retrieval, building public/private v2 subscription frames, and managing 15-minute token lifecycles.",
-      "domain": "Crypto Custody Security",
+      "description": "Sign the Kraken REST call that mints a WebSocket token and build validated Kraken WebSocket v2 subscribe frames, routing each channel to the correct one of three endpoints, enforcing the token's 900-second use-by window at the moment of use, and keeping the bearer token out of logs.",
+      "domain": "Crypto Custody & Security",
       "subdomain": "Kraken Exchange Connectivity & WS v2 API",
       "tags": [
         "kraken",
@@ -6203,11 +6221,11 @@
         "order-book-v2"
       ],
       "brokers_frameworks": [
-        "Kraken WS v2 API Specification",
-        "Kraken REST Private API",
+        "Kraken Spot WebSocket v2",
+        "Kraken Spot REST Private API",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/kraken-websocket-v2-auth-and-subscriptions",
@@ -6215,25 +6233,28 @@
     },
     {
       "name": "kyc-aml-considerations-for-algo-trading-entities",
-      "description": "Institutional KYC/AML compliance engine for algorithmic trading entities, auditing Ultimate Beneficial Ownership (UBO >= 25%), OFAC/PEP sanctions screening, and FATF high-risk jurisdiction compliance.",
+      "description": "Entity-level KYC/AML onboarding audit for algorithmic trading funds and proprietary trading firms, covering both FinCEN CDD Rule beneficial-ownership prongs (25% ownership and the mandatory control person), the OFAC 50 Percent Rule aggregation test, FATF jurisdiction risk tiers, and FATF Recommendation 12 PEP measures.",
       "domain": "Regulatory Compliance Global",
       "subdomain": "Corporate Governance & Anti-Money Laundering (AML)",
       "tags": [
         "kyc",
         "aml",
         "ubo",
-        "fincen",
+        "fincen-cdd-rule",
         "fatf",
         "sanctions-screening",
         "pep",
-        "enhanced-due-diligence"
+        "enhanced-due-diligence",
+        "ofac-50-percent-rule"
       ],
       "brokers_frameworks": [
-        "FinCEN CDD Rule",
-        "FATF Recommendation 24",
+        "FinCEN CDD Rule (31 CFR 1010.230)",
+        "OFAC 50 Percent Rule",
+        "FATF Recommendations 12/19/24",
+        "EU Regulation 2024/1624 (AMLR)",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/kyc-aml-considerations-for-algo-trading-entities",
@@ -6241,7 +6262,7 @@
     },
     {
       "name": "label-noise-estimation-in-financial-targets",
-      "description": "Quantitative machine learning noise estimation engine implementing Confident Learning (Cleanlab framework), computing noise transition matrices, identifying mislabeled financial targets, and generating clean sample weights.",
+      "description": "Quantitative machine learning noise estimation engine implementing Confident Learning (Cleanlab framework) for binary financial targets, computing the confident joint and noise transition matrices, identifying mislabeled financial targets, and generating clean sample weights.",
       "domain": "Quant Research & Alt Data",
       "subdomain": "Financial Machine Learning & Target Labeling",
       "tags": [
@@ -6258,7 +6279,7 @@
         "scikit-learn / XGBoost",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/label-noise-estimation-in-financial-targets",
@@ -6266,7 +6287,7 @@
     },
     {
       "name": "latency-arbitrage-defensive-order-sizing",
-      "description": "Microstructure risk mitigation engine evaluating cross-venue latency gaps, modeling adverse selection sniping probabilities, dynamically scaling down passive quote sizes, and widening bid-ask spreads.",
+      "description": "Defensive sizing for a passive quote exposed to stale-quote sniping across a cross-venue cancel latency gap. Scores a Poisson sniping hazard, scales the shown quantity down, widens the quoted spread, pulls the quote above a risk threshold or below the instrument's round lot, and fails closed on unreadable latency telemetry.",
       "domain": "Market Microstructure & Latency",
       "subdomain": "HFT Defense & Passive Liquidity Risk",
       "tags": [
@@ -6279,11 +6300,11 @@
         "spread-widening"
       ],
       "brokers_frameworks": [
-        "CME / Nasdaq ITCH Feed",
+        "Cross-Venue Latency Telemetry",
         "FIX Order Gateway",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/latency-arbitrage-defensive-order-sizing",
@@ -6291,7 +6312,7 @@
     },
     {
       "name": "latency-monitoring-percentile-based-slas",
-      "description": "Low-latency infrastructure SLA monitoring engine calculating microsecond-level P50, P90, P99, and P99.9 percentiles, monitoring latency jitter, and auditing tick-to-trade SLA breaches.",
+      "description": "Percentile-based latency SLA auditing for tick-to-trade and order-gateway pipelines: HdrHistogram-compatible nearest-rank P50-P99.9 percentiles, a sample-count resolution gate that refuses to approve a tail it cannot measure, HdrHistogram's coordinated-omission correction, and jitter reported as both standard deviation and IQR.",
       "domain": "Market Microstructure & Latency",
       "subdomain": "Latency Infrastructure & SLA Governance",
       "tags": [
@@ -6302,14 +6323,14 @@
         "sla-breach",
         "tick-to-trade",
         "jitter",
-        "microsecond-sla"
+        "coordinated-omission"
       ],
       "brokers_frameworks": [
-        "HDR Histogram",
+        "HdrHistogram",
         "CLOCK_MONOTONIC_RAW",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/latency-monitoring-percentile-based-slas",
@@ -6317,24 +6338,25 @@
     },
     {
       "name": "leverage-limit-enforcement-across-instruments",
-      "description": "Pre-trade risk gateway enforcing global Gross Leverage, Net Directional Leverage, and asset-class specific leverage caps across multi-instrument portfolios (Equities, Crypto, FX, Futures).",
-      "domain": "Portfolio Multi-Strategy",
-      "subdomain": "Cross-Asset Leverage & Risk Governance",
+      "description": "Use when a multi-asset book (equities, crypto perpetuals, FX, futures, options) needs a pre-trade gate that projects post-fill gross, net-directional, and per-asset-class leverage and vetoes exposure-increasing orders that would breach a cap, without ever blocking de-risking",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
       "tags": [
+        "risk-management",
         "leverage-limit",
         "gross-leverage",
         "net-leverage",
-        "risk-governance",
-        "cross-margin",
         "pre-trade-risk",
-        "crypto-futures"
+        "cross-asset-exposure"
       ],
       "brokers_frameworks": [
-        "Reg T Margin Rules",
-        "AIFMD Leverage Framework",
-        "Python Dataclasses"
+        "Reg T (12 CFR 220)",
+        "FINRA Rule 4210",
+        "SEC Rule 15c3-5",
+        "AIFMD Delegated Regulation (EU) 231/2013",
+        "Python Standard Library"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/leverage-limit-enforcement-across-instruments",
@@ -6357,7 +6379,7 @@
         "Liquidity Position Sizer Engine",
         "Python NumPy"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/liquidity-adjusted-position-sizing",
@@ -6365,7 +6387,7 @@
     },
     {
       "name": "liquidity-seeking-algorithm-across-lit-and-dark-venues",
-      "description": "Institutional Smart Order Routing (SOR) engine executing parent orders across Lit exchanges and Dark ATS venues, sweeping NBBO midpoint dark liquidity prior to lit book routing.",
+      "description": "Lit/dark sequencing planner for institutional parent orders in US NMS stocks \u2014 sweeps dark ATS venues at the NBBO midpoint with IOC + MinQty before sweeping lit exchanges in strict price priority, flagging any child priced inferior to the protected NBBO as requiring ISO marking.",
       "domain": "Execution Algorithms",
       "subdomain": "Smart Order Routing (SOR) & Dark Pools",
       "tags": [
@@ -6375,14 +6397,18 @@
         "nbbo-midpoint",
         "sor",
         "smart-order-router",
-        "signal-leakage"
+        "signal-leakage",
+        "trade-through",
+        "iso"
       ],
       "brokers_frameworks": [
-        "SEC Rule 611 Order Protection",
-        "SEC Rule 612 Sub-Penny",
+        "SEC Reg NMS Rule 611 (Order Protection)",
+        "SEC Reg NMS Rule 612 (Minimum Pricing Increment)",
+        "SEC Reg NMS Rule 610(e) (Locked/Crossed)",
+        "FIX Protocol",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/liquidity-seeking-algorithm-across-lit-and-dark-venues",
@@ -6390,25 +6416,26 @@
     },
     {
       "name": "lme-london-metal-exchange-integration",
-      "description": "Quantitative market gateway engine for the London Metal Exchange (LMEselect API), enforcing metal contract lot tonnage (Copper/Aluminium 25 MT, Nickel 6 MT), USD/MT tick sizes, and prompt date mechanics.",
+      "description": "Client-side pre-dispatch validation for London Metal Exchange outright orders \u2014 per-metal lot tonnage (Copper/Aluminium 25 MT, Nickel 6 MT, Tin 5 MT), the per-metal LMEselect outright tick ($0.50/MT, but $5.00/MT for Nickel and Tin), the symmetric Daily Price Limit band around the previous 3-month Closing Price, and prompt-date structure and tenor limits.",
       "domain": "Global Market Integration & FX",
       "subdomain": "Commodity Futures & LME Connectivity",
       "tags": [
         "lme",
         "london-metal-exchange",
-        "copper",
-        "aluminium",
-        "nickel",
+        "lmeselect",
         "prompt-dates",
-        "3m-benchmark",
-        "lmeselect"
+        "daily-price-limits",
+        "tick-sizes",
+        "base-metals",
+        "3m-benchmark"
       ],
       "brokers_frameworks": [
-        "LMEselect FIX Protocol",
-        "LME Smart Routing",
+        "LMEselect",
+        "LMEselect FIX Order Entry Gateway",
+        "LME Rulebook",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/lme-london-metal-exchange-integration",
@@ -6416,7 +6443,7 @@
     },
     {
       "name": "load-testing-before-scaling-to-new-instrument-universe",
-      "description": "Pre-scaling infrastructure capacity planning and load testing engine, projecting tick message throughput, L2 order book memory footprints, and network bandwidth utilization before expanding instrument universes.",
+      "description": "Pre-scaling infrastructure capacity projection and scale-up gate, projecting tick message throughput, L2 order book memory footprints, network bandwidth and database write IOPS before expanding an instrument universe.",
       "domain": "Data Management Global",
       "subdomain": "Infrastructure Capacity & System Scalability",
       "tags": [
@@ -6433,7 +6460,7 @@
         "Prometheus / Grafana Observability",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/load-testing-before-scaling-to-new-instrument-universe",
@@ -6441,7 +6468,7 @@
     },
     {
       "name": "log-aggregation-and-centralized-observability",
-      "description": "Centralized logging and observability pipeline for distributed trading microservices, formatting structured JSON logs, redacting sensitive API keys/secrets, and monitoring error rate spikes for Grafana Loki / OpenTelemetry.",
+      "description": "Centralized logging and observability pipeline for distributed trading microservices \u2014 redacting credential-bearing metadata keys before logs leave the host, emitting structured JSON lines with OpenTelemetry SeverityNumbers and microsecond timestamps for Grafana Loki / OpenTelemetry Collector ingestion, sampling high-volume diagnostic levels, and flagging error-velocity spikes per batch.",
       "domain": "System Architecture & Infrastructure",
       "subdomain": "Observability & Distributed Logging",
       "tags": [
@@ -6451,7 +6478,7 @@
         "grafana-loki",
         "elk-stack",
         "structured-json",
-        "pii-sanitization",
+        "credential-redaction",
         "error-spike-alert"
       ],
       "brokers_frameworks": [
@@ -6459,7 +6486,7 @@
         "Grafana Loki API",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/log-aggregation-and-centralized-observability",
@@ -6467,14 +6494,22 @@
     },
     {
       "name": "lookahead-bias-elimination",
-      "description": "Use when writing or auditing backtest code to ensure no signal, feature, or decision uses information that would not have been available at the actual decision timestamp in live trading",
+      "description": "Use when writing or auditing backtest code to ensure no signal, feature, or decision uses information that would not have been available at the actual decision timestamp in live trading \u2014 same-bar close fills, unwarmed indicators, centred rolling windows, and calendar-date joins of point-in-time data",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
-        "backtesting-methodology"
+        "backtesting-methodology",
+        "lookahead-bias",
+        "execution-timing",
+        "point-in-time"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "Python pandas",
+        "Python NumPy",
+        "backtrader",
+        "backtesting.py"
+      ],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/lookahead-bias-elimination",
@@ -6482,7 +6517,7 @@
     },
     {
       "name": "lse-millennium-exchange-api",
-      "description": "Quantitative market gateway engine for the London Stock Exchange (LSE Millennium Exchange platform), enforcing TIDM ticker codes, GBX (Pence) currency notation, and MiFID II RTS 28 tick size schedules.",
+      "description": "Client-side pre-dispatch validation for London Stock Exchange (Millennium Exchange) orders \u2014 TIDM mnemonic format against the Exchange's STRING(4) field, the per-instrument trading currency (GBX pence is reference data, not a venue-wide rule), the instrument's price tick table with the UK RTS 11 price x liquidity-band grid as the regulatory floor, and sterling notional valuation.",
       "domain": "Global Market Integration & FX",
       "subdomain": "European Equities & LSE Connectivity",
       "tags": [
@@ -6490,17 +6525,18 @@
         "london-stock-exchange",
         "millennium-exchange",
         "gbx",
-        "pence-quoting",
         "tidm",
-        "mifid-ii",
+        "uk-rts-11",
+        "tick-size",
         "sets"
       ],
       "brokers_frameworks": [
-        "LSE Millennium FIX Protocol",
-        "LSE OUG Native Binary",
-        "Python Dataclasses"
+        "LSE Millennium Exchange (MIT201)",
+        "LSE Reference Data Service (MIT401)",
+        "UK RTS 11 \u2014 assimilated (EU) 2017/588",
+        "Python Decimal"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/lse-millennium-exchange-api",
@@ -6508,7 +6544,7 @@
     },
     {
       "name": "margin-utilization-circuit-breaker",
-      "description": "Use when trading on margin to halt new order placement when margin utilization crosses a defined threshold, independent of P&L-based circuit breakers, preventing margin calls and forced liquidations by the broker.",
+      "description": "Use when a bot trades on margin and needs a latching, strategy-independent circuit breaker on margin utilization that halts exposure-increasing orders at a house budget well below the broker's liquidation point, permits only margin-releasing orders while halted, and stays halted until an audited human re-arm.",
       "domain": "algorithmic-trading",
       "subdomain": "risk-management",
       "tags": [
@@ -6520,11 +6556,12 @@
       ],
       "brokers_frameworks": [
         "Custom Risk Engine",
-        "IBKR",
-        "Zerodha",
-        "Alpaca"
+        "Interactive Brokers",
+        "Alpaca",
+        "Zerodha Kite Connect",
+        "MetaTrader 5"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/margin-utilization-circuit-breaker",
@@ -6532,7 +6569,7 @@
     },
     {
       "name": "mark-to-market-election-for-active-traders-us",
-      "description": "US tax accounting engine evaluating IRS Section 475(f) Mark-to-Market (MTM) election for active traders, eliminating wash sale rules, marking open positions to year-end FMV, and reporting ordinary P&L on Form 4797.",
+      "description": "US federal tax engine comparing IRC Section 475(f) mark-to-market accounting against default capital accounting for a trader in securities: year-end marks from the Section 475(a)-adjusted basis, the scoped Section 1091 waiver, Section 461(l) excess business loss limits on the ordinary deduction, Section 1211(b)/1212(b) capital caps and carryforwards, and Form 4797 Part II vs Schedule D mapping.",
       "domain": "Tax & Accounting Global",
       "subdomain": "US Active Trader Tax & Section 475(f) MTM",
       "tags": [
@@ -6542,15 +6579,18 @@
         "wash-sale-exemption",
         "form-4797",
         "trader-tax-status",
-        "ordinary-loss"
+        "ordinary-loss",
+        "excess-business-loss"
       ],
       "brokers_frameworks": [
         "IRS Code Section 475(f)",
         "Form 4797 Part II",
         "Form 3115",
+        "Form 461",
+        "Rev. Proc. 99-17",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/mark-to-market-election-for-active-traders-us",
@@ -6558,7 +6598,7 @@
     },
     {
       "name": "market-data-cost-optimization-tiered-subscriptions",
-      "description": "Quantitative market data feed cost optimization engine, dynamically promoting active trading symbols to high-frequency L3 direct feeds while demoting inactive universe symbols to low-cost EOD/SIP tiers.",
+      "description": "Market data subscription tiering engine that assigns each symbol to a direct-depth, real-time top-of-book, or delayed/EOD tier from its live position, signal, and trade-recency state, and prices the change against a caller-supplied fee schedule while keeping tradeable symbols off delayed data.",
       "domain": "Data Management Global",
       "subdomain": "Market Data Cost & Entitlement Governance",
       "tags": [
@@ -6576,7 +6616,7 @@
         "TRG Screen",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-cost-optimization-tiered-subscriptions",
@@ -6584,25 +6624,27 @@
     },
     {
       "name": "market-data-entitlement-and-licensing-per-venue",
-      "description": "Pre-stream market data entitlement and compliance engine, verifying exchange venue licenses (NASDAQ, NYSE, CME, LSE), professional vs non-professional subscriber classification, and non-display algorithmic licensing.",
+      "description": "Fail-closed pre-stream gate for exchange market data entitlements \u2014 per-venue licences, depth-of-book tier, non-display activity category, and professional vs non-professional subscriber classification \u2014 with an auditable reason recorded for every decision.",
       "domain": "Data Management Global",
       "subdomain": "Exchange Licensing & Data Entitlement Governance",
       "tags": [
         "market-data",
         "entitlements",
-        "licensing",
+        "exchange-licensing",
         "non-display-license",
         "professional-subscriber",
-        "exchange-compliance",
-        "dacs",
-        "emrs"
+        "cta-utp-plan",
+        "cme-non-display",
+        "depth-of-book"
       ],
       "brokers_frameworks": [
-        "CME Non-Display Policy",
-        "CTA/UTP Entitlement Agreement",
+        "Nasdaq US Equities and Options Data Policies",
+        "CTA/CQ Nonprofessional Subscriber Policy",
+        "CME Group Information License Agreement",
+        "London Stock Exchange Non-Display Declaration",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-entitlement-and-licensing-per-venue",
@@ -6610,7 +6652,7 @@
     },
     {
       "name": "market-data-feed-arbitration-across-vendors",
-      "description": "Use when consuming redundant market data streams from dual data vendors (e.g. Bloomberg and Refinitiv) to execute real-time feed arbitration, detect price divergence spikes, filter bad ticks, and fail over seamlessly when one vendor feed becomes stale.",
+      "description": "Use when a strategy consumes the same instrument from two independent market data vendors and must decide, per tick, whether a tradeable price exists and whether it has been cross-verified \u2014 covering consensus pricing within a calibrated divergence tolerance, stale-feed and total-blackout detection, frozen-feed quarantine with hysteresis, and the distinction between a vendor bad tick and ordinary cross-vendor latency skew.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -6619,13 +6661,16 @@
         "dual-vendors",
         "bad-tick-filter",
         "price-divergence",
+        "stale-feed-failover",
         "redundancy"
       ],
       "brokers_frameworks": [
-        "Feed Arbitrator Engine",
-        "Python Real-Time Engine"
+        "CME MDP 3.0 (UDP Feed A / Feed B line arbitration)",
+        "SEC Regulation NMS (Rule 612 minimum pricing increment, Market Data Infrastructure)",
+        "MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589)",
+        "SEC Rule 15c3-5 (market access erroneous-order controls)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-feed-arbitration-across-vendors",
@@ -6633,24 +6678,27 @@
     },
     {
       "name": "market-data-latency-monitoring-per-vendor",
-      "description": "Real-time microsecond market data latency decomposition engine, calculating P50, P90, P95, P99, P99.9 percentiles and jitter per vendor stream to audit exchange-to-app SLA thresholds.",
-      "domain": "System Architecture & Infrastructure",
-      "subdomain": "Latency Measurement & Vendor SLA Monitoring",
+      "description": "Per-vendor market data latency auditing that decomposes an exchange-to-application tick path into vendor-transport, network-wire and app-queue segments, attributes the tail to the segment that actually caused it, and refuses to publish percentiles for a window whose four clock domains disagree.",
+      "domain": "Market Data & Vendor Infrastructure",
+      "subdomain": "Latency Decomposition & Vendor SLA Auditing",
       "tags": [
         "market-data",
         "latency-monitoring",
-        "p99-percentile",
         "vendor-sla",
-        "microsecond-timestamps",
-        "jitter-monitoring",
-        "hdrhistogram"
+        "clock-domain",
+        "tail-attribution",
+        "hardware-timestamping",
+        "percentiles",
+        "jitter"
       ],
       "brokers_frameworks": [
-        "OpenTelemetry Histograms",
-        "Prometheus Latency Metrics",
+        "Nasdaq TotalView-ITCH 5.0",
+        "CME MDP 3.0",
+        "HdrHistogram",
+        "Linux PTP Hardware Clock",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-latency-monitoring-per-vendor",
@@ -6658,22 +6706,24 @@
     },
     {
       "name": "market-data-replay-harness-for-integration-testing",
-      "description": "Use when integration-testing trading engines and execution algorithms to replay recorded historical tick sessions at deterministic speeds (1x real-time, 10x fast-forward) to verify exact strategy event handling.",
+      "description": "Use when integration-testing a trading engine, risk layer or execution algorithm against a recorded tick session \u2014 replaying captured ticks through the real pipeline in a reproducible order, at 1x, at a speed multiplier or as fast as the consumer can take them, and measuring the scheduling lag so the replay's timing fidelity is proven rather than assumed",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
         "real-time-architecture",
         "tick-replay",
         "integration-testing",
-        "deterministic-backtest",
-        "time-warp",
+        "deterministic-replay",
+        "mifid-ii-rts-6",
         "event-driven"
       ],
       "brokers_frameworks": [
         "Tick Replay Harness",
-        "Python Async Engine"
+        "MiFID II RTS 6 (EU 2017/589)",
+        "FCA Algorithmic Trading Compliance (Feb 2018)",
+        "Python standard library (time, dataclasses)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-replay-harness-for-integration-testing",
@@ -6681,7 +6731,7 @@
     },
     {
       "name": "market-data-simulator-for-offline-development",
-      "description": "Synthetic market data generation engine using Geometric Brownian Motion (GBM) and bid-ask spread synthesis to produce offline tick and order book feeds for sandbox strategy development.",
+      "description": "Use when building or debugging strategy, risk and feed-handler code offline without a live market-data subscription \u2014 generating a deterministic synthetic top-of-book tick stream from Geometric Brownian Motion, quantised onto a venue tick grid with a quoted bid-ask spread, reproducible from a single seed.",
       "domain": "Data Management Global",
       "subdomain": "Market Data Simulation & Offline Testing",
       "tags": [
@@ -6691,13 +6741,13 @@
         "geometric-brownian-motion",
         "synthetic-ticks",
         "bid-ask-spread",
-        "reproducible-backtest"
+        "reproducible-fixture"
       ],
       "brokers_frameworks": [
-        "NumPy / SciPy Stochastics",
+        "Python Standard Library",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-simulator-for-offline-development",
@@ -6721,7 +6771,7 @@
         "Bybit L2",
         "Crypto/Forex Orderbooks"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-data-snapshot-plus-delta-reconciliation",
@@ -6729,7 +6779,7 @@
     },
     {
       "name": "market-maker-vs-taker-strategy-classification",
-      "description": "Quantitative strategy classification engine categorizing trading algorithms as Pure Maker, Pure Taker, or Hybrid based on execution volume ratios, fee schedule attribution, and rebate capture.",
+      "description": "Use when auditing a strategy's own fill log to determine whether it is predominantly liquidity-adding (maker), liquidity-removing (taker), or hybrid, and to attribute the exchange fees and rebates each side actually earned. Computes the maker ratio on an explicit quantity or notional basis and reports the effective fee rate in basis points.",
       "domain": "Market Microstructure Latency",
       "subdomain": "Strategy Classification & Fee Optimization",
       "tags": [
@@ -6739,15 +6789,17 @@
         "exchange-fees",
         "maker-rebates",
         "effective-fee-bps",
+        "fix-lastliquidityind",
         "post-only"
       ],
       "brokers_frameworks": [
-        "CME Fee Schedules",
-        "Binance VIP Tiers",
-        "Kraken Fee Tiers",
+        "FIX LastLiquidityInd (tag 851)",
+        "Binance VIP Fee Tiers",
+        "Kraken Fee Schedule",
+        "MiFID II RTS 8 (EU 2017/578)",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/market-maker-vs-taker-strategy-classification",
@@ -6755,25 +6807,28 @@
     },
     {
       "name": "mas-singapore-algo-trading-guidelines",
-      "description": "Pre-trade risk control and regulatory compliance engine enforcing MAS Singapore Securities and Futures Act (SFA) guidelines, SGX price collars, algorithm registration IDs, and emergency kill switches.",
+      "description": "Pre-trade compliance gate for algorithmic orders routed to Singapore Exchange, auditing SFA licensing and SGX Approved Trader registration, Clearing Member pre-execution value limits, the Forced Order Range and Force Key, and the SGX-ST circuit breaker band around the five-minute-lagged reference price.",
       "domain": "Regulatory Compliance Global",
-      "subdomain": "MAS Singapore SFA & SGX Pre-Trade Risk Controls",
+      "subdomain": "Singapore SFA Licensing & SGX Pre-Trade Controls",
       "tags": [
         "mas",
         "singapore",
         "sfa",
         "sgx",
-        "algo-registration",
-        "price-collar",
+        "circuit-breaker",
+        "forced-order-range",
         "pre-trade-risk",
         "kill-switch"
       ],
       "brokers_frameworks": [
-        "MAS Guidelines SFA04-G08",
-        "SGX Securities Trading Rules",
+        "Securities and Futures Act 2001 (Singapore)",
+        "SGX-ST Rule 8.14 with Regulatory Notice 8.14.1 and Practice Note 8.10A",
+        "SGX-ST Practice Note 8.6 (Forced Order Range) and Regulatory Notice 11.4.2(g) (Force Key)",
+        "SGX Futures Trading Rules 2.13.2, 2.13.4, 3.9.1(3), 4.1.15",
+        "SGX RegCo Algorithmic Trading Regulatory Guide",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/mas-singapore-algo-trading-guidelines",
@@ -6781,7 +6836,7 @@
     },
     {
       "name": "matching-engine-throttle-and-message-gapping-detection",
-      "description": "Exchange matching engine monitoring engine detecting outbound order rate throttling (CME iLink 3 / NASDAQ OUCH) and inbound sequence gapping to trigger automatic resend recovery.",
+      "description": "Use when a bot submits orders over an exchange order-entry session and must not be rejected or disconnected for exceeding the venue's message-rate limit, and must detect inbound sequence gaps so lost execution reports are retransmit-requested rather than silently missed. Peak-window rate counting, per-session sequence state that holds a gap open until it is actually filled, and explicit handling of the low-sequence-number regression the FIX session layer requires a logout for.",
       "domain": "Market Microstructure Latency",
       "subdomain": "Exchange Protocol Reliability & Session Governance",
       "tags": [
@@ -6791,16 +6846,20 @@
         "cme-ilink3",
         "fixp",
         "nasdaq-ouch",
+        "moldudp64",
         "retransmit-request",
-        "rate-limiting"
+        "rate-limiting",
+        "session-recovery",
+        "possdup"
       ],
       "brokers_frameworks": [
-        "CME iLink 3 FIXP",
-        "NASDAQ OUCH",
-        "Binance API Rate Limits",
+        "CME iLink 3 (FIXP)",
+        "FIX 4.2/4.4 Session Layer",
+        "Nasdaq OUCH / SoupBinTCP",
+        "Nasdaq MoldUDP64 / ITCH",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/matching-engine-throttle-and-message-gapping-detection",
@@ -6808,7 +6867,7 @@
     },
     {
       "name": "memory-mapped-ring-buffer-for-ultra-low-latency",
-      "description": "Use when operating sub-microsecond market data pipelines to execute zero-copy memory-mapped file (mmap) ring buffers, eliminating heap allocations, garbage collection pauses, and language-level queue locks.",
+      "description": "Single-producer/single-consumer ring buffer over a shared memory-mapped file, for handing ticks between processes without a language-level queue -- fixed binary slots, split head/tail index ownership, explicit drop-on-full, and the atomicity and memory-ordering limits that decide whether it is safe to use.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -6816,15 +6875,17 @@
         "memory-mapped",
         "mmap",
         "ring-buffer",
-        "zero-copy",
+        "shared-memory",
         "low-latency",
         "ipc"
       ],
       "brokers_frameworks": [
-        "mmap Ring Buffer",
-        "Python mmap Engine"
+        "Python mmap",
+        "Python struct",
+        "POSIX shared file mappings",
+        "LMAX Disruptor (design reference)"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/memory-mapped-ring-buffer-for-ultra-low-latency",
@@ -6847,9 +6908,10 @@
       "brokers_frameworks": [
         "CME iLink 3 MPS",
         "Binance Rate Limits",
+        "MiFID II RTS 6",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/message-rate-limit-vs-latency-tradeoff-tuning",
@@ -6857,7 +6919,7 @@
     },
     {
       "name": "meta-strategy-signal-arbitration",
-      "description": "Multi-strategy signal arbitration and internal order netting engine, resolving conflicting sub-strategy signals, enforcing risk-off vetoes, and eliminating redundant execution spread costs.",
+      "description": "Multi-strategy signal arbitration and internal order netting engine, resolving conflicting sub-strategy signals, enforcing risk-off vetoes, suppressing rebalancing churn, and preventing opposing internal orders from reaching the venue as self-matches.",
       "domain": "Portfolio Multi Strategy",
       "subdomain": "Signal Arbitration & Internal Order Netting",
       "tags": [
@@ -6867,13 +6929,13 @@
         "conflict-resolution",
         "risk-veto",
         "deadband-filter",
-        "spread-savings"
+        "self-match-avoidance"
       ],
       "brokers_frameworks": [
         "Multi-Strategy Arbitrator",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/meta-strategy-signal-arbitration",
@@ -6881,24 +6943,23 @@
     },
     {
       "name": "microstructure-noise-filtering-for-hf-signals",
-      "description": "Quantitative microstructure noise filtering engine applying 1D Kalman Filtering, Volume-Weighted Micro-Price estimation, and Exponential Smoothing to eliminate bid-ask bounce in HFT tick streams.",
-      "domain": "Market Microstructure Latency",
-      "subdomain": "Signal Processing & Microstructure Noise Reduction",
+      "description": "Use when building high-frequency signals on top-of-book quote data and the raw midpoint is too noisy to trade: local level (random-walk-plus-noise) Kalman filtering, imbalance-weighted mid-price, and EMA smoothing, with an explicit dispersion-reduction audit.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
       "tags": [
+        "real-time-architecture",
         "microstructure-noise",
         "kalman-filter",
-        "micro-price",
-        "bid-ask-bounce",
+        "local-level-model",
+        "weighted-mid-price",
         "high-frequency-signals",
-        "ema-smoothing",
-        "snr"
+        "tick-filtering"
       ],
       "brokers_frameworks": [
-        "Kalman Filters",
-        "NumPy / SciPy Signal",
-        "Python Dataclasses"
+        "Python Standard Library (math, dataclasses)",
+        "Durbin-Koopman Local Level Model"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/microstructure-noise-filtering-for-hf-signals",
@@ -6906,7 +6967,7 @@
     },
     {
       "name": "microwave-vs-fiber-network-links-for-cross-market-latency",
-      "description": "Cross-market network latency and link arbitration engine, evaluating microwave vs fiber light propagation physics, speed advantages, and automated rain fade failover routing.",
+      "description": "Cross-market microwave-vs-fiber link arbitration: decomposes corridor latency into propagation, repeater and serialization terms instead of quoting a propagation-only floor as an estimate, and resolves the speed-versus-availability trade-off with fail-closed rain-fade failover and recovery hysteresis.",
       "domain": "Market Microstructure Latency",
       "subdomain": "Cross-Market Latency & Wireless Infrastructure Optimization",
       "tags": [
@@ -6922,9 +6983,11 @@
       "brokers_frameworks": [
         "CME Aurora",
         "NJ Secaucus / Carteret Data Centers",
+        "ITU-R P.453 / P.530",
+        "FCC Part 101",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/microwave-vs-fiber-network-links-for-cross-market-latency",
@@ -6944,7 +7007,7 @@
         "MiFID II / MiFIR",
         "RTS 6 (Regulatory Technical Standard on algorithmic trading)"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/mifid-ii-algo-trading-compliance-eu",
@@ -6952,25 +7015,28 @@
     },
     {
       "name": "minimum-fill-size-and-lot-rounding-logic",
-      "description": "Execution order lot rounding and minimum fill size engine enforcing board lot step sizes, FIX Tag 110 (MinQty), FIX Tag 1089 (MatchIncrement), and odd-lot penalty prevention.",
-      "domain": "Execution Algorithms",
-      "subdomain": "Exchange Order Sizing & Lot Rounding",
+      "description": "Use when a strategy or slicing schedule produces a raw order quantity that must be sized for a specific venue \u2014 rounding to a per-security board lot or crypto step size with exact decimal arithmetic, clearing the venue minimum and minimum notional, deciding whether an odd lot may be routed at all, and deciding whether to attach the FIX Tag 110 MinQty / Tag 1089 MatchIncrement execution constraint and accept its order-handling side effects.",
+      "domain": "algorithmic-trading",
+      "subdomain": "execution-algorithms",
       "tags": [
-        "minimum-fill-size",
+        "execution-algorithms",
         "lot-rounding",
         "board-lot",
         "odd-lot",
-        "fix-tag-110",
-        "minqty",
-        "match-increment",
-        "execution-algo"
+        "step-size",
+        "min-notional",
+        "fix-tag-110"
       ],
       "brokers_frameworks": [
-        "FIX Protocol 4.2/4.4",
-        "TSE / HKEX / SGX Lot Rules",
-        "Python Dataclasses"
+        "FIX 4.2 / 4.4 (Tag 110 MinQty, Tag 1089 MatchIncrement, Tag 561 RoundLot, Tag 562 MinTradeVol)",
+        "Nasdaq Equity 4 Rule 4703 (Minimum Quantity Order Attribute)",
+        "SEC Regulation NMS tiered round lot (effective 3 Nov 2025)",
+        "HKEX Securities Market (per-security board lots, odd lot handling)",
+        "Japan Exchange Group / TSE (100-share trading unit)",
+        "SGX-ST (price-tiered board lots from 5 Oct 2026)",
+        "Binance Spot API (LOT_SIZE and NOTIONAL filters)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/minimum-fill-size-and-lot-rounding-logic",
@@ -6978,24 +7044,25 @@
     },
     {
       "name": "model-card-documentation-for-trading-models",
-      "description": "Quantitative model governance and Model Card generation engine producing SR 26-2 / MRM compliant documentation for machine learning alphas, execution algorithms, and risk models.",
+      "description": "Use when documenting a quantitative trading model, ML alpha, execution algorithm or risk model for production sign-off, to generate a structured Model Card covering identity, intended and out-of-scope use, feature lineage, evaluation basis, limitations, validation and ongoing monitoring \u2014 and to enumerate which of those sections are still undocumented, without asserting a regulatory compliance verdict the tool cannot actually establish.",
       "domain": "Quant Research Alt Data",
       "subdomain": "Model Governance & Model Risk Management (MRM)",
       "tags": [
         "model-card",
         "model-governance",
-        "sr-26-2",
-        "mrm",
         "model-risk",
-        "documentation-generator",
-        "quant-compliance"
+        "sr-26-2",
+        "mifid-ii-rts-6",
+        "feature-lineage",
+        "documentation-generator"
       ],
       "brokers_frameworks": [
-        "SR 26-2 Guidance",
-        "Mitchell et al. Model Cards",
-        "Python Dataclasses"
+        "SR 26-2 interagency model risk management guidance",
+        "MiFID II RTS 6 (EU) 2017/589",
+        "Mitchell et al. Model Cards (FAT* 2019)",
+        "Python standard library (dataclasses, json, datetime)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-card-documentation-for-trading-models",
@@ -7003,7 +7070,7 @@
     },
     {
       "name": "model-inference-latency-budget-for-live-trading",
-      "description": "Quantitative model inference latency budget and percentile SLA profiling engine, managing real-time ONNX/TensorRT execution budgets and automated model fallbacks.",
+      "description": "Auditing an ML model's inference latency against a percentile budget on a live tick-to-trade path: HdrHistogram-compatible nearest-rank P25-P99.9 percentiles, a sample-count resolution gate that refuses to approve a tail it cannot measure, unrounded budget comparison, jitter as both sigma and IQR, and a fallback recommendation that says out loud whether the fallback was ever shown to be faster.",
       "domain": "Market Microstructure Latency",
       "subdomain": "ML Inference Budgeting & Real-Time SLA Governance",
       "tags": [
@@ -7020,9 +7087,10 @@
         "ONNX Runtime",
         "TensorRT",
         "CUDA Graphs",
+        "HdrHistogram",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-inference-latency-budget-for-live-trading",
@@ -7030,7 +7098,7 @@
     },
     {
       "name": "model-monitoring-dashboard-for-non-technical-stakeholders",
-      "description": "Use when deploying ML trading models to aggregate complex model health metrics (accuracy, staleness, concept drift, feature drift) into a non-technical traffic light (GREEN, AMBER, RED) health dashboard.",
+      "description": "Use when a live ML trading model's health must be reported to a reader who cannot audit a PSI figure \u2014 an independent risk-control function, a compliance officer, a portfolio manager \u2014 to grade accuracy, model age, feature-drift PSI and inference latency into GREEN/AMBER/RED components, aggregate to the worst of them, and emit a plain-language recommended action that never reports GREEN for a metric it did not measure.",
       "domain": "algorithmic-trading",
       "subdomain": "financial-ml",
       "tags": [
@@ -7039,13 +7107,15 @@
         "model-health",
         "non-technical",
         "traffic-light",
-        "risk-reporting"
+        "risk-reporting",
+        "population-stability-index",
+        "model-governance"
       ],
       "brokers_frameworks": [
         "Model Monitoring Dashboard Engine",
-        "Python"
+        "Python standard library (dataclasses, math, logging)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-monitoring-dashboard-for-non-technical-stakeholders",
@@ -7053,7 +7123,7 @@
     },
     {
       "name": "model-serving-infrastructure-ab-testing",
-      "description": "Champion-Challenger model serving A/B testing engine, managing deterministic traffic routing, shadow execution, and Welch's t-test statistical significance testing for model promotion.",
+      "description": "Champion-Challenger model serving A/B testing engine, managing deterministic salted traffic routing, shadow execution, and Welch's two-sample t-test (Student-t reference distribution, Welch-Satterthwaite degrees of freedom) for advisory model promotion decisions.",
       "domain": "Quant Research Alt Data",
       "subdomain": "Model Serving Infrastructure & Live A/B Testing",
       "tags": [
@@ -7067,9 +7137,10 @@
       ],
       "brokers_frameworks": [
         "Welch's Two-Sample t-Test",
+        "SciPy",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-serving-infrastructure-ab-testing",
@@ -7077,14 +7148,21 @@
     },
     {
       "name": "model-staleness-detection",
-      "description": "Use when a live signal classifier has been running for a while and needs ongoing monitoring for performance drift relative to its training-time distribution, rather than being trusted indefinitely after initial validation",
+      "description": "Use when an ML signal model is already live and needs continuous health monitoring - rolling realised accuracy with a confidence bound, binned PSI feature-distribution drift against the training baseline, and an explicit staleness threshold that reduces or halts the signal's position sizing - rather than being trusted indefinitely after its deployment-time validation",
       "domain": "algorithmic-trading",
       "subdomain": "financial-ml",
       "tags": [
-        "financial-ml"
+        "financial-ml",
+        "model-monitoring",
+        "model-decay",
+        "psi",
+        "feature-drift",
+        "position-sizing"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "Python Standard Library"
+      ],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-staleness-detection",
@@ -7092,7 +7170,7 @@
     },
     {
       "name": "model-training-data-freshness-sla",
-      "description": "Training data freshness SLA monitoring engine, tracking data pipeline ingestion lag, detecting ETL delays, and enforcing automated retraining halt governance.",
+      "description": "Training-data freshness SLA gate for governed model retraining: measures event-time ingestion lag against a target/warning/breach ladder, nets out non-publishing exchange calendar time so healthy weekend-gapped feeds are not falsely halted, and returns an auditable retraining halt decision.",
       "domain": "Data Management Global",
       "subdomain": "Feature Store Engineering & Data Pipeline Governance",
       "tags": [
@@ -7109,7 +7187,7 @@
         "Data Pipeline Contracts",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-training-data-freshness-sla",
@@ -7117,24 +7195,23 @@
     },
     {
       "name": "model-versioning-and-rollback",
-      "description": "Quantitative model versioning and automated rollback engine managing immutable SHA-256 model registries, semantic versioning, and instant circuit-breaker rollbacks.",
-      "domain": "Quant Research Alt Data",
-      "subdomain": "Model Registry Governance & Deployment Infrastructure",
+      "description": "Use when a trading model or execution algorithm is registered, promoted or rolled back in production, to keep an append-only SHA-256 model registry where a semantic version string permanently identifies one artifact, and to execute a deterministic, atomic rollback to the last known healthy production version when a confirmed circuit-breaker trigger fires \u2014 halting serving rather than guessing when no healthy fallback exists",
+      "domain": "algorithmic-trading",
+      "subdomain": "deployment-ops",
       "tags": [
+        "deployment-ops",
+        "model-registry",
         "model-versioning",
         "rollback",
-        "model-registry",
-        "sha256",
         "semantic-versioning",
-        "circuit-breaker",
-        "blue-green"
+        "sha256",
+        "circuit-breaker"
       ],
       "brokers_frameworks": [
-        "MLflow / Registry Standards",
-        "SHA-256 Hashing",
-        "Python Dataclasses"
+        "MLflow Model Registry (conceptual reference only)",
+        "Python standard library (hashlib, hmac, threading)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/model-versioning-and-rollback",
@@ -7142,7 +7219,7 @@
     },
     {
       "name": "monte-carlo-strategy-robustness-testing",
-      "description": "Use when validating trading strategy robustness to run Monte Carlo trade sequence shuffling, bootstrap resampling, and price noise perturbations to compute Risk of Ruin and 95th percentile drawdown limits",
+      "description": "Use when validating trading strategy robustness before capital deployment to run Monte Carlo trade sequence shuffling, IID bootstrap resampling, and execution noise perturbation, and to compute the 95th percentile maximum drawdown and the probability that a simulated path breaches the drawdown limit",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -7155,10 +7232,10 @@
       "brokers_frameworks": [
         "Backtrader",
         "VectorBT",
-        "PyPFcon",
+        "NumPy",
         "Custom Backtesting Engines"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/monte-carlo-strategy-robustness-testing",
@@ -7166,25 +7243,26 @@
     },
     {
       "name": "moscow-exchange-moex-api-integration",
-      "description": "Moscow Exchange (MOEX) API integration engine supporting ISS REST market data queries, FIX/TWIME low-latency order routing, TQBR/CETS/FORTS board rules, and price collaring.",
+      "description": "Client-side pre-dispatch validation for Moscow Exchange (MOEX) orders \u2014 the fail-closed sanctions gate required because MOEX and its CCP are OFAC-designated, quantity in lots, minimum price step alignment, Exchange-published price limits, and MFIX (FIX 4.4) NewOrderSingle field construction with the board carried in the Tag 386/336 group.",
       "domain": "Exchange Integrations Global",
       "subdomain": "Eastern European Exchanges & MOEX Integration",
       "tags": [
         "moex",
         "moscow-exchange",
         "iss-api",
+        "mfix",
         "twime",
         "tqbr",
-        "forts",
-        "fix-protocol",
-        "emerging-markets"
+        "cets",
+        "sanctions-screening"
       ],
       "brokers_frameworks": [
         "MOEX ISS REST API",
-        "MOEX TWIME / FIX Gateways",
+        "MOEX MFIX Transactional (FIX 4.4)",
+        "MOEX TWIME",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/moscow-exchange-moex-api-integration",
@@ -7192,25 +7270,23 @@
     },
     {
       "name": "mt5-python-bridge-for-forex-bots",
-      "description": "MetaTrader 5 (MT5) Python IPC bridge engine managing automated Forex order execution, lot sizing, MqlTradeRequest formatting, and TRADE_RETCODE validation.",
-      "domain": "Broker & Exchange API Integrations",
-      "subdomain": "MetaTrader 5 Forex Algorithmic Connectivity",
+      "description": "Use when a Python bot submits market deals to a MetaTrader 5 terminal and needs MqlTradeRequest construction, broker-metadata-driven volume/stop/filling validation, and TRADE_RETCODE triage that separates a fill from an unknown outcome",
+      "domain": "algorithmic-trading",
+      "subdomain": "broker-integration",
       "tags": [
+        "broker-integration",
         "mt5",
         "metatrader-5",
-        "forex-bot",
-        "order-send",
         "mql5",
-        "trade-retcode-done",
-        "lot-sizing",
-        "python-bridge"
+        "order-send",
+        "trade-retcode",
+        "forex-bot"
       ],
       "brokers_frameworks": [
         "MetaTrader 5 Python API",
-        "MQL5 Trade Engine",
-        "Python Dataclasses"
+        "MQL5 Trade Engine"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/mt5-python-bridge-for-forex-bots",
@@ -7218,7 +7294,7 @@
     },
     {
       "name": "multi-account-same-strategy-fan-out",
-      "description": "Use when broadcasting a single quantitative strategy signal across multiple client accounts or sub-accounts (e.g. fund management / prop trading) to execute pro-rata order fan-out without cross-account order collision.",
+      "description": "Use when one quantitative strategy signal must be split across multiple client accounts or sub-accounts (fund management / prop trading) and the per-account quantities must sum exactly to the master order, with deterministic collision-free client order IDs and an auditable pro-rata allocation record.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -7226,15 +7302,15 @@
         "multi-account",
         "fan-out",
         "pro-rata",
-        "fund-management",
-        "order-collision-prevention"
+        "largest-remainder-apportionment",
+        "fund-management"
       ],
       "brokers_frameworks": [
-        "IBKR Allocations",
-        "Multi-Account Manager",
-        "Python Concurrent"
+        "IBKR FA Allocation Groups",
+        "CME Average Price System (Rule 553)",
+        "Multi-Account Fan-Out Allocator"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-account-same-strategy-fan-out",
@@ -7250,14 +7326,15 @@
         "multi-currency",
         "fx-conversion",
         "portfolio-accounting",
-        "currency-normalization"
+        "currency-normalization",
+        "nav-attribution"
       ],
       "brokers_frameworks": [
         "Interactive Brokers Multi-Currency",
         "Backtrader Multi-Asset",
         "VectorBT FX"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-asset-backtest-currency-normalization",
@@ -7278,9 +7355,12 @@
       ],
       "brokers_frameworks": [
         "Multi-Broker Ledger",
-        "Python Risk Engine"
+        "Python Risk Engine",
+        "IBKR API",
+        "Alpaca Trading API",
+        "Binance USD-M Futures API"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-broker-consolidated-position-view",
@@ -7288,14 +7368,16 @@
     },
     {
       "name": "multi-broker-rate-limit-handling",
-      "description": "Use when a bot makes frequent API calls across one or more brokers and must avoid rate-limit bans while ensuring risk-critical calls (cancel, kill-switch) are never queued behind non-critical data polling",
+      "description": "Use when a bot makes frequent API calls across one or more brokers and must avoid rate-limit bans while ensuring risk-critical calls (cancel, kill-switch) are never queued behind non-critical data polling: multi-window token buckets per endpoint class and per account, strict tier priority admission, structural HTTP 429 classification, and RFC 9110 Retry-After-aware full-jitter backoff.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
         "broker-integration",
+        "rate-limiting",
+        "token-bucket",
+        "http-429",
         "fyers-api-v3",
-        "zerodha-kite-connect",
-        "icici-breeze-api"
+        "zerodha-kite-connect"
       ],
       "brokers_frameworks": [
         "Fyers API v3",
@@ -7305,7 +7387,7 @@
         "Alpaca Trading API",
         "IBKR API"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-broker-rate-limit-handling",
@@ -7313,14 +7395,26 @@
     },
     {
       "name": "multi-currency-pnl-and-fx-conversion",
-      "description": "Use when a bot or backtest holds positions denominated in more than one currency, to prevent P&L from different currencies being silently summed as if they were the same unit",
+      "description": "Use when a bot or backtest holds positions denominated in more than one currency, to stop P&L from different currencies being silently summed as if they were the same unit, to resolve point-in-time FX rates without lookahead or silent parity fallbacks, and to separate a strategy's price P&L from its incidental currency P&L",
       "domain": "algorithmic-trading",
       "subdomain": "data-management-global",
       "tags": [
-        "data-management-global"
+        "data-management-global",
+        "multi-currency",
+        "fx-conversion",
+        "point-in-time-rates",
+        "pnl-decomposition",
+        "iso-4217",
+        "currency-translation",
+        "base-currency"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "ISO 4217",
+        "IFRS IAS 21",
+        "GIPS 2020 (Firms)",
+        "Python standard library (decimal, bisect)"
+      ],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-currency-pnl-and-fx-conversion",
@@ -7328,25 +7422,27 @@
     },
     {
       "name": "multi-currency-var-aggregation",
-      "description": "Multi-currency Value at Risk (VaR) and Expected Shortfall (CVaR) aggregation engine, accounting for joint asset-FX return covariance and per-currency risk decomposition.",
-      "domain": "Risk Management Global",
-      "subdomain": "Multi-Currency Portfolio Risk & VaR Aggregation",
+      "description": "Use when aggregating Value at Risk and Expected Shortfall across a portfolio holding positions in more than one currency, to stop FX volatility and asset-FX correlation from being dropped out of the risk number, and to decompose total VaR back onto the currencies that produced it",
+      "domain": "algorithmic-trading",
+      "subdomain": "risk-management",
       "tags": [
+        "risk-management",
         "multi-currency",
         "value-at-risk",
-        "var",
         "expected-shortfall",
         "cvar",
-        "covariance-matrix",
         "fx-risk",
+        "component-var",
         "parametric-var"
       ],
       "brokers_frameworks": [
         "Variance-Covariance VaR",
         "Historical Simulation VaR",
-        "Python Dataclasses"
+        "BCBS FRTB (MAR30-MAR33)",
+        "12 CFR 217 Subpart F (US market risk rule)",
+        "Python standard library (statistics, dataclasses)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-currency-var-aggregation",
@@ -7354,24 +7450,24 @@
     },
     {
       "name": "multi-day-execution-schedules-for-very-large-orders",
-      "description": "Almgren-Chriss institutional order execution scheduler for large parent orders (>10% ADV), calculating multi-day horizon slicing, ADV participation caps, and overnight volatility risk tradeoffs.",
+      "description": "Use when a parent order is too large to complete in one session: builds a participation-capped multi-session schedule (equal, front- or back-loaded) and prices the horizon tradeoff with Almgren-Thum-Hauptmann-Li (2005) market impact against Almgren-Chriss (2000) overnight timing risk.",
       "domain": "Execution Algorithms",
       "subdomain": "Multi-Day Order Scheduling & Market Impact Optimization",
       "tags": [
         "multi-day-execution",
-        "almgren-chriss",
-        "adv-limit",
+        "adv-participation-cap",
         "parent-order",
         "market-impact",
         "overnight-risk",
-        "optimal-execution"
+        "athl-2005",
+        "almgren-chriss"
       ],
       "brokers_frameworks": [
-        "Almgren-Chriss Framework",
-        "VWAP/TWAP Slicing",
+        "Almgren-Thum-Hauptmann-Li (2005) Impact Model",
+        "Almgren-Chriss (2000) Timing Risk",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-day-execution-schedules-for-very-large-orders",
@@ -7379,7 +7475,7 @@
     },
     {
       "name": "multi-exchange-feed-normalization",
-      "description": "Use when building multi-exchange market data pipelines to map heterogeneous WebSocket/REST tick payloads into a single unified internal schema with normalized symbols, prices, quantities, and timestamps",
+      "description": "Use when a trading system ingests trade ticks from more than one venue, to map heterogeneous WebSocket/REST payloads onto one canonical UnifiedTick with a single symbol namespace, a single aggressor-side convention, and one timestamp timescale, failing loudly instead of substituting defaults for fields it cannot read",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -7392,11 +7488,10 @@
       "brokers_frameworks": [
         "Binance",
         "Coinbase",
-        "Zerodha",
-        "IBKR",
-        "Kraken"
+        "Zerodha Kite",
+        "Custom venues via register_parser"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-exchange-feed-normalization",
@@ -7404,23 +7499,24 @@
     },
     {
       "name": "multi-horizon-forecasting-architecture",
-      "description": "Multi-horizon ML return forecasting engine, combining predictions across 5-min, 15-min, 60-min, and 1-day horizons with IC-weighted decay and short-vs-long conflict arbitration.",
-      "domain": "Machine Learning & Alpha Generation",
-      "subdomain": "Multi-Horizon Forecast Combination & Signal Arbitration",
+      "description": "Use when combining ML return forecasts made over different forward horizons (5-min, 15-min, 60-min, one session) into a single tradeable alpha: rescales each forecast onto one target horizon before weighting, blends by IC or inverse-horizon decay, and arbitrates short-vs-long directional conflicts.",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
       "tags": [
+        "financial-ml",
         "multi-horizon",
-        "forecasting",
         "alpha-combination",
         "information-coefficient",
         "signal-decay",
         "conflict-arbitration"
       ],
       "brokers_frameworks": [
-        "Information Correlation (IC)",
-        "Inverse-Square-Root Decay",
+        "Information Coefficient (IC)",
+        "Grinold Alpha = Volatility x IC x Score",
+        "Square-Root-of-Time Volatility Scaling",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-horizon-forecasting-architecture",
@@ -7428,25 +7524,26 @@
     },
     {
       "name": "multi-jurisdiction-tax-residency-implications",
-      "description": "Multi-jurisdiction tax residency audit engine evaluating physical presence (183-day rule), Place of Effective Management (POEM), DTAA treaty withholding tax, and Foreign Tax Credit (FTC) offsets.",
+      "description": "Tax residency assessment engine for globally-distributed trading operations \u2014 determines which jurisdictions claim an entity, resolves dual corporate residence through the tie-breaker the treaty actually contains, runs registered physical-presence tests for decision-makers, and flags permanent establishment exposure from co-located infrastructure.",
       "domain": "Tax Accounting & Reporting Global",
-      "subdomain": "International Tax Residency & Cross-Border DTAA Accounting",
+      "subdomain": "International Tax Residency & Permanent Establishment",
       "tags": [
         "tax-residency",
         "multi-jurisdiction",
         "poem",
-        "dtaa",
-        "foreign-tax-credit",
-        "183-day-rule",
-        "withholding-tax",
+        "place-of-effective-management",
+        "permanent-establishment",
+        "substantial-presence-test",
+        "dual-residence",
         "cross-border-tax"
       ],
       "brokers_frameworks": [
-        "DTAA Treaty Rules",
-        "OECD Model Tax Convention",
+        "OECD Model Tax Convention Art. 4 and Art. 5",
+        "BEPS Multilateral Instrument (MLI) Art. 4",
+        "IRC s.7701(b)(3) Substantial Presence Test",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-jurisdiction-tax-residency-implications",
@@ -7454,24 +7551,25 @@
     },
     {
       "name": "multi-leg-strategy-margin-optimization",
-      "description": "Multi-leg options strategy margin optimization engine evaluating Reg T and Portfolio Margin requirements, combining vertical spreads and Iron Condors to minimize capital tie-up.",
+      "description": "Strategy-based (Reg T) margin estimator for listed multi-leg option positions \u2014 computes the FINRA Rule 4210(f)(2) naked, spread and maximum-potential-loss requirements for verticals, iron condors and butterflies, and quantifies the capital an exchange-recognised combination frees versus legging in. Not a portfolio-margin (OCC TIMS) calculation.",
       "domain": "Risk Management & Margin Optimization",
       "subdomain": "Multi-Leg Derivatives & Options Margin Efficiency",
       "tags": [
         "options-margin",
         "multi-leg-strategy",
         "reg-t",
-        "portfolio-margin",
+        "finra-4210",
         "vertical-spread",
         "iron-condor",
         "margin-optimization"
       ],
       "brokers_frameworks": [
-        "OCC TIMS Margin Rules",
-        "Reg T Margin Rules",
+        "FINRA Rule 4210(f)(2)",
+        "Cboe Rule 10.3 (strategy-based margin)",
+        "Regulation T (12 CFR 220.12)",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-leg-strategy-margin-optimization",
@@ -7479,24 +7577,24 @@
     },
     {
       "name": "multi-model-ensemble-weight-decay",
-      "description": "Multi-model ensemble weight decay engine, applying exponential recency memory decay, softmax dynamic reweighting, and model demotion circuit breakers.",
-      "domain": "Machine Learning & Alpha Generation",
-      "subdomain": "Dynamic Model Ensembling & Weight Decay Management",
+      "description": "Use when live capital is split across several forecasting models (XGBoost, LightGBM, LSTM, Ridge) whose relative skill drifts with the regime, to discount each model's loss and information coefficient exponentially, reweight them with a numerically stable softmax, and demote anti-predictive or floor-breaching models out of the book entirely rather than letting a static 1/M allocation carry a decayed model indefinitely",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
       "tags": [
+        "financial-ml",
         "ensemble",
         "weight-decay",
         "softmax-weighting",
         "exponential-decay",
-        "alpha-decay",
         "model-demotion",
-        "machine-learning"
+        "information-coefficient"
       ],
       "brokers_frameworks": [
-        "Exponential Recency Smoothing",
-        "Softmax Ensemble Reweighting",
-        "Python Dataclasses"
+        "Python Standard Library",
+        "EWMA (RiskMetrics convention)",
+        "Hedge / Exponentially Weighted Average Forecaster"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-model-ensemble-weight-decay",
@@ -7504,23 +7602,31 @@
     },
     {
       "name": "multi-order-netting-before-routing",
-      "description": "Multi-order pre-routing netting engine matching internal buy/sell orders at mid-price before routing residual net orders to external exchanges.",
+      "description": "Use when several strategies, sub-accounts or desks generate opposing orders in the same symbol inside one batching window and the firm wants to cross them internally at the mid before routing a single net residual \u2014 covering beneficial-ownership classification (book transfer vs reportable cross), pro-rata fill allocation, limit-price eligibility, stale and crossed quote guards, and a cost-saving estimate that subtracts the fees internalisation does not avoid.",
       "domain": "Execution Algorithms",
       "subdomain": "Pre-Routing Internal Order Netting & Cost Optimization",
       "tags": [
         "multi-order-netting",
         "pre-routing",
         "internal-crossing",
+        "midpoint-cross",
+        "beneficial-ownership",
+        "pro-rata-allocation",
         "order-routing",
-        "cost-savings",
-        "spread-savings"
+        "wash-trade-prevention"
       ],
       "brokers_frameworks": [
-        "Internal Crossing Engine",
-        "Smart Order Routing (SOR)",
-        "Python Dataclasses"
+        "FINRA Rule 5210 and Supplementary Material .02 (self-trades)",
+        "FINRA Rule 6380A (OTC transaction reporting, 10 seconds)",
+        "FINRA Rule 5310 and Supplementary Material .09 (best execution)",
+        "SEC Regulation NMS Rules 611 and 612 (17 CFR 242.611, 242.612)",
+        "Section 31 regulatory transaction fee / FINRA Trading Activity Fee",
+        "Advisers Act Section 206(3) and Rule 206(3)-2 (agency cross)",
+        "MiFIR Article 4(1)(a) reference price waiver / Article 5 volume cap",
+        "Smart Order Routing (SOR) / internal crossing engine",
+        "Python Dataclasses + decimal"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-order-netting-before-routing",
@@ -7528,7 +7634,7 @@
     },
     {
       "name": "multi-party-computation-mpc-custody-solutions",
-      "description": "Multi-Party Computation (MPC) threshold signature custody engine evaluating t-of-N secret sharing (CMP/GG18 protocols), quorum verification, and zero-knowledge key security.",
+      "description": "Quorum authorisation gate for threshold-signature (MPC/TSS) custody: validates the t-of-N shard roster, rejects out-of-roster and cloned-shard attestations, enforces proactive-secret-sharing key epochs and failure-domain independence, and requires an explicit CVE-2023-33241 / TSSHOCK hardening attestation before a CMP, GG18 or GG20 signing ceremony may start. It authorises ceremonies; it never produces a signature.",
       "domain": "Crypto Custody Security",
       "subdomain": "Threshold Cryptography & Multi-Party Computation Custody",
       "tags": [
@@ -7536,17 +7642,20 @@
         "custody",
         "threshold-signature",
         "tss",
-        "cmp-protocol",
+        "cggmp21",
         "gg18",
-        "shamir-secret-sharing",
+        "proactive-secret-sharing",
         "crypto-security"
       ],
       "brokers_frameworks": [
-        "CMP Threshold Protocol",
-        "GG18 ECDSA",
+        "CGGMP21 / CMP Threshold ECDSA (eprint 2021/060)",
+        "GG18 / GG20 Threshold ECDSA",
+        "CVE-2023-33241 (Paillier key vulnerability)",
+        "TSSHOCK (Verichains, Black Hat USA 2023)",
+        "NIST IR 8214C (Threshold Call)",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-party-computation-mpc-custody-solutions",
@@ -7554,7 +7663,7 @@
     },
     {
       "name": "multi-region-active-active-tick-ingestion",
-      "description": "Use when deploying multi-region high-availability market data infrastructure to ingest active-active parallel tick streams from redundant cloud regions, deduplicating ticks by signature, and arbitrating lowest-latency message arrival.",
+      "description": "Use when the same market data stream is ingested simultaneously from two or more cloud regions for high availability, and the arbitration layer must forward the first-arriving copy of each tick, drop the redundant copies by signature within a bounded dedup window, distinguish a cross-region arbitration win from a same-region retransmission, and detect a silent region from message flow rather than win rate.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -7566,10 +7675,12 @@
         "high-availability"
       ],
       "brokers_frameworks": [
-        "Active-Active Ingest Engine",
-        "Python Async Real-Time"
+        "CME MDP 3.0 (UDP Feed A / Feed B incremental feed arbitration)",
+        "MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589) Art. 14",
+        "Multi-region cloud ingest nodes (AWS / GCP)",
+        "Python threaded / asyncio feed handlers"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-region-active-active-tick-ingestion",
@@ -7577,7 +7688,7 @@
     },
     {
       "name": "multi-region-failover-for-broker-connectivity",
-      "description": "Use when a trading bot requires high-availability broker connectivity by failing over to a backup network path or region if the primary connection degrades or becomes unavailable.",
+      "description": "Use when a trading bot must keep broker connectivity through the loss of a region or network path \u2014 deciding when an endpoint is genuinely down, refusing to fail over onto a path nobody has probed, fencing the outgoing path before flow moves, and distinguishing \"nowhere left to go\" from \"nothing to do\".",
       "domain": "algorithmic-trading",
       "subdomain": "deployment-ops",
       "tags": [
@@ -7585,15 +7696,18 @@
         "failover",
         "high-availability",
         "multi-region",
-        "broker-connectivity"
+        "broker-connectivity",
+        "split-brain-prevention",
+        "flap-suppression"
       ],
       "brokers_frameworks": [
-        "AWS",
-        "GCP",
-        "Azure",
-        "Custom HA"
+        "Binance Spot REST API (multi base endpoint)",
+        "IBKR TWS API / Client Portal Web API (single-session)",
+        "AWS / GCP / Azure multi-region",
+        "MiFID II RTS 6 (Reg (EU) 2017/589)",
+        "SEC Rule 15c3-5"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-region-failover-for-broker-connectivity",
@@ -7601,7 +7715,7 @@
     },
     {
       "name": "multi-signature-approval-for-large-transfers",
-      "description": "Multi-signature approval workflow engine enforcing M-of-N threshold tiers, distinct role-based signer verification, and timelock delays for large crypto transfers.",
+      "description": "Off-chain M-of-N approval gate for large crypto transfers. Binds every signer approval to a SHA-256 digest of the exact payload reviewed, counts only signers on a registered roster and only across distinct roles, and runs the high-value timelock against a trusted clock the requester cannot back-date.",
       "domain": "Crypto Custody Security",
       "subdomain": "Multi-Signature Approval Workflows & Governance Controls",
       "tags": [
@@ -7611,14 +7725,17 @@
         "timelock",
         "governance",
         "crypto-custody",
-        "role-based-access"
+        "role-based-access",
+        "payload-binding"
       ],
       "brokers_frameworks": [
         "Multisig Policy Engine",
+        "Safe{Wallet} Smart Account",
         "Role-Based Access Control (RBAC)",
+        "CCSS v9",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-signature-approval-for-large-transfers",
@@ -7626,24 +7743,26 @@
     },
     {
       "name": "multi-source-price-reconciliation-tie-breaking",
-      "description": "Multi-source price reconciliation engine filtering outlier vendor quotes, evaluating tolerance bounds, and applying deterministic tie-breaking rules.",
-      "domain": "Data Management Global",
-      "subdomain": "Multi-Vendor Price Reconciliation & Data Quality",
+      "description": "Use when three or more vendors quote the same instrument and one canonical price must be produced from them \u2014 covering median-distance outlier attribution, the agreement-tolerance audit and its tick-size floor, deterministic tie-breaking when vendors genuinely disagree, staleness gating before any pricing arithmetic, and the separation between a price that is usable and a price that anything actually corroborated.",
+      "domain": "algorithmic-trading",
+      "subdomain": "data-management-global",
       "tags": [
+        "data-management-global",
         "price-reconciliation",
         "tie-breaking",
         "multi-vendor",
-        "golden-source",
-        "outlier-filtering",
+        "outlier-attribution",
         "canonical-price",
+        "independent-price-verification",
         "data-quality"
       ],
       "brokers_frameworks": [
-        "Golden Source Orchestration",
-        "Median Absolute Deviation",
-        "Python Dataclasses"
+        "SEC Reg NMS Rule 612 (17 CFR 242.612, minimum pricing increment)",
+        "SEC Rule 2a-5 (17 CFR 270.2a-5, fair value and pricing service oversight)",
+        "CRR Article 105(8) (Regulation (EU) No 575/2013, independent price verification)",
+        "Python standard library (statistics, dataclasses, enum)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-source-price-reconciliation-tie-breaking",
@@ -7662,10 +7781,9 @@
         "position-limits"
       ],
       "brokers_frameworks": [
-        "Custom Portfolio Engine",
-        "NumPy"
+        "Custom Portfolio Engine"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-strategy-capital-allocation-limits",
@@ -7673,7 +7791,7 @@
     },
     {
       "name": "multi-strategy-reporting-consolidation-for-stakeholders",
-      "description": "Multi-strategy reporting consolidation engine aggregating sub-strategy PnL, computing portfolio-level Sharpe ratios, diversification ratios, and stakeholder attribution.",
+      "description": "Multi-strategy reporting consolidation engine that recomputes portfolio-level volatility, Sharpe ratio, max drawdown, and the Choueifaty-Coignard diversification ratio from a synthesized joint return series rather than summing or averaging sub-strategy metrics, and reports undefined metrics as NaN instead of fabricating them.",
       "domain": "Portfolio Multi Strategy",
       "subdomain": "Executive Reporting & Multi-Strategy Performance Consolidation",
       "tags": [
@@ -7690,7 +7808,7 @@
         "Portfolio Performance Attribution",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-strategy-reporting-consolidation-for-stakeholders",
@@ -7698,7 +7816,7 @@
     },
     {
       "name": "multi-timeframe-backtest-consistency-checks",
-      "description": "Use when verifying that a strategy's signals computed from higher-resolution data (e.g. 1-min bars) produce consistent results when compared against resampled lower-resolution data (e.g. 5-min, 15-min bars).",
+      "description": "Use when verifying that lower-resolution bars a strategy trades on (e.g. 5-min, 15-min) agree with the same bars independently resampled from higher-resolution data (e.g. 1-min), so boundary-anchor, gap, and aggregation defects are caught before a backtest is trusted.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -7706,13 +7824,14 @@
         "multi-timeframe",
         "resampling",
         "signal-consistency",
-        "data-resolution"
+        "data-resolution",
+        "boundary-alignment"
       ],
       "brokers_frameworks": [
         "Timeframe Consistency Checker",
         "Python"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-timeframe-backtest-consistency-checks",
@@ -7720,7 +7839,7 @@
     },
     {
       "name": "multi-timezone-session-scheduling",
-      "description": "Use when a bot's scheduling logic (session start/end, pre-market checks, EOD tasks) must operate correctly across time zones and daylight saving transitions, not just a single fixed local time",
+      "description": "Use when a bot's scheduling logic (session start/end, intraday breaks, pre-market checks, EOD tasks) must resolve exchange-local trading hours to UTC correctly across time zones and daylight saving transitions, not just at a single fixed offset",
       "domain": "algorithmic-trading",
       "subdomain": "data-management-global",
       "tags": [
@@ -7732,7 +7851,7 @@
         "IANA tz database",
         "pytz/zoneinfo"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-timezone-session-scheduling",
@@ -7740,7 +7859,7 @@
     },
     {
       "name": "multi-year-regime-coverage-requirement",
-      "description": "Use when validating strategy backtests to segment historical price data into distinct market regimes (Bull Trend, Bear Market, High Volatility Crash, Low Volatility Range), enforce multi-regime coverage rules (>=3 regimes), and de-average performance metrics.",
+      "description": "Use when validating strategy backtests to segment historical price data into distinct market regimes (Bull Trend, Bear Market, High Volatility Crash, Low Volatility Range), enforce multi-regime coverage rules (>=3 regimes, each with a minimum bar count), and de-average performance metrics so the worst regime is visible instead of averaged away.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -7753,10 +7872,9 @@
       ],
       "brokers_frameworks": [
         "Market Regime Coverage Engine",
-        "Python Pandas",
-        "NumPy"
+        "Python Standard Library"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/multi-year-regime-coverage-requirement",
