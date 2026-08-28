@@ -220,6 +220,25 @@ class QuantoGreeksTest(unittest.TestCase):
         fine = (f(x0 + h / 2) - f(x0 - h / 2)) / h
         return (4 * fine - coarse) / 3
 
+    def fd2_spot(self, option_type, x0, h, **overrides):
+        """Richardson-extrapolated second central difference in spot: O(h^4).
+
+        A plain second difference divides a cancelling sum by h^2, so its
+        rounding noise grows as 1/h^2 while its truncation error grows as h^2.
+        On an index-scale underlying the two curves meet at ~1e-7 relative --
+        no margin under the tolerances here, and the crossover shifts with the
+        platform's libm, so the same assertion passed on one host and failed on
+        another. Cancelling the h^2 term lets us take a step big enough for the
+        noise to disappear; the residual error below is ~1e-10.
+        """
+        def f(x):
+            return self.price(option_type, **{**overrides, "spot_price": x})
+
+        def second(step):
+            return (f(x0 + step) - 2 * f(x0) + f(x0 - step)) / (step * step)
+
+        return (4 * second(h / 2) - second(h)) / 3
+
     def test_delta(self):
         for option_type in ("CALL", "PUT"):
             with self.subTest(option_type=option_type):
@@ -344,12 +363,7 @@ class QuantoGreeksTest(unittest.TestCase):
         """
         ov = {"spot_price": 38000.0, "strike_price": 38000.0}
         report = self.engine.price_quanto_option(InputData(**{**BASE, **ov}))
-        h = 1.0
-        second = (
-            self.price("CALL", **{**ov, "spot_price": 38000.0 + h})
-            - 2 * self.price("CALL", **ov)
-            + self.price("CALL", **{**ov, "spot_price": 38000.0 - h})
-        ) / (h * h)
+        second = self.fd2_spot("CALL", 38000.0, 80.0, **ov)
         self.assertLess(abs(report.quanto_gamma / second - 1.0), 1e-7)
         self.assertAlmostEqual(report.quanto_gamma, 4.988178961e-05, places=14)
         # The value v1.0.0 would have returned, and the precision it destroyed.
