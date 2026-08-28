@@ -11,7 +11,7 @@ tags:
 - configuration-governance
 brokers_frameworks:
 - Broker-agnostic
-version: "1.1.0"
+version: "1.2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -49,6 +49,8 @@ Read before implementation:
 
 The reference module demonstrates these invariants with `RiskConfigApprovalWorkflow`, `VersionedConfigStore`, and `InMemoryVersionedConfigStore`. The in-memory classes are test adapters, not production persistence.
 
+Note that `ChangeRequest.config_digest` holds the *request* digest described in step 2, not a digest of the configuration alone; it is what a store adapter receives as `request_digest`. A production adapter must compute its own `config_digest` over the same canonical JSON encoding the workflow uses, or the submit-time no-op check silently stops working.
+
 ## Decision Points
 
 - **Tightening versus loosening**: Use stricter quorum, rollout, and monitoring for changes that increase permitted risk or weaken a control. Do not infer safety from a numerically smaller value; units and semantics determine direction.
@@ -67,6 +69,8 @@ The reference module demonstrates these invariants with `RiskConfigApprovalWorkf
 - Logging full configuration payloads, credentials, account identifiers, or approval tokens.
 - Expiring only pending approvals while allowing an already approved request to remain executable indefinitely.
 - Using binary floating-point for values requiring exact tick, lot, currency, or percentage semantics without a canonical encoding policy.
+- Canonicalizing with an encoder that coerces silently. JSON stringifies non-string mapping keys and flattens tuples into lists, so `{1: x}` and `{"1": x}` collide on one digest and the checker reviews a payload the maker never submitted. Reject the coercion instead of normalizing it away.
+- Leaving proposed payloads unbounded in nesting depth. A recursive canonicalizer or secret scanner then fails with an interpreter-level recursion error rather than a validation error, on the request-intake path.
 
 ## Expected Outputs and Success Criteria
 
@@ -84,7 +88,7 @@ Run:
 python scripts/test_risk_config_approval_workflow.py
 ```
 
-The suite covers immutable snapshots, canonical digests, maker-checker separation, RBAC, multi-checker quorum, expiry, rejection/cancellation, optional independent deployment, stale-version conflicts, idempotent retries, lost-response reconciliation, secret/no-op/domain validation, UTC enforcement, and audit-chain hygiene.
+The suite covers immutable snapshots, canonical digests, lossless canonicalization (non-string keys and non-JSON types are rejected rather than coerced), bounded nesting depth, maker-checker separation, RBAC including cancellation, actor-identity validation, multi-checker quorum, expiry on both privileged commands and reconciliation, rejection/cancellation, optional independent deployment, stale-version conflicts, idempotent retries, lost-response reconciliation, secret/no-op/domain validation, UTC enforcement, and audit-chain hygiene.
 
 Before production adoption, also run adapter-level concurrency tests, persistence crash tests, IAM integration tests, propagation fault injection, and a rollback exercise against a non-production environment.
 

@@ -376,11 +376,18 @@ class RiskDependencyMapper:
     def analyze(self, failed_nodes: Iterable[str]) -> BlastRadiusReport:
         """Propagate simultaneous failures to a deterministic fixed point.
 
-        A partially lost redundancy group degrades its consumer.  Once a dependency is not
-        healthy, an ungrouped edge applies its declared response.  This is intentionally
-        conservative and avoids treating degraded risk data as fully trustworthy.
+        An ungrouped edge whose dependency is degraded degrades its consumer; once that
+        dependency is functionally lost the edge applies its declared response.  A
+        redundancy group applies its response only when every member is functionally lost:
+        a member that is itself merely degraded is still serving, so the group degrades
+        instead.  Propagation is intentionally conservative and never treats degraded risk
+        data as fully trustworthy.
         """
 
+        if isinstance(failed_nodes, str):
+            raise GraphValidationError(
+                "failed_nodes must be an iterable of node IDs, not a single string"
+            )
         requested_failures = tuple(failed_nodes)
         if any(
             not isinstance(node_id, str)
@@ -465,17 +472,22 @@ class RiskDependencyMapper:
         )
 
     def single_points_of_failure(self) -> tuple[SinglePointOfFailure, ...]:
-        """Find nodes whose individual failure affects HIGH/CRITICAL controls."""
+        """Find nodes whose individual failure functionally impairs HIGH/CRITICAL controls.
+
+        Controls are evaluated as candidates too, because a control can be an input to
+        another control or to an actuator; the failed node is never counted as its own
+        downstream impact.  Consumers that only degrade are excluded so reduced resilience
+        is not conflated with functional loss—``analyze`` still reports them.
+        """
 
         results: list[SinglePointOfFailure] = []
         for node_id in sorted(self._nodes):
-            if self._nodes[node_id].kind is NodeKind.CONTROL:
-                continue
             report = self.analyze((node_id,))
             high_controls = tuple(
                 impact.node_id
                 for impact in report.impacts
-                if impact.kind is NodeKind.CONTROL
+                if impact.node_id != node_id
+                and impact.kind is NodeKind.CONTROL
                 and impact.mode is not ImpactMode.DEGRADED
                 and _CRITICALITY_RANK[impact.criticality]
                 >= _CRITICALITY_RANK[Criticality.HIGH]
@@ -560,34 +572,29 @@ class RiskDependencyMapper:
             ]
             if not affected:
                 continue
-            if len(affected) < len(group_edges):
-                candidates.append(
-                    (
-                        ImpactMode.DEGRADED,
-                        set().union(
-                            *(
-                                triggers.get(edge.dependency_id, {edge.dependency_id})
-                                for edge in affected
-                            )
-                        ),
-                    )
+            # A degraded alternative is still serving, so it does not count as lost.
+            # Only functional loss of every member activates the group response; this
+            # keeps a redundant contract from ever modelling worse than a single one.
+            lost = [
+                edge
+                for edge in affected
+                if _IMPACT_RANK[modes[edge.dependency_id]]
+                > _IMPACT_RANK[ImpactMode.DEGRADED]
+            ]
+            group_triggers: set[str] = set().union(
+                *(
+                    triggers.get(edge.dependency_id, {edge.dependency_id})
+                    for edge in affected
                 )
+            )
+            if len(lost) < len(group_edges):
+                candidates.append((ImpactMode.DEGRADED, group_triggers))
             else:
                 worst = max(
                     (_RESPONSE_TO_IMPACT[edge.response] for edge in group_edges),
                     key=lambda mode: _IMPACT_RANK[mode],
                 )
-                candidates.append(
-                    (
-                        worst,
-                        set().union(
-                            *(
-                                triggers.get(edge.dependency_id, {edge.dependency_id})
-                                for edge in affected
-                            )
-                        ),
-                    )
-                )
+                candidates.append((worst, group_triggers))
 
         if not candidates:
             return ImpactMode.HEALTHY, set()

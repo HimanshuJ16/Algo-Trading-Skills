@@ -22,10 +22,11 @@ Use this procedure with the requirements in `standards.md`. The Python module is
 | — | submit | Valid immutable payload, unique ID, current base version | `PENDING` |
 | `PENDING` | approve | Non-maker authorized checker, matching digest, unexpired | `PENDING` or `APPROVED` at quorum |
 | `PENDING` / `APPROVED` | reject | Non-maker authorized checker, matching digest, reason | `REJECTED` |
-| `PENDING` / `APPROVED` | cancel | Original maker, matching digest, unexpired | `CANCELLED` |
+| `PENDING` / `APPROVED` | cancel | Original maker still holding a submitter role, matching digest, unexpired | `CANCELLED` |
 | `PENDING` / `APPROVED` | expiry evaluation | `now >= expires_at` | `EXPIRED` |
 | `APPROVED` | apply | Authorized deployer, quorum intact, matching digest, base version current | `APPLIED` |
 | `APPROVED` | reconcile | Durable apply ledger proves same request and digest applied | `APPLIED` |
+| `PENDING` / `APPROVED` | reconcile | Ledger proves no application and `now >= expires_at` | `EXPIRED` |
 
 `REJECTED`, `CANCELLED`, `EXPIRED`, and `APPLIED` are terminal. A changed payload, refreshed expiry, new base version, or revised rollout plan requires a new request and review.
 
@@ -121,7 +122,7 @@ When compare-and-set reports a version conflict:
 ## Rejection, cancellation, and expiry
 
 - **Reject:** Require a checker reason and preserve the reviewed digest. A corrected proposal is a new request.
-- **Cancel:** Permit only the maker (or an explicitly governed administrative path) before application. Expiry evaluation precedes cancellation.
+- **Cancel:** Permit only the maker (or an explicitly governed administrative path) before application, and reauthorize the maker at that moment — a revoked role must block cancellation just as it blocks submission. Expiry evaluation precedes cancellation.
 - **Expire:** Evaluate on privileged commands and with a scheduled sweeper. Expire both pending and approved-but-unapplied requests.
 - **Late messages:** Consumers must reject approval or apply messages for terminal requests even if queue delivery is delayed or duplicated.
 
@@ -154,7 +155,7 @@ At a cadence shorter than the maximum tolerated stale-configuration interval:
 1. Compare nonterminal requests with the applied idempotency ledger.
 2. Compare authoritative configuration version/digest with distribution state and every runtime consumer.
 3. Detect expired requests, missing audit/outbox events, duplicate IDs, unknown versions, lagging targets, and out-of-band mutations.
-4. Auto-repair only when durable evidence determines one unambiguous state. Emit `CHANGE_RECONCILED` or equivalent.
+4. Auto-repair only when durable evidence determines one unambiguous state. Emit `CHANGE_RECONCILED` when the ledger proves application, and `CHANGE_EXPIRED` when the ledger proves no application and the request has passed its expiry.
 5. Quarantine ambiguity, freeze writes to the scope, and page the owning team.
 
 ## Production adapter contract
@@ -170,6 +171,7 @@ Replace `InMemoryVersionedConfigStore` with an adapter that guarantees:
 - bounded, observable retries with no retry on validation/authorization/conflict errors;
 - explicit distinction among not-applied, applied, and unknown outcomes;
 - defensive snapshots rather than mutable shared objects;
-- UTC server timestamps and correlation identifiers.
+- UTC server timestamps and correlation identifiers;
+- a configuration digest computed over the *same* canonical encoding the approval service uses. The submit-time no-op check compares the active configuration digest with the digest of the proposed payload, so an adapter that canonicalizes differently silently disables that check.
 
 Keep broker- or venue-specific side effects behind separate adapters. The approval aggregate decides whether a change is authorized; it must not directly place/cancel orders, log secrets, or assume a broker acceptance means runtime risk enforcement is effective.

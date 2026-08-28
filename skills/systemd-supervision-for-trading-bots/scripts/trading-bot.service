@@ -1,20 +1,60 @@
+# Reference unit for a supervised algorithmic trading bot.
+# Install as /etc/systemd/system/trading-bot.service, then:
+#   systemctl daemon-reload && systemctl enable --now trading-bot.service
+# Audit it with SystemdSupervisionHelper.validate_unit_file_content(), and audit
+# the *effective* unit (`systemctl cat trading-bot.service`) rather than this
+# file, because drop-ins under trading-bot.service.d/ override it.
+
 [Unit]
 Description=Algo trading strategy engine
 After=network-online.target ws-relay.service
 Wants=network-online.target
 Requires=ws-relay.service
 
-[Service]
-Type=notify
-WatchdogSec=30
-ExecStartPre=/opt/trading-bot/scripts/pre_market_healthcheck.sh
-ExecStart=/opt/trading-bot/venv/bin/python /opt/trading-bot/main.py
-Restart=on-failure
-RestartSec=10
+# The crash-loop brake. These two MUST live in [Unit]: systemd's directive table
+# has no Service.StartLimitIntervalSec at all, so writing it under [Service] is
+# an unknown key -- ignored, silently leaving the unit on the manager default of
+# DefaultStartLimitIntervalSec=10s. With RestartSec=10 below, five attempts span
+# 40s, so a 10s window could never be filled and the bot would restart against a
+# broker outage forever. 600s is chosen to be comfortably wider than
+# RestartSec x (StartLimitBurst - 1) = 40s.
 StartLimitIntervalSec=600
 StartLimitBurst=5
+
+# When the burst is exhausted the unit stays failed until `systemctl reset-failed`.
+# That is the desired behaviour -- but it is silent, so page someone.
+# Uncomment once trading-bot-alert.service exists on the host:
+#OnFailure=trading-bot-alert.service
+
+[Service]
+# Type=notify makes systemd wait for READY=1 before considering start-up
+# complete, and forces NotifyAccess=main so WATCHDOG=1 from the main process is
+# accepted. Without a notify type, NotifyAccess defaults to none and every ping
+# is discarded -- the watchdog would then kill a perfectly healthy bot every 30s.
+Type=notify
+WatchdogSec=30
+
+# Credentials, broker reachability, exchange calendar. A non-zero exit here fails
+# the unit and consumes a start-limit slot, so it must exit non-zero ONLY for
+# genuine faults. Market-holiday handling belongs in the main process, which
+# sends READY=1 and then exits 0 -- see references/workflows.md.
+ExecStartPre=/opt/trading-bot/scripts/pre_market_healthcheck.sh
+ExecStart=/opt/trading-bot/venv/bin/python /opt/trading-bot/main.py
+
+# on-failure, not always: a clean exit (holiday, kill switch, decommission) must
+# stay down. It still covers non-zero exits, fatal signals and watchdog timeouts.
+Restart=on-failure
+RestartSec=10
+
+# MemoryHigh throttles first; MemoryMax is the hard ceiling that invokes the OOM
+# killer inside the unit. Both require cgroup v2.
+MemoryHigh=768M
 MemoryMax=1G
 CPUQuota=150%
+
+# SIGTERM, then TimeoutStopSec to cancel live orders before SIGKILL. Size this
+# from a measured worst-case unwind; if cancellation is still progressing, the
+# bot should send EXTEND_TIMEOUT_USEC= rather than rely on a larger constant.
 KillSignal=SIGTERM
 TimeoutStopSec=30
 

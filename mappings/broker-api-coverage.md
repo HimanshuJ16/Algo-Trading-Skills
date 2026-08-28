@@ -33,7 +33,7 @@ This is the comprehensive cross-cutting matrix of broker APIs, exchange protocol
 | **CME Globex** | `cme-globex-futures-api-integration`, `futures-contract-roll-automation` | iLink 3 binary protocol, MDP 3.0 market data, SPAN margin risk |
 | **Eurex Exchange** | `eurex-market-data-and-order-api`, `options-margin-span-calculation-global` | ETI (Enhanced Trading Interface), MDI market data, Prisma margin |
 | **Hong Kong Exchange (HKEX)** | `hong-kong-exchange-hkex-orion-api`, `shanghai-shenzhen-connect-programs` | OCG-C order entry (Binary / FIX), OMD-C market data, Second Schedule spread tables, Stock Connect Northbound |
-| **Singapore Exchange (SGX)** | `singapore-exchange-sgx-api-integration`, `multi-currency-pnl-and-fx-conversion` | REACH TITAN matching engine, OUCH/ITCH protocol, multi-currency derivatives |
+| **Singapore Exchange (SGX)** | `singapore-exchange-sgx-api-integration`, `multi-currency-pnl-and-fx-conversion` | Titan-DT derivatives engine (OUCH / FIX order entry, ITCH/GLIMPSE data), Reach-ST securities engine (Iris-ST from H2 2027), per-contract and per-trade-type minimum price fluctuations, price-tiered SGX-ST minimum bid size |
 | **Australian Securities Exchange (ASX)** | `australian-securities-exchange-asx-api`, `asic-market-integrity-rules-automated-trading` | ASX Trade matching engine, ITCH/OUCH, Market Integrity Rules (MIR) |
 | **Japan Exchange Group (JPX / TSE)** | `japan-exchange-group-jpx-api-integration`, `japan-fsa-high-speed-trading-registration` | arrowhead4.0 matching engine, SICC alphanumeric securities codes, absolute-yen daily price limits, High-Speed Trading (HST) registration |
 | **Korea Exchange (KRX / KOSPI, KOSDAQ)** | `korea-exchange-krx-api-integration`, `exchange-tick-size-regime-tracking` | EXTURE 3.0 matching engine, six-character short codes (단축코드) with alphanumeric sixth character, 2023 tick size schedule, truncated-amount daily price limit band |
@@ -61,5 +61,5 @@ This is the comprehensive cross-cutting matrix of broker APIs, exchange protocol
 |---|---|---|
 | **FIX Protocol (v4.2 / v4.4 / v5.0)** | `fix-protocol-engine-implementation`, `fix-protocol-session-management-and-logon-handshake` | Session logon/heartbeat, tag 35 message routing, Sequence Reset |
 | **OANDA v20 REST API** | `forex-broker-integration-oanda-mt5`, `multi-currency-pnl-and-fx-conversion` | Bearer token auth, v20 streaming pricing & position management |
-| **MetaTrader 5 (MT5 Python Bridge)** | `mt5-python-bridge-for-forex-bots`, `forex-broker-integration-oanda-mt5`, `systemd-supervision-for-trading-bots` | `MetaTrader5` Python module IPC, `MqlTradeRequest` construction, `TRADE_RETCODE` triage, symbol-metadata-driven volume/stop/filling validation |
+| **MetaTrader 5 (MT5 Python Bridge)** | `mt5-python-bridge-for-forex-bots`, `forex-broker-integration-oanda-mt5` | `MetaTrader5` Python module IPC, `MqlTradeRequest` construction, `TRADE_RETCODE` triage, symbol-metadata-driven volume/stop/filling validation |
 | **Saxo Bank OpenAPI** | `saxo-bank-openapi-integration`, `multi-asset-backtest-currency-normalization` | OAuth2 PKCE auth, SignalR WebSocket streaming, multi-asset order routing |

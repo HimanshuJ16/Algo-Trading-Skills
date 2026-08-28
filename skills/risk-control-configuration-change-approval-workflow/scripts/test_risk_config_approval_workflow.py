@@ -334,6 +334,87 @@ class RiskConfigApprovalWorkflowTests(unittest.TestCase):
                 }
             )
 
+    def test_deep_nesting_is_rejected_before_the_json_encoder_recurses(self):
+        deep = {"v": 1}
+        for _ in range(6_000):
+            deep = {"nested": deep}
+        # Regression: this previously escaped as an unhandled RecursionError from json.dumps.
+        with self.assertRaises(ValidationError):
+            self.submit(proposed_config=deep)
+
+    def test_nesting_depth_boundary_is_inclusive(self):
+        workflow = RiskConfigApprovalWorkflow(
+            self.store, lambda config: None, ApprovalPolicy(max_payload_depth=2)
+        )
+        self.workflow = workflow
+        accepted = self.submit(proposed_config={"venue": {"max_order_notional": 10}})
+        self.assertEqual(accepted.state, ChangeState.PENDING)
+        with self.assertRaises(ValidationError):
+            self.submit(
+                request_id="chg-deep",
+                proposed_config={"venue": {"account": {"max_order_notional": 10}}},
+            )
+
+    def test_non_string_keys_and_non_json_types_are_rejected_not_coerced(self):
+        # json.dumps would stringify {1: "x"} into {"1": "x"}, so an int-keyed payload and a
+        # string-keyed payload would share a digest and the checker would review a payload the
+        # maker never submitted.  The same applies to tuples silently becoming lists.
+        workflow = RiskConfigApprovalWorkflow(self.store, lambda config: None)
+        self.workflow = workflow
+        with self.assertRaises(ValidationError):
+            self.submit(proposed_config={"tiers": {1: "x"}})
+        with self.assertRaises(ValidationError):
+            self.submit(proposed_config={"tiers": {True: "x"}})
+        with self.assertRaises(ValidationError):
+            self.submit(proposed_config={"tiers": (1, 2)})
+        with self.assertRaises(ValidationError):
+            self.submit(proposed_config={"asof": datetime(2026, 8, 3, tzinfo=timezone.utc)})
+        native = self.submit(
+            proposed_config={"tiers": [1, 2], "label": "eu", "off": None, "on": True}
+        )
+        self.assertEqual(native.proposed_config["tiers"], [1, 2])
+
+    def test_actor_rejects_a_bare_string_role_and_normalizes_collections(self):
+        # Regression: Actor("x", "RISK_MANAGER") used to construct and then fail with an
+        # unhandled TypeError on the first roles-set intersection during authorization.
+        with self.assertRaises(ValidationError):
+            Actor("quant-9", "RISK_CONFIG_REQUESTER")
+        with self.assertRaises(ValidationError):
+            Actor("quant-9", frozenset({"  "}))
+        with self.assertRaises(ValidationError):
+            Actor("  ", frozenset({"RISK_MANAGER"}))
+        self.assertEqual(
+            Actor("quant-9", ["RISK_CONFIG_REQUESTER"]).roles,
+            frozenset({"RISK_CONFIG_REQUESTER"}),
+        )
+
+    def test_cancel_reauthorizes_the_submitter_role(self):
+        request = self.submit()
+        revoked = Actor(MAKER.actor_id, frozenset({"QUANT"}))
+        with self.assertRaises(AuthorizationError):
+            self.workflow.cancel(
+                request.request_id,
+                submitter=revoked,
+                expected_digest=request.config_digest,
+                now=NOW + timedelta(minutes=1),
+            )
+        self.assertEqual(
+            self.workflow.get_request(request.request_id).state, ChangeState.PENDING
+        )
+
+    def test_reconcile_expires_a_request_the_ledger_shows_was_never_applied(self):
+        request = self.approve(self.submit())
+        repaired = self.workflow.reconcile(request.request_id, now=NOW + timedelta(hours=24))
+        self.assertEqual(repaired.state, ChangeState.EXPIRED)
+        self.assertIsNone(repaired.applied_version)
+        self.assertEqual(self.workflow.audit_events()[-1].event_type, "CHANGE_EXPIRED")
+
+    def test_max_payload_depth_policy_is_bounded(self):
+        with self.assertRaises(ValidationError):
+            ApprovalPolicy(max_payload_depth=0)
+        with self.assertRaises(ValidationError):
+            ApprovalPolicy(max_payload_depth=65)
+
     def test_timestamps_must_be_timezone_aware(self):
         with self.assertRaises(ValidationError):
             self.submit(now=datetime(2026, 8, 3, 9, 0))

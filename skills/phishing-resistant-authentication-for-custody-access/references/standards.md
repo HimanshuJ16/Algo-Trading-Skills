@@ -1,7 +1,236 @@
-# Standards for Phishing-Resistant Authentication for Custody Access
+# Standards — phishing-resistant-authentication-for-custody-access
 
-| Metric | Engineering Standard |
+## Scope and division of labour
+
+This skill implements the **server-side Relying Party (RP) steps** of a WebAuthn
+authentication ceremony, plus firm policy on top of them. It is not a WebAuthn
+library and performs **no cryptography on the assertion**:
+
+| Performed by your WebAuthn library | Performed by this engine |
 |---|---|
-| Protocol Standard | W3C WebAuthn Level 3 / FIDO2 CTAP2. |
-| Origin Requirement | Origin MUST strictly match `https://{rp_id}` scheme and domain. |
-| Verification Flags | Both `user_present` (UP) AND `user_verified` (UV) MUST be True. |
+| Parse `clientDataJSON` and `authenticatorData` | Compare their values against server-side state |
+| Verify the COSE signature over `authData ‖ SHA-256(clientDataJSON)` | Refuse to report success unless the library says the signature verified |
+| Decode flags (UP/UV/BE/BS) and `signCount` | Apply policy to those flags and detect counter regression |
+
+Use `py_webauthn` (Duo Labs), `python-fido2` (Yubico), or your custodian's own
+verifier for the left-hand column. Passing `signature_verified=False` — the
+default — makes the engine fail closed rather than assume that step happened.
+
+## Normative basis: W3C WebAuthn Level 3
+
+**Web Authentication: An API for accessing Public Key Credentials — Level 3**,
+W3C **Recommendation, 2026-08-25**. A Recommendation is the W3C's final,
+endorsed maturity level; Level 3 supersedes the Level 2 Recommendation of
+2021-04-08 for new work.
+
+Source: <https://www.w3.org/TR/webauthn-3/>
+
+### §7.2 "Verifying an Authentication Assertion" → code path
+
+Only the steps a server can perform are listed; parsing and signature steps
+belong to the library.
+
+| §7.2 step (paraphrased) | Enforced by | Status on failure |
+|---|---|---|
+| Identify the user; verify the account holds a credential record whose id equals `credential.rawId` | `register_credential` + credential lookup | `CREDENTIAL_UNKNOWN`, `CREDENTIAL_USER_MISMATCH` |
+| Verify `C.type` is the string `webauthn.get` | `client_data_type` check | `CLIENT_DATA_TYPE_INVALID` |
+| Verify `C.challenge` equals the base64url encoding of `pkOptions.challenge` | single-use challenge store | `CHALLENGE_UNKNOWN`, `CHALLENGE_USER_MISMATCH`, `CHALLENGE_EXPIRED` |
+| Verify `C.origin` is an origin expected by the RP (§13.4.9) | exact match against `allowed_origins` | `ORIGIN_MISMATCH_PHISHING_ATTEMPT` |
+| Verify `rpIdHash` is SHA-256 of the RP ID expected by the RP | `compute_rp_id_hash(policy.rp_id)` | `RP_ID_HASH_MISMATCH` |
+| Verify the UP bit is set | `user_present` check | `USER_PRESENCE_MISSING` |
+| If user verification was required, verify the UV bit is set | `require_user_verification` | `USER_VERIFICATION_FAILED` |
+| If the BE bit is not set, verify the BS bit is not set | BE/BS invariant check | `BACKUP_STATE_INVALID` |
+| Verify the signature (library) | `signature_verified` must be true | `SIGNATURE_NOT_VERIFIED` |
+| If either `signCount` is nonzero, compare against the stored counter | counter check under lock | `SIGN_COUNT_REGRESSION_CLONE_SUSPECTED` |
+| Update stored state **after** all checks pass | deferred update in the same lock | — |
+
+Two RP obligations in §7.2 are **deliberately not modelled**, because they need
+data this engine does not hold: `allowCredentials` membership (the RP knows
+which credentials it offered for this ceremony) and extension output processing.
+Handle both in the calling layer.
+
+### §13.4.9 Validating the origin of a credential
+
+> "The Relying Party MUST NOT accept unexpected values of `origin`, as doing so
+> could allow a malicious website to obtain valid credentials."
+
+The specification gives exact string matching against an RP-configured list as
+the normal approach, and describes single-origin, multi-origin, related-origin
+and native-app deployments as separate cases. **It does not require the origin to
+equal `https://` + RP ID.** That is only the simplest case. The RP ID may be a
+registrable-domain suffix of the origin's effective domain, so deriving the
+expected origin by string-concatenating an RP ID is a modelling shortcut, not a
+rule — and deriving it from the RP ID *in the response being verified* is a
+security defect, because it lets attacker-controlled input define the
+expectation it is checked against.
+
+This engine therefore takes `rp_id` and `allowed_origins` from **policy**, and
+compares by exact match. Configuring `allowed_origins` with a trailing slash or
+a path raises at construction rather than silently locking out every user.
+
+§13.4.8 further warns about malicious subdomains: matching "any subdomain of the
+RP ID" is explicitly called out as carrying code-injection risk. The engine does
+not do subdomain matching; list each origin you actually serve.
+
+### §13.4.3 Cryptographic Challenges
+
+> "the values of both `PublicKeyCredentialCreationOptions.challenge` and
+> `PublicKeyCredentialRequestOptions.challenge` MUST be randomly generated by
+> Relying Parties in an environment they trust (e.g., on the server-side), and
+> the returned challenge value in the client's response MUST match what was
+> generated. … Tolerating a mismatch will compromise the security of the
+> protocol."
+
+> "In order to prevent replay attacks, the challenges MUST contain enough
+> entropy to make guessing them infeasible. Challenges SHOULD therefore be at
+> least 16 bytes long."
+
+The specification also says the RP SHOULD store the challenge until the ceremony
+completes. `issue_challenge()` generates `secrets.token_urlsafe(32)` — 32 bytes
+of entropy, twice the recommended floor — stores it against one user, and
+`verify_assertion()` consumes it on first use whatever the outcome, so a
+captured challenge cannot be probed repeatedly against different flag
+combinations.
+
+**A freshness check is not a replay check.** Comparing a client-supplied
+timestamp against a maximum age proves nothing: the attacker supplies the
+timestamp. Only equality against a stored, server-generated, single-use value
+provides the property the specification is describing.
+
+### §6.1.3 Credential Backup State
+
+BE and BS combinations, per the specification's own table:
+
+| BE | BS | Meaning |
+|---|---|---|
+| 0 | 0 | Single-device credential |
+| 0 | 1 | **This combination is not allowed** |
+| 1 | 0 | Multi-device credential, not currently backed up |
+| 1 | 1 | Multi-device credential, currently backed up |
+
+The BE value is fixed at registration and "MUST NOT change". The engine rejects
+the disallowed combination, and rejects an assertion whose BE contradicts what
+was captured at registration, since that means the credential was substituted.
+
+`require_device_bound_credential` (default **off**) rejects BE=1 credentials
+outright. Turn it on where custody policy requires a hardware-bound authenticator
+rather than a passkey that syncs to a vendor cloud account — the sync account
+becomes part of your custody attack surface, and it is usually protected by
+weaker authentication than the custody portal itself. This is a firm policy
+decision, not a specification requirement.
+
+### §7.2 / §6.1.1 Signature counter
+
+The specification states a non-advancing counter "is a signal, but not proof,
+that the authenticator may be cloned", lists benign causes (malfunction,
+out-of-order processing at the RP), and leaves the response **RP-specific**:
+"Whether the Relying Party … fails the authentication ceremony or not, is
+Relying Party-specific."
+
+`reject_sign_count_regression` defaults to **True** here. That is this skill's
+engineering judgement for custody access, not a specification requirement: for a
+system that can move client assets, a possible clone should stop the ceremony and
+raise an incident. Set it to `False` and read `report.warnings` where operational
+reality (multi-device credentials, which commonly report a permanent 0) makes
+rejection unworkable. Note the counter step applies only when either value is
+nonzero, so authenticators that do not implement a counter are unaffected.
+
+## FIDO2 CTAP
+
+**Client to Authenticator Protocol (CTAP) 2.2**, FIDO Alliance Proposed
+Standard, **2025-07-14**. CTAP governs the client↔authenticator link (PIN
+protocols, user verification on the authenticator, `getAssertion`); WebAuthn
+governs the browser↔RP link. Nothing in this engine speaks CTAP directly — it
+sees only what the authenticator asserted, through the browser and your library.
+
+Source: <https://fidoalliance.org/specs/fido-v2.2-ps-20250714/fido-client-to-authenticator-protocol-v2.2-ps-20250714.pdf>
+
+## NIST SP 800-63B-4 — where "phishing-resistant" is defined (US federal)
+
+**Digital Identity Guidelines: Authentication and Authenticator Management**,
+SP 800-63B revision 4, **final, July 2025**, superseding the March 2020 edition.
+
+- AAL3: "The cryptographic authenticator used at AAL3 SHALL have a
+  non-exportable private key and SHALL provide phishing resistance."
+- AAL3 requires either multi-factor cryptographic authentication, or
+  single-factor cryptographic authentication combined with a password or
+  biometric comparison.
+- AAL3 reauthentication: overall timeout **SHALL** be no more than 12 hours;
+  inactivity timeout **SHOULD** be no more than 15 minutes.
+
+Phishing resistance in NIST's vocabulary is *verifier impersonation resistance*:
+the protocol must prevent disclosure of authenticator outputs to an impostor
+verifier **without relying on the vigilance of the claimant**. That last clause
+is why user training is not a substitute, and why origin binding is the control
+that matters.
+
+**Applicability:** SP 800-63 binds US federal agencies. A private custodian is
+not obliged to follow it, and citing "AAL3" in a policy document does not create
+a legal obligation. It is used here as the authoritative technical definition of
+the term, and as a defensible benchmark — including the 12h/15min session
+guidance, which this engine does **not** implement. Challenge lifetime is not
+session lifetime; enforce session timeouts in your session layer.
+
+Source: <https://csrc.nist.gov/pubs/sp/800/63/b/4/final>
+
+## NYDFS 23 NYCRR Part 500 §500.12 — MFA (New York)
+
+Directly relevant, because the major US institutional crypto custodians are New
+York limited purpose trust companies or BitLicensees, and §500.01(e) defines a
+covered entity as "any person operating under or required to operate under a
+license, registration, charter, certificate, permit, accreditation or similar
+authorization under the Banking Law, the Insurance Law or the Financial Services
+Law". Whether a given entity is covered is a determination for its counsel.
+
+Current §500.12 text:
+
+> "(a) Multi-factor authentication shall be utilized for any individual
+> accessing any information systems of a covered entity, unless the covered
+> entity qualifies for a limited exemption pursuant to section 500.19(a) of this
+> Part …
+> (b) If the covered entity has a CISO, the CISO may approve in writing the use
+> of reasonably equivalent or more secure compensating controls. Such controls
+> shall be reviewed periodically, but at a minimum annually."
+
+The broadened scope — any individual, any information system, regardless of
+location — took effect **2025-11-01** under the Second Amendment's transitional
+schedule. Under the §500.19(a) limited exemption, MFA is still required for
+remote access to information systems, remote access to third-party applications
+holding nonpublic information, and all privileged accounts other than
+non-interactive service accounts.
+
+**What NYDFS does not say:** it does **not** mandate phishing-resistant MFA.
+Its July 2025 guidance ranks methods by strength — SMS is called out as "generally
+considered a weaker authentication method" susceptible to SIM-swapping, and
+push-without-number-matching as vulnerable to push fatigue — but presents the
+choice as a risk-based decision. Do not represent FIDO2 as a NYDFS requirement.
+It is the strongest way to satisfy a requirement that is written technology-neutral.
+
+Sources:
+<https://www.dfs.ny.gov/system/files/documents/2026/07/NYCRR-part-500-Cybersecurity-Regulation.pdf>,
+<https://www.dfs.ny.gov/system/files/documents/2025/09/multifactor-authentication.pdf>
+
+## Defaults that are firm policy, not obligations
+
+None of these values comes from a specification or a regulator. Calibrate them.
+
+| Setting | Default | Basis |
+|---|---|---|
+| `max_challenge_age_sec` | 60.0 | Engineering default. §13.4.3 only says challenges "SHOULD be valid for a duration similar to" the ceremony timeout. |
+| `clock_skew_tolerance_sec` | 5.0 | Engineering default for issuing/verifying clock disagreement. |
+| `require_user_verification` | True | §7.2 makes UV conditional on what the RP requested; requiring it is this skill's custody posture. |
+| `require_signature_verification` | True | Fail closed when the verifier is not wired up. |
+| `require_rp_id_hash` | True | Fail closed when `authenticatorData[0:32]` is not supplied. |
+| `reject_sign_count_regression` | True | §7.2 leaves the response to the RP. |
+| `require_device_bound_credential` | False | Enable where syncable passkeys are not acceptable for custody. |
+| `allowed_aaguids` | `()` (any model) | Populate from the FIDO Metadata Service to restrict authenticator models. |
+
+## Explicitly out of scope
+
+Do not read this engine as covering: attestation statement verification and
+AAGUID *provenance* (an AAGUID is self-asserted unless you verify attestation),
+credential registration ceremony verification (§7.1), `allowCredentials`
+membership, extension processing, session issuance and lifetime, account
+recovery, or the enrolment path — which is where most real phishing-resistant
+deployments are actually broken, because a resettable fallback factor reintroduces
+everything WebAuthn removed.

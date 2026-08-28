@@ -1,7 +1,31 @@
 # Standards for On-Chain Transaction Monitoring for Anomalies
 
-| Metric | Engineering Standard |
-|---|---|
-| Sanctions Screening | OFAC SDN address interactions MUST trigger immediate transaction block. |
-| High Risk Threshold | Composite Risk Score $\ge 70$ MUST trigger `HIGH_RISK_BLOCK`. |
-| Gas Price Limit | Gas spikes $> 5\times$ baseline MUST trigger anomaly review. |
+Primary sources (all consulted 2026-08-27):
+
+- **OFAC**, "Sanctions Compliance Guidance for the Virtual Currency Industry" (Oct 2021): https://ofac.treasury.gov/media/913571/download?inline= — recommends a risk-based compliance programme including sanctions list screening for virtual currency businesses.
+- **OFAC FAQ 562**, virtual currency obligations: https://ofac.treasury.gov/faqs/562 — OFAC compliance obligations are the same regardless of whether a transaction is denominated in fiat or virtual currency.
+- **OFAC FAQ 563**, SDN List digital currency address structure: https://ofac.treasury.gov/faqs/563 — listed addresses appear in a `Digital Currency Address - <SYMBOL>` field (XBT, ETH, LTC, XMR, …).
+- **OFAC FAQ 646**, "How do I block digital currency?": https://ofac.treasury.gov/faqs/646 — OFAC's digital currency address listings "are not likely to be exhaustive"; parties who identify unlisted addresses associated with an SDN must still block and report.
+- **31 CFR 501.603** (Reporting, Procedures and Penalties Regulations): https://www.ecfr.gov/current/title-31/subtitle-B/chapter-V/part-501/subpart-C/section-501.603 — initial blocking reports are due within 10 business days of the date property becomes blocked, filed through the OFAC Reporting System; blocked property is additionally reported annually by 30 September.
+- **U.S. Treasury**, "Tornado Cash Delisting" (21 Mar 2025), press release sb0057: https://home.treasury.gov/news/press-releases/sb0057 and OFAC Recent Actions 20250321: https://ofac.treasury.gov/recent-actions/20250321 — over 100 Ethereum addresses removed from the SDN List, following *Van Loon v. Department of the Treasury* (5th Cir., 26 Nov 2024).
+- **EIP-1559**, fee market change: https://eips.ethereum.org/EIPS/eip-1559 — type-2 transactions carry `maxFeePerGas` and `maxPriorityFeePerGas`; the price actually paid is $\text{baseFee} + \min(\text{maxPriorityFee},\ \text{maxFee} - \text{baseFee})$ and the difference is refunded.
+- **EIP-55**, mixed-case checksum address encoding: https://eips.ethereum.org/EIPS/eip-55 — checksummed and all-lowercase spellings denote the same account, so address comparison must be case-insensitive.
+- **Regulation (EU) 2023/1113** (funds and crypto-asset transfers, "travel rule"), applicable from 30 Dec 2024: https://eur-lex.europa.eu/eli/reg/2023/1113/oj/eng — EU/EEA CASP obligations, distinct from and additional to the US rules below. Not implemented here.
+
+| Metric | Standard | Status | Source |
+|---|---|---|---|
+| Screening obligation | Sanctions obligations apply to virtual currency exactly as to fiat; a risk-based programme for virtual-currency businesses generally includes sanctions list screening. | Mandatory (US persons / US nexus); the screening *method* is risk-based guidance | OFAC FAQ 562; OFAC VC Guidance (2021) |
+| Listed-address hit | A match against a listed digital currency address MUST block execution irrespective of transaction value. The engine forces `HIGH_RISK_BLOCK` on a match independently of the score arithmetic. | Engine requirement, tracking a strict prohibition | OFAC FAQ 562; engine invariant |
+| List completeness | A clean screen means "no listed-address hit", NOT "sanctions-clear": OFAC's address listings are not likely to be exhaustive, and unlisted property of a blocked person is still blocked. | Regulatory scope limit | OFAC FAQ 646 |
+| Blocking vs. not broadcasting | `is_blocked=True` is an execution decision. Blocking property and filing the initial report within 10 business days (and the annual report by 30 September) are separate obligations this module does not perform. | Mandatory, US — downstream of this engine | 31 CFR 501.603 |
+| Reporting evidence | The report MUST carry the matched address(es), whether screening ran, and the snapshot's as-of timestamp, so a blocking report can be evidenced. | Engine requirement | 31 CFR 501.603(b)(1) |
+| List currency | Screening MUST be performed against a dated snapshot, and the snapshot age MUST be evaluated per transaction. Listings change in both directions — a stale snapshot misses new designations *and* blocks delisted addresses. The 24h default age limit is an **engineering default**, not a prescribed refresh cadence. | Engine requirement, evidenced by delisting practice | Treasury sb0057 (21 Mar 2025) |
+| Address normalization | Addresses MUST be compared case-insensitively (EIP-55 checksummed vs. lowercase hex are the same account) and whitespace-trimmed. EVM only — Base58/Bech32 chains are case-sensitive and out of scope. | Protocol requirement | EIP-55 |
+| Method normalization | Method signatures MUST be compared byte-exactly and case-sensitively: the selector is keccak-256 of the canonical signature. Whitelist entries containing whitespace are rejected because they can never match. | Protocol requirement | EIP-1559-era ABI encoding; Solidity ABI spec |
+| Gas price input | The screened value MUST be the effective gas price $\text{baseFee} + \min(\text{maxPriorityFee}, \text{maxFee}-\text{baseFee})$, not `maxFeePerGas`, which is a ceiling with refund. | Protocol requirement | EIP-1559 |
+| Gas anomaly rule | A relative rule ($> 5\times$ baseline, via `gas_baseline_gwei`) SHOULD be configured alongside the fixed ceiling. Both the $5\times$ multiple and the 200 Gwei ceiling are **engineering defaults**, chain-specific and not standards. | Engineering default | Engine requirement |
+| Fail-closed inputs | Non-finite or negative numeric inputs MUST raise rather than be screened: `NaN` defeats every threshold comparison and yields `TRANSACTION_SAFE` on corrupt data. | Engine requirement | Engine requirement (IEEE-754 comparison semantics) |
+| Categorical method block | Approval-granting calls SHOULD be configured in `blocking_methods` rather than relied on to breach the additive threshold: an approval moves no value, so the high-value vector cannot see the exposure it creates. The set is empty by default — which calls are prohibited is a custody policy decision, not a standard. | Engineering default | Engine requirement |
+| Undecodable calldata | Calldata that could not be decoded MUST be treated as an unapproved method call and can never be whitelisted; only genuinely empty calldata bypasses that vector. | Engine requirement | Engine requirement |
+| Scope: velocity | Cumulative/structured withdrawal patterns are out of scope — this engine is stateless and scores one transaction in isolation. | Engine scope limit | `withdrawal-velocity-limits-and-anomaly-detection` |
+| Scope: non-US regimes | EU/EEA CASPs are separately subject to the travel rule from 30 Dec 2024; UK, Singapore and other regimes impose their own screening duties. None are implemented here. | Mandatory where applicable, not implemented | Regulation (EU) 2023/1113 |

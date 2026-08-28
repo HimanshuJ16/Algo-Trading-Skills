@@ -1,7 +1,176 @@
 # Standards for Risk Model Backtesting Against Realized Outcomes
 
-| Zone | 250-Day Exception Count | Status | Capital Add-On |
+All figures below are quoted from the primary text of the cited instrument.
+
+## 1. Basel supervisory traffic-light zones (250 observations, 99% coverage)
+
+BCBS, *Supervisory framework for the use of "backtesting" in conjunction with the internal
+models approach to market risk capital requirements*, January 1996 (bcbs22), Table 2.
+Carried into the Basel Framework at MAR32.8–MAR32.15, where the "yellow" zone is renamed
+"amber" — the same zone.
+
+| Zone | Exceptions | bcbs22 Table 2 increase in scaling factor | Cumulative probability |
 |---|---|---|---|
-| Green Zone | 0 to 4 exceptions | Model Validated | 0.0x |
-| Yellow Zone | 5 to 9 exceptions | Model Accepted | 0.4x - 0.85x |
-| Red Zone | $\ge 10$ exceptions | Model Rejected | 1.0x (Model Disqualified) |
+| Green | 0 | 0.00 | 8.11% |
+| Green | 1 | 0.00 | 28.58% |
+| Green | 2 | 0.00 | 54.32% |
+| Green | 3 | 0.00 | 75.81% |
+| Green | 4 | 0.00 | 89.22% |
+| Yellow | 5 | 0.40 | 95.88% |
+| Yellow | 6 | 0.50 | 98.63% |
+| Yellow | 7 | 0.65 | 99.60% |
+| Yellow | 8 | 0.75 | 99.89% |
+| Yellow | 9 | 0.85 | 99.97% |
+| Red | 10 or more | 1.00 | 99.99% |
+
+The bcbs22 column is an **increase** applied to a base scaling factor of three, not a total
+multiplier.
+
+## 2. Zone boundaries at sample sizes other than 250
+
+bcbs22 Table 2, notes (verbatim):
+
+> "The boundaries shown in the table are based on a sample of 250 observations. For other
+> sample sizes, the yellow zone begins at the point where the cumulative probability equals
+> or exceeds 95%, and the red zone begins at the point where the cumulative probability
+> equals or exceeds 99.99%."
+
+Section III(c) restates the rule and its derivation: "For other sample sizes, the boundaries
+should be deduced by calculating the binomial probabilities associated with true coverage of
+99%."
+
+Boundaries computed under this rule, for reference:
+
+| $T$ | Yellow begins at | Red begins at | Linear rescaling would imply |
+|---|---|---|---|
+| 125 | 3 | 7 | 2 / 5 |
+| 250 | 5 | 10 | 5 / 10 |
+| 500 | 9 | 15 | 10 / 20 |
+| 750 | 12 | 20 | 15 / 30 |
+| 1000 | 15 | 24 | 20 / 40 |
+
+Linear rescaling of the exception count is **not** the published rule and diverges sharply
+from it away from $T = 250$.
+
+## 3. In-force capital multipliers — three distinct tables
+
+These are published on different bases and must never be added to one another.
+
+| Exceptions | bcbs22 Table 2 (increase, base 3) | MAR32.9 Table 1 (total multiplier) | SEC 17 CFR 240.15c3-1e App. E Table 1 (total factor) |
+|---|---|---|---|
+| 0–4 | 0.00 | 1.50 | 3.00 |
+| 5 | 0.40 | 1.70 | 3.40 |
+| 6 | 0.50 | 1.76 | 3.50 |
+| 7 | 0.65 | 1.83 | 3.65 |
+| 8 | 0.75 | 1.88 | 3.75 |
+| 9 | 0.85 | 1.92 | 3.85 |
+| 10 or more | 1.00 | 2.00 | 4.00 |
+
+The SEC Appendix E factors equal $3 + \text{the bcbs22 increment}$. The MAR32.9 multipliers
+do not.
+
+## 4. Exception counting rules
+
+Basel Framework MAR32.5 (bank-wide) and MAR32.18 (trading desk):
+
+- MAR32.5(1) / MAR32.18(1) — "Exceptions for actual losses are counted separately from
+  exceptions for hypothetical losses; the overall number of exceptions is the greater of
+  these two amounts."
+- MAR32.5(2) / MAR32.18(2) — "In the event either the P&L or the daily VaR measure is not
+  available or impossible to compute, it will count as an outlier."
+- MAR32.4 — the comparison is of a VaR measure "calibrated to a one-day holding period"
+  against each of actual P&L (APL) and hypothetical P&L (HPL) over the prior 12 months.
+- MAR32.3(3) — the supervisory response is based on "the number of exceptions over the
+  course of 12 months (ie 250 trading days)".
+- bcbs22 Sec. II — the formal testing and accounting of exceptions is **quarterly**, using
+  the most recent twelve months of data. Banks are urged to backtest on both hypothetical
+  and actual trading outcomes.
+
+## 5. Consequence of a red-zone result
+
+bcbs22 Sec. III(f):
+
+> "if a bank's model falls into the red zone, the supervisor should automatically increase
+> the multiplication factor applicable to a firm's model by one (from three to four).
+> Needless to say, the supervisor should also begin investigating the reasons why the bank's
+> model produced such a large number of misses, and should require the bank to begin work on
+> improving its model immediately."
+
+MAR32.15: "If a bank's model falls into the backtesting red zone, the supervisor will
+automatically increase the multiplication factor applicable to the bank's model or may
+disallow use of the model."
+
+A red zone therefore produces an **automatic capital multiplier increase** and a
+**possible** supervisory disallowance. It is not an automatic model disqualification.
+MAR32.14 places disallowance "in the case of severe problems with the basic integrity of the
+model".
+
+## 6. SEC alternative-net-capital broker-dealers
+
+17 CFR 240.15c3-1e(d)(1)(iii), Appendix E to Rule 15c3-1:
+
+- (A) Backtest "by comparing its actual daily net trading profit or loss with the
+  corresponding VaR measure generated by the VaR model, using a 99 percent, one-tailed
+  confidence level with price changes equivalent to a one business-day movement in rates and
+  prices, for each of the past 250 business days".
+- (B) "On the last business day of each quarter, the broker or dealer must identify the
+  number of backtesting exceptions of the VaR model … for which the actual net trading loss,
+  if any, exceeds the corresponding VaR measure".
+- (C) The Table 1 multiplication factor applies "until it obtains the next quarter's
+  backtesting results". The initial multiplication factor is three (Appendix E paragraph (b)(1)).
+
+Scope note: Appendix E applies only to broker-dealers whose application to use the
+alternative net capital computation has been approved. It is not a general requirement on
+all broker-dealers, and it is not a Basel obligation.
+
+## 7. FRTB desk-level pass/fail gate (out of scope for the traffic light)
+
+MAR32.19: "If any given trading desk experiences either more than 12 exceptions at the 99th
+percentile or 30 exceptions at the 97.5th percentile in the most recent 12-month period, the
+capital requirement for all of the positions in the trading desk must be determined using
+the standardised approach." This is a separate test from the bank-wide traffic light.
+
+## 8. Statistical tests
+
+| Test | Source | Statistic | Null | Distribution |
+|---|---|---|---|---|
+| Unconditional coverage (POF) | Kupiec (1995), *J. Derivatives* 3(2) 73–84 | $LR_{uc}$ | exception rate $= p$ | $\chi^2_1$, two-sided |
+| Independence (Markov) | Christoffersen (1998), *Int. Econ. Rev.* 39(4) 841–862 | $LR_{ind}$ | breach today independent of breach yesterday | $\chi^2_1$ |
+| Conditional coverage | Christoffersen (1998) | $LR_{cc} = LR_{uc} + LR_{ind}$ | both properties hold | $\chi^2_{2}$ |
+| Expected Shortfall | Acerbi & Székely (2014), *Risk* 27, 76–81 | $\bar{Z}_2$ | $E[\bar{Z}_2] = 0$ | no closed form |
+
+$\chi^2_1$ survival: $P(\chi^2_1 > s) = \operatorname{erfc}(\sqrt{s/2})$ — an identity, since
+a $\chi^2_1$ variate is the square of a standard normal.
+$\chi^2_2$ survival: $P(\chi^2_2 > s) = \exp(-s/2)$.
+
+The Acerbi–Székely backtest function is
+$Z_2(e, v, x) = x \cdot \mathbb{1}\{x + v < 0\} / (\alpha e) + 1$, averaged over the window,
+with $x$ the realised P&L (negative for a loss) and $v, e$ positive magnitudes. $Z_2$ is
+strictly increasing in both $v$ and $e$, so $\bar{Z}_2 < 0$ indicates that VaR and/or ES
+underestimate realised risk. **Its critical value requires simulating the predictive
+distribution**; published fixed thresholds are specific to one $(\alpha, \varphi)$ pair and
+must not be reused at another $\alpha$. No supervisor prescribes an ES backtest — MAR32
+backtests VaR even under an ES-based capital metric.
+
+## 9. Statistical limitations acknowledged by the sources
+
+- bcbs22 Sec. III(c): "there is no threshold number of exceptions that yields both a low
+  probability of erroneously rejecting an accurate model and a low probability of
+  erroneously accepting all of the relevant inaccurate models. It is for this reason that
+  the Committee has rejected an approach that contains only a single threshold."
+- bcbs22 Sec. III(f) notes that a market regime shift can generate a cluster of exceptions
+  that "would all be occurring for the same reason", which is why breach clustering must be
+  tested separately from the count.
+- Campbell, *A Review of Backtesting and Backtesting Procedures*, Federal Reserve FEDS
+  2005-21, Sec. 3.2: the Markov test looks only one day back, so dependence at longer lags
+  is invisible to it; the Christoffersen–Pelletier (2004) duration test has more power.
+
+## Sources
+
+| Claim | Source | Retrieved |
+|---|---|---|
+| Zone boundaries, plus factors, non-250 rule, red-zone response | BCBS bcbs22, January 1996 — https://www.bis.org/publ/bcbs22.pdf | 2026-08-28 |
+| MAR32.4–32.19 backtesting requirements and multiplier Table 1 | BCBS d457, *Minimum capital requirements for market risk*, January 2019 — https://www.bis.org/bcbs/publ/d457.pdf | 2026-08-28 |
+| Appendix E backtesting and multiplication factor table | 17 CFR 240.15c3-1e — https://www.govinfo.gov/content/pkg/CFR-2011-title17-vol3/pdf/CFR-2011-title17-vol3-sec240-15c3-1e.pdf | 2026-08-28 |
+| Independence property, Markov test framing, test limitations | Campbell, FEDS 2005-21 — https://www.federalreserve.gov/pubs/feds/2005/200521/200521pap.pdf | 2026-08-28 |
+| Acerbi–Székely $Z_2$ definition and rejection direction | Zeliade Systems, *Backtesting Expected Shortfall* (secondary source restating Acerbi & Székely 2014) — https://www.zeliade.com/wp-content/uploads/whitepapers/zwp-011-BacktestingExpectedShortfall.pdf | 2026-08-28 |

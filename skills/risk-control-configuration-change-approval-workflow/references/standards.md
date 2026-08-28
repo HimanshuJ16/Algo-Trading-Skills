@@ -4,6 +4,7 @@ Use these requirements when adapting the reference workflow. “Must” denotes 
 
 ## Contents
 
+- Regulatory anchoring
 - Control boundary
 - Configuration model
 - Identity and authorization
@@ -14,6 +15,29 @@ Use these requirements when adapting the reference workflow. “Must” denotes 
 - Security and privacy
 - Availability and recovery
 - Verification gates
+
+## Regulatory anchoring
+
+Applicability is jurisdiction- and entity-dependent. Nothing below is legal advice; encode only
+what applies to your firm and entity type, and keep that determination auditable. This table is
+not exhaustive — it lists the sources that were verified against primary text for this skill.
+
+| Source | Applies to | Verified requirement | Where it lands here |
+|---|---|---|---|
+| **SEC Rule 15c3-5(b), (d)** (17 CFR 240.15c3-5) | US registered broker-dealers with market access, or providing it to others | Must "establish, document, and maintain a system of risk management controls and supervisory procedures"; the paragraph (c) controls "shall be under the direct and exclusive control of the broker or dealer", subject only to the narrow (d)(1) written allocation to a broker-dealer customer | CC-01, CC-04, DAT-01. The change record is part of the documented system, and the authoritative store must stay under the firm's control rather than a vendor's |
+| **SEC Rule 15c3-5(e)(1)-(2)** | same | Review "no less frequently than annually" the market-access business activity "to assure the overall effectiveness of such risk management controls and supervisory procedures", in accordance with written procedures and documented; annual CEO certification | OBS-01, DAT-07. Retained approval evidence is what that review draws on. The rule sets an annual floor and does **not** itself mandate per-change maker-checker approval |
+| **FINRA Regulatory Notice 15-09** (March 2015) — guidance describing effective practices, not a rule | FINRA members engaging in algorithmic trading strategies | Effective practices include "documenting and periodically reviewing parameter settings for the firm's risk controls, and making any parameter changes deemed appropriate"; "placing appropriate controls and limitations on a trader's ability to overwrite or otherwise evade system controls"; "implementing a development and change management process"; and "establishing a quality assurance process such that testing is performed independently of code development" | IAM-02, IAM-03, APR-01. The clearest published support for separating whoever wants a limit loosened from whoever approves it |
+| **MiFID II RTS 6 Art. 1(a), (c)** (Comm. Del. Reg. (EU) 2017/589) | EU investment firms engaged in algorithmic trading, providing DEA, or acting as general clearing member | Governance must set out "procedures to approve the development, deployment and subsequent updates of trading algorithms" and "a separation of tasks and responsibilities of trading desks on the one hand and supporting functions, including risk control and compliance functions, on the other" | IAM-02, IAM-03, IAM-06. Direct basis for maker-checker and for the optional independent applier |
+| **MiFID II RTS 6 Art. 11** (management of material changes) | same | "any proposed material change to the production environment related to algorithmic trading is preceded by a review of that change by a person designated by senior management", with review depth "proportionate to the magnitude of the proposed change"; functional changes must be communicated to the traders in charge, the compliance function, and the risk management function | APR-01, APR-02. The checker must be a *designated* reviewer, and quorum/rollout should scale with blast radius |
+| **MiFID II RTS 6 Art. 9** (annual self-assessment and validation) | same | Annual self-assessment covering, among others, "its governance, accountability and approval framework"; validation report drawn up by the risk management function, audited by internal audit where one exists, approved by senior management | Verification gates below |
+| **MiFID II RTS 6 Art. 12, 15** | same | Art. 12 kill functionality to cancel unexecuted orders immediately as an emergency measure; Art. 15(1) mandated pre-trade controls on order entry (price collars, maximum order values/volumes, maximum message limits) | CC-01, CC-03. These are *runtime* obligations whose settings this workflow governs; approval never substitutes for them |
+| **NIST SP 800-53 Rev. 5 — CM-3, CM-5, AC-5** — US federal baseline; a benchmark, not an obligation, for a private trading firm | US federal information systems; widely adopted voluntarily | CM-3 configuration change control: review and approve or disapprove changes with security impact analysis, document decisions, retain records, audit change activity. CM-5 access restrictions for change. AC-5 separation of duties | The state model, RBAC split, and audit chain |
+| **ISO/IEC 27001:2022 Annex A 8.32 "Change management"** — certification standard, paywalled; control title and statement only, not verified against the purchased text | Organisations operating an ISO 27001 ISMS | Changes to information processing facilities and information systems are to be subject to change management procedures | The workflow as a whole |
+
+**Verify separately if in scope:** UK (RTS 6 as assimilated law, FCA SYSC/MAR 7A), India (SEBI and
+exchange algo-approval requirements), Singapore MAS, Hong Kong SFC, Australia ASIC, Japan FSA,
+Canada CIRO, and any venue-level rulebook obligations. Do not assume a requirement verified in one
+jurisdiction transfers to another.
 
 ## Control boundary
 
@@ -27,10 +51,10 @@ Use these requirements when adapting the reference workflow. “Must” denotes 
 - **CFG-01 — Typed schema:** Validate schema version, required fields, enumerations, units, bounds, and unknown fields. Reject implicit coercion such as strings to numbers.
 - **CFG-02 — Domain invariants:** Validate relationships such as order limit ≤ position limit, strategy allocation ≤ account limit, daily loss limit ≤ approved capital, and venue limits ≤ broker constraints. A syntactically valid payload is not necessarily safe.
 - **CFG-03 — Exact representation:** Represent monetary values, prices, quantities, tick/lot sizes, and ratios with an agreed canonical format. If binary floats are allowed, reject NaN and infinity and document cross-language digest behavior. Prefer fixed-point integers or decimal strings where exactness is required.
-- **CFG-04 — Immutable snapshot:** Canonicalize the complete proposed configuration server-side. Bind the request, diff, review, approval, and apply operation to one cryptographic digest. Any mutation requires a new request and approvals.
+- **CFG-04 — Immutable snapshot:** Canonicalize the complete proposed configuration server-side. Bind the request, diff, review, approval, and apply operation to one cryptographic digest. Any mutation requires a new request and approvals. Canonicalization must be lossless: reject values the encoder would silently coerce (non-string mapping keys, tuples, dates, decimals) rather than letting the checker review a payload the maker did not submit, and reject distinct payloads that would otherwise collide on one digest.
 - **CFG-05 — Versioned policy:** Include the risk schema and approval-policy version in the signed/hashed approval context. Revalidate at apply time; invalidate or re-review requests after materially incompatible policy changes.
 - **CFG-06 — No secrets:** Risk configuration, diffs, reasons, tickets, logs, and events must not contain API keys, private keys, passwords, bearer tokens, session cookies, or approval credentials. Reference secrets through a secrets manager identifier only when unavoidable.
-- **CFG-07 — Bounded payload:** Enforce request size and nesting limits before parsing or persistence.
+- **CFG-07 — Bounded payload:** Enforce request size and container-nesting limits before canonicalization or persistence. An unbounded structure must fail as a validation error, never as an interpreter-level recursion failure.
 
 ## Identity and authorization
 
@@ -104,3 +128,11 @@ Production readiness requires evidence for all of the following:
 - Adapter tests inject timeouts, duplicate delivery, partial propagation, stale reads, and broker/venue rejection.
 - Security tests cover role forgery, cross-environment access, identifier collision, secret leakage, oversized payloads, and audit tampering.
 - Operational tests prove detection, reconciliation, rollback, emergency tightening, and restoration from backup.
+
+## Sources
+
+- 17 CFR 240.15c3-5 (Risk management controls for brokers or dealers with market access) — <https://www.law.cornell.edu/cfr/text/17/240.15c3-5>
+- FINRA Regulatory Notice 15-09, *Guidance on Effective Supervision and Control Practices for Firms Engaging in Algorithmic Trading Strategies* (March 2015) — <https://www.finra.org/rules-guidance/notices/15-09>
+- Commission Delegated Regulation (EU) 2017/589 (RTS 6) — <https://eur-lex.europa.eu/eli/reg_del/2017/589/oj/eng>
+- NIST SP 800-53 Rev. 5, *Security and Privacy Controls for Information Systems and Organizations* — <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf>
+- ISO/IEC 27001:2022, Annex A control 8.32 (paywalled) — <https://www.iso.org/standard/27001>

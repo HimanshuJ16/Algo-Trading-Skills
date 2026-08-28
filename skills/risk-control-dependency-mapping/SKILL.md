@@ -11,7 +11,7 @@ tags:
 - resilience
 brokers_frameworks:
 - Broker-agnostic
-version: "1.1.0"
+version: "1.2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -54,7 +54,7 @@ The reference `RiskDependencyMapper` provides immutable nodes/edges, determinist
 - **Dependency versus correlation**: Add an edge only when the consumer’s safety, correctness, or availability relies on the source. Record shared failure domains separately; correlation alone is not a directed contract.
 - **Redundancy group**: Group sources only when each is a tested, capacity-sufficient, independently failed-over alternative. Two feeds backed by the same vendor, network, credentials, clock, or parser are not independent.
 - **Fail closed versus fail open**: Determine observed consumer behavior for stale, missing, invalid, and contradictory input. Documentation intent is insufficient.
-- **Degradation propagation**: Treat degraded risk data conservatively. The reference analyzer propagates degradation without declaring total loss until all alternatives fail.
+- **Degradation propagation**: Treat degraded risk data conservatively. The reference analyzer propagates degradation without declaring total loss until every alternative is functionally lost; an alternative that is itself degraded but still serving counts as available, so a redundant contract never models worse than a single one.
 - **Cycle handling**: Retain a real cycle, but classify it as an error requiring bounded startup, recovery, and failure semantics. Do not delete an edge merely to obtain a DAG.
 - **Static versus runtime graph**: Use static models for review and scenario analysis; use telemetry/service catalogs for continuous verification. Reconcile the two rather than choosing one.
 
@@ -86,7 +86,7 @@ Run:
 python scripts/test_risk_dependency_mapper.py
 ```
 
-The suite covers redundant-source degradation, complete redundancy loss, multi-hop propagation, fail-open exposure, simultaneous failures, deterministic JSON, single-point analysis, cycles, missing staleness, unmonitored edges, invalid redundancy, structural rejection, enum/value validation, and escaped DOT output.
+The suite covers redundant-source degradation, degraded-but-serving alternatives, complete redundancy loss, multi-hop propagation, fail-open exposure, simultaneous failures, deterministic JSON, single-point analysis including control-to-control dependencies, cycles, missing staleness, unmonitored edges, invalid redundancy, structural rejection, enum/value/argument validation, and escaped DOT output.
 
 Before production adoption, replay the inventory against deployed manifests and telemetry, inject stale/corrupt/disconnected dependencies in a non-production environment, and verify control decisions, kill switches, alerts, recovery objectives, and owner escalation.
 

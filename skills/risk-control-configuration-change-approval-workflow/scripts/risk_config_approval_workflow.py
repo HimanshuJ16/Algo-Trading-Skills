@@ -22,6 +22,12 @@ logger = logging.getLogger(__name__)
 
 ConfigValidator = Callable[[Mapping[str, Any]], None]
 
+# Container nesting permitted in a proposed configuration.  The cap keeps the structural walk
+# and json.dumps well inside CPython's recursion limit so hostile input raises ValidationError
+# instead of an unhandled RecursionError.
+_DEFAULT_MAX_DEPTH = 32
+_MAX_SUPPORTED_DEPTH = 64
+
 
 class WorkflowError(Exception):
     """Base class for expected workflow failures."""
@@ -66,8 +72,19 @@ class Actor:
     roles: frozenset[str]
 
     def __post_init__(self) -> None:
-        if not self.actor_id.strip() or not self.roles or any(not role.strip() for role in self.roles):
-            raise ValidationError("actor_id and at least one non-empty role are required")
+        if not isinstance(self.actor_id, str) or not self.actor_id.strip():
+            raise ValidationError("actor_id is required")
+        # A bare string is iterable, so an unchecked ``roles="RISK_MANAGER"`` would construct
+        # successfully and only fail later with TypeError on the authorization intersection.
+        if isinstance(self.roles, (str, bytes)) or not isinstance(
+            self.roles, (set, frozenset, list, tuple)
+        ):
+            raise ValidationError("roles must be a set, frozenset, list, or tuple of role names")
+        if not self.roles or any(
+            not isinstance(role, str) or not role.strip() for role in self.roles
+        ):
+            raise ValidationError("at least one non-empty role name is required")
+        object.__setattr__(self, "roles", frozenset(self.roles))
 
 
 @dataclass(frozen=True)
@@ -88,6 +105,7 @@ class ApprovalPolicy:
     request_ttl: timedelta = timedelta(hours=24)
     require_independent_applier: bool = False
     max_payload_bytes: int = 262_144
+    max_payload_depth: int = _DEFAULT_MAX_DEPTH
     forbidden_key_names: frozenset[str] = field(
         default_factory=lambda: frozenset(
             {
@@ -116,10 +134,16 @@ class ApprovalPolicy:
             raise ValidationError("request_ttl must be positive")
         if self.max_payload_bytes < 1:
             raise ValidationError("max_payload_bytes must be positive")
+        if not 1 <= self.max_payload_depth <= _MAX_SUPPORTED_DEPTH:
+            raise ValidationError(
+                f"max_payload_depth must be between 1 and {_MAX_SUPPORTED_DEPTH}"
+            )
 
 
 @dataclass(frozen=True)
 class ApprovalRecord:
+    """One checker decision, bound to the request digest that was actually reviewed."""
+
     approver_id: str
     role: str
     approved_at: datetime
@@ -128,6 +152,15 @@ class ApprovalRecord:
 
 @dataclass(frozen=True)
 class ChangeRequest:
+    """Immutable snapshot of a change request.
+
+    ``config_digest`` is the *request* digest: SHA-256 over the request ID, environment,
+    base version, submitter, reason, ticket, policy version, and canonical configuration --
+    not a digest of the configuration alone.  It is the value passed to
+    :meth:`VersionedConfigStore.apply` as ``request_digest``; that method's
+    ``config_digest`` argument is SHA-256 over the canonical configuration JSON only.
+    """
+
     request_id: str
     environment: str
     base_version: int
@@ -166,7 +199,13 @@ class AuditEvent:
 
 
 class VersionedConfigStore(Protocol):
-    """Atomic persistence boundary required by the workflow."""
+    """Atomic persistence boundary required by the workflow.
+
+    An adapter must derive ``VersionedConfig.config_digest`` as SHA-256 over the same canonical
+    JSON encoding this module uses (sorted keys, ``separators=(",", ":")``, ``allow_nan=False``,
+    ``ensure_ascii=False``).  A different encoding silently disables the submit-time no-op
+    check, which compares the active digest against the digest of the proposed payload.
+    """
 
     def read(self, environment: str) -> VersionedConfig:
         """Return the current version and a defensive configuration snapshot."""
@@ -333,7 +372,9 @@ class RiskConfigApprovalWorkflow:
         if base_version < 1:
             raise ValidationError("base_version must be positive")
 
-        config_json = _canonical_config(proposed_config)
+        config_json = _canonical_config(
+            proposed_config, max_depth=self._policy.max_payload_depth
+        )
         if len(config_json.encode("utf-8")) > self._policy.max_payload_bytes:
             raise ValidationError("proposed configuration exceeds max_payload_bytes")
         sensitive_path = _find_forbidden_key(
@@ -476,6 +517,9 @@ class RiskConfigApprovalWorkflow:
         now: datetime | None = None,
     ) -> ChangeRequest:
         occurred_at = _utc(now)
+        # IAM-04: every transition is reauthorized, so a revoked role blocks new privileged acts.
+        if not submitter.roles & self._policy.submitter_roles:
+            raise AuthorizationError("actor does not hold a submitter role")
         with self._lock:
             request = self._get(request_id)
             self._expire_if_needed(request, occurred_at)
@@ -549,7 +593,12 @@ class RiskConfigApprovalWorkflow:
             return self._snapshot(request)
 
     def reconcile(self, request_id: str, *, now: datetime | None = None) -> ChangeRequest:
-        """Repair local state after an apply response is lost; emit an audit event on repair."""
+        """Reconcile local state against the durable apply ledger.
+
+        Repairs state to ``APPLIED`` when the ledger proves this request and digest were
+        applied, and retires the request to ``EXPIRED`` when the ledger proves nothing was
+        applied and the request has passed its expiry.  Both repairs emit an audit event.
+        """
 
         occurred_at = _utc(now)
         with self._lock:
@@ -557,16 +606,20 @@ class RiskConfigApprovalWorkflow:
             applied_version = self._store.applied_version(
                 request.request_id, request.config_digest
             )
-            if applied_version is not None and request.state is not ChangeState.APPLIED:
-                request.state = ChangeState.APPLIED
-                request.applied_version = applied_version
-                self._record_event(
-                    "CHANGE_RECONCILED",
-                    request,
-                    "SYSTEM",
-                    occurred_at,
-                    {"applied_version": applied_version},
-                )
+            if applied_version is not None:
+                if request.state is not ChangeState.APPLIED:
+                    request.state = ChangeState.APPLIED
+                    request.applied_version = applied_version
+                    self._record_event(
+                        "CHANGE_RECONCILED",
+                        request,
+                        "SYSTEM",
+                        occurred_at,
+                        {"applied_version": applied_version},
+                    )
+            else:
+                # The ledger proves nothing was applied, so the sweeper retires stale requests.
+                self._expire_if_needed(request, occurred_at)
             return self._snapshot(request)
 
     def get_request(self, request_id: str) -> ChangeRequest:
@@ -670,9 +723,17 @@ class RiskConfigApprovalWorkflow:
         )
 
 
-def _canonical_config(config: Mapping[str, Any]) -> str:
+def _canonical_config(config: Mapping[str, Any], *, max_depth: int = _DEFAULT_MAX_DEPTH) -> str:
+    """Serialize a payload to canonical JSON, rejecting anything JSON would silently coerce.
+
+    ``json.dumps`` stringifies non-string mapping keys and turns tuples into lists.  In a
+    digest-bound approval workflow that coercion is unsafe: ``{1: "x"}`` and ``{"1": "x"}``
+    would share a digest, and the checker would review a payload the maker never submitted.
+    """
+
     if not isinstance(config, Mapping) or not config:
         raise ValidationError("configuration must be a non-empty mapping")
+    _assert_json_native(config, max_depth=max_depth)
     try:
         return json.dumps(
             dict(config),
@@ -683,6 +744,35 @@ def _canonical_config(config: Mapping[str, Any]) -> str:
         )
     except (TypeError, ValueError) as exc:
         raise ValidationError(f"configuration must contain finite JSON values: {exc}") from exc
+
+
+def _assert_json_native(value: Any, *, max_depth: int, path: str = "$", depth: int = 1) -> None:
+    """Reject non-JSON-native values, non-string keys, and nesting beyond ``max_depth``.
+
+    Depth is bounded before canonicalization so a deeply nested payload raises
+    :class:`ValidationError` rather than an unhandled ``RecursionError`` from the JSON encoder.
+    """
+
+    if isinstance(value, Mapping):
+        if depth > max_depth:
+            raise ValidationError(f"configuration nesting exceeds the permitted depth at {path}")
+        for key, nested in value.items():
+            if not isinstance(key, str):
+                raise ValidationError(
+                    f"configuration keys must be strings; {path} has a {type(key).__name__} key"
+                )
+            _assert_json_native(nested, max_depth=max_depth, path=f"{path}.{key}", depth=depth + 1)
+    elif isinstance(value, list):
+        if depth > max_depth:
+            raise ValidationError(f"configuration nesting exceeds the permitted depth at {path}")
+        for index, nested in enumerate(value):
+            _assert_json_native(
+                nested, max_depth=max_depth, path=f"{path}[{index}]", depth=depth + 1
+            )
+    elif not (value is None or isinstance(value, (str, bool, int, float))):
+        raise ValidationError(
+            f"{path} has unsupported type {type(value).__name__}; use JSON-native values only"
+        )
 
 
 def _request_digest(

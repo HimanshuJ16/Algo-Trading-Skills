@@ -60,7 +60,7 @@ Assign a shared `redundancy_group` only when all members are substitutable alter
 - shared vendor, region, network, DNS, IAM, credentials, code, state, and operator domains are understood;
 - failover has been exercised within its recovery objective.
 
-Loss of one alternative should produce a degraded-resilience signal. Loss of every alternative applies the group’s declared failure response.
+Loss of one alternative should produce a degraded-resilience signal. Only functional loss of every alternative applies the group’s declared failure response; an alternative that is itself degraded but still serving does not count as lost.
 
 ## Validate the graph
 
@@ -94,7 +94,7 @@ Cycles may represent real feedback such as exposure updates influenced by order 
 5. Render `to_dot(report)` for review, but use JSON as the machine-readable evidence. Protect both according to topology sensitivity.
 6. Challenge the result for missing dependencies and common causes; graph analysis is only as complete as its inventory.
 
-The reference algorithm propagates to a deterministic fixed point. A degraded dependency degrades an ungrouped consumer; a functional failure applies the edge response. Partial redundancy loss degrades the consumer, while loss of all alternatives applies the group response.
+The reference algorithm propagates to a deterministic fixed point. A degraded dependency degrades an ungrouped consumer; a functional failure applies the edge response. Partial redundancy loss degrades the consumer, and the group response applies only once every alternative is functionally lost—a merely degraded member still counts as available, so adding a redundant alternative never models worse than a single dependency.
 
 ## Verify fail-open and fail-closed behavior
 

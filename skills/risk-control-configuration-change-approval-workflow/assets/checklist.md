@@ -20,6 +20,7 @@ Base version: __________  Policy/schema version: __________  Request digest: ___
 ## Validation evidence
 
 - [ ] Strict schema validation passed; unknown fields, implicit coercion, NaN, and infinity are rejected.
+- [ ] Canonicalization is lossless: payload size and container-nesting depth are bounded, and values the encoder would coerce (non-string keys, tuples, dates, decimals) were rejected rather than rewritten.
 - [ ] Domain and cross-scope invariants passed against the exact proposed payload.
 - [ ] Unit, integration, replay/simulation, and concurrency evidence is attached as appropriate to risk.
 - [ ] The canonical payload and server-generated digest bind request ID, scope, base version, maker, reason, ticket, policy version, and configuration.
@@ -28,7 +29,7 @@ Base version: __________  Policy/schema version: __________  Request digest: ___
 
 ## Authorization and approval
 
-- [ ] Identities and roles come from trusted IAM claims and are entitled to this environment/scope.
+- [ ] Identities and roles come from trusted IAM claims and are entitled to this environment/scope, and every transition — submit, approve, reject, cancel, apply — reauthorizes at the moment it is performed.
 - [ ] Maker and checker are distinct, non-shared identities; quorum contains unique authorized checkers.
 - [ ] Independent applier separation is enabled when required by policy or blast radius.
 - [ ] Checkers reviewed the exact diff, units, risk direction, evidence, rollback, expiry, base version, and digest.

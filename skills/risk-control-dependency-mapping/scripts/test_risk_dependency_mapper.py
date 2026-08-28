@@ -125,6 +125,91 @@ class RiskDependencyMapperTests(unittest.TestCase):
         self.assertIn("fx-rates", points)
         self.assertEqual(points["fx-rates"].unsafe_controls, ("order-limit",))
 
+    def test_degraded_alternative_still_counts_as_available(self):
+        """A group member that only degraded has not failed over, so the group survives."""
+
+        nodes = [
+            node("feed-a1", NodeKind.DATA_FEED, stale_after_seconds=1),
+            node("feed-a2", NodeKind.DATA_FEED, stale_after_seconds=1),
+            node("feed-b1", NodeKind.DATA_FEED, stale_after_seconds=1),
+            node("feed-b2", NodeKind.DATA_FEED, stale_after_seconds=1),
+            node("normalizer-a", NodeKind.SERVICE),
+            node("normalizer-b", NodeKind.SERVICE),
+            node("exposure-limit", NodeKind.CONTROL, Criticality.CRITICAL),
+        ]
+        edges = [
+            edge("feed-a1", "normalizer-a", redundancy_group="vendor-a"),
+            edge("feed-a2", "normalizer-a", redundancy_group="vendor-a"),
+            edge("feed-b1", "normalizer-b", redundancy_group="vendor-b"),
+            edge("feed-b2", "normalizer-b", redundancy_group="vendor-b"),
+            edge("normalizer-a", "exposure-limit", redundancy_group="normalizers"),
+            edge("normalizer-b", "exposure-limit", redundancy_group="normalizers"),
+        ]
+        graph = RiskDependencyMapper(nodes, edges)
+
+        both_normalizers_degraded = graph.analyze(["feed-a1", "feed-b1"])
+        self.assertEqual(
+            self.impact(both_normalizers_degraded, "normalizer-a").mode,
+            ImpactMode.DEGRADED,
+        )
+        self.assertEqual(
+            self.impact(both_normalizers_degraded, "normalizer-b").mode,
+            ImpactMode.DEGRADED,
+        )
+        self.assertEqual(
+            self.impact(both_normalizers_degraded, "exposure-limit").mode,
+            ImpactMode.DEGRADED,
+        )
+        self.assertEqual(both_normalizers_degraded.fail_closed_controls, ())
+
+        one_lost_one_degraded = graph.analyze(["feed-a1", "feed-a2", "feed-b1"])
+        self.assertEqual(
+            self.impact(one_lost_one_degraded, "normalizer-a").mode,
+            ImpactMode.FAIL_CLOSED,
+        )
+        self.assertEqual(
+            self.impact(one_lost_one_degraded, "exposure-limit").mode,
+            ImpactMode.DEGRADED,
+        )
+
+    def test_group_response_applies_when_every_alternative_is_lost(self):
+        report = self.mapper.analyze(["market-data-a", "market-data-b", "positions"])
+        self.assertEqual(self.impact(report, "risk-engine").mode, ImpactMode.FAIL_CLOSED)
+        self.assertEqual(
+            self.impact(report, "risk-engine").triggered_by,
+            ("market-data-a", "market-data-b", "positions"),
+        )
+
+    def test_control_feeding_another_control_is_reported_as_single_point(self):
+        graph = RiskDependencyMapper(
+            [
+                node("positions", NodeKind.STATE_STORE),
+                node("pretrade-aggregator", NodeKind.CONTROL, Criticality.HIGH),
+                node("order-limit", NodeKind.CONTROL, Criticality.CRITICAL),
+            ],
+            [
+                edge("positions", "pretrade-aggregator"),
+                edge("pretrade-aggregator", "order-limit"),
+            ],
+        )
+        points = {point.node_id: point for point in graph.single_points_of_failure()}
+        self.assertIn("pretrade-aggregator", points)
+        self.assertEqual(
+            points["pretrade-aggregator"].affected_high_criticality_controls,
+            ("order-limit",),
+        )
+        self.assertNotIn("order-limit", points)
+
+    def test_single_point_analysis_ignores_the_failed_node_itself(self):
+        points = {point.node_id for point in self.mapper.single_points_of_failure()}
+        self.assertNotIn("order-limit", points)
+        self.assertNotIn("drawdown-limit", points)
+        self.assertIn("risk-engine", points)
+
+    def test_analyze_rejects_a_bare_string(self):
+        with self.assertRaises(GraphValidationError):
+            self.mapper.analyze("positions")
+
     def test_validation_reports_fail_open_without_rejecting_analysis(self):
         issues = self.mapper.validate()
         fail_open = [issue for issue in issues if issue.code == "FAIL_OPEN_DEPENDENCY"]
