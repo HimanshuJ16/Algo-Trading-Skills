@@ -7,15 +7,16 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](LICENSE)
 [![Validate & Test Skills](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml)
 [![Skills Built](https://img.shields.io/badge/skills_built-504-brightgreen?style=flat-square)](#whats-inside--16-categories)
+[![Tests](https://img.shields.io/badge/tests-20%2C302_passing-brightgreen?style=flat-square)](#what-production-grade-means-here)
 [![Roadmap](https://img.shields.io/badge/roadmap-504_built-brightgreen?style=flat-square)](docs/ROADMAP_500.md)
 [![Domains](https://img.shields.io/badge/domains-16-9cf?style=flat-square)](#whats-inside--16-categories)
-[![Platforms](https://img.shields.io/badge/platforms-26%2B-blueviolet?style=flat-square)](#compatible-platforms)
+[![Platforms](https://img.shields.io/badge/platforms-26%2B-blueviolet?style=flat-square)](#compatible-platforms--zero-config-auto-discovery)
 [![agentskills.io](https://img.shields.io/badge/standard-agentskills.io-ff6600?style=flat-square)](https://agentskills.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-**504 production-grade algorithmic trading skills · 16 engineering domains · 5 regulatory & exchange frameworks · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 26+ platforms · Apache 2.0**
+**504 production-grade algorithmic trading skills · 16 engineering domains · 5 regulatory & exchange frameworks · 504 working reference implementations backed by 20,302 unit tests · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 26+ platforms · Apache 2.0**
 
-[Get Started](#quick-start) · [What's Inside](#whats-inside--16-categories) · [Frameworks & Standards](#five-regulatory--exchange-frameworks-one-skill-library) · [Platforms](#compatible-platforms) · [Contributing](#contributing)
+[Get Started](#quick-start) · [What's Inside](#whats-inside--16-categories) · [How It's Verified](#what-production-grade-means-here) · [Frameworks & Standards](#five-regulatory--exchange-frameworks-one-skill-library) · [Platforms](#compatible-platforms--zero-config-auto-discovery) · [Contributing](#contributing)
 
 ---
 
@@ -32,6 +33,8 @@ An AI coding agent can write a WebSocket client, a backtest loop, or an order-pl
 **Your AI agent doesn't know these failure modes — unless you give it these skills.**
 
 This repo contains **504 structured skills** spanning **16 engineering domains**, each following the [agentskills.io](https://agentskills.io) open standard. The library maps across key financial regulatory & exchange frameworks — SEC Rule 15c3-5, Reg NMS / Reg SHO, FINRA, EU MiFID II / RTS 6 / MAR, UK FCA, ASIC, SEBI, and ISDA OTC derivative standards. Clone it, point your agent at it, and your next trading system deployment gets expert-level quant infrastructure guidance in seconds.
+
+Every skill also states **where it stops**. A `## When NOT to Use` section on all 504 skills names the cases the skill does not cover and hands each one to the skill that does — because an agent applying a correct playbook to the wrong problem is its own failure mode, and it is the one a keyword match is most likely to cause.
 
 ---
 
@@ -68,8 +71,16 @@ npx skills add HimanshuJ16/Algo-Trading-Skills
 # Option 2: Git clone
 git clone https://github.com/HimanshuJ16/Algo-Trading-Skills.git
 cd Algo-Trading-Skills
+pip install -r requirements-dev.txt
 
-python tools/validate_skills.py   # verifies structure & frontmatter (504/504 pass)
+python tools/validate_skills.py    # structure, frontmatter & cross-references (504/504 pass)
+python tools/run_all_tests.py      # 20,302 unit tests across 504 skills (~60-85s)
+```
+
+Run one skill's suite on its own — the same command every skill quotes in its own Verification section:
+
+```bash
+python -m unittest discover -s skills/order-placement-idempotency/scripts
 ```
 
 Works immediately with Claude Code, GitHub Copilot, OpenAI Codex CLI, Cursor, Gemini CLI, and any agentskills.io-compatible platform.
@@ -80,9 +91,26 @@ Works immediately with Claude Code, GitHub Copilot, OpenAI Codex CLI, Cursor, Ge
 
 The quantitative trading and financial software engineering domain requires deep practitioner knowledge across market microstructure, exchange protocols, and risk engineering. AI agents can help build and scale trading infrastructure — but only if they have structured practitioner playbooks to work from. Today's generic LLMs can write Python code and API wrappers, but they lack the operational context that turns generic code into institutional-grade trading systems.
 
-Existing trading libraries give you broker SDKs, indicator formulas, or naive strategy backtests. None of them give an AI agent the structured decision-making workflow a senior quant infrastructure engineer follows: when to use each technique, what prerequisites to check, how to execute step-by-step, and how to verify results in production. That is the gap this project fills.
+Existing trading libraries give you broker SDKs, indicator formulas, or naive strategy backtests. None of them give an AI agent the structured decision-making workflow a senior quant infrastructure engineer follows: when to use each technique, when *not* to, what prerequisites to check, how to execute step-by-step, and how to verify results in production. That is the gap this project fills.
 
 **Algo-Trading-Skills** is not a collection of toy scripts. It is an AI-native knowledge base built from the ground up for the [agentskills.io](https://agentskills.io) standard — YAML frontmatter for sub-second discovery, structured Markdown for step-by-step execution, and reference files for deep technical context. Every skill encodes real practitioner workflows, not generic LLM summaries.
+
+---
+
+## What "production-grade" means here
+
+Skill libraries are easy to generate and hard to trust. Everything in this table is re-checked by CI on every push and pull request, so the claims stay true or the build goes red.
+
+| | |
+|---|---|
+| **504 working reference implementations** | ~292,000 lines of Python under `skills/*/scripts/`. Not pseudocode — importable modules with validated inputs and named exceptions. 465 of the 504 import nothing outside the Python standard library; the 39 that do reach mostly for numpy or pandas, and the uncommon dependencies are guarded imports, so the whole suite still runs on `requirements-dev.txt` alone. |
+| **504 unit test suites · 20,302 tests** | ~228,000 lines of tests, whole suite in ~60-85 seconds. A skill whose own reference implementation fails its own tests fails the build. |
+| **A machine-enforced contract** | [`tools/validate_skills.py`](tools/validate_skills.py) checks frontmatter fields and semver, the seven required body sections, every `Related Skills` cross-reference against a real directory, the `scripts/` layout, and that every test command quoted anywhere in a skill's Markdown actually runs from the repository root. |
+| **Verification you can paste** | All 504 skills quote a runnable command in their `## Verification` section, alongside the concrete assertions to check by hand. |
+| **Sourced, or explicitly unsourced** | 461 of 504 `references/standards.md` cite at least one primary source — the rule text, the exchange notice, the vendor spec. Where no external standard exists, the file says so and labels its numbers as configurable defaults rather than inventing an authority for them. |
+| **Stated scope boundaries** | `## When NOT to Use` on every skill, naming the excluded cases and handing each to the skill that owns it. |
+
+The CI workflow is [`.github/workflows/validate-skills.yml`](.github/workflows/validate-skills.yml): validate, then run all 504 suites, on every push and PR to `main`.
 
 ---
 
@@ -92,9 +120,9 @@ The library covers 16 core engineering domains spanning domestic and global mark
 
 | Domain | Built | Total Tracked | Key capabilities |
 |---|---|---|---|
-| [`broker-integration`](skills/) | **20** | 20 | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting, borrow cost modeling, cost budgeting |
-| [`real-time-architecture`](skills/) | **30** | 30 | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket reconnection without duplicate subscriptions |
-| [`backtesting-methodology`](skills/) | **35** | 35 | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation, synthetic data generation, standardized tearsheets |
+| [`broker-integration`](skills/) | **36** | 36 | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting, borrow cost modeling, cost budgeting |
+| [`real-time-architecture`](skills/) | **31** | 31 | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket reconnection without duplicate subscriptions |
+| [`backtesting-methodology`](skills/) | **31** | 31 | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation, synthetic data generation, standardized tearsheets |
 | [`financial-ml`](skills/) | **38** | 38 | Leakage-free feature engineering, offline-train/online-infer deployment, triple barrier labeler, sample weighting, model staleness detection |
 | [`risk-management`](skills/) | **39** | 39 | Kill switches and drawdown circuit breakers, correlation-aware exposure limits, Kupiec test VaR backtesting, tail risk hedging, risk escalation matrices |
 | [`deployment-ops`](skills/) | **30** | 30 | systemd process supervision, paper-to-live promotion checklist, IaC for trading hosts, canary releases, chaos engineering, secrets vault |
@@ -115,17 +143,27 @@ Full indexed list with build status: [`index.json`](index.json). Full 504-entry 
 
 ## How AI agents use these skills
 
-Each skill costs ~30-50 tokens to scan (frontmatter only) and 500-1,500 tokens to fully load (complete workflow). This progressive disclosure architecture lets agents search all 504 skills in a single pass without blowing context windows.
+The full library is roughly **1.4 million tokens** of Markdown — far past any context window. Progressive disclosure is what makes it usable: an agent searches short descriptions to find the right skill, then loads only that one.
+
+| Stage | What the agent reads | Cost |
+|---|---|---|
+| **Discover** | `index.json` — name + description for all 504 skills, queryable without touching a single skill file | ~90 tokens per skill |
+| **Load** | The one matching `SKILL.md` — workflow, scope boundaries, pitfalls, verification | ~2,000-3,700 tokens (median ~2,700) |
+| **Go deeper** | `references/` and `scripts/` for that skill only, once it is actually implementing | on demand |
+
+Because `index.json` is a flat JSON array, an agent narrows 504 candidates to a handful with a grep or a filter before loading anything.
 
 User prompt: *"My Fyers bot's live orders keep getting placed twice after a timeout"*
 
 Agent's internal process:
 
 ```text
-  1. Scans 504 skill frontmatters (~30-50 tokens each)
+  1. Queries index.json descriptions for all 504 skills
      → identifies order-placement-idempotency and token-lifecycle-live-probing as top matches.
 
   2. Loads top match: skills/order-placement-idempotency/SKILL.md
+     → checks When NOT to Use first — this is order placement, not a cancel-request race,
+       so the skill applies.
      → follows the structured Workflow section: classify timeout as ambiguous (not failed),
        reconcile against broker order book before any retry.
 
@@ -133,6 +171,7 @@ Agent's internal process:
      scripts/order_ledger.py for working helper logic.
 
   4. Validates results using the Verification section
+     → runs `python -m unittest discover -s skills/order-placement-idempotency/scripts`
      → confirms a simulated network timeout no longer produces duplicate executions.
 ```
 
@@ -146,30 +185,41 @@ Every skill follows a consistent directory structure:
 
 ```text
 skills/order-placement-idempotency/
-├── SKILL.md              ← Skill definition (YAML frontmatter + Markdown body)
+├── SKILL.md                  ← Skill definition (YAML frontmatter + Markdown body)
 ├── references/
-│   ├── standards.md      ← Broker/framework coverage + regulatory touchpoints
-│   └── workflows.md      ← Deep technical procedure reference
+│   ├── standards.md          ← Broker/framework coverage + regulatory touchpoints
+│   └── workflows.md          ← Deep technical procedure reference
 ├── scripts/
-│   └── order_ledger.py   ← Working helper script
+│   ├── order_ledger.py       ← Working reference implementation
+│   └── test_order_ledger.py  ← Its unittest suite
 └── assets/
-    └── checklist.md      ← Printable sign-off checklist
+    └── checklist.md          ← Printable sign-off checklist
 ```
+
+Each helper is a **standalone module** — no imports from other skills, no shared package — so you can lift one file out of the repo and into your own codebase without dragging the library along.
 
 ### YAML frontmatter (real example)
 
 ```yaml
 ---
 name: order-placement-idempotency
-description: >-
-  Use whenever a bot places, modifies, or cancels live orders and must
-  guarantee it never double-executes an order due to retries, timeouts,
-  or reconnects
+description: Use whenever a bot places, modifies, or cancels live orders and must
+  guarantee it never double-executes an order due to retries, timeouts, or reconnects
 domain: algorithmic-trading
 subdomain: broker-integration
-tags: ["broker-integration", "fyers-api-v3", "zerodha-kite-connect", "icici-breeze-api"]
-brokers_frameworks: ["Fyers API v3", "Zerodha Kite Connect", "ICICI Breeze API", "Upstox API v2", "Alpaca Trading API", "IBKR API"]
-version: "1.0"
+tags:
+- broker-integration
+- fyers-api-v3
+- zerodha-kite-connect
+- icici-breeze-api
+brokers_frameworks:
+- Fyers API v3
+- Zerodha Kite Connect
+- ICICI Breeze API
+- Upstox API v2
+- Alpaca Trading API
+- IBKR API
+version: "2.0.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -179,14 +229,15 @@ license: Apache-2.0
 
 ```text
 ## When to Use          Trigger conditions — when should an AI agent activate this skill?
+## When NOT to Use      Scope boundaries — each excluded case handed to the skill that owns it.
 ## Prerequisites        Required tools, access, and environment setup.
 ## Workflow             Step-by-step execution guide with specific decision points.
 ## Common Pitfalls      Named, specific failure modes this skill prevents.
-## Verification         How to confirm the skill was executed successfully.
+## Verification         How to confirm the skill was executed successfully, with a runnable command.
 ## Related Skills       Cross-links to other skills in this repo.
 ```
 
-`tools/validate_skills.py` enforces this structure in CI (see `.github/workflows/validate-skills.yml`).
+All seven sections are required. [`tools/validate_skills.py`](tools/validate_skills.py) enforces them in CI, along with the `scripts/` layout and the runnability of every documented test command — see [`docs/skill-anatomy.md`](docs/skill-anatomy.md) for the contract in prose and [`.github/workflows/validate-skills.yml`](.github/workflows/validate-skills.yml) for the pipeline.
 
 ---
 
@@ -230,6 +281,8 @@ To see how skills chain together in institutional production pipelines, explore 
 - [`examples/02_lookahead_free_backtest_with_slippage.py`](examples/02_lookahead_free_backtest_with_slippage.py) — Point-in-time signal engine + market impact slippage simulation + performance tear-sheet.
 - [`examples/03_cross_strategy_risk_parity_allocation.py`](examples/03_cross_strategy_risk_parity_allocation.py) — Rolling strategy correlations + risk parity rebalancing + automated strategy retirement.
 
+Cross-cutting maps live in [`mappings/broker-api-coverage.md`](mappings/broker-api-coverage.md) and [`mappings/regulatory-coverage.md`](mappings/regulatory-coverage.md); the system architecture the skills were extracted from is in [`docs/architecture.md`](docs/architecture.md).
+
 ---
 
 ## 🤖 LLM-Crawler Discoverability (`llms.txt`)
@@ -238,14 +291,13 @@ This repository supports machine-discoverable documentation standards for LLMs a
 - [`llms.txt`](llms.txt) — Concise index of core documentation, skill categories, and developer entrypoints.
 - [`llms-full.txt`](llms-full.txt) — Full architecture breakdown and domain mapping for large context windows.
 
-
 ---
 
 ## Releases & Build Verification
 
 | Version | Highlights | Status |
 |---|---|:---:|
-| **v1.0.0** | 504 skills · 16 domains · Full Python test suites & documentation · `tools/validate_skills.py` verified | **100% Passed (504/504)** |
+| **v1.0.0** | 504 skills · 16 domains · 504 reference implementations · 504 unit test suites · `tools/validate_skills.py` + `tools/run_all_tests.py` CI-enforced | **504/504 skills validated · 20,302/20,302 tests passing** |
 
 ---
 
@@ -256,6 +308,15 @@ This project grows through community contributions. Here is how to get involved:
 - **Add a new skill** — Follow the template and frontmatter structure enforced by `tools/validate_skills.py` and submit a PR.
 - **Improve existing skills** — Update workflows, refine code engines, add unit tests, or extend regulatory mappings.
 - **Report issues** — Found an edge case or missing failure mode? Open an issue.
+
+Before opening a PR, run both gates locally — CI runs exactly these two commands:
+
+```bash
+python tools/validate_skills.py
+python tools/run_all_tests.py
+```
+
+The quality bar is in [`CONTRIBUTING.md`](CONTRIBUTING.md), and it is a high one: would following this skill have prevented a real production bug, and is its Verification section actually checkable? A regulatory or broker-behaviour claim must be verifiable against an authoritative source — **a missing claim is better than a wrong or fabricated one.**
 
 Every PR is reviewed for technical accuracy and `agentskills.io` standard compliance.
 
