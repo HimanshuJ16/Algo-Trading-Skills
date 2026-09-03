@@ -56,6 +56,14 @@ anything parsing either needs updating.
   halt with no operator, reason, or audit record.
 - `satellite-imagery-based-signal-research` and `supply-chain-data-for-earnings-prediction`:
   removed deprecated placeholder signal functions and the tests asserting their values.
+- `point-in-time-database-for-ml-training-data` and
+  `post-incident-forensics-for-suspected-key-compromise`: both documented a trailing `Z` as a
+  valid timestamp but passed it straight to `datetime.fromisoformat`, which only accepts `Z`
+  from Python 3.11. On 3.10 each rejected its own documented format. Both now normalise `Z`
+  to `+00:00` before parsing.
+- `backtest-vs-live-performance-divergence-tracking`: `DivergenceSeverity` now pins `__str__`
+  to its value. Python 3.10 and 3.11 disagree on how a `(str, Enum)` member renders, so a
+  severity written into a report differed by interpreter.
 
 ### Changed — library shape
 - Merged duplicates: `cross-strategy-correlation-monitoring` into

@@ -89,6 +89,12 @@ def _parse_timestamp(raw: TimestampLike, field_name: str) -> Tuple[_dt.datetime,
     else:
         return _dt.datetime(day.year, day.month, day.day, tzinfo=_dt.timezone.utc), True
 
+    # `datetime.fromisoformat` only accepts a trailing 'Z' from Python 3.11. This module
+    # documents 'Z' as valid, so normalise it to the equivalent explicit offset rather
+    # than rejecting our own documented format on 3.10.
+    if text.endswith(("Z", "z")):
+        text = text[:-1] + "+00:00"
+
     try:
         parsed = _dt.datetime.fromisoformat(text)
     except ValueError as exc:

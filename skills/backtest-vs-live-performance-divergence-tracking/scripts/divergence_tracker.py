@@ -55,6 +55,14 @@ class DivergenceSeverity(str, Enum):
     WARNING = "WARNING"
     CRITICAL = "CRITICAL"
 
+    def __str__(self) -> str:
+        # Python 3.10 and 3.11 disagree on what a (str, Enum) member formats to:
+        # 3.10 renders f"{member}" as the value but str(member) as "Class.MEMBER",
+        # while 3.11 made both "Class.MEMBER". Pinning __str__ to the value keeps
+        # str(), format() and .value identical on every version, which is what a
+        # severity written into a report needs.
+        return self.value
+
 
 _SEVERITY_ORDER = {
     DivergenceSeverity.ACCEPTABLE: 0,

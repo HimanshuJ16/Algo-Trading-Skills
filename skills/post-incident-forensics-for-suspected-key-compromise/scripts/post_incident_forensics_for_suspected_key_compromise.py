@@ -195,8 +195,12 @@ def parse_utc_timestamp(value: Any, name: str) -> datetime:
     treasury activity. Rejected rather than assumed to be UTC.
     """
     token = _require_token(value, name, max_length=64)
+    # `datetime.fromisoformat` only accepts a trailing 'Z' from Python 3.11, and the
+    # error message below offers a 'Z' example, so normalise it to the equivalent
+    # explicit offset rather than rejecting our own documented format on 3.10.
+    normalised = token[:-1] + "+00:00" if token.endswith(("Z", "z")) else token
     try:
-        parsed = datetime.fromisoformat(token)
+        parsed = datetime.fromisoformat(normalised)
     except ValueError as exc:
         raise KeyForensicsError(
             f"{name} must be an ISO-8601 timestamp (e.g. '2026-07-31T12:00:00Z'), got {value!r}."
