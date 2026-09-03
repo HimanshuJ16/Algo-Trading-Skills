@@ -28,3 +28,7 @@ Thumbs.db
 # Build artifacts
 dist/
 build/
+
+# Local Claude Code project config (kept out of the plugin package;
+# .claude-plugin/ is intentionally NOT ignored)
+.claude/

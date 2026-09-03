@@ -1,8 +1,0 @@
-{
-  "name": "algo-trading-skills",
-  "version": "1.0.0",
-  "description": "504 structured algorithmic trading skills for AI agents following the agentskills.io standard",
-  "rules": [
-    "CLAUDE.md"
-  ]
-}
