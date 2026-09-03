@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from transfer_pricing_considerations_for_multi_entity_trading_operations import (
+from transfer_pricing_for_multi_entity_trading_operations import (
     SPLIT_BASIS_CONTRIBUTION,
     SPLIT_BASIS_RESIDUAL,
     DEMPEContribution,

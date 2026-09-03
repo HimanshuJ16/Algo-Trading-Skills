@@ -88,7 +88,7 @@ Use this skill in multi-strategy platforms, quantitative research hubs, and inte
 ## Related Skills
 
 - `cross-strategy-tax-lot-optimization`
-- `transfer-pricing-considerations-for-multi-entity-trading-operations`
+- `transfer-pricing-for-multi-entity-trading-operations`
 - `strategy-capacity-estimation-before-scaling-capital`
 - `data-vendor-contractual-usage-restriction-tracking`
 - `market-data-entitlement-and-licensing-per-venue`

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-09-03T09:06:27.068345+00:00",
+  "generated_at": "2026-09-03T09:24:24.790141+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -11935,7 +11935,7 @@
       "skill_md": "skills/transfer-learning-across-correlated-instruments/SKILL.md"
     },
     {
-      "name": "transfer-pricing-considerations-for-multi-entity-trading-operations",
+      "name": "transfer-pricing-for-multi-entity-trading-operations",
       "description": "Intercompany pricing engine for trading groups spread across legal entities \u2014 computes Cost Plus, CUP and TNMM settlement amounts from benchmarks you register, computes a Berry ratio only from a supplied COGS/opex split, and runs a DEMPE-keyed profit split as either a contribution or a residual analysis.",
       "domain": "Tax Accounting & Reporting",
       "subdomain": "Transfer Pricing & Multi-Entity Allocation",
@@ -11960,8 +11960,8 @@
       "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
-      "path": "skills/transfer-pricing-considerations-for-multi-entity-trading-operations",
-      "skill_md": "skills/transfer-pricing-considerations-for-multi-entity-trading-operations/SKILL.md"
+      "path": "skills/transfer-pricing-for-multi-entity-trading-operations",
+      "skill_md": "skills/transfer-pricing-for-multi-entity-trading-operations/SKILL.md"
     },
     {
       "name": "uk-fca-algorithmic-trading-systems-controls",

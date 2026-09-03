@@ -92,5 +92,5 @@ The engine determines which registered jurisdictions assert residence, resolves 
 ## Related Skills
 
 - `double-taxation-treaty-considerations-cross-border-trading`
-- `transfer-pricing-considerations-for-multi-entity-trading-operations`
+- `transfer-pricing-for-multi-entity-trading-operations`
 - `record-retention-periods-by-jurisdiction`

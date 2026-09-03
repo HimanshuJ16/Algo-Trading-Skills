@@ -195,7 +195,7 @@ python tools/run_all_tests.py
 
 ## Related Skills
 
-- `transfer-pricing-considerations-for-multi-entity-trading-operations`
+- `transfer-pricing-for-multi-entity-trading-operations`
 - `multi-jurisdiction-tax-residency-implications`
 - `record-keeping-requirements-for-tax-audit-defense`
 - `market-data-entitlement-and-licensing-per-venue`

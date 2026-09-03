@@ -1,5 +1,5 @@
 ---
-name: transfer-pricing-considerations-for-multi-entity-trading-operations
+name: transfer-pricing-for-multi-entity-trading-operations
 description: Intercompany pricing engine for trading groups spread across legal
   entities — computes Cost Plus, CUP and TNMM settlement amounts from
   benchmarks you register, computes a Berry ratio only from a supplied
@@ -80,7 +80,7 @@ Every settlement carries a `warnings` tuple recording the assumptions and red fl
 ## Verification
 
 ```bash
-python -m unittest discover -s skills/transfer-pricing-considerations-for-multi-entity-trading-operations/scripts
+python -m unittest discover -s skills/transfer-pricing-for-multi-entity-trading-operations/scripts
 ```
 
 The suite covers half-up money rounding, cost-plus and CUP arithmetic against independently derived figures, rejection of out-of-range markups and DEMPE weights, self-dealing and unregistered-party rejection, the Berry ratio computed from a real COGS/opex split, and contribution versus residual splits reconciling to the total PnL.
