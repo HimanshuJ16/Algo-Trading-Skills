@@ -87,7 +87,3 @@ both are execution-quality and mandate-completion controls, and they are house p
   promise the policy still learns well.
 - **A shield is a bound, not a validation.** It says nothing about whether the policy is
   profitable, well-calibrated, or free of look-ahead bias in its features.
-
-## Category
-
-`execution-algorithms` / `machine-learning` — see top-level `mappings/` directory.

@@ -17,7 +17,9 @@ Use this skill when a multi-asset portfolio holds vanilla fixed-vs-float Interes
 
 An IRS exchanges fixed-rate cash flows for a floating index (SOFR, ESTR, SONIA). Because DV01 is additive **within a single curve**, this module computes signed swap DV01 from the fixed-leg annuity, aggregates it with bond DV01, and sizes the par swap required for DV01 neutrality.
 
-**When NOT to use it**: this is a flat-curve, closed-form estimator, not a pricing library. Do not use it for booking, margin, CVA, key-rate/bucketed risk, curve trades (steepeners, butterflies), forward-starting or amortising swaps, swaptions or other optionality, or any shock large enough for convexity to matter (materially beyond ~100 bps). Those need a bootstrapped discount curve and a full cash-flow engine.
+## When NOT to Use
+
+This is a flat-curve, closed-form estimator, not a pricing library. Do not use it for booking, margin, CVA, key-rate/bucketed risk, curve trades (steepeners, butterflies), forward-starting or amortising swaps, swaptions or other optionality, or any shock large enough for convexity to matter (materially beyond ~100 bps). Those need a bootstrapped discount curve and a full cash-flow engine.
 
 ## Prerequisites
 

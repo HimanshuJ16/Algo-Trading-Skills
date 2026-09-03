@@ -229,7 +229,7 @@ order or trades endpoint is the authority on *what* changed.
   `DUPLICATE_CONTENT_MISMATCH` and `requires_reconciliation`.
 - Deliver the same event from 16 concurrent threads; confirm exactly one result
   has `apply_to_ledger is True`.
-- Run `python -m unittest discover -s scripts` from the skill directory and
+- Run `python -m unittest discover -s skills/webhook-based-order-fill-notifications/scripts` and
   confirm all tests pass.
 
 ## Related Skills

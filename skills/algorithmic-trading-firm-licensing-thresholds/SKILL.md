@@ -172,7 +172,7 @@ exclusions) is a prerequisite, not a feature.
 
 ## Verification
 
-Run `python -m unittest discover -s scripts` from the skill directory (58
+Run `python -m unittest discover -s skills/algorithmic-trading-firm-licensing-thresholds/scripts` (58
 tests). The suite asserts each jurisdiction's threshold at and around its
 boundary, that the Article 19 limbs fire independently at 2.0 and 4.0
 messages/second, that neither a low nor a high order rate can decide the EU

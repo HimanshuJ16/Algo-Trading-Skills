@@ -60,7 +60,3 @@ this module is a regulatory capital calculation; verify against the rule that bi
   cannot verify this.
 - **Component VaR decomposes the parametric VaR only** — not the historical VaR, not
   the ES — and inherits its distributional assumption.
-
-## Category
-
-`risk-management`

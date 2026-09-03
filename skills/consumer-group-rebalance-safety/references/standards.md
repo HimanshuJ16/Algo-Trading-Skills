@@ -98,8 +98,3 @@ Defaults as documented for Apache Kafka 4.1 ([Consumer Configs](https://kafka.ap
 | Monotonic clock | The rebalance-rate window uses `time.monotonic()`; wall-clock steps must not fabricate or suppress storm alerts. |
 | Bounded dedupe cache | The idempotency cache is capped and evicts oldest-first. It is process-local and is **not** a cross-worker duplicate guard. |
 | Thread safety | Rebalance callbacks run on the poll thread while processing runs on a worker thread; all state is guarded by a re-entrant lock. |
-
-## Category
-
-`Infrastructure / Event-Driven Systems & Streaming` — see the top-level `mappings/`
-directory for how categories roll up across the skill library.

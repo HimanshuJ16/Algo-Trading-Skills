@@ -105,7 +105,3 @@ framing is corrected: this is a divergence detector, not an audit signature.
 | `numpy.random.seed` is legacy; prefer a dedicated `Generator` | NumPy docs, *numpy.random.seed* — https://numpy.org/doc/stable/reference/random/generated/numpy.random.seed.html |
 | Completely reproducible results are not guaranteed across releases, commits, platforms, or CPU/GPU | PyTorch docs, *Reproducibility* — https://docs.pytorch.org/docs/stable/notes/randomness.html |
 | Dict insertion-order preservation (3.7+) and set order variation | Verified empirically on CPython 3.11.4 (table above) |
-
-## Category
-
-`backtesting-methodology` — see top-level `mappings/` directory.

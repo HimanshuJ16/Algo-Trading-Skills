@@ -87,10 +87,3 @@ broker-dealers, **not** to a self-directed trader running an algorithm through a
 broker, and it prescribes no data-quality metric. It is noted here only because a
 data-quality gate is a common component of an erroneous-order control, not because it
 mandates one.
-
-## Category
-
-Real-Time Architecture & Risk / Data Quality Monitoring & De-Risking. See
-`data-quality-monitoring-dashboard` for the detection layer this engine consumes, and
-`capital-preservation-mode-for-degraded-conditions` for the P&L-driven gate it
-deliberately does not duplicate.

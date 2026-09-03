@@ -55,11 +55,6 @@ trading result.
 | Backtrader | None natively — "the broker is, so to say, a single currency broker" | Community pattern is to subclass `CommissionInfo` so `getvalue(position, price)` returns a value already scaled into the account currency, updating the rate as the backtest advances. Treat as a workaround, not a supported feature. | [Backtrader community — multi-currency portfolio](https://community.backtrader.com/topic/655/multi-currency-portfolio-with-futures-markets) |
 | VectorBT | None — cash is a single series per column, or per group when `cash_sharing=True`; the simulation has no currency dimension | Normalize every price series into one reporting currency **before** simulating. There is no FX conversion inside `Portfolio`. | [vectorbt Portfolio API](https://vectorbt.dev/api/portfolio/base/) |
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Known limitations of this implementation
 
 - **Direct pairs only.** No triangulation through a third currency; chaining two quotes

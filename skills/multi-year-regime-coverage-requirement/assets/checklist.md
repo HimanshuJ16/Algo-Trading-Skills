@@ -34,7 +34,7 @@ Use this before signing off a backtest for promotion to live capital.
 
 ## Automated Testing
 
-- [ ] Run `python scripts/test_regime_coverage.py` from the `scripts/` directory — 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/multi-year-regime-coverage-requirement/scripts` — 100% pass rate.
 
 ## Sign-off
 

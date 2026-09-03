@@ -137,7 +137,3 @@ Consequences worth stating, because they bound what the output can be used for:
   `mean_quoted_spread_bps` reports what was actually produced.
 - **Depth and price streams are independent by construction**, which is a
   reproducibility property, not a claim that real depth is independent of price.
-
-## Category
-
-`data-management-global`

@@ -39,7 +39,7 @@ Use this before considering the skill's implementation complete.
 
 ## Testing
 
-- [ ] **Automated Testing:** Run `python scripts/test_fanout_engine.py` — 100% pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/multi-account-same-strategy-fan-out/scripts` — 100% pass rate.
 
 ## Sign-off
 

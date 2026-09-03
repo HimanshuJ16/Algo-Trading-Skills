@@ -101,7 +101,7 @@ The engine takes the target's returns and a peer benchmark index over a trailing
 - Confirm a constant return series yields `INCONCLUSIVE`, `relative_sharpe_z_score is None`, and `target_sharpe` NaN — not a Sharpe of 0.0 classified as impaired.
 - Confirm $z$ is unchanged between `periods_per_year` 252 and 12 at a zero risk-free rate, while the reported Sharpe ratios differ by $\sqrt{252/12}$.
 - Negative checks: an interior NaN, an Inf, a return at or below $-100\%$, duplicate index labels, an unsorted index, disjoint indices, fewer than `rolling_window_days` aligned observations, 2D input, non-numeric input, a non-finite risk-free rate, and each out-of-range constructor argument must all raise `DecayDiagnosticError`.
-- Run `python -m unittest test_strategy_performance_decay_detection_vs_market_wide_decay` from the `scripts/` directory and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/strategy-performance-decay-detection-vs-market-wide-decay/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

@@ -122,7 +122,7 @@ simply persist behind the shield. Do not mix the two.
 
 ## 5. Verification checklist for a change to this guard
 
-Re-run `python -m unittest discover -s scripts` and confirm, at minimum:
+Re-run `python -m unittest discover -s skills/reinforcement-learning-safety-constraints-for-execution/scripts` and confirm, at minimum:
 
 - A reducing order from an over-cap position still passes unintercepted.
 - A sign-crossing order still clamps to the far band edge, not to same-side headroom.

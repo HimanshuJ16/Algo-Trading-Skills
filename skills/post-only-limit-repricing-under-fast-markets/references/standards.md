@@ -86,7 +86,3 @@ market". Calibrate against your venue's published rate limits and your own fill 
 - **No venue rejection is modelled.** The engine prevents *client-side* crossing errors. It
   does not classify or handle venue rejections that arrive anyway (self-match prevention,
   price bands, entitlement, credit).
-
-## Category
-
-`execution-algorithms`

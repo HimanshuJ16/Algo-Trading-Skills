@@ -145,11 +145,6 @@ it; the terminal is injected as an adapter.
 - Broker-side floating stop levels. `trade_stops_level == 0` is treated as "no static minimum
   published", not as "any distance is acceptable".
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No jurisdiction-specific regulatory requirement is asserted by this skill. The duplicate-order

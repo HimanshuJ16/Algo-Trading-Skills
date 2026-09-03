@@ -76,7 +76,7 @@ Use this skill when building market gateways, order routers, or pre-trade risk f
 - Run the test suite:
 ```bash
 cd skills/japan-exchange-group-jpx-api-integration/scripts
-python -m unittest test_japan_exchange_group_jpx_api_integration.py
+python -m unittest discover -s skills/japan-exchange-group-jpx-api-integration/scripts
 ```
 
 ## Related Skills

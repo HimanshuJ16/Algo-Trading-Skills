@@ -98,7 +98,7 @@ All wire facts here come from the Euronext *Optiq MDG Messages — Interface Spe
 - Feed packet headers with PSN 101 then 105 and verify `gap_size == 3` and that the book is marked unsynchronized and quoting blocked until `mark_book_synchronized()` is called again.
 - Feed PSN 5000 then PSN 1 with flag bits 1–3 incremented and verify the restart is reported as a restart, not as reordering.
 - Negative checks: a packet shorter than 16 bytes, a Frame shorter than 10 bytes or longer than 1384, a body whose Frames overrun it, a negative quantity, an unknown side, an unknown Book State value, and constructing the engine without `price_decimals` must each raise.
-- Run `python scripts/test_euronext_optiq_market_data_integration.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/euronext-optiq-market-data-integration/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

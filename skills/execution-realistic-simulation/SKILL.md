@@ -69,6 +69,8 @@ The cost stack is not a rounding error. On NSE equity options at the rates effec
 - Confirm every statutory rate in the model carries an effective date, and that the date is not older than the most recent rate change for that venue.
 - Confirm that invalid inputs (unknown side string, zero ADV, NaN volatility, half-spread wider than the mid) raise rather than producing a fill.
 - After a period of live/paper trading, compare actual realized slippage and fill prices against the backtest's modeled assumptions; a large systematic gap means $\gamma$ needs recalibration before further backtest results are trusted.
+- Run the unit suite and confirm every test passes:
+  `python -m unittest discover -s skills/execution-realistic-simulation/scripts`.
 
 ## Related Skills
 

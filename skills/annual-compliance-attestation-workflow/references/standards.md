@@ -128,6 +128,3 @@ Disclosure Timeliness Report Card. See `references/workflows.md` for the recover
   Security-Based Swap Dealers, and Major Security-Based Swap Participants* (87 FR 66412).
 - SEC, *Announcement Regarding Private Fund Advisers Rules* (following *National Association of
   Private Fund Managers v. SEC*, 5th Cir., 5 June 2024).
-
-## Category
-`regulatory-compliance`

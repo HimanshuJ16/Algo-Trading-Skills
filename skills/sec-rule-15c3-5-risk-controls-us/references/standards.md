@@ -92,11 +92,6 @@ quotes, with no exclusion for them; that it applies to all securities traded on 
 exchange or ATS, including security futures; and that a purely manual order flow may be
 satisfied by manual pre-order-entry controls.
 
-## Category
-
-`regulatory-compliance-global` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.
-
 ## Sources
 
 - 17 CFR 240.15c3-5 — <https://www.govinfo.gov/content/pkg/CFR-2023-title17-vol4/xml/CFR-2023-title17-vol4-sec240-15c3-5.xml>

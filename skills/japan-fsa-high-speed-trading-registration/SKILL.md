@@ -75,7 +75,7 @@ Reach for this skill to classify whether a given order even falls inside the def
 - Run the test suite:
 ```bash
 cd skills/japan-fsa-high-speed-trading-registration/scripts
-python -m unittest test_japan_fsa_high_speed_trading_registration
+python -m unittest discover -s skills/japan-fsa-high-speed-trading-registration/scripts
 ```
 
 ## Related Skills

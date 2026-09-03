@@ -67,7 +67,7 @@ endpoints, credentials, entitlements or probe logic.
 
 ## Tests
 
-- [ ] `python scripts/test_region_failover.py` — 100% pass rate.
+- [ ] `python -m unittest discover -s skills/multi-region-failover-for-broker-connectivity/scripts` — 100% pass rate.
 - [ ] `python tools/validate_skills.py` passes.
 
 ## Sign-off

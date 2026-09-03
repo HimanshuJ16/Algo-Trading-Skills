@@ -20,6 +20,8 @@ license: Apache-2.0
 
 Invoke this whenever a system needs to know "is the market open today" for any exchange outside the one it was originally built against, or whenever a backtest spans historical data from more than one exchange. A bot built and tested only against one country's calendar (e.g. NSE/BSE) will silently misbehave the first time it's pointed at a different exchange (NYSE, LSE, HKEX) if holiday/half-day logic was hardcoded rather than sourced from an actual per-exchange calendar — treating a foreign holiday as a trading day causes stale-data processing or unnecessary alerting; treating a trading day as a holiday causes missed signals.
 
+## When NOT to Use
+
 Do NOT use this as a substitute for a real-time exchange status feed. A calendar tells you what was *scheduled*; it does not know about an unscheduled halt, a mid-session technical outage, or an ad hoc closure announced after the calendar was published. Session-state decisions during live trading need both.
 
 ## Prerequisites
@@ -67,6 +69,8 @@ Do NOT use this as a substitute for a real-time exchange status feed. A calendar
 - Test the same exchange on one date inside DST and one outside, and confirm the UTC open/close differ by exactly one hour. Identical UTC times across the two dates indicate a frozen offset.
 - Test a known weekend-session date (NSE Muhurat trading, Sunday 8 November 2026) and a Sunday-trading exchange, and confirm the system reports them open.
 - Test a known DST-misalignment week (a week where, e.g., US and EU DST transitions don't coincide) and confirm cross-exchange timing calculations remain correct rather than silently off by an hour.
+- Run the unit suite and confirm every test passes:
+  `python -m unittest discover -s skills/global-exchange-holiday-calendar-handling/scripts`.
 
 ## Related Skills
 

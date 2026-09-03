@@ -36,7 +36,8 @@ This skill provides institutional mechanisms to:
 - Derive **Strictly-Trailing Climate Anomaly Z-Scores** ($Z = \frac{X_{\text{forecast}} - \mu}{\sigma}$) from a seasonal window that structurally excludes the scored date and everything after it.
 - Generate directional trading signals (`LONG`, `SHORT`, `NEUTRAL`) and confidence scores.
 
-**When NOT to use this skill:**
+## When NOT to Use
+
 - **Pricing or settling weather derivatives.** CME HDD/CDD/CAT futures and OTC weather swaps are priced by burn analysis against a $\$20$/index-point multiplier, not by anomaly Z-scores. Use `weather-derivatives-and-niche-instrument-handling`.
 - **Sub-daily or intraday power load forecasting.** Degree days are a daily $(T_{\text{max}} + T_{\text{min}})/2$ construct and cannot resolve the hourly load shape that intraday ERCOT/PJM strategies trade.
 - **Crop phenology or yield forecasting.** GDD accumulation models crop maturity timing; it is not a price-directional input, and this skill's signal mapping must not be fed raw GDD (see Pitfalls).

@@ -70,7 +70,3 @@ rate, an orientation, or a compliance date.
   cost; see `adverse-selection-measurement-for-passive-orders`.
 - **One venue per instance.** Realized differentials assume a single fee schedule.
 - **Positive prices only.** A negative settlement price would invert every derived figure.
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

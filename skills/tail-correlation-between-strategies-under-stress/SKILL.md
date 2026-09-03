@@ -57,7 +57,7 @@ The `tail-correlation-between-strategies-under-stress` skill measures whether st
 
 Run the test suite:
 ```bash
-python -m unittest test_tail_correlation_between_strategies_under_stress.py
+python -m unittest discover -s skills/tail-correlation-between-strategies-under-stress/scripts
 ```
 
 Expected statistical behavior (reproduced by the suite): a Clayton pair with $\lambda_L \approx 0.71$ is flagged; independent and Gaussian pairs at $\rho$ up to $0.8$ are not; a 30-observation sample returns `is_determinate=False`.

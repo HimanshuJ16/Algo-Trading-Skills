@@ -102,7 +102,3 @@ De-duplicate axes before submitting them.
 - Bailey, D. H. and López de Prado, M. (2014), "The Deflated Sharpe Ratio: Correcting for
   Selection Bias, Backtest Overfitting and Non-Normality" —
   <https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2460551>
-
-## Category
-
-`backtesting-methodology`

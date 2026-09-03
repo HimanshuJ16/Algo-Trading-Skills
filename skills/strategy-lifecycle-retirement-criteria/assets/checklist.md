@@ -78,7 +78,7 @@ Use this before signing off a lifecycle decision for a live strategy.
 
 ## Automated Testing
 
-- [ ] Run `python -m unittest discover -s . -p "test_*.py"` from `scripts/` — 45 tests,
+- [ ] Run `python -m unittest discover -s skills/strategy-lifecycle-retirement-criteria/scripts` — 45 tests,
       100% pass rate.
 
 ## Sign-off

@@ -15,7 +15,7 @@ license: Apache-2.0
 
 Use this skill when you already have target portfolio weights from an upstream allocator and need to decide **which of those weight changes are worth executing**. Frictionless allocators re-solve every period and emit a stream of tiny weight adjustments; executing all of them burns commission, spread, and market impact that can exceed the alpha being chased. This engine applies a no-trade buffer band to suppress micro-rebalances, prices the surviving trades, and reports gross return, total cost, net return, turnover, and the executable final weight vector.
 
-**When NOT to use it:**
+## When NOT to Use
 
 - **You need an optimizer.** This engine does *no* optimization. There is no covariance matrix, no risk-aversion parameter, no mean-variance objective, and no quadratic program — nothing here searches over weight vectors. `target_weight` is an **input**. If you want weights that are optimal net of costs, solve that upstream (e.g. with CVXPY) and feed the solution in.
 - **You need an execution schedule.** Costs are charged as if each trade fills at once. For order slicing and participation-rate control see `execution-algo-twap-vwap-slicing`.
@@ -73,7 +73,7 @@ Use this skill when you already have target portfolio weights from an upstream a
 - With `trade_to_band_edge=True`, verify a proposed $0.30 \to 0.40$ move lands at $0.32$, not $0.40$, and is charged on the executed $0.02$ delta.
 - Verify the boundary is representation-safe: a $0.20 \to 0.18$ move against a $2\%$ band must be **suppressed**, even though the raw float subtraction ($-0.020000000000000018$) exceeds the threshold. A $0.20 \to 0.1799$ move must still trade.
 - Verify a NaN weight raises `ValueError` rather than propagating to a NaN net return, and that a weight of `40.0` (percent-vs-fraction error) is rejected.
-- Run `python scripts/test_portfolio_construction_with_transaction_cost_awareness.py`.
+- Run `python -m unittest discover -s skills/portfolio-construction-with-transaction-cost-awareness/scripts`.
 
 ## Related Skills
 

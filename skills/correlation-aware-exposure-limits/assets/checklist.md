@@ -9,7 +9,7 @@ Use this before considering the skill's implementation complete.
 - [ ] **Aggregate Portfolio Cap:** Confirm an opening order in a symbol not yet held is counted against `max_portfolio_notional`, not only against its cluster cap.
 - [ ] **Delta Symmetry:** Confirm options delta weights apply to existing positions and proposed orders alike.
 - [ ] **Audit Trail:** Confirm every decision is written to `audit_trail` before the caller sees the result.
-- [ ] **Automated Testing:** Run `python scripts/test_exposure_limits.py` and confirm 100% test pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/correlation-aware-exposure-limits/scripts` and confirm 100% test pass rate.
 
 ## Sign-off
 

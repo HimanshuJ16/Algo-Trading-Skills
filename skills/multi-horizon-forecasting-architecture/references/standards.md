@@ -52,11 +52,6 @@ requirement. Bibliographic records were checked against the publishers' listings
 | Combining forecasts by inverse forecast-error variance, ignoring cross-model correlation, is the standard practical choice because the error covariance is hard to estimate reliably | Bates, J. M. & Granger, C. W. J. (1969), "The Combination of Forecasts", *Journal of the Operational Research Society* 20(4), 451–468 | Verified; supports offering only marginal weighting schemes here |
 | A factor's information horizon drives portfolio turnover: a short information horizon means the signal decays quickly and forces rebalancing | Qian, E., Sorensen, E. H. & Hua, R. (2007), "Information Horizon, Portfolio Turnover, and Optimal Alpha Models", *Journal of Portfolio Management* 34(1), 27–40 | Verified; supports the turnover caveat on short-horizon weighting |
 
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No jurisdiction-specific rule governs how return forecasts are blended across horizons.

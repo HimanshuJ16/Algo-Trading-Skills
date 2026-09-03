@@ -206,6 +206,8 @@ lockout that outlasts it.
   outage window.
 - Confirm no alert, log line, or exception message emitted by the probe path contains
   token material.
+- Run the unit suite and confirm every test passes:
+  `python -m unittest discover -s skills/token-lifecycle-live-probing/scripts`.
 
 ## Related Skills
 

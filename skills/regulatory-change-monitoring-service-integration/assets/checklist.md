@@ -40,7 +40,7 @@ supervisory review of the monitoring control.
 
 ## Automated Testing
 
-- [ ] Run `python -m unittest test_regulatory_change_monitoring_service_integration` from the `scripts/` directory — 100% pass rate (42 tests).
+- [ ] Run `python -m unittest discover -s skills/regulatory-change-monitoring-service-integration/scripts` — 100% pass rate (42 tests).
 
 ## Sign-off
 

@@ -55,10 +55,6 @@ Nothing in this skill is legal or compliance advice, and none of the provisions 
 
 **Not verified here:** any regulator-published numeric threshold for cross-vendor price divergence, feed-staleness timeouts, or mandatory feed redundancy for non-SCI trading firms. No such figure was located; treat every parameter in this skill as an engineering choice you must justify, not a compliance floor.
 
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.
-
 ## Cross-references
 
 - Sequence-space arbitration of identical lines: `sequence-number-gap-detection-for-feeds`

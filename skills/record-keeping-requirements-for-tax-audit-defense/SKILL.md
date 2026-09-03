@@ -138,7 +138,7 @@ before its retention obligation has run.
   `classify_holding_period(None, None, 366)` $\implies$ `AMBIGUOUS`.
 - Retention regression: a BUY dated 2005 with no `disposal_date` $\implies$
   `earliest_purge_date is None` and `purge_eligible is False`.
-- Run `python scripts/test_record_keeping_requirements_for_tax_audit_defense.py`.
+- Run `python -m unittest discover -s skills/record-keeping-requirements-for-tax-audit-defense/scripts`.
 
 ## Limitations
 

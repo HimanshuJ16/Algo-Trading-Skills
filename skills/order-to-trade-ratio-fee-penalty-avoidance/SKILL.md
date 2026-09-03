@@ -85,7 +85,7 @@ Use the engine to estimate both from your own message counts *during* the sessio
 - **Zero transactions**: 1,000 messages, 0 transactions yields `OTR_NOT_CALCULABLE_NO_TRANSACTIONS`, `count_otr is None`, `penalty_fee_accrued is None`, action `FREEZE_ORDER_MODIFICATIONS_REQUIRE_TAKER_FILL`.
 - **NSE slabs**: 30,000 algo messages over 100 trades (daily OTR 300) accrues $20{,}000 \times ₹0.02 + 5{,}000 \times ₹0.10 = ₹900.00$.
 - **Negative checks**: negative counters, a `NaN` or infinite volume, `traded_volume > ordered_volume`, `exempt_cancels` exceeding cancels sent, overlapping penalty tiers, and a missing policy must each raise.
-- Run `python scripts/test_order_to_trade_ratio_fee_penalty_avoidance.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/order-to-trade-ratio-fee-penalty-avoidance/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

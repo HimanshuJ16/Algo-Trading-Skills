@@ -25,6 +25,32 @@ license: Apache-2.0
 
 Use this skill in institutional crypto trading desks and automated bot architectures to audit wallet address reuse across multiple blockchain networks (Ethereum, Arbitrum, Solana, Bitcoin). Using identical public key addresses or static EVM `0x...` addresses across multiple chains enables on-chain analytics firms (Chainalysis, Elliptic, Nansen) to deanonymize proprietary trading strategies, track total fund AUM, and link private wallets to KYC exchange deposits. This module computes an Address Reuse Privacy Risk Score and recommends HD Wallet BIP-44 path isolation.
 
+## When NOT to Use
+
+- **As an on-chain scanner.** `CrossChainAddressPrivacyAuditor` reads only the registry
+  you hand it via `register_wallet()`. It opens no RPC connection, queries no explorer
+  and imports nothing outside the standard library, so an address the desk never
+  registered is invisible to it and scores as no risk. Completeness of the registry is a
+  precondition, not an output — reconcile it against the chains before trusting a low
+  score.
+- **As transaction or counterparty screening.** The score measures *your* deanonymisation
+  exposure: how readily an outside observer can link your wallets to each other and to a
+  KYC'd deposit. It says nothing about who you are transacting with. Sanctions and
+  counterparty exposure are `sanctions-screening-for-counterparties-and-instruments`;
+  behavioural anomaly detection on flows is
+  `on-chain-transaction-monitoring-for-anomalies`.
+- **As a key-management implementation.** BIP-44 path isolation is the module's
+  *recommendation*; it derives no keys, generates no addresses and rotates nothing. The
+  implementation belongs to `crypto-wallet-key-custody-security`,
+  `hot-cold-wallet-split-for-trading-bots` and `shamir-secret-sharing-for-key-backup`.
+- **As a bridge or protocol risk assessment.** Reusing one address across chains is a
+  privacy problem; moving value between those chains is a solvency problem. See
+  `cross-chain-bridge-risk-for-multi-chain-strategies`.
+- **As an externally benchmarked score.** The 0-100 scale, the `HIGH_RISK` $\ge 70$ /
+  `MEDIUM_RISK` $\ge 40$ bands and the `total_tracked_chains` denominator are this
+  module's own conventions. No regulator, standards body or analytics vendor defines
+  them, and a score is comparable only against other runs with the same configuration.
+
 ## Prerequisites
 
 - Active wallet address registry containing `chain_id`, `address`, `public_key`, `is_kyc_linked`, and `wallet_label` attributes per `WalletAddressRecord` (empty, malformed, or duplicate registrations are rejected).
@@ -71,7 +97,7 @@ Use this skill in institutional crypto trading desks and automated bot architect
 - Register a single isolated address on an auditor with `total_tracked_chains=1`; verify the score is `0.0`/`LOW`, not `50.0`/`MEDIUM`.
 - Register two `public_key=None` addresses on different chains, one KYC-linked; verify they do **not** cluster and the KYC flag does not propagate.
 - Register a 2-chain reused address with no KYC (score 20.0, `LOW`); verify `remediation_actions` reports the reuse and does **not** claim "strong cross-chain privacy isolation".
-- Run `python scripts/test_cross_chain_address_reuse_privacy_risk.py`.
+- Run `python -m unittest discover -s skills/cross-chain-address-reuse-privacy-risk/scripts`.
 
 ## Related Skills
 

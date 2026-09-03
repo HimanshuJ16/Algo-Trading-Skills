@@ -75,7 +75,7 @@ Use this skill in cloud-hosted quantitative trading architectures (AWS, GCP, Azu
 - Submit a spend record with no matching history and verify the recommendation reports baseline-UNKNOWN rather than a clean bill of health.
 - Feed 14 days of a perfectly flat \$100,000/day baseline and submit \$100,003. Verify the status is `NORMAL` (+0.003% is below the materiality floor) and the recommendation names the floor rather than reporting a clean bill of health.
 - Submit a record with `trading_volume=0` and positive spend; verify `unit_cost_usd` is `inf`, not `0.0`.
-- Run `python scripts/test_cloud_cost_anomaly_detector.py`.
+- Run `python -m unittest discover -s skills/cost-monitoring-for-cloud-trading-infrastructure/scripts`.
 
 ## Related Skills
 

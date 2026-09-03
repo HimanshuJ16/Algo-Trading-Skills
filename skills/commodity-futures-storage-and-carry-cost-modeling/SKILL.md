@@ -72,7 +72,7 @@ Use this skill when pricing physical commodity futures (Crude Oil `CL`, Natural 
 - Feed a WTI-like backwardated curve ($S_0 = 80$, $F = 76$, $T = 0.5$). Confirm the regime is `BACKWARDATION`, the implied convenience yield is roughly 17%, and `is_arbitrage_opportunity` is **False** — this is a normal market, not a trade.
 - Feed $F_{market} = 115$ against $S_0 = 100$, $T = 1.0$. Confirm `CASH_AND_CARRY`, a negative implied yield, and `convenience_yield_bound_violated`.
 - Feed $F_{market} = S_0$ and confirm the regime is `FLAT`, not `BACKWARDATION`.
-- Run `python scripts/test_commodity_futures_storage_and_carry_cost_modeling.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/commodity-futures-storage-and-carry-cost-modeling/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

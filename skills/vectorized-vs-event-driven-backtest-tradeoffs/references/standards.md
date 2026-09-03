@@ -91,7 +91,3 @@ vectorized engine charges cost as a fraction of *equity*; the event-driven engin
 charges the same rate on *traded notional at a slipped fill price*. The residual is
 O(cost²) per trade — about 1e-7 of equity per trade at 10 bps — and is bounded by a
 test rather than asserted away. At zero cost the agreement is exact to `rtol=1e-12`.
-
-## Category
-
-`backtesting-methodology` — see top-level `mappings/` directory.

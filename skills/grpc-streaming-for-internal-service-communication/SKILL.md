@@ -81,7 +81,7 @@ Invoke this skill when designing internal microservice communications between tr
 - Confirm `benchmark_protobuf_vs_json` reports 126 compact-JSON bytes against 44 binary bytes (>50% reduction, ratio below $3\times$) and averages timings over the requested iteration count.
 - Negative checks: a truncated or over-long buffer, a `NaN`/`Inf` price, a negative volume, a `symbol_id` above $2^{32}-1$, and `iterations=0` must each raise. A push on an `IDLE`, `TRANSIENT_FAILURE`, or `SHUTDOWN` channel must raise rather than silently drop the frame, and `SHUTDOWN` must be unrecoverable.
 - Confirm the backoff schedule matches the gRPC reference: 1.0 s, 1.6 s, 2.56 s, capped at 120 s.
-- Run `python scripts/test_grpc_stream_engine.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/grpc-streaming-for-internal-service-communication/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

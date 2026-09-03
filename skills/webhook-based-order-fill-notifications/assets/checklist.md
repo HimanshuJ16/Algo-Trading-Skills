@@ -103,7 +103,7 @@ to a check in `SKILL.md` § Verification.
 
 ## Automated testing
 
-- [ ] **Run** `python -m unittest discover -s scripts` from the skill directory
+- [ ] **Run** `python -m unittest discover -s skills/webhook-based-order-fill-notifications/scripts`
       and confirm every test passes.
 - [ ] **Regression coverage:** the suite contains a test that fails against the
       pre-fix behaviour for each defect fixed, not only a test that passes now.

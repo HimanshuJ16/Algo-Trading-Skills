@@ -101,7 +101,3 @@ limit and the verdict is denied regardless of the point estimate.
 ULP is ≈ 0.238 µs, exposed as `RESOLUTION_FLOOR_MS`. Drift figures derived from that field
 are not meaningful below roughly 1 µs. This is a property of the representation, not of the
 clocks. Carry fine-grained offsets in `reported_offset_ms`, which stays small and precise.
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

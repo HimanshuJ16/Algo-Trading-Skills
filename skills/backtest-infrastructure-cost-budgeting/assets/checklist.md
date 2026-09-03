@@ -29,7 +29,7 @@
 - [ ] Budget limit agreed with whoever owns the cloud account before the run
 
 ## Validation
-- [ ] Run `python scripts/test_cost_budgeter.py` — 30 tests, all pass
+- [ ] Run `python -m unittest discover -s skills/backtest-infrastructure-cost-budgeting/scripts` — 30 tests, all pass
 - [ ] Deliberately oversized sweep confirmed to flag `is_over_budget`
 - [ ] 10% pilot run executed and reconciled against the actual bill
 - [ ] Divergence corrected in the **per-unit inputs**, not by applying a fudge factor to the total

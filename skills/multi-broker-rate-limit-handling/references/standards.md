@@ -54,11 +54,6 @@ Three points matter more than the individual numbers:
   be classified as an algo. Do not encode it as a throughput budget; see
   `india-sebi-algo-trading-tagging-requirements`.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Protocol standards referenced by the implementation
 
 | Standard | Section | Use |

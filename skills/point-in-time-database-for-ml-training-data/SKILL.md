@@ -99,7 +99,7 @@ Two axes, following the same vocabulary as `backtest-database-schema-for-point-i
 - Determinism: insert two records sharing one `available_at` with `revision` 0 and 1 in **both** orders; the `revision=1` value must win in both.
 - Leakage counting: three records all published 2023-04-18 with events 2023-01-31, 2023-02-28 and 2023-03-31, queried at 2023-04-01, must report `future_leakage_prevented_count == 1` (one label row at risk), not 3.
 - Negative checks: non-finite value or target, empty `symbol`/`feature_name`, negative `revision`, unpadded date, duplicate feature names, and each out-of-range constructor argument must all raise `ValueError`. A batch containing one bad record must leave the store unchanged.
-- Run `python scripts/test_pit_ml_database.py` from `scripts/` and confirm 100% pass rate (37 tests).
+- Run `python -m unittest discover -s skills/point-in-time-database-for-ml-training-data/scripts` and confirm 100% pass rate (37 tests).
 
 ## Related Skills
 

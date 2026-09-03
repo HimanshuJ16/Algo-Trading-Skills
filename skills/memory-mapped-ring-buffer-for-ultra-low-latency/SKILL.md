@@ -55,7 +55,7 @@ and you need:
 - shared state that survives the consumer restarting without the producer
   stopping.
 
-**When NOT to use it:**
+## When NOT to Use
 
 - **More than one producer or more than one consumer.** This design has no
   compare-and-swap to arbitrate concurrent writers of the same index. Two

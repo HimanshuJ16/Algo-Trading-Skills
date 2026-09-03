@@ -126,11 +126,6 @@ DhanHQ additionally notes that postbacks operate at the access-token level — a
 orders from one access token deliver to that token's webhook URL — and that no
 postback is sent if the URL is set to `localhost` or `127.0.0.1`.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No jurisdiction surveyed here mandates a specific webhook-authentication scheme;

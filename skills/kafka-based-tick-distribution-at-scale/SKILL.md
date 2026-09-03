@@ -85,7 +85,7 @@ The engine routes ticks under an explicitly named partitioner, emits the produce
 - Publish a tick timestamped 5,000 ms **ahead** of `now_ns` $\implies$ verify `CLOCK_SKEW_WARNING` and a negative `max_tick_age_ms`, not `KAFKA_STREAM_HEALTHY`.
 - Route 400 ticks of one hot symbol plus 20 quiet symbols across 4 partitions $\implies$ `PARTITION_UNBALANCED_WARNING`; route 2 symbols across 16 partitions $\implies$ skew suppressed, `KAFKA_STREAM_HEALTHY`.
 - Verify a rejected batch does not partially publish: a batch containing an unroutable symbol raises and leaves every partition's log end offset unchanged.
-- Run `python scripts/test_kafka_tick_engine.py`.
+- Run `python -m unittest discover -s skills/kafka-based-tick-distribution-at-scale/scripts`.
 
 ## Related Skills
 

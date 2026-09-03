@@ -27,7 +27,7 @@
 - [ ] Thresholds have been calibrated per underlying / liquidity tier and the rationale recorded — they are library defaults, not industry standards.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_options_flow_unusual_activity_detection.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/options-flow-unusual-activity-detection/scripts` — 100% pass rate.
 
 ## Sign-off
 

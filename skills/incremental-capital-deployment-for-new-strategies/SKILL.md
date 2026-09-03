@@ -74,7 +74,7 @@ Use this skill when onboarding newly researched quantitative trading strategies 
 - Verify `annualized_sharpe_standard_error(1.50, 60, periods_per_year=1) == 0.188` and `(3.00, 60, periods_per_year=1) == 0.303`, reproducing Lo (2002) Table 1, and `required_observations_for_sharpe_precision(0.5, 1.0) == 1010`.
 - Negative checks — each must raise `ValueError`, not allocate: a `NaN` or infinite drawdown/Sharpe/slippage/capital, a negative (signed) drawdown, `current_tier` outside $\{0,1,2,3\}$, negative `days_in_tier`, negative `target_full_capital_usd`, and a maintenance limit configured at or above the emergency limit.
 - Boundary checks: DD exactly $12.0\%$ deactivates (inclusive); DD exactly at a maintenance limit retains (exclusive); `days_in_tier` exactly at the gate promotes (inclusive).
-- Run `python scripts/test_incremental_capital_deployment_for_new_strategies.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/incremental-capital-deployment-for-new-strategies/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

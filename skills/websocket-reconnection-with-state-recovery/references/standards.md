@@ -170,8 +170,3 @@ sets a number for any knob in this skill. Treat this document as engineering pra
 let your compliance function determine which regime applies. Retention of
 connectivity-event and gap records is set by your applicable regime; this skill asserts no
 retention period.
-
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.

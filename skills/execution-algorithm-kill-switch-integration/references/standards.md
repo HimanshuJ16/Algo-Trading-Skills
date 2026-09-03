@@ -78,7 +78,3 @@ None of these are regulatory constants.
 - **PnL, exposure and (optionally) order rate are supplied by the caller.** The
   engine can only measure the order attempts that pass through it, which is a
   subset of the message traffic RTS 6 Art. 15(1) counts.
-
-## Category
-
-`execution-algorithms`

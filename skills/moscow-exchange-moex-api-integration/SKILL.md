@@ -222,7 +222,7 @@ cannot be the reason an order goes out.
   `MOEX_FIELD_LENGTH_BREACH`; 20 chars passes; `"#ORD-1"` is refused while
   `"ORD#1"` passes.
 - `RFUD` ⟹ `MOEX_BOARD_NOT_ON_ASTS_MFIX` with empty `fix_fields`.
-- Run `python scripts/test_moscow_exchange_moex_api_integration.py` and confirm a
+- Run `python -m unittest discover -s skills/moscow-exchange-moex-api-integration/scripts` and confirm a
   100% pass rate.
 - Against a MOEX test environment only, and only once your sanctions position
   permits it: submit one validated order and confirm the gateway accepts the

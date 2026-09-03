@@ -93,8 +93,3 @@ and the string is reproduced in every report's `dimension_evidence`.
 | The recommended family will meet the stated latency budget | **No.** The latency dimension is a family-level prior, not a measurement. |
 | Either family is robust to a regime shift | **No.** The evidence supports no such claim for either. |
 | The entity is compliant with anything | **No.** No output of this engine is a compliance opinion. |
-
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.

@@ -89,7 +89,3 @@ FINRA/ESMA" against either number.
   `remediation_complete`; nothing here verifies the remediation.
 - **Ingestion is out of scope.** No fetching, authentication, parsing, or
   retry/backoff logic lives in this skill.
-
-## Category
-
-`regulatory-compliance-global` — see top-level `mappings/` directory.

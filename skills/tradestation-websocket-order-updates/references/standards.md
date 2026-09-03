@@ -161,11 +161,6 @@ listen key plus a REST trade query. Those mechanisms are **out of scope for this
 skill and are not verified here**; consult each venue's own documentation and the
 corresponding skill rather than porting the shapes above.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.
-
 ## Sources
 
 - TradeStation, "HTTP Streaming" — https://api.tradestation.com/docs/fundamentals/http-streaming/ (framing, `EndSnapshot`, `GoAway`, error handling, content types)

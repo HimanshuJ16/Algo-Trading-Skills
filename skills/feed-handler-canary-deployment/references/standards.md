@@ -170,7 +170,3 @@ exercises less of a parser than one halted instrument.
   timestamp). Arrival-order pairing silently degrades into comparing different messages.
 - Retention of the deployment event record is set by your applicable regime; this skill
   asserts no retention period.
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

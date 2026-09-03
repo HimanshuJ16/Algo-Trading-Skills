@@ -145,7 +145,7 @@ on the client side, before a message leaves your process:
   sequence number.
 - `header.pack()` $\implies$ exactly 24 bytes, with `BodyLen` at offset 0 and
   `TemplateID` at offset 4, little endian.
-- Run `python scripts/test_deutsche_borse_xetra_api_integration.py`.
+- Run `python -m unittest discover -s skills/deutsche-borse-xetra-api-integration/scripts`.
 
 ## Related Skills
 

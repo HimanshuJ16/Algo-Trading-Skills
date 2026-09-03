@@ -184,12 +184,3 @@ consolidator". Reg SCI's systems-resilience and business-continuity obligations 
 frequently cited at market-data infrastructure in general; they bind exchanges, SIPs,
 certain ATSs and competing consolidators, not their customers. Source:
 [17 CFR § 242.1000](https://www.law.cornell.edu/cfr/text/17/242.1000).
-
-## Category
-
-Algorithmic Trading / Real-Time Architecture. See
-`market-data-feed-arbitration-across-vendors` for the cross-vendor agreement question
-this skill deliberately does not answer, `graduated-response-to-data-quality-degradation`
-for the de-risking gate that should consume `is_synthetic` and `age_seconds`, and
-`reference-data-golden-source-designation` for the governance decision that routing
-preference is not.

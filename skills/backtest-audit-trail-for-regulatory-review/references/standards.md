@@ -113,7 +113,3 @@ trivial. That was the defect corrected in version 2.0.0.
 | RTS 25 scope (reportable events, venues and members) and 100µs / 1µs HFT tier | Commission Delegated Regulation (EU) 2017/574, Art. 1 and 3, Annex Table 2 — https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32017R0574 |
 | HMAC construction | RFC 2104, *HMAC: Keyed-Hashing for Message Authentication* — https://www.rfc-editor.org/rfc/rfc2104 |
 | JSON does not permit NaN/Infinity | RFC 8259 §6 — https://www.rfc-editor.org/rfc/rfc8259 |
-
-## Category
-
-`backtesting-methodology`

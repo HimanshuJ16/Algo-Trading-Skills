@@ -71,7 +71,3 @@ Those four numbers are yours to set and yours to defend.
 - [Commission Delegated Regulation (EU) 2017/589 (RTS 6)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32017R0589) — Arts. 5, 7, 8, 9, 12
 - [17 CFR 240.15c3-5](https://www.law.cornell.edu/cfr/text/17/240.15c3-5) — paras (b), (c)(1)(i)
 - [Federal Reserve SR 26-2](https://www.federalreserve.gov/supervisionreg/srletters/sr2602.htm) — 17 April 2026, superseding SR 11-7 and SR 21-8
-
-## Category
-
-`strategy-lifecycle-governance`

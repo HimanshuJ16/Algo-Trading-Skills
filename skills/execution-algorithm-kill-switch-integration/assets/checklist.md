@@ -50,7 +50,7 @@
 - [ ] Audit records (`event_id`, `timestamp_utc`, `triggered_by`, `scope_target`) are shipped to an append-only sink.
 
 ## Testing
-- [ ] Run `python scripts/test_execution_algorithm_kill_switch_integration.py` — 79 tests, 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/execution-algorithm-kill-switch-integration/scripts` — 79 tests, 100% pass rate.
 - [ ] Fire drills rehearsed in a sandbox: venue rejects the cancel · gateway throws · order at an unconfigured venue · fill lands after cancel accepted · process restart while engaged.
 
 ## Sign-off

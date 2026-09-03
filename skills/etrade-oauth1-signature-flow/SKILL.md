@@ -165,7 +165,7 @@ lifetime rules.
   `sign_request()` and `sign_renew_access_token()` must raise before an access token is set;
   blank consumer credentials must raise at construction.
 - Confirm `repr(OAuth1Credentials(...))` contains neither secret.
-- Run `python scripts/test_etrade_auth.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/etrade-oauth1-signature-flow/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

@@ -86,7 +86,7 @@ whose second term is the square-root impact law $I(Q) = Y \sigma \sqrt{Q/V}$ wit
 - **Scenario 4 — governance gates**: the same breach observed over 3 trades $\implies$ `RECALIBRATION_DEFERRED_INSUFFICIENT_SAMPLE` with no recommended parameters; an all-identical sample $\implies$ `RECALIBRATION_REQUIRED_MANUAL_REVIEW` on collinearity; a sample fitting to $\eta < 0$ $\implies$ `RECALIBRATION_REQUIRED_MANUAL_REVIEW` with the recommendation withheld.
 - **Least-squares property checks**: residuals orthogonal to both regressor columns, and `post_refit_rmse_bps` never exceeding the active RMSE.
 - **Negative checks**: empty history, `NaN`/`inf` realized IS, zero or negative ADV, negative quantity, negative spread or volatility, and implausible volatility must each raise.
-- Run `python scripts/test_execution_cost_model_recalibration_cadence.py`.
+- Run `python -m unittest discover -s skills/execution-cost-model-recalibration-cadence/scripts`.
 
 ## Related Skills
 

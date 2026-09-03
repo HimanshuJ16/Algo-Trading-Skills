@@ -43,7 +43,7 @@ Use this before considering the skill's implementation complete.
 - [ ] For an authenticated audit record, `backtest-audit-trail-for-regulatory-review` used instead
 
 ## Automated testing
-- [ ] Run `python scripts/test_reproducibility_engine.py` — 40 tests, 100% pass rate
+- [ ] Run `python -m unittest discover -s skills/backtest-determinism-and-reproducibility/scripts` — 40 tests, 100% pass rate
 - [ ] Confirmed the key regression: `sum([0.1]*10)` vs `0.1*10` as prices reports `is_bit_identical = False`
 
 ## Sign-off

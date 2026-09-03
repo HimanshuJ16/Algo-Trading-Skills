@@ -120,10 +120,6 @@ single-name shocks from point-in-time constituent data — see
 | `FALLBACK_SYMBOL_KEY` | `"DEFAULT"` | Scenario key applied to unnamed symbols; usage is reported in `fallback_symbols`. |
 | Built-in scenarios | 3 | `2020_COVID_CRASH`, `2008_GFC`, `2015_FLASH_CRASH` |
 
-## Category
-
-`risk-management`
-
 ## Sources
 
 - 17 CFR § 240.15c3-5, Risk management controls for brokers or dealers with market access — <https://www.law.cornell.edu/cfr/text/17/240.15c3-5>

@@ -98,7 +98,7 @@ The `execution-realistic-simulation` skill *models* that impact cost in backtest
 - **Determinism.** Two slicers built with the same `seed` produce identical sizes and timestamps; building one must not advance the global `random` stream.
 - **Rejection path.** A deliberately rejected child order must land in `REJECTED` with its reason recorded, release exactly its residual, and leave the invariant intact — not be silently dropped or blindly resubmitted at the same size.
 - **Negative checks that must raise:** unknown `slice_id`; non-finite or non-positive fill quantity or price; `num_intervals=0`; non-positive `total_qty`; `jitter_pct >= 0.5`; a VWAP curve whose length differs from `num_intervals`; a negative volume weight; a `total_qty` that is not a whole multiple of `lot_size`; a non-positive `benchmark_price`.
-- Run `python scripts/test_slicer.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/execution-algo-twap-vwap-slicing/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

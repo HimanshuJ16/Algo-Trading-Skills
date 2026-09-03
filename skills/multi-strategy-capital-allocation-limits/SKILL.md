@@ -146,8 +146,7 @@ tracks real-time utilization, and blocks new orders when a strategy exceeds its 
 - Drift one strategy above its own cap via `update_exposure()` and confirm an order from a
   different strategy that still has headroom is blocked with `rejection_code == "PORTFOLIO_CAP"`.
 - Confirm re-registering a live strategy raises rather than zeroing its tracked exposure.
-- Run `python scripts/test_capital_allocator.py` (or
-  `python -m unittest discover -s skills/multi-strategy-capital-allocation-limits/scripts`)
+- Run `python -m unittest discover -s skills/multi-strategy-capital-allocation-limits/scripts`
   and confirm 100% pass rate.
 
 ## Related Skills

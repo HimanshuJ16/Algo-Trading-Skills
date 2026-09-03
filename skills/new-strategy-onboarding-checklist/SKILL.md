@@ -84,7 +84,7 @@ The value it adds is not arithmetic — four boolean comparisons need no engine.
 - Conjunctivity: `kill_switch_integrated=False` alone $\implies$ 3/4 passed and still `ONBOARDING_REJECTED`.
 - Negative checks that must **raise** `ValueError`: any attestation flag as `"yes"`, `"false"`, `1`, `0`, `None` or a list; `NaN` or $\pm\infty$ on `walk_forward_score` or `backtest_sharpe`; a negative `regimes_covered`, `paper_trading_days` or `paper_trading_errors`; `paper_trading_days=True`; a blank `strategy_id`, `strategy_name` or `author`; a config with a negative or `NaN` threshold; a non-`bool` flag assigned *after* construction and only then audited.
 - Auditability: a config of `min_walk_forward_score=0.0, min_regimes_covered=0, min_backtest_sharpe=0.0, min_paper_trading_days=0, max_paper_trading_errors=99` must still return `ONBOARDING_PASSED` for an unfit strategy, with all five thresholds named in `report.policy_weakened` and recorded in `report.policy_applied`. A tightened config must report `weakened_thresholds() == []`.
-- Run `python test_new_strategy_onboarding_checklist.py` from the `scripts/` directory and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/new-strategy-onboarding-checklist/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

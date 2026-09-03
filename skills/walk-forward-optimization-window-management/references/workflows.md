@@ -78,4 +78,4 @@ actually implementing the skill, not just when deciding whether it applies.
 - Reference code: `scripts/walk_forward_manager.py` (`WalkForwardWindowManager`, `WindowSlice`,
   `WFEEvaluation`, `WindowMode`, `WalkForwardError`).
 - Automated unit tests: `scripts/test_walk_forward_manager.py`
-  (`python -m unittest discover -s scripts`).
+  (`python -m unittest discover -s skills/walk-forward-optimization-window-management/scripts`).

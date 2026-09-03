@@ -5,11 +5,6 @@
 | OANDA v20 REST & Streaming API | Practice vs. Live endpoint isolation, `pipLocation` instrument metadata, pricing streams, lot-to-unit conversions. |
 | MetaTrader 5 (MT5) Python API | Terminal IPC integration, `symbol_info().digits` precision metadata, bridge liveness monitoring, Expert Advisor MQL5 interaction. |
 
-## Category
-
-`global-market-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Broker & Market Conventions
 
 | Claim used by this skill | Source |

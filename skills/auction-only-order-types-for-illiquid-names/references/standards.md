@@ -110,6 +110,3 @@ NYSE **Closing IO Orders** may be entered on both sides up to 4:00 p.m.
   7.35B, Significant Closing Imbalance publication, and the early-close rule.
 - NYSE Rules 7.31(c)(2)(A) (LOC Order), 7.35(a)(8) (Closing Auction Imbalance
   Freeze Time), 7.35(a)(13) (Legitimate Error), 7.35B(j)(2)(B).
-
-## Category
-`execution-algorithms`

@@ -76,7 +76,7 @@ Use this skill when integrating corporate action event calendars (Bloomberg Data
 - Register a `POST_PAYABLE` split with NVIDIA's real 2024 dates (declared 2024-05-22, record 2024-06-06, payable 2024-06-07, ex 2024-06-10); verify it is accepted, and that the same dates under the default `PRE_RECORD` convention raise `ValueError`.
 - Re-register `EVT_DIV_01` with a changed ex-date and value; verify registration returns `False` **and** an ERROR is logged naming the differing fields, and that the stored event is unchanged.
 - Verify reconciliation flags an event present in only one vendor feed, a symbol/event-type mismatch under a shared `event_id`, and rejects events with out-of-order dates or non-positive values at construction.
-- Run `python scripts/test_corporate_action_event_calendar_integration.py`.
+- Run `python -m unittest discover -s skills/corporate-action-event-calendar-integration/scripts`.
 
 ## Related Skills
 

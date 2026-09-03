@@ -87,6 +87,8 @@ Use it also for the reverse question — sizing available capital. A margin figu
 - Confirm the scan-range and short-option-minimum parameters in use came from the exchange parameter file, not from library defaults.
 - Confirm the backtest's margin-utilisation tracking yields a concurrent-position ceiling consistent with actual account capital, rather than allowing unlimited positions.
 - Confirm live monitoring surfaces a margin increase on an existing, unchanged position (for example after a volatility spike) as an event in its own right, not something discovered when the next order is rejected.
+- Run the unit suite and confirm every test passes:
+  `python -m unittest discover -s skills/options-margin-span-calculation-global/scripts`.
 
 ## Related Skills
 

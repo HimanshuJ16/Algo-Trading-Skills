@@ -13,7 +13,7 @@ Use this before considering the skill's implementation complete.
 - [ ] **Concurrency:** Confirm check-then-place is serialized at the caller, and that the remainder of a partially filled parent is re-evaluated.
 - [ ] **Data Freshness:** Confirm position notionals are marked from a current price source before the gate runs.
 - [ ] **Audit Trail:** Confirm every decision — approvals included — is persisted with its projected ratios and applied limits.
-- [ ] **Automated Testing:** Run `python scripts/test_leverage_limit_enforcer.py` and confirm 100% test pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/leverage-limit-enforcement-across-instruments/scripts` and confirm 100% test pass rate.
 
 ## Sign-off
 

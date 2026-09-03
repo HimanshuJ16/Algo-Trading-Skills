@@ -32,7 +32,7 @@
 - [ ] Drawdown *enforcement* is handled by an independent control (`kill-switch-and-drawdown-circuit-breakers`); this is a reporting engine.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_risk_adjusted_attribution.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/risk-adjusted-performance-attribution-per-strategy/scripts` — 100% pass rate.
 
 ## Sign-off
 

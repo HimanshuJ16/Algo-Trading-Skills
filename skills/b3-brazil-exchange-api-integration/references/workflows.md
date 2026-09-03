@@ -121,7 +121,7 @@ of this skill instructed exactly that; the facility does not exist.
 ## Testing
 
 ```
-python -m unittest discover -s scripts
+python -m unittest discover -s skills/b3-brazil-exchange-api-integration/scripts
 ```
 
 Pre-deployment, verify against B3's certification environment:

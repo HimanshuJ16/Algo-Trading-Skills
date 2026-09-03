@@ -73,7 +73,7 @@ Use this skill when screening live or pending-mempool EVM transactions for crypt
 - Boundary checks: `value_usd` exactly `max_transfer_usd` and `gas_price_gwei` exactly `max_gas_gwei` must **not** flag (comparisons are strictly greater-than); list age exactly `max_sanctions_list_age_seconds` must not flag; score exactly $70$ blocks and exactly $30$ is `ANOMALY_SUSPECTED`.
 - Fail-closed checks: `NaN`/`Inf`/negative `value_usd` or `gas_price_gwei`, a blank `method_signature`, a negative or non-integer `block_number`, an empty sanctions list with screening enabled, an undated list, and a whitelist entry containing whitespace must each raise `OnChainMonitoringError`.
 - Case handling: a checksummed, whitespace-padded payload address must match a lowercase list entry, and vice versa; `Transfer(address,uint256)` must **not** match a `transfer(address,uint256)` whitelist entry.
-- Run `python scripts/test_on_chain_transaction_monitoring_for_anomalies.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/on-chain-transaction-monitoring-for-anomalies/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

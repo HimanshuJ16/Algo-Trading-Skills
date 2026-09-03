@@ -66,7 +66,3 @@ reference data library ([anna-dsb.com/upi-](https://www.anna-dsb.com/upi-/)).
   valid but lapsed LEI passes this gate; validate against GLEIF.
 - **Only four data elements are checked.** Table S1.1(1) carries around 100 elements, plus
   Table S1.1(2) (valuation) and Table S1.1(3) (collateral).
-
-## Category
-
-`regulatory-compliance-global`

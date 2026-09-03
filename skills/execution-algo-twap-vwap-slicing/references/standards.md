@@ -1,10 +1,5 @@
 # Standards — execution-algo-twap-vwap-slicing
 
-## Category
-
-`execution-algorithms` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Regulatory obligations that actually bind an execution algorithm
 
 Jurisdiction is stated per row. None of these are universal, and none of them prescribe

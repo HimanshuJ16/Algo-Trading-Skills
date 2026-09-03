@@ -70,7 +70,7 @@ Treat every output as a **candidate for further work**, not a confirmation — s
 - Instantiate `IcebergDetectorEngine(symbol="AAPL", tick_size=0.01)`. Simulate a $\$100.00$ bid with $Q_0 = 500$, then inject 4 SELL-aggressor prints of $400$ shares each ($1{,}600$ traded) with the level refilling to $500$ between them $\implies$ verify `BULLISH_HIDDEN_BUY` with $\hat{Q}_{\text{hidden}} = 1{,}100$, 3 refills, consistent peaks, and a heuristic score of $0.95$ (the cap — the engine never reports certainty).
 - Verify the inversion guard: run the same pattern on the **ask** with BUY aggressors, then inject one SELL print at that price $\implies$ the signal must stay `BEARISH_HIDDEN_SELL`, and the SELL volume must land in `contra_side_traded_quantity`, not in `estimated_hidden_quantity`.
 - Verify feed-integrity handling: replay a `trade_id` already seen $\implies$ `None` returned and $V_{\text{cum}}$ unchanged; apply a depth snapshot older than the last one processed $\implies$ refill count unchanged.
-- Run `python scripts/test_iceberg_order_simulation_and_detection.py`.
+- Run `python -m unittest discover -s skills/iceberg-order-simulation-and-detection/scripts`.
 
 ## Related Skills
 

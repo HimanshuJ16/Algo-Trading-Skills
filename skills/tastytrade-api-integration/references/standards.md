@@ -109,7 +109,3 @@ one. The only officially documented throttle is the failed-login IP block above.
   <https://developer.tastytrade.com/api-guides/instruments/>
 - OCC option symbol standard — 21-character structure.
   <https://en.wikipedia.org/wiki/Option_symbol>
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

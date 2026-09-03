@@ -63,7 +63,3 @@ monotonic-nonce rule) is your firm's to set and defend.
 - CryptoCurrency Certification Consortium, CCSS v9 requirements matrix — https://cryptoconsortium.org/ccss-table-v9/
 - Bybit, "Bybit Security Incident: Timeline of Events and FAQs" — https://learn.bybit.com/en/this-week-in-bybit/bybit-security-incident-timeline
 - Elliptic, "The largest theft in history — following the money trail from the Bybit Hack" — https://www.elliptic.co/blog/bybit-hack-largest-in-history
-
-## Category
-
-`Crypto Custody & Security`

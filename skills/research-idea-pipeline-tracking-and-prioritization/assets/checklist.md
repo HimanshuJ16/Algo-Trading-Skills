@@ -39,7 +39,7 @@ Use this before circulating a research priority ranking or running a backlog rev
 
 ## Automated testing
 
-- [ ] Run `python -m unittest discover -s . -p "test_*.py"` from the `scripts/` directory — 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/research-idea-pipeline-tracking-and-prioritization/scripts` — 100% pass rate.
 
 ## Sign-off
 

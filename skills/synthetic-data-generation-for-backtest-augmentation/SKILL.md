@@ -97,7 +97,7 @@ Use it to answer "would this strategy have survived a differently-ordered versio
 - **Clustering is real**: lag-1 autocorrelation of squared GARCH returns must exceed 0.10 over 100,000 bars, while the same statistic on a GBM path stays under 0.02.
 - **Rejections**: `alpha + beta >= 1`, `omega <= 0`, negative `alpha`/`beta`, `S0 <= 0`, `steps < 1`, `block_size` of 0 or greater than the series length, NaN/Inf in either series, a single-observation series, a constant historical baseline, and a negative or non-finite `vol_tolerance` must each raise `ValueError`. `block_size=0` previously spun in an unbounded loop.
 - **Boundary**: with a baseline of population sd exactly 1.0, a synthetic series scaled by exactly 1.25 must pass `vol_tolerance=0.25` (the gate is `<=`) and fail at `1.25 + 1e-6`.
-- Run `python test_synthetic_data_generator.py` from the `scripts/` directory and confirm 100% pass rate (41 tests).
+- Run `python -m unittest discover -s skills/synthetic-data-generation-for-backtest-augmentation/scripts` and confirm 100% pass rate (41 tests).
 
 ## Related Skills
 

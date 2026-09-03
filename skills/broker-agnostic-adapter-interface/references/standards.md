@@ -100,11 +100,6 @@ accepted and widened, since it is exact.
 `decimal.InvalidOperation`, which would otherwise escape the adapter boundary as a raw
 stdlib exception.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls
-up across the full skill library.
-
 ## Operational Notes
 
 - Every adapter must wrap SDK and transport exceptions into `BrokerAdapterError`

@@ -76,7 +76,3 @@ rule filing and a stale rate in a reference file is worse than no rate.
 - **Candidate enumeration is heuristic, not an optimum over the simplex.** The engine scores a
   fixed family of allocations (concentrated, equal, liquidity-weighted, threshold-seeking); it does
   not prove that no other split is cheaper.
-
-## Category
-
-`Venue Integration & Microstructure`

@@ -68,7 +68,7 @@ The advisor takes a declared strategy profile and returns three things: the mini
 - Test the same strategy on `INTRADAY_1MIN` with no declared tie-break $\implies$ `IN_BAR_PATH_AMBIGUITY_WARNING`, **not** an approval; with `intrabar_fill_assumption='PESSIMISTIC'` $\implies$ approved, but `has_ohlc_sequence_bias` stays `True`.
 - Test the silent-failure regression: a misspelled `selected_data_granularity` (e.g. `'DAILY'`) must raise `ValueError`, never return `GRANULARITY_APPROVED`.
 - Test the venue calendar: a 1,440-minute/365-day crypto year yields $2{,}628{,}000$ one-minute bars per symbol over 5 years against $491{,}400$ on the US equity default.
-- Run `python scripts/test_granularity_advisor.py`.
+- Run `python -m unittest discover -s skills/intraday-vs-eod-backtest-granularity-tradeoffs/scripts`.
 
 ## Related Skills
 

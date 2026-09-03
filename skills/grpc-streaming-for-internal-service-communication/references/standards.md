@@ -85,7 +85,3 @@ Pinging more often than the server's `PERMIT_KEEPALIVE_TIME` causes the server t
 The 4 MiB default receive limit is widely documented across gRPC implementations and
 issue trackers rather than in a single normative specification; treat it as an
 implementation default to verify for your runtime, not as a protocol guarantee.
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

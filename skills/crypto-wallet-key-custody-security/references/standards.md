@@ -58,11 +58,6 @@ Not verified: several secondary sources claim Binance requires IP whitelisting b
 
 `ENV_VARIABLE` and `PLAINTEXT_FILE` are enumerated as known-insecure. Anything not in the secure allowlist — including unrecognized or misspelled values — is reported as insecure.
 
-## Category
-
-`crypto-custody-security` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Intersects with institutional crypto custody requirements, SOC 2 Type II access controls, and exchange API key security policies. Jurisdiction-specific custody rules (e.g. qualified-custodian requirements) are out of scope here — see `regulatory-custody-requirements-by-jurisdiction`.

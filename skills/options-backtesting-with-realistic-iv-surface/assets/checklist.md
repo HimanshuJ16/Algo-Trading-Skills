@@ -37,7 +37,7 @@ Use this before considering the skill's implementation complete.
 
 ## Testing
 
-- [ ] **Automated Testing:** Run `python scripts/test_options_iv_backtester.py` — 100% pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/options-backtesting-with-realistic-iv-surface/scripts` — 100% pass rate.
 
 ## Sign-off
 

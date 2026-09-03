@@ -168,7 +168,3 @@ meaning and enumerations in FIX 4.x and 5.x.
   values, standard header/trailer, TransactTime (60).
 - NZX — Self-Match Prevention:
   https://www.nzx.com/services/nzx-trading/Self-Match-Prevention
-
-## Category
-
-`global-market-integration`

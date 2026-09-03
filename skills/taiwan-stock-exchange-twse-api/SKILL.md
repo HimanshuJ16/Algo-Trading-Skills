@@ -208,7 +208,7 @@ prices the matching engine rejects at every price above NT$10.
 - Run the test suite:
 ```bash
 cd skills/taiwan-stock-exchange-twse-api/scripts
-python -m unittest test_taiwan_stock_exchange_twse_api.py
+python -m unittest discover -s skills/taiwan-stock-exchange-twse-api/scripts
 ```
 
 ## Related Skills

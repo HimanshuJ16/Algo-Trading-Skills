@@ -63,11 +63,6 @@ that the whole thing is documented and auditable. Do not cite any of them as aut
   those — `sec-rule-15c3-5-risk-controls-us`, `mas-singapore-algo-trading-guidelines`,
   `asic-market-integrity-rules-automated-trading`, `uk-fca-algorithmic-trading-systems-controls`.
 
-## Category
-
-`deployment-ops` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Sources
 
 - Commission Delegated Regulation (EU) 2017/589 (RTS 6) — https://eur-lex.europa.eu/eli/reg_del/2017/589/oj/eng

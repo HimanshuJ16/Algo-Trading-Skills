@@ -81,7 +81,7 @@ Each print is scored on three independent size gates and one direction inference
 - Instantiate `OptionsFlowUnusualActivityDetectionEngine()`. Score a print of 5,000 contracts on 1,000 OI and 1,000 ADV at the $\$5.00$ ask ($V/OI = 5.0$, $V/ADV = 5.0$, premium $\$2{,}500{,}000$): expect `UNUSUAL_BULLISH_SWEEP`, all three entries in `gates_passed`. A 10-contract print on 5,000 OI inside a $\$1.95/\$2.05$ spread: expect `ROUTINE_FLOW`.
 - Boundary: 1,500 contracts on 1,000 OI and 750 ADV at $\$0.6\overline{6}$ sits exactly on all three gates ($1.5\times$, $2.0\times$, $\$100{,}000$) and must flag; 1,499 on 1,000 OI must not.
 - Negative checks: the same large print with `bid=ask=None` (or `0.0`) must return `UNUSUAL_FLOW_UNCLASSIFIED`, not a sweep; `open_interest=None` must leave `v_oi` in `gates_unevaluable` and `is_unusual` false; `open_interest=0` on a 2-contract, $\$200$-premium print must not flag; `contract_multiplier=10` must divide the premium by ten; and zero/negative volume, negative or non-finite prices, a zero multiplier, an unknown option type, and a non-positive threshold in `config` must each raise `ValueError`.
-- Run `python scripts/test_options_flow_unusual_activity_detection.py`.
+- Run `python -m unittest discover -s skills/options-flow-unusual-activity-detection/scripts`.
 
 ## Related Skills
 

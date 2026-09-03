@@ -81,7 +81,7 @@ The reference implementation in `scripts/` is a **stdlib-only model of the encod
 - Precision: assert a repeated-addition price and `0.1 + 0.2` are *not* flagged, that `1.23456` at 4 decimals *is*, and that the same quote at 5 decimals is lossless and round-trips.
 - Negative checks: an out-of-order timestamp, an unrecognized `side`, a `NaN` price, a negative quantity, a missing `age_days`, a non-positive `raw_size_bytes`, and a decoder fed a bad magic / bad version / truncated / over-long buffer must each raise.
 - Target enforcement: assert `meets_compression_target` is `True` against a 5.0× target and `False` against a target one above the achieved ratio.
-- Run `python scripts/test_historical_tick_data_storage_and_compaction.py` and confirm 100% pass rate. The Zstandard test skips cleanly when the optional `zstandard` package is absent.
+- Run `python -m unittest discover -s skills/historical-tick-data-storage-and-compaction/scripts` and confirm 100% pass rate. The Zstandard test skips cleanly when the optional `zstandard` package is absent.
 
 ## Related Skills
 

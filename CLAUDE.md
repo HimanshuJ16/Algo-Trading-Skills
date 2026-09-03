@@ -22,9 +22,9 @@ Two distinct kinds of work happen here, and they have different rules:
 
 ```bash
 pip install -r requirements-dev.txt                      # pyyaml, numpy, pandas, scipy, pyotp, pytest
-python tools/validate_skills.py                          # structure + frontmatter + cross-ref validation (must report 504 passed)
+python tools/validate_skills.py                          # structure + frontmatter + cross-ref + scripts-layout + test-command validation (must report 504 passed)
 python tools/build_index.py                              # regenerate index.json from SKILL.md frontmatter
-python tools/run_all_tests.py                            # every skills/*/scripts/test_*.py (~19,000 tests, 505 files, ~30s)
+python tools/run_all_tests.py                            # every skills/*/scripts/test_*.py (~20,300 tests, 504 files, ~30-85s)
 python -m unittest discover -s skills/<skill-name>/scripts  # one skill's tests
 python -m unittest discover -s tests                      # root repo tests (shell out to the tools; also rewrite index.json)
 ```
@@ -76,14 +76,29 @@ Validator rules that commonly bite:
 - `name` must equal the directory name exactly (kebab-case).
 - `version` must match `^\d+\.\d+(\.\d+)?$`. Quote it (`version: "2.0.0"`) — an unquoted
   `1.10` is parsed by YAML as the float `1.1` and silently changes the version.
-- The body must contain all six `## When to Use`, `## Prerequisites`, `## Workflow`,
-  `## Common Pitfalls`, `## Verification`, `## Related Skills` headings.
+- The body must contain all seven `## When to Use`, `## When NOT to Use`,
+  `## Prerequisites`, `## Workflow`, `## Common Pitfalls`, `## Verification`,
+  `## Related Skills` headings. `## When NOT to Use` states the skill's scope boundaries
+  and hands each excluded case to the skill that does own it; it was a 100%-adopted
+  convention before it was enforced, and the casing is exact.
 - Every backticked slug longer than 3 chars in `## Related Skills` must be a real skill
   directory — broken cross-references fail the build.
 - `references/`, `scripts/`, `assets/` must each exist and be non-empty.
-- The frontmatter regex matches `---\n` only. Files in the tree are LF; this machine has
-  `core.autocrlf=true`, so never write a `SKILL.md` with CRLF line endings or the validator
-  will report "missing YAML frontmatter block".
+- `scripts/` must hold at least one helper module **and** at least one `test_*.py` suite. A
+  helper whose own filename starts with `test_` fails validation: `run_all_tests.py` globs
+  `test_*.py`, so such a helper is collected as if it were a suite.
+- Every test command quoted in a skill's `SKILL.md`, `references/*.md` or `assets/*.md` must
+  be the repo-root form `python -m unittest discover -s skills/<name>/scripts` (a trailing
+  `-v` is fine), or `python tools/run_all_tests.py`. Relative forms such as
+  `python scripts/test_x.py` fail outright from the repository root, which is where every
+  other documented command in this repo runs. `SKILL.md` must quote its own command at least
+  once, so the Verification section is always actionable.
+- Line endings do not matter to the validator. Its regex is written against `---\n`, but it
+  reads with `open(..., encoding="utf-8")` in text mode, so Python's universal-newline
+  translation turns CRLF into LF before the match. This machine has `core.autocrlf=true` and
+  ~130 `SKILL.md` files are CRLF in the working copy; all of them validate. Do preserve a
+  file's existing line endings when editing it (read and write with `newline=""`), purely to
+  keep diffs minimal.
 
 Script conventions: each `scripts/` helper is a **standalone module** with no imports from
 other skills or from a shared package. Its sibling test imports it by bare module name —

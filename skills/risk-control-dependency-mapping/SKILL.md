@@ -20,7 +20,30 @@ license: Apache-2.0
 
 Use this skill to identify what can impair or bypass a trading risk control and what downstream controls, strategies, accounts, venues, or order paths a dependency failure can affect. Apply it during new-control design, production-readiness review, configuration or infrastructure change assessment, incident triage, disaster-recovery planning, and resilience exercises.
 
-Do not treat the generated graph as proof of runtime safety. Static mapping cannot establish current feed freshness, consumer-loaded configuration, broker state, hidden manual paths, or successful failover. Connect the inventory to runtime evidence and periodically reconcile it against deployed topology.
+## When NOT to Use
+
+- **As proof of runtime safety.** Static mapping cannot establish current feed freshness,
+  consumer-loaded configuration, broker state, hidden manual paths, or successful
+  failover. The graph describes the topology you declared, which is the topology you
+  believe you have. Connect the inventory to runtime evidence and reconcile it against
+  deployed topology on a fixed cadence, or the map decays into a diagram of last year's
+  system while reading as current.
+- **As a monitoring or alerting system.** The analyzer is pure and deterministic: it
+  takes an inventory and returns an analysis. Inventory collection, authorization,
+  persistence, alerting and escalation are all adapter concerns the module deliberately
+  does not own. Live signal is `log-aggregation-and-centralized-observability`.
+- **As a substitute for actually breaking things.** A blast radius derived from declared
+  edges is a hypothesis. `chaos-engineering-for-trading-infrastructure` and
+  `position-limit-breach-simulation-fire-drills` are how you find the edge nobody
+  declared — which is, reliably, the one that fails.
+- **As a runtime control.** Nothing here vetoes an order or trips a breaker. Enforcement
+  is `kill-switch-and-drawdown-circuit-breakers`; the timing budget those controls must
+  fit inside is `risk-control-latency-budget`; evidence that a control was bypassed is
+  `risk-control-bypass-audit-logging`.
+- **As change management.** Detecting that an environment drifted from its declared
+  topology is `configuration-drift-detection-across-environments`, and approving a change
+  to a risk control is `risk-control-configuration-change-approval-workflow`. This skill
+  tells you what a proposed change would reach, not whether it was authorised.
 
 ## Prerequisites
 
@@ -83,7 +106,7 @@ The reference `RiskDependencyMapper` provides immutable nodes/edges, determinist
 Run:
 
 ```bash
-python scripts/test_risk_dependency_mapper.py
+python -m unittest discover -s skills/risk-control-dependency-mapping/scripts
 ```
 
 The suite covers redundant-source degradation, degraded-but-serving alternatives, complete redundancy loss, multi-hop propagation, fail-open exposure, simultaneous failures, deterministic JSON, single-point analysis including control-to-control dependencies, cycles, missing staleness, unmonitored edges, invalid redundancy, structural rejection, enum/value/argument validation, and escaped DOT output.

@@ -73,7 +73,7 @@ Use this skill when managing multi-strategy portfolios, fund treasuries, or cryp
 - Set `operational_buffer_usd=450000` with \$500k idle: verify `sweepable_cash_usd == 50000`, `MAINTAIN_IDLE_CASH`, and `sweep_blocked_reason == "BELOW_MIN_SWEEP_THRESHOLD"`, while gross drag still reflects the full \$500k.
 - Verify `breakeven_sweep_notional_usd` equals $\text{cost}/\text{period yield}$, that a balance exactly at breakeven is *not* swept, and that one dollar above it is.
 - Negative checks: negative `unallocated_cash`, non-finite `benchmark_rate_pct`, non-positive `holding_period_days`, unreconciled capital, `total_capital <= 0`, and `target_idle_ratio_max=5.0` must each raise.
-- Run `python scripts/test_opportunity_cost_tracking_for_idle_capital.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/opportunity-cost-tracking-for-idle-capital/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

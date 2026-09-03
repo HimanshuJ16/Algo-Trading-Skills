@@ -75,7 +75,7 @@ Use this skill in DeFi algorithmic trading bots, DEX-CEX arbitrage algorithms, a
 
 - Instantiate `UniswapDexIntegrationEngine`. Set up an ETH/USDC pool ($x = 1{,}000$ ETH, $y = 3{,}000{,}000$ USDC, spot = \$3,000/ETH, `fee_pct` = 0.003). Execute a swap of 10 ETH. Verify $\Delta y = 29{,}614.741032$ USDC (from `getAmountOut`: $\frac{10 \cdot 997 \cdot 3{,}000{,}000}{1000 \cdot 1000 + 10 \cdot 997}$), execution price $2{,}961.4741032$, fee-inclusive price impact $1.28419656\%$, fee-excluded reserve-shift impact $0.990099\%$, and $\Delta y_{\text{min}} = 29{,}466.667$ at 0.50% max slippage.
 - Negative checks: `amount_in` of `0` or `-100` must raise `INSUFFICIENT_INPUT_AMOUNT`; a `USDC -> ETH` request against an `ETH -> USDC` pool must raise `TOKEN_ORIENTATION_MISMATCH`; `max_slippage_pct=0.5` must raise; a realized output below `min_amount_out` must reject with `INSUFFICIENT_OUTPUT_AMOUNT`.
-- Run `python scripts/test_decentralized_exchange_dex_integration_uniswap_style.py`.
+- Run `python -m unittest discover -s skills/decentralized-exchange-dex-integration-uniswap-style/scripts`.
 
 ## Related Skills
 

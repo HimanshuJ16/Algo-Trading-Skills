@@ -75,7 +75,7 @@ The engine inverts quoted prices to implied volatilities by bisection, least-squ
 - **Butterfly**: with $\alpha = -2.0$, strikes $(95, 100, 105)$ at $\tau = 1$, the smile gives $\sigma = (0.30, 0.20, 0.10)$ and the butterfly prices to $-0.0269$ $\implies$ `BUTTERFLY_ARBITRAGE_VIOLATION`.
 - **Unaudited**: a one-expiration grid and a two-strike grid must both report `UNAUDITED_SURFACE` with `is_arbitrage_free` $=$ `False`.
 - **Negative checks**: non-positive strike/spot/tte/atm_vol, NaN or Inf anywhere, an unknown `option_type` such as `"C"`, mixed expirations in one calibration, fewer than three distinct moneyness levels, and a missing `atm_vol_by_tte` key must all raise `ValueError`.
-- Run `python -m unittest test_options_implied_volatility_surface` from the `scripts/` directory and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/options-implied-volatility-surface-construction/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

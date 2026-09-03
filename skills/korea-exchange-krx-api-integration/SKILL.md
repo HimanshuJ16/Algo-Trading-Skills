@@ -72,7 +72,7 @@ Use this skill when building market gateways, order routers, or pre-trade risk f
 - Run the test suite:
 ```bash
 cd skills/korea-exchange-krx-api-integration/scripts
-python -m unittest test_korea_exchange_krx_api_integration.py
+python -m unittest discover -s skills/korea-exchange-krx-api-integration/scripts
 ```
 
 ## Related Skills

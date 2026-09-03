@@ -10,7 +10,7 @@
 - [ ] **Missing Bar Audit:** Confirm missing bar ratio is computed and tolerance enforced.
 - [ ] **Adjusted vs Raw Awareness:** Confirm both vendors provide same adjustment type.
 - [ ] **Coverage of Statistics:** Confirm `comparable_bars` is close to `matched_bars` before quoting average/max delta.
-- [ ] **Automated Testing:** Run `python scripts/test_vendor_cross_validator.py` — 100% pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/data-vendor-cross-validation-for-backtests/scripts` — 100% pass rate.
 
 ## Sign-off
 

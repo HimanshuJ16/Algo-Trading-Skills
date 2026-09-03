@@ -74,7 +74,7 @@ Two weighting schemes, and picking the wrong one is the main way this goes wrong
   - The same matrix with equal weights $\implies$ $\sigma_p = 11.5\%$ and risk shares 12.3/26.4/14.1/47.2%, which validates the Euler decomposition independently of the solver.
 - Negative checks: NaN, infinite, zero, and negative volatility; duplicate or empty `strategy_id`; non-positive or non-finite capital; and a covariance matrix that is the wrong shape, ragged, asymmetric, non-finite, non–positive-definite, perfectly correlated, or inconsistent with the declared volatilities — each must raise `ValueError`.
 - Verify $\sum_i \text{RC}_i = \sigma_p$ and that unequal risk budgets are honoured proportionally.
-- Run `python scripts/test_risk_parity_allocation_across_strategies.py`.
+- Run `python -m unittest discover -s skills/risk-parity-allocation-across-strategies/scripts`.
 
 ## Related Skills
 

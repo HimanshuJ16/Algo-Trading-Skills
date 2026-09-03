@@ -111,7 +111,3 @@ computes it; the decomposition lives in `execution-slippage-attribution-timing-v
 - **Blind to capacity.** RTS 6 Art. 10 magnitudes are not exercised.
 - **Only as representative as the replayed scenarios.** Coverage enforcement checks that a
   scenario *kind* was present, not that the data behind it was actually stressed.
-
-## Category
-
-`deployment-ops`

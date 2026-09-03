@@ -80,7 +80,7 @@ Use this skill when several strategies share one risk budget and you need to kno
 - **Downside deviation denominator**: with MAR $=0$ and `[0.10, 0.10, 0.10, -0.10]`, verify $\sqrt{0.01/4}\times\sqrt{252} = 0.05\sqrt{252}$ — averaged over all four observations, not the single losing one.
 - **Perfect hedge**: feed $A$ and $-A$; verify `risk_decomposition_available` is false and every `risk_contribution_pct` is `None`.
 - **Negative checks**: an empty list, a 1-observation series, a `NaN`, a return of $-1.0$ or below, a ragged pair of series, mismatched weight length, and weights not summing to $1.0$ must each raise.
-- Run `python scripts/test_risk_adjusted_attribution.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/risk-adjusted-performance-attribution-per-strategy/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

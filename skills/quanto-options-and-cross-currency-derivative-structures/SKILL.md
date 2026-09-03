@@ -193,7 +193,7 @@ Vega (which has a second channel through the drift) and $\partial V/\partial\rho
   `fx_volatility`, $|\rho| > 1$, NaN or Inf in any numeric field, and an
   `option_type` such as `'CAL'`, `'C'`, or `''` must all raise `ValueError`.
   $\sigma_X = 0$ and $\rho = \pm 1$ must be accepted.
-- Run `python -m unittest test_quanto_options_and_cross_currency_derivative_structures`
+- Run `python -m unittest discover -s skills/quanto-options-and-cross-currency-derivative-structures/scripts`
   from the `scripts/` directory and confirm a 100% pass rate.
 
 ## Related Skills

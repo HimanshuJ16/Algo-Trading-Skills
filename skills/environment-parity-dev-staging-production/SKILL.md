@@ -188,7 +188,7 @@ vectors, an all-or-nothing verdict, cheap enough to run on every promotion.
 - Verify `"27c6a30d7c24, ae1027a6acf"` and `"ae1027a6acf\n27c6a30d7c24"` compare equal,
   and that a single head against that two-head baseline blocks.
 - Verify a secret placed in `env_vars` appears in neither `repr(spec)` nor `repr(report)`.
-- Run `python scripts/test_environment_parity_auditor.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/environment-parity-dev-staging-production/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

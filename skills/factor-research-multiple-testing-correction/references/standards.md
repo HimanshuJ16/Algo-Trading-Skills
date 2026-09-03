@@ -118,7 +118,3 @@ upper bound, and record how it was derived.
 - FDR is a batch expectation. A 5% FDR says nothing about whether any particular
   survivor is real.
 - They say nothing about economic significance, capacity, or transaction costs.
-
-## Category
-
-`backtesting-methodology`

@@ -87,7 +87,7 @@ Invoke this when a bot needs to place orders or consume market data on a crypto 
 - Confirm a spot post-only order renders `type=LIMIT_MAKER` with no `timeInForce` and no `execInst`, and that the futures equivalent renders `type=LIMIT` with `timeInForce=GTX`.
 - Simulate a maintenance-window disconnect (or test against the exchange's testnet during an announced maintenance window) and confirm backoff does not escalate into rapid reconnect attempts.
 - Confirm a self-trade scenario resolves according to the explicitly chosen STP mode, on a symbol whose `allowedSelfTradePreventionModes` includes it.
-- Run `python scripts/test_weight_rate_limiter.py` (or `python -m unittest discover -s skills/crypto-exchange-api-integration/scripts`) and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/crypto-exchange-api-integration/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

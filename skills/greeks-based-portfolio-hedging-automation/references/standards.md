@@ -47,7 +47,3 @@ client-order-ID idempotency, kill-switch coverage, and short-sale locate checks
 where a SELL hedge is in cash equity. Those are out of scope here; see
 `order-placement-idempotency`, `execution-algorithm-kill-switch-integration`, and
 `us-reg-sho-short-sale-locate-requirements`.
-
-## Category
-
-`risk-management`

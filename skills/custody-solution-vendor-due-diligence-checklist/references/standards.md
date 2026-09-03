@@ -116,8 +116,3 @@ fraud, physical loss or destruction of key material — not market loss, protoco
 failure, or the custodian's insolvency. No major custodian insures anything close
 to 100% of assets under custody, so a coverage ratio is a relative risk signal,
 not an attainable target. Read the perils and sub-limits, not the headline limit.
-
-## Category
-
-`vendor-risk-management` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.

@@ -105,7 +105,3 @@ publishes a maximum tolerable universe churn rate.
   addition with a new FIGI, and a merger as a deletion or delisting of the target.
 - The churn guard is a blunt instrument: it holds a genuine mass-delisting event exactly
   as it holds a corrupt file. A suspect report must page a human.
-
-## Category
-
-`reference-data`

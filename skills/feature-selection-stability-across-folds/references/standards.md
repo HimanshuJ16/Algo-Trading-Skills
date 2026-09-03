@@ -64,7 +64,3 @@ Kuncheva's index, which share no arithmetic with the implementation.
   screened the same pool.
 - **Selection uses every fold.** Any performance figure computed on the same folds
   that produced the consensus set is selection-biased; re-validate out of sample.
-
-## Category
-
-`financial-ml`

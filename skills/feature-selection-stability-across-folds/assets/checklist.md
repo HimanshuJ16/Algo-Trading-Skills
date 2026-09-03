@@ -31,7 +31,7 @@
 - [ ] Defaults ($\Phi_{\min} = 0.70$, $p_{\min} = 0.80$, $K \ge 5$, 95% confidence) have been calibrated and the rationale recorded — they are library defaults, not published standards.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_feature_stability_analyzer.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/feature-selection-stability-across-folds/scripts` — 100% pass rate.
 
 ## Sign-off
 

@@ -90,7 +90,7 @@ Use it as a gate: an aggregate multi-year Sharpe of 2.5 tells you nothing about 
 - Boundary checks: a $-25.0049\%$ bar must veto even though it reports as 25.00%; exactly $-25\%$ must not. 755 daily bars must fail a 3-year gate; 756 must pass.
 - Negative checks: a `NaN` return, a `NaN` or non-positive price, a return at or below $-100\%$, a length mismatch, and each out-of-range constructor argument must all raise `ValueError`.
 - Confirm a constant return series reports `sharpe_ratio is None` for every regime, not a large number.
-- Run `python scripts/test_regime_coverage.py` from the `scripts/` directory and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/multi-year-regime-coverage-requirement/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

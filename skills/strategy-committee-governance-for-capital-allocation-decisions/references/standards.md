@@ -75,7 +75,3 @@ passages in quotation marks were read from the Cornell LII texts linked below.
 - [17 CFR § 275.204-2](https://www.law.cornell.edu/cfr/text/17/275.204-2) — books and records; (e)(1) retention
 - [SEC, Private Fund Advisers](https://www.sec.gov/investment/private-fund-advisers) — status of the vacated 2023 rules
 - [Morgan Lewis, "Fifth Circuit Vacates SEC Private Fund Adviser Rules in Full"](https://www.morganlewis.com/pubs/2024/06/fifth-circuit-vacates-sec-private-fund-adviser-rules-in-full) — 5 June 2024, No. 23-60471
-
-## Category
-
-`strategy-lifecycle-governance`

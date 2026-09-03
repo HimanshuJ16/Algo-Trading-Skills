@@ -69,7 +69,3 @@ Renewal reverses idle inactivation only; it does not extend a token past midnigh
   https://apisb.etrade.com/docs/api/authorization/request_token.html
 - X (Twitter) Developer Platform, *OAuth 1.0a — Creating a signature*.
   https://docs.x.com/resources/fundamentals/authentication/oauth-1-0a/creating-a-signature
-
-## Category
-
-`broker-integration`

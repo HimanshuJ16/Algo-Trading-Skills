@@ -88,7 +88,7 @@ The onboarding task is complete only when **all** of the following hold (not mer
 - [ ] CCO sign-off is captured on the persisted record.
 - [ ] Independent verification artifacts (right-to-audit, sample-data inspection, or third-party attestation) are attached for the attested booleans.
 
-Run `python scripts/test_alternative_data_vendor_due_diligence_checklist.py` (or `python -m unittest discover -s skills/alternative-data-vendor-due-diligence-checklist/scripts`) to confirm the engine produces the expected `Decision`/`FlagCode` verdicts.
+Run `python -m unittest discover -s skills/alternative-data-vendor-due-diligence-checklist/scripts` to confirm the engine produces the expected `Decision`/`FlagCode` verdicts.
 
 ## Worked Examples
 

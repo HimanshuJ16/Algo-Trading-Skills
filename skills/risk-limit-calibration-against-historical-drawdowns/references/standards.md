@@ -69,11 +69,6 @@ is not finite.
   for a non-bank, or that any particular tail estimator must be used. Those are
   engineering and risk-policy choices.
 
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Sources
 
 | Claim | Source |

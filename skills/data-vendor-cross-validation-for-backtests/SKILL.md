@@ -85,7 +85,7 @@ Invoke this skill before running production backtests on historical price data f
 - Submit a bar whose Vendor A close is `NaN` or `0.0` against a real Vendor B price, verify it is reported as an integrity failure and not as agreement.
 - Submit duplicate timestamps within one vendor, verify they are reported rather than collapsed.
 - Submit two empty datasets, verify `ValueError` rather than a PASS verdict.
-- Run `python scripts/test_vendor_cross_validator.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/data-vendor-cross-validation-for-backtests/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

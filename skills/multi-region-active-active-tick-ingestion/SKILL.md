@@ -99,7 +99,7 @@ The arbitration is the same one venues already prescribe for their own redundant
 - Emit sequences 1, 2, then 6 and confirm `emitted_sequence_gap == 3` is surfaced; emit 5 then 4 and confirm `emitted_out_of_order` is set.
 - Let one region fall silent and confirm the win rate is *unchanged* while `get_regional_health()` reports `SILENT`; declare a region that never connects and confirm `NEVER_SEEN`.
 - Drive two threads through the same 4,000 sequence numbers concurrently and confirm exactly 4,000 emissions, no duplicates, and no exception.
-- Run `python scripts/test_active_active_ingest.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/multi-region-active-active-tick-ingestion/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

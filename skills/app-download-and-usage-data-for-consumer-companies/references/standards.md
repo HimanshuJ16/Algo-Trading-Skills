@@ -132,7 +132,3 @@ consuming signals in live trading:
 - Re-run threshold calibration on the category cohort at least annually, or
   whenever the cohort's stickiness distribution shifts materially — a stale
   threshold silently reclassifies issuers.
-
-## Category
-
-`quant-research-alt-data`

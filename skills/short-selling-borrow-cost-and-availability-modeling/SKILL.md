@@ -77,7 +77,7 @@ Use this skill when developing, backtesting, or executing quantitative short-sel
 - Schedule: 100 shares over marks $[10, 20, 30]$ at $10\%$ $\Rightarrow$ $\$1.70$, versus $\$0.85$ for the flat-entry-price approximation over the same three days.
 - Net financing: `short_proceeds_credit_rate=0.05` on 100 shares at $\$100$ for 36 days $\Rightarrow$ credit $\$50.00$ against a $\$3.06$ fee, i.e. `net_financing_cost_usd` $= -\$46.94$.
 - Negative checks: utilization outside $[0,1]$, `NaN` utilization or price, negative `available_shares`, non-positive `shares`, negative `days_held`, `max_htb_rate < htb_base_rate`, `htb_utilization_threshold = 1.0`, `collateral_margin_pct < 1.0`, and a `daily_rates` length mismatch must each raise.
-- Run `python scripts/test_borrow_cost_modeler.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/short-selling-borrow-cost-and-availability-modeling/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

@@ -77,8 +77,8 @@ Before submitting, check your skill against these questions:
 All 504 skills included in the initial release underwent a multi-tier verification process before publication:
 
 1. **Domain & API Specification Verification**: Every skill's technical procedure was cross-referenced against authoritative broker API documentation (Fyers v3, Zerodha Kite Connect, ICICI Breeze, Upstox v2, Alpaca, IBKR TWS/Gateway), exchange rulebooks (CME Globex, Eurex, HKEX, SGX, ASX, JPX, CBOE, LSE), and regulatory publications (US SEC 15c3-5/Reg NMS/Reg SHO, EU MiFID II/RTS 6/MAR, UK FCA SYSC 25, SEBI Algo Circulars, MAS, ASIC, ISDA).
-2. **Automated Structural & Schema Validation**: Verified via `python tools/validate_skills.py`, ensuring 100% compliance with frontmatter schemas, required sections, file hierarchy, and `index.json` consistency.
-3. **Executable Unit Test Suites**: Executed via `python tools/run_all_tests.py`, running over 1,780 unit tests across 514 test files in `skills/*/scripts/test_*.py` using Python's `unittest` framework.
+2. **Automated Structural & Schema Validation**: Verified via `python tools/validate_skills.py`, ensuring 100% compliance with frontmatter schemas, required sections, file hierarchy, `scripts/` layout (a helper module plus a `test_*.py` suite, never a helper named `test_*.py`), documented test commands runnable from the repository root, and `index.json` consistency.
+3. **Executable Unit Test Suites**: Executed via `python tools/run_all_tests.py`, running over 20,300 unit tests across 504 test files in `skills/*/scripts/test_*.py` using Python's `unittest` framework.
 4. **CI/CD Continuous Enforcement**: Every pull request and push automatically executes structural validation and unit test suites via GitHub Actions (`.github/workflows/validate-skills.yml`).
 
 ## Review process

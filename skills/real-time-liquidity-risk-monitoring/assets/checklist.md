@@ -29,7 +29,7 @@
 - [ ] A logging handler is configured in the host application so `WARNING` breaches are actually delivered.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_real_time_liquidity_monitor.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/real-time-liquidity-risk-monitoring/scripts` — 100% pass rate.
 
 ## Sign-off
 

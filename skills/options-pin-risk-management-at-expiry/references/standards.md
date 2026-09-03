@@ -71,7 +71,3 @@ assume a number.
   contrary-exercise mechanism are US constructs. Thresholds, deadlines and
   automatic-exercise conventions elsewhere are set by the local clearing house
   and are not covered by the sources above.
-
-## Category
-
-`risk-management`

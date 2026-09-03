@@ -52,7 +52,7 @@ Use this before promoting a tuner integration to production.
       does **not** climb to `B_max`.
 - [ ] **Deadband sanity**: with batches cut ~50% full, no tuning transitions
       should occur.
-- [ ] **Automated tests**: `python -m unittest discover -s scripts -v` — 43/43 pass.
+- [ ] **Automated tests**: `python -m unittest discover -s skills/adaptive-batch-size-tuning-under-load/scripts` — 43/43 pass.
 
 ## 4. Observability
 

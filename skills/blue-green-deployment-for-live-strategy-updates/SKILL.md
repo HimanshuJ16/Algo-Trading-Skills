@@ -29,6 +29,8 @@ Use it when: the strategy holds overnight or intraday inventory that cannot be f
 for the deploy; market coverage gaps cost money (market making, hedging, continuous
 execution); or you need a rehearsed, sub-minute path back to the previous version.
 
+## When NOT to Use
+
 Do **not** use it when:
 
 - The book is flat and the venue is closed. A plain restart is simpler, and simpler is

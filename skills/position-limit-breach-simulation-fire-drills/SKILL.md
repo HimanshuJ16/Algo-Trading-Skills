@@ -75,7 +75,7 @@ The harness grades *evidence*, not intent. You supply the scenario (what was inj
 - Boundary: `is_over_limit(10_000.0, 10_000.0)` is `False` and `is_over_limit(10_001.0, 10_000.0)` is `True` — Rule 562 says "in excess of".
 - Negative checks: a `PRODUCTION` scenario raises `ProductionEnvironmentError` (even with the simulator disabled); a `NaN` quantity, a non-positive `limit_threshold`, a negative latency, a blank `scenario_id`, a duplicate `scenario_id`, an unexplained over-limit `ALLOW`, and a `POST_TRADE` scenario expecting `BLOCK_AND_HALT` each raise.
 - Coverage: a suite with no `ALLOW` case or no `POST_TRADE` case reports `all_passed is False` with a `coverage_findings` entry even when every individual scenario passed.
-- Run `python scripts/test_fire_drill_simulator.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/position-limit-breach-simulation-fire-drills/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

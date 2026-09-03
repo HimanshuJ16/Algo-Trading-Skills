@@ -45,11 +45,6 @@ The two numeric figures RTS 6 *does* state are Article 10's stress-test multipli
 the highest message and trade volumes of the previous six months), Article 16(5)'s
 five-second alert deadline, and Article 28's five-year retention for HFT order records.
 
-## Category
-
-`regulatory-compliance-global` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Applies to investment firms engaged in algorithmic trading that execute on EU regulated

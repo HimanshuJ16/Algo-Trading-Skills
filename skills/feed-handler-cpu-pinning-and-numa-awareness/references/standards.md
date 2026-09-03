@@ -70,7 +70,3 @@ the before/after distribution — the tail percentiles, not the mean — in the 
 - [Reducing OS jitter due to per-cpu kthreads](https://docs.kernel.org/admin-guide/kernel-per-CPU-kthreads.html)
 - [psutil API reference](https://psutil.io/api/) — `cpu_affinity()` availability, `cpu_count(logical=False)` returning `None`
 - [Microsoft Learn — `SetProcessAffinityMask`](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setprocessaffinitymask)
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

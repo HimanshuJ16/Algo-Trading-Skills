@@ -70,7 +70,3 @@ explicitly not sourced, and are constructor-overridable for calibration.
 - `degiro-connector`, `CheckingResponse` model — https://github.com/Chavithra/degiro-connector/blob/main/src/degiro_connector/trading/models/order.py
 - `degiro-connector`, check/confirm order actions — https://github.com/Chavithra/degiro-connector/blob/main/src/degiro_connector/trading/actions/action_confirm_order.py
 - `degiro-connector` issue #56, `check_order()` returning only `confirmation_id` and `response_datetime` — https://github.com/Chavithra/degiro-connector/issues/56
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

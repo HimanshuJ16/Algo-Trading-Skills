@@ -32,7 +32,7 @@ Invoke this skill when validating strategy profitability during backtesting. Nai
 
 A backtest that only knows the estimate never learns it is wrong. A TCA report that only knows the realization cannot tell you which cost component to fix.
 
-**When NOT to use it:**
+## When NOT to Use
 
 - **You have no fills yet.** Realized shortfall and calibration need `p_fill` from real or paper executions. Pre-trade sizing alone is `liquidity-adjusted-position-sizing`.
 - **You need an execution schedule.** Each trade is one fill at one price. No slicing, no participation trajectory, no impact decay — see `execution-algo-twap-vwap-slicing`.
@@ -102,7 +102,7 @@ A backtest that only knows the estimate never learns it is wrong. A TCA report t
 - **Opportunity cost.** BUY 1,000 with 400 filled at 100.00 and $P_{\text{end}}=110.00$ gives `opportunity_cost_bps` $=1{,}000$, `total_implementation_shortfall_bps` $=600$, and 6,000 in currency. Omit $P_{\text{end}}$ and both must be `None`, with `unpriced_opportunity_trades` incremented.
 - **Calibration recovers a known coefficient.** Fills constructed with residual $=20\sqrt{\phi}$ must refit to $\hat{\gamma}=20.0$, and delay and spread must be stripped before fitting.
 - **Invalid input fails loudly.** `adv=0`, negative ADV, `p_decision=0`, negative size, NaN or infinite prices, `action="SEL"`, `filled_size > order_size`, and non-positive `capital_base` must all raise rather than return a plausible number.
-- Run `python scripts/test_tca_integrator.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/transaction-cost-analysis-tca-integration/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

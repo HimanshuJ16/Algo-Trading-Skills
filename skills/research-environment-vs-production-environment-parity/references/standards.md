@@ -134,7 +134,3 @@ and **OCC Bulletin 2011-12 was rescinded on 17 April 2026** by OCC Bulletin 2026
 *Model Risk Management: Revised Guidance*
 ([occ.gov](https://www.occ.gov/news-issuances/bulletins/2026/bulletin-2026-13.html)).
 Check currentness before citing it anywhere in this repository.
-
-## Category
-
-`quant-research-alt-data`

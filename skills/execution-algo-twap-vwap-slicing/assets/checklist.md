@@ -43,7 +43,7 @@ Use this before routing a parent order through the slicer in a live environment.
 - [ ] Venue algo limits re-verified against current vendor documentation if native TWAP/VWAP is used instead.
 
 ## Testing
-- [ ] `python scripts/test_slicer.py` — 100% pass rate.
+- [ ] `python -m unittest discover -s skills/execution-algo-twap-vwap-slicing/scripts` — 100% pass rate.
 - [ ] Quantity invariant verified under a randomised fill/expiry/rejection/cancel sweep across all three catch-up policies.
 
 ## Sign-off

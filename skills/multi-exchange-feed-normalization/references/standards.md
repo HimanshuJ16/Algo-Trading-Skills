@@ -68,11 +68,6 @@ in April 2020, and the NYMEX WTI May-2020 contract settled at **-$37.63/bbl** on
 2020-04-20. Set `allow_non_positive_price=True` only for instruments where that is
 genuinely possible.
 
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Scope boundary
 
 This skill covers payload-to-schema mapping only. It holds no cross-message state and

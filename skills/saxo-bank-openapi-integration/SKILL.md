@@ -65,7 +65,7 @@ Use this skill when connecting algorithmic trading systems to Saxo Bank using th
 
 - Instantiate `SaxoBankOpenAPIClient`. Search instrument "EURUSD" (FxSpot) $\implies$ verify UIC 21 returned. Place limit buy order $\implies$ verify `OrderId` returned and `status` is `None` (Saxo returns no status on placement). Query positions $\implies$ verify `PositionId` read from the row root, `Symbol` from `DisplayAndFormat`, and unrealized P&L parsed in both instrument and base currency.
 - Confirm a non-`Market` order without a price raises before any HTTP call, and that HTTP 401/429 raise `SaxoAuthError`/`SaxoRateLimitError` respectively.
-- Run `python scripts/test_saxo_client.py`.
+- Run `python -m unittest discover -s skills/saxo-bank-openapi-integration/scripts`.
 
 ## Related Skills
 

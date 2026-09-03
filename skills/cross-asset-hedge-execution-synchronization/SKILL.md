@@ -80,7 +80,7 @@ Use this skill in multi-leg trading algorithms (e.g. Options Delta Hedging, Conv
 - Verify duplicate-fill rejection: after hedging `FILL_X`, calling `generate_hedge_order` again with `fill_id = FILL_X` must raise while the live hedge keeps its accumulated `filled_hedge_qty` and dispatch timestamp; the same must raise after that hedge has completed.
 - Verify unified timeout routing: submit a *partial* hedge fill past `unhedged_timeout_ms` and confirm the unwind callback fires, the residual is reported, and the subsequent sweep finds nothing left pending.
 - Verify rejection paths: wrong-side fill, duplicate fill for a completed order, `strategy_id`/symbol mismatch, a hedge quantity rounding to zero, and NaN/zero quantities must all raise `ValueError`.
-- Run `python scripts/test_cross_asset_hedge_execution_synchronization.py`.
+- Run `python -m unittest discover -s skills/cross-asset-hedge-execution-synchronization/scripts`.
 
 ## Related Skills
 

@@ -89,7 +89,7 @@ Its second job is to refuse. A payload with a `NaN` metric, a sign-inverted draw
 - **Escalation override.** Live DD $20.0$ with IR $-0.2$ → `MANDATORY_RETIREMENT` at 2 breaches, `escalation_reason` containing `OVERRIDE_DD_AND_NEGATIVE_IR`. With `escalate_on_negative_ir_with_drawdown_breach=False` the same payload → `REDUCE_ALLOCATION`.
 - **Sample-size gate.** With `min_live_observations=126`, a payload breaching all four criteria at `live_observation_count=15` → `INSUFFICIENT_LIVE_HISTORY`, `is_retired False`, four breaches still listed. At $126$ observations the same payload → `MANDATORY_RETIREMENT`.
 - **Constructor validation.** A non-positive `max_drawdown_multiplier`, a non-finite threshold, a `mandatory_retirement_breach_count` outside $1..4$, and a non-positive `min_live_observations` must each raise `ValueError`.
-- Run `python -m unittest discover -s . -p "test_*.py"` from `scripts/` — 45 tests, 100% pass rate.
+- Run `python -m unittest discover -s skills/strategy-lifecycle-retirement-criteria/scripts` — 45 tests, 100% pass rate.
 
 ## Related Skills
 

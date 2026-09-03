@@ -7,7 +7,7 @@ the pre-fix implementation and passes against the current one.
 import datetime
 import unittest
 
-from test_transaction_verification_before_large_transfers import (
+from transfer_verification_engine import (
     AssetConfig,
     RiskLevel,
     TestTransactionExpiredError,

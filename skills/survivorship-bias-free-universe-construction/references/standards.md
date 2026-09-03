@@ -113,8 +113,3 @@ which raises rather than overwriting.
   the position quantity.
 - **Cash values are IEEE-754 floats.** Adequate for backtest P&L, not for books and
   records.
-
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.

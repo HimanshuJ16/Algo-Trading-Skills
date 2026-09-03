@@ -73,6 +73,8 @@ Invoke this whenever a bot subscribes to a live tick/quote WebSocket feed and ru
 - Raise an exception inside the processing function and confirm the worker keeps consuming, the failure is counted, and `queue.join()` still completes.
 - Confirm queue-depth and queue-wait metrics are visible in logs/monitoring and correlate sensibly with market volatility (rising during bursts, draining after).
 - Stop the pipeline with a backlog queued and confirm the backlog is processed, or that whatever was discarded is reported.
+- Run the unit suite and confirm every test passes:
+  `python -m unittest discover -s skills/producer-consumer-tick-pipeline/scripts`.
 
 ## Related Skills
 

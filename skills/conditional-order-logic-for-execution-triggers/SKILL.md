@@ -74,7 +74,7 @@ Client-side simulation is the right answer when the trigger the strategy needs d
 - Drive one satisfying tick from 16 threads concurrently and assert exactly one payload is released.
 - Feed a cross-asset tree with the benchmark quote removed and confirm `evaluate_tristate` returns `None` (UNKNOWN), not `False`, and that `NotCondition` over it does not fire.
 - Set `max_quote_age_seconds=5.0` and feed a quote timestamped 30 seconds ago: no fire, and a stale-quote warning logged.
-- Run `python scripts/test_conditional_order_logic_for_execution_triggers.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/conditional-order-logic-for-execution-triggers/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

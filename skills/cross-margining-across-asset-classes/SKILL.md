@@ -79,7 +79,7 @@ The aggregation used is the ISDA SIMM cross-risk-class shape, $\sqrt{\sum_r IM_r
 - Instantiate `CrossMarginingCalculator(minimum_floor_pct=0.20)`. Register $\rho = -0.80$ for `EQUITY_FUTURES`/`INDEX_OPTIONS`, then input $M_{\text{EquityFutures}} = \$500{,}000$ and $M_{\text{IndexOptions}} = \$400{,}000$. Since $500{,}000^2 + 400{,}000^2 + 2(-0.80)(500{,}000)(400{,}000) = 90 \times 10^9$, verify $M_{\text{cross}} = \$300{,}000$ exactly, savings $\$600{,}000$, and capital efficiency gain $66.67\%$, with `is_floor_applied` false.
 - Verify that omitting the offset registration returns $\$900{,}000$ (no saving) and populates `unregistered_pairs` — the fail-closed path.
 - Verify three equal legs registered pairwise at $\rho = -0.9$ raise `InconsistentCorrelationError`, while $\rho = -0.5$ (the PSD boundary) returns $0$ and is accepted.
-- Run `python scripts/test_cross_margining_across_asset_classes.py` (or `python -m unittest discover -s skills/cross-margining-across-asset-classes/scripts`) and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/cross-margining-across-asset-classes/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

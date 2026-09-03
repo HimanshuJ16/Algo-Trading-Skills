@@ -5,11 +5,6 @@
 | Rolling WFO | Fixed-length sliding window (e.g. 1 year) | Fixed-length testing window (e.g. 3 months) | Fast-regime changing markets (Crypto, Forex) |
 | Anchored WFO | Expanding window anchored to start date | Fixed-length testing window (e.g. 3 months) | Structural long-term equities / macro trend |
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Window Geometry Contract
 
 All bounds are inclusive calendar days. One slice occupies:

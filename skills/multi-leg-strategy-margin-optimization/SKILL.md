@@ -67,7 +67,7 @@ Use it also to answer "what happens if a leg doesn't fill" — run the partial l
 - Verify a debit vertical (long 150C @ \$5.00 / short 155C @ \$2.00) returns `max_potential_loss_usd == 0.0` and `net_capital_required_usd == 300.0`, **not** \$500.
 - Verify four short legs (140P/145P/155C/160C, all `SELL`) return `strategy_type == "UNDEFINED_RISK_COMBINATION"`, `max_potential_loss_usd is None`, and the full \$9,560 naked sum with zero savings.
 - Verify a long 1 / short 5 ratio spread returns the full \$14,000 naked requirement, and that legs on two expirations return `STATUS_NO_OFFSET_MULTI_EXPIRY`.
-- Run `python scripts/test_multi_leg_strategy_margin_optimization.py` (or `python -m unittest discover -s skills/multi-leg-strategy-margin-optimization/scripts`) and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/multi-leg-strategy-margin-optimization/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

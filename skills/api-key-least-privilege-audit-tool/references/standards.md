@@ -122,7 +122,3 @@ This auditor checks scopes only. It does not read, verify or enforce IP restrict
   <https://kite.trade/docs/connect/v3/user/>
 - Alpaca, *Credentials Management* (Access Controls) —
   <https://docs.alpaca.markets/docs/credential-management>
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

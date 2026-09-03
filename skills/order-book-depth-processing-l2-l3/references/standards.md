@@ -47,11 +47,6 @@ Both metrics below are standard market-microstructure definitions, not venue rul
   count is a parameter of the signal, not an implementation detail — report it alongside
   the ratio.
 
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No regulator surveyed here prescribes how a local order book is maintained; the rules

@@ -85,7 +85,7 @@ Use this skill in crypto algorithmic trading bots, treasury management engines, 
 - Register lots acquired 2023-01-01 (2 ETH @ \$1,000) and 2025-05-01 (3 ETH @ \$2,000); dispose 4 ETH for \$10,000 on 2025-06-01. Verify `is_mixed_term` is True, with a \$3,000 long-term row and a \$1,000 short-term row.
 - Verify the leap-year boundary: acquired 2024-01-01, disposed 2025-01-01 $\implies$ short-term; disposed 2025-01-02 $\implies$ long-term.
 - Register the same asset in two wallets and verify a disposal in one never consumes the other's lots.
-- Run `python scripts/test_crypto_transaction_tax_lot_tracking.py`.
+- Run `python -m unittest discover -s skills/crypto-transaction-tax-lot-tracking/scripts`.
 
 ## Related Skills
 

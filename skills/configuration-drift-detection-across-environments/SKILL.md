@@ -34,6 +34,8 @@ during process initialization before the trading socket opens. The first catches
 mistake earlier; the second is the one that actually protects live capital, because it
 runs on the host and against the file the engine will really read.
 
+## When NOT to Use
+
 Do **not** use it when:
 
 - **The two environments are supposed to differ structurally.** This detector compares
@@ -140,8 +142,7 @@ Do **not** use it when:
 - Confirm zero tolerance is honoured: `ConfigurationDriftDetector(allowed_overrides=set())`
   must flag a `broker_endpoint` change as `CRITICAL`, not `ALLOWED`.
 - Run `python -m unittest discover -s skills/configuration-drift-detection-across-environments/scripts`
-  (28 tests), or `python scripts/test_config_drift_detector.py` from within the scripts
-  directory.
+  and confirm all 28 tests pass.
 
 ## Related Skills
 

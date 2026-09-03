@@ -83,7 +83,7 @@ Invoke this whenever a portfolio trades multiple instruments within the same sec
 - Submit proposed order that breaches the cluster notional limit and verify it is vetoed: `RiskCheckResult(approved=False)` with the indicative `allowed_notional` for downsizing.
 - Verify an opening order in a symbol not yet held is vetoed when it would push post-trade portfolio gross notional past `max_portfolio_notional`.
 - Verify a risk-reducing order on an at-cap cluster is approved, and that evaluating any order before `update_correlation_matrix()` raises `CorrelationMatrixUnavailableError`.
-- Run unit test suite `python scripts/test_exposure_limits.py` (or `python -m unittest discover -s skills/correlation-aware-exposure-limits/scripts`) and confirm 100% pass rate.
+- Run unit test suite `python -m unittest discover -s skills/correlation-aware-exposure-limits/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

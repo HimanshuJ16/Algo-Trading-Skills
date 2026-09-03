@@ -20,11 +20,6 @@ times races with a concurrent consumer and raises `IndexError`. All pops in
 `scripts/backpressure_policy.py` are individually guarded and performed under a
 lock for this reason.
 
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 This skill concerns engineering practice, not investment advice, and no

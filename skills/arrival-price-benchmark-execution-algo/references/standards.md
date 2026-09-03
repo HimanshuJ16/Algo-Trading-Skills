@@ -109,10 +109,6 @@ IS = s * [ Q_f * (P_exec - P_0)  +  (Q - Q_f) * (P_end - P_0) ] + fees
 
   Positive means underperformance (a cost). Two mistakes to avoid: writing the execution term as `(P_0 - P_exec)` — that reports a buy filled *above* arrival as a gain — and multiplying by the parent `Q` rather than the filled `Q_f`. The latter matters precisely because this skill's give-up policy can end with `Q_f < Q`, and the unfilled remainder is measured against `P_end`, not against a price at which nothing traded. See `implementation-shortfall-minimization` for the full four-component Perold decomposition and a reference implementation.
 
-## Category
-
-`execution-algorithms`
-
 ## References
 
 - Almgren, R. and Chriss, N. (2000). "Optimal Execution of Portfolio Transactions." *Journal of Risk* 3(2), 5-39. https://www.smallake.kr/wp-content/uploads/2016/03/optliq.pdf — Eq. (5) variance, Eq. (8) expected cost, Eqs. (10)-(13) limiting regimes, Eq. (16) and following for `kappa`/`kappa_tilde`/`eta_tilde`, Eq. (17) trajectory, Eq. (18) trade list, Eq. (19) small-`tau` approximation, Eq. (20) closed-form `E`/`V`, Sec. 2.3 half-life. (Dated December 2000; an earlier and more limited treatment appeared as Almgren and Chriss, "Value Under Liquidation," *Risk* 12(12), 1999 — the closed forms used here are from the 2000 paper.)

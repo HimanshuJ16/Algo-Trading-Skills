@@ -18,6 +18,8 @@ license: Apache-2.0
 
 Use this skill when participating in a US equity opening auction (Nasdaq Opening Cross, NYSE Core Open Auction) to provide contra-side liquidity against a published order imbalance, or to execute a rebalance order at the official opening price with price protection. The strategy consumes opening-auction imbalance data (paired shares, imbalance shares, imbalance direction, Current Reference Price, near/far indicative clearing prices) and derives an on-open order that the listing venue will actually accept at the moment you intend to send it.
 
+## When NOT to Use
+
 **Do NOT use it** for the closing cross (see `close-auction-participation-strategy`), for IPO/halt crosses or the Extended Trading Close (different order types and cutoffs — the strategy rejects those NOII cross types), or as a way to *take* liquidity in the same direction as an imbalance. It is not a substitute for a venue order-entry gateway: it produces order parameters, it does not submit, amend or cancel orders.
 
 ## Prerequisites

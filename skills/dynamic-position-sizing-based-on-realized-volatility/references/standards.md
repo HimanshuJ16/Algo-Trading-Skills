@@ -43,7 +43,3 @@ four published tolerances.
   on identical data.
 - Sizing is **per-asset**. Correlation is not modelled, so summing independently
   vol-targeted positions does not yield a vol-targeted portfolio.
-
-## Category
-
-`risk-management`

@@ -80,7 +80,3 @@ snapshot/delta resynchronisation
 Information Coefficient evaluation (`order-book-microstructure-signal-research`),
 wall-clock staleness (`clock-skew-correction-for-tick-timestamps`), and
 tick-to-trade measurement (`tick-to-trade-latency-measurement`).
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

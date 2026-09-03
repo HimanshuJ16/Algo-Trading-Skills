@@ -109,7 +109,3 @@ list is stable between book changes can recover the rest by validating once at l
   changed; it does not know whether they are correct or current.
 - **Second-order cross-Greeks** (vanna, volga, charm, speed) are not carried. They are
   what the trigger set bounds, not what it models.
-
-## Category
-
-`risk-management`

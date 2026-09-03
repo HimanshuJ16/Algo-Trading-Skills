@@ -50,7 +50,7 @@ Regulatory requirements are not uniform:
   exchange-issued identifier on algo orders. Configure the current exchange
   rule, not an EU assumption, in the registry and venue adapter.
 
-## When Not to Use
+## When NOT to Use
 
 Do not use this skill as the sole control for position limits, price collars,
 message-rate limits, market-abuse surveillance, transaction reporting, or FIX
@@ -166,7 +166,7 @@ exactly. Both directions fail closed.
 Run:
 
 ```text
-python scripts/test_algo_trading_disclosure_to_exchange_membership.py
+python -m unittest discover -s skills/algo-trading-disclosure-to-exchange-membership/scripts
 ```
 
 The tests cover approved, unknown, pending, deprecated, manual, malformed,

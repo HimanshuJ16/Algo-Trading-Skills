@@ -1,9 +1,5 @@
 # Standards — point-in-time-database-for-ml-training-data
 
-## Category
-
-`financial-ml`
-
 ## Join Semantics
 
 | Requirement | Rule | Enforcement |

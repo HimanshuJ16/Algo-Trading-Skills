@@ -45,7 +45,7 @@
 ## Audit & Verification
 - [ ] Local rejects (`fix_msg_type == ""`, empty payload) are persisted and are distinguishable in post-trade review from exchange rejections.
 - [ ] `rejection_reason`, `normalized_price` and `tick_size` are captured on every reject.
-- [ ] Run test suite: `python scripts/test_new_zealand_exchange_nzx_api.py`.
+- [ ] Run test suite: `python -m unittest discover -s skills/new-zealand-exchange-nzx-api/scripts`.
 
 ## Sign-off
 - Connectivity Engineer: ___________________________

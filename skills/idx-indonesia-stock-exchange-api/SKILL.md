@@ -77,7 +77,7 @@ Use this skill in Southeast Asian market execution algorithms, IDX gateways, and
 - Run the test suite:
 ```bash
 cd skills/idx-indonesia-stock-exchange-api/scripts
-python -m unittest test_idx_indonesia_stock_exchange_api.py
+python -m unittest discover -s skills/idx-indonesia-stock-exchange-api/scripts
 ```
 
 ## Related Skills

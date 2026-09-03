@@ -47,11 +47,6 @@ Sources: Lundberg & Lee, NeurIPS 2017 (arXiv:1705.07874); Lundberg, Erion & Lee,
 *Nature Machine Intelligence* 2, 56–67 (2020); shap `TreeExplainer` API documentation,
 <https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html>.
 
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Scope these carefully. **No regulator listed below mandates per-signal feature

@@ -176,7 +176,7 @@ It covers the four things hand-rolled CME FIX code gets wrong:
   `None`.
 - Confirm `to_ilink3_order_fields()` maps `50→5392`, `7928→2362` (as an integer) and
   `1028` to `0`/`1`, and raises on a non-numeric SMP ID.
-- Run `python scripts/test_cme_group_fix_api_for_futures.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/cme-group-fix-api-for-futures/scripts` and confirm a 100% pass rate.
 - Against a venue test session only: send one built message unmodified through the real
   transport and confirm it is accepted. A framing bug that unit tests cannot see is one
   where the transport rewrites the bytes.

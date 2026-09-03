@@ -78,7 +78,7 @@ The two are days to weeks apart. S&P DJI announced Tesla's S&P 500 addition on 2
 - Assert that a record published at midnight on the snapshot date is flagged, while the same record published at midnight on the prior date is not.
 - Assert that a name whose `added_date` equals the snapshot date is treated as a member (changes take effect prior to the open) while one whose `removed_date` equals it is flagged as a zombie.
 - Assert that a timezone-aware record audited against a naive snapshot raises `UniverseAuditError` instead of returning a clean result.
-- Run `python scripts/test_universe_lookahead_auditor.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/backtest-look-ahead-in-universe-selection/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

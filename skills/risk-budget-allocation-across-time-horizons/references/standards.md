@@ -71,7 +71,3 @@ only to flag drawdown limits set inside routine noise, never as a risk figure.
 | The reported total MUST NOT be rounded before the cap comparison. | An audit record reading "100.0%" beside `over_allocated=True` is self-contradicting and useless in a post-incident review. |
 | Per-horizon drawdown limits MUST be checked against a portfolio limit under the assumption that horizons draw down together. | Individually green limits can sum well past the firm's tolerance; horizon correlations rise in exactly the conditions that produce simultaneous drawdowns. |
 | The report MUST be treated as advisory. | It returns flags. It does not block trading, cancel orders, or flatten positions; the caller must gate on them. |
-
-## Category
-
-`risk-management`

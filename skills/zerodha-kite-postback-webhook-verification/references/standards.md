@@ -56,11 +56,6 @@ supported by the brokers' own documentation and both have been removed.
 For the generic pattern that most non-Indian venues do use — HMAC-SHA-256 over the raw
 body, carried in a header — see `webhook-based-order-fill-notifications`.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No regulator mandates a specific webhook signature scheme; the requirement here is an

@@ -103,7 +103,3 @@ comparisons and reported `is_consistent=True` with the message "PASSED".
 - `compute_sma` is a **reference indicator for the parity check**, not a general indicator
   library. Extending the check to other indicators means comparing them at the same
   resolution and period on both sides — never scaling the period by the resample factor.
-
-## Category
-
-`backtesting-methodology`

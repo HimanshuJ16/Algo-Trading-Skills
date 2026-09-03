@@ -32,7 +32,7 @@
 - [ ] If digital assets: confirm one engine instance per wallet/account for dispositions on or after 1 Jan 2025 (Treas. Reg. 1.1012-1(j)), not one pooled ledger.
 
 ## Test suite
-- [ ] Run test suite: `python -m unittest discover -s scripts` from the skill directory.
+- [ ] Run test suite: `python -m unittest discover -s skills/automated-tax-lot-reporting-pipeline/scripts`.
 - [ ] Verify that all tests pass including validation and memory management tests.
 - [ ] Confirm error messages are descriptive and actionable for debugging.
 - [ ] Verify monitoring functions return correct open lot counts.

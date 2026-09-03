@@ -48,7 +48,7 @@ Use this before considering the skill's implementation complete.
 - [ ] If assurance against the issuing firm is required, an external trust anchor is in place (asymmetric signing with independently held key, RFC 3161 TSA, or third-party WORM)
 
 ## Automated Testing
-- [ ] Run `python scripts/test_regulatory_audit_trail.py` — 100% pass rate (32 tests)
+- [ ] Run `python -m unittest discover -s skills/backtest-audit-trail-for-regulatory-review/scripts` — 100% pass rate (32 tests)
 - [ ] Coverage confirmed: forgery resistance, per-field tamper detection, manifest isolation, canonicalisation, input validation, checksum correctness, round-trip
 
 ## Sign-off

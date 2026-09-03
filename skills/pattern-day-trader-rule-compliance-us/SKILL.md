@@ -185,7 +185,7 @@ visible rather than silent.
 - Confirm a deficit equal to the lesser of 5% of equity or $1,000 is treated as
   de minimis and one cent more is not, and that the 5th and 15th business day
   deadlines land on the dates a manual count gives.
-- Run `python -m unittest test_pdt_tracker` from `scripts/`.
+- Run `python -m unittest discover -s skills/pattern-day-trader-rule-compliance-us/scripts`.
 
 ## Related Skills
 

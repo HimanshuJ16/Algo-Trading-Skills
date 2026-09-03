@@ -90,7 +90,7 @@ The session schedule reflects ASX **Service Release 15** (effective 23 June 2025
 - Assert `AsxIntegrationEngine.market_phase()` with no argument resolves the current instant as tz-aware UTC, not as naive host-local wall-clock.
 - Assert `AsxSequenceTracker` is monotonic (1, 2, 3) and that `classify_inbound` returns IN_SEQUENCE, GAP, POSS_DUP (with `poss_dup=True`), and TOO_LOW for the corresponding inputs, and raises `ValueError` on a non-positive sequence number.
 - Assert `detect_inbound_gap` still flags a forward gap, a replay, and an out-of-order number.
-- Run `python scripts/test_australian_securities_exchange_asx_api.py`.
+- Run `python -m unittest discover -s skills/australian-securities-exchange-asx-api/scripts`.
 
 ## Related Skills
 

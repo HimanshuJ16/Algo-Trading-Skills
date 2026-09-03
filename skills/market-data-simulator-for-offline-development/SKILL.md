@@ -176,7 +176,7 @@ level you need, without a network. It is not a market model.
   coarser than `initial_price` or not expressible as an exact decimal, a blank symbol,
   and any non-finite parameter must each raise. An invalid config must raise from
   `iter_synthetic_ticks()` itself, not on the first `next()`.
-- Run `python scripts/test_market_data_simulator.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/market-data-simulator-for-offline-development/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

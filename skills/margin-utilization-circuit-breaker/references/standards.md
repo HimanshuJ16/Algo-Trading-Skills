@@ -21,11 +21,6 @@ construction, and on the `MAINTENANCE` basis `hard_stop_threshold` must be **str
 below $1.0$. A breaker that trips at maintenance utilization $1.0$ has not prevented
 anything — see the IBKR note below.
 
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## What the numerator means, and why it is a factor of two
 
 **United States — Reg T initial vs FINRA maintenance.**

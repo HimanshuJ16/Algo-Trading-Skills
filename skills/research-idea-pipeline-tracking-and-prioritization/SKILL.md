@@ -101,7 +101,7 @@ where $S$ is expected Sharpe, $C$ is estimated capacity in **whole US dollars**,
 - Determinism: register two ideas with identical scores as `Z_LAST` then `A_FIRST` and confirm `A_FIRST` ranks first — ties break on `idea_id`, not on registration order.
 - Status: an empty register reports `NO_IDEAS`; a register whose every idea is `REJECTED` reports `NO_ACTIVE_IDEAS`, **not** `PIPELINE_ACTIVE`.
 - Stall boundary: exactly `max_stage_age_days` in stage is not stalled; one second past it is. A stage change resets the clock; `PRODUCTION_READY` and `REJECTED` never stall.
-- Run `python -m unittest discover -s . -p "test_*.py"` from the `scripts/` directory and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/research-idea-pipeline-tracking-and-prioritization/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

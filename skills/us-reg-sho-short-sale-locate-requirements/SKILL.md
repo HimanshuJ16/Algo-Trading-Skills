@@ -38,7 +38,7 @@ It provides mechanisms to:
   ([242.201(b)(1)(i)](https://www.law.cornell.edu/cfr/text/17/242.201)).
 - Produce an auditable decision record for every order the gate sees, including rejections.
 
-### When NOT to Use
+## When NOT to Use
 
 - **As the marking decision itself.** Deciding that a sale is "long" turns on ownership and
   deliverability under [242.200(a)-(f)](https://www.law.cornell.edu/cfr/text/17/242.200) —

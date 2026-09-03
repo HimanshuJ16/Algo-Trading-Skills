@@ -98,7 +98,7 @@ The six requirements, all mandatory, are (paragraph numbers as originally issued
 - Run the test suite:
 ```bash
 cd skills/singapore-mas-notice-on-cyber-hygiene-for-trading-systems/scripts
-python -m unittest test_singapore_mas_notice_on_cyber_hygiene_for_trading_systems
+python -m unittest discover -s skills/singapore-mas-notice-on-cyber-hygiene-for-trading-systems/scripts
 ```
 
 ## Related Skills

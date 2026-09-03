@@ -91,10 +91,6 @@ Three changes are visible at the API boundary:
   corroboration; check `is_cross_verified` rather than truth-testing the status string.
 - Output rounding is off by default. Set `price_precision=4` to restore 1.x output.
 
-## Category
-
-`data-management-global` — see the top-level `mappings/` directory.
-
 ## Cross-references
 
 - Two-source arbitration with latency-skew handling: `market-data-feed-arbitration-across-vendors`

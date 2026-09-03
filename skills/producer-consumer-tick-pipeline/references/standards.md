@@ -11,11 +11,6 @@ detail of the client library, not a guaranteed part of the broker's API contract
 | IBKR TWS / Gateway API | SDK-dependent — `ibapi` dispatches from its reader thread; wrappers differ | Real-time market depth and quote streaming; confirm the wrapper's threading model. |
 | Alpaca Real-Time Market Data Stream (`alpaca-py`) | Asyncio-native — the handler runs on the event loop | Stock and crypto WebSocket ingestion; a direct `put_nowait` is correct here. |
 
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 This is an engineering concern rather than a rule-driven one: no regulator prescribes a queue

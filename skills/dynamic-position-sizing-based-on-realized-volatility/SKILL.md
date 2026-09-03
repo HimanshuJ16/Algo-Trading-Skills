@@ -78,7 +78,7 @@ Invoke this skill when executing trend-following, mean-reversion, or multi-asset
 - Instantiate `RealizedVolPositionSizer(target_annualized_vol=0.15, min_scalar=0.20, max_scalar=2.00, vol_floor=0.05)`. Feed an alternating $\pm d$ return series with $d = 0.60/\sqrt{252}$ (100 observations, exactly 60% annualized): verify `realized_annualized_vol` $= 0.60$, `bounded_vol_scalar` $= 0.25$, and `adjusted_capital_usd` $= \$25{,}000$ on $\$100{,}000$ base. Repeat at 4% annualized: verify the raw scalar is $3.0$ (floor-bound, not $3.75$), clipped to the $2.0$ cap, with `vol_floor_binding` true.
 - Verify `required_ewma_observations(0.94, 0.01) == 74` and `(0.97, 0.01) == 151`, reproducing RiskMetrics Table 5.7.
 - Negative checks: an empty history, a 1-element history, a 73-element history at $\lambda=0.94$, a `NaN` return, and a negative `base_capital_usd` must each raise.
-- Run `python scripts/test_realized_vol_sizer.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/dynamic-position-sizing-based-on-realized-volatility/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

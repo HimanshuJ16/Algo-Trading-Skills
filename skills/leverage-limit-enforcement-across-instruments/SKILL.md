@@ -104,7 +104,7 @@ For options and other non-linear instruments, `notional_usd` is the **underlying
 - Precision: a projected $3.00499\times$ against a $3.0\times$ cap must be rejected and reported as $3.00499$; an exactly $3.0\times$ projection must be approved.
 - Negative checks: `side="LONG"`, a negative or non-finite notional, a NaN or non-positive equity, a non-`PositionSpec` row, and a symbol declared under two asset classes must each raise `ValueError`. An *opening* order in an asset class with no configured cap must return `REJECTED_UNKNOWN_ASSET_CLASS`, while an order *reducing* that class must still be approved.
 - Delta: a long put on $\$100\text{k}$ of underlying at $\delta = -0.40$ alongside a $\$100\text{k}$ long must project $1.4\times$ gross and $0.6\times$ net.
-- Run `python scripts/test_leverage_limit_enforcer.py` (or `python -m unittest discover -s skills/leverage-limit-enforcement-across-instruments/scripts`) and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/leverage-limit-enforcement-across-instruments/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

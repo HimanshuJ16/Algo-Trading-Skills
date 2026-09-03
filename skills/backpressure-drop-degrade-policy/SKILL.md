@@ -75,7 +75,7 @@ A `NEVER_DROP` stream at capacity returns `accepted=False` with the item in `dec
 
 ## Verification
 
-- Run `python scripts/test_backpressure_policy.py` — 100% pass rate (38 tests).
+- Run `python -m unittest discover -s skills/backpressure-drop-degrade-policy/scripts` — 100% pass rate (38 tests).
 - Under sustained simulated overload (replay at multiples of peak historical tick rate), confirm risk-critical streams return `accepted=False` and trigger the defined alert rather than silently discarding.
 - Confirm an undeclared stream name raises `UnknownStreamError` instead of being assigned a drop policy.
 - Confirm the overflow path does not raise when a consumer drains the queue concurrently.

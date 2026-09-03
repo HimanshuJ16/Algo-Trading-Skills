@@ -74,7 +74,7 @@ The reference helper (`scripts/walk_forward.py`) generates the fold indices, enf
 - Confirm an explicit purge/embargo gap exists and that its size was checked against `max(feature lookback, label horizon)` rather than left at a default.
 - Confirm reported performance includes a per-fold breakdown across at least 3-5 distinct time windows plus the cross-fold dispersion and worst fold, not a single aggregate number, so regime-dependence is visible.
 - Confirm every reported risk metric traces to a realised return series, and that no metric is constant across folds.
-- Run `python -m unittest discover -s scripts` from the skill directory and confirm all tests pass.
+- Run `python -m unittest discover -s skills/walk-forward-validation-setup/scripts` and confirm all tests pass.
 
 ## Related Skills
 

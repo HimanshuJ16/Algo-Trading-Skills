@@ -30,6 +30,8 @@ which vendors may serve it, what happens when none of them can, and which strate
 vendor outage would stop. Apply it during strategy onboarding, production-readiness review,
 data-vendor change assessment, outage triage, and periodic single-point-of-failure review.
 
+## When NOT to Use
+
 Do not use it as a failover mechanism. It decides whether a strategy may trade on the data it
 currently has; it does not reconnect feeds, reroute subscriptions, or reconcile prices across
 vendors — see `vendor-outage-fallback-data-source-hierarchy` for the failover path itself. It

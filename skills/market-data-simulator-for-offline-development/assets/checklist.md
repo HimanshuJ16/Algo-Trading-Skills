@@ -47,7 +47,7 @@
 - [ ] Nothing downstream treats the uniform depth values as a liquidity signal.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_market_data_simulator.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/market-data-simulator-for-offline-development/scripts` — 100% pass rate.
 - [ ] The zero-volatility closed form $S_n = S_0 e^{\mu n \Delta t}$ is asserted against an independently derived value, not against the implementation's own formula.
 
 ## Sign-off

@@ -88,7 +88,7 @@ It splits the executed leg of Implementation Shortfall into two additive compone
 - **Partial fill**: 4,000 of 10,000 filled at the timing-driven prices above gives `fill_ratio` $= 0.4$, `is_partial_fill` true, `executed_is_contribution_bps` $= 28.0$ while `total_is_slippage_bps` stays $+70.0$.
 - **Rounding**: a SELL at $\$1234.56 \to \$1240.01 \to \$1231.77$ reports timing $-44.15$, sizing $+66.74$, total $+22.60$ — the directly computed total, one ulp above the $22.59$ sum of the rounded parts.
 - **Negative checks**: non-finite or non-positive prices, an unrecognised `side`, `filled_qty` $\le 0$ or $>$ `order_qty`, naive/malformed/out-of-order timestamps, and a negative materiality threshold must each raise.
-- Run `python scripts/test_execution_slippage_attribution_timing_vs_sizing.py` and confirm all tests pass.
+- Run `python -m unittest discover -s skills/execution-slippage-attribution-timing-vs-sizing/scripts` and confirm all tests pass.
 
 ## Related Skills
 

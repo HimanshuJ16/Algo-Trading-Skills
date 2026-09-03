@@ -52,7 +52,7 @@ US / CFTC only. Use before relying on a position-limit audit run.
 
 ## Automated Testing
 
-- [ ] Run `python -m unittest test_position_limit_reporting_cftc_large_trader` from the `scripts/` directory — 38 tests, 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/position-limit-reporting-cftc-large-trader/scripts` — 38 tests, 100% pass rate.
 
 ## Sign-off
 

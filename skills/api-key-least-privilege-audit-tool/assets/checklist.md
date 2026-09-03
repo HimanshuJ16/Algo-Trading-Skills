@@ -36,7 +36,7 @@ Use this before considering the skill's implementation complete.
 
 ## Testing
 
-- [ ] **Automated Testing:** Run `python scripts/test_key_auditor.py` — 100% pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/api-key-least-privilege-audit-tool/scripts` — 100% pass rate.
 
 ## Sign-off
 

@@ -46,7 +46,3 @@
 - **Three indicators only.** Annex II's list is non-exhaustive and this engine covers three of its practices. Momentum ignition, ping orders, marking the close, cross-venue and cross-instrument manipulation are out of scope.
 - **Single-venue view.** Alerts are grouped per instrument key (ISIN, else symbol), with no cross-venue or cross-instrument aggregation.
 - **Beneficial ownership is supplied, never inferred.** The engine cannot discover that two accounts share an owner.
-
-## Category
-
-`regulatory-compliance`

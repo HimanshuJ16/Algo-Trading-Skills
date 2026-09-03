@@ -1,9 +1,5 @@
 # Broker Integration Standards — broker-api-idempotent-cancel-requests
 
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.
-
 ## Response classification
 
 | Response / condition | Status | Terminal? | Caller obligation |

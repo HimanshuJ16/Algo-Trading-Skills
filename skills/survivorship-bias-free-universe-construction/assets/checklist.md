@@ -66,7 +66,7 @@ Use this before signing off a backtest whose universe was reconstructed point-in
 
 ## Automated testing
 
-- [ ] Run `python test_universe_builder.py` from the `scripts/` directory — 100% pass
+- [ ] Run `python -m unittest discover -s skills/survivorship-bias-free-universe-construction/scripts` — 100% pass
       rate (51 tests).
 
 ## Sign-off

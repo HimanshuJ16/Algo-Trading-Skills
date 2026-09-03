@@ -73,7 +73,3 @@ often monthly, and a stale rate in a reference file is worse than no rate.
   term of execution cost and on inverted venues usually the smaller one.
 - **Per-share rates only.** Sub-$1.00 US securities are capped as a percentage of
   quotation price and are out of scope.
-
-## Category
-
-`Venue Integration & Microstructure`

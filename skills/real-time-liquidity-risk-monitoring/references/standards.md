@@ -89,7 +89,3 @@ is satisfied by running this engine, and none prescribes its thresholds.
 - **No cross-symbol correlation.** Crowding, where every holder unwinds the same names
   at once, is out of scope.
 - **Monitor, not control.** The engine reports; it never blocks, resizes, or cancels.
-
-## Category
-
-`risk-management`

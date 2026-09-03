@@ -96,7 +96,7 @@ It is the **normalization layer**: `cross-account-aggregate-risk-view` explicitl
 - Negative checks, each of which must raise: constructing the ledger with no `fx_rates`; an FX table missing the base currency or holding it at anything other than 1.0; a position in a currency absent from the table; a NaN or infinite quantity/cost/price; a negative price; a malformed currency code; a non-positive `contract_multiplier`; a naive (non-timezone-aware) `as_of`; a leg older than `max_snapshot_age`; a leg stamped ahead of `valuation_time`; an unmapped symbol under `strict_symbol_mapping`; duplicate target-ledger keys differing only in case.
 - Verify a long 100 / short 99.999999 book reports `weighted_avg_cost_base is None` rather than a cost per share in the hundreds of thousands.
 - Verify the three `DiscrepancyKind` values are produced by the three distinct situations, and that a 5e-06 BTC break is caught under `symbol_tolerances={"BTC": 1e-8}` while the 1e-5 default silently passes it.
-- Run `python scripts/test_consolidated_ledger.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/multi-broker-consolidated-position-view/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

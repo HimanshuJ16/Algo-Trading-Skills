@@ -56,11 +56,6 @@ checked against the primary record.
 | The IID bootstrap is invalid under serial dependence; resampling contiguous blocks preserves the short-range dependence structure | Künsch, H. R. (1989), "The Jackknife and the Bootstrap for General Stationary Observations", *The Annals of Statistics* 17(3), 1217–1241. https://doi.org/10.1214/aos/1176347265 | Verified; the basis for the exchangeability caveat and the block-bootstrap recommendation |
 | Block bootstrap with geometrically distributed block lengths, yielding a stationary resampled series | Politis, D. N. & Romano, J. P. (1994), "The Stationary Bootstrap", *Journal of the American Statistical Association* 89(428), 1303–1313. https://doi.org/10.1080/01621459.1994.10476870 | Verified; cited as the appropriate alternative for dependent trade streams, not implemented here |
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 **No regulator mandates Monte Carlo resampling of a strategy's trade log.** Nothing

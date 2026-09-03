@@ -8,11 +8,6 @@
 
 No third-party dependency beyond `pandas` and `numpy` is required.
 
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Method Sources
 
 - **Kaufman, S., Rosset, S., Perlich, C., Stitelman, O.**, "Leakage in Data Mining: Formulation, Detection, and Avoidance," *ACM Transactions on Knowledge Discovery from Data* 6(4), Article 15, December 2012, DOI [10.1145/2382577.2382579](https://dl.acm.org/doi/10.1145/2382577.2382579).

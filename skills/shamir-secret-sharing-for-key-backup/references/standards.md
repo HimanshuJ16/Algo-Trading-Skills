@@ -106,8 +106,3 @@ Source: [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.m
 - **Share storage, custody rosters and share geography.** See
   `cold-storage-geographic-distribution-strategy` and
   `segregation-of-duties-for-custody-operations`.
-
-## Category
-
-`crypto-custody-security` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.

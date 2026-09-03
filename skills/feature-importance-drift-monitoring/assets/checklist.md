@@ -33,7 +33,7 @@
 - [ ] Audit reports are retained as evidence for periodic model validation (EU investment firms: RTS 6 Article 9 annual self-assessment).
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_feature_drift_monitor.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/feature-importance-drift-monitoring/scripts` — 100% pass rate.
 
 ## Sign-off
 

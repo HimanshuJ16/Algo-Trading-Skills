@@ -23,6 +23,8 @@ Use this execution algorithm when attempting to buy or sell a large block of an 
 
 This skill leverages the centralized liquidity event of the exchange's Closing Auction by routing the order as a Limit-on-Close (LOC) order, significantly reducing information leakage and price impact.
 
+## When NOT to Use
+
 **Do NOT use it** to provide contra-side liquidity against a published closing imbalance — that is `close-auction-participation-strategy`, which consumes the NOII/NYSE imbalance feed this skill deliberately does not read. It is also not an order gateway: it produces routing and pricing parameters, it does not submit, amend or cancel orders.
 
 ## Prerequisites

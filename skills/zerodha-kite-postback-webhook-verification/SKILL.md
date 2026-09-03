@@ -156,7 +156,7 @@ Kite's scheme, not something a verifier can fix.
 - The same naive timestamp string is fresh when read as IST and stale when read as UTC,
   proving the timezone is applied rather than assumed.
 - Sixteen threads submitting one payload simultaneously yield exactly one `ACCEPTED`.
-- Run `python -m unittest discover -s scripts` from the skill directory and confirm a
+- Run `python -m unittest discover -s skills/zerodha-kite-postback-webhook-verification/scripts` and confirm a
   100% pass rate.
 
 ## Related Skills

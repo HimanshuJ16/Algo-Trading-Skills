@@ -149,7 +149,3 @@ Every emulated plan MUST:
 4. Be executable by a local EMS that can watch price triggers, run interval timers,
    and **persist its state** — an emulated stop loss lost to a process restart is an
    unprotected position.
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

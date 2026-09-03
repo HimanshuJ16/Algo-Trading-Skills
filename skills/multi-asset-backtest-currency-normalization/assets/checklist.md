@@ -55,7 +55,7 @@ Use this before considering the skill's implementation complete.
 
 ## Testing
 
-- [ ] Run `python scripts/test_currency_normalizer.py` and confirm 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/multi-asset-backtest-currency-normalization/scripts` and confirm 100% pass rate.
 - [ ] Confirm the negative cases raise: `nan`/`inf`/zero/negative rates, malformed
       currency codes, `datetime` keys, missing rates, reversed attribution dates.
 

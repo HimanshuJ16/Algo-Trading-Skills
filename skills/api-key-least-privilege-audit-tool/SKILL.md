@@ -88,7 +88,7 @@ Invoke this skill prior to deploying any live trading bot or data pipeline to ve
 - Verify case-insensitive matching (`Read_Market_Data` is accepted for `read_market_data`).
 - Verify a bare string or `None` passed as `granted_permissions` raises `TypeError`.
 - Verify report list ordering is identical across `PYTHONHASHSEED` values.
-- Run `python scripts/test_key_auditor.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/api-key-least-privilege-audit-tool/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

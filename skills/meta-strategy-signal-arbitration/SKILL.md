@@ -15,6 +15,8 @@ license: Apache-2.0
 
 Use this skill when managing multi-strategy portfolios running concurrent independent algorithms (e.g. Trend Following, Mean Reversion, Statistical Arbitrage, Sentiment/NLP) on shared asset universes. Sub-strategies frequently generate opposing trading signals on identical symbols (e.g. Strategy A BUY $+\$100{,}000$ vs Strategy B SELL $-\$60{,}000$). Routing both orders to market crosses the spread twice, pays two sets of fees, and — the larger exposure — risks the two orders matching each other at the venue. This module implements **Meta-Strategy Signal Arbitration** and **Internal Order Netting**: it evaluates priority risk-off vetoes, calculates a weighted consensus signal, and emits only the net difference ($+\$40{,}000$) as an executable order.
 
+## When NOT to Use
+
 Do **not** use it as a substitute for venue-level self-match prevention configuration, for broker/market-access pre-trade risk controls, or for a portfolio kill switch — it sits upstream of all three and enforces none of them. It also has no view of current positions, no cross-symbol netting, and no per-strategy fill allocation; those belong to the skills cross-linked below.
 
 ## Prerequisites

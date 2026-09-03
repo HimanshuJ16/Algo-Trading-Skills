@@ -73,7 +73,7 @@ Use before signing off a post-breach RCA.
 
 ## Automated testing
 
-- [ ] Run `python -m unittest test_breach_rca_generator -v` from the `scripts/` directory -
+- [ ] Run `python -m unittest discover -s skills/post-breach-root-cause-analysis-template/scripts` -
       52 tests, 100% pass rate.
 
 ## Sign-off

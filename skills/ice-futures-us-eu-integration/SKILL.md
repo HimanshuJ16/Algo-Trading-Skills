@@ -201,7 +201,7 @@ and most expensive mistake in this area:
   Sugar No. 11 outside its NCR ⟹ `OUTSIDE_NCR_EXCHANGE_DISCRETION`, because ICE
   Futures U.S. states the 3 × NCR cancellation preference for options, not
   futures.
-- Run `python scripts/test_ice_futures_us_eu_integration.py` and confirm a 100%
+- Run `python -m unittest discover -s skills/ice-futures-us-eu-integration/scripts` and confirm a 100%
   pass rate.
 - Against simulation only: submit one validated order and confirm ICE accepts the
   instrument identification and the price. A symbology error that unit tests

@@ -17,7 +17,7 @@
 - [ ] Validate venue and algorithm-version scope.
 - [ ] Confirm child orders inherit the parent algorithm identifier.
 - [ ] Verify the raw outbound payload contains the venue-specific tag.
-- [ ] Run `python scripts/test_algo_trading_disclosure_to_exchange_membership.py`.
+- [ ] Run `python -m unittest discover -s skills/algo-trading-disclosure-to-exchange-membership/scripts`.
 
 ## Deployment and Rollback
 

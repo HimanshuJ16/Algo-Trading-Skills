@@ -12,7 +12,7 @@ Use this before considering the skill's implementation complete.
 - [ ] **Self-Trade Prevention (STP):** Confirm `stp_mode` is chosen explicitly per strategy and validated against the symbol's `allowedSelfTradePreventionModes`.
 - [ ] **24/7 Rolling P&L Reset:** Confirm risk controls use `Rolling24hPnLTracker` (or an explicit fixed UTC boundary) rather than an assumed session close.
 - [ ] **Maintenance Backoff:** Confirm reconnect logic handles extended 502/503/504 maintenance windows with exponential jittered backoff, and honours `Retry-After` on 429 so it never escalates to an 418 IP ban.
-- [ ] **Automated Testing:** Run `python scripts/test_weight_rate_limiter.py` and confirm 100% test pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/crypto-exchange-api-integration/scripts` and confirm 100% test pass rate.
 
 ## Sign-off
 

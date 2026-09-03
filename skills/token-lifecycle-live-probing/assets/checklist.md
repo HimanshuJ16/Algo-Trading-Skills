@@ -54,8 +54,9 @@ Use this before considering the skill's implementation complete.
       negative lifespan is rejected rather than clamped to zero.
 - [ ] **Proactive Refresh Gated:** If `should_proactively_refresh` is used, confirm it
       is driven by the minimum observed lifespan and requires a sample floor.
-- [ ] **Automated Testing:** Run `python -m unittest discover -s scripts` from the
-      skill directory and confirm a 100% pass rate.
+- [ ] **Automated Testing:** Run
+      `python -m unittest discover -s skills/token-lifecycle-live-probing/scripts`
+      and confirm a 100% pass rate.
 
 ## Sign-off
 

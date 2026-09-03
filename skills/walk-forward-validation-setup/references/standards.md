@@ -7,11 +7,6 @@
 | [Backtrader](https://community.backtrader.com/topic/142/how-to-implement-walk-forward-optimization-with-backtrader) | None. Walk-forward is implemented manually in user code; the community threads above are the reference examples. | Everything in this skill. |
 | `scripts/walk_forward.py` | Row-index folds, EXPANDING and ROLLING, explicit purge/embargo gap, gap checked against `max(L, H)`, per-fold and cross-fold aggregation. | Not a backtester, not an execution model, and no per-observation purging for overlapping labels. |
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Purge and Embargo
 
 Strict chronological ordering (`train_end < test_start`) is necessary but **not sufficient**.

@@ -102,7 +102,7 @@ Two detectors run per audit: rank agreement across the whole common feature set 
 - Scale invariance: a gain-based baseline summing to 100 and a mean $|\text{SHAP}|$ live profile summing to 0.01 with identical proportions must report $\rho = 1.0$ and **no** degraded features.
 - Negative checks — each must raise: a `NaN`/`inf` importance, a negative importance, an all-zero profile, an empty map, a non-numeric value, fewer than 3 common features, and a constant rank vector passed to `compute_spearman_rank_correlation`.
 - Boundary: a top-N feature whose share drops by exactly 80% must **not** be flagged; 82% must.
-- Run `python scripts/test_feature_drift_monitor.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/feature-importance-drift-monitoring/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

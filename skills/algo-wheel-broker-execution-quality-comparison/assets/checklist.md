@@ -21,7 +21,7 @@
 - [ ] Confirm no broker is promoted below the configured sufficiency thresholds, and that an all-ineligible window returns equal weights rather than a promotion.
 - [ ] Confirm deterministic tie handling and allocations summing to 1.0 within `ALLOCATION_TOLERANCE`.
 - [ ] Confirm the canary floor leaves the leading broker at least the floor itself.
-- [ ] Run `python scripts/test_algo_wheel_broker_execution_quality_comparison.py`.
+- [ ] Run `python -m unittest discover -s skills/algo-wheel-broker-execution-quality-comparison/scripts`.
 
 ## Deployment and Rollback
 

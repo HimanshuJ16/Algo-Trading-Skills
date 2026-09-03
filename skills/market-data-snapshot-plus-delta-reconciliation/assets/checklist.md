@@ -13,7 +13,7 @@ Use this before considering the skill's implementation complete.
 - [ ] **Re-Sync Buffering:** Confirm deltas arriving while the book is `CORRUPT` are buffered, not dropped, so the replacement snapshot can be freshness-checked.
 - [ ] **Crossed Book Guard:** Confirm best bid $\ge$ best ask is surfaced as a desynchronization signal and does not reach trading logic as a tradable quote.
 - [ ] **Venue Semantics Confirmed:** Confirm the sequence field, snapshot source (REST vs WebSocket) and continuity rule match the target venue's own documentation — see `references/standards.md`.
-- [ ] **Automated Testing:** Run `python scripts/test_order_book_reconciler.py` and confirm 100% test pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/market-data-snapshot-plus-delta-reconciliation/scripts` and confirm 100% test pass rate.
 
 ## Sign-off
 

@@ -180,7 +180,3 @@ produce a silent PASS:
 - **Rank > 2 output.** A 3-D array survived the per-sample length check but made
   `flipped_indices` index a *flattened* array — the augmentation target set fed
   back to adversarial training pointed at rows that do not exist.
-
-## Category
-
-`financial-ml-robustness` — see top-level `mappings/` directory.

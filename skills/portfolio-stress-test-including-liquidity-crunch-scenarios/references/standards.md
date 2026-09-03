@@ -160,7 +160,3 @@ the episodes this skill exists to model the tape got busier while the book got t
   an explicit lower bound.
 - **No funding, margin, or settlement dimension.** The engine says nothing about whether
   the cash arrives in time.
-
-## Category
-
-`risk-management`

@@ -12,7 +12,7 @@ Use this before considering the skill's implementation complete.
 - [ ] **Multi-Fold Aggregation:** Confirm `aggregate_folds()` output is reported — fold count, mean *and* dispersion of accuracy, minimum Sharpe, worst drawdown — not the final or best-performing fold alone.
 - [ ] **Fold Count:** Confirm at least 3-5 folds spanning distinct time windows, and that the folds are not treated as independent draws in any significance test.
 - [ ] **No Post-Test Retuning:** Confirm no hyperparameter or feature-selection decision was made after seeing a fold's out-of-sample result and then reported against that same fold.
-- [ ] **Automated Testing:** Run `python -m unittest discover -s scripts` from the skill directory and confirm a 100% pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/walk-forward-validation-setup/scripts` and confirm a 100% pass rate.
 
 ## Sign-off
 

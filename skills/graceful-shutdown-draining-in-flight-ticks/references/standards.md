@@ -95,7 +95,3 @@ prescriptive drain requirement is asserted here for other jurisdictions.
   safety: https://kafka.apache.org/documentation/
 - Commission Delegated Regulation (EU) 2017/589 (RTS 6), Article 14:
   https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32017R0589
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

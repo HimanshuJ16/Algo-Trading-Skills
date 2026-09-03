@@ -98,7 +98,7 @@ Use it as the data layer under any fundamental signal, and as an audit: run both
 - Confirm that at 2023-04-01 the combined case reports `UNRELEASED_AND_RESTATEMENT` with `naive_join_value = 1.80`.
 - Negative checks: `'2023-2-15'`, `'02/15/2023'`, `'20230215'`, `'2023-02-30'`, a `filing_date` before `period_end_date`, a `NaN` or infinite value, a negative `revision_number`, a blank ticker, a `non_reliance_date` before the filing, and a negative `availability_lag_days` must each raise `ValueError`. A batch containing one bad record must store none of it.
 - Confirm selection is insertion-order independent, and that two conflicting records with identical `(period_end, filing_date, revision_number)` set `ambiguous_candidate_count = 2` and a `WARNING` in `audit_notes`.
-- Run `python -m unittest discover -s .` from the `scripts/` directory and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/point-in-time-fundamentals-data-joins/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

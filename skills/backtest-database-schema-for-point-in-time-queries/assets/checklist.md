@@ -28,7 +28,7 @@
 - [ ] Leakage audit reports the naive value, not just a boolean flag.
 - [ ] Restatement round-trip tested: as-of before the restatement returns the original figure; as-of after returns the restated one.
 - [ ] UTC-offset regression tested: a record whose offset-bearing `known_at` resolves after the cutoff is excluded.
-- [ ] Automated Testing: Run `python scripts/test_pit_schema.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/backtest-database-schema-for-point-in-time-queries/scripts` — 100% pass rate.
 
 ## Sign-off
 

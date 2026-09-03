@@ -1,10 +1,5 @@
 # Standards — participation-of-volume-pov-execution
 
-## Category
-
-`execution-algorithms` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## The participation identity
 
 | Quantity | Definition |

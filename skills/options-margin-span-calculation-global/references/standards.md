@@ -8,11 +8,6 @@
 | NSE Clearing SPAN + Extreme Loss Margin (India) | Initial margin is SPAN plus a flat Extreme Loss Margin on notional. Published base ELM rates are 2% for index futures and 3.5% for stock futures, with product- and event-specific overlays (for example an additional ELM on short index option contracts on expiry day, effective 20 November 2024). The `exposure_margin_pct` parameter models this overlay; it has no CME analogue. | [NSE Clearing — margins](https://www.nseclearing.in/risk-management/equity-derivatives/margins) |
 | US Reg-T strategy-based margin (FINRA Rule 4210(f)(2), Cboe Rule 10.3) | Out of scope here — a template-based rule set producing materially different numbers. See the sibling skill `multi-leg-strategy-margin-optimization`. | — |
 
-## Category
-
-`multi-asset-derivatives` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Parameter Provenance
 
 Every scan parameter — price scan range, volatility scan range, short option minimum,

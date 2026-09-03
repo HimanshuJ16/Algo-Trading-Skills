@@ -97,7 +97,7 @@ Use this skill when a real-time risk engine is CPU-bound or latency-bound and yo
 - Negative checks: `NaN`/`±inf` P&L, `NaN` timestamp, a backwards timestamp, an `accelerated_interval_sec` above `base_interval_sec`, a non-zero interval on a tier-1 metric, duplicate metric names, and each out-of-range constructor argument must all raise `ValueError`.
 - Staleness: after a 70 s gap, `GREEKS_DELTA` and `VAR_1DAY` appear in `overdue_metrics` and `STRESS_TEST` does not; the status message contains `RISK METRICS STALE`.
 - Load reduction: 10 evaluations at 1 s spacing on the default schedule execute 17 of 40 possible invocations = 57.50%. Confirm a single tier-1 metric reports 0.00%, never the old hard-coded 75.0.
-- Run `python -m unittest test_risk_frequency_tuner` from the `scripts/` directory and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/risk-metric-recalculation-frequency-tuning/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

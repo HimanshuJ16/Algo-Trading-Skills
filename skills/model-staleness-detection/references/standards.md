@@ -74,11 +74,6 @@ on a cadence matched to the label horizon rather than per tick.
 | Model-monitoring platforms (Evidently, MLflow, Great Expectations, WhyLabs) | Compute equivalent drift statistics. Verify each platform's PSI binning convention — outer-edge handling and quantile de-duplication differ, and both change the number materially. This skill does not integrate with them. |
 | Production inference engines | Consume `ModelStalenessReport.sizing_multiplier` and the halt status; the halt should be wired to the venue-level control in `kill-switch-and-drawdown-circuit-breakers`. |
 
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Regulatory & governance touchpoints
 
 None of the following mandates this skill's specific thresholds or statistics.

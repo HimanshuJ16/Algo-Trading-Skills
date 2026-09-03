@@ -27,7 +27,7 @@
 - [ ] Defaults (15% portfolio vol target, 252 trading days, the $3.0$ volatility sanity bound) have been calibrated and the rationale recorded — they are library defaults, not industry standards.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_horizon_risk_allocator.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/risk-budget-allocation-across-time-horizons/scripts` — 100% pass rate.
 
 ## Sign-off
 

@@ -28,11 +28,6 @@ cancel capability, pre-set order-entry limits, and an auditable override path.
   come from your own risk policy, your broker agreement, or your regulator — not from this
   file. See `risk-limit-calibration-against-historical-drawdowns`.
 
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Sources
 
 | Claim | Source |

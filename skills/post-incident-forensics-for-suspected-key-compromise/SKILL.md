@@ -85,7 +85,7 @@ Crypto outflows are irreversible, so the containment path is deliberately asymme
 - Digest checks: mutating any log IP, any timestamp, any transfer amount, the record order, or `analysis_time` must change `evidence_sha256`; `compute_evidence_digest(build_evidence_manifest(...))` must reproduce it exactly.
 - Quantitative checks: `0.1 + 0.2 + 1e-18` ETH must report as `"0.300000000000000001"`, and ETH and USDC must never be summed together.
 - Fail-closed checks: float amounts, `NaN`/`Infinity`/negative amounts, naive timestamps, invalid IPs, out-of-range status codes, an empty `authorized_networks`, a non-SHA-256 artifact digest, and a key-material-shaped `key_id` must each raise `KeyForensicsError`.
-- Run `python scripts/test_post_incident_forensics_for_suspected_key_compromise.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/post-incident-forensics-for-suspected-key-compromise/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

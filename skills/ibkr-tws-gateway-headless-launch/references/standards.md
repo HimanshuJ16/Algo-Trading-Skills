@@ -57,11 +57,6 @@ Unverified at time of writing: the exact reset windows per region could not be f
 programmatically (IBKR returns HTTP 403 to automated requests), so this skill deliberately
 does not hard-code them — read the System Status page directly.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No jurisdiction-specific regulatory requirement is asserted by this skill. It intersects

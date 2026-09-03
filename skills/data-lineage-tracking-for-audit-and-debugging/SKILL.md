@@ -68,7 +68,7 @@ Use this skill in quantitative research, feature store engineering, and live tra
 
 - Instantiate `DataLineageTrackerEngine`. Build a DAG: Raw Tick Feed (`SRC_1`) $\to$ VWAP Transformation (`TR_1`) $\to$ Momentum Feature (`FEAT_1`) $\to$ Signal Engine (`MODEL_1`). Trigger **Upstream Traversal** on `MODEL_1` and verify it traces back to `SRC_1` with `orphan_root_nodes == []`. Trigger **Downstream Traversal** on `SRC_1` and verify it identifies `MODEL_1` as an impacted node.
 - Negative checks: adding `MODEL_1 -> SRC_1` must raise (cycle); re-registering `FEAT_1` with a different payload must raise (append-only); registering a node typed `"MODEL"` must raise (unknown type); a naive timestamp must raise.
-- Run `python scripts/test_data_lineage_tracking.py`.
+- Run `python -m unittest discover -s skills/data-lineage-tracking-for-audit-and-debugging/scripts`.
 
 ## Related Skills
 

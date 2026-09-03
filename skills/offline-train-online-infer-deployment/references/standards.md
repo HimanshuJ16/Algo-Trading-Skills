@@ -7,11 +7,6 @@
 | XGBoost / LightGBM | Gradient-boosted tree models; use their native or ONNX export rather than this skill's linear artifact format, and apply only the digest/schema/parity hygiene. |
 | PMML (Predictive Model Markup Language) | XML model exchange standard maintained by the Data Mining Group; an alternative to ONNX where an XML toolchain already exists. |
 
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 **These are jurisdiction-specific and none of them is a general obligation on an algo

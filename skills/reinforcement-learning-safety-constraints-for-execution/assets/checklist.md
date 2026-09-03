@@ -74,7 +74,7 @@ Use before allowing an RL execution policy to route live orders behind this shie
 
 ## Automated Testing
 
-- [ ] Run `python -m unittest discover -s scripts` from the skill directory — 45 tests, 100%
+- [ ] Run `python -m unittest discover -s skills/reinforcement-learning-safety-constraints-for-execution/scripts` — 45 tests, 100%
       pass rate.
 - [ ] Reducing an over-cap position, sign-crossing clamps, non-finite/crossed-book vetoes,
       precedence independence from the proposal, and post-deadline reduce-only all confirmed.

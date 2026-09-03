@@ -30,7 +30,7 @@
 - [ ] The vendor is known to maintain the `status` field; if it does not, it is documented that delistings are invisible to this engine.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_universe_change_detection.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/instrument-universe-change-detection-and-alerting/scripts` — 100% pass rate.
 - [ ] A truncated-file drill has been run against the live consumer, confirming that no liquidation is emitted on a suspect snapshot.
 
 ## Sign-off

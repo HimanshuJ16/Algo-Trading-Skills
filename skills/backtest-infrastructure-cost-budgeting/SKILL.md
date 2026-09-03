@@ -81,7 +81,7 @@ No prices are hard-coded in this skill. Published rates change and vary by regio
 
 ## Verification
 
-- Run `python scripts/test_cost_budgeter.py` — 30 tests, 100% pass rate.
+- Run `python -m unittest discover -s skills/backtest-infrastructure-cost-budgeting/scripts` — 30 tests, 100% pass rate.
 - Cross-check the estimate against the actual bill after running a 10% scale job, then correct the per-unit inputs rather than the total.
 - Confirm `is_over_budget` is True for a deliberately oversized sweep, and that a NaN or negative input raises `CostBudgetError` rather than passing the guard.
 - Confirm the exact-budget boundary behaves as intended: a total equal to the budget is treated as **within** budget.

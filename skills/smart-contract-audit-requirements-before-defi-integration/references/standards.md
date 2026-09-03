@@ -176,8 +176,3 @@ invalid specs raise `DeFiDueDiligenceError` instead of being scored; audits repo
 zero Critical/High findings are no longer flagged as having unresolved findings; and
 `tvl_usd`, `admin_multisig_signers_count`, `has_emergency_pause_circuit_breaker`, and
 `audit_date_iso` are now read (in 1.0.0 all four were declared and ignored).
-
-## Category
-
-`crypto-defi-risk-governance` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.

@@ -72,7 +72,3 @@ haircut.
 - **Contract terms change by rule filing.** Re-verify settlement times, tick sizes,
   and listing cycles against the current contract specification rather than caching
   the values quoted here.
-
-## Category
-
-`market-microstructure-risk`

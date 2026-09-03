@@ -109,7 +109,3 @@ a monitoring control into an untested, unapproved change to a live trading algor
 The supported pattern is: alert → recorded, timestamped, approved change → testing →
 controlled deployment. See `model-versioning-and-rollback` and
 `canary-releases-for-strategy-code-changes`.
-
-## Category
-
-`financial-ml`

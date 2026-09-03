@@ -19,11 +19,6 @@ broker APIs change without notice, so re-verify before relying on any row.
 > the fact that Fyers' refresh token — the one genuinely sanctioned unattended path
 > among the Indian brokers here — existed at all.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Checksum Formula Reference
 
 - **Fyers:** `sha256(app_id + ":" + secret_key)` — the `auth_code` is sent as a separate

@@ -101,7 +101,7 @@ Both surfaces are evidence-backed against the regulation, the Delegated and Impl
 - Submit 800,000 with `has_valid_locate_agreement=False`: expect `PUBLIC_DISCLOSURE_REQUIRED` **and** `art12_status == "NAKED_SHORT_BAN_BREACH"` **and** `is_short_execution_allowed is False` — the coverage gap must not suppress the disclosure.
 - Evaluate the same position with `nca_timezone="Europe/Helsinki"` and `"Europe/Berlin"`: expect the two deadlines to differ by exactly one hour in UTC. Omit `nca_timezone`: expect `notification_deadline_local is None` and basis `RCA_TIMEZONE_NOT_CONFIGURED`, never a CET default.
 - Gate a share order with `covering_arrangement="NONE"`: expect blocked with `NO_ART12_COVERING_ARRANGEMENT`. With `COVER_LOCATE_ARRANGEMENT` and no `locate_evidence_reference`: expect `NO_DURABLE_MEDIUM_EVIDENCE`. Same order as an ETF: expect `ART12_NOT_APPLICABLE` and allowed.
-- Run `python scripts/test_eu_short_selling_regulation_disclosure_thresholds.py` (71 tests) and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/eu-short-selling-regulation-disclosure-thresholds/scripts` (71 tests) and confirm a 100% pass rate.
 
 ## Related Skills
 

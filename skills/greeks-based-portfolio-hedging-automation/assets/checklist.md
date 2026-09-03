@@ -31,7 +31,7 @@
 
 ## Testing
 
-- [ ] Automated Testing: Run `python scripts/test_greeks_hedging_engine.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/greeks-based-portfolio-hedging-automation/scripts` — 100% pass rate.
 
 ## Sign-off
 

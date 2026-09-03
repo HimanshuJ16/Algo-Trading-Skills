@@ -193,7 +193,3 @@ No regulatory mandate prescribes a markout methodology; the conventions above
 are practitioner convention, not a compliance requirement. Where a markout is
 used as evidence in a best-execution review, the jurisdiction's own
 record-keeping rules apply — see `best-execution-record-keeping-global`.
-
-## Category
-
-`execution-quality` — see top-level `mappings/` directory.

@@ -44,6 +44,8 @@ an issued request has not produced its expected callback. Alpaca answers every s
 with the session's *entire* current subscription list, precisely so it can be checked.
 Reconcile; do not assume.
 
+## When NOT to Use
+
 Do **not** use this skill for: connection *state-machine* design and sequence-number gap
 recovery (see `websocket-reconnection-with-state-recovery`); detecting missing sequence
 numbers within a healthy stream (see `sequence-number-gap-detection-for-feeds`); deciding

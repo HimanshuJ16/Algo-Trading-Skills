@@ -79,7 +79,7 @@ For assurance against the issuing firm, anchor trust outside it: asymmetric sign
 
 ## Verification
 
-- Run `python scripts/test_regulatory_audit_trail.py` — 100% pass rate (32 tests).
+- Run `python -m unittest discover -s skills/backtest-audit-trail-for-regulatory-review/scripts` — 100% pass rate (32 tests).
 - **Forgery test (the one that matters)**: modify a metric, recompute `content_digest_sha256`, then verify. The digest will match and verification must still fail on the HMAC.
 - Confirm a manifest signed with a different key, or a different `signing_key_id`, fails verification.
 - Confirm mutating the caller's parameter dict after `build_manifest` does not change the manifest.

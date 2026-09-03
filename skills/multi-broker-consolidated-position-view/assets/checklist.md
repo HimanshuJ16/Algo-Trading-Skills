@@ -64,7 +64,7 @@ Use this before considering the skill's implementation complete.
 
 ## Validation
 
-- [ ] **Automated Testing:** Run `python scripts/test_consolidated_ledger.py` — 100%
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/multi-broker-consolidated-position-view/scripts` — 100%
       pass rate.
 - [ ] **Reconciled Against a Broker Statement:** At least one live consolidated view
       has been tied out to the brokers' own native-currency position reports.

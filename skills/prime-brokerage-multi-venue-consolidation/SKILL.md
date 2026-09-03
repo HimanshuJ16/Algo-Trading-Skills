@@ -99,7 +99,7 @@ It is the **post-trade consolidation layer**. Everything it produces is derived 
 - Negative checks, each of which must raise: a `side` of `'BUYY'`; a zero or negative quantity; a NaN or infinite quantity/price; a negative price or commission; `trade_date` of `'31-07-2026'` or `'2026-13-01'`; a `currency` of `'US$'`; a non-positive multiplier; a blank identifier; a non-`VenueExecution` row; a missing `PrimeBrokerSpec`; one symbol under two currencies or two multipliers; a duplicate `execution_id` within a batch; the same batch replayed on the same engine; a naive `submitted_at` or cut-off; `submitted_at` without `giveup_cutoffs` (or the reverse); a trade date with no cut-off configured.
 - Verify a batch rejected mid-validation registers no execution ids, and that the corrected batch is then accepted.
 - Verify 21:01 ET on trade date and 01:30 UTC on T+1 both flag against a 21:00 ET cut-off, while 20:59 ET does not.
-- Run `python scripts/test_prime_brokerage_multi_venue_consolidation.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/prime-brokerage-multi-venue-consolidation/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

@@ -62,7 +62,3 @@ $$C - P = S e^{-qT} - K e^{-rT}$$
 | $\nu$ | $\partial V/\partial \sigma$ | per **1 volatility point** (20% → 21%), i.e. annual value $\div$ 100 |
 
 Reference: standard BSM Greeks with the $e^{-qT}$ dividend adjustment.
-
-## Category
-
-`backtesting-methodology` — see top-level `mappings/` directory.

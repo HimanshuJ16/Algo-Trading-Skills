@@ -261,8 +261,3 @@ boundary of what this engine detects.
   Regions actually designated.
 - **No licence or general-authorisation logic.** A hit says a designation
   matched, not that a dealing is prohibited.
-
-## Category
-
-`regulatory-compliance` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.

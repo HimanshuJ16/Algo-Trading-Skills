@@ -33,11 +33,6 @@ on Indian delivery sells (per scrip per day), clearing member charges, STT on ex
 or assigned options (charged on intrinsic value, not premium turnover), and account-level
 charges such as AMC.
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Cost realism in a backtest is a research-integrity control, not only an accuracy concern:

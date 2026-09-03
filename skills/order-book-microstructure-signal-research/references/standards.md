@@ -123,7 +123,3 @@ statistical statement about mid-price movement, not a claim that the move is cap
 after spread, fees, queue position and latency. It is not a compliance artifact, asserts
 no regulatory requirement, and its thresholds carry no authority beyond the operator who
 sets them.
-
-## Category
-
-`real-time-architecture` / research — see top-level `mappings/` directory.

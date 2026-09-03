@@ -41,6 +41,8 @@ assume:
   each frame double-counts on the first reconnect, because the stream replays a
   snapshot of current orders on connect.
 
+## When NOT to Use
+
 Do **not** use this skill for order *placement* idempotency (see
 `order-placement-idempotency`), for backoff/jitter policy (see
 `websocket-reconnection-with-state-recovery`), or for any other broker — the

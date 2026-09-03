@@ -92,7 +92,7 @@ Invoke this skill when operating options portfolios, market-making books, or del
 - **Truncation**: $\$700{,}000$ of delta hedged with E-mini S&P 500 at 5,000 ($\$250{,}000$/contract) $\implies$ `SELL 2` contracts with `residual_delta_usd` $= +\$200{,}000$ and `is_residual_within_limits` `False` — never `SELL 3`.
 - **Vega leg sequencing**: a $-\$20{,}000$ vega book hedged with a $\$60$-vega, $\$25{,}000$-delta overlay $\implies$ `BUY 333` overlay contracts (residual vega $-\$20$) followed by `SELL 16,650` SPY shares to remove the $\$8{,}325{,}000$ of injected delta.
 - **Negative checks**: a NaN/Inf Greek, a delta of `60`, a non-positive spot or multiplier, a missing position or hedge-instrument multiplier, a zero-priced hedge instrument, and a non-positive risk limit must each raise.
-- Run `python scripts/test_greeks_hedging_engine.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/greeks-based-portfolio-hedging-automation/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

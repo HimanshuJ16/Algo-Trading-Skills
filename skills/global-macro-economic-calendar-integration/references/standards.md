@@ -69,7 +69,3 @@ as being in the release's own units.
   transition dates, and the EU has an open legislative proposal to discontinue
   seasonal clock changes. Resolve wall-clock times through `zoneinfo` against a
   current tzdata rather than caching offsets.
-
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category rolls up

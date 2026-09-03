@@ -98,7 +98,7 @@ These are different tests with different tails and they legitimately disagree. R
 - $T=250$, $x=6$ must be `is_rejected=False` with `basel_zone="amber"` — the two verdicts disagreeing is correct, not a bug.
 - $T=250$, $x=0$ must be `is_rejected=True` with `breach_direction="over_estimating_risk"` and `basel_zone="green"`.
 - Negative checks: $T \le 0$, $x < 0$, $x > T$, non-integer $T$ or $x$, `confidence_level` outside $(0,1)$, and `alpha` outside $(0,1)$ must each raise.
-- Run `python scripts/test_kupiec_var_backtester.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/real-time-var-backtesting-kupiec-test/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

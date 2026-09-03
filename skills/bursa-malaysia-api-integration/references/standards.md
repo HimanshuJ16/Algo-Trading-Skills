@@ -214,7 +214,3 @@ the FIX specification. Nothing in this skill establishes compliance with them: t
 protocol fields above tell you how to *declare* a short sale or an algorithmic order,
 not whether you are permitted to place one. Verify entitlements with Bursa and your
 compliance function before routing.
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

@@ -33,7 +33,7 @@ It provides mechanisms to:
 - Record **version-bound** pre-production deployment sign-offs capturing the reasonable steps a Senior Manager took, so an amended algorithm cannot inherit its predecessor's approval.
 - Produce governance reports supporting the **management responsibilities map** required by [SYSC 25.1.1R](https://www.handbook.fca.org.uk/handbook/SYSC/25/?view=chapter) for banking, Solvency II insurance, and enhanced scope SMCR firms.
 
-### When NOT to Use
+## When NOT to Use
 
 - **Non-UK firms.** SM&CR is a UK regime. EU firms fall under MiFID II RTS 6 and national conduct regimes; US firms under FINRA/SEC supervisory frameworks. Do not port these SMF codes to another jurisdiction.
 - **As the algorithmic risk control itself.** This skill records *governance evidence*. The pre-trade controls, kill functionality, and surveillance it references are implemented in `uk-fca-algorithmic-trading-systems-controls` and `kill-switch-and-drawdown-circuit-breakers`.

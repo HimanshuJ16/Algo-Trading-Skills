@@ -71,7 +71,7 @@ Reach for it when: capital is real, the strategy is capable of looping, and nobo
 
 ## Verification
 
-- Run `python -m unittest discover -s skills/capital-preservation-mode-for-degraded-conditions/scripts` from the repository root, or `python -m unittest discover -s .` from inside `scripts/`.
+- Run `python -m unittest discover -s skills/capital-preservation-mode-for-degraded-conditions/scripts` from the repository root and confirm a 100% pass rate.
 - Drive a fake clock (not `sleep`) to assert the rolling-window boundary exactly: at the configured rate the gate must pass; one tick tighter it must halt.
 - Assert the give-back case explicitly: feed +$40,000 then +$29,000 against a $10,000 drawdown limit and confirm the engine halts *while the session is still profitable*.
 - Feed a NaN mark and confirm the gate blocks and the state is `DEGRADED_WARNING`, not `ACTIVE`.

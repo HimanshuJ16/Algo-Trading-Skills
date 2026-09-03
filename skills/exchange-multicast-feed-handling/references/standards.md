@@ -70,7 +70,3 @@ requires the caller to supply it.
 | "CME Group recommends Market Recovery in conjunction with Natural Refresh as a primary recovery option" for MBP UDP-only systems. Client systems must certify for Market Recovery before deployment | CME MDP 3.0 | Recovery Services |
 | Recovery compares the Market Recovery snapshot's 369-LastMsgSeqNumProcessed against the incremental feed's packet sequence number, tie-broken on 60-TransactTime | CME MDP 3.0 | MBP and MBOFD Market Recovery |
 | EMDI delivers snapshots and incrementals on **separate channels** (out-of-band), linked by `LastMsgSeqNumProcessed`; MDI delivers both on one feed (in-band). If a gap cannot be filled from the other service, the receiver initiates snapshot recovery, rebuilding the book as at start of day | Eurex T7 | §3.3, §7.4.1 |
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

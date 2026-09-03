@@ -33,7 +33,7 @@ risk-limit decision.
 - [ ] The verdict is read as a **volatility-parity gate only** — it does not test mean, skewness, or kurtosis parity.
 - [ ] Reported skewness/kurtosis were compared **between** the two series by a human; kurtosis is Pearson (raw), 3.0 for a normal sample.
 - [ ] `None` moments are rendered as "not measurable", never coerced to 0.0.
-- [ ] `python test_synthetic_data_generator.py` passes from the `scripts/` directory (41 tests).
+- [ ] `python -m unittest discover -s skills/synthetic-data-generation-for-backtest-augmentation/scripts` passes from the `scripts/` directory (41 tests).
 
 ## Reproducibility and reporting
 

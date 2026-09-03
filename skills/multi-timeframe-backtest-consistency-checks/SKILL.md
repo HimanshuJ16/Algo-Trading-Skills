@@ -80,7 +80,7 @@ The failures it catches are silent. A 5-minute bar anchored to the wrong boundar
 - Regression — gap handling: drop the 09:03 bar from ten 1-minute bars. Buckets must remain labelled `[0, 300]` with `incomplete_buckets == 1`, not shift.
 - Anchor arithmetic: 60 one-minute bars from 09:15 IST at `factor=30` must open the first epoch-anchored bucket at 03:30 UTC with `incomplete_buckets == 1`, and the session-anchored run must produce two whole buckets with `incomplete_buckets == 0`.
 - Negative checks: empty input, insufficient history, non-monotonic or duplicate timestamps, a gap that is not a multiple of the interval, a non-positive `factor`/`sma_period`/`bar_interval_seconds`, an unknown anchor, a non-finite price, and an OHLC relation violation must each raise.
-- Run `python scripts/test_timeframe_consistency.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/multi-timeframe-backtest-consistency-checks/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

@@ -53,7 +53,7 @@ Use this before considering the skill's implementation complete.
 
 ## Automated testing
 
-- [ ] Run `python scripts/test_feature_store.py` and confirm a 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/feature-store-for-live-and-backtest-parity/scripts` and confirm a 100% pass rate.
 
 ## Sign-off
 

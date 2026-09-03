@@ -39,7 +39,3 @@ This module performs no cash, margin, or limit accounting, and holds no position
 between calls. Firm-wide gross-market-value caps and margin utilization belong to
 `cross-account-aggregate-risk-view`, which consumes canonical symbols and
 base-currency values produced here.
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

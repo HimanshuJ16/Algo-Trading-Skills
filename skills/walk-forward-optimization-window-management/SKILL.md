@@ -93,7 +93,7 @@ Invoke this whenever optimizing trading strategy parameters over historical mark
 - Verify `validate_window_isolation()` raises when IS end date $\ge$ OOS start date, and when the realised gap is shorter than the configured embargo.
 - Submit mock IS and OOS Sharpe values and verify `calculate_wfe()` computes $\text{Sharpe}_{\text{OOS}} / \text{Sharpe}_{\text{IS}}$ without clamping, and returns NaN with `is_robust = False` for a non-positive or non-finite in-sample Sharpe.
 - Verify the constructor rejects `step_days <= 0`, non-integer window lengths, and `step_days < out_of_sample_days` (absent an explicit `allow_overlapping_oos=True`).
-- Run unit test suite `python -m unittest discover -s scripts` and confirm 100% pass rate.
+- Run unit test suite `python -m unittest discover -s skills/walk-forward-optimization-window-management/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

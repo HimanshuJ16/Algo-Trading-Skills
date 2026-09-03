@@ -105,7 +105,3 @@ implement GIPS. It is cited only as the reference point for the library's
   when portfolio volatility is zero.
 - **Serial correlation** inflates Sharpe ratios and breaks the $\sqrt{252}$
   annualization assumption (Lo 2002, discussed in Kidd 2012).
-
-## Category
-
-`portfolio-risk-management`

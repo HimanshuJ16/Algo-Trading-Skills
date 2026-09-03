@@ -106,7 +106,7 @@ Notation used here, which differs from the source paper — map it before readin
   - **Degenerate selection** (every fold empty, or every fold containing all 10 features): verify the status is `DEGENERATE_SELECTION`, $\Phi$ is `None`, and it is never `STABLE_FEATURE_SET`.
 - Negative checks: a feature present in a fold but absent from the candidate pool, a duplicated candidate name, fewer than 2 folds, an empty pool, and out-of-range thresholds must each raise.
 - Cross-checks against the source paper: $\Phi$ must equal the value derived from the average pairwise fold intersection (Theorem 1) and must equal Kuncheva's consistency index whenever every fold selects the same number of features (Theorem 5). Both are asserted in the test suite.
-- Run `python scripts/test_feature_stability_analyzer.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/feature-selection-stability-across-folds/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

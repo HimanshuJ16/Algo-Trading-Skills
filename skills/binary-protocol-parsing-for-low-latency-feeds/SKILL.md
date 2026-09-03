@@ -72,7 +72,7 @@ itself to be correct and fail-loud. It applies when you are:
 - deciding how to carry exchange prices through the system (ticks vs floats);
 - hardening an existing parser that trusts its input.
 
-**When NOT to use it:**
+## When NOT to Use
 
 - **Text or self-describing protocols** — FIX tag=value, JSON/WebSocket feeds.
   Those are parsed by field name, not byte offset; see

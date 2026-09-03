@@ -71,7 +71,7 @@ The same decomposition answers the capital-allocation question directly: benchma
 - Simulate `portfolio = 1.5 * benchmark + 0.0002` per day. Beta must be 1.5 and Alpha must equal $252 \times 0.0002 + 0.5 R_f = 0.0704$.
 - Confirm a constant active-return series yields `Tracking Error (Ann) == 0.0`, `Information Ratio` = NaN, and a populated `Warnings` entry.
 - Confirm NaN/Inf input, length mismatch, 2D input, and fewer than 2 observations all raise `BenchmarkingError`.
-- Run `python scripts/test_multi_strategy_benchmarker.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/benchmark-portfolio-for-multi-strategy-performance-context/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

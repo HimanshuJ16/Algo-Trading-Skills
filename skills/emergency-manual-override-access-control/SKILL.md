@@ -86,7 +86,7 @@ The regulatory pressure is specific. MiFID II RTS 6 Art. 12 requires the firm to
 - Present an unregistered 8-character break-glass token: expect `BREAK_GLASS_INVALID`, not approval. Present a valid token twice: expect the second attempt to be rejected as consumed.
 - Mutate the archived request's `secondary_operator_id` and rerun `verify_audit_chain()`: expect `(False, 0)`. Drop a middle record: expect the break reported at the following index.
 - Advance the clock past `expires_at` and call `expire_due_overrides()`: expect the override returned once and removed, and `is_override_active()` false at the expiry instant itself.
-- Run `python scripts/test_override_access_control.py` (47 tests) and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/emergency-manual-override-access-control/scripts` (47 tests) and confirm a 100% pass rate.
 
 ## Related Skills
 

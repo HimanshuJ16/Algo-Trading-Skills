@@ -132,9 +132,8 @@ and index so the resulting feature cannot silently misalign against those labels
 
 ## Verification
 
-- Run `cd skills/categorical-feature-encoding-for-instrument-identity/scripts && python
-  -m unittest discover -s . -p "test_*.py"` (40 tests; the module must be importable
-  from the working directory), or `python tools/run_all_tests.py` for the whole repo.
+- Run `python -m unittest discover -s skills/categorical-feature-encoding-for-instrument-identity/scripts` (40 tests),
+  or `python tools/run_all_tests.py` for the whole repo.
 - Feed a three-symbol panel where one symbol appears only from the middle of the sample.
   Confirm the first timestamp encodes to exactly the cold-start prior, the newly
   appearing symbol's first row encodes to exactly the global mean, and subsequent rows

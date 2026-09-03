@@ -98,7 +98,3 @@ notice, and a stale rate in a reference file is worse than no rate.
 - **No fee-schedule modelling.** The engine consumes the fee actually billed per fill; it
   does not reconstruct or verify it from a rate card. Use
   `exchange-fee-tier-and-rebate-structure-analysis` for that.
-
-## Category
-
-`Market Microstructure Latency`

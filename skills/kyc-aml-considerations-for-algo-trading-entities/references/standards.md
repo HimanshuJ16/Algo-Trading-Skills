@@ -192,8 +192,3 @@ always carries every finding, so a rejection never conceals a second problem:
 `REJECTED_FATF_HIGH_RISK` → `REJECTED_UNVERIFIED_UBO` →
 `REJECTED_NO_CONTROL_PERSON` → `REJECTED_OWNERSHIP_OPACITY` →
 `KYC_AML_EDD_REQUIRED` → `KYC_AML_APPROVED`.
-
-## Category
-
-`regulatory-compliance` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.

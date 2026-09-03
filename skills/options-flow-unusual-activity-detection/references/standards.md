@@ -88,7 +88,3 @@ from the premium multiplier; do not substitute the deliverable share count.
   each leg were standalone directional risk.
 - Scoring is per-print. Cumulative session volume, cross-venue sweep reconstruction, and
   time-clustered repeat prints in the same series are out of scope.
-
-## Category
-
-`quant-research`

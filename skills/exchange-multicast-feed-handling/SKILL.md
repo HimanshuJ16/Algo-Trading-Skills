@@ -215,7 +215,7 @@ against before relying on it.
 - Negative checks: constructing without `arbitration_window_s`, a negative
   `initial_sequence`, a negative `sequence_id`, a boolean sequence number, a non-`bytes`
   payload, and `message_count=0` must each raise.
-- Run `python scripts/test_multicast_handler.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/exchange-multicast-feed-handling/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

@@ -179,8 +179,3 @@ preferable to leaving a stale default in place and calling it a control.
 | `is_pii_scrubbed` | Identifiers removed **and** removal independently verified | `PII_SCRUBBING` |
 | `panel_aggregation_count` | Distinct contributors behind each published observation | `PANEL_AGGREGATION` |
 | `hours_to_earnings_release` | Signed hours to nearest release (+ before, − after); `None` = none scheduled | `EARNINGS_BLACKOUT` |
-
-## Category
-
-`regulatory-compliance` / `data-sourcing` — see the top-level `mappings/` directory
-for how this category rolls up across the full skill library.

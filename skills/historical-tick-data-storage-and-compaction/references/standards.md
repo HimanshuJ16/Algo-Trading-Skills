@@ -102,7 +102,3 @@ scopes and retention periods; none of them are implemented or checked here.
   `price_precision_loss_ticks`, never silently swallowed — but it is not reversible.
 - **Sorting, gap detection and clock correction are upstream concerns.** The encoder
   rejects an out-of-order batch; it does not repair one.
-
-## Category
-
-`data-management-global`

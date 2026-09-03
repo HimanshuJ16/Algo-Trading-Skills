@@ -89,7 +89,7 @@ It also returns an *exact* additive attribution: risk-free contribution + alpha 
 - **Newey-West.** With `hac_lags=0` the estimator must reduce to the textbook HC1 sandwich $(X'X)^{-1}\left(\sum_t u_t^2 x_t x_t'\right)(X'X)^{-1}\cdot n/(n-k)$; the default lag at $n=504$ must be $\lfloor 4(5.04)^{2/9}\rfloor = 5$; and on an AR(1) residual with $\rho=0.6$ the HAC alpha standard error must exceed the OLS one.
 - **Negative checks** — each must raise: an empty series, fewer than $k+2$ aligned rows, non-overlapping indices, duplicate index labels, an infinity, a non-numeric value, a factor collinear with the market, `standard_errors="robust"`, `hac_lags` without `standard_errors="hac"`, `periods_per_year` of 0 or 2.5, `significance_level` of 0 or 1, and `risk_free_rate_annual_pct=-120`.
 - **Undefined, not zero.** A noiseless $\beta=1.5$ series must return `alpha_t_statistic is None` with a populated `undefined_metrics`, not $t=0$.
-- Run `python scripts/test_strategy_performance_attribution_vs_market_beta.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/strategy-performance-attribution-vs-market-beta/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

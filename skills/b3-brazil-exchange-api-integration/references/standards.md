@@ -139,7 +139,3 @@ specific obligations with B3 and CVM rather than with this file.
 | SBE handler recovery mechanisms (sequence tracking, RptSeq/LastRptSeq, Snapshot Recovery, Channel Reset, EmptyBook) | OnixS, *B3 Binary UMDF SBE Market Data Handler* — https://www.onixs.biz/b3-binary-umdf-sbe-feed-market-data-handler.html |
 | FIX order entry gateway reduction: Derivatives Q4 2025, Equities 10 Apr – 15 May 2026; login failure if unconfigured | Trading Technologies, *B3: Upcoming B3 FIX Order Entry Gateway Migration for Equities* — https://tradingtechnologies.com/support-updates/b3-upcoming-b3-fix-order-entry-gateway-migration-for-equities-action-required-jpx-h1-2026-changes-and-more-2/ |
 | Binary EntryPoint certification scope | B3, *Certification Script — Binary EntryPoint, Equities & Derivatives v1.4* (PDF) — https://www.b3.com.br/data/files/AD/85/6A/46/3F3D29106EEC8429AC094EA8/Certification_Script_Binary_Entrypoint_Equities_Derivatives_v1.4_ENG.pdf |
-
-## Category
-
-`global-market-integration`

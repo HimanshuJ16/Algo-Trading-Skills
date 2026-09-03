@@ -75,7 +75,7 @@ The ticker case is not hypothetical: Meta's `FB` was retired on 9 June 2022, and
 - Churn guard: compare a 50-name universe against an empty snapshot $\implies$ `status == "UNIVERSE_SNAPSHOT_SUSPECT"`, all 50 alerts carry `HOLD_FOR_MANUAL_REVIEW` with `suppressed_action == "LIQUIDATE_POSITION_AND_UNSUBSCRIBE"`, and no alert recommends liquidation. At `max_deletion_ratio=0.10`, 1 deletion out of 10 must *not* be suspect and 2 out of 10 must be.
 - Status transitions: `ACTIVE` $\to$ `DELISTED` $\implies$ `LIQUIDATE_POSITION_AND_UNSUBSCRIBE`; `ACTIVE` $\to$ `HALTED` $\implies$ `FREEZE_TRADING_ALERTS`; `HALTED` $\to$ `ACTIVE` $\implies$ `RESUME_TRADING_ELIGIBILITY`; an unrecognised status $\implies$ `REVIEW_STATUS_CHANGE`.
 - Negative checks: a blank `permanent_id`, a duplicate identifier within one snapshot, a ticker passed as a FIGI under `id_scheme="FIGI"`, an ISIN with a broken check digit under `id_scheme="ISIN"`, and reversed `as_of` dates must each raise.
-- Run `python scripts/test_universe_change_detection.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/instrument-universe-change-detection-and-alerting/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

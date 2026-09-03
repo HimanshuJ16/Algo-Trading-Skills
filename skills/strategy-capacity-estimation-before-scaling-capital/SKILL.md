@@ -79,7 +79,7 @@ Reach for it before an allocation increase, when sizing a new strategy's target 
 - Verify impact obeys the square-root law: quadrupling traded notional exactly **doubles** impact, and doubling `impact_gamma` exactly doubles it.
 - Verify a search that breaches nothing returns `SEARCH_RANGE_EXHAUSTED` with `search_range_exhausted=True`, never `UNLIMITED`.
 - Verify NaN/Inf inputs, zero volatility, zero or negative ADV, negative turnover, a non-positive `aum_step_usd`, and a step wider than the search range all raise rather than returning a report.
-- Run `python scripts/test_strategy_capacity_estimation_before_scaling_capital.py`.
+- Run `python -m unittest discover -s skills/strategy-capacity-estimation-before-scaling-capital/scripts`.
 
 ## Related Skills
 

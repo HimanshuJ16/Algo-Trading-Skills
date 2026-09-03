@@ -49,11 +49,6 @@ quantitative methodology, not compliance.
 | Shapley-value attributions satisfy local accuracy: the per-feature attributions for a prediction sum to the model output less the base value, making them additive by construction, unlike marginal permutation importance | Lundberg, S. M. & Lee, S.-I. (2017), "A Unified Approach to Interpreting Model Predictions", *NIPS 2017*, 4768–4777. arXiv:1705.07874 | Verified; the basis for the caution that summing permutation importances across a group is a heuristic guard, not a decomposition |
 | Permutation importance originates as the random-forest variable importance measure | Breiman, L. (2001), "Random Forests", *Machine Learning* 45(1), 5–32 | Verified as the origin cited by the scikit-learn documentation above |
 
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No jurisdiction-specific rule governs which features an alpha model carries. Where this

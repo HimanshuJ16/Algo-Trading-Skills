@@ -51,8 +51,9 @@ Use this before considering the skill's implementation complete.
 - [ ] **Auditable decisions:** every blocked or allowed day trade is logged via
       `PDTGateDecision.as_log_record()` with count, equity, threshold, policy
       name, policy source and warnings.
-- [ ] **Automated testing:** run `python -m unittest test_pdt_tracker` from
-      `scripts/` and confirm a 100% pass rate.
+- [ ] **Automated testing:** run
+      `python -m unittest discover -s skills/pattern-day-trader-rule-compliance-us/scripts`
+      and confirm a 100% pass rate.
 - [ ] **Re-verification scheduled:** a dated review of the broker policy and the
       underlying rule is on the calendar; this area changed in 2026.
 

@@ -42,7 +42,7 @@
 
 ## Testing
 - [ ] Negative checks covered: non-finite input, wrong feature count, unfitted `predict`/`train_sample`, non-positive `max_position_size`, non-positive `extrapolation_z_limit`, invalid quantile triples, empty dataset, constant target, diverged (non-finite) fit.
-- [ ] Automated Testing: Run `python scripts/test_quantile_regression_model.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/quantile-regression-for-uncertainty-aware-signals/scripts` — 100% pass rate.
 
 ## Sign-off
 

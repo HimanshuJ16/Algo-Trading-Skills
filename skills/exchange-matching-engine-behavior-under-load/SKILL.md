@@ -167,8 +167,8 @@ multiplied by the congestion factor, `fixed_latency_us` is added to it.
   `TypeError`.
 - Misuse guard: $\tau_s = 100\,\mu\text{s}$ against $C = 50{,}000$ logs a
   `SERVICE TIME INCONSISTENT` warning and reports `service_time_consistency_ratio` $= 5.0$.
-- Run `python -m unittest test_exchange_matching_engine_behavior_under_load` from
-  `scripts/` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/exchange-matching-engine-behavior-under-load/scripts`
+  and confirm a 100% pass rate.
 
 ## Related Skills
 

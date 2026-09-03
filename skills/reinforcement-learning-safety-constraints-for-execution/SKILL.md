@@ -202,7 +202,7 @@ never of what the policy proposed.
   budget fully spent.
 - Confirm `SafeRLExecutionGuard(max_order_size=0)` and `ExecutionState(max_spread=-0.5)`
   both raise `RLSafetyError`.
-- Run `python -m unittest discover -s scripts` from the skill directory — 45 tests, 100%
+- Run `python -m unittest discover -s skills/reinforcement-learning-safety-constraints-for-execution/scripts` — 45 tests, 100%
   pass rate.
 
 ## Related Skills

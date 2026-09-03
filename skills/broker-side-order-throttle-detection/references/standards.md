@@ -55,7 +55,3 @@ algorithmic trading; it does not universalise to other jurisdictions.
 | Real-time monitoring of algorithmic trading activity for signs of disorderly trading; "Real-time alerts shall be generated within five seconds after the relevant event." | RTS 6, Article 16 and Article 16(5) | Bounds how long a detection may sit unreported. Sweep and alert on `SILENT_THROTTLE` / `ACK_TIMEOUT` well inside five seconds; a sweep interval longer than that cannot meet it. |
 
 Sources: [EUR-Lex CELEX:32017R0589](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32017R0589).
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

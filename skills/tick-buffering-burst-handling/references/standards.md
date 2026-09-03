@@ -42,11 +42,6 @@ sequences, which is why `scripts/burst_buffer.py` locks all state mutation. A bo
 deque also "discard[s] from the opposite end" once full, an implicit drop-oldest policy
 applied by the data structure rather than by you (CPython `collections` documentation).
 
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No regulator mandates a specific buffer size. Where dropped market data feeds order

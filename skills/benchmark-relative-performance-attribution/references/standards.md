@@ -58,11 +58,6 @@ return. They differ only in the allocation term:
 The two can differ in sign for the same position, which is why the variant must be
 disclosed.
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Regulatory & operational notes
 
 **The GIPS standards do not require performance attribution.** Attribution presented in a

@@ -30,7 +30,7 @@
 - [ ] Tax treatment of the sweep yield has been considered — the reported net gain is pre-tax.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_opportunity_cost_tracking_for_idle_capital.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/opportunity-cost-tracking-for-idle-capital/scripts` — 100% pass rate.
 
 ## Sign-off
 

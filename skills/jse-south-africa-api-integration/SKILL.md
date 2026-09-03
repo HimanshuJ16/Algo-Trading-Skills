@@ -77,7 +77,7 @@ Use this skill when routing equity orders to the Johannesburg Stock Exchange (JS
 - Run the test suite:
 ```bash
 cd skills/jse-south-africa-api-integration/scripts
-python -m unittest test_jse_south_africa_api_integration.py
+python -m unittest discover -s skills/jse-south-africa-api-integration/scripts
 ```
 
 ## Related Skills

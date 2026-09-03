@@ -110,7 +110,3 @@ rather than being coerced to a default.
   RTS 8 (Delegated Regulation (EU) 2017/578). Those obligations are outside the scope of a
   feed handler and were not verified in detail for this skill — confirm applicability with
   compliance rather than inferring it from the market data feed.
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

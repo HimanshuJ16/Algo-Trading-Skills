@@ -107,7 +107,7 @@ Its second job is to refuse. A payload with a `NaN` Sharpe, a sign-inverted slip
 - Negative checks — each must raise `ValueError`, not route: `NaN`/`±Inf` on any of the five numeric fields; a negative `realized_slippage_bps`; `expected_alpha_bps` of `0.0` or `-5.0`; `"False"`, `"true"`, `0`, `1` or `None` for either boolean flag; an empty or non-string `strategy_id`; a non-positive or non-integer `live_observation_count`; `min_peer_sharpe > min_healthy_sharpe`; a non-positive `max_slippage_alpha_ratio` or `periods_per_year`; and a configured `min_live_observations` with no `live_observation_count` in the payload.
 - Confirm `warnings` fires on: a Node 1 judgment made against an unhealthy feed, a Node 1 judgment made while peers are impaired, a Node 4 routing where `sharpe_gap_vs_peer >= 0`, a healthy strategy against an impaired peer group, any Sharpe-driven routing with no `live_observation_count`, and every recalibration. Confirm a healthy strategy with 5,000 conclusive observations returns `warnings == ()`.
 - Confirm `triage_path` records the cleared nodes in order with the decisive node last, and that unreached nodes are absent entirely — a cleared node in the record is evidence it was tested.
-- Run `python -m unittest discover -s scripts` from the skill directory and confirm 100% pass rate (43 tests).
+- Run `python -m unittest discover -s skills/strategy-underperformance-remediation-decision-tree/scripts` and confirm 100% pass rate (43 tests).
 
 ## Related Skills
 

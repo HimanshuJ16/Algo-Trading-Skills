@@ -116,7 +116,3 @@ Two consequences for sizing:
 - **Per-instrument.** Correlation and crowding are out of scope: several independently
   capped positions in the same factor still exit through one door.
 - **Not a cost model.** The engine returns a size, never a predicted impact or cost.
-
-## Category
-
-`risk-management`

@@ -175,7 +175,3 @@ ML trading models. Any document asserting a "regulatory 0.25 PSI limit" or a
   stability index." *Journal of Risk Model Validation* 14(4), 89–100.
   DOI: 10.21314/JRMV.2020.227.
   <https://www.risk.net/journal-of-risk-model-validation/7725371/statistical-properties-of-the-population-stability-index>
-
-## Category
-
-`financial-ml`

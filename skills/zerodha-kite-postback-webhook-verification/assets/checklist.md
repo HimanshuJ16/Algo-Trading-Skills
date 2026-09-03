@@ -66,7 +66,7 @@ Use this before considering the skill's implementation complete.
       produced by re-running the implementation's own formula.
 - [ ] **Real payload exercised.** The documented Kite example payload is verified as a
       raw JSON body, not a hand-simplified dict with an epoch timestamp.
-- [ ] Run `python -m unittest discover -s scripts` from the skill directory and confirm a
+- [ ] Run `python -m unittest discover -s skills/zerodha-kite-postback-webhook-verification/scripts` and confirm a
       100% pass rate.
 
 ## Sign-off

@@ -74,8 +74,3 @@ The thresholds are not derived from any regulator.
   made without recomputing the chain. Anyone able to rewrite the entire ledger can
   recompute every downstream digest, so anchor the digests in storage the strategy owner
   cannot rewrite.
-
-## Category
-
-`deployment-ops` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.

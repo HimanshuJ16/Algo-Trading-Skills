@@ -87,7 +87,7 @@ The value it adds is not the arithmetic. It is that the ballot, the mandate chec
 - Ballot integrity: two non-veto members voting `VETO` plus one `FOR` $\implies$ `REJECTED_VOTES` with `votes_against == 2` and two `VETO_CAST_BY_MEMBER_WITHOUT_VETO_AUTHORITY` flags — not `APPROVED`. Reordering the ballots must not change any tally.
 - Negative checks that must **raise** `ValueError`: a duplicate ballot; a voter not on the roster; a duplicate `member_id` on the roster; an empty roster; `NaN`/$\pm\infty$/negative amounts; `fund_total_aum_usd` of 0 or negative; a cap of 0 or $>100$; `has_veto_power="no"` or `1`; an unrecognised vote value; an unparseable `timestamp_iso`; passing both `quorum_percentage` and `policy`.
 - Auditability: `CommitteeGovernancePolicy(quorum_percentage=0.0, min_votes_for=0, veto_holder_against_counts_as_veto=False)` must still return `APPROVED` for a one-vote proposal, with all three relaxations named in `policy_weakened` and recorded in `policy_applied`.
-- Run `python test_strategy_committee_governance_for_capital_allocation_decisions.py` from the `scripts/` directory and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/strategy-committee-governance-for-capital-allocation-decisions/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

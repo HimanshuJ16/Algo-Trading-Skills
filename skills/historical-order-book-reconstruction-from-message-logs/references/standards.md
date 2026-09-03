@@ -86,7 +86,3 @@ the replacement must be sent with `new_order_id` equal to `order_id`.
 - **Recovery from a duplicate id is a heuristic.** A duplicate `ADD` supersedes the stale
   order on the assumption that a `DELETE`/`EXECUTE` was dropped. That is the more likely
   cause, not a certainty, which is why it is always reported.
-
-## Category
-
-`backtesting-methodology`

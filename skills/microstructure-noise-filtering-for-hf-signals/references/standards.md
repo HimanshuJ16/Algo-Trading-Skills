@@ -58,7 +58,3 @@ These are properties the code actually has, not external requirements.
 - **Linear filters do not reject outliers.** A fat-finger print is attenuated, not
   removed, and still shifts the state.
 - **Top-of-book only.** Depth beyond the touch is not used.
-
-## Category
-
-`real-time-architecture`

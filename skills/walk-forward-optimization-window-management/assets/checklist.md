@@ -32,7 +32,7 @@ Use this before considering the skill's implementation complete.
 - [ ] **Search Budget Recorded:** Record how many parameter combinations were evaluated per
       slice; WFE does not correct for selection across trials
       (see `walk-forward-hyperparameter-search-budget`).
-- [ ] **Automated Testing:** Run `python -m unittest discover -s scripts` and confirm 100% test
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/walk-forward-optimization-window-management/scripts` and confirm 100% test
       pass rate.
 
 ## Sign-off

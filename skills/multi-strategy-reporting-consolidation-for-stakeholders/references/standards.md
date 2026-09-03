@@ -47,7 +47,3 @@ universal.
   the diversification ratio undefined. The degeneracy test is exact equality with zero,
   not a tolerance — a tolerance such as `1e-8` would misclassify a genuinely low-volatility
   market-neutral book as degenerate.
-
-## Category
-
-`risk-management`

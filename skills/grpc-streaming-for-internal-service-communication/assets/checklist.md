@@ -34,7 +34,7 @@ Use this before considering the skill's implementation complete.
 
 - [ ] **Input validation:** non-finite prices, negative volume, and out-of-range `uint32`/`uint64` fields are rejected at the boundary.
 - [ ] **Framing errors are loud:** truncated or over-long buffers raise a descriptive error, not an opaque `struct.error`.
-- [ ] **Automated testing:** run `python scripts/test_grpc_stream_engine.py` — 100% pass rate.
+- [ ] **Automated testing:** run `python -m unittest discover -s skills/grpc-streaming-for-internal-service-communication/scripts` — 100% pass rate.
 
 ## Sign-off
 

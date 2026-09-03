@@ -13,11 +13,6 @@ are integrating before relying on a number here.
 | Fyers Data WebSocket | The per-session symbol cap has **changed between API versions** and the published figures disagree — the Fyers support KB states a maximum of 200 symbols, while Fyers' v3 announcement material cites a far larger figure for current SDKs. Treat the cap as version-specific: read it from the official docs for the SDK release you are on and enforce it in code, rather than hard-coding a constant from any secondary source. | [Fyers support KB — symbol subscription limit](https://support.fyers.in/portal/en/kb/articles/what-is-the-maximum-number-of-symbols-i-can-subscribe-to-in-the-data-websocket-20-11-2023) |
 | RFC 6455 (the WebSocket protocol itself) | Close code **1006** means the connection closed abnormally, "e.g., without sending or receiving a Close frame" — the case where no clean-close callback ever fires. **Ping/Pong** frames (§5.5.2–5.5.3) exist to "verify that the remote endpoint is still responsive", which is the only in-protocol way to detect a half-open TCP connection. §7.2.3 directs an endpoint recovering from abnormal closure to back off with randomisation rather than hammering reconnects. | [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
 
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No regulator prescribes a WebSocket reconnection algorithm. What the reconnect record feeds

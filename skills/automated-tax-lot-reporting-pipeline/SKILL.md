@@ -31,7 +31,7 @@ This engine ingests trades, maintains an open ledger of "tax lots" (purchased as
 - Implementing tax-lot-level accounting in trading systems
 - Supporting both FIFO (default IRS method) and HIFO (tax optimization) strategies
 
-## When Not to Use
+## When NOT to Use
 
 Do not use this skill when:
 - You need to track specific lot identification methods beyond FIFO/HIFO (e.g., Specific Identification, Average Cost)
@@ -124,7 +124,7 @@ Do not use this skill when:
 
 ## Verification
 
-Run `python -m unittest discover -s scripts` from the skill directory to confirm:
+Run `python -m unittest discover -s skills/automated-tax-lot-reporting-pipeline/scripts` to confirm:
 - FIFO and HIFO correctly match different lots and compute different realized PnL totals for the same trade sequence
 - Input validation properly rejects invalid trade records with descriptive error messages, including NaN, ±inf and boolean values
 - Memory management correctly removes fully settled lots to prevent leaks

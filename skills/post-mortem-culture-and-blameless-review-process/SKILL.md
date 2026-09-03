@@ -184,8 +184,8 @@ for what is binding, in which jurisdiction, and what is merely house policy.
   a non-string list entry must each raise `ValueError`.
 - Confirm `BlamelessPostmortemGenerator().process()` returns `True` on an
   **instance** (it previously raised `TypeError`).
-- Run `python -m unittest discover -s scripts` from the skill directory, or
-  `python scripts/test_blameless_postmortem_generator.py` from `scripts/`.
+- Run `python -m unittest discover -s skills/post-mortem-culture-and-blameless-review-process/scripts`
+  and confirm 100% pass rate.
 
 ## Related Skills
 

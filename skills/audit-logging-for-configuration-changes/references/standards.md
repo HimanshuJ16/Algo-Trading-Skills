@@ -54,6 +54,3 @@ What it does **not** detect, and why more hashing does not fix it:
   https://www.federalregister.gov/documents/2025/06/17/2025-11110/withdrawal-of-proposed-regulatory-actions
 - NIST SP 800-92, Guide to Computer Security Log Management —
   https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-92.pdf
-
-## Category
-`deployment-ops` / `regulatory`

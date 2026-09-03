@@ -162,7 +162,7 @@ per-lot breakdown that maps to Form 8949 rows.
 - Sell 150 shares FIFO and verify `is_mixed_term` is True, with $+\$4{,}000.00$
   LTCG and $-\$500.00$ STCG in separate `matched_lots` rows.
 - Provide lots for two different symbols and verify it raises.
-- Run `python scripts/test_fifo_vs_specific_lot_tax_accounting_methods.py`.
+- Run `python -m unittest discover -s skills/fifo-vs-specific-lot-tax-accounting-methods/scripts`.
 
 ## Related Skills
 

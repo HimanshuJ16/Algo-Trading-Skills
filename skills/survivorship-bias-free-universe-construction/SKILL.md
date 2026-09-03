@@ -204,7 +204,7 @@ below rather than quoting a headline number.
   not the 0.333 a registry-wide denominator reports.
 - Ghost audit: with `current_static_universe=['AAPL']` over 2008..2023, `ghost_count`
   is 2. With no snapshot supplied it is `None`, and must be rendered "not audited".
-- Run `python test_universe_builder.py` from the `scripts/` directory and confirm 100%
+- Run `python -m unittest discover -s skills/survivorship-bias-free-universe-construction/scripts` and confirm 100%
   pass rate (51 tests).
 
 ## Related Skills

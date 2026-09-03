@@ -87,7 +87,7 @@ Typical inputs: daily drawdown, gross/net exposure, leverage, VaR, position coun
 - Ladder validation must reject: an empty `policies` list (it must not silently restore the defaults), duplicate thresholds, a weakening action, a decreasing severity, an unrouted tier, a non-positive ack timeout, and non-ascending legacy levels including all-equal ones.
 - Latching and replay: after a FLATTEN, a 1.05x observation of the same strategy/metric must still return `FLATTEN` with `is_latched is True`; `reset_incident()` must restore `WARN`; a byte-identical resubmission must yield exactly one FLATTEN row with `is_replay is True` on the second call, while the same id with a longer duration must be re-evaluated.
 - Audit rows must be frozen (assignment raises), must carry `current_value`, `limit_value`, `duration_seconds` and the normalised UTC `timestamp_iso`, and must include sub-threshold `NONE` decisions.
-- Run `python scripts/test_risk_escalation_matrix.py` from the `scripts/` directory and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/risk-limit-breach-escalation-matrix/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

@@ -194,7 +194,3 @@ revised for other product launches — and fail closed on unrecognised values.
 - Income Tax Act, s. 146 (RRSP): <https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-146.html>
 - Income Tax Act, s. 146.2 (TFSA): <https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-146.2.html>
 - Questrade — Margin accounts: <https://www.questrade.com/margin>
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

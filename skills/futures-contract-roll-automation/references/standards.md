@@ -53,7 +53,3 @@ rolling it.
 - **Delivery specifications change.** Contract terms are amended by rule filing;
   re-verify FND and LTD definitions against the current rulebook chapter rather than
   caching them.
-
-## Category
-
-`execution-algorithms`

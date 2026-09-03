@@ -101,7 +101,3 @@ performs no simulation.
 - **Trades are gross of cost and assume no external cash flow.** Buys and sells net to
   zero, so fees and slippage are unfunded, and suppressing a leg leaves a residual
   imbalance the caller must settle in cash.
-
-## Category
-
-`portfolio-governance`

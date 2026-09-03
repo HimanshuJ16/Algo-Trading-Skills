@@ -20,11 +20,6 @@
 | Kraken Spot REST counter is per API key; Starter 15 max / −0.33 per sec, Intermediate 20 / −0.5, Pro 20 / −1; standard call +1, ledger & trade-history +2; `AddOrder`/`CancelOrder` use a separate limiter | [Kraken Spot REST Rate Limits](https://docs.kraken.com/api/docs/guides/spot-rest-ratelimits/) | Verified |
 | Coinbase Advanced Trade is throttled per second per IP with `CB-RATE-LIMIT-*` headers | [Coinbase Advanced Trade REST API rate limits](https://docs.cdp.coinbase.com/coinbase-app/advanced-trade-apis/rest-api) | Model verified; **exact figures not confirmed** — different Coinbase pages report different numbers, so this skill ships no Coinbase preset. Read the current limit from Coinbase's documentation and register a limiter explicitly. |
 
-## Category
-
-`global-market-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Crypto exchange integration intersects with jurisdiction-specific frameworks (e.g. the EU's

@@ -85,7 +85,7 @@ Two properties decide whether Redis Streams fits at all, and both are documented
 - Trim a still-pending entry out of the stream $\implies$ `claim_stale_ticks` returns nothing and the ID leaves the PEL; `recover_stale_ticks` reports it in `deleted_ids`; a history read yields a `malformed` entry, never a zero-priced tick.
 - Re-claim one entry three times $\implies$ `find_poison_entries(max_delivery_count=3)` flags it, `max_delivery_count=10` does not.
 - Feed the manager a RESP3 map reply and a byte-valued RESP2 reply $\implies$ both decode to the same tick.
-- Run `python scripts/test_redis_tick_fanout.py`.
+- Run `python -m unittest discover -s skills/redis-streams-multi-consumer-tick-fanout/scripts`.
 
 ## Related Skills
 

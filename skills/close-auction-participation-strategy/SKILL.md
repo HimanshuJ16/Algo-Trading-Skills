@@ -25,6 +25,8 @@ license: Apache-2.0
 
 Use this skill when participating in a US equity closing auction (Nasdaq Closing Cross, NYSE Closing Auction) to provide contra-side liquidity against a published imbalance, or to execute a rebalance order at the official closing price with price protection. The strategy consumes closing-auction imbalance data (paired shares, imbalance shares, imbalance side, near/far indicative clearing prices) and derives a Limit-On-Close (LOC) order that is legal to enter at the intended submission time.
 
+## When NOT to Use
+
 **Do NOT use it** for the opening cross (see `opening-auction-imbalance-based-execution`), for halt/IPO crosses or the Extended Trading Close (different order types and cutoffs — the strategy rejects those NOII cross types), or as a way to *take* liquidity in the same direction as an imbalance. It is also not a substitute for a venue order-entry gateway: it produces order parameters, it does not submit or cancel orders.
 
 ## Prerequisites

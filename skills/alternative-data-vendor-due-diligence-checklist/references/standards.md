@@ -73,6 +73,3 @@ A vendor with resell rights but no audit rights or a competitive-use ban still b
 ## App Annie enforcement (canonical lesson)
 
 SEC Admin. Proc. Rel. No. 34-92975 (Sept 14 2021), the SEC's first enforcement action against an alternative-data provider: App Annie assured the app companies supplying its data that their confidential performance data would be used only in aggregated, anonymised form, and assured its trading-firm subscribers that the estimates were generated consistently with the consents it had obtained. In fact it used non-aggregated, non-anonymised confidential data to adjust its model-generated estimates before selling them. App Annie and its founder paid over $10 million. This is exactly the failure mode the gate trusts away when it relies on vendor self-attestation for `has_robust_anonymization` and `is_material_non_public_information`. The independent-verification requirement above is the direct mitigation.
-
-## Category
-`regulatory-compliance`

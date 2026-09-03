@@ -90,7 +90,3 @@ one misrepresents it.
   because silently guessing the convention inverts the drawdown criterion.
 - **Nothing here measures capacity, crowding, or transaction-cost drift**, all of which
   cause live underperformance that these four criteria will misattribute to alpha decay.
-
-## Category
-
-`Investment Governance & Capital Allocation` — see top-level `mappings/` directory.

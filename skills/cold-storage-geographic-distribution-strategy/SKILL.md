@@ -28,6 +28,8 @@ Use this skill when designing or auditing cold storage security architecture for
 - **Confidentiality SPOF** - one group holds $\ge M$ shards and can reconstruct the key alone (seizure order, raid, insider collusion).
 - **Availability SPOF** - one group holds $> N - M$ shards and, by becoming unavailable, leaves fewer than $M$ shards reachable, permanently destroying access to the assets.
 
+## When NOT to Use
+
 Do **not** use this skill to split or reconstruct secrets - it never touches key material and performs no cryptography. Shard generation belongs to `shamir-secret-sharing-for-key-backup`. It is also not a substitute for legal advice on where assets may lawfully be held: it audits a placement you supply, and no regulator surveyed prescribes a shard geography (see `references/standards.md`).
 
 ## Prerequisites

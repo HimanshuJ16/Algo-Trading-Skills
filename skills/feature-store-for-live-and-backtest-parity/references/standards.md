@@ -45,11 +45,6 @@ used at serving time and pipe those features to a log to use them at training ti
 the data-side check replay cannot substitute for.
 <https://developers.google.com/machine-learning/guides/rules-of-ml>
 
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & operational notes
 
 Model risk management guidance is relevant where a supervised institution is involved, and

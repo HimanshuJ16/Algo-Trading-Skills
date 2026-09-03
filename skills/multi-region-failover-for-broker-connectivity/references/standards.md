@@ -154,7 +154,3 @@ only, never for arithmetic.
   same endpoint may therefore apply their results in either order.
 - **`failover_history` is unbounded.** It is an audit trail, one entry per switch. Drain
   or cap it if the process runs for months.
-
-## Category
-
-`deployment-ops`

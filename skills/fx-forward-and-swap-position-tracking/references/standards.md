@@ -153,7 +153,3 @@ hedge-accounting designation. Treat `mtm_pv_quote` as an economic mark.
 | `report.net_exposure_by_base_currency` | `report.net_exposure_by_currency` | Both currencies of every pair are now tracked. |
 | `detail.fair_market_forward_rate` | `detail.cirp_forward_rate` + `detail.valuation_forward_rate` + `detail.mtm_basis` | The theoretical rate and the rate actually marked against are different things. |
 | `detail.unrealized_mtm_pnl_quote` | `detail.undiscounted_mtm_quote` + `detail.mtm_pv_quote` | The old field was undiscounted. Removing the name makes the change fail loudly instead of silently redefining it. |
-
-## Category
-
-`global-market-integration-fx`

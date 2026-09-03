@@ -90,7 +90,7 @@ Invoke this whenever maintaining a local Level 2 (L2) or Level 3 (L3) order book
 - Buffer a delta stream starting at $S_{\text{first\_update}} = 1010$, then apply a snapshot with $S_{\text{snap}} = 1000$; confirm the snapshot is **rejected** rather than silently accepted, and that re-applying with $S_{\text{snap}} = 1009$ then succeeds.
 - Buffer two non-contiguous deltas (1001, then 1005) and confirm `apply_snapshot` rejects the buffer instead of applying it.
 - Drive a full gap $\rightarrow$ re-buffer $\rightarrow$ fresh-snapshot cycle and confirm the book returns to `SYNCHRONIZED` with the post-gap deltas applied.
-- Run unit test suite `python scripts/test_order_book_reconciler.py` and confirm 100% pass rate.
+- Run unit test suite `python -m unittest discover -s skills/market-data-snapshot-plus-delta-reconciliation/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

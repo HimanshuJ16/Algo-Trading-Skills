@@ -187,7 +187,7 @@ and produces the governance record; it does not fit one (`interpret` does that).
 - Verify `logit_score_to_probability` against the definition $\sigma(\ln k)=k/(1+k)$:
   $\sigma(0)=0.5$, $\sigma(\ln 3)=0.75$, $\sigma(-\ln 3)=0.25$, and no overflow at
   $\pm 1000$.
-- Run `python scripts/test_explainable_boosting_pricer.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/explainable-boosting-machines-for-regulated-signals/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

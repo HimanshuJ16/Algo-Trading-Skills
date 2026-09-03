@@ -119,7 +119,3 @@ filter must run on a live feed and produce an identical series.
 - FINRA Rule 11893, *Clearly Erroneous Transactions in OTC Equity Securities* —
   <https://www.finra.org/rules-guidance/rulebooks/finra-rules/11893>
 - Limit Up-Limit Down plan, current price band table — <https://www.luldplan.com/>
-
-## Category
-
-`backtesting-methodology`

@@ -1,10 +1,5 @@
 # Broker & Framework Coverage — order-placement-idempotency
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## The premise
 
 **No broker below documents an idempotency guarantee for order placement.** Several accept a

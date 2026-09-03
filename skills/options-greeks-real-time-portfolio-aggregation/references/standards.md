@@ -60,7 +60,3 @@ the rationale.
 - **First-order snapshot.** Greeks are inputs, taken as given. No revaluation, no
   staleness detection, and no second-order cross-Greeks (vanna, volga, charm).
 - **Monitoring only.** No hedge is generated and nothing is halted on a breach.
-
-## Category
-
-`risk-management`

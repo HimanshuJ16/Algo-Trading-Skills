@@ -26,7 +26,7 @@
 - [ ] `InsufficientDataError` treated as a failure, never caught and ignored
 - [ ] `max_absolute_divergence` read alongside `max_divergence_pct`
 - [ ] Any tolerance above the default has a recorded mechanism explaining the difference
-- [ ] Tests pass: `python scripts/test_timeframe_consistency.py`
+- [ ] Tests pass: `python -m unittest discover -s skills/multi-timeframe-backtest-consistency-checks/scripts`
 
 ## Sign-off
 - Reviewed by: ___________________________

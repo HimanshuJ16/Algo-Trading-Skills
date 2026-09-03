@@ -137,7 +137,3 @@ this engine implements none. The GIPS standards govern how firms present *compos
 performance to prospective clients and are out of scope here. Where performance figures
 are shown to external investors, the presentation requirements of the relevant
 jurisdiction apply independently of anything computed by this skill.
-
-## Category
-
-`portfolio-performance-attribution`

@@ -98,7 +98,7 @@ A successful `connect()` is therefore **not** evidence of reachability, valid cr
 
 ## Verification
 
-Run `python scripts/test_b3_brazil_exchange_api_integration.py` — 29 tests, 100% pass rate. The suite covers:
+Run `python -m unittest discover -s skills/b3-brazil-exchange-api-integration/scripts` — 29 tests, 100% pass rate. The suite covers:
 
 - `MODERN_BINARY_SBE` rejected without `enable_application_gap_recovery`, accepted with it; `LEGACY_FIX_FAST` allowed without it
 - CompID whitelist, including the regression that special characters and control characters were accepted whenever the ID also contained an underscore

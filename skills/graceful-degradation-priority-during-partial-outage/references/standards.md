@@ -70,7 +70,3 @@ Comparisons are inclusive (`>=`): a sample exactly on a threshold degrades.
 | A non-finite metric never reads as healthy | `InvalidHealthMetricError`; `None` is the only way to say "unreadable" |
 | A metric the configuration relies on but cannot read escalates | Classified `CRITICAL_OUTAGE`, `manual_intervention_required` set |
 | Critical thresholds are never below partial thresholds | `LoadSheddingConfigurationError` at construction |
-
-## Category
-
-`real-time-architecture`

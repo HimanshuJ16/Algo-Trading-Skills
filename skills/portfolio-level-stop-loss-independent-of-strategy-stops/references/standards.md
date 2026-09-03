@@ -51,11 +51,6 @@ defaults; see `risk-limit-calibration-against-historical-drawdowns`.
   are engineering choices — RTS 6 Art. 16(5) points the other way, toward an *orderly*
   withdrawal.
 
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Sources
 
 | Claim | Source |

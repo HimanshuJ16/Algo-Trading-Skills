@@ -20,6 +20,8 @@ license: Apache-2.0
 
 Use when implementing or reviewing controlled changes to production trading-risk configuration. Apply the workflow to broker-, venue-, account-, strategy-, or global-scope limits whose incorrect modification could increase exposure or disable a control.
 
+## When NOT to Use
+
 Do not use this workflow to approve ordinary strategy signals, to replace runtime risk enforcement, or as the sole path for emergency risk reduction. A separately authenticated break-glass path may only tighten limits or disable trading; it must be bounded, immediately audited, and retrospectively reviewed.
 
 ## Prerequisites
@@ -85,7 +87,7 @@ Note that `ChangeRequest.config_digest` holds the *request* digest described in 
 Run:
 
 ```bash
-python scripts/test_risk_config_approval_workflow.py
+python -m unittest discover -s skills/risk-control-configuration-change-approval-workflow/scripts
 ```
 
 The suite covers immutable snapshots, canonical digests, lossless canonicalization (non-string keys and non-JSON types are rejected rather than coerced), bounded nesting depth, maker-checker separation, RBAC including cancellation, actor-identity validation, multi-checker quorum, expiry on both privileged commands and reconciliation, rejection/cancellation, optional independent deployment, stale-version conflicts, idempotent retries, lost-response reconciliation, secret/no-op/domain validation, UTC enforcement, and audit-chain hygiene.

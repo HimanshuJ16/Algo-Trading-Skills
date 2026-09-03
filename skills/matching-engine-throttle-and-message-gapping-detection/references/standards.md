@@ -113,7 +113,3 @@ Source: [EUR-Lex CELEX:32017R0589](https://eur-lex.europa.eu/legal-content/EN/TX
 - Nasdaq INET Nordic — *Update: Changes of throttling limits* (29/20, revising the limit to 10,000 msg/s): https://view.news.eu.nasdaq.com/view?id=b10ed1ab12326d346423e55f175075733&lang=en
 - Nasdaq INET Nordic — *OUCH Port: New messaging rate control for Warrants and Certificates order books* (26/20): https://view.news.eu.nasdaq.com/view?id=b3ae68d27bea3fb8577f1ac9f24786967&lang=en
 - EUR-Lex — *Commission Delegated Regulation (EU) 2017/589 (RTS 6)*: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32017R0589
-
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory.

@@ -49,8 +49,8 @@
 
 ## Verification
 
-- [ ] Do the unit tests pass (`python -m unittest discover -s . -p "test_*.py"` from
-      `scripts/`)?
+- [ ] Do the unit tests pass
+      (`python -m unittest discover -s skills/cold-start-handling-for-newly-listed-instruments/scripts`)?
 - [ ] Does the backtest assert that no `NaN` volatility reaches the sizer and that no
       position exceeds the cap on any bar?
 - [ ] Does the universe include listings that were later delisted or never graduated?

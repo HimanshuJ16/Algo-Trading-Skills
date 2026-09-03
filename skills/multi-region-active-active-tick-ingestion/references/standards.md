@@ -61,8 +61,3 @@ Sources (retrieved 2026-08-26):
 - CME Group Client Systems Wiki, MDP 3.0 — Incremental Feed Arbitration and MDP 3.0 —
   Dissemination (URLs above).
 - SEC Regulation SCI, 17 CFR 242.1001(a)(2)(v) — scope and geographic-diversity language.
-
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category rolls
-up across the full skill library.

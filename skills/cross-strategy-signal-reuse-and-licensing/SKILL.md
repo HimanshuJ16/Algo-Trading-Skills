@@ -83,7 +83,7 @@ Use this skill in multi-strategy platforms, quantitative research hubs, and inte
 - Verify `revoke_subscription` releases capacity, is idempotent, and that billing the revoked subscription raises `SignalLicensingError`.
 - Calculate fee attribution for `Pod_Alpha` with \$1M PnL: \$10,000 + 5% × \$1M = \$60,000 total. Repeat with a \$10M loss carryforward and verify the shareable PnL is \$0, the total is the \$10,000 base fee only, and \$9M carries forward.
 - Verify `arm_length_documented` is False when no `benchmarking_evidence_ref` is supplied, regardless of fee size.
-- Run `python scripts/test_cross_strategy_signal_reuse_and_licensing.py` (or `python -m unittest discover -s skills/cross-strategy-signal-reuse-and-licensing/scripts`) and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/cross-strategy-signal-reuse-and-licensing/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

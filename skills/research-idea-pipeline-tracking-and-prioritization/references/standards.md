@@ -74,7 +74,3 @@ not a substitute for any of the above, and the engine does not persist it anywhe
   register and its history are lost on exit unless the caller serialises them.
 - **No researcher-capacity model.** The score ranks ideas; it does not know who is free,
   what they are good at, or how long anything will take.
-
-## Category
-
-`backtesting-methodology` — see top-level `mappings/` directory.

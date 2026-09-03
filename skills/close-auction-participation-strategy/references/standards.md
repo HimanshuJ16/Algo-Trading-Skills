@@ -55,6 +55,3 @@ until then. This skill therefore treats any non-positive near/far price as
 | Price protection | Liquidity-providing orders MUST be LOC or IO (limit-priced). An unpriced MOC has no protection against a cross print dislocated by the imbalance. |
 | Indicative price validity | An order MUST NOT be priced off a non-positive or not-yet-disseminated indicative clearing price. |
 | Participation cap | Participation SHOULD be capped both as a fraction of the imbalance and as a fraction of predicted auction volume (paired + imbalance). The 10% / 15% defaults in this skill are conservative engineering defaults, **not** a regulatory limit. |
-
-## Category
-`execution-algorithms`

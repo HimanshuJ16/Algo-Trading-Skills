@@ -24,7 +24,7 @@
 - [ ] Defaults (15% target, $2.0\times$ cap, $0.20\times$ floor, 5% vol floor) have been calibrated and the rationale recorded — they are library defaults, not industry standards.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_realized_vol_sizer.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/dynamic-position-sizing-based-on-realized-volatility/scripts` — 100% pass rate.
 
 ## Sign-off
 

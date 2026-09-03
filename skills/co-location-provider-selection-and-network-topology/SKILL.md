@@ -82,7 +82,7 @@ Use this skill when deciding **where to put the box** for latency-sensitive or c
 - **Propagation constants**: $1/c = 3.335641\,\mu\text{s/km}$ (vacuum floor); microwave $= 3.336642\,\mu\text{s/km}$, which equals the published $\approx 5.37\,\mu\text{s}$ per statute mile; fiber physics $= 3.335641 \times 1.4682 = 4.897388\,\mu\text{s/km}$.
 - **Corridor check**: model the ~1,200 km Aurora-Secaucus corridor. Fiber at the 5.0 µs/km convention gives $6{,}000\,\mu\text{s}$ (6.00 ms) one-way; microwave gives $4{,}003.97\,\mu\text{s}$ (4.00 ms). The microwave figure brackets the ~4.1 ms one-way best case widely reported for that corridor's microwave networks — a secondary-source figure this skill has not independently verified, and one that sits *above* the model output precisely because real routes add tower hops and radio latency the propagation term alone omits.
 - **Scoring check**: three facilities with RTTs of 100/550/1000 µs and TCOs of \$4,000/\$6,000/\$3,000, scored at $w_{lat}=0.7$, $w_{cost}=0.3$, must produce penalty scores of 0.10, 0.65 and 0.70 and ranks 1, 2, 3 respectively. Flipping to $w_{cost}=1.0$ must reorder them by cost alone.
-- Run `python scripts/test_co_location_provider_selection_and_network_topology.py`.
+- Run `python -m unittest discover -s skills/co-location-provider-selection-and-network-topology/scripts`.
 
 ## Related Skills
 

@@ -120,7 +120,3 @@ truthful; or determine whether trading on the dataset is permitted. Those belong
 - `numpy.busday_offset` `roll` semantics, used for the business-day path.
 - Vendor and marketplace materials for the indicative lag figures above (secondary; see
   the caveat in that section).
-
-## Category
-
-`data-management` — see top-level `mappings/` directory.

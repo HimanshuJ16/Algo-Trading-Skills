@@ -132,7 +132,3 @@ account, prefer one order plus `faGroup`/`faMethod` over N client-side orders.
 - **NAV is a `float` snapshot.** Only ratios are used and the apportionment itself is
   exact integer arithmetic, so float NAVs do not accumulate allocation error — but the
   snapshot must be taken once per batch, not read live mid-apportionment.
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

@@ -77,7 +77,3 @@ $\Delta t$ is $\sigma\sqrt{\Delta t}\sqrt{2/\pi}$ — i.e. pick-off exposure gro
 $\sqrt{\Delta t}$, so the linear score **overstates** the marginal penalty of longer
 delays. It is retained as a monotone comparator for candidate configurations of a single
 symbol; it is not calibrated, and it is not a cost.
-
-## Category
-
-`real-time-architecture`

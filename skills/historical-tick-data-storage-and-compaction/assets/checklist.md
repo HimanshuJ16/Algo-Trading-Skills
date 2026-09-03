@@ -43,7 +43,7 @@
 - [ ] The production archive uses a real Parquet writer with `DELTA_BINARY_PACKED` / `BYTE_STREAM_SPLIT` / `ZSTD`, and `LZ4_RAW` rather than the deprecated `LZ4`.
 
 ## Testing
-- [ ] Automated Testing: Run `python scripts/test_historical_tick_data_storage_and_compaction.py` — 100% pass rate.
+- [ ] Automated Testing: Run `python -m unittest discover -s skills/historical-tick-data-storage-and-compaction/scripts` — 100% pass rate.
 
 ## Sign-off
 

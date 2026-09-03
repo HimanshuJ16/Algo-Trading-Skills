@@ -27,7 +27,7 @@ Use this before considering the skill's implementation complete.
 ## Robustness
 
 - [ ] **Bad input fails loudly.** Confirm non-positive ADV, non-positive prices, NaN/Inf, unknown `action`, over-fills, and non-positive `capital_base` all raise rather than returning a plausible number.
-- [ ] **Automated Testing:** Run `python scripts/test_tca_integrator.py` — 100% pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/transaction-cost-analysis-tca-integration/scripts` — 100% pass rate.
 
 ## Sign-off
 

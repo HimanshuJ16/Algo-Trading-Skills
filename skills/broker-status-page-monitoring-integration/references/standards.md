@@ -158,7 +158,3 @@ Public status pages need none. Private and trial pages require the API key sent 
 `Authorization` header. If you add an authenticated page, keep the key out of the
 status-monitor configuration file and load it the way the rest of the deployment loads
 secrets — see `centralized-secrets-management-vault-integration`.
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

@@ -134,7 +134,3 @@ This module compares two supplied snapshots. It does not compute the metrics, so
 them, verify that the two windows are comparable, attribute a cause to any divergence,
 correct for the multiple strategies being monitored, or suspend anything. It emits a
 recommendation; the suspension workflow is the caller's.
-
-## Category
-
-`backtesting-methodology` — see top-level `mappings/` directory.

@@ -42,6 +42,6 @@
 
 ## Sign-off
 
-- [ ] `python scripts/test_fix_protocol_session_management_across_venues.py` — 48 tests, 100% pass.
+- [ ] `python -m unittest discover -s skills/fix-protocol-session-management-across-venues/scripts` — 48 tests, 100% pass.
 - [ ] Venue conformance/certification run passed against the venue's own session test cases.
 - [ ] Business-continuity test of the recovery procedure recorded (RTS 6 Art. 14(4) requires this annually for in-scope EU/UK firms).

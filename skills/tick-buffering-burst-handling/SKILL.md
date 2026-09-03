@@ -74,6 +74,8 @@ Invoke this alongside `producer-consumer-tick-pipeline` specifically to decide b
 - Run concurrent producers and consumers against the same manager and assert tick conservation: every pushed tick is either still buffered, consumed, or counted as dropped. Assert on totals, not on absence of exceptions — the failure mode is silent loss, not a crash.
 - Call the read accessors for symbols that never traded and confirm no buffer state is created.
 - Confirm overflow warnings are rate-limited under sustained saturation rather than one line per dropped tick.
+- Run the unit suite and confirm every test passes:
+  `python -m unittest discover -s skills/tick-buffering-burst-handling/scripts`.
 
 ## Related Skills
 

@@ -91,8 +91,3 @@ that also appears in an interaction term as a violation rather than a pass.
 | The shape functions are correctly fitted, leak-free, or predictive | **No.** Out of scope; see `feature-engineering-without-leakage`, `walk-forward-validation-setup`, `point-in-time-database-for-ml-training-data`. |
 | The shape tables have not been recalibrated | **No.** The fingerprint covers structure. Bind a calibration to a record with `shape_table_version`. |
 | The entity is compliant with anything | **No.** This is an audit record, not a compliance opinion. |
-
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.

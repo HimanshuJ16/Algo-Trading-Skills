@@ -83,7 +83,7 @@ The rule that catches most integrations out is that the board lot and the tick a
 - Run the test suite:
 ```bash
 cd skills/philippine-stock-exchange-api/scripts
-python -m unittest test_philippine_stock_exchange_api.py
+python -m unittest discover -s skills/philippine-stock-exchange-api/scripts
 ```
 
 ## Related Skills

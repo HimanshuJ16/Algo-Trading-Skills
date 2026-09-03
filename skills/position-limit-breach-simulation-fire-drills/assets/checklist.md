@@ -34,7 +34,7 @@
 ## Follow-through
 - [ ] Report filed with scenario definitions, raw observations and findings, not just the verdict.
 - [ ] Every `CONTROL_FAILED` has an owner, a date and a scheduled re-drill (RTS 6 Art. 9(4)).
-- [ ] Automated Testing: run `python scripts/test_fire_drill_simulator.py` — 100% pass rate.
+- [ ] Automated Testing: run `python -m unittest discover -s skills/position-limit-breach-simulation-fire-drills/scripts` — 100% pass rate.
 
 ## Sign-off
 

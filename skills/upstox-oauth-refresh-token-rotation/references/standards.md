@@ -49,11 +49,6 @@ Error envelope: `{"status": "error", "errors": [{"error_code": ..., "message": .
 "property_path": null, "invalid_value": null}]}`. The camelCase `errorCode` spelling is
 deprecated in favour of `error_code` but still appears in the wild.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 **Jurisdiction: India (SEBI / NSE).** These bind *brokers*, but they constrain what a

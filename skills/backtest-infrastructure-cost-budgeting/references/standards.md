@@ -99,7 +99,3 @@ reconciliation rather than a pre-flight ceiling.
 | Spot Instances are spare capacity reclaimed when EC2 needs it; "it is always possible that your Spot Instance might be interrupted"; interruption causes and behaviours | AWS, *Spot Instance interruptions* — https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html |
 | Spot savings of up to 90% versus on-demand; Spot Instance Advisor for per-instance rates | AWS, *Amazon EC2 Spot Instances Pricing* — https://aws.amazon.com/ec2/spot/pricing/ |
 | EC2 bundled instance-hour billing: "Pricing is per instance-hour consumed for each instance, from the time an instance is launched until it is terminated or stopped"; by the hour or second with a 60-second minimum | AWS, *Amazon EC2 On-Demand Pricing* — https://aws.amazon.com/ec2/pricing/on-demand/ |
-
-## Category
-
-`Infrastructure` — see the top-level `mappings/` directory.

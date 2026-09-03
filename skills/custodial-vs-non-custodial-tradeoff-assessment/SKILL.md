@@ -87,7 +87,7 @@ The module runs **hard constraints first**. A key-sovereignty mandate, a counter
 - Verify a 1 ms budget with zero counterparty tolerance raises `NoEligibleArchitectureError` rather than recommending anything.
 - Verify `required_latency_ms=float("nan")` and `gas_sensitivity_score=-1.0` both raise `ValueError`.
 - Verify `monthly_volume_usd` above the threshold with a custodial recommendation produces the off-exchange-settlement advisory, and that changing the weights changes the ranking.
-- Run `python scripts/test_custodial_vs_non_custodial_tradeoff_assessment.py` (or `python -m unittest discover -s skills/custodial-vs-non-custodial-tradeoff-assessment/scripts`) and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/custodial-vs-non-custodial-tradeoff-assessment/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

@@ -139,7 +139,7 @@ by both runtimes, plus an automated replay assertion that the two matrices agree
 
 ## Verification
 
-- Run `python scripts/test_feature_store.py` and confirm all tests pass.
+- Run `python -m unittest discover -s skills/feature-store-for-live-and-backtest-parity/scripts` and confirm all tests pass.
 - Compute the batch matrix over a historical series, replay the same series through
   `compute_online_feature()`, and confirm `validate_parity(bars, tolerance=0.0)` returns
   True — with a shared core the agreement is exact, not merely within epsilon.

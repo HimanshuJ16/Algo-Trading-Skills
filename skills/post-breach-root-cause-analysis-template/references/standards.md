@@ -82,7 +82,3 @@ durable change.
 - **No filing.** The module produces a record. It notifies no regulator and files nothing.
 - **Clock quality is recorded, not verified.** `TimelineEvent.source` documents which clock a
   timestamp came from. The engine cannot tell you whether that clock was disciplined.
-
-## Category
-
-`risk-governance` — see the top-level `mappings/` directory.

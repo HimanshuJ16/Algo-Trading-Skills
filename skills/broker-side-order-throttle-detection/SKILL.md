@@ -160,7 +160,7 @@ condition clears.
   leave the baseline untouched.
 - Confirm `z_score` in the report equals `(latest_rtt_ms - ewma_rtt_ms) / ewmsd_rtt_ms`.
 - Drive concurrent acknowledgments from multiple threads and confirm no samples are lost.
-- Run `python scripts/test_throttle_detector.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/broker-side-order-throttle-detection/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

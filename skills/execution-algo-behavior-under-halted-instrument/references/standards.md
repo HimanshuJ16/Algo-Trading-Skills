@@ -104,7 +104,3 @@ exists to prevent.
 - LULD Plan (National Market System Plan to Address Extraordinary Market Volatility) — Section VII trading pauses, 5-minute pause extendable to 10, reopening at the primary listing exchange: https://www.luldplan.com/
 - Nasdaq, *LULD hybrid halt process / closing cross* — resting orders remain eligible interest for the cross; DAY/LOC/MOC/IO cancelled back when no halt cross can occur before 16:00: https://www.nasdaqtrader.com/content/NewsAlerts/2020/ETA/LULD_hybrid_halt_process_ETC_v.3.pdf
 - MiFID II RTS 6, Commission Delegated Regulation (EU) 2017/589, Article 12 (Kill functionality): https://eur-lex.europa.eu/eli/reg_del/2017/589/oj/eng
-
-## Category
-
-`execution-algorithms`

@@ -94,7 +94,7 @@ Use this skill when several strategy variants are live and only one should be ar
 - **Cross-check against a reference library.** ATR matches `talib.ATR` bit-for-bit; ADX and ±DI match `talib.ADX`/`PLUS_DI`/`MINUS_DI` to $<10^{-15}$ relative once Wilder's seed has decayed (600 bars) and to $<10^{-3}$ on short histories, where seeding conventions differ. TA-Lib is a verification aid — the shipped tests import nothing outside the standard library.
 - **Hysteresis.** A confirmed regime must lag its candidate by exactly `hysteresis_bars`; one interrupting bar must reset the counter to 0; `regime_changed` must be true on the switching bar only; a repeated `bar_key` must not advance the counter.
 - **Negative checks — each must raise.** Mismatched series lengths, fewer than `min_bars_required` bars, a NaN or ±Inf value, a non-numeric value, `high < low`, `hysteresis_bars < 1`, `adx_ranging_threshold > adx_trend_threshold`, an ADX threshold outside 0–100, `indicator_period < 2`, and a `strategy_variants` map missing a regime.
-- Run `python scripts/test_regime_detector.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/regime-detection-for-strategy-switching/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

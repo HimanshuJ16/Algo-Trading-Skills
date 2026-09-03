@@ -61,7 +61,3 @@ Consequences, all of them assumptions this skill makes explicit rather than hidi
 - FCA, *Algorithmic Trading Compliance in Wholesale Markets*, February 2018, §§3.4–3.8 and §6.12 — https://www.fca.org.uk/publication/multi-firm-reviews/algorithmic-trading-compliance-wholesale-markets.pdf
 - 17 CFR 242.1001(a)(2), *Obligations related to policies and procedures of SCI entities* — https://www.law.cornell.edu/cfr/text/17/242.1001
 - CPython documentation, `time` module — `time.sleep()` accuracy and the 3.11 platform changes, `time.perf_counter()` monotonicity — https://docs.python.org/3/library/time.html
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

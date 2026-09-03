@@ -152,7 +152,3 @@ distributing. Nothing in this file is legal advice.
 - Young, T. W., "Calmar Ratio: A Smoother Tool", *Futures*, October 1991 — the original
   print article is not available online; the definition above reflects the convention as
   consistently reported by secondary sources.
-
-## Category
-
-`backtesting-methodology`

@@ -22,7 +22,7 @@ Use this before considering the skill's implementation complete.
 - [ ] **Sequence-Space Reset:** Confirm `reset()` is called at session boundaries where the venue recycles sequence numbers.
 - [ ] **Market Data Entitlement:** Confirm the venue's licence permits a simultaneous second-region subscription.
 - [ ] **Failure Drills Run:** Confirm each row of the drill table in `references/workflows.md` was exercised against staging.
-- [ ] **Automated Testing:** Run `python scripts/test_active_active_ingest.py` — 100% pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/multi-region-active-active-tick-ingestion/scripts` — 100% pass rate.
 
 ## Sign-off
 

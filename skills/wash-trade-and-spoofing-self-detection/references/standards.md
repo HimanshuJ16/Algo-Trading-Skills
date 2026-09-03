@@ -137,7 +137,3 @@ and latched after it first fires. This is **not** the RTS 9 order-to-trade ratio
   timestamp; a materially out-of-order feed must be sequenced upstream.
 - **The alert log grows for the life of the engine.** `alerts` is the output; drain and
   persist it.
-
-## Category
-
-`regulatory-compliance`

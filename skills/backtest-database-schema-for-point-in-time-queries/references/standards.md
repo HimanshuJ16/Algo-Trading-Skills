@@ -77,7 +77,3 @@ Store real intraday timestamps where same-session availability matters.
 | String sorting of timestamps requires identical offset and fractional precision | RFC 3339 §5.1, *Date and Time on the Internet: Timestamps* (July 2002) — https://www.rfc-editor.org/rfc/rfc3339.html |
 | Application-time / system-time / bitemporal table definitions | SQL:2011 (ISO/IEC 9075:2011); survey of engine support — https://illuminatedcomputing.com/posts/2019/08/sql2011-survey/ |
 | Equality-leading composite index bounds the scanned range | PostgreSQL Documentation, *Multicolumn Indexes* — https://www.postgresql.org/docs/current/indexes-multicolumn.html |
-
-## Category
-
-`backtesting-methodology`

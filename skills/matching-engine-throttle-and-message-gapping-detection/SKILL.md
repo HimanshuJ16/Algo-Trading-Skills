@@ -219,8 +219,7 @@ bounds** — a rate landing exactly on the limit takes the more conservative bra
   non-finite `as_of_epoch` or record timestamp; an empty `session_id` or `message_type`; an
   inbound `sequence_id` $< 1$. A non-int sequence number or count raises `TypeError`,
   which is what catches an accidentally swapped sequence/timestamp pair.
-- Run `python -m unittest discover -s scripts` from the skill directory, or
-  `python test_matching_engine_throttle_and_message_gapping_detection.py` from `scripts/`,
+- Run `python -m unittest discover -s skills/matching-engine-throttle-and-message-gapping-detection/scripts`,
   and confirm a 100% pass rate.
 
 ## Related Skills

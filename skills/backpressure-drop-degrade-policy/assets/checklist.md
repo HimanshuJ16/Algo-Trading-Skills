@@ -41,7 +41,7 @@ Use this before considering the skill's implementation complete.
 - [ ] Watermark breach counts reviewed against expected peak load
 
 ## Automated tests
-- [ ] Execute `python scripts/test_backpressure_policy.py` — all 38 tests pass
+- [ ] Execute `python -m unittest discover -s skills/backpressure-drop-degrade-policy/scripts` — all 38 tests pass
 - [ ] Load-test at multiples of peak historical tick rate before promoting to live
 
 ## Sign-off

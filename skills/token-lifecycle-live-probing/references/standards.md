@@ -65,11 +65,6 @@ allocation. Confirm the method, not just the path, before designating a probe.
 Breeze's own SDK validates a session by calling `customerdetails` over `GET`, which
 makes it a well-precedented probe target.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 **Jurisdiction: India (SEBI / NSE)** for all three brokers listed. The daily-logout

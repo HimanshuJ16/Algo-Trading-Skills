@@ -101,7 +101,7 @@ Use it also when the *shape* of the return distribution matters and not only its
 - Safety checks: a degenerate band must yield `confidence_scaled_size == 0.0` with `uncertainty_floor_binding` true, and the reported `uncertainty_width` must be the measured value, never the floor.
 - Domain checks: a feature far outside the fitting range must set `is_extrapolating` with `max_feature_zscore` above the limit and status `sized_outside_training_feature_range` — while `confidence_scaled_size` sits at the cap, which is precisely why the flag is needed. A degenerate band takes precedence over extrapolation in `status_message`.
 - Determinism: two fits on identical data with the same `seed` must produce identical coefficients, without disturbing global RNG state.
-- Run `python scripts/test_quantile_regression_model.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/quantile-regression-for-uncertainty-aware-signals/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

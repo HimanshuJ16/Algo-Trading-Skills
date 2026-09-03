@@ -94,7 +94,7 @@ The core problem is not latency, it is **apportionment**. Sizing each account in
 - **Floor with redistribution:** NAVs 50 / 49 / 1 with `min_order_qty=5` and 100 shares must drop the third account and re-apportion to `{51, 49}`, still summing to 100.
 - **Idempotent IDs:** two calls with the same `batch_id` must emit byte-identical client order IDs; two calls without one must not collide.
 - **Concurrency:** fan out from 32 threads simultaneously and verify every client order ID is unique and every batch sums to its master quantity.
-- Run `python scripts/test_fanout_engine.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/multi-account-same-strategy-fan-out/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

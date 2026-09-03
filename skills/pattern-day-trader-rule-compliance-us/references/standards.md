@@ -45,11 +45,6 @@ Unverified in this pass: the migration date and current house policy of brokers
 other than Alpaca. Treat `DayTradePolicy.confirmed_with_broker` as `None` until
 you have a dated answer from your own broker.
 
-## Category
-
-`regulatory-compliance-global` — see the top-level `mappings/` directory for how
-this category rolls up across the full skill library.
-
 ## Sources
 
 - FINRA Rule 4210 — <https://www.finra.org/rules-guidance/rulebooks/finra-rules/4210>

@@ -70,7 +70,3 @@ compliance check of any kind.
 - Perold, A. (1988), *The Implementation Shortfall: Paper versus Reality* — arrival price
   as decision benchmark and the direction-dependent sign of execution cost.
   Overview: https://en.wikipedia.org/wiki/Implementation_shortfall
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

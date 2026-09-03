@@ -10,11 +10,6 @@
 
 No third-party dependency beyond `pandas` and `numpy` is required.
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Method Sources
 
 ### Execution timing convention

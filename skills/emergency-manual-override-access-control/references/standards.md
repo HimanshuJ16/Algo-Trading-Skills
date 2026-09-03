@@ -67,7 +67,3 @@ individual*; it names no titles, no quorum size and no duration.
   authenticated. The engine cannot detect a forged claim.
 - **No MFA / step-up authentication.** Multi-factor verification of the operator
   belongs to the IAM layer in front of this engine.
-
-## Category
-
-`infrastructure-security`

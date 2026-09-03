@@ -71,7 +71,7 @@ Use this skill in quantitative fund architectures that operate with multiple Pri
 - Distress every broker (limits or CDS) and verify the decision comes back `blocked=True` with an escalation reason — and that no code path routes on it.
 - Verify `route_order` with a NaN order value or an unknown broker raises, and `calculate_total_broker_exposure("typo")` raises rather than returning 0.0.
 - Register a broker with a −$100,000 net balance alongside a +$200,000 one and verify it is never selected as the failover destination, that `projected_nav_pct` is reported positive, and that `compute_hhi()` stays within $[1/n, 1]$.
-- Run `python scripts/test_counterparty_monitor.py`.
+- Run `python -m unittest discover -s skills/counterparty-and-broker-concentration-risk/scripts`.
 
 ## Related Skills
 

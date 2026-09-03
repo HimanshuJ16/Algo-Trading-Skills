@@ -34,7 +34,7 @@
 
 ## Operational controls
 
-- [ ] Unit test suite passes: `python -m unittest discover -s scripts` (58 tests).
+- [ ] Unit test suite passes: `python -m unittest discover -s skills/algorithmic-trading-firm-licensing-thresholds/scripts` (58 tests).
 - [ ] Repository validator passes: `python tools/validate_skills.py`.
 
 ## Sign-off

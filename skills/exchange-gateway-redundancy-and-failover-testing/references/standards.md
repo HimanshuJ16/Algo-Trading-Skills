@@ -73,7 +73,3 @@ No regulator or venue publishes a mandatory recovery-time objective for a *membe
 - **Fencing is asserted, not verified.** `fence_confirmed=True` is the caller's word. The engine cannot prove the failing session is unable to transmit.
 - **Two nodes, one venue, warm standby.** N-way gateway pools, cross-venue rerouting and network-level failover are out of scope, and a standby that has never logged on cannot be pre-flighted from health samples — establish it before auditing.
 - **Reconciliation is modelled, not performed.** Verdicts are supplied by the caller from the venue's own responses.
-
-## Category
-
-`Venue Integration & Protocols`

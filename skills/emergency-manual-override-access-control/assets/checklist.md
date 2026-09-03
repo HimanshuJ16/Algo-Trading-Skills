@@ -38,7 +38,7 @@
 - [ ] Break-glass usage rate is monitored — a rising rate means the normal path is too slow, not that the emergency is chronic.
 
 ## Testing
-- [ ] Run `python scripts/test_override_access_control.py` — 47 tests, 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/emergency-manual-override-access-control/scripts` — 47 tests, 100% pass rate.
 - [ ] Fire-drill the path in a non-production environment with real IAM identities and a real second approver.
 
 ## Sign-off

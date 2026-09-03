@@ -197,7 +197,3 @@ Recommended SLOs:
 - `current_batch_size` == `min_batch_size` while the feed is busy → **alert**:
   that is the signature of a mis-wired control signal or a stuck throttle, not
   of low load.
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

@@ -90,7 +90,3 @@ a regulatory threshold.
 - CPython `Modules/socketmodule.c` (`main`) — absence of any `SO_TIMESTAMP*` /
   `SCM_TIMESTAMP*` / `SOF_TIMESTAMPING_*` module constant.
 - The binary64 spacing figure was reproduced in CPython 3.11.
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

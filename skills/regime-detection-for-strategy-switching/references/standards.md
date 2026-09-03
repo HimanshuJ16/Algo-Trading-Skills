@@ -96,7 +96,3 @@ engine reports $\pm$`MAX_VOLATILITY_ZSCORE` in the direction of the move.
   on the instance. One detector per instrument, per timeframe.
 - **No look-ahead is possible from the inputs, but is trivial to introduce at the
   call site.** Every reading treats the last supplied bar as closed.
-
-## Category
-
-`financial-ml`

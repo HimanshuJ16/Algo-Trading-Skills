@@ -73,7 +73,7 @@ The tier decision is a safety decision before it is a cost decision: delayed dat
 - Verify the fixed-cost denominator: same 10-symbol demotion with `fixed_monthly_platform_cost_usd=50000` $\implies$ `savings_percentage` $= 99.5$ but `total_savings_percentage_including_fixed` $= 16.58$.
 - Verify input rejection: an unrecognised `current_tier` and a duplicate symbol must each raise `ValueError` rather than being priced.
 - Verify the dwell guard: with `min_days_before_demotion=31`, a dormant symbol at `days_in_current_tier=5` $\implies$ action `HOLD_MIN_DWELL` and zero savings; a promotion at `days_in_current_tier=0` $\implies$ action `PROMOTE`, never held.
-- Run `python scripts/test_market_data_cost_optimization_tiered_subscriptions.py`.
+- Run `python -m unittest discover -s skills/market-data-cost-optimization-tiered-subscriptions/scripts`.
 
 ## Related Skills
 

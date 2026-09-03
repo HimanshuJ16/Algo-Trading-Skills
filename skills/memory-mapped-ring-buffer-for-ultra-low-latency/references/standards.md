@@ -110,7 +110,3 @@ with manual layout control and pre-allocated pools.
   reference: at ~600 ns per operation the interpreter overhead is three orders
   of magnitude larger than the coherence traffic, so the padding would add
   layout complexity for an unmeasurable gain.
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

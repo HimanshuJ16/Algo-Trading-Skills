@@ -36,7 +36,7 @@
 ## Environment & Verification
 - [ ] Verify connection endpoints point to the CDE prior to production release.
 - [ ] For FIX, `disconnect()` exchanges Logout (5) messages; an unexchanged logout is flagged for recovery.
-- [ ] Run test suite: `python scripts/test_australian_securities_exchange_asx_api.py`.
+- [ ] Run test suite: `python -m unittest discover -s skills/australian-securities-exchange-asx-api/scripts`.
 
 ## Monitoring
 - [ ] Heartbeat liveness and Test Request round-trip latency are monitored.

@@ -65,7 +65,3 @@ fabricated default in an audit trail is worse than a missing one.
 - No hedge or leg awareness: unwinding a spread symbol-by-symbol will leave a naked leg.
 - ADV is a static input. A liquidity collapse during the unwind will not shrink the cap on
   its own; re-load the position with a current ADV.
-
-## Category
-
-`portfolio-multi-strategy`

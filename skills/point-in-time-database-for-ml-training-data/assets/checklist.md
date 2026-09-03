@@ -35,7 +35,7 @@ that will inform capital allocation.
 
 ## Automated testing
 
-- [ ] Run `python scripts/test_pit_ml_database.py` from `scripts/` — 100% pass rate (37 tests).
+- [ ] Run `python -m unittest discover -s skills/point-in-time-database-for-ml-training-data/scripts` — 100% pass rate (37 tests).
 - [ ] Restatement regression covered: a value published after the label instant is not returned.
 - [ ] Same-day boundary covered for the configured `date_only_availability` policy.
 

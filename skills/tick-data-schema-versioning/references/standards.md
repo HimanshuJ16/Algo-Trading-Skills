@@ -125,7 +125,3 @@ V1 → V2 is not FULL-compatible in the Confluent sense: `price` is removed and
 `bid`/`ask` are added without defaults, so it is a breaking change that only a
 migration adapter can bridge. V2 → V3 adds two optional fields with defaults and
 is `FULL`-compatible, which is why the engine reports it as lossless.
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

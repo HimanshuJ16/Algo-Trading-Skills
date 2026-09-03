@@ -195,7 +195,7 @@ same feature definitions, same signal values on identical inputs.
 - Feed 200 breaching samples with `max_reported_signal_breaches=5`; verify
   `critical_discrepancies == 200`, `len(discrepancies) == 5`, and
   `discrepancies_truncated` is `True`.
-- Run `python scripts/test_research_environment_vs_production_environment_parity.py` and
+- Run `python -m unittest discover -s skills/research-environment-vs-production-environment-parity/scripts` and
   confirm a 100% pass rate.
 
 ## Related Skills

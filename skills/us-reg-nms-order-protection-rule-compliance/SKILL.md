@@ -290,7 +290,7 @@ controls.
 - Run the test suite:
 ```bash
 cd skills/us-reg-nms-order-protection-rule-compliance/scripts
-python -m unittest test_us_reg_nms_order_protection_rule_compliance.py
+python -m unittest discover -s skills/us-reg-nms-order-protection-rule-compliance/scripts
 ```
 
 ## Related Skills

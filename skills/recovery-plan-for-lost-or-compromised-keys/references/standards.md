@@ -96,8 +96,3 @@ citation beyond the scheme's definition:
 | `min_shamir_threshold` | 2 | Rejects 1-of-N, where each shard is a full key |
 | `min_incident_response_contacts` | 2 | SP 800-57 §5.5.2 (a)/(b)/(f) name distinct roles |
 | `min_distinct_backup_locations` | 2 | CCSS 1.03.3.2 geographic separation |
-
-## Category
-
-`crypto-custody-security` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.

@@ -151,9 +151,8 @@ becomes leverage.
 
 ## Verification
 
-- Run `cd skills/cold-start-handling-for-newly-listed-instruments/scripts && python -m
-  unittest discover -s . -p "test_*.py"` (29 tests; the module must be importable from
-  the working directory), or `python tools/run_all_tests.py` for the whole repo.
+- Run `python -m unittest discover -s skills/cold-start-handling-for-newly-listed-instruments/scripts` (29 tests),
+  or `python tools/run_all_tests.py` for the whole repo.
 - Documented example: `ColdStartHandler(warmup_period_days=30, prior_strength_days=10.0)`
   with `n_obs=5`, `observed_volatility=0.80`, `peer_prior_volatility=0.20` returns
   `confidence_weight = 4/14 = 0.2857`, `estimated_volatility = sqrt((10*0.04 + 4*0.64) /

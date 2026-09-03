@@ -68,6 +68,6 @@ item are in `references/standards.md`.
 
 - [ ] One validated order exercised against a MOEX test environment; the (336,
       55) pair resolved to a security.
-- [ ] `python scripts/test_moscow_exchange_moex_api_integration.py` passes 100%.
+- [ ] `python -m unittest discover -s skills/moscow-exchange-moex-api-integration/scripts` passes 100%.
 - [ ] It is understood that `ready_to_send` means "passed local checks", never
       "MOEX accepted the order".

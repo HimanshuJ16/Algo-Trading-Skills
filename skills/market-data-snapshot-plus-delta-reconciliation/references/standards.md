@@ -22,11 +22,6 @@ Sources (retrieved 2026-08-25):
 - Bybit — v5 public `orderbook` WebSocket stream,
   <https://bybit-exchange.github.io/docs/v5/websocket/public/orderbook>
 
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Intersects with high-frequency market microstructure order book reconstruction practice. No

@@ -7,12 +7,6 @@
 > proprietary trader running a bot against a retail broker API is not a registered
 > broker-dealer and is not bound by SEC Rule 17a-4. Read the regime, not this table.
 
-## Category
-
-`deployment-ops`
-
----
-
 ## 1. Record schema (`SCHEMA_VERSION = "2.0.0"`)
 
 One JSON object per line. Field order is stable so a diff of two records is readable.

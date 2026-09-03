@@ -54,7 +54,3 @@ Jurisdiction: US. Applies to **broker-dealers with market access**, or that prov
 |---|---|---|
 | Financial risk management controls reasonably designed to prevent the entry of orders exceeding appropriate pre-set credit or capital thresholds, and to prevent the entry of erroneous orders. | Rule 15c3-5(c)(1)(i) | The drawdown and session-loss limits are capital-threshold style controls. Erroneous-order prevention is per-order and out of scope here. |
 | The risk management controls and supervisory procedures must be under the direct and exclusive control of the broker-dealer providing market access, subject to limited exceptions. | Rule 15c3-5(d)(1) | Reinforces the architectural requirement: the gate must not be delegated to, or bypassable by, the strategy or a client system. |
-
-## Category
-
-Risk Management / Emergency Controls. See also `kill-switch-and-drawdown-circuit-breakers` for the position- and exposure-limit breakers this skill deliberately does not duplicate, and `risk-control-bypass-audit-logging` for the override audit trail.

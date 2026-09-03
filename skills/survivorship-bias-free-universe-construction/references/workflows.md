@@ -165,4 +165,4 @@ audit or the result is not reproducible.
   `InstrumentMetadata`, `DelistingReason`, `UniverseError`, and the two imputation
   constants.
 - Automated unit tests: `scripts/test_universe_builder.py` (51 tests). Run with
-  `python test_universe_builder.py` from the `scripts/` directory.
+  `python -m unittest discover -s skills/survivorship-bias-free-universe-construction/scripts`.

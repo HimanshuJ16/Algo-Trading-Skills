@@ -76,7 +76,7 @@ Use this skill in multi-account or multi-strategy quantitative fund operations (
 - Submit an order in Sub-Account 1 breaching the firm-wide GMV limit ($1M) and verify pre-trade rejection; submit a sell-down on an already-breached firm and verify approval; verify an unknown account is rejected.
 - Omit the AAPL price and verify the report turns non-compliant (`AAPL` in `unvalued_symbols`) and blocks pre-trade approval — never a silent $0.00 valuation.
 - Verify malformed records (NaN quantity, string cash, zero GMV cap) raise `ValueError` at construction.
-- Run `python -m unittest discover -s skills/cross-account-aggregate-risk-view/scripts` (or `python scripts/test_cross_account_risk_aggregator.py`).
+- Run `python -m unittest discover -s skills/cross-account-aggregate-risk-view/scripts`.
 
 ## Related Skills
 

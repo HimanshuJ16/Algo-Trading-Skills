@@ -124,7 +124,3 @@ clean report.
   of the rules that produced it.
 - Unrecognised jurisdictions fail closed to manual review; they are never
   silently treated as compliant.
-
-## Category
-
-`regulatory-compliance`

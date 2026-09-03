@@ -33,11 +33,6 @@ discriminator, the probe can only ever *corroborate* the endpoint pin. Code that
 probe alone — or that infers an environment from a field the API does not return — has no real
 protection at all.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 This skill implements an operational safety control, not a regulatory one; no rule cited here is

@@ -114,11 +114,6 @@ not imposed, so `SwissFINMAComplianceEngine` refuses any venue other than
   writing no revised algorithmic-trading provision has entered into force; verify the
   current status before relying on the present drafting.
 
-## Category
-
-`regulatory-compliance-global` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.
-
 ## Sources
 
 Federal legislation is published on Fedlex, searchable by SR number; the copies actually

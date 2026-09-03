@@ -107,6 +107,3 @@ Consulted September 2026.
   randomised broker selection and the need for a statistically significant
   sample before reallocating flow —
   <https://www.marketsmedia.com/trading-smarter-with-algo-wheels/>
-
-## Category
-`execution-algorithms`

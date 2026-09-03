@@ -92,7 +92,3 @@ body parameter → `requestBody`, `consumes`/`produces` → `content`) are summa
 - **Composition keywords** (`oneOf`, `anyOf`, `allOf`, `discriminator`) are not evaluated.
 - **No file loading.** The differ takes parsed dictionaries; JSON/YAML parsing is the
   caller's responsibility.
-
-## Category
-
-`broker-integration` — see top-level `mappings/` directory.

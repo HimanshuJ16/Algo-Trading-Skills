@@ -16,9 +16,6 @@
 | **Source Universe** | Which sources must be reported on at each trading time. | Every source declared in `source_configs` is reported at every trading time, as `UNKNOWN` when it has delivered nothing. An absent key is indistinguishable from a vendor outage and is routinely defaulted to `0.0` downstream. |
 | **Collision Ambiguity** | Two facts for one source at one knowledge timestamp. | Only one value can be the as-of fact. Identical repeats dedup (idempotent backfill); genuinely different facts colliding within a batch are rejected, because resolving them by list order makes the stored history depend on file read order. Corrections go in a separate ingest call, where the later call wins. |
 
-## Category
-`financial-ml`
-
 ## Sources and jurisdiction
 
 The compliance-gate rows above are **US federal securities law**, applied to an investment

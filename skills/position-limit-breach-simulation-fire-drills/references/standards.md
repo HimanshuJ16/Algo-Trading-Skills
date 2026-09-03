@@ -43,7 +43,3 @@ These are library defaults. Only one of them traces to a published number.
 - That latency above any particular figure "causes queuing under fast market conditions". Queuing behaviour depends on the venue's gateway, message rate and the firm's own throttles; no general threshold is supportable.
 - That MiFID II position limits apply to all instruments. Since 28 February 2022 they do not.
 - That 17 CFR 150.2 expressly requires intraday measurement. It does not say so; the CME exchange rule does.
-
-## Category
-
-`regulatory-compliance-risk-controls`

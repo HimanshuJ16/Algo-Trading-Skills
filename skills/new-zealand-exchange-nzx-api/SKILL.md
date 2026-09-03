@@ -80,7 +80,7 @@ Use this skill when routing cash-equity or listed-fund orders to the NZX Main Bo
 - Assert a MARKET order omits tag 44; assert a missing `seq_num` raises.
 - Assert `phase_at` returns PRE_OPEN (08:30), OPENING_AUCTION (09:59:30), NORMAL (12:00), PRE_CLOSE (16:45), CLOSING_AUCTION (16:59:30), ADJUST (17:10) and ENQUIRY (17:30) in Auckland wall-clock.
 - Assert `parse_execution_report` decodes a partial fill, flags `PossDupFlag=Y`, and raises on a 35=3 message, a missing mandatory tag, and a tampered CheckSum.
-- Run `python scripts/test_new_zealand_exchange_nzx_api.py`.
+- Run `python -m unittest discover -s skills/new-zealand-exchange-nzx-api/scripts`.
 
 ## Related Skills
 

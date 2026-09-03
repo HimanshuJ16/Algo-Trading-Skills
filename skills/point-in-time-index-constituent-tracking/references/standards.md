@@ -103,8 +103,3 @@ report the ghost count alongside it.
 - Motors Liquidation Company ticker history (old GM: `GMGMQ` → `MTLQQ`, effective
   2009-07-15) and the new General Motors Company November 2010 IPO under `GM` — the
   worked ticker-reuse example above.
-
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.

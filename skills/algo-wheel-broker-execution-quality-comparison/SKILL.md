@@ -60,7 +60,7 @@ Use the same benchmark definition across brokers and compare like-for-like
 orders by side, instrument, venue, urgency, size, and market regime whenever
 possible. A single unsegmented average can hide systematic routing bias.
 
-## When Not to Use
+## When NOT to Use
 
 Do not use this skill when decision prices are missing, stale, or generated
 after routing, or when fees are not comparable across brokers. Do not use it as
@@ -201,7 +201,7 @@ Allocation rules:
 Run:
 
 ```text
-python scripts/test_algo_wheel_broker_execution_quality_comparison.py
+python -m unittest discover -s skills/algo-wheel-broker-execution-quality-comparison/scripts
 ```
 
 The tests cover buy and sell IS, price improvement, notional weighting, canary

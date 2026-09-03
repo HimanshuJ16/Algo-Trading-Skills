@@ -48,7 +48,3 @@ frequency, settlement cycle, and redemption timing, and record the rationale.
   `operational_buffer_usd` exists to price.
 - **Single currency**, single benchmark rate, single pool.
 - **Pre-tax.** Sweep yield is generally taxable income.
-
-## Category
-
-`Capital Allocation & Cash Sweep Optimization`

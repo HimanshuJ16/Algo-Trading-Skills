@@ -19,11 +19,6 @@ under EST, 13:30 UTC under EDT); `Asia/Kolkata` (UTC+05:30) and `Asia/Riyadh`
 (UTC+03:00) do not. Cross-exchange offsets therefore change twice a year, and the
 change dates differ by region.
 
-## Category
-
-`data-management-global` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Intersects with international settlement cycle conventions (T+1 equity settlement rules, exchange holiday operational risk compliance).

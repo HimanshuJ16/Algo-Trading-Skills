@@ -22,5 +22,5 @@ This repository contains 504 production-grade algorithmic trading skills across 
 ## Developer Tools & Code Executables
 - [tools/validate_skills.py](tools/validate_skills.py): Verifies YAML frontmatter structure and mandatory section headers.
 - [tools/build_index.py](tools/build_index.py): Rebuilds the JSON search index.
-- [tools/run_all_tests.py](tools/run_all_tests.py): Discovers and executes all 1,780+ unit tests across skill helper modules.
+- [tools/run_all_tests.py](tools/run_all_tests.py): Discovers and executes all 20,300+ unit tests across 504 test files in skill helper modules.
 - [examples/](examples/): Runnable Python walkthroughs chaining multiple skills into complete trading pipelines.

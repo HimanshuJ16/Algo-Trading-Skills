@@ -12,11 +12,6 @@ These are the module's defaults, not regulatory prescriptions. Map them to your 
 | Amount tolerance | $0.01 absolute | Float-noise slack on cap comparisons; deliberately not NAV-proportional |
 | Exposure basis | Gross notional, marked to market | Longs and shorts are summed in absolute value, never netted |
 
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Jurisdiction-specific. Nothing below is a universal requirement; confirm applicability to your

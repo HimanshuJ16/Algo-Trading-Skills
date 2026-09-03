@@ -86,7 +86,7 @@ What does bind a Singapore algorithmic order, and what this skill actually audit
 - Run the test suite:
 ```bash
 cd skills/mas-singapore-algo-trading-guidelines/scripts
-python -m unittest test_mas_singapore_algo_trading_guidelines
+python -m unittest discover -s skills/mas-singapore-algo-trading-guidelines/scripts
 ```
 
 ## Related Skills

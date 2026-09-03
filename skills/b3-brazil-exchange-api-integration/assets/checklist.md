@@ -40,7 +40,7 @@
 - [ ] `disconnect()` reaches DISCONNECTED even when the disconnector raises
 
 ## Testing
-- [ ] Run `python -m unittest discover -s scripts` — 29 tests, all pass
+- [ ] Run `python -m unittest discover -s skills/b3-brazil-exchange-api-integration/scripts` — 29 tests, all pass
 - [ ] Certification environment: FIXP Negotiate/Establish (Binary) or FIX logon (Legacy) completes
 - [ ] Multicast joins succeed and messages decode against official B3 schemas
 - [ ] Induced packet loss is detected and recovered via the correct mechanism for the feed

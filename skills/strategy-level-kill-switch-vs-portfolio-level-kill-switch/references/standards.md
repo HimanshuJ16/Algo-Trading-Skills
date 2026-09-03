@@ -62,11 +62,6 @@ when it exceeds the roster and therefore can never fire.
   ladder, that control belongs in the order gateway — see
   `execution-algorithm-kill-switch-integration`.
 
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Sources
 
 | Claim | Source |

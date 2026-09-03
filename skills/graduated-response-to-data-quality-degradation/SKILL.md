@@ -81,7 +81,7 @@ Reach for it when a binary healthy/dead switch is too coarse — when a $2$-seco
 - Crossed book with `stale_time_seconds=3.0` $\implies$ penalty $70.0$, $Q = 30.00$, Tier 3, `flatten_positions` true.
 - Regression checks: `stale_time_seconds=2.0004` must give Tier 1, not Tier 0. `float("nan")`, `float("inf")`, a negative staleness, a non-positive spread multiplier and a negative `missing_sequence_count` must each give $Q = 0$, Tier 3 and `metrics_valid=False`.
 - Recovery hold: with `recovery_hold_seconds=30.0` and an injected clock, a Tier 3 observation followed by clean observations stays at Tier 3 until $30.0\text{s}$ of sustained improvement, and a relapse restarts the timer.
-- Run `python skills/graduated-response-to-data-quality-degradation/scripts/test_data_quality_derisker.py`.
+- Run `python -m unittest discover -s skills/graduated-response-to-data-quality-degradation/scripts`.
 
 ## Related Skills
 

@@ -58,7 +58,7 @@ Use this before considering the skill's implementation complete.
       threads, or that one instance is used per thread with no shared state.
 - [ ] **Alerting wired:** `SILENT_THROTTLE` and `ACK_TIMEOUT` reach a human, not just a
       log file.
-- [ ] **Automated Testing:** Run `python scripts/test_throttle_detector.py` — 100% pass rate.
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/broker-side-order-throttle-detection/scripts` — 100% pass rate.
 
 ## Sign-off
 

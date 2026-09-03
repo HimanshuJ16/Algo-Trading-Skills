@@ -184,7 +184,3 @@ Art. 5(7) obligation in Section 1.1.*
 - Both a cap-suppressed and a cooldown-suppressed evaluation return `SUPPRESSED`.
   Distinguish them in dashboards and alerts by `rollbacks_issued` and
   `remaining_cooldown_s`, not by the decision alone.
-
-## Category
-
-`deployment-ops`

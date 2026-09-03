@@ -8,11 +8,6 @@
 | ISO 10383 (MIC) | Market Identifier Codes used as exchange keys (`XNYS`, `XLON`, `XNSE`, `XTKS`, `XASX`). |
 | ISO 8601 / RFC 3339 | Timestamp representation with an explicit UTC offset. |
 
-## Category
-
-`data-management-global` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Shipped Default Schedules
 
 `DEFAULT_EXCHANGE_SCHEDULES` in `scripts/session_scheduler.py` models **continuous trading only**;

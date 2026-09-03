@@ -69,7 +69,7 @@ Under **MiFID II RTS 6 Art. 15(1)(d)** an EU investment firm engaged in algorith
 - Rounding direction: session limit $375\text{ MPS}$ at $80\%$ gives a $300\text{ MPS}$ target; the required delay $1000/300 = 3.\overline{3}\text{ ms}$ must round **up** to $3.34\text{ ms}$ ($299.4\text{ MPS}$), not to nearest ($3.33\text{ ms} \implies 300.3\text{ MPS}$, over budget).
 - Shared session: $50\text{ ticks/sec} \times 2\text{ pairs} = 100\text{ MPS}$ passes alone, but with $380\text{ MPS}$ of `baseline_session_mps` $\implies$ verify tuning to a $100\text{ ms}$ delay and a projected $400\text{ MPS}$.
 - Invalid budgets (`target_safety_buffer_pct` of $0$, negative, or $> 100$; NaN/negative `ticks_per_sec`) must raise `ValueError` at construction, never produce a report.
-- Run `python scripts/test_message_rate_limit_vs_latency_tradeoff_tuning.py`.
+- Run `python -m unittest discover -s skills/message-rate-limit-vs-latency-tradeoff-tuning/scripts`.
 
 ## Related Skills
 

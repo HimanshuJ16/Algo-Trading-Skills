@@ -74,7 +74,7 @@ $$P_{\text{snipe}} = 1 - e^{-h \Delta\tau}, \quad h = \lambda \sigma, \qquad Q_{
 - **Threshold is inclusive.** $\Delta\tau = \ln 2 / 0.10 = 6.931$ ms at $\sigma = 0.20$ puts $P_{\text{snipe}}$ at exactly $0.50$ $\implies$ must cancel, not quote.
 - **Fails closed.** `latency_gap_ms = float("nan")` on a 10,000-share base $\implies$ `INVALID_INPUT_CANCEL`, `defensive_quote_qty = 0`, $P_{\text{snipe}} = 1.0$. It must **not** return `QUOTE_DEFENSIVELY_SIZED` with 10,000 shares.
 - **Round lot is price-tiered.** `round_lot_for_nms_price(250.00) == 100`, `(250.01) == 40`, `(1000.01) == 10`, `(10000.01) == 1`.
-- Run `python scripts/test_latency_arbitrage_defensive_order_sizing.py`.
+- Run `python -m unittest discover -s skills/latency-arbitrage-defensive-order-sizing/scripts`.
 
 ## Related Skills
 

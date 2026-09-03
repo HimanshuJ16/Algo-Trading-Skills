@@ -25,5 +25,5 @@
 
 ## Verification
 
-- [ ] `python -m unittest test_tail_correlation_between_strategies_under_stress.py` — all tests pass.
+- [ ] `python -m unittest discover -s skills/tail-correlation-between-strategies-under-stress/scripts` — all tests pass.
 - [ ] `benchmark_seed` fixed and recorded alongside any result used in an allocation decision.

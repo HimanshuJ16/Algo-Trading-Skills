@@ -97,11 +97,6 @@ at `reqContractDetails` rather than at a local pass. The exact IBKR symbol strin
 given Hong Kong listing is likewise a lookup, not a formula — the sample above establishes
 that IBKR uses unpadded codes, not that every code is short.
 
-## Category
-
-`broker-integration` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No jurisdiction-specific regulatory requirement is asserted by this skill. Venue selection

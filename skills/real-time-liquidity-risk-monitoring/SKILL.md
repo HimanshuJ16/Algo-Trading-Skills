@@ -76,7 +76,7 @@ The engine is a **monitor**, not a control: it produces a `RealTimeLiquidityRepo
 - Verify the cost decomposition by hand on the liquid case ($10{,}000$ shares @ $\$100$, $\text{ADV} = 500{,}000$, spread $0.05$): $\text{DTL} = 0.2$, `spread_cost_usd` $= 0.5 \times 10^6 \times 0.0005 = \$250$, `impact_cost_usd` $= 0.5 \times 10^6 \times 0.10 \times 0.2 = \$10{,}000$, `portfolio_l_var_usd` $= \$110{,}250$.
 - Boundary check: $\text{DTL} = 2.0$, spread ratio $= 2.0$, depth drop $= 50\%$ exactly must flag all three.
 - Negative checks: `NaN`/`inf` in any field, `adv <= 0`, `current_price <= 0`, `normal_spread <= 0`, `normal_l2_depth <= 0`, a negative spread or depth, a blank symbol, a duplicate symbol, a negative or missing `baseline_var_usd`, and `positions=None` must each raise.
-- Run `python scripts/test_real_time_liquidity_monitor.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/real-time-liquidity-risk-monitoring/scripts` and confirm a 100% pass rate.
 
 ## Related Skills
 

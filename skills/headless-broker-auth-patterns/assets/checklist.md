@@ -29,7 +29,7 @@ Use this before considering the skill's implementation complete.
 
 ## Testing
 
-- [ ] **Automated Testing:** Run `python -m unittest discover -s scripts` from the skill directory and confirm a 100% pass rate (27 tests as of this revision, including regression tests for the Fyers checksum fix, the Breeze `API_Session` redirect-extraction fix, the HTTP-200 error body, and the session-date rollover boundary).
+- [ ] **Automated Testing:** Run `python -m unittest discover -s skills/headless-broker-auth-patterns/scripts` and confirm a 100% pass rate (27 tests as of this revision, including regression tests for the Fyers checksum fix, the Breeze `API_Session` redirect-extraction fix, the HTTP-200 error body, and the session-date rollover boundary).
 
 ## Sign-off
 

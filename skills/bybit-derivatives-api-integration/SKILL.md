@@ -170,7 +170,7 @@ client gets wrong:
   regression that an absolute "below 10" threshold introduces.
 - Confirm `repr()` of a `BybitConfig`, including inside a container, does not contain the
   secret.
-- Run `python scripts/test_bybit_derivatives_api_integration.py` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/bybit-derivatives-api-integration/scripts` and confirm a 100% pass rate.
 - Against testnet only: sign a `GET /v5/order/realtime`, send it unmodified, and confirm
   `retCode 0`. A signing bug that unit tests cannot see is one where the caller's transport
   mutates the request.

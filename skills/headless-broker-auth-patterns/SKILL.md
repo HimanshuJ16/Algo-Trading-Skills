@@ -116,6 +116,8 @@ These standards are fully applicable to all stock brokers from 01-Apr-2026 (SEBI
 - The cache key advances at the broker's session boundary, not the host's midnight: verify by computing the session date for an instant just before and just after the rollover hour in the broker's timezone.
 - For Indian brokers, confirm the deployment's egress IP matches the address whitelisted with the broker, and that it is stable across restarts and instance replacement.
 - Deliberately feed the token exchange a wrong checksum and confirm the failure names the broker's error code, rather than surfacing as a `KeyError`.
+- Run the unit suite and confirm every test passes:
+  `python -m unittest discover -s skills/headless-broker-auth-patterns/scripts`.
 
 ## Related Skills
 

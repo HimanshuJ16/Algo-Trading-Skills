@@ -218,7 +218,7 @@ itself moved by a later amending directive.
   `urgent_action_window_days=-1`.
 - Determinism: the same batch in reversed order produces identical
   `assessments` ordering and identical `audit_notes`.
-- Run `python -m unittest test_regulatory_change_monitoring_service_integration`
+- Run `python -m unittest discover -s skills/regulatory-change-monitoring-service-integration/scripts`
   from the `scripts/` directory and confirm a 100% pass rate (42 tests).
 
 ## Related Skills

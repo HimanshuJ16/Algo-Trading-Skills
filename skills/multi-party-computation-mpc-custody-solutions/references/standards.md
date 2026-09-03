@@ -113,8 +113,3 @@ policy is the requirement, a native multisig or smart-contract wallet is the rig
 instrument.
 
 Source: [Fireblocks — MPC vs Multi-Sig for Digital Asset Custody Security](https://www.fireblocks.com/blog/mpc-vs-multi-sig).
-
-## Category
-
-`crypto-custody-security` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.

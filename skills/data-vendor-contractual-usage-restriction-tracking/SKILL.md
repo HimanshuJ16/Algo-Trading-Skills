@@ -149,7 +149,7 @@ breaches more than one restriction.
   `is_external_redistribution=False` $\implies$ still
   `REDISTRIBUTION_LICENSING_VIOLATION`.
 - Evaluate with `as_of_date` past the expiry $\implies$ `CONTRACT_EXPIRED`.
-- Run `python scripts/test_vendor_usage_tracking.py`.
+- Run `python -m unittest discover -s skills/data-vendor-contractual-usage-restriction-tracking/scripts`.
 
 ## Related Skills
 

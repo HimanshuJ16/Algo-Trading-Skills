@@ -18,11 +18,6 @@ mandate, prospectus, and applicable regime before going live.
 | `default_asset_class_limit` | `None` (fail closed) | An unconfigured asset class is rejected rather than given an unchosen cap |
 | `LIMIT_RELATIVE_TOLERANCE` | $10^{-9}$ | Float-representation slack only. Comparisons run on unrounded ratios |
 
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.
-
 ## Regulatory & operational notes
 
 **United States — pre-trade rejection is mandatory for market-access broker-dealers.**

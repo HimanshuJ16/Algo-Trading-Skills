@@ -49,6 +49,3 @@ When any of the following triggers fire, the agent must re-issue the DDQ, force-
   - Terms-of-Service / robots.txt drift (newly prohibitive terms on scraped sources).
 
 This is the highest-risk intervention window — it is precisely when compliance must act and there is no current workflow to follow. Treat an expired or red-flagged record as `REJECTED` for gating purposes until a fresh record supersedes it.
-
-## Category
-`regulatory-compliance`

@@ -70,7 +70,7 @@ The two axes follow the SQL:2011 temporal vocabulary:
 
 ## Verification
 
-- Run `python scripts/test_pit_schema.py` — 100% pass rate.
+- Run `python -m unittest discover -s skills/backtest-database-schema-for-point-in-time-queries/scripts` — 100% pass rate.
 - Insert an original figure and a later restatement sharing one `valid_from`; assert an as-of query before the restatement returns the original value, and after it returns the restated one.
 - Assert that a record whose `known_at` carries a UTC offset is excluded when its UTC instant falls after the as-of cutoff, even though raw string comparison would admit it.
 

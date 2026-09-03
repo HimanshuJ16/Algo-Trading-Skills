@@ -40,7 +40,7 @@
 - [ ] Utilization report reflects current mark-to-market exposures, in-flight capital, and
       `is_over_cap`.
 - [ ] Breach fire-drill executed: cap breach, portfolio breach, and NaN NAV all block.
-- [ ] Run `python scripts/test_capital_allocator.py` — 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/multi-strategy-capital-allocation-limits/scripts` — 100% pass rate.
 
 ## Sign-off
 

@@ -99,7 +99,7 @@ The regulatory pressure is real but less specific than kill-switch marketing sug
 - Call `trigger_kill_switch("PORTFOLIO", ...)` or `SCOPE_STRATEGY` with no `strategy_id`: expect `KillSwitchError`, and the engine still un-engaged.
 - Fire a strategy-scoped kill: expect `fix_mass_cancel_tag_530 is None`, only that strategy's orders cancelled, and other strategies still passing the gate.
 - Call `reset()` with cancels outstanding: expect `KillSwitchError`; confirm both cancels via `apply_execution_report(..., "CANCELLED")` and expect the reset to succeed and orders to flow again.
-- Run `python scripts/test_execution_algorithm_kill_switch_integration.py` — 79 tests, 100% pass rate.
+- Run `python -m unittest discover -s skills/execution-algorithm-kill-switch-integration/scripts` — 79 tests, 100% pass rate.
 
 ## Related Skills
 

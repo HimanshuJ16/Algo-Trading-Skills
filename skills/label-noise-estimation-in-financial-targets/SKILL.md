@@ -65,7 +65,7 @@ Use this skill when training financial machine learning models (XGBoost, LightGB
 - Confirm matrix orientation: columns of `noise_transition_matrix` sum to $1$, rows of `inverse_noise_matrix` sum to $1$, and `estimated_joint_distribution` sums to $1$.
 - Confirm the boundary: $\eta$ exactly at $20.0\%$ $\implies$ `HIGH_LABEL_NOISE_WARNING`; $\eta$ below $\implies$ `TARGET_NOISE_CLEANED`.
 - Confirm invalid input is rejected: non-binary labels, NaN/Inf probabilities, and probabilities outside $[0, 1]$ must raise `ValueError` rather than propagate silently.
-- Run `python scripts/test_label_noise_estimator.py`.
+- Run `python -m unittest discover -s skills/label-noise-estimation-in-financial-targets/scripts`.
 
 ## Related Skills
 

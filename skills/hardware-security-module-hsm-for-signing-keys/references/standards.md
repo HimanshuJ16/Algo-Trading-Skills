@@ -82,10 +82,6 @@ Yes, as an *allowed* curve — with a specific scope. NIST SP 800-186 Appendix H
 
 So the constraint on ed25519 in AWS CloudHSM is a **vendor implementation limit**, not a NIST one. Confirm mechanism availability against your own module's security policy rather than against the standard.
 
-## Category
-
-`Crypto Custody & Security` / `Hardware Security Modules (HSM) & PKCS#11 Key Isolation` — see the top-level `mappings/` directory for how this category rolls up across the full skill library.
-
 ## Regulatory & Operational Notes
 
 FIPS 140-3 validation is mandatory for US federal use of cryptographic modules and is commonly adopted contractually by institutional counterparties, insurers and SOC 2 auditors; it is **not** itself a securities or digital-asset regulation. Jurisdiction-specific custody obligations (qualified custodian rules, licensing) are out of scope here — see `regulatory-custody-requirements-by-jurisdiction`. The audit chain in this module supports evidence retention for a control review; retention periods themselves are jurisdictional — see `record-retention-periods-by-jurisdiction`.

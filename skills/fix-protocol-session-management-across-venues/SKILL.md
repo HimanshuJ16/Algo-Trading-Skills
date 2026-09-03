@@ -92,7 +92,7 @@ The engine performs **no I/O**. It opens no sockets, encodes no wire format, com
 - **Guards:** any non-`Logon` message while `DISCONNECTED` ⟹ terminated with sequence numbers untouched. Mismatched CompIDs ⟹ `Logout`, and the message counts as neither session activity nor sequence progress.
 - **Liveness:** with `HeartBtInt=30` and an injected clock — `+31s` ⟹ `Heartbeat`; `+46s` ⟹ one `TestRequest` and no duplicate on re-poll; `+73s` ⟹ `is_timed_out()`. `HeartBtInt=0` ⟹ no liveness traffic at all.
 - **Resend serving:** an inbound `ResendRequest` ⟹ application messages replayed at their original `MsgSeqNum` with `poss_dup_flag=True` and Tag 122 set, administrative runs collapsed into one GapFill, and `out_seq_num` **unchanged**.
-- Run `python scripts/test_fix_protocol_session_management_across_venues.py` — 48 tests, 100% pass.
+- Run `python -m unittest discover -s skills/fix-protocol-session-management-across-venues/scripts` — 48 tests, 100% pass.
 
 ## Related Skills
 

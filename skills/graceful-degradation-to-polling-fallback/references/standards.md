@@ -166,8 +166,3 @@ plainly touches, but nothing there sets a number for any knob in this skill. Tre
 document as engineering practice and let your compliance function determine which regime
 applies. Retention of feed-degradation event records is set by your applicable regime;
 this skill asserts no retention period.
-
-## Category
-
-`real-time-architecture` — see the top-level `mappings/` directory for how this category
-rolls up across the full skill library.

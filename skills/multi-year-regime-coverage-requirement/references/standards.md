@@ -65,7 +65,3 @@ is not a substitute.
 - **No regime-transition analysis.** Bars are bucketed, not sequenced.
 - **Passing is necessary, not sufficient.** The audit is silent on look-ahead bias,
   overfitting, and capacity.
-
-## Category
-
-`backtesting-methodology` — see top-level `mappings/` directory.

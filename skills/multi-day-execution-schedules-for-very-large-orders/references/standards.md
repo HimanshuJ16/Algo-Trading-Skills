@@ -117,7 +117,3 @@ Notes on currency and scope:
 - **Impact and risk are not combined into a single objective.** The engine reports both and
   leaves the horizon choice to the caller; it does not select $\lambda$ on the AC efficient
   frontier.
-
-## Category
-
-`execution-algorithms`

@@ -94,7 +94,7 @@ Invoke this whenever backtesting or reporting on a portfolio holding assets deno
 - Confirm registering `USD -> EUR` at 0.90 after `EUR -> USD` at 1.10 leaves `EUR -> USD` at exactly 1.10.
 - Confirm the staleness fallback accepts a Friday rate for a Monday valuation at `max_staleness_days=3`, records `stale_fx_currencies == {"EUR": 3}`, and **raises** when only a *later* rate exists (the look-ahead guard).
 - Confirm attribution is exact: hold 10,000 EUR at 1.10, then 12,000 EUR at 1.20 — local 2,200, FX 1,000, interaction 200, total 3,400 — and that the three components reconstruct the total to floating-point precision on a book with several currencies, including a negative (loan) balance.
-- Run `python scripts/test_currency_normalizer.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/multi-asset-backtest-currency-normalization/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

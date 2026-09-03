@@ -46,7 +46,7 @@
 
 ## Tests
 
-- [ ] Run `python scripts/test_etrade_auth.py` — 100% pass rate.
+- [ ] Run `python -m unittest discover -s skills/etrade-oauth1-signature-flow/scripts` — 100% pass rate.
 
 ## Sign-off
 

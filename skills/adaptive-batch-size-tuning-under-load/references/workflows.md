@@ -204,7 +204,7 @@ Configure your logger to surface these as Prometheus counters / log-based alerts
 
 Before shipping:
 
-- [ ] Run unit tests (`python -m unittest discover -s scripts -v`) — 43/43 pass.
+- [ ] Run unit tests (`python -m unittest discover -s skills/adaptive-batch-size-tuning-under-load/scripts`) — 43/43 pass.
 - [ ] Inject production traffic for ≥10 minutes in staging; log `total_tuning_transitions`.
 - [ ] Confirm `current_batch_size` rises under a burst rather than collapsing to `B_min`.
 - [ ] Confirm `EWMA(L)` P99 < `L_target` over a 5-minute window.

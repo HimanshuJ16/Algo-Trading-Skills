@@ -201,7 +201,7 @@ message leaves your process:
 - Rejected orders consume no sequence number, and a repeated `ClOrdID` is refused.
 - A crossed local book is refused as a reasonability reference; a locked one is
   not.
-- Run `python scripts/test_eurex_market_data_and_order_api.py` and confirm a 100%
+- Run `python -m unittest discover -s skills/eurex-market-data-and-order-api/scripts` and confirm a 100%
   pass rate.
 - Against simulation only: send one validated order and confirm T7 accepts the
   template, the `BodyLen` and the sequence number. A framing bug that unit tests

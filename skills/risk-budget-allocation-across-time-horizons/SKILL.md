@@ -95,7 +95,7 @@ Invoke this skill when one account runs strategies at genuinely different holdin
 - Allocate `23.35 / 65.80 / 9.18 / 1.67` (a running float total exceeds 100) $\implies$ **not** over-allocated.
 - With `portfolio_max_drawdown_limit_pct=10.0`, two horizons at 6% each $\implies$ `DRAWDOWN_BUDGET_OVER_ALLOCATED` while both `is_within_limits` are true.
 - Negative checks — each must raise: a `NaN` or infinite `allocated_risk_pct`; a negative or zero allocation; `base_annualized_vol` of `0.0`, `-0.10`, or `15.0` (percent/fraction mix-up); a duplicate `horizon_label`; an empty bucket list; `holding_period_days` of `0` or `True`; `total_portfolio_vol_target` of `0.0` or `NaN`.
-- Run `python scripts/test_horizon_risk_allocator.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/risk-budget-allocation-across-time-horizons/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

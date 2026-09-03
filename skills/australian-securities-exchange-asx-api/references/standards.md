@@ -163,7 +163,3 @@ ASX Centre Point is ASX's anonymous matching platform. Order-entry fields of not
 - ASIC RG 241 — Electronic Trading
 - BetaShares — A Guide to Trading BetaShares Commodity ETFs (OOO/QAG/QCB AEDT hours):
   https://www.betashares.com.au/wp-content/uploads/2016/12/A-Guide-to-Trading-BetaShares-Commodity-ETFs.pdf
-
-## Category
-
-`global-market-integration`

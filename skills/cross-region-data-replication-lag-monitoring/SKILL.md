@@ -85,7 +85,7 @@ Use this skill in distributed quantitative trading architectures operating multi
 - Feed 5 fast heartbeats and verify `UNKNOWN_INSUFFICIENT_SAMPLES`; then feed 4 fast heartbeats plus one $3000\text{ ms}$ sample and verify the observed unsafe lag still escalates to `UNSAFE_STALE`.
 - Set one timestamp to `NaN` and verify `ValueError` is raised rather than a `HEALTHY` verdict.
 - Feed 598 heartbeats at $40	ext{ ms}$ plus two at $1800	ext{ ms}$; verify status stays `HEALTHY` (P99 unmoved) while `samples_over_unsafe_threshold` is 2 and `max_lag_ms` is 1800.0.
-- Run `python scripts/test_data_replication_monitoring.py`.
+- Run `python -m unittest discover -s skills/cross-region-data-replication-lag-monitoring/scripts`.
 
 ## Related Skills
 

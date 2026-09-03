@@ -52,7 +52,3 @@ used, or the audit is not reproducible.
 - **`contract_month` is an opaque string.** Inconsistent spelling across accounts silently splits a bucket and can hide a reportable position. Normalise upstream.
 - **Contract counts are floats.** Contracts are integral; fractional inputs are accepted and reported to two decimals rather than rejected, since some upstream systems carry futures-equivalent fractions. Both boundaries are therefore exposed to floating-point accumulation: a book of fractional legs summing to a level "exactly" can land a fraction either side of it. Feed whole contracts wherever the source data is whole.
 - **Aggregate figures and breach figures have different populations.** `aggregated_net_position` and the aggregated gross legs cover the whole book including bona fide hedges, because that is what the reporting test runs on. Each `LimitBreach.net_position` excludes hedges, because that is what § 150.3 leaves subject to limits. They will not tie out when `hedge_exempt_contracts_excluded` is non-zero; that is correct, not an inconsistency.
-
-## Category
-
-`Regulatory Compliance & Risk Controls` — see top-level `mappings/` directory.

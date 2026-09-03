@@ -86,7 +86,7 @@ Reach for it when you need to answer one question per order: *may this order use
 - Submit `intended_waiver_type="LIS"`, `order_val_eur=200_000`, `lis_threshold_eur=650_000` against a suspended name: verify `effective_waiver_type == "RPW"` and `final_routed_venue_type == "LIT_VENUE"`. Raise the order to €650,000: verify `DARK_LIS_EXEMPT`.
 - Submit `NTW` and `OMF` against the same suspended name: verify both route dark with `is_cap_applicable` false.
 - Verify `rts1_lis_threshold_eur` reproduces RTS 1 Annex II Table 1 at every band edge (€15,000 below €50k ADT through €650,000 at or above €100m ADT), and raises for `"ETFS"` rather than guessing.
-- Run `python scripts/test_esma_double_volume_cap_mechanism.py`.
+- Run `python -m unittest discover -s skills/esma-double-volume-cap-mechanism/scripts`.
 
 ## Related Skills
 

@@ -40,6 +40,3 @@ All rows below are **US, exchange-listed options**. Deadlines, allocation method
 - **Tax.** Exercise, sale and the resulting stock position have different treatments and holding-period consequences in every jurisdiction.
 - **The wildcard option** in cash-settled American index options (Fleming & Whaley, 1994), which adds exercise value beyond the tests above.
 - **Cut-off times, holiday calendars and session clocks.** Deliberately out of scope; the engine takes no time input at all.
-
-## Category
-`Options & Derivatives Trading`

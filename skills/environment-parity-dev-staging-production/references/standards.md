@@ -82,7 +82,3 @@ in-scope firm a lockfile-hash mismatch is a signal to consider retesting — not
 build-hygiene nit. Correspondingly, the audit report is a documentation artifact worth
 retaining: it timestamps which release specification an environment was gated against.
 This module produces that record; it does not itself discharge any obligation.
-
-## Category
-
-`deployment-ops`

@@ -24,7 +24,9 @@ Use this skill within your CI/CD pipeline immediately following a deployment of 
 
 This self-healing engine continuously monitors post-deployment telemetry (technical metrics like latency/errors and trading metrics like order reject rates) and, if a metric breaches its safety threshold for a confirmed number of consecutive samples, fires an automated rollback trigger that minimizes Mean Time to Recovery (MTTR).
 
-**When NOT to use:** Do not wire automated rollback as the *primary* control loop for market-data alerts or strategy underperformance — those are human/postmortem signals, not deployment-defect signals. Automated rollback is appropriate only when a deployment temporally correlates with the anomaly onset (a deployment-correlated rollback gate). For non-deployment anomalies (e.g. a venue-wide outage), rollback cannot help and may itself cause harm by reverting to a version that lacks the current degradation handling.
+## When NOT to Use
+
+Do not wire automated rollback as the *primary* control loop for market-data alerts or strategy underperformance — those are human/postmortem signals, not deployment-defect signals. Automated rollback is appropriate only when a deployment temporally correlates with the anomaly onset (a deployment-correlated rollback gate). For non-deployment anomalies (e.g. a venue-wide outage), rollback cannot help and may itself cause harm by reverting to a version that lacks the current degradation handling.
 
 ## Prerequisites
 

@@ -48,7 +48,7 @@ Use this before considering the skill's implementation complete.
       MoldUDP64 Session).
 - [ ] **MoldUDP64 message counts honoured:** the expected sequence advances by
       `message_count`, not by one.
-- [ ] **Automated Testing:** run `python scripts/test_multicast_handler.py` — 100% pass rate.
+- [ ] **Automated Testing:** run `python -m unittest discover -s skills/exchange-multicast-feed-handling/scripts` — 100% pass rate.
 
 ## Sign-off
 

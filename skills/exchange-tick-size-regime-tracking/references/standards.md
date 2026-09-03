@@ -108,7 +108,3 @@ Secondary confirmations of the table:
 | Post-alignment band re-check | The tick reported is the one governing the *aligned* price, and `crossed_price_band` flags the move. |
 | Regulatory floor vs venue tick | `venue_assigned_tick` may be coarser than the table; a finer value is rejected. |
 | Table integrity at registration | `register_venue()` rejects gapped, overlapping, unordered, or upper-bounded tick tables. |
-
-## Category
-
-`market-data` / `exchange-reference-data`

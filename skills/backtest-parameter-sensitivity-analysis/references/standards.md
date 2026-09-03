@@ -81,7 +81,3 @@ them is the caller's responsibility and must be consistent across the grid.
 - Bailey, D. H., Borwein, J., Lopez de Prado, M. and Zhu, Q. J., "The Probability of
   Backtest Overfitting", *Journal of Computational Finance*, DOI 10.21314/JCF.2016.322 —
   <https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2326253>
-
-## Category
-
-`backtesting-methodology`

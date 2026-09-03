@@ -213,8 +213,3 @@ Sources: [MAS — Guidelines on Consumer Protection Measures by DPT Service Prov
 
 Re-verify before relying on any of it: this is a moving area, and the UK regime
 in particular changes on a known date.
-
-## Category
-
-`jurisdictional-custody-governance` — see the top-level `mappings/` directory for
-how this category rolls up across the full skill library.

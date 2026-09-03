@@ -80,11 +80,6 @@ Sources: [SEC Section 31 fee-rate advisories](https://www.sec.gov/rules-regulati
 security ... $0.000166 per share ... $8.30 per trade"),
 [FINRA Trading Activity Fee guidance](https://www.finra.org/rules-guidance/guidance/trading-activity-fee).
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.
-
 ## Regulatory & Operational Notes
 
 Section 31 and the FINRA TAF are **mandatory** charges on covered US equity sales;

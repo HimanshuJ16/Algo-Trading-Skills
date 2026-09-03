@@ -99,11 +99,6 @@ publisher's own page; DOIs resolve.
 | Optimal block length depends on sample size and dependence structure; rates $n^{1/3}$, $n^{1/4}$, $n^{1/5}$ by target | Hall, P., Horowitz, J. L. & Jing, B.-Y. (1995), "On blocking rules for the bootstrap with dependent data", *Biometrika* 82(3), 561–574. https://doi.org/10.1093/biomet/82.3.561 | Verified; basis for refusing to call $B = 5$ a standard |
 | Data-driven automatic block-length selection | Politis, D. N. & White, H. (2004), "Automatic Block-Length Selection for the Dependent Bootstrap", *Econometric Reviews* 23(1), 53–70. https://doi.org/10.1081/ETC-120028836 — corrected by Patton, A., Politis, D. N. & White, H. (2009), *Econometric Reviews* 28(4), 372–375. https://doi.org/10.1080/07474930802459016 | Verified, including that the 2004 algorithm requires the 2009 correction; cited as the recommended procedure, not implemented here |
 
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this
-category rolls up across the full skill library.
-
 ## Regulatory & Operational Notes
 
 **No regulator mandates synthetic-data augmentation of a backtest, and nothing in

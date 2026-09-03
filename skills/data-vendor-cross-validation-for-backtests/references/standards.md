@@ -28,7 +28,3 @@ production vendor should always be passed as Vendor A. The absolute value in the
 denominator keeps the metric well-defined for negative prices (negative futures
 settlements are rare but real); a zero reference close is rejected as an integrity issue
 rather than divided by.
-
-## Category
-
-`backtesting-methodology` — see top-level `mappings/` directory.

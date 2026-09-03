@@ -163,7 +163,3 @@ reconstruction (`historical-order-book-reconstruction-from-message-logs`),
 realistic fill simulation (`execution-realistic-simulation`), markout and
 toxicity measurement (`adverse-selection-measurement-for-passive-orders`), and
 matching-engine congestion (`exchange-matching-engine-behavior-under-load`).
-
-## Category
-
-`real-time-architecture` — see top-level `mappings/` directory.

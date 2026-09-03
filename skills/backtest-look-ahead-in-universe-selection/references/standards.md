@@ -98,8 +98,3 @@ the sibling skills listed in `SKILL.md`.
   <https://www.lseg.com/en/ftse-russell/russell-reconstitution>
 - LSEG, "More key facts ahead of the 2026 Russell US Indexes reconstitution" —
   <https://www.lseg.com/en/insights/ftse-russell/more-key-facts-ahead-of-the-2026-russell-us-indexes-reconstitution>
-
-## Category
-
-`backtesting-methodology` — see the top-level `mappings/` directory for how this category rolls
-up across the full skill library.

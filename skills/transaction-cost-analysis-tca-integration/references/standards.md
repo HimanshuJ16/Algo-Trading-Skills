@@ -59,7 +59,3 @@ No regulatory requirement is asserted by this skill. Best-execution reporting
 obligations differ by jurisdiction and change over time; consult
 `best-execution-record-keeping-global` and `mifid-ii-algo-trading-compliance-eu`
 rather than inferring one from these formulas.
-
-## Category
-
-`backtesting-methodology` — see top-level `mappings/` directory.

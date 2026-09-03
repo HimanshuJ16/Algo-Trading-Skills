@@ -62,10 +62,6 @@ complexity of the business. Any limit configured in `AsicMarketIntegrityConfig` 
 participant's own risk policy and must be justified in the documentation supporting the Rule
 5.6.6 certification — it is not an ASIC minimum.
 
-## Category
-
-`regulatory-compliance-global`
-
 ## Jurisdiction
 
 RG 241 applies to trading participants of the markets operated by **ASX Limited, Cboe Australia

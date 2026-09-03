@@ -84,7 +84,7 @@ The dangerous part of a gateway failover is not the switch. It is the set of ord
 - **Order recovery:** pass one `PENDING_NEW`, one `FILLED`, one `PENDING_CANCEL` $\implies$ two `RECONCILE_REQUIRED`, one `NO_ACTION`, and confirm the caller's order objects are unmutated. A non-persistent order under `EUREX_T7_ETI_PROFILE` $\implies$ `REENTER_AS_NEW_ORDER`.
 - **Resend gate:** `build_resend_plan` with an `UNKNOWN` verdict raises; with `ABSENT_AT_VENUE` it returns a copy carrying `poss_resend=True` while the original stays untouched; under `EUREX_T7_ETI_PROFILE` it raises `NotImplementedError`.
 - **No standby available:** both sockets down $\implies$ `FAILOVER_FAILED` with `NO_HEALTHY_STANDBY`, and no promotion.
-- Run `python scripts/test_exchange_gateway_redundancy_and_failover_testing.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/exchange-gateway-redundancy-and-failover-testing/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

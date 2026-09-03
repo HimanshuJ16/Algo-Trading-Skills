@@ -74,7 +74,7 @@ Point 2 is the part that must not be compromised. Earlier versions of this skill
 
 ## Verification
 
-- Run `python scripts/test_reproducibility_engine.py` — 40 tests, 100% pass rate.
+- Run `python -m unittest discover -s skills/backtest-determinism-and-reproducibility/scripts` — 40 tests, 100% pass rate.
 - **The test that matters**: feed `sum([0.1]*10)` and `0.1*10` as prices for otherwise identical runs and confirm `is_bit_identical` is `False`. Pre-2.0 this returned `True`.
 - Run a backtest twice with identical inputs and confirm matching checksums; change the master seed and confirm the checksum shifts.
 - Confirm a missing `timestamp` or a duplicate `(timestamp, symbol, sequence_id)` raises `DeterminismError` rather than sorting silently.

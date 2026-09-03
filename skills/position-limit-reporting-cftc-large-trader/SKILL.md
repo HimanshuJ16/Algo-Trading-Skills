@@ -92,7 +92,7 @@ The tests use different arithmetic (gross-per-side vs net), different buckets (p
 - Boundary checks: exactly 350 long is reportable; 349 is not. Exactly 6,000 net against a 6,000 spot-month limit is **not** a breach; 6,001 is, with `excess = 1.0`.
 - Configure a crude-oil-shaped spec (spot-month limit only) and hold 20,000 contracts in a deferred month ⟹ `is_limit_breached = False` and `limits_not_tested = ('SINGLE_MONTH', 'ALL_MONTHS_COMBINED')`.
 - Negative checks: a position belonging to another entity, a mismatched `commodity_code`, a duplicated `(account_id, contract_month, instrument_class)`, a negative or non-finite leg, an unknown `instrument_class`, and a configured `spot_month_limit` with no `spot_month` must each raise `ValueError`.
-- Run `python -m unittest test_position_limit_reporting_cftc_large_trader` from the `scripts/` directory — 38 tests, 100% pass rate.
+- Run `python -m unittest discover -s skills/position-limit-reporting-cftc-large-trader/scripts` — 38 tests, 100% pass rate.
 
 ## Related Skills
 

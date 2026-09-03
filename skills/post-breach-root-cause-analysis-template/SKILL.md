@@ -202,7 +202,7 @@ sets out what regulators actually require, of whom, and by when.
   `five_whys` must each raise `ValueError`.
 - Confirm determinism: generating twice from equal specs yields identical `markdown_document`
   and `json_payload`.
-- Run `python -m unittest test_breach_rca_generator -v` from the `scripts/` directory -
+- Run `python -m unittest discover -s skills/post-breach-root-cause-analysis-template/scripts -v` from the `scripts/` directory -
   52 tests, 100% pass rate.
 
 ## Related Skills

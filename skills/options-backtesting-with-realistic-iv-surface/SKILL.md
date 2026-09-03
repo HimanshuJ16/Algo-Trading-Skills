@@ -84,7 +84,7 @@ Invoke this skill when backtesting options strategies (e.g. delta-neutral stradd
 - Confirm put-call parity: $C - P = S e^{-qT} - K e^{-rT}$ to at least 10 decimal places, on the skewed surface and with $q > 0$.
 - Confirm each analytic Greek matches a central finite difference of the price function.
 - Confirm $s(4 T_{\text{ref}}) = 0.5$ and $s(T_{\text{ref}}/4) = 2.0$ — the $T^{-1/2}$ decay.
-- Run `python scripts/test_options_iv_backtester.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/options-backtesting-with-realistic-iv-surface/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

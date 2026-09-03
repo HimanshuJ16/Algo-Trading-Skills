@@ -23,11 +23,6 @@ skill's subject matter is quantitative methodology, not compliance.
 | The naive $1/N$ rule is hard to beat out of sample because estimation error in optimized weights outweighs the theoretical optimality gain | DeMiguel, V., Garlappi, L. & Uppal, R. (2009), "Optimal Versus Naive Diversification: How Inefficient is the 1/N Portfolio Strategy?", *Review of Financial Studies* 22(5), 1915–1953. https://doi.org/10.1093/rfs/hhm075 | Verified; the rationale for shrinking toward $1/N$ rather than using the raw fit |
 | Non-negative least squares solved exactly by a finitely-terminating active-set algorithm | Lawson, C. L. & Hanson, R. J. (1974), *Solving Least Squares Problems*, Prentice-Hall, Chapter 23, p. 161 (reissued SIAM Classics in Applied Mathematics, 1995) | Verified as the standard algorithm; it is the same method `scipy.optimize.nnls` implements, which the reference implementation was cross-checked against |
 
-## Category
-
-`financial-ml` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.
-
 ## Regulatory & Operational Notes
 
 No jurisdiction-specific rule governs how alpha signals are blended. Where this skill

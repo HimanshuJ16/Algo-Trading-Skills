@@ -211,7 +211,7 @@ whether a switch is warranted and refuses the ones that are not evidenced.
   `failure_threshold < 1`, a negative cooldown, a blank endpoint field, a duplicate
   endpoint name, a second primary, `validate_configuration()` with no primary or a single
   endpoint, and any evaluation with no active endpoint registered.
-- Run `python scripts/test_region_failover.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/multi-region-failover-for-broker-connectivity/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

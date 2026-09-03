@@ -115,8 +115,3 @@ to a citable basis for the "100% pass rate blocks the release" gate.
 - **Only as good as the cases written.** Coverage enforcement checks that a rule *fired*,
   not that it fired on the input that would have caught the bug.
 - **Latency figures are indicative.** See *Latency* above.
-
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category rolls up
-across the full skill library.

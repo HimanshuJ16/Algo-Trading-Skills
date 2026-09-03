@@ -61,7 +61,7 @@ Invoke this skill when executing multi-leg derivatives strategies (e.g., selling
 - Simulate an illiquid anchor leg filling 50%, followed by the hedging leg filling 50%. Ensure the remaining 50% anchor leg is managed correctly.
 - Simulate a hedge IOC that reports two partial fills totalling the full quantity, and one that reports no fills at all. The first must complete; the second must break and cancel the anchor.
 - Compare `realized_net_spread()` (anchor VWAP minus hedge VWAP) against the target net spread to confirm the executed spread landed inside tolerance.
-- Run `python scripts/test_calendar_spread_and_multi_leg_order_atomicity.py` and confirm 100% pass rate.
+- Run `python -m unittest discover -s skills/calendar-spread-and-multi-leg-order-atomicity/scripts` and confirm 100% pass rate.
 
 ## Related Skills
 

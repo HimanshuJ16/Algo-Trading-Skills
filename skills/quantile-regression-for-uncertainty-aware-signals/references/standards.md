@@ -61,7 +61,3 @@ regime applies to signal models, the artefacts this engine produces that are usu
 relevant to it are the out-of-sample coverage report, the recorded seed and
 hyperparameters of each fit, and the refusal conditions above. Consult qualified
 compliance counsel for the requirements actually binding on your entity.
-
-## Category
-
-`financial-ml`

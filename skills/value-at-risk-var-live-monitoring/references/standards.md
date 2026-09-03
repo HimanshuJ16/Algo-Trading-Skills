@@ -31,8 +31,3 @@ mandatory for a proprietary trading firm, and this module is not a capital calcu
   firms generally. They are cited as the authority for the estimator conventions and the
   sample-size floor, not as obligations this skill discharges.
 - Nothing here has been verified against SEBI, FCA, ESMA, MAS or ASIC requirements.
-
-## Category
-
-`risk-management` — see the top-level `mappings/` directory for how this category rolls
-up across the full skill library.
