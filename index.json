@@ -1,31 +1,10 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-09-03T09:24:24.790141+00:00",
+  "generated_at": "2026-09-03T10:06:42.164996+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
   "skills": [
-    {
-      "name": "1099-b-and-broker-tax-reporting-reconciliation",
-      "description": "Use when reconciling internal algorithmic trading trade ledgers (realized tax lots) against official broker 1099-B filings for end-of-year tax preparation, broker-error detection, or Form 8949 generation. Compares lots on (symbol, quantity, dates, proceeds, cost basis) within configurable tolerances, surfaces wash-sale mismatches, missing records, and basis out-of-tolerance events. Single-jurisdiction (US/IRS) scope.",
-      "domain": "tax-accounting-reporting-global",
-      "subdomain": "tax-reporting",
-      "tags": [
-        "tax",
-        "reconciliation",
-        "compliance",
-        "1099-B",
-        "form-8949",
-        "wash-sale",
-        "decimal-arithmetic"
-      ],
-      "brokers_frameworks": [],
-      "version": "1.3.0",
-      "author": "System",
-      "license": "MIT",
-      "path": "skills/1099-b-and-broker-tax-reporting-reconciliation",
-      "skill_md": "skills/1099-b-and-broker-tax-reporting-reconciliation/SKILL.md"
-    },
     {
       "name": "adaptive-batch-size-tuning-under-load",
       "description": "Use when writing market data or order logs to downstream databases (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch sizes and flush timeouts based on batch fullness at the flush boundary and sink write latency. Hysteresis-shaped, EWMA-smoothed, back-pressure-aware. Single-writer / multi-producer thread-safe engine, not a generic embedder.",
@@ -4914,6 +4893,27 @@
       "license": "Apache-2.0",
       "path": "skills/forex-broker-integration-oanda-mt5",
       "skill_md": "skills/forex-broker-integration-oanda-mt5/SKILL.md"
+    },
+    {
+      "name": "form-1099-b-and-broker-tax-reporting-reconciliation",
+      "description": "Use when reconciling internal algorithmic trading trade ledgers (realized tax lots) against official broker 1099-B filings for end-of-year tax preparation, broker-error detection, or Form 8949 generation. Compares lots on (symbol, quantity, dates, proceeds, cost basis) within configurable tolerances, surfaces wash-sale mismatches, missing records, and basis out-of-tolerance events. Single-jurisdiction (US/IRS) scope.",
+      "domain": "tax-accounting-reporting-global",
+      "subdomain": "tax-reporting",
+      "tags": [
+        "tax",
+        "reconciliation",
+        "compliance",
+        "1099-B",
+        "form-8949",
+        "wash-sale",
+        "decimal-arithmetic"
+      ],
+      "brokers_frameworks": [],
+      "version": "1.3.0",
+      "author": "System",
+      "license": "MIT",
+      "path": "skills/form-1099-b-and-broker-tax-reporting-reconciliation",
+      "skill_md": "skills/form-1099-b-and-broker-tax-reporting-reconciliation/SKILL.md"
     },
     {
       "name": "fpga-based-market-data-processing-evaluation",

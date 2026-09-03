@@ -545,7 +545,7 @@ All 504 skills across all 16 engineering domains have been physically built, tes
 - **[BUILT]** `mark-to-market-election-for-active-traders-us` — Understanding the US mark-to-market (Section 475) election's implications for active-trader tax treatment and its accounting-system requirements.
 - **[BUILT]** `crypto-transaction-tax-lot-tracking` — Tracking tax lots for crypto transactions specifically, including the added complexity of frequent small transactions and cross-chain movements.
 - **[BUILT]** `multi-jurisdiction-tax-residency-implications` — Understanding how multi-jurisdiction tax residency affects reporting obligations for a globally-distributed trading operation.
-- **[BUILT]** `1099-b-and-broker-tax-reporting-reconciliation` — Reconciling broker-issued tax forms (e.g. US 1099-B) against internal trade records to catch discrepancies before filing.
+- **[BUILT]** `form-1099-b-and-broker-tax-reporting-reconciliation` — Reconciling broker-issued tax forms (e.g. US 1099-B) against internal trade records to catch discrepancies before filing.
 - **[BUILT]** `vat-gst-treatment-of-trading-related-services` — Understanding VAT/GST treatment of trading-related service fees (data subscriptions, infrastructure) across jurisdictions.
 - **[BUILT]** `transfer-pricing-for-multi-entity-trading-operations` — Understanding transfer-pricing implications when a trading operation spans multiple related legal entities across jurisdictions.
 - **[BUILT]** `automated-tax-lot-reporting-pipeline` — Building an automated pipeline that produces tax-lot reports on a defined schedule rather than manual reconstruction at filing time.

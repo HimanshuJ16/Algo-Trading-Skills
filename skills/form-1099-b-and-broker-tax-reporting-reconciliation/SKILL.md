@@ -1,5 +1,5 @@
 ---
-name: 1099-b-and-broker-tax-reporting-reconciliation
+name: form-1099-b-and-broker-tax-reporting-reconciliation
 description: Use when reconciling internal algorithmic trading trade ledgers
   (realized tax lots) against official broker 1099-B filings for end-of-year
   tax preparation, broker-error detection, or Form 8949 generation. Compares
@@ -94,7 +94,7 @@ For the full lifecycle (data freeze, broker retrieval, CPA handoff), see `refere
 Run the unit tests:
 
 ```bash
-python -m unittest discover -s skills/1099-b-and-broker-tax-reporting-reconciliation/scripts -v
+python -m unittest discover -s skills/form-1099-b-and-broker-tax-reporting-reconciliation/scripts -v
 ```
 
 What they assert:

@@ -90,7 +90,7 @@ it alone, in these cases:
 - **Filing-grade decimal accounting.** Amounts are floats, consistent with the
   rest of this repository, rounded to cents at the boundary. Reconcile against
   the broker's own Form 1099-B before filing — see
-  `1099-b-and-broker-tax-reporting-reconciliation`.
+  `form-1099-b-and-broker-tax-reporting-reconciliation`.
 
 ## Prerequisites
 
@@ -199,7 +199,7 @@ Box 1d/1e/1g identity. Sign off with `assets/checklist.md`.
 ## Related Skills
 
 - `fifo-vs-specific-lot-tax-accounting-methods`
-- `1099-b-and-broker-tax-reporting-reconciliation`
+- `form-1099-b-and-broker-tax-reporting-reconciliation`
 - `automated-tax-lot-reporting-pipeline`
 - `mark-to-market-election-for-active-traders-us`
 - `constructive-sale-rule-considerations-us`

@@ -87,5 +87,5 @@ This engine computes that arithmetic from rates **you register**, and — the pa
 ## Related Skills
 
 - `multi-jurisdiction-tax-residency-implications`
-- `1099-b-and-broker-tax-reporting-reconciliation`
+- `form-1099-b-and-broker-tax-reporting-reconciliation`
 - `record-keeping-requirements-for-tax-audit-defense`
