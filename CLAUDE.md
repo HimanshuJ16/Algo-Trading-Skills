@@ -124,14 +124,6 @@ real production bug; is the Verification section actually checkable).
 - Regulatory and broker-behavior claims in skill content must be verifiable against
   authoritative sources; a missing claim is better than a wrong or fabricated one.
 
-## /improve-skill
-
-`.claude/commands/improve-skill.md` is the repo's institutional protocol for upgrading a single
-skill (`/improve-skill <skill-slug>`). It is deliberately conservative: one skill per run, no
-delegation to subagents, evidence over assumption, minimal justified change over rewrite. Follow
-it when asked to improve a skill rather than improvising an audit. (`docs/prompt.md` is an
-earlier, longer version of the same workflow.)
-
 ## Sibling agent-instruction files
 
 `AGENTS.md`, `GEMINI.md`, `CONVENTIONS.md` (Aider), `.cursor/rules/algo-trading-skills.mdc`,
