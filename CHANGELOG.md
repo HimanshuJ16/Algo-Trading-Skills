@@ -64,6 +64,12 @@ anything parsing either needs updating.
 - `backtest-vs-live-performance-divergence-tracking`: `DivergenceSeverity` now pins `__str__`
   to its value. Python 3.10 and 3.11 disagree on how a `(str, Enum)` member renders, so a
   severity written into a report differed by interpreter.
+- `backtest-determinism-and-reproducibility` and `reproducible-ml-training-pipelines`: two
+  tests built a one-ULP float drift with `sum([0.1] * 10)`. CPython 3.12 gave the built-in
+  `sum()` Neumaier compensated summation for floats, so that expression is one ULP below 1.0
+  up to 3.11 and exactly 1.0 from 3.12 on, and both tests silently lost the divergence they
+  existed to detect. They now accumulate in an explicit loop, which stays naive on every
+  version and matches how a backtest actually accumulates a P&L series.
 
 ### Changed — library shape
 - Merged duplicates: `cross-strategy-correlation-monitoring` into

@@ -44,8 +44,17 @@ class TestExactDivergenceDetection(unittest.TestCase):
 
     def test_summation_order_divergence_is_caught(self):
         # The canonical non-determinism signature: same value, different
-        # accumulation order. Independently verified: these are not equal.
-        a, b = sum([0.1] * 10), 0.1 * 10
+        # accumulation order.
+        #
+        # Accumulate explicitly rather than with sum(). CPython 3.12 gave the
+        # built-in sum() Neumaier compensated summation for floats, so
+        # sum([0.1] * 10) is 0.9999999999999999 up to 3.11 and exactly 1.0 from
+        # 3.12 on. A plain += loop stays naive on every version, which is the
+        # behaviour a backtest accumulating a P&L series actually has.
+        a = 0.0
+        for _ in range(10):
+            a += 0.1
+        b = 0.1 * 10
         self.assertNotEqual(a, b)
         report = self.engine.audit_reproducibility(
             [trade(px=a)], [trade(px=b)]

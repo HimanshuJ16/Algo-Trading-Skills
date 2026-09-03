@@ -87,9 +87,16 @@ class TestCanonicalBytes(unittest.TestCase):
         self.assertNotEqual(canonical_bytes(1), canonical_bytes(1.0))
 
     def test_last_ulp_difference_survives_encoding(self):
-        # REGRESSION: the previous implementation rounded to 6 decimals, which
-        # collapsed exactly this pair.
-        drifted = sum([0.1] * 10)
+        # REGRESSION: rounding to 6 decimals before hashing collapses exactly
+        # this pair, so a one-ULP training divergence would hash as identical.
+        #
+        # Accumulate explicitly rather than with sum(). CPython 3.12 gave the
+        # built-in sum() Neumaier compensated summation for floats, so
+        # sum([0.1] * 10) is one ULP below 1.0 up to 3.11 and exactly 1.0 from
+        # 3.12 on. A plain += loop stays naive on every version.
+        drifted = 0.0
+        for _ in range(10):
+            drifted += 0.1
         self.assertNotEqual(drifted, 1.0)
         self.assertNotEqual(canonical_bytes([drifted]), canonical_bytes([1.0]))
 
