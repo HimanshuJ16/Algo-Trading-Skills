@@ -585,12 +585,17 @@ class LedgerIntegrationTests(unittest.TestCase):
         mgr = WebhookConsumerManager()
         position = 0.0
 
+        # A retry is the *same bytes* redelivered, so the retried entries reuse
+        # the original payload object. Rebuilding one with fill() would restamp
+        # its timestamp and make the redelivery a content mismatch instead.
+        e1 = fill(order_id="ORD_L", exec_id="E1", qty=30.0, sequence_num=1)
+        e3 = fill(order_id="ORD_L", exec_id="E3", qty=40.0, sequence_num=3)
         deliveries = [
-            fill(order_id="ORD_L", exec_id="E1", qty=30.0, sequence_num=1),
-            fill(order_id="ORD_L", exec_id="E1", qty=30.0, sequence_num=1),   # retry
-            fill(order_id="ORD_L", exec_id="E3", qty=40.0, sequence_num=3),
+            e1,
+            e1,                                                               # retry
+            e3,
             fill(order_id="ORD_L", exec_id="E2", qty=30.0, sequence_num=2),   # late
-            fill(order_id="ORD_L", exec_id="E3", qty=40.0, sequence_num=3),   # retry
+            e3,                                                               # retry
         ]
         stale = fill(order_id="ORD_L", exec_id="E4", qty=999.0, ts=time.time() - 7200)
 
