@@ -70,6 +70,13 @@ anything parsing either needs updating.
   up to 3.11 and exactly 1.0 from 3.12 on, and both tests silently lost the divergence they
   existed to detect. They now accumulate in an explicit loop, which stays naive on every
   version and matches how a backtest actually accumulates a P&L series.
+- `cross-strategy-correlation-monitoring`: a threshold test built a correlation of exactly
+  0.70 and asserted that a `>= 0.70` check fires on it. The weighted covariance is a matrix
+  product, so its last bit depends on the BLAS build and the CPU's vectorisation, and the
+  fixture landed one ULP either side of the threshold depending on the machine. The two cases
+  now sit 4e-5 apart on opposite sides of the threshold while still rounding to the same
+  reported 0.7000, which tests the pre-rounding comparison more strictly and no longer
+  depends on a single floating-point bit.
 
 ### Changed — library shape
 - Merged duplicates: `cross-strategy-correlation-monitoring` into

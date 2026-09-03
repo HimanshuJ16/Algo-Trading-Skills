@@ -356,19 +356,31 @@ class TestEwmaWeighting(unittest.TestCase):
         self.assertEqual(equal_report.effective_observations, 5000.0)
 
     def test_threshold_is_applied_before_rounding_under_ewma(self):
+        # Both correlations below round to 0.7000 at the reported 4 decimal places,
+        # but they sit on opposite sides of the 0.70 threshold. Comparing the raw
+        # value must breach on one and not the other; comparing the rounded value
+        # would breach on both.
+        #
+        # Deliberately NOT constructed at exactly 0.70. The weighted covariance is a
+        # matrix product, so its last bit depends on the BLAS build and the CPU's
+        # vectorisation: an exactly-0.70 fixture lands one ULP either side of the
+        # threshold depending on the machine, which made this test flip between
+        # otherwise identical CI runners.
         monitor = CrossStrategyCorrelationMonitor(
             ewma_span=30, high_correlation_threshold=0.70, min_observations=30
         )
         at = monitor.analyze_strategy_correlations(
-            ["A", "B"], ewma_paired_matrix(0.70, n_obs=150, span=30)
+            ["A", "B"], ewma_paired_matrix(0.70004, n_obs=150, span=30)
         )
         self.assertEqual(len(at.high_correlation_breaches), 1)
+        self.assertEqual(at.high_correlation_breaches[0].correlation, 0.7)
 
         # Just under: the pre-rounding comparison must not promote 0.69996 to 0.7000.
         near = monitor.analyze_strategy_correlations(
             ["A", "B"], ewma_paired_matrix(0.69996, n_obs=150, span=30)
         )
         self.assertEqual(near.high_correlation_breaches, [])
+        self.assertEqual(round(float(near.correlation_matrix[0, 1]), 4), 0.7)
 
 
 # ---------------------------------------------------------------------- #
