@@ -13,7 +13,28 @@
     {
       "name": "algo-trading-skills",
       "source": "./",
-      "description": "504 algorithmic trading skills covering broker integration, real-time architecture, backtesting, financial ML, risk management, execution algorithms, crypto custody, regulatory compliance, derivatives, data management, portfolio strategy, market microstructure, quant research, and tax accounting."
+      "description": "504 algorithmic trading skills covering broker integration, real-time architecture, backtesting, financial ML, risk management, execution algorithms, crypto custody, regulatory compliance, derivatives, data management, portfolio strategy, market microstructure, quant research, and tax accounting.",
+      "version": "1.0.0",
+      "author": {
+        "name": "HimanshuJ16",
+        "url": "https://github.com/HimanshuJ16"
+      },
+      "license": "Apache-2.0",
+      "keywords": [
+        "algorithmic-trading",
+        "quantitative-finance",
+        "backtesting",
+        "risk-management",
+        "broker-api",
+        "market-data",
+        "execution-algorithms",
+        "regulatory-compliance",
+        "financial-ml",
+        "derivatives"
+      ],
+      "category": "finance",
+      "homepage": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
+      "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills"
     }
   ]
 }
