@@ -81,6 +81,6 @@ single domain keeps the per-session context cost to a few thousand tokens.
 
 ## Verification
 - `python tools/validate_skills.py` — frontmatter, sections, cross-references, packaging
-- `skills-ref validate skills/<name>` — the agentskills.io reference validator
+- `agentskills validate skills/<name>` — the agentskills.io reference validator (pip install skills-ref, Python 3.11+)
 - `python tools/run_all_tests.py` — every skill's unittest suite, isolated per subprocess
 - `python tools/build_index.py --check` / `build_marketplace.py --check` — generated files

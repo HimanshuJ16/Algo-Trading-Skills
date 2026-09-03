@@ -104,7 +104,7 @@ Three further conventions are enforced rather than merely suggested:
 
 ```bash
 python tools/validate_skills.py                            # this contract, machine-enforced
-skills-ref validate skills/<skill-name>                     # the agentskills.io spec itself
+agentskills validate skills/<skill-name>                    # the agentskills.io spec itself (pip install skills-ref, 3.11+)
 python -m unittest discover -s skills/<skill-name>/scripts   # the skill's own suite
 ```
 

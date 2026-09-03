@@ -39,7 +39,7 @@ For a single new skill or a fix to an existing one, a PR is fine directly.
 
 ```bash
 python tools/validate_skills.py                              # structure, frontmatter, cross-refs, packaging
-skills-ref validate skills/<your-skill-name>                  # the agentskills.io spec itself
+agentskills validate skills/<your-skill-name>                 # the agentskills.io spec itself (pip install skills-ref, Python 3.11+)
 python -m unittest discover -s skills/<your-skill-name>/scripts
 python tools/build_index.py && python tools/build_marketplace.py   # regenerate the generated files
 ```
@@ -86,7 +86,7 @@ on Python 3.10, 3.12 and 3.13:
    the frontmatter contract, the seven body sections, `scripts/` layout, every skill
    cross-reference in skills and repo docs, that documented test commands run from the
    repository root, and that the plugin manifests cover every skill exactly once.
-2. **Specification conformance** — `skills-ref validate` runs the agentskills.io
+2. **Specification conformance** — the `skills-ref` package runs the agentskills.io
    reference validator against each skill.
 3. **Generated files** — `build_index.py --check` and `build_marketplace.py --check`
    fail if `index.json` or `marketplace.json` is stale.

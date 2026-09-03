@@ -85,9 +85,11 @@ anything parsing either needs updating.
   that the plugin manifests cover every skill exactly once.
 - `tools/build_index.py` shares the validator's parser, fails on any unparseable skill instead
   of silently dropping it, and gained `--check` and `--output`.
-- CI runs on Python 3.10, 3.12 and 3.13 (the real floor is 3.10), adds `skills-ref validate`,
-  generated-file drift checks, the repository test suite, and the three cookbook examples, and
-  has a job timeout.
+- CI runs on Python 3.10, 3.12 and 3.13 (the real floor is 3.10), adds generated-file drift
+  checks, the repository test suite, and the three cookbook examples, and has a job timeout.
+  The agentskills.io reference validator (`skills-ref`, invoked as `agentskills`) needs Python
+  3.11+, so it is installed in its own step and skipped on the 3.10 job rather than being
+  pinned in `requirements-dev.txt`, which would break the 3.10 install.
 - The Claude review workflow no longer fails on pull requests from forks, which never receive
   secrets; the `@claude` workflow now only responds to maintainers and collaborators.
 - Added `pytest.ini` so a bare `pytest` runs the repository suite instead of colliding on

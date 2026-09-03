@@ -8,7 +8,7 @@
 - [ ] All seven body sections present, including `When NOT to Use` handing each excluded case to the skill that owns it
 - [ ] Reflects a real production failure mode, not generic advice available anywhere
 - [ ] `Verification` section describes a concrete, checkable test — not just "it works"
-- [ ] `python tools/validate_skills.py` and `skills-ref validate skills/<name>` both pass
+- [ ] `python tools/validate_skills.py` passes, and `agentskills validate skills/<name>` passes on Python 3.11+
 - [ ] `index.json` and `.claude-plugin/marketplace.json` regenerated (`python tools/build_index.py && python tools/build_marketplace.py`) if a skill was added, removed, or renamed
 - [ ] Any included script has been run at least once against a sandbox/paper environment where applicable
 

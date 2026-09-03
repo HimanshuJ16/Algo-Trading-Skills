@@ -37,7 +37,7 @@ When tasked with generating, reviewing, testing, or refactoring algorithmic trad
 ## ⚙️ Repository Tools & Commands
 - `python tools/validate_skills.py` — frontmatter, required sections, cross-references,
   scripts layout and plugin packaging for every skill.
-- `skills-ref validate skills/<skill-name>` — the agentskills.io reference validator.
+- `agentskills validate skills/<skill-name>` — the agentskills.io reference validator (`pip install skills-ref`, Python 3.11+).
 - `python tools/build_index.py` — rebuilds `index.json` (`--check` verifies it is current).
 - `python tools/build_marketplace.py` — rebuilds the per-domain plugin marketplace.
 - `python tools/run_all_tests.py` — every skill's unittest suite, each in its own subprocess.

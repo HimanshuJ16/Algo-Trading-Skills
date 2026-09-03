@@ -30,9 +30,30 @@ jobs:
       - name: Validate skill structure, frontmatter, cross-references and packaging
         run: python tools/validate_skills.py
 
-      - name: Validate against the agentskills.io reference validator
+      # skills-ref requires Python 3.11+, while this library supports 3.10+, so the
+      # specification check runs on the newer interpreters only.
+      - name: Install the agentskills.io reference validator
+        if: matrix.python-version != '3.10'
+        run: pip install skills-ref
+
+      - name: Validate against the agentskills.io specification
+        if: matrix.python-version != '3.10'
         run: |
-          for d in skills/*/; do skills-ref validate "$d" || exit 1; done
+          python - <<'EOF'
+          import os, sys
+          from skills_ref import validate
+          failed = 0
+          for name in sorted(os.listdir("skills")):
+              errors = validate(os.path.join("skills", name))
+              if errors:
+                  failed += 1
+                  print(f"{name}:")
+                  for e in errors:
+                      print(f"  - {e}")
+          total = len(os.listdir("skills"))
+          print(f"{total} skills checked, {failed} failed the agentskills.io specification.")
+          sys.exit(1 if failed else 0)
+          EOF
 
       - name: Check generated files are current (index.json, marketplace.json)
         run: |

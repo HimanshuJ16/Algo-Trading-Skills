@@ -1,4 +1,9 @@
 # Development and CI testing dependencies for Algo-Trading-Skills
 -r requirements.txt
 pytest>=7.0.0
-skills-ref>=0.1.0   # agentskills.io reference validator: skills-ref validate skills/<name>
+
+# The agentskills.io reference validator is deliberately NOT listed here: it requires
+# Python 3.11+, while this library supports 3.10+, so pinning it would make the whole
+# dev install fail on 3.10. Install it separately on 3.11 or newer:
+#     pip install skills-ref
+#     agentskills validate skills/<skill-name>

@@ -21,9 +21,9 @@ Two distinct kinds of work happen here, and they have different rules:
 ## Commands
 
 ```bash
-pip install -r requirements-dev.txt                      # pyyaml, numpy, pandas, scipy, pyotp, pytest, skills-ref
+pip install -r requirements-dev.txt                      # pyyaml, numpy, pandas, scipy, pyotp, pytest
 python tools/validate_skills.py                          # frontmatter + sections + cross-refs + scripts layout + packaging
-skills-ref validate skills/<skill-name>                   # the agentskills.io reference validator
+agentskills validate skills/<skill-name>                  # agentskills.io reference validator (pip install skills-ref; needs 3.11+)
 python tools/build_index.py                              # regenerate index.json (--check verifies it is current)
 python tools/build_marketplace.py                        # regenerate the per-domain plugin marketplace (--check too)
 python tools/run_all_tests.py                            # every skill suite, isolated per subprocess
@@ -105,7 +105,7 @@ metadata:
 
 Validator rules that commonly bite:
 - **No repo field at the top level.** `tags:`, `version:` and friends outside `metadata:`
-  fail both this validator and `skills-ref`.
+  fail both this validator and the agentskills.io reference validator.
 - **`metadata` values are strings, never lists.** `tags` is comma-separated;
   `brokers_frameworks` is semicolon-separated, because vendor names contain commas.
   Quote `version` (`version: "2.0.0"`) — an unquoted `1.10` is a YAML float and silently

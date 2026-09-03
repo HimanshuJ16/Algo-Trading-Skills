@@ -120,7 +120,7 @@ the build goes red.
 | **501 working reference implementations** | ~292,000 lines of Python under `skills/*/scripts/`. Not pseudocode — importable modules with validated inputs and named exceptions. 466 of the 501 import nothing outside the Python standard library; the 35 that do reach mostly for numpy or pandas, so the whole suite still runs on `requirements-dev.txt` alone. |
 | **501 unit test suites · 20,289 tests** | ~228,000 lines of tests. Each suite runs in its own subprocess with a timeout, so no skill can leak module state into another or hang the build. A skill whose own reference implementation fails its own tests fails the build. |
 | **A machine-enforced contract** | [`tools/validate_skills.py`](tools/validate_skills.py) checks the frontmatter contract, the seven required body sections, `scripts/` layout, every skill cross-reference in both skills and repo docs, that every documented test command runs from the repository root, and that the plugin manifests cover every skill exactly once. |
-| **The specification, not our reading of it** | CI also runs [`skills-ref`](https://github.com/agentskills/agentskills/tree/main/skills-ref), the official agentskills.io reference validator, against every skill. |
+| **The specification, not our reading of it** | CI also runs [`skills-ref`](https://github.com/agentskills/agentskills/tree/main/skills-ref), the official agentskills.io reference validator, against every skill. It needs Python 3.11+, so that job runs on the newer interpreters while the library itself stays 3.10-compatible. |
 | **Descriptions that say when to trigger** | Every description starts with "Use when …" and fits in 280 characters — enforced, because it is the only thing an agent reads before choosing a skill, and it costs context on every session. |
 | **Generated files can't drift** | `index.json` and the plugin marketplace are generated and carry no timestamp; `--check` modes fail CI if either is stale. |
 | **Verification you can paste** | Every skill quotes a runnable command in its `## Verification` section, alongside the concrete assertions to check by hand. |
@@ -242,7 +242,7 @@ values. Two rules on `description` do the heavy lifting for discovery: it starts
 it fits in **280 characters**, because every installed skill's description is loaded
 into context on every session. Both are enforced by
 [`tools/validate_skills.py`](tools/validate_skills.py), alongside the official
-`skills-ref validate`.
+the official `agentskills validate`.
 
 ### Markdown body sections
 
