@@ -3,7 +3,6 @@ import unittest
 from datetime import datetime, timedelta, timezone
 
 from alt_data_integrator import (
-    AlignedValue,
     AltDataIntegrator,
     AltDataIntegratorError,
     AltDataValidationError,
@@ -192,11 +191,44 @@ class TestAltDataIntegrator(unittest.TestCase):
         # No partial state: nothing was ingested.
         self.assertEqual(len(self.integrator.pit_features), 0)
 
-    def test_idempotent_upsert_dedups_same_key(self):
+    def test_idempotent_reingest_of_identical_events_dedups(self):
+        # A backfill/restart resending the same rows must not duplicate facts.
+        e = RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)
+        self.integrator.ingest_events([e, e])
+        self.integrator.ingest_events([e])
+        self.assertEqual(len(self.integrator.pit_features), 1)
+        self.assertEqual(self.integrator.pit_features[0].feature_value, 10.0)
+
+    def test_ambiguous_within_batch_collision_is_rejected(self):
+        # Same (source_id, knowledge_timestamp), different value: only one can
+        # be the as-of fact. Silently keeping the list-order-last one would
+        # make the stored value depend on batch order, so ingest must refuse.
         e1 = RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)
         e2 = RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 30.0)
-        # Same (source_id, knowledge_timestamp) -> last-write-wins, one fact.
-        self.integrator.ingest_events([e1, e2])
+        with self.assertRaises(AltDataValidationError):
+            self.integrator.ingest_events([e1, e2])
+        # Atomic: the good event ahead of the collision was not committed.
+        self.assertEqual(len(self.integrator.pit_features), 0)
+
+    def test_collision_from_different_events_sharing_knowledge_time_rejected(self):
+        # Different event dates whose differing lags land on the same knowledge
+        # timestamp: previously the second silently destroyed the first.
+        e1 = RawAltDataEvent("A", datetime(2026, 1, 5, 12, 0), timedelta(hours=48), 10.0)
+        e2 = RawAltDataEvent("A", datetime(2026, 1, 6, 12, 0), timedelta(hours=24), 30.0)
+        self.assertEqual(
+            e1.event_timestamp + e1.publication_lag,
+            e2.event_timestamp + e2.publication_lag,
+        )
+        with self.assertRaises(AltDataValidationError):
+            self.integrator.ingest_events([e1, e2])
+
+    def test_later_ingest_call_corrects_in_place(self):
+        # The documented recovery path: re-ingesting a corrected value in a
+        # separate call upserts it rather than appending a second fact.
+        e1 = RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)
+        e2 = RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 30.0)
+        self.integrator.ingest_events([e1])
+        self.integrator.ingest_events([e2])
         self.assertEqual(len(self.integrator.pit_features), 1)
         self.assertEqual(self.integrator.pit_features[0].feature_value, 30.0)
 
@@ -302,6 +334,187 @@ class TestAltDataIntegrator(unittest.TestCase):
         self.assertEqual(i1.pit_features, i2.pit_features)
         self.assertEqual(i1.pit_features[0].source_id, "A")
         self.assertEqual(i1.pit_features[1].source_id, "B")
+
+
+    # ------------------------------------------------------------------ #
+    # Configured source that never delivers (vendor outage)
+    # ------------------------------------------------------------------ #
+    def test_configured_source_with_no_data_reports_unknown(self):
+        # A vendor that never delivered a single row must surface as UNKNOWN,
+        # not be silently absent from the slot (which reaches the model as a
+        # KeyError or a defaulted 0.0).
+        integrator = AltDataIntegrator(
+            source_configs={"OUTAGE": SourceConfig("OUTAGE", max_age=timedelta(days=1))}
+        )
+        t = datetime(2026, 1, 6, 16, 0)
+        aligned = integrator.align_to_trading_schedule([t])
+        self.assertIn("OUTAGE", aligned[t])
+        av = aligned[t]["OUTAGE"]
+        self.assertEqual(av.staleness_state, StalenessState.UNKNOWN)
+        self.assertIsNone(av.value)
+        self.assertIsNone(av.knowledge_timestamp)
+
+    def test_configured_source_appears_alongside_delivering_source(self):
+        integrator = AltDataIntegrator(
+            source_configs={
+                "A": SourceConfig("A"),
+                "OUTAGE": SourceConfig("OUTAGE"),
+            }
+        )
+        integrator.ingest_events(
+            [RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)]
+        )
+        t = datetime(2026, 1, 6, 16, 0)
+        aligned = integrator.align_to_trading_schedule([t])
+        self.assertEqual(set(aligned[t]), {"A", "OUTAGE"})
+        self.assertEqual(aligned[t]["A"].value, 10.0)
+        self.assertEqual(
+            aligned[t]["OUTAGE"].staleness_state, StalenessState.UNKNOWN
+        )
+
+    # ------------------------------------------------------------------ #
+    # Provenance: the applied lag is re-derivable from the stored fact
+    # ------------------------------------------------------------------ #
+    def test_pit_feature_retains_event_timestamp_for_lag_audit(self):
+        event_time = datetime(2026, 1, 5, 12, 0)
+        lag = timedelta(hours=48)
+        self.integrator.ingest_events(
+            [RawAltDataEvent("SAT", event_time, lag, 150.5)]
+        )
+        fact = self.integrator.pit_features[0]
+        self.assertEqual(fact.event_timestamp, event_time)
+        # The checklist item "knowledge_timestamp == event_timestamp + lag" is
+        # only checkable if the event timestamp survives ingest.
+        self.assertEqual(fact.knowledge_timestamp - fact.event_timestamp, lag)
+
+    def test_restatement_lag_is_re_derivable_from_revised_date(self):
+        revised = datetime(2026, 1, 9, 9, 0)
+        lag = timedelta(hours=24)
+        self.integrator.ingest_events([
+            RawAltDataEvent(
+                "SAT", datetime(2026, 1, 5, 12, 0), lag, 160.0, revised_date=revised
+            )
+        ])
+        fact = self.integrator.pit_features[0]
+        self.assertEqual(fact.revised_date, revised)
+        self.assertEqual(fact.event_timestamp, datetime(2026, 1, 5, 12, 0))
+        self.assertEqual(fact.knowledge_timestamp - fact.revised_date, lag)
+
+    # ------------------------------------------------------------------ #
+    # Boundary conditions
+    # ------------------------------------------------------------------ #
+    def test_value_is_served_at_exactly_its_knowledge_timestamp(self):
+        # The PIT invariant is inclusive: knowable at exactly t means usable at t.
+        self.integrator.ingest_events(
+            [RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)]
+        )
+        kt = datetime(2026, 1, 6, 10, 0)
+        aligned = self.integrator.align_to_trading_schedule([kt])
+        self.assertEqual(aligned[kt]["A"].value, 10.0)
+        self.assertEqual(aligned[kt]["A"].age, timedelta(0))
+
+    def test_value_is_withheld_one_microsecond_before_knowledge_timestamp(self):
+        self.integrator.ingest_events(
+            [RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)]
+        )
+        just_before = datetime(2026, 1, 6, 10, 0) - timedelta(microseconds=1)
+        aligned = self.integrator.align_to_trading_schedule([just_before])
+        self.assertEqual(
+            aligned[just_before]["A"].staleness_state, StalenessState.UNKNOWN
+        )
+
+    def test_max_age_boundary_is_inclusive(self):
+        self.integrator.ingest_events(
+            [RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)]
+        )
+        kt = datetime(2026, 1, 6, 10, 0)
+        max_age = timedelta(days=3)
+        at_ttl = kt + max_age
+        past_ttl = at_ttl + timedelta(microseconds=1)
+        aligned = self.integrator.align_to_trading_schedule(
+            [at_ttl, past_ttl], max_age=max_age
+        )
+        # age == max_age is still FRESH; the guard is `age > max_age`.
+        self.assertEqual(aligned[at_ttl]["A"].staleness_state, StalenessState.FRESH)
+        self.assertEqual(aligned[at_ttl]["A"].value, 10.0)
+        self.assertEqual(aligned[past_ttl]["A"].staleness_state, StalenessState.STALE)
+        self.assertIsNone(aligned[past_ttl]["A"].value)
+
+    def test_duplicate_trading_times_collapse_to_one_entry(self):
+        # Documented consequence of keying the result by trading time: callers
+        # must look up by timestamp, never zip positionally.
+        self.integrator.ingest_events(
+            [RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)]
+        )
+        t = datetime(2026, 1, 8, 16, 0)
+        aligned = self.integrator.align_to_trading_schedule([t, t])
+        self.assertEqual(len(aligned), 1)
+        self.assertEqual(aligned[t]["A"].value, 10.0)
+
+    def test_empty_trading_schedule_returns_empty_mapping(self):
+        self.integrator.ingest_events(
+            [RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 10.0)]
+        )
+        self.assertEqual(self.integrator.align_to_trading_schedule([]), {})
+
+    # ------------------------------------------------------------------ #
+    # The headline invariant: no served value leaks the future
+    # ------------------------------------------------------------------ #
+    def test_no_served_value_has_knowledge_timestamp_after_trading_time(self):
+        events = []
+        for day, (lag_h, val) in enumerate(
+            [(2, 1.0), (72, 2.0), (0, 3.0), (36, 4.0), (12, 5.0)], start=1
+        ):
+            events.append(
+                RawAltDataEvent(
+                    f"SRC_{day % 2}",
+                    datetime(2026, 1, day, 9, 30),
+                    timedelta(hours=lag_h),
+                    val,
+                )
+            )
+        self.integrator.ingest_events(events)
+        trading_times = [
+            datetime(2026, 1, day, hour, 0)
+            for day in range(1, 9)
+            for hour in (10, 16)
+        ]
+        aligned = self.integrator.align_to_trading_schedule(trading_times)
+
+        facts = self.integrator.pit_features
+        for t in trading_times:
+            for source_id, av in aligned[t].items():
+                if av.staleness_state is StalenessState.UNKNOWN:
+                    continue
+                # Zero leakage.
+                self.assertLessEqual(av.knowledge_timestamp, t)
+                # Independent oracle: a brute-force scan of knowable facts must
+                # pick the same as-of fact the bisect-based merge picked.
+                knowable = [
+                    f for f in facts
+                    if f.source_id == source_id and f.knowledge_timestamp <= t
+                ]
+                expected = max(knowable, key=lambda f: f.knowledge_timestamp)
+                self.assertEqual(av.knowledge_timestamp, expected.knowledge_timestamp)
+                if av.staleness_state is StalenessState.FRESH:
+                    self.assertEqual(av.value, expected.feature_value)
+
+    def test_reingest_in_any_order_yields_identical_pit_features(self):
+        events = [
+            RawAltDataEvent("B", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 2.0),
+            RawAltDataEvent("A", datetime(2026, 1, 5, 8, 0), timedelta(hours=48), 1.0),
+            RawAltDataEvent("A", datetime(2026, 1, 6, 8, 0), timedelta(hours=2), 3.0),
+            RawAltDataEvent(
+                "B", datetime(2026, 1, 5, 8, 0), timedelta(hours=24), 4.0,
+                revised_date=datetime(2026, 1, 7, 8, 0),
+            ),
+        ]
+        i1 = AltDataIntegrator()
+        i2 = AltDataIntegrator()
+        i1.ingest_events(events)
+        i2.ingest_events(list(reversed(events)))
+        self.assertEqual(i1.pit_features, i2.pit_features)
+        self.assertEqual(len(i1.pit_features), 4)
 
 
 if __name__ == "__main__":

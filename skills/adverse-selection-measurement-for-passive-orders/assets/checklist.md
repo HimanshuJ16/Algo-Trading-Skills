@@ -26,6 +26,12 @@ capital based on its markout curve.
       `missing_pre_fill == 0` on a full-day sample.
 - [ ] **Mid quality** — mids are finite, positive, from a clean L1 source
       (`multi-source-price-reconciliation-tie-breaking` if gappy).
+- [ ] **Mid freshness** — `stale_asof_mid == 0` and `stats[h].stale == 0`; any
+      non-zero count was fixed at the feed, not by relaxing the bound.
+- [ ] **Resolution supports the shortest horizon** — the mid series updates
+      more often than `min(horizons_sec)`. A horizon below the quote-update
+      cadence resolves to the same prevailing mid as the next one up and cannot
+      be measured, however cleanly it reports.
 
 ## 3. Configuration
 
@@ -37,13 +43,24 @@ capital based on its markout curve.
       quality, `arrival_to_mid` to isolate adverse drift; run both and compare.
 - [ ] **`quantity_weighted`** — True for notional-aware aggregation (default
       for production); record unweighted for comparison.
-- [ ] **`require_asof_mid = True`** — never disabled in backtests.
+- [ ] **`require_asof_mid = True`** — never disabled in backtests. It guards
+      both bases, not just `arrival_to_mid`.
+- [ ] **`max_mid_staleness_sec` set deliberately** — derived from this
+      instrument's quote-update cadence and recorded with the run. Leaving it
+      `None` means an over-age mid is scored as if it were current.
 
 ## 4. Verdict interpretation
 
+- [ ] **`has_sufficient_data` is True** — checked *before* `is_toxic`. With
+      `evaluable_horizons == 0` the verdict is "not measured", not "healthy",
+      and must not be acted on or forwarded to a gate.
+- [ ] **`evaluable_horizons == len(horizons_sec)`** — otherwise the curve is
+      not comparable day-over-day, because `toxicity_ratio` is a share of the
+      evaluable horizons only.
 - [ ] **Read the distribution, not just the mean** — `median`, `p25`, `p75`
       reported per horizon; a mean-negative / median-positive split is not
-      robustly toxic.
+      robustly toxic. Note these quantiles are **unweighted** even when
+      `quantity_weighted=True`, which weights `mean_bps` only.
 - [ ] **`count ≥ 30` per horizon** — otherwise gate on the median, not the
       mean; report the IQR.
 - [ ] **`toxicity_ratio` read alongside `is_toxic`** — one negative horizon
@@ -66,6 +83,8 @@ capital based on its markout curve.
 - [ ] **Directional toxicity** routed to signal/alpha review.
 - [ ] **Persistently toxic curve** considered as a strategy-level kill-switch
       trigger (`kill-switch-and-drawdown-circuit-breakers`).
+- [ ] **Any automated gate reading `is_toxic` also reads `has_sufficient_data`**
+      — verified in the consuming code, not assumed.
 
 ## Sign-off
 
@@ -74,4 +93,6 @@ capital based on its markout curve.
 - Symbol / strategy: ___________________________
 - `MarkoutConfig` snapshot (paste JSON): ___________________________
 - `AdverseSelectionReport.as_dict()` snapshot: ___________________________
-- `missing_pre_fill` / `truncated` audit (must be 0): ___________________________
+- `missing_pre_fill` / `stale_asof_mid` / `truncated` / `stale` audit (all must
+  be 0): ___________________________
+- `evaluable_horizons` / `has_sufficient_data`: ___________________________

@@ -14,10 +14,19 @@ Tests:
 10. Undefined role raises ValueError.
 11. Custom policy injection via constructor.
 12. Frozen dataclass immutability for KeyAuditReport.
+13. Machine-readable severity distinguishes over- from under-privileged keys.
+14. Report list ordering is deterministic across processes.
+15. Malformed granted_permissions input is rejected rather than silently audited.
+16. Unrecognised broker-native scope names fail closed (deny by default).
 """
+import subprocess
+import sys
 import unittest
 from key_auditor import (
     CRITICAL_FORBIDDEN_PERMISSIONS,
+    SEVERITY_COMPLIANT,
+    SEVERITY_CRITICAL,
+    SEVERITY_INSUFFICIENT,
     APIKeyLeastPrivilegeAuditor,
     BotRole,
     KeyAuditReport,
@@ -167,6 +176,225 @@ class TestAPIKeyLeastPrivilegeAuditor(unittest.TestCase):
         policy = ROLE_POLICIES[BotRole.EXECUTION_BOT]
         with self.assertRaises(Exception):
             policy.required_permissions = frozenset({"withdraw"})
+
+
+class TestAuditSeverity(unittest.TestCase):
+    """A deployment gate must distinguish 'revoke this key' from 'reissue this key'
+    without string-matching the human-readable warning."""
+
+    def setUp(self):
+        self.auditor = APIKeyLeastPrivilegeAuditor()
+
+    def test_compliant_key_reports_compliant_severity(self):
+        report = self.auditor.audit_key(
+            "key_ok", "binance", BotRole.EXECUTION_BOT,
+            {"read_market_data", "place_orders", "cancel_orders"},
+        )
+        self.assertEqual(report.severity, SEVERITY_COMPLIANT)
+        self.assertFalse(report.has_critical_violation)
+
+    def test_over_privileged_key_reports_critical_severity(self):
+        report = self.auditor.audit_key(
+            "key_bad", "binance", BotRole.EXECUTION_BOT,
+            {"read_market_data", "place_orders", "cancel_orders", "withdraw_funds"},
+        )
+        self.assertEqual(report.severity, SEVERITY_CRITICAL)
+        self.assertTrue(report.has_critical_violation)
+
+    def test_under_privileged_key_reports_insufficient_not_critical(self):
+        """An under-privileged key is a deployment blocker but NOT a revocation event.
+        Conflating the two sends operators to revoke a key that is merely too weak."""
+        report = self.auditor.audit_key(
+            "key_weak", "binance", BotRole.EXECUTION_BOT, {"read_market_data"},
+        )
+        self.assertEqual(report.severity, SEVERITY_INSUFFICIENT)
+        self.assertFalse(report.has_critical_violation)
+        self.assertFalse(report.is_compliant)
+
+    def test_excess_takes_precedence_over_missing_but_both_are_reported(self):
+        """A key can be simultaneously over- and under-privileged. Reporting only the
+        excess hides half the remediation."""
+        report = self.auditor.audit_key(
+            "key_both", "binance", BotRole.EXECUTION_BOT, {"withdraw_funds"},
+        )
+        self.assertEqual(report.severity, SEVERITY_CRITICAL)
+        self.assertEqual(report.excess_violations, ["withdraw_funds"])
+        self.assertEqual(
+            report.missing_required,
+            ["cancel_orders", "place_orders", "read_market_data"],
+        )
+        self.assertIn("CRITICAL SECURITY VIOLATION", report.security_warning)
+        self.assertIn("also missing required permissions", report.security_warning)
+
+    def test_empty_scope_set_warns_about_failed_probe(self):
+        """An empty scope set is far more often a broken permission probe than a
+        genuinely unprivileged key, and the record must say so."""
+        report = self.auditor.audit_key("key_empty", "kraken", BotRole.EXECUTION_BOT, set())
+        self.assertFalse(report.is_compliant)
+        self.assertEqual(report.severity, SEVERITY_INSUFFICIENT)
+        self.assertIn("EMPTY", report.security_warning)
+
+    def test_blank_and_whitespace_scopes_are_discarded_not_audited(self):
+        report = self.auditor.audit_key(
+            "key_blank", "binance", BotRole.EXECUTION_BOT,
+            {"read_market_data", "  ", "", "place_orders", "cancel_orders"},
+        )
+        self.assertTrue(report.is_compliant)
+        self.assertEqual(
+            report.granted_permissions,
+            frozenset({"read_market_data", "place_orders", "cancel_orders"}),
+        )
+
+
+class TestDenyByDefault(unittest.TestCase):
+    """Unrecognised scope names must fail closed. Broker-native scope vocabularies
+    do not match this skill's canonical names, and a scope the policy has never
+    heard of is exactly the case that must not slip through."""
+
+    def setUp(self):
+        self.auditor = APIKeyLeastPrivilegeAuditor()
+
+    def test_unmapped_broker_native_withdrawal_scopes_are_flagged(self):
+        for native_scope in ("enableWithdrawals", "can_transfer", "Withdraw Funds", "Funding"):
+            with self.subTest(scope=native_scope):
+                report = self.auditor.audit_key(
+                    "key_native", "venue", BotRole.EXECUTION_BOT,
+                    {"read_market_data", "place_orders", "cancel_orders", native_scope},
+                )
+                self.assertFalse(report.is_compliant)
+                self.assertEqual(report.severity, SEVERITY_CRITICAL)
+                self.assertIn(native_scope.strip().lower(), report.excess_violations)
+
+
+class TestInputValidation(unittest.TestCase):
+    """A bare string is iterable. Auditing one character at a time would produce a
+    confident-looking report about scopes that do not exist."""
+
+    def setUp(self):
+        self.auditor = APIKeyLeastPrivilegeAuditor()
+
+    def test_bare_string_scope_is_rejected(self):
+        with self.assertRaises(TypeError) as ctx:
+            self.auditor.audit_key("key", "binance", BotRole.EXECUTION_BOT, "read_market_data")
+        self.assertIn("not a bare str", str(ctx.exception))
+
+    def test_bytes_scope_is_rejected(self):
+        with self.assertRaises(TypeError):
+            self.auditor.audit_key("key", "binance", BotRole.EXECUTION_BOT, b"read_market_data")
+
+    def test_none_scopes_rejected(self):
+        with self.assertRaises(TypeError):
+            self.auditor.audit_key("key", "binance", BotRole.EXECUTION_BOT, None)
+
+    def test_non_iterable_scopes_rejected(self):
+        with self.assertRaises(TypeError):
+            self.auditor.audit_key("key", "binance", BotRole.EXECUTION_BOT, 42)
+
+    def test_non_string_element_rejected(self):
+        with self.assertRaises(TypeError):
+            self.auditor.audit_key(
+                "key", "binance", BotRole.EXECUTION_BOT, ["read_market_data", None],
+            )
+
+    def test_list_input_accepted(self):
+        """Scopes decoded from a broker JSON response arrive as a list, not a set."""
+        report = self.auditor.audit_key(
+            "key_list", "binance", BotRole.EXECUTION_BOT,
+            ["read_market_data", "place_orders", "cancel_orders", "place_orders"],
+        )
+        self.assertTrue(report.is_compliant)
+
+
+class TestPolicyInvariants(unittest.TestCase):
+    """An unsatisfiable policy reports a correctly-configured key as a CRITICAL
+    violation, i.e. orders the revocation of a good key. Catch it at definition time."""
+
+    def test_shipped_policies_are_satisfiable(self):
+        for role, policy in ROLE_POLICIES.items():
+            with self.subTest(role=role.value):
+                self.assertTrue(
+                    policy.required_lower <= policy.allowed_lower,
+                    f"{role.value}: required scopes missing from allowed",
+                )
+                self.assertFalse(
+                    policy.required_lower & policy.forbidden_lower,
+                    f"{role.value}: scopes both required and forbidden",
+                )
+
+    def test_required_scope_absent_from_allowed_is_rejected(self):
+        with self.assertRaises(ValueError) as ctx:
+            RoleSecurityPolicy(
+                role=BotRole.EXECUTION_BOT,
+                required_permissions=frozenset({"place_orders"}),
+                allowed_permissions=frozenset({"read_market_data"}),
+                forbidden_permissions=frozenset({"withdraw"}),
+            )
+        self.assertIn("unsatisfiable", str(ctx.exception))
+
+    def test_required_scope_also_forbidden_is_rejected(self):
+        with self.assertRaises(ValueError) as ctx:
+            RoleSecurityPolicy(
+                role=BotRole.EXECUTION_BOT,
+                required_permissions=frozenset({"place_orders"}),
+                allowed_permissions=frozenset({"place_orders"}),
+                forbidden_permissions=frozenset({"place_orders"}),
+            )
+        self.assertIn("contradictory", str(ctx.exception))
+
+    def test_policy_invariants_are_case_insensitive(self):
+        """Mixed-case policy definitions must not evade the invariant check."""
+        with self.assertRaises(ValueError):
+            RoleSecurityPolicy(
+                role=BotRole.EXECUTION_BOT,
+                required_permissions=frozenset({"Place_Orders"}),
+                allowed_permissions=frozenset({"place_orders"}),
+                forbidden_permissions=frozenset({"PLACE_ORDERS"}),
+            )
+
+
+class TestReportDeterminism(unittest.TestCase):
+    """Regression: report lists were built by iterating a set, so their order varied
+    with PYTHONHASHSEED. Audit records that differ run-to-run cannot be diffed."""
+
+    PROBE = (
+        "import logging; logging.disable(logging.CRITICAL)\n"
+        "from key_auditor import APIKeyLeastPrivilegeAuditor, BotRole\n"
+        "a = APIKeyLeastPrivilegeAuditor()\n"
+        "r1 = a.audit_key('k', 'b', BotRole.EXECUTION_BOT, set())\n"
+        "r2 = a.audit_key('k', 'b', BotRole.MARKET_DATA_ONLY,\n"
+        "                 {'place_orders', 'withdraw', 'transfer', 'cancel_orders'})\n"
+        "print(r1.missing_required, r2.excess_violations)\n"
+    )
+
+    def test_lists_are_sorted_in_process(self):
+        auditor = APIKeyLeastPrivilegeAuditor()
+        report = auditor.audit_key(
+            "key", "venue", BotRole.MARKET_DATA_ONLY,
+            {"withdraw", "transfer", "place_orders", "cancel_orders", "read_market_data"},
+        )
+        self.assertEqual(report.excess_violations, sorted(report.excess_violations))
+        self.assertEqual(
+            report.excess_violations,
+            ["cancel_orders", "place_orders", "transfer", "withdraw"],
+        )
+
+    def test_ordering_is_stable_across_hash_seeds(self):
+        import os
+
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        outputs = set()
+        for seed in ("0", "1", "7", "12345"):
+            env = dict(os.environ, PYTHONHASHSEED=seed, PYTHONPATH=script_dir)
+            result = subprocess.run(
+                [sys.executable, "-c", self.PROBE],
+                cwd=script_dir, env=env, capture_output=True, text=True, timeout=60,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            outputs.add(result.stdout.strip())
+        self.assertEqual(
+            len(outputs), 1,
+            f"Audit report ordering varied with PYTHONHASHSEED: {outputs}",
+        )
 
 
 if __name__ == "__main__":

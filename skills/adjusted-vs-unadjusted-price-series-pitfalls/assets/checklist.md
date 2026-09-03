@@ -7,6 +7,7 @@
 - [ ] Supply aligned dates, closes, volumes, and actual next-session opens where available.
 - [ ] Preserve raw data and corporate-action records before transformation.
 - [ ] Define price, volume, notional, dividend, and total-return reconciliation tolerances.
+- [ ] Set `price_match_tolerance_pct` and `volume_ratio_tolerance_pct` independently; do not reuse the volume tolerance for price matching.
 
 ## Validation
 
@@ -14,8 +15,10 @@
 - [ ] Verify dates are ISO-formatted and strictly increasing.
 - [ ] Verify prices are finite and positive, volumes are finite and non-negative, and all arrays align.
 - [ ] Verify split and dividend actions use the documented ratio/amount convention.
-- [ ] Verify close-to-open detection when opens are available; record any close-only fallback.
+- [ ] Verify close-to-open detection when opens are available; confirm `boundary_source` is `NEXT_OPEN` and not `PRIOR_CLOSE_FALLBACK` before production sign-off.
+- [ ] Verify same-ex-date actions are tested against the multiplied composite factor, and confirm with the vendor whether a same-date dividend is quoted on the pre- or post-split share basis.
 - [ ] Verify known actions, unexplained discontinuities, and mode conflicts are separately reported.
+- [ ] Confirm `detected_adjustment_type` is not over-read: `NOT_TOTAL_RETURN_ADJUSTED` does not distinguish raw from split-adjusted, and `UNKNOWN` proves nothing.
 
 ## Transformation and Deployment
 

@@ -21,7 +21,7 @@ This is the comprehensive cross-cutting matrix of broker APIs, exchange protocol
 | Broker / Platform | Relevant Skills | Operational Focus |
 |---|---|---|
 | **Fyers API v3** | `headless-broker-auth-patterns`, `token-lifecycle-live-probing`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` | Checksum generation (`app_id + secret_key`), WebSocket binary tick parsing, TOTP safety window |
-| **Zerodha Kite Connect** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `websocket-reconnect-without-duplicate-subscriptions`, `zerodha-kite-postback-webhook-verification` | SHA-256 `api_key + request_token + api_secret` checksum, postback SHA256 HMAC verification |
+| **Zerodha Kite Connect** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `websocket-reconnect-without-duplicate-subscriptions`, `zerodha-kite-postback-webhook-verification` | SHA-256 `api_key + request_token + api_secret` checksum, postback checksum = plain SHA-256 of `order_id + order_timestamp + api_secret` (not an HMAC; authenticates those two fields only) |
 | **ICICI Breeze API** | `headless-broker-auth-patterns`, `token-lifecycle-live-probing`, `order-placement-idempotency`, `multi-broker-rate-limit-handling` | Session token validation, checksum hashing, customer session lifecycle |
 | **Upstox API v2** | `headless-broker-auth-patterns`, `order-placement-idempotency`, `multi-broker-rate-limit-handling`, `upstox-oauth-refresh-token-rotation` | OAuth 2.0 token rotation, protobuf WebSocket feeds, GTT order handling |
 

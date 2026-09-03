@@ -2,38 +2,48 @@
 
 | Risk Category | Action Required | Standard |
 |---|---|---|
-| **MNPI** | Immediate Disqualification | Data must not be derived from confidential corporate insiders or breaches of fiduciary duty. See *MNPI materiality rubric* below. |
-| **CFAA / Scraping** | Legal Review / Disqualification | Vendors must not scrape behind authenticated, password-protected portals without explicit authorization. Public-data scraping is a ToS question, not a CFAA question, post-*Van Buren* / *hiQ*. See *Scraping* below. |
+| **MNPI** | Immediate Disqualification | Data must not be derived from confidential corporate insiders or breaches of fiduciary duty. See *MNPI rubric* below. |
+| **CFAA / Scraping** | Legal Review / Disqualification | Scraping behind authenticated, password-protected portals **without documented authorization** is a hard reject; **with** a documented authorization instrument on file it is a warning requiring recorded legal review. Public-data scraping is a ToS/contract question, not a CFAA question, post-*Van Buren* / *hiQ*. See *Scraping* below. |
 | **PII (GDPR/CCPA)** | Anonymization Required | Raw PII must never touch the firm's internal servers. Vendors must anonymize/aggregate prior to delivery. See *Robust anonymization* below. |
 | **Terms of Service** | Evidence Required | Collection method must comply with the source ToS; non-compliance is a critical flag. ToS can drift post-onboarding — re-review on the re-diligence cadence. |
 | **Data License Scope** | Evidence Required | Resell rights alone are insufficient. The license must cover the firm's intended usage scope. See *License scope* below. |
-| **Evidence / Self-Attestation** | Independent Verification | Attested booleans (`has_resell_rights`, `contains_pii`, `is_material_non_public_information`, `has_robust_anonymization`) require right-to-audit exercised, sample-data inspection, or third-party attestation. Vendor self-attestation alone is insufficient. |
+| **Evidence / Self-Attestation** | Independent Verification | Attested booleans (`has_resell_rights`, `contains_pii`, `is_material_non_public_information`, `has_robust_anonymization`, `has_documented_login_authorization`) require right-to-audit exercised, sample-data inspection, third-party attestation, or — for the authorization field — the instrument itself on file. Vendor self-attestation alone is insufficient. |
+| **DDQ Freshness** | Fail Closed | An undated, stale, or future-dated questionnaire cannot evidence current practices and is a hard reject (`STALE_DDQ` / `FUTURE_DATED_DDQ`). The SEC's Apr 26 2022 Risk Alert names failure to determine *when* diligence must be re-performed as an observed deficiency. |
 
-## MNPI materiality rubric
+## MNPI rubric — set the flag on provenance, not on predictive power
 
-`is_material_non_public_information` is the single hardest judgment in alternative-data compliance. Operator rubric:
+`is_material_non_public_information` is the single hardest judgment in alternative-data compliance, and the most common way to get it wrong is to set it on how *good* the signal is.
 
-- **SEC materiality** — *Basic Inc. v. Levinson*: information is material if there is a substantial likelihood a reasonable investor would rely on it (the "reasonable-investor" test).
-- **EU MAR** — Regulation (EU) 596/2014 Article 7 defines "inside information" via a reasonable-investor test; Recital 14 ties materiality to price significance.
-- **Public/aggregate data is not per se safe** — MAR Recital 28 carves out that research/estimates from public data are not inside information *per se*, but can become so if routinely price-formative. A dataset assembled from public or aggregate sources that yields a non-public signal a reasonable investor would rely on **is MNPI/inside information** (App Annie, SEC Admin Order 34-92975, Sept 14 2021).
-- **Decision rule**: if the dataset would let the firm infer a non-public corporate outcome before public disclosure, set `is_material_non_public_information=True`. When uncertain, fail closed (set `True`) and escalate to legal.
+Alternative data is nonpublic, and in aggregate potentially material, by construction — that is precisely why a fund buys it. A rubric of the form "would this let us infer something before public disclosure?" answers `True` for every dataset worth owning. Because `is_material_non_public_information=True` is a **hard reject** in this engine, such a rubric silently converts a triage gate into a blanket ban on alternative data.
+
+Materiality is necessary but not sufficient:
+
+- **US** — liability under Rule 10b-5 turns on a **breach of a duty of trust or confidence**, under either the classical or the misappropriation theory (*Dirks v. SEC*, 463 U.S. 646 (1983); *United States v. O'Hagan*, 521 U.S. 642 (1997); the qualifying duties are enumerated at 17 CFR 240.10b5-2). Materiality itself is the *Basic Inc. v. Levinson*, 485 U.S. 224 (1988) standard — a substantial likelihood that a reasonable investor would consider the information important, significantly altering the "total mix" of information made available. A material, non-public dataset acquired with **no breached duty anywhere in its chain of custody** is the ordinary, lawful case for alternative data.
+- **EU MAR** — Regulation (EU) No 596/2014 Article 7(1)(a) defines inside information partly by whether, if made public, it would be likely to have a significant effect on price; Article 7(4) defines that limb by reference to information a reasonable investor would be likely to use as part of the basis of investment decisions. **Recital 28** provides that research and estimates prepared on the basis of publicly available data are **not per se** inside information. Recital 28's counterweight is narrow and runs to the *publication* of such research — an analysis carrying the views of a recognised market commentator, or one the market routinely expects and that contributes to price formation, can make the forthcoming publication itself inside information for those who know of it. It does not make the underlying dataset inside information.
+
+**Decision rule (provenance).** Set `is_material_non_public_information=True` when the dataset's **origin** implies a breached duty: leaked, hacked, or misappropriated material; data supplied to the vendor under a confidentiality obligation, or under a consent that does not cover resale for investment research; an insider or tippee source; a corporate counterparty's confidential records. Where provenance is genuinely unknown, set `True` and escalate — but escalate in order to *establish provenance*, not to argue about how predictive the data is.
+
+This is the same test the sibling skill `insider-trading-controls-for-alternative-data-usage` applies at the trading-eligibility stage. The two gates must not disagree about what the flag means.
+
+App Annie is a **provenance** case, not a predictive-power case: the underlying app-performance data was confidential data supplied by developers under a promise of aggregation and anonymisation, and was used in non-aggregated, non-anonymised form (SEC Admin. Proc. Rel. No. 34-92975, Sept 14 2021). Cite it for the evidence and anonymisation requirements below, not for the proposition that public or aggregate data is per se MNPI.
 
 ## EU MAR cross-reference
 
 For dual-jurisdiction (US/EU) funds, the insider-trading dimension has an EU analogue alongside SEC Rule 10b-5:
 
-- **MAR Article 7** defines "inside information" via the reasonable-investor test and the price-significance limb.
-- **Recital 28** clarifies that research/estimates derived from public information are not inside information by default, but **become** inside information when they are routinely used as a basis for trading and a reasonable investor would rely on them.
-- Treat the `is_material_non_public_information` gate as a single, jurisdiction-agnostic test covering both Rule 10b-5 and MAR Article 7. A dataset failing this gate is blocked in both jurisdictions.
+- **Article 7(1)(a)** defines inside information partly by price significance; **Article 7(4)** defines the price-significance limb by reference to information a reasonable investor would be likely to use as part of the basis of investment decisions.
+- **Recital 28** provides that research and estimates prepared on the basis of publicly available data are not per se inside information. Its qualification runs to the *publication* of the research (a recognised commentator's view, or an analysis the market routinely expects and that contributes to price formation), not to the dataset the research was built from.
+- MAR has **no Section 204A analogue** and frames the prohibition differently from Rule 10b-5; the two regimes are not interchangeable. This gate deliberately collapses them into one conservative flag, so a `True` blocks the vendor in both jurisdictions. Where a dual-jurisdiction question is close, run the MAR analysis separately — see `eu-market-abuse-regulation-mar-surveillance`.
 
 ## Scraping (post-Van Buren / hiQ)
 
-Distinguish two regimes:
+Distinguish three regimes:
 
-- **Public scraping** — after *Van Buren v. United States* (2021) and *hiQ v. LinkedIn* (9th Cir. 2022), scraping publicly accessible data without authentication is likely **not** a CFAA violation. Route to a **Terms-of-Service review** only. A CAPTCHA bypass on public data is a *warning* (`APPROVED_WITH_WARNINGS`), not a hard reject, pending ToS clearance.
-- **Behind-login scraping** — accessing an authenticated portal without authorization remains real CFAA exposure. This is a **hard reject** (`CFAA_LOGIN_SCRAPE`).
+- **Public scraping** — after *Van Buren v. United States* (2021) and *hiQ v. LinkedIn*, 31 F.4th 1180 (9th Cir., Apr 18 2022), scraping publicly accessible data without authentication is likely **not** a CFAA violation. Route to a **Terms-of-Service review** only. A CAPTCHA bypass on public data is a *warning* (`APPROVED_WITH_WARNINGS`), not a hard reject, pending ToS clearance.
+- **Unauthorized behind-login scraping** — accessing an authenticated portal without authorization remains real CFAA exposure, and the point is not academic. The December 2022 consent judgment that ended *hiQ v. LinkedIn* entered a $500,000 judgment against hiQ that included a **CFAA violation based on direct access to password-protected pages using fake accounts**, alongside breach of contract, trespass to chattels and misappropriation, plus a permanent injunction to stop scraping and destroy the derived data. This is a **hard reject** (`CFAA_LOGIN_SCRAPE`).
+- **Authorized behind-login scraping** — after *Van Buren* the CFAA question is entitlement to access, so a vendor collecting from an authenticated portal **under a written instrument from the source operator** (contract, API licence, partner data-sharing agreement) is a different case. Set `has_documented_login_authorization=True` **only** when the firm holds and has read that instrument. It downgrades the hard reject to a warning (`LOGIN_SCRAPE_AUTHORIZED`) requiring recorded legal review — never to a clean approval. Legal must confirm the instrument covers this collection method *and* the firm's intended downstream use. The field defaults to `False`, so an unmapped or unevidenced DDQ still hard-rejects.
 
-The code already hard-rejects `scrapes_behind_login`; the documentation here corrects the prior implication that all scraping is high-risk.
+"Not a CFAA violation" is not "no exposure". hiQ prevailed on the CFAA question for *public* pages at the preliminary-injunction stage and still lost on breach of LinkedIn's user agreement, which the district court held enforceable against scraping in November 2022. That is why `is_tos_compliant` is a separate, independently-critical flag rather than a sub-case of the CFAA analysis.
 
 ## Robust anonymization
 
@@ -62,7 +72,7 @@ A vendor with resell rights but no audit rights or a competitive-use ban still b
 
 ## App Annie enforcement (canonical lesson)
 
-SEC v. App Annie, Admin Order 34-92975 (Sept 14 2021): App Annie represented to subscribers that its data was anonymized and aggregated and did not constitute MNPI, while in fact using non-public, identifiable data and sharing select metrics with trading firms. This is exactly the failure mode the gate trusts away when it relies on vendor self-attestation for `has_robust_anonymization` and `is_material_non_public_information`. The independent-verification requirement above is the direct mitigation.
+SEC Admin. Proc. Rel. No. 34-92975 (Sept 14 2021), the SEC's first enforcement action against an alternative-data provider: App Annie assured the app companies supplying its data that their confidential performance data would be used only in aggregated, anonymised form, and assured its trading-firm subscribers that the estimates were generated consistently with the consents it had obtained. In fact it used non-aggregated, non-anonymised confidential data to adjust its model-generated estimates before selling them. App Annie and its founder paid over $10 million. This is exactly the failure mode the gate trusts away when it relies on vendor self-attestation for `has_robust_anonymization` and `is_material_non_public_information`. The independent-verification requirement above is the direct mitigation.
 
 ## Category
 `regulatory-compliance`

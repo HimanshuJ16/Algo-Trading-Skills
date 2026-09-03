@@ -15,7 +15,7 @@ tags:
 - pre-trade-risk
 brokers_frameworks:
 - generic-fix
-version: "1.2.0"
+version: "1.3.0"
 author: System
 license: MIT
 ---
@@ -83,8 +83,18 @@ Manual orders should use the separate trader or short-code control path.
 
 `AlgoRegistration` supports `status`, optional `venues`, and optional `version`.
 A plain registry value such as `{"VWAP_V2.0": "APPROVED"}` remains supported.
-The engine snapshots the registry at construction, rejects malformed input, and
-returns an `OrderComplianceReport`; it never sends or mutates an order.
+`venues` must be a collection of venue codes; a bare string is rejected because
+it would otherwise iterate per character and widen the approved scope.
+
+The engine validates the whole registry at construction and raises on a
+malformed, blank, or duplicate entry, so a bad registry fails at deployment
+rather than at order time. The validated snapshot is exposed read-only, and
+`evaluate_order` returns an `OrderComplianceReport` without sending or mutating
+an order.
+
+Matching rules are deliberately asymmetric: venue codes are compared
+case-insensitively, while `algo_id` and `algo_version` must match the registry
+exactly. Both directions fail closed.
 
 ## Workflow
 
@@ -95,8 +105,10 @@ returns an `OrderComplianceReport`; it never sends or mutates an order.
    classification service. Do not treat a missing `algo_id` as evidence that an
    order is manual.
 3. **Validate the order envelope**: reject blank identifiers, invalid field
-   types, manual orders without `trader_id`, and manual orders that carry an
-   `algo_id`.
+   types, manual orders without `trader_id`, and manual orders that carry any
+   algorithmic metadata — `algo_id`, `parent_algo_id`, or `algo_version`. A
+   manual order carrying algorithm lineage is a classification defect upstream,
+   not a field to ignore.
 4. **Validate algorithm disclosure**: for an algorithmic order, require the
    exchange-facing `algo_id`, look it up in the immutable registry, and require
    status `APPROVED`.
@@ -135,6 +147,15 @@ returns an `OrderComplianceReport`; it never sends or mutates an order.
   without an approval transition and deployment record.
 - Tagging a parent order while a smart order router emits untagged or differently
   tagged child orders.
+- Declaring a venue scope as a bare string (`venues="XNYS"`) instead of a
+  collection. A string iterates per character, so the scope silently becomes
+  `{"X", "N", "Y", "S"}` — rejecting the intended venue while approving an
+  unrelated one named `X`.
+- Merging registry sources without checking for keys that collapse to the same
+  identifier once whitespace is trimmed; last-wins can silently promote a
+  `SUSPENDED` algorithm to `APPROVED`.
+- Mutating the engine's registry in place to hot-fix an approval, bypassing the
+  controlled deployment process and the audit record it produces.
 - Treating a missing registry entry as a temporary warning instead of a hard
   pre-trade failure.
 - Logging only free-text messages and losing the stable reason code needed for
@@ -149,7 +170,9 @@ python scripts/test_algo_trading_disclosure_to_exchange_membership.py
 ```
 
 The tests cover approved, unknown, pending, deprecated, manual, malformed,
-venue-scoped, version-scoped, parent/child, and invalid-input paths. Add a
+venue-scoped, version-scoped, parent/child, and invalid-input paths, plus the
+registry-construction failures (bare-string venue scope, duplicate keys, blank
+registered version, read-only snapshot). Add a
 venue-adapter integration test that asserts the exact outbound tag and a
 non-production deployment test that proves rollback restores the prior approved
 registry.

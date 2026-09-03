@@ -3,8 +3,9 @@ name: adversarial-robustness-of-trading-signals
 description: Pre-deployment governance gate that measures how often an ML trading
   signal can be flipped by epsilon-bounded feature perturbations (FGSM-lite / market
   microstructure noise). Deterministic, domain-clipped, multi-noise-model robustness
-  tester producing a vulnerability score and flipped-sample indices. Rejects models
-  whose signal flips faster than the configured tolerance before they go live.
+  tester producing a vulnerability score with a Wilson confidence bound and
+  flipped-sample indices. Rejects models whose signal flips faster than the
+  configured tolerance before they go live.
 domain: algorithmic-trading
 subdomain: financial-ml-robustness
 tags:
@@ -19,7 +20,7 @@ brokers_frameworks:
 - scikit-learn
 - numpy
 jurisdictions: [global]  # technique is jurisdiction-agnostic
-version: "1.2.0"
+version: "1.3.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -36,10 +37,13 @@ to SELL. A model that flips under such noise is unsafe to trade.
 The skill produces a `SignalAdversarialTester` that injects epsilon-bounded
 perturbations into the validation feature matrix and reports:
 
-1. The **vulnerability score** — `% of samples whose signal flips`.
+1. The **vulnerability score** — `% of samples whose signal flips`, with a
+   one-sided Wilson upper confidence bound on that rate.
 2. The **flipped-sample indices** — so quant research can attribute *which*
    inputs sit on the decision boundary.
-3. A **deployment verdict** — robust / vulnerable against a tolerance threshold.
+3. A **deployment verdict** — robust / vulnerable against a tolerance threshold,
+   in two strengths: `is_robust` (point estimate) and `is_robust_at_ci` (the
+   confidence bound also clears the tolerance). Gate on the latter.
 
 ## When NOT to Use
 
@@ -69,8 +73,9 @@ perturbations into the validation feature matrix and reports:
   - integer/boolean 1D labels (used directly as the signal),
   - a 1D float score (split at `decision_threshold`, default 0.5), or
   - a 2D probability matrix (signal = `argmax` over columns).
-- A **representative out-of-sample validation set** `X_clean` (2D array). Never
-  test on training data — the model has seen it and will appear artificially robust.
+- A **representative out-of-sample validation set** `X_clean` (2D non-empty,
+  all-finite array — NaN/inf are rejected, see Pitfalls). Never test on training
+  data — the model has seen it and will appear artificially robust.
 - A **calibrated epsilon** — the perturbation budget. Default 0.01 (1% of
   per-feature scale); for equities, set this to one average bid-ask spread as a
   fraction of price (see `references/standards.md` §1).
@@ -111,11 +116,17 @@ perturbations into the validation feature matrix and reports:
    ```
 
 4. **Interpret the verdict:**
-   - `report.is_robust == True` → signal is stable under the configured noise; the
-     model may proceed to deployment *subject to the other gates in your pipeline*.
+   - `report.is_robust_at_ci == True` → the flip rate *and* its 95% Wilson upper
+     bound clear the tolerance. This is the promotion signal; the model may
+     proceed *subject to the other gates in your pipeline*.
+   - `report.is_robust == True` but `is_robust_at_ci == False` → **marginal**.
+     The point estimate clears the tolerance but the validation set is too small
+     to resolve it. Do not promote: grow the holdout (see `standards.md` §4).
    - `report.is_robust == False` → reject. Route the model back to quant research
      for **adversarial training** (retrain on perturbed data to smooth the decision
-     boundary), feature re-engineering, or a higher decision threshold.
+     boundary), feature re-engineering, or a higher decision threshold. Use
+     `tester.perturb(X_train, rng)` to generate the augmentation with the same
+     noise model the gate failed on.
 
 5. **Attribute the fragility.** `report.flipped_indices` identifies exactly which
    validation samples sit on a flippable boundary — the actionable set for a
@@ -125,7 +136,9 @@ perturbations into the validation feature matrix and reports:
 
 | Situation | Action |
 |-----------|--------|
-| `vulnerability_score_pct` just under tolerance (e.g. 4.7% vs 5%) | Statistically marginal. Re-run with a larger validation set or bootstrap the CI; do not treat as a clean pass. |
+| `vulnerability_score_pct` just under tolerance (e.g. 4.7% vs 5%) | Check `is_robust_at_ci`. If the Wilson upper bound does not clear the tolerance the pass is statistically marginal — grow the validation set; do not promote. |
+| Explicit `feature_bounds` are narrower than the validation range | Samples outside the bounds are held to the ε ball, not clipped all the way back — otherwise a multi-ε clip would be scored as an ε-bounded flip. Prefer bounds that actually contain the holdout. |
+| `ValueError: X_clean contains N non-finite value(s)` | A NaN/inf cell would poison the per-feature scale and silently zero the flip rate. Drop or impute the rows upstream; do not disable the check. |
 | `random_sign` passes but `montecarlo_worst` (n_trials=50) fails | The model is fragile to *some* perturbation direction that a single draw missed. Trust the worst-of-N bound; reject. |
 | Flips concentrate in a feature subset (inspect `flipped_indices` → rows) | The model is over-reliant on a few fragile features. Re-engineer or drop them rather than globally retrain. |
 | Flip rate is ~50% on a boundary-clustered set | Expected for a sharp threshold at the boundary — not a bug. Re-test on a *realistic* distribution, not a degenerate constant. |
@@ -152,6 +165,15 @@ perturbations into the validation feature matrix and reports:
   normalized ratio above 1, produces *infeasible* inputs that overstate
   vulnerability (the model never sees them in production). Use
   `clip_to_clean_domain=True` or explicit `feature_bounds`.
+- **Gating on the point estimate alone.** A 0% flip rate on 50 samples has a 95%
+  Wilson upper bound of 5.13% — it cannot clear a 5% tolerance. `is_robust`
+  answers "did the point estimate clear?"; only `is_robust_at_ci` answers "did
+  the *evidence* clear?". Promote on the latter.
+- **NaN in the validation set.** Before v1.3.0 a single NaN cell made the
+  per-feature `ptp` NaN, which made every perturbation NaN, which decoded to one
+  class for clean and adversarial alike — a silent 0% flip rate and an automatic
+  PASS. Non-finite inputs and non-finite model outputs are now hard errors; treat
+  them as data-quality defects, not as things to work around.
 - **Non-deterministic governance.** A deployment gate that flips verdicts between
   CI runs is worse than no gate. Always set `seed`; pin it in the model card.
 - **Single noise model.** `uniform` is average-case; it can pass a model that
@@ -182,9 +204,22 @@ What they assert:
 - Domain clipping suppresses infeasible perturbations (both implicit and explicit bounds).
 - Explicit `feature_scales` collapse a huge ε; zero-variance features fall back to scale 1.0.
 - Config validation rejects negative ε/tolerance, invalid `noise_type`, `n_trials < 1`,
-  non-positive `feature_scales`, mis-shaped `feature_bounds`, inverted bounds, bad `batch_size`.
+  non-positive `feature_scales`, mis-shaped `feature_bounds`, inverted bounds,
+  bad `batch_size`, out-of-range `ci_confidence_level`; ε=0 logs a vacuous-gate warning.
+- Inputs that used to yield a silent PASS now raise: non-finite `X_clean`,
+  zero-sample or zero-feature matrices, non-finite model output, higher-rank
+  model output (which previously corrupted `flipped_indices`).
+- The domain clip never moves a sample further than ε·scale, so an out-of-domain
+  sample cannot manufacture a flip.
+- `wilson_upper_bound` matches values derived independently by solving the score
+  equation, and stays non-zero at zero flips.
+- A 0-flip run on 50 samples is `is_robust` but not `is_robust_at_ci`; the same
+  result on 5000 samples clears both.
+- Categorical (string) class labels are compared directly instead of raising.
+- `perturb()` honours the ε budget and the feasible domain, and is seeded.
 - Legacy `worst_case_sign` alias routes to `random_sign` (deprecation logged).
-- `report.as_dict()` round-trips through JSON.
+- `report.as_dict()` round-trips through JSON and carries `seed`, `epsilon` and
+  `flip_tolerance_pct` for the model card.
 - `batch_size` chunking is byte-identical to whole-array evaluation.
 - Non-2D input raises `ValueError`.
 
@@ -196,9 +231,9 @@ An adversarial-robustness gate is **healthy in production** when:
 
 1. Every model promotion produces a `RobustnessReport` persisted to the model
    card with `seed`, `epsilon`, `noise_type`, `n_trials`, and `vulnerability_score_pct`.
-2. `vulnerability_score_pct` is reported with a confidence interval (or the
-   validation set is large enough that the binomial CI is narrow — ≥ ~2000 samples
-   for a 5% tolerance at the 95% level).
+2. Promotion is gated on `is_robust_at_ci`, not on `vulnerability_score_pct`
+   alone. A 5% tolerance needs roughly ≥ 2000 samples before a realistic
+   observed rate can clear its own confidence bound (`standards.md` §4).
 3. `montecarlo_worst` with `n_trials ≥ 25` is the default governance noise model;
    `uniform`/`random_sign` single-draw results are recorded but not gating.
 4. `epsilon` is calibrated per instrument to one average bid-ask spread and the

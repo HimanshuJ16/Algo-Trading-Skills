@@ -13,13 +13,15 @@ Test categories
   amount reconciliation
 """
 
+from __future__ import annotations
+
 import unittest
 from datetime import date
 from decimal import Decimal
 
 from s_1099_b_and_broker_tax_reporting_reconciliation import (
+    _METRIC_KEYS,
     AdjustmentCode,
-    Discrepancy,
     DiscrepancyReason,
     S1099BAndBrokerTaxReportingReconciliationEngine,
     TaxLot,
@@ -124,7 +126,6 @@ class TestReconciliationExtended(unittest.TestCase):
     def test_decimal_precision_no_float_drift(self):
         # Cost basis values that look innocuous in float but aggregate badly.
         for i in range(1, 11):
-            basis = Decimal("0.10")  # everyone identical
             self.engine.load_internal_lot(
                 _lot(f"INT_{i}", basis="8500.10", proceeds="10000.05")
             )
@@ -363,6 +364,341 @@ class TestAdjustmentCode(unittest.TestCase):
                 cost_basis=Decimal("14000"),
                 adjustment_code="Z",  # noqa - intentional coverage of invalid value
             )
+
+
+class TestNonFiniteInputRejected(unittest.TestCase):
+    """A blank monetary cell in a broker CSV arrives as float("nan").
+
+    Before validation covered this, such a lot was accepted at ingestion and
+    then aborted the whole run mid-reconciliation with a bare
+    ``decimal.InvalidOperation`` naming no lot -- Decimal NaN raises on ``<=``
+    and Decimal Infinity raises on ``quantize``.
+    """
+
+    def setUp(self):
+        self.engine = S1099BAndBrokerTaxReportingReconciliationEngine()
+
+    def _lot_with(self, **overrides) -> TaxLot:
+        kwargs = dict(
+            lot_id="INT_1",
+            symbol="AAPL",
+            quantity=Decimal("100"),
+            acquired_date=date(2023, 1, 1),
+            sold_date=date(2023, 2, 1),
+            proceeds=Decimal("15000.00"),
+            cost_basis=Decimal("14000.00"),
+        )
+        kwargs.update(overrides)
+        return TaxLot(**kwargs)
+
+    def test_nan_proceeds_rejected_at_ingestion(self):
+        with self.assertRaises(ValueError) as ctx:
+            self.engine.load_internal_lot(self._lot_with(proceeds=float("nan")))
+        self.assertIn("non-finite proceeds", str(ctx.exception))
+        self.assertIn("INT_1", str(ctx.exception))
+
+    def test_nan_quantity_rejected_at_ingestion(self):
+        # Must be caught before the ``quantity <= 0`` comparison, which itself
+        # raises InvalidOperation (not ValueError) on a Decimal NaN.
+        with self.assertRaises(ValueError):
+            self.engine.load_internal_lot(self._lot_with(quantity=float("nan")))
+
+    def test_infinite_cost_basis_rejected_at_ingestion(self):
+        with self.assertRaises(ValueError) as ctx:
+            self.engine.load_broker_lot(self._lot_with(cost_basis=Decimal("Infinity")))
+        self.assertIn("non-finite cost_basis", str(ctx.exception))
+
+    def test_nan_wash_sale_amount_rejected_at_ingestion(self):
+        with self.assertRaises(ValueError):
+            self.engine.load_internal_lot(
+                self._lot_with(wash_sale_disallowed_amount=float("nan"))
+            )
+
+    def test_finite_zero_basis_still_accepted(self):
+        # Guard against over-rejection: a genuine $0.00 basis is legal (fully
+        # disallowed lot, zero-cost grant) and must survive validation.
+        self.engine.load_internal_lot(self._lot_with(cost_basis=Decimal("0.00")))
+        self.assertEqual(self.engine.internal_count, 1)
+
+
+class TestDeterministicOutputOrdering(unittest.TestCase):
+    """The archived artifact is diffed against the prior accepted run.
+
+    Iterating a ``set`` of match keys ordered the output by randomized string
+    hashes, so an identical rerun produced a differently-ordered discrepancy
+    list. Ordering must follow the internal ledger instead.
+    """
+
+    def _run(self, symbols):
+        engine = S1099BAndBrokerTaxReportingReconciliationEngine(
+            ToleranceConfig(absolute_usd=Decimal("0.01"), relative_basis_pct=Decimal("0"))
+        )
+        for i, sym in enumerate(symbols):
+            engine.load_internal_lot(_lot("INT_%d" % i, symbol=sym, basis="1000.00"))
+            engine.load_broker_lot(_lot("BRK_%d" % i, symbol=sym, basis="1050.00"))
+        return engine.process_reconciliation()
+
+    def test_discrepancies_follow_internal_ledger_order(self):
+        symbols = ["AAPL", "MSFT", "TSLA", "NVDA", "AMZN", "GOOG", "META", "NFLX"]
+        result = self._run(symbols)
+
+        self.assertEqual(
+            [d.internal_lot_id for d in result.discrepancies],
+            ["INT_%d" % i for i in range(len(symbols))],
+        )
+
+    def test_repeated_runs_emit_identical_order(self):
+        symbols = ["AAPL", "MSFT", "TSLA", "NVDA", "AMZN", "GOOG", "META", "NFLX"]
+        first = [d.internal_lot_id for d in self._run(symbols).discrepancies]
+        second = [d.internal_lot_id for d in self._run(symbols).discrepancies]
+        self.assertEqual(first, second)
+
+    def test_matched_pairs_follow_internal_ledger_order(self):
+        symbols = ["ZZZZ", "AAAA", "MMMM", "QQQQ"]
+        engine = S1099BAndBrokerTaxReportingReconciliationEngine()
+        for i, sym in enumerate(symbols):
+            engine.load_internal_lot(_lot("INT_%d" % i, symbol=sym))
+            engine.load_broker_lot(_lot("BRK_%d" % i, symbol=sym))
+
+        result = engine.process_reconciliation()
+
+        self.assertEqual(
+            [p.internal_lot_id for p in result.matched_clean_seq],
+            ["INT_%d" % i for i in range(len(symbols))],
+        )
+
+
+class TestForm8949ColumnGSign(unittest.TestCase):
+    """Column (g) runs broker-minus-internal, the opposite of ``basis_delta``.
+
+    Per the "Worksheet for Basis Adjustments in Column (g)" in the Instructions
+    for Form 8949: line 1 is the basis shown on Form 1099-B box 1e, line 2 is
+    the correct basis; the entry is positive when line 1 exceeds line 2 and
+    negative (in parentheses) when line 2 exceeds line 1. Expected values below
+    are derived from that worksheet, not from the implementation.
+    """
+
+    def _pair(self, internal_basis: str, broker_basis: str, covered: bool = True):
+        engine = S1099BAndBrokerTaxReportingReconciliationEngine(
+            ToleranceConfig(absolute_usd=Decimal("0.01"), relative_basis_pct=Decimal("0"))
+        )
+        engine.load_internal_lot(_lot("INT_1", basis=internal_basis, covered=covered))
+        engine.load_broker_lot(_lot("BRK_1", basis=broker_basis, covered=covered))
+        result = engine.process_reconciliation()
+        pairs = list(result.matched_clean_seq) + [
+            p for p, _ in result.matched_with_discrepancies_seq
+        ]
+        self.assertEqual(len(pairs), 1)
+        return pairs[0]
+
+    def test_broker_basis_too_low_gives_negative_adjustment(self):
+        # 1099-B says 9000.00 (line 1); correct basis is 9010.00 (line 2).
+        # Line 2 > line 1, so column (g) is negative: 9000 - 9010 = -10.00.
+        pair = self._pair(internal_basis="9010.00", broker_basis="9000.00")
+        self.assertEqual(pair.basis_delta, Decimal("10.00"))
+        self.assertEqual(pair.form_8949_column_g_basis_adjustment, Decimal("-10.00"))
+
+    def test_broker_basis_too_high_gives_positive_adjustment(self):
+        # 1099-B says 9025.50 (line 1); correct basis is 9000.00 (line 2).
+        # Line 1 > line 2, so column (g) is positive: 9025.50 - 9000 = 25.50.
+        pair = self._pair(internal_basis="9000.00", broker_basis="9025.50")
+        self.assertEqual(pair.basis_delta, Decimal("-25.50"))
+        self.assertEqual(pair.form_8949_column_g_basis_adjustment, Decimal("25.50"))
+
+    def test_noncovered_pair_reports_zero_adjustment(self):
+        # Form 8949 box B/E: enter the correct basis in column (e) and -0- in
+        # column (g) -- no adjustment, regardless of the size of the difference.
+        pair = self._pair(
+            internal_basis="9010.00", broker_basis="9000.00", covered=False
+        )
+        self.assertEqual(pair.basis_delta, Decimal("10.00"))
+        self.assertEqual(pair.form_8949_column_g_basis_adjustment, Decimal("0.00"))
+
+    def test_routing_follows_broker_covered_flag_on_disagreement(self):
+        # The broker reported basis to the IRS (box 12) but the internal ledger
+        # thinks the lot is noncovered. The IRS matched the return against the
+        # broker's form, so this is box A/D and still needs a real column (g);
+        # keying off the conservative ``covered`` AND would return -0- and
+        # under-state the correction.
+        engine = S1099BAndBrokerTaxReportingReconciliationEngine(
+            ToleranceConfig(absolute_usd=Decimal("0.01"), relative_basis_pct=Decimal("0"))
+        )
+        engine.load_internal_lot(_lot("INT_1", basis="9010.00", covered=False))
+        engine.load_broker_lot(_lot("BRK_1", basis="9000.00", covered=True))
+
+        result = engine.process_reconciliation()
+        pair = result.matched_with_discrepancies_seq[0][0]
+
+        self.assertFalse(pair.covered)
+        self.assertTrue(pair.broker_covered)
+        self.assertEqual(
+            pair.form_8949_column_g_basis_adjustment, Decimal("-10.00")
+        )
+
+    def test_agreeing_basis_has_no_negative_zero(self):
+        pair = self._pair(internal_basis="9000.00", broker_basis="9000.00")
+        adjustment = pair.form_8949_column_g_basis_adjustment
+        self.assertEqual(adjustment, Decimal("0.00"))
+        # Decimal("-0.00") compares equal to zero but renders with a sign.
+        self.assertEqual(str(adjustment), "0.00")
+
+
+class TestToleranceBoundaries(unittest.TestCase):
+    """Exact-threshold behaviour of the dual tolerance."""
+
+    def _reconcile(self, absolute, relative, internal_basis, broker_basis):
+        engine = S1099BAndBrokerTaxReportingReconciliationEngine(
+            ToleranceConfig(
+                absolute_usd=Decimal(absolute), relative_basis_pct=Decimal(relative)
+            )
+        )
+        engine.load_internal_lot(_lot("INT_1", basis=internal_basis))
+        engine.load_broker_lot(_lot("BRK_1", basis=broker_basis))
+        return engine.process_reconciliation()
+
+    def test_difference_exactly_at_absolute_bound_is_accepted(self):
+        # ``meets`` is inclusive (``diff <= absolute_usd``).
+        result = self._reconcile("0.05", "0", "9000.00", "9000.05")
+        self.assertEqual(result.matched_clean, 1)
+        self.assertEqual(result.discrepancy_count, 0)
+
+    def test_one_cent_beyond_absolute_bound_is_flagged(self):
+        result = self._reconcile("0.05", "0", "9000.00", "9000.06")
+        self.assertEqual(result.matched_clean, 0)
+        self.assertEqual(
+            result.discrepancies[0].reason, DiscrepancyReason.BASIS_OUTSIDE_TOLERANCE
+        )
+
+    def test_difference_exactly_at_relative_bound_is_accepted(self):
+        # 1bp of 1,000,000.00 is exactly 100.00.
+        result = self._reconcile("0.05", "0.0001", "1000100.00", "1000000.00")
+        self.assertEqual(result.matched_clean, 1)
+
+    def test_one_cent_beyond_relative_bound_is_flagged(self):
+        result = self._reconcile("0.05", "0.0001", "1000100.01", "1000000.00")
+        self.assertEqual(result.matched_clean, 0)
+
+    def test_near_zero_broker_basis_does_not_divide_relative_tolerance(self):
+        # A $0.00 broker basis must not let an arbitrary difference through.
+        result = self._reconcile("0.05", "0.0001", "5000.00", "0.00")
+        self.assertEqual(result.matched_clean, 0)
+        self.assertEqual(
+            result.discrepancies[0].reason, DiscrepancyReason.BASIS_OUTSIDE_TOLERANCE
+        )
+
+
+class TestProceedsAndWashSaleEdges(unittest.TestCase):
+    """Reasons and branches the original suite left unexercised."""
+
+    def setUp(self):
+        self.engine = S1099BAndBrokerTaxReportingReconciliationEngine(
+            ToleranceConfig(absolute_usd=Decimal("0.05"), relative_basis_pct=Decimal("0"))
+        )
+
+    def test_proceeds_outside_tolerance_is_reported(self):
+        self.engine.load_internal_lot(_lot("INT_1", proceeds="15000.00"))
+        self.engine.load_broker_lot(_lot("BRK_1", proceeds="15100.00"))
+
+        result = self.engine.process_reconciliation()
+
+        self.assertEqual(result.matched_with_discrepancies, 1)
+        reasons = [d.reason for d in result.discrepancies]
+        self.assertIn(DiscrepancyReason.PROCEEDS_OUTSIDE_TOLERANCE, reasons)
+        self.assertNotIn(DiscrepancyReason.BASIS_OUTSIDE_TOLERANCE, reasons)
+        proceeds_discrepancy = next(
+            d
+            for d in result.discrepancies
+            if d.reason == DiscrepancyReason.PROCEEDS_OUTSIDE_TOLERANCE
+        )
+        self.assertEqual(proceeds_discrepancy.difference_amount, Decimal("-100.00"))
+
+    def test_wash_amount_present_on_one_side_only_is_reported(self):
+        # Both agree a wash sale occurred, but only the broker quantified it.
+        self.engine.load_internal_lot(_lot("INT_1", is_wash_sale=True))
+        self.engine.load_broker_lot(
+            _lot("BRK_1", is_wash_sale=True, wash_disallowed="250.00")
+        )
+
+        result = self.engine.process_reconciliation()
+
+        self.assertEqual(result.matched_with_discrepancies, 1)
+        reasons = [d.reason for d in result.discrepancies]
+        self.assertIn(DiscrepancyReason.WASH_SALE_AMOUNT_MISMATCH, reasons)
+        self.assertNotIn(DiscrepancyReason.WASH_SALE_FLAG_MISMATCH, reasons)
+
+    def test_matching_wash_sale_amounts_produce_no_discrepancy(self):
+        self.engine.load_internal_lot(
+            _lot("INT_1", is_wash_sale=True, wash_disallowed="250.00")
+        )
+        self.engine.load_broker_lot(
+            _lot("BRK_1", is_wash_sale=True, wash_disallowed="250.00")
+        )
+
+        result = self.engine.process_reconciliation()
+
+        self.assertEqual(result.matched_clean, 1)
+        self.assertEqual(result.discrepancy_count, 0)
+        self.assertTrue(result.matched_clean_seq[0].is_wash_sale)
+
+    def test_clean_matches_never_carry_tolerance_discrepancies(self):
+        # SKILL.md success criterion 2: nothing in matched_clean may be an
+        # out-of-tolerance pair.
+        for i in range(5):
+            self.engine.load_internal_lot(
+                _lot("INT_%d" % i, symbol="SYM%d" % i, basis="1000.00")
+            )
+            self.engine.load_broker_lot(
+                _lot(
+                    "BRK_%d" % i,
+                    symbol="SYM%d" % i,
+                    basis="1000.00" if i % 2 else "1500.00",
+                )
+            )
+
+        result = self.engine.process_reconciliation()
+
+        for pair in result.matched_clean_seq:
+            self.assertEqual(pair.basis_delta, Decimal("0.00"))
+            self.assertEqual(pair.proceeds_delta, Decimal("0.00"))
+        self.assertEqual(result.matched_clean, 2)
+        self.assertEqual(result.matched_with_discrepancies, 3)
+
+
+class TestGainAndMetrics(unittest.TestCase):
+    def test_gain_is_proceeds_minus_basis_quantized_to_cents(self):
+        lot = _lot("INT_1", proceeds="15000.00", basis="14000.00")
+        self.assertEqual(lot.gain, Decimal("1000.00"))
+
+    def test_gain_is_negative_on_a_loss(self):
+        lot = _lot("INT_1", proceeds="9000.00", basis="14000.00")
+        self.assertEqual(lot.gain, Decimal("-5000.00"))
+
+    def test_metrics_expose_every_discrepancy_reason(self):
+        # SKILL.md documents metrics() as "counts by reason"; every reason must
+        # therefore be present, zero-valued when it did not occur.
+        engine = S1099BAndBrokerTaxReportingReconciliationEngine()
+        metrics = engine.process_reconciliation().metrics()
+        for reason in DiscrepancyReason:
+            key = _METRIC_KEYS[reason]
+            self.assertIn(key, metrics)
+            self.assertEqual(metrics[key], 0)
+
+    def test_metrics_count_wash_and_tolerance_reasons(self):
+        engine = S1099BAndBrokerTaxReportingReconciliationEngine(
+            ToleranceConfig(absolute_usd=Decimal("0.05"), relative_basis_pct=Decimal("0"))
+        )
+        engine.load_internal_lot(_lot("INT_1", symbol="AAA", basis="1000.00"))
+        engine.load_broker_lot(_lot("BRK_1", symbol="AAA", basis="1500.00"))
+        engine.load_internal_lot(_lot("INT_2", symbol="BBB", is_wash_sale=True))
+        engine.load_broker_lot(_lot("BRK_2", symbol="BBB", is_wash_sale=False))
+
+        metrics = engine.process_reconciliation().metrics()
+
+        self.assertEqual(metrics["basis_outside_tolerance"], 1)
+        self.assertEqual(metrics["wash_sale_flag_mismatch"], 1)
+        self.assertEqual(metrics["proceeds_outside_tolerance"], 0)
+        self.assertEqual(metrics["discrepancy_count"], 2)
+        self.assertEqual(metrics["total_basis_delta"], Decimal("-500.00"))
 
 
 if __name__ == "__main__":

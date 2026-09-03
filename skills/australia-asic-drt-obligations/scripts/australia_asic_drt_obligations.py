@@ -1,55 +1,121 @@
 """
 australia-asic-drt-obligations:
 Validates OTC derivative trade reports against ASIC's Derivative Transaction
-Rules (Reporting) 2024, ensuring mandatory ISO identifiers (LEI, UTI, UPI) and
-the T+2 (business-day) reporting deadline.
+Rules (Reporting) 2024, checking the mandatory ISO identifiers (LEI, UTI, UPI,
+package identifier) and the T+2/T+4 business-day reporting deadline.
 
-Regulatory basis:
-    ASIC Derivative Transaction Rules (Reporting) 2024 (F2022L01706).
-        - Rule 2.2.3: a reporting entity must report a Reportable Transaction
-          by the end of the second Business Day (T+2) after the day on which
-          the transaction occurs, or by the end of the fourth Business Day
-          (T+4) where a value is required for Item 92 (linking identifier) of
-          Table S1.1(1).
-        - Item 2, Table S1.1(1): the UPI must conform to ISO 4914.
-        - Rule 2.2.9: the UTI must conform to ISO 23897.
-        - Counterparty identification uses the LEI per ISO 17442.
+Regulatory basis (ASIC Derivative Transaction Rules (Reporting) 2024,
+F2022L01706, as amended; commenced 21 October 2024):
 
-    "Business Day" is measured by reference to Sydney time; weekends are
-    excluded. Public holidays are caller-supplied: passing ``holidays=None``
-    excludes weekends only and may over-count business days, so production
-    deployments should pass the ASIC/Sydney holiday calendar.
+    Rule 2.2.3 "Reporting Requirement - Timing (generally, T+2)":
+        (1) a Reporting Entity "must report the information or change by no
+            later than the end of the second Business Day after the day on
+            which the Reportable Transaction or change occurs";
+        (2) if the Licensed Repository or Prescribed Repository "is not
+            available to accept the report ... by the time required under
+            subrule (1)", the report must be made "as soon as practicable
+            after" the repository becomes available - no fixed substitute
+            deadline is specified;
+        (3) "A Reportable Transaction, other than a foreign exchange contract
+            that is part of a foreign exchange swap derivative transaction,
+            for which a value for Item 92 of Table S1.1(1) is required to be
+            reported, must be reported by no later than the end of the fourth
+            Business Day after the day on which the Reportable Transaction
+            occurs."
+
+    Rule 1.2.3 definitions:
+        "Business Day means a day that is not a Saturday, a Sunday, or a
+        public holiday or bank holiday in the Relevant Jurisdiction."
+        "Relevant Jurisdiction" is Australia where the transaction was booked
+        to the profit or loss account of an Australian branch of the Reporting
+        Entity or entered into in Australia, and otherwise the jurisdiction in
+        which it was booked or entered into. The deadline calendar is
+        therefore NOT unconditionally Sydney: ``holidays`` must be the
+        public/bank holidays of the Relevant Jurisdiction for the trade.
+        (Rule 1.2.1 fixes references to *time* to AEST/AEDT in Sydney; only
+        Rule 2.2.9(4), for UTI generating-entity tie-breaks, says "business
+        day in Sydney".)
+
+    Schedule 1, Table S1.1(1) data elements checked here:
+        Item 1  Unique transaction identifier - "As specified in ISO 23897".
+        Item 2  Unique product identifier (UPI) - "As specified in ISO 4914".
+                "This data element is not required in a report about the
+                termination of an OTC Derivative."
+        Item 7  Counterparty 2 - "For an LEI, as specified in ISO 17442. For
+                any other kind of identifier, an alphanumeric code of not more
+                than 72 characters" (Client Code, Designated Business
+                Identifier, or ANON for an anonymity identifier).
+        Item 8  Counterparty 2 identifier type indicator - True if the Item 7
+                identifier is an LEI, False otherwise.
+        Item 92 Package identifier - "An alphanumeric code of not more than
+                100 characters", required where two or more Reportable
+                Transactions entered into as a single economic arrangement are
+                reported separately (including an FX swap reported as two FX
+                contracts with different expiration dates).
 
 Identifier formats:
-    LEI (ISO 17442): 20 chars, uppercase alphanumeric, with an ISO/IEC
-        7064 MOD 97-10 checksum (numeric representation mod 97 == 1).
-    UTI (ISO 23897): 20-52 chars, uppercase alphanumeric (no separators); the
-        first 20 characters are the generating entity's ISO 17442 LEI.
-    UPI (ISO 4914): 12 chars; a fixed "QZ" prefix followed by 9 base
-        characters and 1 check character, each drawn from consonants
-        (excluding A, E, I, O, U and Y) plus digits 0-9.
+    LEI (ISO 17442): 20 characters - 18 uppercase alphanumeric characters plus
+        2 numeric check digits satisfying the ISO/IEC 7064 MOD 97-10 check
+        (numeric representation mod 97 == 1).
+    UTI (ISO 23897): up to 52 uppercase alphanumeric characters, no
+        separators. The CPMI-IOSCO/ISO construction is 18!c2!n32c - the first
+        20 characters are the generating entity's LEI and up to 32 further
+        characters are transaction specific - giving a 20-52 character range.
+    UPI (ISO 4914 clause 4): 12 characters - the fixed two-character prefix
+        "QZ", nine characters drawn from upper-case A-Z and 0-9 excluding the
+        vowels A, E, I, O, U and the character Y, and one check character from
+        the same alphabet.
+
+Known limitations - this module is a structural pre-submission gate, not a
+proof of compliance:
+    * The ISO 4914 UPI check character (Annex C, a MOD 31,30 scheme) is NOT
+      verified: Annex C is normative but not publicly available, and guessing
+      the mapping would risk rejecting valid UPIs. A structurally valid UPI
+      must still be confirmed against the DSB UPI reference data library.
+    * The UTI's embedded LEI prefix is not checksum-verified, because a
+      Reporting Entity may legitimately report a UTI generated by a foreign
+      counterparty, or a legacy transaction identifier for which "no format is
+      specified" (Table S1.1(1) Item 1).
+    * Only the identifiers above are checked. Table S1.1(1) carries around 100
+      data elements; passing this gate does not mean the report is complete.
+    * ``reporting_date`` must be the Relevant-Jurisdiction local date of
+      submission. Item 103 (Reporting timestamp) is reported in UTC, so a UTC
+      timestamp near midnight can fall on a different local date.
 """
 import dataclasses
 import logging
 import string
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from typing import FrozenSet, List, Optional, Set
 
 logger = logging.getLogger(__name__)
 
 # ISO 17442 LEI / ISO 23897 UTI character set: uppercase A-Z and digits 0-9.
-_ALPHANUMERIC = frozenset(string.ascii_uppercase + string.digits)
-# ISO 4914 UPI character set: consonants (excluding A, E, I, O, U and Y)
-# plus digits 0-9.
+_UPPERCASE_ALPHANUMERIC = frozenset(string.ascii_uppercase + string.digits)
+# Table S1.1(1) "alphanumeric code" elements (Items 7 and 92) are not
+# restricted to upper case. An explicit ASCII alphabet is used rather than
+# str.isalnum(), which also accepts non-ASCII letters and digits.
+_ASCII_ALPHANUMERIC = frozenset(string.ascii_letters + string.digits)
+# ISO 4914 clause 4 UPI character set: upper-case A-Z and 0-9 excluding the
+# vowels A, E, I, O, U and the character Y.
 _UPI_ALPHABET = frozenset(
     (set(string.ascii_uppercase) - set("AEIOUY")) | set(string.digits)
 )
 
 _LEI_LENGTH = 20
+_LEI_CHECK_DIGIT_START = 18
 _UTI_MIN_LENGTH = 20
 _UTI_MAX_LENGTH = 52
 _UPI_LENGTH = 12
 _UPI_PREFIX = "QZ"
+# Table S1.1(1) Item 7, column 4: non-LEI entity identifiers.
+_NON_LEI_ENTITY_IDENTIFIER_MAX_LENGTH = 72
+# Table S1.1(1) Item 92, column 4: package identifier.
+_PACKAGE_IDENTIFIER_MAX_LENGTH = 100
+
+# Rule 2.2.3(1) and 2.2.3(3) business-day offsets.
+_STANDARD_DEADLINE_BUSINESS_DAYS = 2
+_PACKAGE_DEADLINE_BUSINESS_DAYS = 4
 
 
 def _is_in_alphabet(value: str, alphabet: FrozenSet[str]) -> bool:
@@ -69,19 +135,117 @@ def _lei_checksum_valid(lei: str) -> bool:
     return int(numeric) % 97 == 1
 
 
+def _is_valid_lei(value: str) -> bool:
+    """Return True if ``value`` is a structurally valid ISO 17442 LEI.
+
+    An LEI is 20 characters: 18 uppercase alphanumeric characters identifying
+    the entity, followed by 2 numeric check digits that must satisfy the
+    ISO/IEC 7064 MOD 97-10 check.
+    """
+    if len(value) != _LEI_LENGTH:
+        return False
+    if not _is_in_alphabet(value, _UPPERCASE_ALPHANUMERIC):
+        return False
+    if not value[_LEI_CHECK_DIGIT_START:].isdigit():
+        return False
+    return _lei_checksum_valid(value)
+
+
+def _is_valid_uti(value: str) -> bool:
+    """Return True if ``value`` has a structurally valid ISO 23897 UTI shape
+    (20-52 uppercase alphanumeric characters, no separators)."""
+    return (
+        _UTI_MIN_LENGTH <= len(value) <= _UTI_MAX_LENGTH
+        and _is_in_alphabet(value, _UPPERCASE_ALPHANUMERIC)
+    )
+
+
+def _is_valid_upi(value: str) -> bool:
+    """Return True if ``value`` has a structurally valid ISO 4914 UPI shape.
+
+    The ISO 4914 Annex C check character is not verified - see the module
+    docstring's limitations.
+    """
+    return (
+        len(value) == _UPI_LENGTH
+        and value.startswith(_UPI_PREFIX)
+        and _is_in_alphabet(value, _UPI_ALPHABET)
+    )
+
+
+def _is_valid_alphanumeric_code(value: str, max_length: int) -> bool:
+    """Return True if ``value`` is a non-empty ASCII alphanumeric code of at
+    most ``max_length`` characters, per the Table S1.1(1) column 4 format."""
+    return len(value) <= max_length and _is_in_alphabet(value, _ASCII_ALPHANUMERIC)
+
+
+def _normalised_identifier(value: object, field_name: str) -> str:
+    """Return ``value`` stripped of surrounding whitespace, or "" if None.
+
+    Non-string values are rejected rather than coerced: a numeric Client Code
+    or a ``Decimal`` reaching the gate is a boundary-conversion bug, and
+    ``str()``-ing it would validate a value different from the one that will
+    be serialised into the report.
+    """
+    if value is None:
+        return ""
+    if not isinstance(value, str):
+        raise TypeError(
+            f"{field_name} must be a str or None, got {type(value).__name__}"
+        )
+    return value.strip()
+
+
+def _normalised_holidays(holidays: Optional[Set[date]]) -> FrozenSet[date]:
+    """Return ``holidays`` as a frozenset of plain dates.
+
+    Elements are type-checked because a ``datetime`` in the set never compares
+    equal to the ``date`` being tested, so it would be silently ignored - the
+    deadline would be overstated and a genuine late report would not be
+    flagged.
+    """
+    if not holidays:
+        return frozenset()
+    for holiday in holidays:
+        if isinstance(holiday, datetime) or not isinstance(holiday, date):
+            raise TypeError(
+                "holidays must contain only datetime.date values (not "
+                f"datetime), got {type(holiday).__name__}"
+            )
+    return frozenset(holidays)
+
+
+def _require_plain_date(value: object, field_name: str) -> date:
+    """Return ``value`` if it is a ``datetime.date`` (and not a ``datetime``).
+
+    ``datetime`` instances are rejected explicitly: they are a subclass of
+    ``date`` but comparing a ``datetime`` against a ``date`` raises TypeError,
+    and a UTC timestamp does not identify the Relevant-Jurisdiction local day
+    in which the deadline is measured.
+    """
+    if isinstance(value, datetime) or not isinstance(value, date):
+        raise TypeError(
+            f"{field_name} must be a datetime.date (not a datetime), "
+            f"got {type(value).__name__}"
+        )
+    return value
+
+
 def _add_business_days(
     start: date, offset: int, holidays: Optional[Set[date]] = None
 ) -> date:
     """Return ``start`` advanced by ``offset`` business days, skipping
     weekends and any dates in ``holidays``.
 
-    ``offset`` must be non-negative. A zero offset returns ``start`` unchanged
-    even if ``start`` itself falls on a weekend/holiday, mirroring the
-    regulatory framing that the clock starts on the trade day.
+    ``holidays`` must be the public and bank holidays of the Relevant
+    Jurisdiction for the transaction (Rule 1.2.3). ``offset`` must be
+    non-negative. A zero offset returns ``start`` unchanged even if ``start``
+    itself falls on a weekend/holiday, mirroring the regulatory framing that
+    the clock starts on the day the transaction occurs.
     """
     if offset < 0:
         raise ValueError("business-day offset must be non-negative")
-    holiday_set = holidays or set()
+    holiday_set = _normalised_holidays(holidays)
     current = start
     remaining = offset
     while remaining > 0:
@@ -93,25 +257,46 @@ def _add_business_days(
 
 @dataclasses.dataclass
 class OtcDerivativeTrade:
+    """A Reportable Transaction awaiting submission to a Trade Repository."""
+
     internal_trade_id: str
     trade_date: date
-    # Mandatory ASIC 2024 fields.
-    lei_counterparty: Optional[str] = None  # ISO 17442
-    uti: Optional[str] = None               # ISO 23897
-    upi: Optional[str] = None               # ISO 4914
-    # When True, the report requires an Item 92 linking identifier and the
-    # reporting deadline is extended from T+2 to T+4 business days
-    # (ASIC DRT 2024, Rule 2.2.3). Defaults to False (T+2).
-    requires_linking_identifier: bool = False
+    # Table S1.1(1) Item 7 (Counterparty 2): an ISO 17442 LEI, or another
+    # identifier (Client Code, Designated Business Identifier, or "ANON").
+    counterparty_identifier: Optional[str] = None
+    # Table S1.1(1) Item 8: True if the Item 7 identifier is an LEI. Set False
+    # for a natural person not eligible for an LEI per the ROC Statement, or
+    # for an anonymity identifier on a CCP-cleared anonymous transaction.
+    counterparty_identifier_is_lei: bool = True
+    uti: Optional[str] = None  # Item 1, ISO 23897
+    upi: Optional[str] = None  # Item 2, ISO 4914
+    # Table S1.1(1) Item 92: the identifier connecting two or more Reportable
+    # Transactions that are reported separately.
+    package_identifier: Optional[str] = None
+    requires_package_identifier: bool = False
+    # Rule 2.2.3(3) carve-out: a foreign exchange contract that is part of a
+    # foreign exchange swap derivative transaction keeps the T+2 deadline even
+    # when a package identifier is required.
+    is_fx_swap_leg: bool = False
+    # Item 2: the UPI is not required in a report about the termination of an
+    # OTC Derivative.
+    is_termination_report: bool = False
 
 
 @dataclasses.dataclass
 class DrtComplianceRecord:
+    """The outcome of validating one trade against the 2024 Rules."""
+
     internal_trade_id: str
     is_ready_for_reporting: bool
     is_late_submission: bool
     missing_fields: List[str]
     reporting_deadline: date
+    # True when the report is past its Rule 2.2.3(1)/(3) deadline but the
+    # repository was unavailable, so Rule 2.2.3(2) ("as soon as practicable")
+    # may apply. Rule 2.2.3(2) sets no substitute deadline, so lateness cannot
+    # be determined mechanically and must be assessed by a person.
+    repository_outage_relief_may_apply: bool = False
 
 
 class AsicDrtReportingEngine:
@@ -124,57 +309,118 @@ class AsicDrtReportingEngine:
         trade: OtcDerivativeTrade,
         reporting_date: date,
         holidays: Optional[Set[date]] = None,
+        repository_unavailable_at_deadline: bool = False,
     ) -> DrtComplianceRecord:
         """Validate a single trade and return its compliance record.
 
-        ``holidays`` is an optional set of dates treated as non-business days
-        (public holidays). When omitted, only weekends are skipped.
+        Args:
+            trade: the Reportable Transaction to validate.
+            reporting_date: the Relevant-Jurisdiction local date on which the
+                report is (or would be) submitted.
+            holidays: public and bank holidays of the Relevant Jurisdiction
+                (Rule 1.2.3). When omitted, only weekends are skipped, which
+                over-counts business days and can overstate the deadline.
+            repository_unavailable_at_deadline: True if the Licensed or
+                Prescribed Repository was unavailable to accept the report by
+                the deadline, engaging the Rule 2.2.3(2) relief.
+
+        Raises:
+            TypeError: if ``trade.trade_date`` or ``reporting_date`` is not a
+                plain ``datetime.date``.
+            ValueError: if ``reporting_date`` precedes ``trade.trade_date``.
         """
+        trade_date = _require_plain_date(trade.trade_date, "trade.trade_date")
+        reporting_date = _require_plain_date(reporting_date, "reporting_date")
+        if reporting_date < trade_date:
+            raise ValueError(
+                f"reporting_date {reporting_date} precedes trade_date {trade_date}; "
+                "a Reportable Transaction cannot be reported before it occurs"
+            )
+
         missing_fields: List[str] = []
-        is_ready = True
 
-        # 1. LEI (ISO 17442): 20 uppercase alphanumeric chars + MOD 97-10 checksum.
-        lei = (trade.lei_counterparty or "").strip()
-        if (
-            len(lei) != _LEI_LENGTH
-            or not _is_in_alphabet(lei, _ALPHANUMERIC)
-            or not _lei_checksum_valid(lei)
+        # 1. Counterparty identifier (Table S1.1(1) Items 7 and 8).
+        counterparty_identifier = _normalised_identifier(
+            trade.counterparty_identifier, "trade.counterparty_identifier"
+        )
+        if trade.counterparty_identifier_is_lei:
+            if not _is_valid_lei(counterparty_identifier):
+                missing_fields.append(
+                    "Counterparty identifier (Item 7) is missing or is not a valid "
+                    "ISO 17442 LEI (20 chars, 2 numeric check digits, MOD 97-10)."
+                )
+        elif not _is_valid_alphanumeric_code(
+            counterparty_identifier, _NON_LEI_ENTITY_IDENTIFIER_MAX_LENGTH
         ):
-            missing_fields.append("LEI (ISO 17442) is missing or invalid.")
-            is_ready = False
+            missing_fields.append(
+                "Counterparty identifier (Item 7, non-LEI) is missing or invalid: "
+                "expected an alphanumeric code of at most "
+                f"{_NON_LEI_ENTITY_IDENTIFIER_MAX_LENGTH} characters."
+            )
 
-        # 2. UTI (ISO 23897): 20-52 uppercase alphanumeric chars (no separators).
-        uti = (trade.uti or "").strip()
-        if (
-            not (_UTI_MIN_LENGTH <= len(uti) <= _UTI_MAX_LENGTH)
-            or not _is_in_alphabet(uti, _ALPHANUMERIC)
-        ):
-            missing_fields.append("UTI (ISO 23897) is missing or invalid.")
-            is_ready = False
+        # 2. UTI (Table S1.1(1) Item 1; ISO 23897).
+        uti = _normalised_identifier(trade.uti, "trade.uti")
+        if not _is_valid_uti(uti):
+            missing_fields.append("UTI (Item 1, ISO 23897) is missing or invalid.")
 
-        # 3. UPI (ISO 4914): 12 chars, "QZ" prefix, consonant+digit alphabet.
-        upi = (trade.upi or "").strip()
-        if (
-            len(upi) != _UPI_LENGTH
-            or not upi.startswith(_UPI_PREFIX)
-            or not _is_in_alphabet(upi, _UPI_ALPHABET)
-        ):
-            missing_fields.append("UPI (ISO 4914) is missing or invalid.")
-            is_ready = False
+        # 3. UPI (Table S1.1(1) Item 2; ISO 4914). Not required in a report
+        #    about the termination of an OTC Derivative, but validated when
+        #    supplied.
+        upi = _normalised_identifier(trade.upi, "trade.upi")
+        if upi:
+            if not _is_valid_upi(upi):
+                missing_fields.append("UPI (Item 2, ISO 4914) is invalid.")
+        elif not trade.is_termination_report:
+            missing_fields.append("UPI (Item 2, ISO 4914) is missing.")
 
-        # 4. Reporting deadline (ASIC DRT 2024, Rule 2.2.3): T+2 business days,
-        #    extended to T+4 business days where a linking identifier is required.
-        offset = 4 if trade.requires_linking_identifier else 2
-        deadline = _add_business_days(trade.trade_date, offset, holidays)
+        # 4. Package identifier (Table S1.1(1) Item 92).
+        package_identifier = _normalised_identifier(
+            trade.package_identifier, "trade.package_identifier"
+        )
+        if package_identifier:
+            if not _is_valid_alphanumeric_code(
+                package_identifier, _PACKAGE_IDENTIFIER_MAX_LENGTH
+            ):
+                missing_fields.append(
+                    "Package identifier (Item 92) is invalid: expected an "
+                    "alphanumeric code of at most "
+                    f"{_PACKAGE_IDENTIFIER_MAX_LENGTH} characters."
+                )
+        elif trade.requires_package_identifier:
+            missing_fields.append(
+                "Package identifier (Item 92) is required for this Reportable "
+                "Transaction but is missing."
+            )
+
+        # 5. Reporting deadline (Rule 2.2.3). T+2 business days, extended to
+        #    T+4 where a package identifier is required - except for a foreign
+        #    exchange contract that is part of a foreign exchange swap
+        #    derivative transaction, which stays at T+2 (Rule 2.2.3(3)).
+        offset = (
+            _PACKAGE_DEADLINE_BUSINESS_DAYS
+            if trade.requires_package_identifier and not trade.is_fx_swap_leg
+            else _STANDARD_DEADLINE_BUSINESS_DAYS
+        )
+        deadline = _add_business_days(trade_date, offset, holidays)
         is_late = reporting_date > deadline
+        relief_may_apply = is_late and repository_unavailable_at_deadline
+        is_ready = not missing_fields
 
         if is_late:
             logger.warning(
                 "Trade %s breaches the ASIC T+%d reporting deadline. "
                 "Trade date: %s, reporting date: %s, deadline: %s",
                 trade.internal_trade_id, offset,
-                trade.trade_date, reporting_date, deadline,
+                trade_date, reporting_date, deadline,
             )
+            if relief_may_apply:
+                logger.warning(
+                    "Trade %s: repository unavailable at the deadline. Rule "
+                    "2.2.3(2) requires reporting as soon as practicable once "
+                    "the repository is available; lateness must be assessed "
+                    "manually rather than treated as an automatic breach.",
+                    trade.internal_trade_id,
+                )
         if not is_ready:
             logger.error(
                 "Trade %s failed ASIC DRT validation. Missing: %s",
@@ -189,6 +435,7 @@ class AsicDrtReportingEngine:
             is_late_submission=is_late,
             missing_fields=missing_fields,
             reporting_deadline=deadline,
+            repository_outage_relief_may_apply=relief_may_apply,
         )
 
     def batch_validate(
@@ -196,9 +443,15 @@ class AsicDrtReportingEngine:
         trades: List[OtcDerivativeTrade],
         reporting_date: date,
         holidays: Optional[Set[date]] = None,
+        repository_unavailable_at_deadline: bool = False,
     ) -> List[DrtComplianceRecord]:
         """Validate a batch of trades against a common reporting date."""
         return [
-            self.validate_report(trade, reporting_date, holidays)
+            self.validate_report(
+                trade,
+                reporting_date,
+                holidays,
+                repository_unavailable_at_deadline,
+            )
             for trade in trades
         ]

@@ -1,9 +1,10 @@
+import math
 import unittest
+from dataclasses import FrozenInstanceError
 from datetime import datetime
 
 from app_download_and_usage_data_for_consumer_companies import (
     AppUsageDataPoint,
-    AppUsageSignal,
     AppUsageSignalEngine,
     EngineConfig,
 )
@@ -183,6 +184,83 @@ class TestAppUsageSignalEngine(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.engine.process("not-a-datapoint")  # type: ignore[arg-type]
 
+    # --- Non-finite counts (regression) ------------------------------------
+    # Before these were rejected, a NaN count produced a well-formed
+    # "Average engagement" signal with stickiness_ratio=nan: every threshold
+    # comparison against NaN is False, so neither flag fired and a missing
+    # observation entered portfolio construction as a neutral reading.
+    def test_nan_dau_raises_rather_than_emitting_nan_signal(self):
+        data = AppUsageDataPoint(
+            ticker="NAN", date=datetime(2026, 1, 1),
+            downloads=1000, dau=float("nan"), mau=1000,
+        )
+        with self.assertRaises(ValueError):
+            self.engine.process(data)
+
+    def test_nan_mau_raises_rather_than_emitting_nan_signal(self):
+        data = AppUsageDataPoint(
+            ticker="NAN", date=datetime(2026, 1, 1),
+            downloads=1000, dau=500, mau=float("nan"),
+        )
+        with self.assertRaises(ValueError):
+            self.engine.process(data)
+
+    def test_nan_downloads_raises(self):
+        data = AppUsageDataPoint(
+            ticker="NAN", date=datetime(2026, 1, 1),
+            downloads=float("nan"), dau=500, mau=1000,
+        )
+        with self.assertRaises(ValueError):
+            self.engine.process(data)
+
+    def test_infinite_mau_raises_rather_than_reporting_zero_stickiness(self):
+        # Previously returned a bogus 0.0% "average engagement" signal because
+        # any finite DAU divided by inf is 0.0.
+        data = AppUsageDataPoint(
+            ticker="INF", date=datetime(2026, 1, 1),
+            downloads=1000, dau=500, mau=float("inf"),
+        )
+        with self.assertRaises(ValueError):
+            self.engine.process(data)
+
+    def test_non_numeric_count_raises_type_error(self):
+        data = AppUsageDataPoint(
+            ticker="STR", date=datetime(2026, 1, 1),
+            downloads="200000", dau=500, mau=1000,  # type: ignore[arg-type]
+        )
+        with self.assertRaises(TypeError):
+            self.engine.process(data)
+
+    def test_none_count_raises_type_error(self):
+        # A missing field forwarded from a vendor JSON payload as null.
+        data = AppUsageDataPoint(
+            ticker="NONE", date=datetime(2026, 1, 1),
+            downloads=0, dau=500, mau=None,  # type: ignore[arg-type]
+        )
+        with self.assertRaises(TypeError):
+            self.engine.process(data)
+
+    def test_boolean_count_raises_type_error(self):
+        # bool is an int subclass; True would otherwise be counted as 1 user.
+        data = AppUsageDataPoint(
+            ticker="BOOL", date=datetime(2026, 1, 1),
+            downloads=0, dau=True, mau=1000,  # type: ignore[arg-type]
+        )
+        with self.assertRaises(TypeError):
+            self.engine.process(data)
+
+    def test_fractional_vendor_estimates_are_accepted(self):
+        # Panel figures are extrapolated estimates and are often fractional;
+        # finiteness validation must not make the engine int-only.
+        data = AppUsageDataPoint(
+            ticker="FRAC", date=datetime(2026, 1, 1),
+            downloads=1500.5, dau=600000.5, mau=1000000.0,
+        )
+        signal = self.engine.process(data)
+        self.assertTrue(math.isfinite(signal.stickiness_ratio))
+        self.assertAlmostEqual(signal.stickiness_ratio, 0.6000005)
+        self.assertTrue(signal.is_world_class)
+
     # --- Configurability ---------------------------------------------------
     def test_custom_config_lowers_world_class_bar(self):
         engine = AppUsageSignalEngine(
@@ -231,6 +309,10 @@ class TestAppUsageSignalEngine(unittest.TestCase):
     def test_process_many_empty(self):
         self.assertEqual(self.engine.process_many([]), [])
 
+    def test_process_many_non_iterable_raises(self):
+        with self.assertRaises(TypeError):
+            self.engine.process_many(42)  # type: ignore[arg-type]
+
     # --- Return type / determinism -----------------------------------------
     def test_signal_is_frozen(self):
         data = AppUsageDataPoint(
@@ -238,7 +320,7 @@ class TestAppUsageSignalEngine(unittest.TestCase):
             downloads=0, dau=600, mau=1000,
         )
         signal = self.engine.process(data)
-        with self.assertRaises(dataclasses_FrozenInstanceError):
+        with self.assertRaises(FrozenInstanceError):
             signal.stickiness_ratio = 0.99  # type: ignore[misc]
 
     def test_process_is_deterministic(self):
@@ -249,14 +331,6 @@ class TestAppUsageSignalEngine(unittest.TestCase):
         s1 = self.engine.process(data)
         s2 = self.engine.process(data)
         self.assertEqual(s1, s2)
-
-
-# dataclasses.FrozenInstanceError is only exposed via the instance at runtime
-# in older Pythons; import lazily so the module imports on 3.9+.
-try:
-    from dataclasses import FrozenInstanceError as dataclasses_FrozenInstanceError
-except ImportError:  # pragma: no cover - Python < 3.10 fallback path
-    dataclasses_FrozenInstanceError = AttributeError  # type: ignore[assignment]
 
 
 if __name__ == "__main__":

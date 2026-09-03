@@ -13,6 +13,16 @@ logger = logging.getLogger(__name__)
 
 
 class MarketRegime(Enum):
+    """Regime label for one evaluation.
+
+    ``UNKNOWN`` is the state of an engine that has not yet evaluated anything,
+    or whose most recent evaluation did not complete. It is never carried on an ``ExecutionParameters`` result --
+    ``evaluate`` raises instead of returning one -- and exists so that a
+    monitor reading ``engine.current_regime`` after a fault cannot observe a
+    stale ``NORMAL`` left behind by an earlier successful call.
+    """
+
+    UNKNOWN = "UNKNOWN"
     NORMAL = "NORMAL"
     HIGH_VOLATILITY = "HIGH_VOLATILITY"
     CRITICAL_SHOCK = "CRITICAL_SHOCK"
@@ -34,6 +44,25 @@ def _finite_real(value: object, field_name: str) -> float:
 
 @dataclass
 class AdaptiveVolatilityConfig:
+    """Calibrated bounds for one instrument, session, and volatility estimator.
+
+    ``enabled`` is a bypass, not a safe default. When it is ``False`` the
+    overlay returns the base parameters unchanged, reports ``NORMAL``, and
+    performs **no** volatility validation at all -- missing, stale, or
+    non-numeric input is not rejected because it is never read. Disable it only
+    when an independent control provides the volatility protection.
+
+    ``limit_offset_bps_*`` are distances *away from the aggressive side* of the
+    caller's reference price: a buy limit at ``ref * (1 - bps / 10_000)``, a
+    sell limit at ``ref * (1 + bps / 10_000)``. A larger offset is therefore
+    more passive, which is why the high-volatility offset exceeds the normal
+    one. An EMS that reads the offset as aggressiveness instead will chase a
+    dislocating book, inverting the protection this overlay exists to provide.
+
+    Thresholds are illustrative defaults, not regulatory or venue settings; see
+    ``references/standards.md`` for the calibration requirements.
+    """
+
     enabled: bool = True
     base_participation_rate: float = 0.10
     base_child_order_size: int = 100
@@ -84,6 +113,16 @@ class AdaptiveVolatilityConfig:
 
 @dataclass(frozen=True, slots=True)
 class ExecutionParameters:
+    """One child-order decision.
+
+    On a ``CRITICAL_SHOCK`` every numeric field is zeroed. Those zeros are halt
+    sentinels, not an order instruction: a zero ``limit_offset_bps`` is the
+    most aggressive value under the convention documented on
+    ``AdaptiveVolatilityConfig``, so a caller that ignored ``halt_trading`` and
+    priced off these fields would do the opposite of halting. Branch on
+    ``halt_trading`` first.
+    """
+
     participation_rate: float
     child_order_size: int
     limit_offset_bps: int
@@ -97,11 +136,22 @@ class AdaptiveExecutionUnderVolatilitySpikesEngine:
     The engine does not submit or cancel orders. The caller must treat a halt
     decision, or a validation exception, as a fail-closed signal and enforce
     cancellation, risk, and venue controls in the execution management system.
+
+    ``current_regime`` is single-writer instance state describing this
+    engine's last evaluation only. Use one instance per instrument and parent
+    order: a shared instance reports whichever symbol evaluated most recently,
+    and concurrent ``evaluate`` calls on one instance race. The authoritative
+    per-decision value is ``ExecutionParameters.regime`` on the returned
+    object, which is safe to pass across threads.
     """
 
-    def __init__(self, config: AdaptiveVolatilityConfig):
+    def __init__(self, config: AdaptiveVolatilityConfig) -> None:
+        if not isinstance(config, AdaptiveVolatilityConfig):
+            raise TypeError("config must be an AdaptiveVolatilityConfig")
         self.config = config
-        self.current_regime = MarketRegime.NORMAL
+        # A new engine has classified nothing; it must not report NORMAL until
+        # an evaluation has actually succeeded.
+        self.current_regime = MarketRegime.UNKNOWN
 
     def _determine_regime(self, current_volatility: float) -> MarketRegime:
         if current_volatility >= self.config.volatility_threshold_critical:
@@ -124,11 +174,23 @@ class AdaptiveExecutionUnderVolatilitySpikesEngine:
 
         Enabled evaluations require a finite numeric ``current_volatility``.
         Missing or invalid data raises ``MarketDataValidationError`` instead of
-        silently treating the market as normal.
+        silently treating the market as normal, and leaves ``current_regime``
+        at ``UNKNOWN``.
+
+        A disabled config short-circuits before any of that: see
+        ``AdaptiveVolatilityConfig``.
         """
+        # Any exit from here on that is not a completed classification must
+        # leave UNKNOWN behind, so a fault can never be read as the NORMAL
+        # recorded by an earlier call.
+        self.current_regime = MarketRegime.UNKNOWN
+
         if not isinstance(market_data, Mapping):
             raise TypeError("market_data must be a mapping")
 
+        # Re-validated every call: the config is a mutable dataclass, so a
+        # runtime edit or a partially applied reload must fail closed here
+        # rather than route on out-of-range bounds.
         self.config.validate()
         if not self.config.enabled:
             self.current_regime = MarketRegime.NORMAL

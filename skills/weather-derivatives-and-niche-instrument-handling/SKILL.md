@@ -1,6 +1,7 @@
 ---
 name: weather-derivatives-and-niche-instrument-handling
-description: "Institutional exotics skill for pricing and settling CME Weather Derivatives (HDD, CDD, CAT futures & options) and OTC niche instruments (capped weather swaps), executing Burn Analysis historical simulation, and applying the standard $20 per index point tick multiplier."
+description: >-
+  Use when pricing, settling, or risk-managing CME weather derivatives (HDD, CDD and CAT futures and options) or capped OTC weather swaps. Accumulates degree-day and CAT indexes from daily station temperatures under an explicit temperature unit and base, settles at the contract's own multiplier and currency — USD 20/point for US degree-day contracts, EUR 20/point for European HDD and CAT, JPY 2,500/point for Pacific Rim CAT, never a single universal multiplier — and values contracts by burn analysis over linearly detrended historical seasons.
 domain: Multi-Asset Derivatives & Exotic Instruments
 subdomain: Weather Derivatives & Niche Instrument Pricing
 tags:
@@ -8,58 +9,166 @@ tags:
 - cme-weather
 - hdd-futures
 - cdd-futures
+- cat-index
 - burn-analysis
 - otc-swaps
-- tick-multiplier
 - niche-instruments
 brokers_frameworks:
-- cme
-- ice
-- noaa
-- otc-isda
-version: "1.1.0"
+- CME Rulebook Ch. 403 (US Degree Days Index Futures)
+- CME Rulebook Ch. 411 (Pacific Rim CAT Index Futures)
+- Speedwell Settlement Services
+- ISDA (OTC weather swap documentation)
+version: "2.0.0"
 author: Quant Engineering
 license: MIT
 ---
 
 ## When to Use
 
-Use this skill when trading, pricing, or settling CME Weather Futures/Options ($HDD, CDD, CAT$) or structuring Over-the-Counter (OTC) weather derivative swaps and niche environmental instruments.
+Use this skill when you need an accumulated weather index, a settlement payoff, or a
+burn-analysis fair value for a CME weather futures/option position or a capped OTC
+weather swap — pricing a new structure, marking a position, or reconciling a
+settlement.
 
-This skill provides institutional mechanisms to:
-- Accumulate monthly **Heating Degree Day (HDD)**, **Cooling Degree Day (CDD)**, and **Cumulative Average Temperature (CAT)** indexes from daily temperature observations.
-- Value CME Weather Futures and Call/Put Options using the standard **\$20 per index point tick multiplier**.
-- Structure and price **Capped OTC Weather Swaps** with maximum payout cap limits ($C_{\text{cap}}$).
-- Execute **Burn Analysis (Historical Simulation)** across 20-30 years of meteorological station data to derive fair expected payoffs and risk metrics.
+The engine provides:
+
+- **Index accumulation** — HDD, CDD and CAT totals from daily $(T_{\min}, T_{\max})$
+  station observations, under an explicitly supplied temperature unit and base.
+- **Settlement payoffs** at the contract's own multiplier and currency, for futures,
+  calls, puts and capped swaps.
+- **Burn analysis** over historical seasons, reporting the expected payoff, the
+  dispersion, and both tails of the realised payoff distribution.
+- **Linear climate detrending** of a historical index record to the contract season.
+
+**Multipliers and currency.** There is no universal "\$20 multiplier". The verified
+values live in `CME_CONTRACT_SPECS`:
+
+| Specification | Multiplier | Base temperature |
+| :--- | :--- | :--- |
+| `CME_US_DEGREE_DAY` (HDD, CDD) | **USD 20** / index point | $65^\circ\text{F}$ |
+| `CME_EUROPEAN_HDD` | **EUR 20** / index point | $18^\circ\text{C}$ |
+| `CME_EUROPEAN_CAT` | **EUR 20** / index point | none (CAT sums the daily mean) |
+| `CME_PACIFIC_RIM_CAT` (Tokyo) | **JPY 2,500** / index point | none |
+
+Build contracts with `WeatherDerivativeContract.from_spec(...)` so the multiplier and
+currency come from the specification rather than from memory.
+
+## When NOT to Use
+
+- **To settle cash.** The official CME index is calculated and reported by Speedwell
+  Settlement Services Ltd from National Weather Service / Japan Meteorological Agency
+  observations, on the second Exchange Business Day after the contract month.
+  Speedwell's published methodology governs rounding and the treatment of missing
+  station observations, and this module reproduces neither. `calculate_monthly_index`
+  is an estimate for pricing, hedging and pre-settlement reconciliation — settle
+  against the reported index, and investigate a divergence rather than overriding it.
+- **To price with Black-Scholes.** Weather is not a traded, storable asset, so there
+  is no delta-hedging replication argument and no risk-neutral drift to solve for.
+  Use burn analysis or a stochastic temperature model. See the pitfalls below.
+- **As a tail-risk model.** Burn analysis has no distributional model. With 20–30
+  seasons the 5th percentile rests on one or two observations;
+  `payoff_5th_percentile` is a weak bound on a capped swap's downside, not a VaR.
+- **For non-temperature weather products** (precipitation, snowfall, frost, wind) or
+  for freight, emissions and other niche underlyings. The payoff and cap mechanics
+  generalise; the index definitions here do not.
+- **For basis risk between a hedge and a physical exposure.** A contract settles on
+  one station's index, not on the hedger's load or revenue. Quantifying that residual
+  is the job of `weather-data-signal-research-for-commodity-strategies`.
 
 ## Prerequisites
 
-- Python 3.9+
-- Standard Python libraries (`datetime`, `dataclasses`, `math`, `typing`).
-- Daily weather station temperature logs (minimum and maximum daily temperatures in Fahrenheit or Celsius).
+- Python 3.9+, standard library only (`math`, `dataclasses`, `enum`, `logging`,
+  `datetime`).
+- Daily station $(T_{\min}, T_{\max})$ observations, quality-controlled, with the
+  temperature unit known — the engine never infers it.
+- The contract specification: station, accumulation period, index type, multiplier and
+  currency, strike, and any payout cap.
 
 ## Workflow
 
-1. **Define Contract Parameters**: Construct `WeatherDerivativeContract` specifying symbol, location, index type (`HDD`, `CDD`, `CAT`), instrument type (`FUTURES`, `CALL_OPTION`, `PUT_OPTION`, `CAPPED_SWAP`), strike index, tick multiplier ($\$20.00$), and optional payout cap limit.
-2. **Accumulate Monthly Index**: Call `calculate_monthly_index(daily_min_max_temps, index_type)` to compute total degree day points for the contract period.
-3. **Calculate Settlement Payoff**: Invoke `calculate_settlement_payoff(contract, accumulated_index)` to compute the cash settlement payoff scaled by $\$20/\text{point}$ and enforce payout caps.
-4. **Execute Burn Analysis Valuation**: Call `run_burn_analysis(contract, historical_season_indexes)` to evaluate historical expected payoffs, standard deviations, and maximum historical drawdowns.
-5. **Manage Counterparty Risk**: Track credit exposure limits on OTC weather swaps with ISDA documentation.
+1. **Bind the contract to a verified specification.** Call
+   `WeatherDerivativeContract.from_spec("CME_US_DEGREE_DAY", ...)` (or the European /
+   Pacific Rim key) so `tick_value` and `currency` are taken from the published
+   specification. Supply `tick_value` and `currency` by hand only for an OTC swap,
+   where they are negotiated. For a FUTURES position also set `entry_index_price` —
+   the index level the position was opened at.
+2. **Accumulate the index.** Call `calculate_monthly_index(temps, index_type, unit,
+   base_temperature=...)`. The base must be in the same unit as the observations
+   (65 °F for US contracts, 18 °C for European HDD); CAT takes no base and requires
+   Celsius. A non-finite or inverted observation raises — repair or explicitly infill
+   the station series first, and record the infill, because it changes the index you
+   will later reconcile against Speedwell.
+3. **Settle.** For futures, `calculate_settlement_payoff` returns P&L,
+   $(I_{\text{final}} - I_{\text{entry}}) \times M \times Q$; use
+   `final_settlement_value` when you want the contract's cash settlement value
+   $I \times M \times Q$ instead. Do not use one where the other is meant — that is
+   the difference between a position's profit and its entire notional. Options return
+   intrinsic value at expiry, before premium.
+4. **Detrend before valuing.** Run `detrend_historical_indexes(history)` on a
+   chronologically ordered record before burn analysis. It fits $I_j = a + bj$ by OLS
+   and re-centres every season on the fitted level of the target season, preserving
+   each season's departure from the fitted climate. If the fitted slope is large
+   relative to the residual dispersion, treat the linear model as a decision point,
+   not a default: check it against the station's documented history before relying on
+   it, since a station relocation or instrument change produces the same slope as a
+   climate trend and must be handled as a break, not a trend.
+5. **Run burn analysis.** `run_burn_analysis(contract, detrended_history)` replays the
+   contract against every season. Read `expected_payoff` as the fair value (pass
+   `discount_factor` for anything but a short-dated contract) and
+   `worst_historical_payoff` as the risk figure. For a short swap the worst realised
+   payoff, not the mean, sizes the position.
+6. **Cap and document OTC exposure.** Set `max_payout` (and `max_loss` if the cap is
+   asymmetric) on every swap sold, and track counterparty mark-to-market against the
+   ISDA credit support annex threshold.
 
 ## Common Pitfalls
 
-- **Ignoring the \$20 Multiplier**: CME Weather Futures and Options use a **\$20 multiplier per index point** ($1\ \text{HDD point} = \$20.00$). Sizing positions without the $\$20$ factor leads to a 20x error in settlement PnL math.
-- **Black-Scholes Model Misapplication**: Weather is non-storable and non-tradable directly, rendering standard Black-Scholes delta hedging invalid. Weather derivatives must be priced via **Burn Analysis** or stochastic weather simulation models.
-- **Neglecting Climate Warming Trends**: Performing Burn Analysis on unadjusted historical data (e.g. 1980-2020) overstates winter HDD indexes and understates summer CDD indexes due to long-term climate warming trends.
-- **Un-Capped OTC Swap Risk**: Selling OTC weather swaps without a maximum payout cap ($C_{\text{cap}}$) exposes the firm to uncapped losses during extreme 100-year weather events.
+- **Assuming a universal \$20 multiplier.** It is USD 20 per index point for CME *US*
+  degree-day contracts only. European HDD and CAT are **EUR 20**; Pacific Rim (Tokyo)
+  CAT is **JPY 2,500** — a 125× difference in the notional per point, on top of the
+  currency error. `from_spec` exists so this value is never retyped from memory.
+- **Reading a futures settlement value as P&L.** $I \times \$20$ is what the contract
+  is worth at settlement; a position's profit is $(I_{\text{final}} -
+  I_{\text{entry}}) \times \$20$. Confusing them overstates P&L by the entire entry
+  notional — for an 880-entry contract settling at 900, \$18,000 instead of \$400.
+- **Letting a missing observation score as zero.** `max(0.0, float('nan'))` evaluates
+  to `0.0` in Python, so an unguarded NaN silently *lowers* an HDD index by a full
+  day's degree days with no error anywhere. Missing station data must raise, not
+  default.
+- **Applying a 65 °F base to Celsius data.** Ten days at a 5 °C mean are 130 HDD
+  against the European 18 °C base and 600 against a 65 °F base — a 4.6× error that
+  produces no exception because both numbers are plausible degree-day totals.
+- **Rejecting a negative CAT index.** HDD and CDD are sums of non-negative daily
+  values, but a CAT index sums daily mean temperatures in Celsius and is legitimately
+  negative over a cold accumulation period. A blanket non-negativity check rejects
+  valid settlement data.
+- **Black-Scholes on a weather underlying.** Weather is non-storable and non-tradable,
+  so there is no replicating portfolio and no cost-of-carry drift; the index is also
+  strongly mean-reverting and seasonal, which lognormal diffusion does not describe.
+  Price by burn analysis or a stochastic temperature model.
+- **Burn analysis on an undetrended record.** A raw 20–30 year mean sits at the
+  midpoint of a warming record, overstating winter HDD and understating summer CDD.
+  On a −10 HDD/season record the raw mean overprices an 800-strike call by 12.5%.
+- **Selling an uncapped OTC weather swap.** Without a `max_payout`, a single extreme
+  season is an unbounded loss. Note that a zero cap is a real zero cap: `max_payout=0.0`
+  means the payoff is floored and capped at zero, while `None` means uncapped.
+- **Treating one season's dispersion as risk.** A single-season sample has no sample
+  standard deviation; reporting `0.0` reads as "no weather risk". The engine raises
+  below two seasons.
 
 ## Verification
 
-Run the unit test suite to validate monthly index accumulation, CME futures/options settlement math with $\$20/\text{point}$ multipliers, capped OTC swap payoffs, and Burn Analysis historical simulations:
+Run the unit test suite. It covers index accumulation under each unit and base,
+per-venue multipliers and currencies, futures P&L versus settlement value, option
+intrinsic value at and around the strike, symmetric and asymmetric caps, negative CAT
+settlement, OLS detrending against hand-computed residuals, and burn-analysis
+moments and tails against independently derived values:
 
 ```bash
 python -m unittest discover -s skills/weather-derivatives-and-niche-instrument-handling/scripts
 ```
+
+Then work through `assets/checklist.md` before trading or settling.
 
 ## Related Skills
 
@@ -67,4 +176,6 @@ python -m unittest discover -s skills/weather-derivatives-and-niche-instrument-h
 - `variance-swap-and-volatility-derivative-pricing`
 - `warrants-and-structured-product-integration`
 - `total-return-swap-synthetic-exposure`
-
+- `commodity-futures-storage-and-carry-cost-modeling`
+- `counterparty-credit-risk-for-otc-derivatives`
+- `physical-vs-cash-settlement-handling`

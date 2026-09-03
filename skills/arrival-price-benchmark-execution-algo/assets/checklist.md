@@ -18,6 +18,8 @@
 - [ ] No child-order size is ever negative, including boundary inputs (`num_bins=1`, `total_size=1`, `total_size < num_bins`, long horizons).
 - [ ] Front-loading strictly increases LOW < MEDIUM < HIGH for the first bin.
 - [ ] Same inputs produce identical output across runs (determinism).
+- [ ] Long horizons stay on the exact curve: `HIGH` urgency puts ~63.2% in the first bin at 10 bins *and* at 10,000 bins, with no overflow, `NaN`, or collapse to 100% in bin 0.
+- [ ] `forecast_shortfall` reproduces the Almgren-Chriss limiting cases (uniform schedule vs Eqs. 10/11; single-bin dump vs Eq. 13) and returns a strictly positive `expected_cost`.
 
 ## Deployment
 
@@ -36,9 +38,10 @@
 ## Monitoring
 
 - [ ] Per-child fill events logged with bin index, intended vs filled size, and latency.
-- [ ] Live shortfall vs frozen arrival price tracked in real time and alerted when it exceeds `E(X) + lambda * V(X)` by more than the configured tolerance.
+- [ ] Live shortfall vs frozen arrival price tracked in real time and alerted when it exceeds `forecast.expected_cost` by more than the configured tolerance, measured in units of `forecast.stdev` (**not** `variance`, which is in currency squared).
+- [ ] Shortfall computed on the **filled** quantity, with the unfilled remainder carried as opportunity cost against the horizon-end price, and signed so that positive means underperformance.
 - [ ] Schedule drift (cumulative filled vs intended) monitored; catch-up/give-up policy triggered automatically on threshold breach.
-- [ ] `kappa * T > 700` short-circuit event logged if it fires (indicates horizon/urgency misconfiguration).
+- [ ] Impact parameters (`sigma`, `eta`, `gamma`, `epsilon`) sourced from a current calibration, with `eta_tilde = eta - gamma*tau/2 > 0` (the model is non-convex otherwise and `ImpactParameters` will reject it).
 
 ## Post-Deployment Verification
 

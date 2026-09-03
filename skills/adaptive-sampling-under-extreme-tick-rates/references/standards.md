@@ -6,11 +6,13 @@ The sampler protects a bounded downstream processing budget; it does not change 
 
 | Condition | Mode | Factor | Output contract |
 |---|---|---:|---|
-| `rate <= target` | `PASSTHROUGH` | `1` | Emit each valid trade as a one-tick aggregate. |
-| `rate > target` | `SYSTEMATIC_SAMPLING` | `ceil(rate / target)`, minimum `2` | Emit one aggregate after the configured number of input trades. |
+| `rate <= target` | `PASSTHROUGH` | `1` | Emit the trade immediately, together with any residual left by a preceding sampled block. |
+| `rate > target` | `SYSTEMATIC_SAMPLING` | `ceil(rate / target)`, minimum `2` | Emit one aggregate once the open block reaches the current factor. |
 | Stream end/checkpoint | Synthetic flush | `1` | Emit residual volume with `is_flush=True` and a deterministic event timestamp. |
 
 The rate estimate is an approximate one-second event-time estimate using the current and immediately previous second. It is a control signal, not a measurement of venue liquidity or a substitute for feed-health monitoring.
+
+`mode` and `sampling_factor` report the policy in force at emission time and neither of them bounds `aggregated_tick_count`. When the rate falls back to or below the target while a sampled block is still short of its factor, the next accepted trade drains that block and is reported as `PASSTHROUGH` with `sampling_factor=1` and `aggregated_tick_count > 1`; its `price` is then a volume-weighted average that was never traded. A consumer deciding whether a record is a single raw trade must read `aggregated_tick_count`, never `mode` or `sampling_factor`.
 
 ## Accounting Invariants
 
@@ -20,7 +22,8 @@ For every symbol and completed lifecycle interval:
 - `sum(emitted price * emitted volume) == sum(input price * input volume)` within the configured numeric tolerance.
 - `emitted price = aggregate notional / aggregate volume` for every aggregate with positive volume.
 - Every emitted sample reports `aggregated_tick_count >= 1`; synthetic residuals report `is_flush=True` and `sequence_id=-1`.
-- A rejected tick changes no sampler state.
+- An emitted aggregate carries the `sequence_id` and `timestamp` of the last raw trade it represents; earlier trades in the same block are identified only by `aggregated_tick_count`.
+- A rejected tick changes no sampler state, including the rolling-rate window; rejection is validated before any accumulation, so no rollback is needed.
 - A duplicate or decreasing sequence is rejected when `enforce_monotonic_sequence=True`.
 - Event timestamps must be finite and non-decreasing per symbol; an explicit flush timestamp cannot precede the last accepted event.
 

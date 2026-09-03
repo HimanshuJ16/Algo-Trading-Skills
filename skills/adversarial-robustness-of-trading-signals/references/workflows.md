@@ -18,6 +18,12 @@ assert X_clean.ndim == 2
 assert np.all(np.isfinite(X_clean))
 ```
 
+Both conditions are also enforced by the engine (`_validate_matrix`), along with
+a non-empty check on each axis. They are hard errors, not warnings: a single NaN
+cell poisons the per-feature scale, hence every perturbation, and would otherwise
+report a 0% flip rate and PASS. Fix the data upstream rather than filtering the
+exception.
+
 Persist the validation-set hash in the model card so a future reviewer can
 reproduce the exact `RobustnessReport`. Re-running the gate on a re-sampled
 validation set invalidates cross-version comparability.
@@ -63,32 +69,50 @@ report = tester.evaluate_model(model.predict, X_clean)
   "total_samples": 2000,
   "flipped_signals": 41,
   "vulnerability_score_pct": 2.05,
+  "flip_rate_ci_upper_pct": 2.64,
+  "ci_confidence_level": 0.95,
   "is_robust": true,
+  "is_robust_at_ci": true,
   "noise_type": "montecarlo_worst",
   "n_trials": 25,
   "worst_trial_index": 14,
+  "epsilon": 0.01,
+  "flip_tolerance_pct": 5.0,
+  "seed": 42,
   "flipped_indices": [37, 112, 889, ...]
 }
 ```
 
-- `vulnerability_score_pct` — the gating metric.
+- `is_robust_at_ci` — **the gating verdict**. True only when the flip rate *and*
+  its one-sided Wilson upper bound both clear the tolerance.
+- `vulnerability_score_pct` / `flip_rate_ci_upper_pct` — the point estimate and
+  its confidence bound. `is_robust` reflects only the former and is retained for
+  backwards compatibility; do not gate on it alone.
 - `flipped_indices` — the actionable set: these samples sit on a flippable
   boundary. Feed them back to adversarial training as the augmentation target.
 - `worst_trial_index` — which of the `n_trials` draws produced the max; useful
   for diagnosing whether a single pathological draw dominates.
+- `epsilon`, `flip_tolerance_pct`, `seed` — echoed so the snapshot is a
+  self-contained audit record without re-reading the config.
 
 ### 6. Gate the deployment
 
-```
-if report.is_robust and ci_upper_bound(report) <= config.flip_tolerance_pct:
+```python
+if report.is_robust_at_ci:
     promote(model)
+elif report.is_robust:
+    # Point estimate clears, confidence bound does not: marginal, not a pass.
+    escalate_for_larger_holdout(model, report)
 else:
     reject(model)
     route_to_adversarial_training(model, report.flipped_indices)
 ```
 
-The `ci_upper_bound` check is the statistical-validity guard from
-`standards.md` §4: a 4.7% point estimate on 200 samples is not a clean pass.
+`is_robust_at_ci` is the statistical-validity guard from `standards.md` §4: a
+4.7% point estimate on 200 samples is not a clean pass. The engine also logs the
+run at WARNING with a `MARGINAL:` suffix whenever `is_robust` holds but
+`is_robust_at_ci` does not, so a marginal result cannot slip by as a routine
+INFO-level pass line.
 
 ### 7. Adversarial training (remediation path)
 
@@ -96,10 +120,17 @@ When the gate rejects, retrain on perturbed data:
 
 ```python
 # Augment the training set with the same noise model that failed the gate.
-augmented = np.vstack([X_train, perturb(X_train, config)])
-y_augmented = np.concatenate([y_train, y_train])  # labels unchanged
+# tester.perturb() applies the configured epsilon, scales, domain bounds and
+# projection, so the augmentation matches what the gate actually tested.
+tester = SignalAdversarialTester(config)
+rng = np.random.default_rng(config.seed)
+augmented = np.vstack([X_train] + [tester.perturb(X_train, rng) for _ in range(3)])
+y_augmented = np.concatenate([y_train] * 4)   # labels unchanged
 model.fit(augmented, y_augmented)
 ```
+
+Pass an explicit `rng` when drawing more than one augmentation: omitting it
+re-seeds from `config.seed` and returns the *same* perturbed matrix every call.
 
 This smooths the decision boundary at the flipped samples. Re-run the gate;
 iterate until `vulnerability_score_pct` sits comfortably under tolerance with a
@@ -147,7 +178,10 @@ narrow confidence interval.
 | Domain clipping collapses all noise | Validation feature domain is degenerate (constant column) | Widen via `feature_bounds` or set `clip_to_clean_domain=False` for deliberate off-manifold stress |
 | Flip rate is 0% on everything | Model returned probabilities but decode is wrong (class order inverted) | Verify the argmax class ordering matches BUY/SELL |
 | Gate passes but model fails live | ε too small for the real microstructure noise | Re-calibrate ε to one bid-ask spread; re-run with `montecarlo_worst` |
-| Flip rate confidence interval straddles the tolerance | Validation set too small | Grow the set or bootstrap the CI; do not treat a marginal pass as clean |
+| `is_robust` true but `is_robust_at_ci` false (log says `MARGINAL:`) | Validation set too small to resolve the tolerance | Grow the set to the size `standards.md` §4 requires; do not treat a marginal pass as clean |
+| `ValueError: X_clean contains N non-finite value(s)` | NaN/inf in the validation matrix | Fix upstream. Pre-v1.3.0 this silently produced a 0% flip rate and an automatic PASS |
+| `ValueError: model prediction contains NaN/inf` | The model emits NaN scores on some rows | A broken model, not a gate failure — a NaN score decodes to one class for clean and perturbed alike |
+| Flip rate 100% with explicit `feature_bounds` | Validation samples sit far outside training-set bounds | Pre-v1.3.0 the domain clip moved them by many multiples of ε and scored it as an ε-bounded flip; now the ε ball is honoured. Investigate the train/validation shift |
 
 ## Integration with the model card
 
@@ -161,8 +195,11 @@ Persist a snapshot of the gate result alongside the model:
     "noise_type": "montecarlo_worst",
     "n_trials": 25,
     "vulnerability_score_pct": 2.05,
+    "flip_rate_ci_upper_pct": 2.64,
+    "ci_confidence_level": 0.95,
     "flip_tolerance_pct": 5.0,
     "is_robust": true,
+    "is_robust_at_ci": true,
     "validation_set_hash": "sha256:...",
     "flipped_index_count": 41
   }
@@ -177,7 +214,7 @@ blocking promotion signal (see `model-versioning-and-rollback`).
 
 - Engine: `scripts/signal_adversarial_tester.py`
   (`SignalAdversarialTester`, `AdversarialRobustnessConfig`, `RobustnessReport`).
-- Tests: `scripts/test_signal_adversarial_tester.py` (26 unit tests).
+- Tests: `scripts/test_signal_adversarial_tester.py` (47 unit tests).
 - Operational checklist: `assets/checklist.md`.
 
 ## Cross-references

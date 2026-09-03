@@ -11,6 +11,7 @@ from __future__ import annotations
 import dataclasses
 import logging
 from collections.abc import Mapping
+from types import MappingProxyType
 from typing import Optional, Union
 
 logger = logging.getLogger(__name__)
@@ -20,7 +21,12 @@ APPROVED_STATUS = "APPROVED"
 
 @dataclasses.dataclass(frozen=True)
 class AlgoRegistration:
-    """A registry record for one disclosed algorithm identifier."""
+    """A registry record for one disclosed algorithm identifier.
+
+    ``venues`` must be a *collection* of venue codes. Passing a bare string is
+    rejected at engine construction, because a string would otherwise iterate
+    per character and silently widen the approved venue scope.
+    """
 
     status: str
     venues: frozenset[str] = frozenset()
@@ -58,18 +64,32 @@ class AlgoDisclosureComplianceEngine:
     A string registry value remains supported for compatibility, for example
     ``{"TWAP_V1.2": "APPROVED"}``. Use :class:`AlgoRegistration` when the
     approval is venue-scoped or tied to a specific registered version.
+
+    Construction validates the whole registry and raises on any malformed,
+    ambiguous, or duplicate entry, so a misconfigured registry fails loudly at
+    deployment rather than quietly at order time. The validated snapshot is
+    exposed as a read-only mapping: update it by constructing a new engine
+    through the controlled deployment process, never by mutating in place.
     """
 
     def __init__(self, approved_algo_registry: Mapping[str, RegistryValue]):
         if not isinstance(approved_algo_registry, Mapping):
             raise TypeError("approved_algo_registry must be a mapping")
 
-        self.registry = {
-            self._require_text(algo_id, "algo_id"): self._normalize_registration(
-                algo_id, registration
-            )
-            for algo_id, registration in approved_algo_registry.items()
-        }
+        registry = {}
+        for raw_algo_id, registration in approved_algo_registry.items():
+            algo_id = self._require_text(raw_algo_id, "algo_id")
+            if algo_id in registry:
+                # Two source keys that differ only in surrounding whitespace
+                # normalize to the same identifier. Silently keeping the last
+                # one lets a merge or typo promote a SUSPENDED algorithm to
+                # APPROVED, so refuse to build an ambiguous registry.
+                raise ValueError(
+                    f"Duplicate registry entry for algo_id '{algo_id}': registry "
+                    "keys must be unique after whitespace normalization"
+                )
+            registry[algo_id] = self._normalize_registration(algo_id, registration)
+        self.registry = MappingProxyType(registry)
 
     def evaluate_order(self, order: OutboundOrder) -> OrderComplianceReport:
         """Evaluate an order without mutating the order or registry."""
@@ -98,6 +118,12 @@ class AlgoDisclosureComplianceEngine:
                     "MANUAL_ORDER_HAS_ALGO_ID",
                     "Manual order must not carry an algorithm identifier.",
                     algo_id=algo_id,
+                )
+            if parent_algo_id is not None or algo_version is not None:
+                return self._reject(
+                    order,
+                    "MANUAL_ORDER_HAS_ALGO_METADATA",
+                    "Manual order must not carry algorithm lineage or version metadata.",
                 )
             if trader_id is None:
                 return self._reject(
@@ -183,12 +209,31 @@ class AlgoDisclosureComplianceEngine:
         status = AlgoDisclosureComplianceEngine._require_text(
             registration.status, f"status for '{algo_id}'"
         ).upper()
+        venues = registration.venues
+        if isinstance(venues, (str, bytes)):
+            # A bare string is iterable, so ``venues="XNYS"`` would normalize to
+            # the per-character set {"X", "N", "Y", "S"} -- rejecting XNYS while
+            # approving venue "X". Refuse it rather than fail open.
+            raise TypeError(
+                f"venues for '{algo_id}' must be a collection of venue codes, "
+                "not a single string"
+            )
+        try:
+            venue_codes = list(venues)
+        except TypeError as exc:
+            raise TypeError(
+                f"venues for '{algo_id}' must be an iterable of venue codes"
+            ) from exc
         normalized_venues = frozenset(
-            AlgoDisclosureComplianceEngine._require_text(venue, "venue").upper()
-            for venue in registration.venues
+            AlgoDisclosureComplianceEngine._require_text(
+                venue, f"venue for '{algo_id}'"
+            ).upper()
+            for venue in venue_codes
         )
         version = (
-            AlgoDisclosureComplianceEngine._optional_text(registration.version)
+            AlgoDisclosureComplianceEngine._require_text(
+                registration.version, f"version for '{algo_id}'"
+            )
             if registration.version is not None
             else None
         )

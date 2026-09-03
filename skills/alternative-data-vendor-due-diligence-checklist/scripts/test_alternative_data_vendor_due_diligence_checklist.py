@@ -1,5 +1,6 @@
 import dataclasses
 import datetime
+import json
 import unittest
 from alternative_data_vendor_due_diligence_checklist import (
     Decision,
@@ -9,6 +10,15 @@ from alternative_data_vendor_due_diligence_checklist import (
     VendorDueDiligenceEvaluator,
     VendorDueDiligenceQuestionnaire,
 )
+
+
+def _utc_today():
+    """The evaluation date the engine uses.
+
+    Anchoring the DDQ-age boundary tests to the local calendar day would make
+    them pass or fail depending on the runner's UTC offset.
+    """
+    return datetime.datetime.now(datetime.timezone.utc).date()
 
 
 def _clean_ddq(**overrides):
@@ -25,7 +35,7 @@ def _clean_ddq(**overrides):
         has_robust_anonymization=True,
         is_material_non_public_information=False,
         is_tos_compliant=True,
-        ddq_as_of_date=datetime.date.today(),
+        ddq_as_of_date=_utc_today(),
     )
     defaults.update(overrides)
     return VendorDueDiligenceQuestionnaire(**defaults)
@@ -78,6 +88,9 @@ class TestVendorDueDiligenceEvaluator(unittest.TestCase):
         record = self.evaluator.evaluate(ddq)
         self.assertFalse(record.is_approved)
         self.assertEqual(record.decision, Decision.REJECTED)
+        # has_documented_login_authorization defaults to False: an unmapped DDQ
+        # must still hard-reject a behind-login scrape.
+        self.assertFalse(ddq.has_documented_login_authorization)
         self.assertIn(FlagCode.CFAA_LOGIN_SCRAPE, record.critical_codes)
         self.assertIn(FlagCode.TOS_NONCOMPLIANT, record.warning_codes)
         self.assertEqual(len(record.warning_codes), 1)
@@ -181,7 +194,7 @@ class TestVendorDueDiligenceEvaluator(unittest.TestCase):
 
     def test_stale_ddq_fails_closed(self):
         ddq = _clean_ddq(
-            ddq_as_of_date=datetime.date.today() - datetime.timedelta(days=400),
+            ddq_as_of_date=_utc_today() - datetime.timedelta(days=400),
         )
         record = self.evaluator.evaluate(ddq)
         self.assertFalse(record.is_approved)
@@ -196,7 +209,7 @@ class TestVendorDueDiligenceEvaluator(unittest.TestCase):
     def test_custom_max_ddq_age_days(self):
         strict_evaluator = VendorDueDiligenceEvaluator(max_ddq_age_days=30)
         ddq = _clean_ddq(
-            ddq_as_of_date=datetime.date.today() - datetime.timedelta(days=60),
+            ddq_as_of_date=_utc_today() - datetime.timedelta(days=60),
         )
         record = strict_evaluator.evaluate(ddq)
         self.assertFalse(record.is_approved)
@@ -215,13 +228,101 @@ class TestVendorDueDiligenceEvaluator(unittest.TestCase):
         review = datetime.date.fromisoformat(record.next_review_date)
         self.assertEqual((review - as_of).days, 1095)
 
-    def test_record_is_serializable(self):
-        ddq = _clean_ddq()
+    def test_record_is_json_serializable(self):
+        # SKILL.md promises an "audit-serializable" record. asdict() does not
+        # convert enum members; the record survives json.dumps only because
+        # Decision/FlagCode subclass str. Assert the round-trip, not the
+        # trivially-true enum-equals-its-own-value comparison.
+        ddq = _clean_ddq(
+            is_web_scraped=True,
+            scrapes_behind_login=False,
+            bypasses_captchas=True,
+        )
         record = self.evaluator.evaluate(ddq)
-        d = dataclasses.asdict(record)
-        # Enums serialize to their value via asdict.
-        self.assertEqual(d["decision"], Decision.APPROVED)
-        self.assertEqual(d["rule_version"], RULE_VERSION)
+        round_tripped = json.loads(json.dumps(dataclasses.asdict(record)))
+        self.assertEqual(round_tripped["decision"], "APPROVED_WITH_WARNINGS")
+        self.assertEqual(round_tripped["rule_version"], RULE_VERSION)
+        self.assertEqual(round_tripped["warning_codes"], ["TOS_NONCOMPLIANT"])
+        self.assertEqual(round_tripped["risk_tier"], "Tier-1")
+
+    # ------------------------------------------------------------------
+    # Behind-login scraping: authorization is what the CFAA turns on.
+    # ------------------------------------------------------------------
+
+    def test_authorized_login_scrape_warns_instead_of_rejecting(self):
+        ddq = _clean_ddq(
+            vendor_name="Partner Portal Feed",
+            dataset_name="Licensed Inventory",
+            is_web_scraped=True,
+            scrapes_behind_login=True,
+            has_documented_login_authorization=True,
+        )
+        record = self.evaluator.evaluate(ddq)
+        self.assertTrue(record.is_approved)
+        self.assertEqual(record.decision, Decision.APPROVED_WITH_WARNINGS)
+        self.assertNotIn(FlagCode.CFAA_LOGIN_SCRAPE, record.critical_codes)
+        self.assertIn(FlagCode.LOGIN_SCRAPE_AUTHORIZED, record.warning_codes)
+        # Never a clean approval: the warning forces the legal-review branch.
+        self.assertEqual(record.risk_tier, "Tier-1")
+        self.assertIn("legal review", record.audit_notes.lower())
+
+    def test_login_authorization_requires_login_scraping(self):
+        with self.assertRaises(ValueError):
+            _clean_ddq(
+                is_web_scraped=True,
+                scrapes_behind_login=False,
+                has_documented_login_authorization=True,
+            )
+
+    def test_login_authorization_must_be_strict_bool(self):
+        # Assert on the message too: an unknown-kwarg TypeError would otherwise
+        # let this pass without the strict-bool check existing at all.
+        with self.assertRaises(TypeError) as ctx:
+            _clean_ddq(
+                is_web_scraped=True,
+                scrapes_behind_login=True,
+                has_documented_login_authorization="yes",
+            )
+        self.assertIn("has_documented_login_authorization", str(ctx.exception))
+        self.assertIn("strict bool", str(ctx.exception))
+
+    # ------------------------------------------------------------------
+    # DDQ freshness boundaries.
+    # ------------------------------------------------------------------
+
+    def test_ddq_exactly_at_age_limit_is_accepted(self):
+        ddq = _clean_ddq(ddq_as_of_date=_utc_today() - datetime.timedelta(days=365))
+        record = self.evaluator.evaluate(ddq)
+        self.assertTrue(record.is_approved)
+
+    def test_ddq_one_day_past_age_limit_is_rejected(self):
+        ddq = _clean_ddq(ddq_as_of_date=_utc_today() - datetime.timedelta(days=366))
+        record = self.evaluator.evaluate(ddq)
+        self.assertFalse(record.is_approved)
+        self.assertIn(FlagCode.STALE_DDQ, record.critical_codes)
+
+    def test_future_dated_ddq_fails_closed(self):
+        # A DDQ dated well ahead of the evaluation date is a data-entry or
+        # backdating error. Before the FUTURE_DATED_DDQ rule the computed age
+        # was simply negative and sailed through the staleness comparison.
+        ddq = _clean_ddq(ddq_as_of_date=_utc_today() + datetime.timedelta(days=45))
+        record = self.evaluator.evaluate(ddq)
+        self.assertFalse(record.is_approved)
+        self.assertEqual(record.decision, Decision.REJECTED)
+        self.assertIn(FlagCode.FUTURE_DATED_DDQ, record.critical_codes)
+        self.assertNotIn(FlagCode.STALE_DDQ, record.critical_codes)
+
+    def test_one_day_future_ddq_tolerated_as_timezone_skew(self):
+        ddq = _clean_ddq(ddq_as_of_date=_utc_today() + datetime.timedelta(days=1))
+        record = self.evaluator.evaluate(ddq)
+        self.assertTrue(record.is_approved)
+        self.assertEqual(record.decision, Decision.APPROVED)
+
+    def test_two_day_future_ddq_rejected(self):
+        ddq = _clean_ddq(ddq_as_of_date=_utc_today() + datetime.timedelta(days=2))
+        record = self.evaluator.evaluate(ddq)
+        self.assertFalse(record.is_approved)
+        self.assertIn(FlagCode.FUTURE_DATED_DDQ, record.critical_codes)
 
 
 if __name__ == "__main__":

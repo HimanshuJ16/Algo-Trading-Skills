@@ -36,6 +36,7 @@ Persist the configuration version, flush timestamp, symbol, aggregate count, vol
 | Duplicate/decreasing sequence | Raises `ValueError` when enforcement is enabled | Quarantine and reconcile the feed or intentionally reset the sequence domain. |
 | Backwards event timestamp | Raises `ValueError` | Investigate clock/feed ordering; do not move rate state backwards. |
 | Sampling overload | Emits aggregate samples with metadata | Apply downstream backpressure and monitor lag; sampling is not unlimited buffering. |
+| Rate falls back below target mid-block | Next accepted trade drains the residual and is emitted as `PASSTHROUGH` with `sampling_factor=1` and `aggregated_tick_count > 1` | Read `aggregated_tick_count` before treating `price` as a traded price; never key that decision on `mode`. |
 | Symbol retirement | `reset_symbol(flush=True)` returns residual aggregate and removes state | Persist residual output before deleting symbol state. |
 | Process shutdown | `flush_all()` returns deterministic residual aggregates | Persist all outputs and verify volume/notional reconciliation. |
 
@@ -47,3 +48,4 @@ Persist the configuration version, flush timestamp, symbol, aggregate count, vol
 4. Test multiple symbols concurrently and confirm state isolation and no race-induced accounting drift.
 5. Exercise checkpoint, symbol reset, feed restart, and process shutdown; verify no residual volume is lost.
 6. Compare raw-input and sampled-output reconciliation within the declared numerical tolerance before deployment.
+7. Replay a burst that decays back below the target and confirm the draining `PASSTHROUGH` emission reports the residual `aggregated_tick_count` and its VWAP with no volume loss.

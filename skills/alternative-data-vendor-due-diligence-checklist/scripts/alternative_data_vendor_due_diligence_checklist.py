@@ -19,10 +19,16 @@ logger = logging.getLogger(__name__)
 # Bump whenever a rule is added, reclassified, or removed so a historical
 # DiligenceRecord can be re-validated against the rule set in force at the
 # time of the original decision.
-RULE_VERSION = "1.2.0"
+RULE_VERSION = "1.3.0"
+
+# A DDQ dated slightly in the future is almost always benign timezone skew
+# (the vendor stamped it with a local date ahead of UTC). Anything beyond this
+# tolerance is a data-entry or backdating error and must not pass a gate whose
+# entire purpose is to evidence that the questionnaire is current.
+_FUTURE_DDQ_TOLERANCE_DAYS = 1
 
 # Default re-diligence cadence (in days) per risk tier for an APPROVED vendor.
-# Tier-1 (critical dependency): annual, Tier-2: biennial, Tier-3: triennial.
+# Tier-1 (approved with warnings): annual, Tier-2: biennial, Tier-3: triennial.
 _REVIEW_DAYS_BY_TIER: dict[str, int] = {
     "Tier-1": 365,
     "Tier-2": 730,
@@ -36,10 +42,12 @@ class FlagCode(str, enum.Enum):
     NO_RESELL_RIGHTS = "NO_RESELL_RIGHTS"
     MNPI = "MNPI"
     CFAA_LOGIN_SCRAPE = "CFAA_LOGIN_SCRAPE"
+    LOGIN_SCRAPE_AUTHORIZED = "LOGIN_SCRAPE_AUTHORIZED"
     PII_NO_GDPR = "PII_NO_GDPR"
     PII_NO_ANONYMIZATION = "PII_NO_ANONYMIZATION"
     INCONSISTENT_DDQ = "INCONSISTENT_DDQ"
     STALE_DDQ = "STALE_DDQ"
+    FUTURE_DATED_DDQ = "FUTURE_DATED_DDQ"
     TOS_NONCOMPLIANT = "TOS_NONCOMPLIANT"
 
 
@@ -63,6 +71,7 @@ _DDQ_BOOL_FIELDS = (
     "has_robust_anonymization",
     "is_material_non_public_information",
     "is_tos_compliant",
+    "has_documented_login_authorization",
 )
 
 
@@ -98,6 +107,14 @@ class VendorDueDiligenceQuestionnaire:
     # closed rather than treating an old DDQ as fresh.
     ddq_as_of_date: Optional[datetime.date] = None
 
+    # Operator-verified: the firm holds a written instrument from the *source
+    # operator* (contract, API licence, partner data-sharing agreement)
+    # authorising the vendor's authenticated access. Defaults to False so an
+    # unmapped DDQ still hard-rejects. This is not a vendor assertion — an
+    # authorised login scrape is downgraded to a warning requiring recorded
+    # legal review, never to a clean approval. See references/standards.md.
+    has_documented_login_authorization: bool = False
+
     def __post_init__(self) -> None:
         for name in _DDQ_BOOL_FIELDS:
             value = getattr(self, name)
@@ -118,6 +135,11 @@ class VendorDueDiligenceQuestionnaire:
             raise ValueError(
                 "Inconsistent DDQ: scrapes_behind_login=True requires "
                 "is_web_scraped=True."
+            )
+        if self.has_documented_login_authorization and not self.scrapes_behind_login:
+            raise ValueError(
+                "Inconsistent DDQ: has_documented_login_authorization=True is "
+                "meaningless without scrapes_behind_login=True."
             )
 
 
@@ -142,9 +164,16 @@ class DiligenceRecord:
     audit_notes: str
 
 
-def _utc_now_iso() -> str:
-    """Deterministic-ish UTC timestamp for the audit record (seconds resolution)."""
-    return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat()
+def _utc_now() -> datetime.datetime:
+    """Single UTC clock reading for one evaluation (seconds resolution).
+
+    Every date in a DiligenceRecord — the audit timestamp, the DDQ-age
+    computation and the derived next_review_date — is taken from this one
+    reading. Mixing a local ``date.today()`` with a UTC timestamp put two
+    different "today"s into the same audit record and could shift the DDQ-age
+    boundary by a day depending on where the evaluation ran.
+    """
+    return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
 
 
 def _compute_risk_tier(
@@ -152,7 +181,7 @@ def _compute_risk_tier(
 ) -> str:
     """Map a passing vendor to a re-diligence tier.
 
-    Tier-1: a critical dependency carrying a warning (manual legal review path).
+    Tier-1: an approval carrying a warning (the manual legal review path).
     Tier-2: PII-bearing but fully anonymized/compliant dataset.
     Tier-3: clean, non-PII, non-scraped dataset.
     """
@@ -210,10 +239,22 @@ class VendorDueDiligenceEvaluator:
 
         # 3. Web Scraping & CFAA Risks
         if ddq.is_web_scraped:
-            if ddq.scrapes_behind_login:
+            if ddq.scrapes_behind_login and not ddq.has_documented_login_authorization:
                 add_critical(
                     FlagCode.CFAA_LOGIN_SCRAPE,
-                    "Vendor scrapes behind authenticated logins. High CFAA/legal risk.",
+                    "Vendor scrapes behind authenticated logins without documented "
+                    "authorization from the source operator. High CFAA/legal risk.",
+                )
+            elif ddq.scrapes_behind_login:
+                # Authorization is what the CFAA turns on post-Van Buren, so this
+                # is not a hard reject — but it is never a clean approval either.
+                # Legal must confirm the instrument actually covers this
+                # collection and the firm's downstream use.
+                add_warning(
+                    FlagCode.LOGIN_SCRAPE_AUTHORIZED,
+                    "Vendor scrapes behind an authenticated login under documented "
+                    "authorization. Legal must verify the authorization instrument "
+                    "covers this collection method and the firm's intended use.",
                 )
             if ddq.bypasses_captchas:
                 add_warning(
@@ -244,15 +285,27 @@ class VendorDueDiligenceEvaluator:
                     "Data contains PII without robust anonymization protocols.",
                 )
 
-        # 6. DDQ freshness — fail closed on a stale or undated questionnaire.
+        # 6. DDQ freshness — fail closed on an undated, stale, or future-dated
+        # questionnaire. All three mean the same thing: the gate cannot evidence
+        # that the responses describe the vendor's current practices.
+        evaluated_dt = _utc_now()
+        evaluation_date = evaluated_dt.date()
+
         if ddq.ddq_as_of_date is None:
             add_critical(
                 FlagCode.STALE_DDQ,
                 "DDQ undated — cannot verify freshness.",
             )
         else:
-            age_days = (datetime.date.today() - ddq.ddq_as_of_date).days
-            if age_days > self.max_ddq_age_days:
+            age_days = (evaluation_date - ddq.ddq_as_of_date).days
+            if age_days < -_FUTURE_DDQ_TOLERANCE_DAYS:
+                add_critical(
+                    FlagCode.FUTURE_DATED_DDQ,
+                    "DDQ dated %d days in the future (tolerance %d day(s)) — "
+                    "data-entry or backdating error; freshness cannot be relied on."
+                    % (-age_days, _FUTURE_DDQ_TOLERANCE_DAYS),
+                )
+            elif age_days > self.max_ddq_age_days:
                 add_critical(
                     FlagCode.STALE_DDQ,
                     "DDQ stale (age %d days > %d-day limit) — cannot verify freshness."
@@ -272,13 +325,11 @@ class VendorDueDiligenceEvaluator:
 
         risk_tier: Optional[str] = None
         next_review_date: Optional[str] = None
-        evaluated_at = _utc_now_iso()
+        evaluated_at = evaluated_dt.isoformat()
 
         if is_approved:
             risk_tier = _compute_risk_tier(ddq, tuple(warnings))
-            next_review_date = _next_review_date_iso(
-                risk_tier, datetime.date.fromisoformat(evaluated_at[:10])
-            )
+            next_review_date = _next_review_date_iso(risk_tier, evaluation_date)
 
         # Tiered logging by risk, not by approve/reject. Lazy interpolation so
         # error aggregators group by template instead of per-vendor (Pylint W1203).

@@ -16,8 +16,14 @@ IEEE-754 drift.
 Design notes
 ------------
 * Lot matching uses a hash index bucketed by ``(symbol, quantity, acquired_date,
-  sold_date)``. Matching a single key within a bucket is O(k) where k is the
-  bucket size (typically 1). Total reconcile cost is O(N + M).
+  sold_date)``. Pairing within a bucket is O(k**2) in the bucket size k, which
+  is 1 for the overwhelming majority of real lots, so the reconcile cost is
+  O(N + M) in practice and O(N + M + sum(k**2)) in the worst case.
+* Buckets are visited in internal-ledger insertion order so that two runs over
+  the same input emit the discrepancy list in the same order. Iterating a
+  ``set`` of match keys would not: string hashing is randomized per process, so
+  the artifact would reorder between runs and could not be diffed against the
+  previously accepted one (see ``assets/checklist.md`` step 7).
 * Tolerances are configurable and dual (absolute cents + relative percent) so
   the engine works equally well on penny-lots and $10M bond lots.
 * All output monetary fields are :class:`decimal.Decimal` quantized to two
@@ -30,14 +36,19 @@ import logging
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date
-from decimal import Decimal, ROUND_HALF_UP, getcontext
+from decimal import Decimal, ROUND_HALF_UP
 from enum import Enum
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
-# 28 significant digits is the default; tax-lot math in practice needs < 20.
-getcontext().prec = 28
-
+# Tax-lot math needs well under 20 significant digits, so the interpreter's
+# default context precision (28) is always sufficient. This module deliberately
+# does NOT set ``getcontext().prec``: that mutates state shared with every other
+# Decimal user in the host process, and silently lowering a caller's
+# deliberately-raised precision would be very hard to trace back to here.
 _CENT = Decimal("0.01")
+
+#: Fields validated for finiteness at ingestion (see ``_validate_lot``).
+_NUMERIC_FIELDS = ("quantity", "proceeds", "cost_basis", "wash_sale_disallowed_amount")
 
 
 # ---------------------------------------------------------------------------
@@ -140,7 +151,24 @@ class DiscrepancyReason(str, Enum):
     WASH_SALE_AMOUNT_MISMATCH = "Wash Sale Disallowed Amount Mismatch"
     BASIS_OUTSIDE_TOLERANCE = "Basis Outside Tolerance"
     PROCEEDS_OUTSIDE_TOLERANCE = "Proceeds Outside Tolerance"
+    #: Reserved. Duplicate ids are rejected at ingestion time by
+    #: ``load_internal_lot`` / ``load_broker_lot``, which raise ``ValueError``
+    #: rather than emitting a discrepancy, so the engine never returns this
+    #: reason. It is retained because it is part of the published enum.
     DUPLICATE_LOT_ID = "Duplicate Lot ID"
+
+
+#: Stable snake_case metric key per reason, so ``metrics()`` output keys do not
+#: shift if an enum value string is ever reworded.
+_METRIC_KEYS: Dict["DiscrepancyReason", str] = {
+    DiscrepancyReason.MISSING_IN_BROKER: "missing_in_broker",
+    DiscrepancyReason.MISSING_IN_INTERNAL: "missing_in_internal",
+    DiscrepancyReason.WASH_SALE_FLAG_MISMATCH: "wash_sale_flag_mismatch",
+    DiscrepancyReason.WASH_SALE_AMOUNT_MISMATCH: "wash_sale_amount_mismatch",
+    DiscrepancyReason.BASIS_OUTSIDE_TOLERANCE: "basis_outside_tolerance",
+    DiscrepancyReason.PROCEEDS_OUTSIDE_TOLERANCE: "proceeds_outside_tolerance",
+    DiscrepancyReason.DUPLICATE_LOT_ID: "duplicate_lot_id",
+}
 
 
 @dataclass(frozen=True)
@@ -154,12 +182,61 @@ class Discrepancy:
 
 @dataclass(frozen=True)
 class MatchPair:
+    """One internal lot paired with one broker 1099-B line.
+
+    ``proceeds_delta`` and ``basis_delta`` are both signed *internal minus
+    broker*. Note that Form 8949 column (g) runs the other way round — use
+    :attr:`form_8949_column_g_basis_adjustment` rather than ``basis_delta``
+    when building a filing.
+    """
+
     internal_lot_id: str
     broker_lot_id: str
     is_wash_sale: bool
     proceeds_delta: Decimal
     basis_delta: Decimal
+    #: True only where BOTH sides call the lot covered. Conservative summary
+    #: flag; it is deliberately *not* what drives Form 8949 box routing.
     covered: bool = True
+    #: The broker's own covered status (Form 1099-B box 12 / box 5). This is
+    #: what the IRS matches the return against, so this is the flag that
+    #: selects box A/D versus B/E.
+    broker_covered: bool = True
+
+    @property
+    def form_8949_column_g_basis_adjustment(self) -> Decimal:
+        """Form 8949 column (g) basis adjustment implied by this pair.
+
+        Per the "Worksheet for Basis Adjustments in Column (g)" in the
+        Instructions for Form 8949, line 1 is the basis shown on Form 1099-B
+        (box 1e) and line 2 is the correct basis. The worksheet directs a
+        *positive* column (g) entry when line 1 exceeds line 2 and a *negative*
+        one when line 2 exceeds line 1. Treating the broker figure as line 1
+        and the internal figure as line 2, the entry is therefore
+        ``broker_basis - internal_basis`` — the **negation** of
+        :attr:`basis_delta`. Getting this sign backwards doubles the basis
+        error instead of cancelling it, so the rule is encoded here rather
+        than left to the caller.
+
+        Returns ``Decimal("0.00")`` for a noncovered pair (Form 8949 box B or
+        E), where the instructions direct the filer to put the correct basis
+        straight into column (e) and enter -0- in column (g).
+
+        Routing keys off :attr:`broker_covered`, not :attr:`covered`. Where the
+        two sides disagree about covered status, the broker's box 12 is what
+        the IRS matched the return against, so a lot the broker reported as
+        covered still needs a real column (g) entry even if the internal ledger
+        called it noncovered. Keying off the conservative ``covered`` AND would
+        silently return -0- there and under-state the correction. The engine
+        does not currently emit a discrepancy for a covered-flag disagreement;
+        compare ``covered`` against ``broker_covered`` if you need to catch it.
+        """
+        if not self.broker_covered:
+            return Decimal("0.00")
+        adjustment = -self.basis_delta
+        # ``-Decimal("0.00")`` is Decimal("-0.00"); normalize the sign so the
+        # archived artifact never renders a negative zero.
+        return adjustment if adjustment else Decimal("0.00")
 
 
 @dataclass(frozen=True)
@@ -187,7 +264,12 @@ class ReconciliationResult:
         return len(self.discrepancies)
 
     def metrics(self) -> Dict[str, int | Decimal]:
-        """Operational metrics by reason and aggregate dollar deltas."""
+        """Operational metrics by reason and aggregate dollar deltas.
+
+        Every member of :class:`DiscrepancyReason` is represented, zero-valued
+        when it did not occur. The two aggregate deltas are signed *internal
+        minus broker* sums over all matched pairs.
+        """
         by_reason: Dict[DiscrepancyReason, int] = defaultdict(int)
         total_proceeds_delta = Decimal("0.00")
         total_basis_delta = Decimal("0.00")
@@ -199,16 +281,20 @@ class ReconciliationResult:
             total_basis_delta += pair.basis_delta
         for d in self.discrepancies:
             by_reason[d.reason] += 1
-        return {
+        metrics: Dict[str, int | Decimal] = {
             "matched_clean": self.matched_clean,
             "matched_with_discrepancies": self.matched_with_discrepancies,
-            "missing_in_broker": by_reason[DiscrepancyReason.MISSING_IN_BROKER],
-            "missing_in_internal": by_reason[DiscrepancyReason.MISSING_IN_INTERNAL],
+            "discrepancy_count": self.discrepancy_count,
             "total_basis_delta": total_basis_delta.quantize(_CENT, rounding=ROUND_HALF_UP),
             "total_proceeds_delta": total_proceeds_delta.quantize(
                 _CENT, rounding=ROUND_HALF_UP
             ),
         }
+        # Every emittable reason gets a key, present and zero when unseen, so a
+        # downstream dashboard or alert rule never has to guard on absence.
+        for reason in DiscrepancyReason:
+            metrics[_METRIC_KEYS[reason]] = by_reason[reason]
+        return metrics
 
 
 # ---------------------------------------------------------------------------
@@ -329,11 +415,16 @@ class S1099BAndBrokerTaxReportingReconciliationEngine:
         consumed_broker: set[str] = set()
         consumed_internal: set[str] = set()
 
-        for key in set(internal_index) | set(broker_index):
-            internal_bucket = internal_index.get(key, [])
+        # Iterate in internal-ledger insertion order, NOT over a set of match
+        # keys: str hashing is randomized per process, so set iteration would
+        # reorder the emitted discrepancy list between runs on identical input
+        # and make the archived artifact undiffable. Keys present only on the
+        # broker side are skipped here anyway (no internal lot to pair with)
+        # and are swept up by the missing-in-internal pass below.
+        for key, internal_bucket in internal_index.items():
             broker_bucket = broker_index.get(key, [])
 
-            if not (broker_bucket and internal_bucket):
+            if not broker_bucket:
                 continue
 
             # Two-pass within bucket:
@@ -499,6 +590,7 @@ class S1099BAndBrokerTaxReportingReconciliationEngine:
                 proceeds_delta=proceeds_delta,
                 basis_delta=basis_delta,
                 covered=internal.covered and broker.covered,
+                broker_covered=broker.covered,
             ),
             discrepancies,
         )
@@ -509,6 +601,21 @@ class S1099BAndBrokerTaxReportingReconciliationEngine:
             raise ValueError(f"{source} lot_id must be a non-empty string")
         if not lot.symbol or not isinstance(lot.symbol, str):
             raise ValueError(f"{source} symbol must be a non-empty string")
+        # Non-finite values must be rejected BEFORE any comparison or
+        # arithmetic. A blank cost-basis cell in a broker CSV (common on
+        # noncovered rows) becomes float("nan") -> Decimal("NaN") in
+        # TaxLot.__post_init__; Decimal NaN raises InvalidOperation on ``<=``
+        # and Decimal Infinity raises it on ``quantize``. Without this guard a
+        # single blank cell aborts the whole run with a bare InvalidOperation
+        # carrying no lot id.
+        for field_name in _NUMERIC_FIELDS:
+            value = getattr(lot, field_name)
+            if value is not None and not value.is_finite():
+                raise ValueError(
+                    f"{source} lot {lot.lot_id} has non-finite {field_name} "
+                    f"({value}); a blank or unparsed monetary cell must be "
+                    "resolved before ingestion, not passed through as NaN"
+                )
         if lot.quantity is None or lot.quantity <= 0:
             raise ValueError(
                 f"{source} lot {lot.lot_id} quantity must be > 0 (got {lot.quantity})"
@@ -528,10 +635,8 @@ class S1099BAndBrokerTaxReportingReconciliationEngine:
 # ---------------------------------------------------------------------------
 
 
-def _default_logger():
+def _default_logger() -> logging.Logger:
     """Return a module-level logger without configuring global logging."""
-    import logging
-
     return logging.getLogger(__name__)
 
 

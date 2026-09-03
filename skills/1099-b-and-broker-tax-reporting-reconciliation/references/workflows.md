@@ -11,7 +11,7 @@ End-to-end procedures for institutional-grade reconciliation.
    Jan 15*         Initial: ~Feb 15*        daily ETL
                   Doc-retrieval cadence:     (already running)
                   corrected forms may
-                  arrive up to 2 yr later
+                  arrive up to 3 yr later
         \                │                      /
          \               ▼                     /
           ─────────► [Run Engine] ◄───────────
@@ -38,14 +38,27 @@ End-to-end procedures for institutional-grade reconciliation.
 
 ### Phase 2 — Broker Document Retrieval (target: Feb 1–Mar 15)
 
-Broker reporting cadence (US, per IRS regulations and FINRA 4530):
+Broker reporting cadence (US). The only hard date here is the statutory one:
+recipient statements for Form 1099-B are due **February 15** of the year
+following the calendar year reported (extended from the general 31 January
+information-return date; see [Publication 1099, *General Instructions for
+Certain Information Returns*](https://www.irs.gov/publications/p1099)). If
+February 15 falls on a weekend or a DC legal holiday it moves to the next
+business day. Every other row below is observed industry practice, not a rule:
 
-| Document | Earliest availability | Latest practical arrival |
-|----------|----------------------|--------------------------|
-| Preliminary 1099-B draft | Jan 31 | Mid-February |
-| Final 1099-B | Feb 15 | End of February |
-| Corrected 1099-B (1st wave) | End of February | April |
-| Corrected 1099-B (late) | Anytime up to 3 yr | Per IRS reporting rules |
+| Document | Earliest availability | Latest practical arrival | Basis |
+|----------|----------------------|--------------------------|-------|
+| Preliminary 1099-B draft | Late January | Mid-February | Broker practice |
+| Final 1099-B | Statutory due date **Feb 15** | Broker practice | Pub. 1099 |
+| Corrected 1099-B (1st wave) | End of February | April | Broker practice |
+| Corrected 1099-B (late) | Any time | Up to 3 years after the original filing | See below |
+
+On corrections, the Instructions for Form 1099-B are specific: on receiving a
+transfer statement or issuer statement showing the original return was
+incorrect, the broker must file a corrected Form 1099-B **within 30 days**, but
+need not do so at all if the statement arrives **more than 3 years** after the
+original was filed. That 3-year tail is why a reconciliation artifact has to
+stay reproducible long after filing.
 
 - Pull from the clearing broker's portal **or** the consolidated IRS Reporting Service feed.
 - Verify the file is the **final** version (not the preliminary draft). Brokers mark preliminary files explicitly.
@@ -72,7 +85,14 @@ engine.load_broker_lots(parse_lots("1099b_broker_final.csv"))
 
 result = engine.process_reconciliation()
 metrics = result.metrics()
-assert metrics["missing_in_broker"] == 0, "Resolve end-of-year settlement disconnects first"
+# Every reason has a key, present and zero when unseen.
+assert metrics["missing_in_broker"] == 0, (
+    "Internal lots absent from the 1099-B — resolve each one (see Phase 4) "
+    "before generating Form 8949 rows"
+)
+assert metrics["missing_in_internal"] == 0, (
+    "Broker reported a disposition the ledger never saw — HALT, do not file"
+)
 ```
 
 See `SKILL.md` Decision Points table for response-by-classification.
@@ -83,9 +103,22 @@ For each `DiscrepancyReason`, follow this dispatch:
 
 ```
 MISSING_IN_BROKER:
-  ⋅ Check broker's "trades" view (not 1099-B) in the days after EOY.
-  ⋅ Most often: Dec 30/31 trade → settlements in next calendar year.
-  ⋅ Document the list of NEXT-year settlement trades; keep on file for FY2 reconciliation.
+  ⋅ Do NOT write this off as "it settled in January". Box 1c is the trade
+    date, so a Dec 30/31 sale is on the CURRENT year's 1099-B. A missing row
+    is a real break until proven otherwise.
+  ⋅ Work the causes in order:
+      1. Internal ledger booked on settlement date instead of trade date —
+         mis-dates every year-boundary lot. Fix upstream; do not tolerate.
+      2. Open short sale — the broker does not report it until the year the
+         customer delivers a security to close. The only routine legitimate
+         cause. Document and carry to the closing year.
+      3. Lot held at a different account or broker than the 1099-B being
+         reconciled.
+      4. Broker aggregated several dispositions onto one row (box 1a
+         "various"), so no per-lot counterpart exists to match.
+      5. Corporate action the internal ledger treated as a disposition and
+         the broker did not (or vice versa).
+  ⋅ Document the disposition of every one before filing.
 
 MISSING_IN_INTERNAL:
   ⋅ Broken import / missed write / transfer-in failure.
@@ -96,14 +129,56 @@ WASH_SALE_FLAG_MISMATCH or WASH_SALE_AMOUNT_MISMATCH:
   ⋅ Follow `wash-sale-rule-tracking-us` for the authoritative calculation window.
   ⋅ Apply Form 8949 column (f) code W + column (g) adjustment.
 
-BASIS_OUTSIDE_TOLERANCE or PROCEEDS_OUTSIDE_TOLERANCE:
-  ⋅ If covered security and broker's basis ≠ internal:
-        col(e) = broker's basis (per IRS Form 8949 instructions)
-        col(g) = internal − broker, code B
-        Attach explanation statement if discrepancy > $50.
-  ⋅ If noncovered security and broker's basis ≠ internal:
-        col(e) = internal correct basis
-        col(g) = 0, no code needed (or code O + statement).
+BASIS_OUTSIDE_TOLERANCE:
+  ⋅ FIRST establish which side is wrong. Code B asserts the broker's basis is
+    incorrect; do not apply it before the internal basis is substantiated
+    against trade tickets and applied corporate actions.
+  ⋅ If COVERED (Form 8949 box A or D):
+        col(e) = the broker's box 1e figure, even though it is incorrect
+        col(f) = B
+        col(g) = broker − internal        <-- NOT internal − broker
+  ⋅ If NONCOVERED (Form 8949 box B or E):
+        col(e) = the correct internal basis
+        col(g) = -0-, no adjustment code
+
+PROCEEDS_OUTSIDE_TOLERANCE:
+  ⋅ Not a code-B situation — code B addresses basis only.
+  ⋅ Verify against the trade ticket / confirmation and reconcile the gross vs
+    net question first (1099-B box 6 says whether proceeds are reported gross
+    or net of commissions; an internal ledger booking net proceeds against a
+    gross-reporting broker produces a systematic, one-signed delta across
+    every lot).
+  ⋅ Escalate an unexplained proceeds difference to the broker for a corrected
+    1099-B. Do not paper over it with an adjustment code.
+```
+
+### The column (g) sign, once, carefully
+
+The "Worksheet for Basis Adjustments in Column (g)" in the Instructions for
+Form 8949 defines it as:
+
+- **line 1** — the basis shown on Form 1099-B (box 1e)
+- **line 2** — the correct basis
+- line 1 > line 2 ⇒ enter `line 1 − line 2` in column (g) as a **positive** number
+- line 2 > line 1 ⇒ enter `line 2 − line 1` in column (g) as a **negative** number
+
+The engine's `basis_delta` is `internal − broker`, which is line 2 − line 1 —
+the *opposite* orientation. So:
+
+```
+col(g) = broker_basis − internal_basis = −basis_delta
+```
+
+Reading `basis_delta` straight into column (g) doubles the basis error instead
+of cancelling it. Use `MatchPair.form_8949_column_g_basis_adjustment`, which
+applies this sign and returns `0.00` for noncovered pairs:
+
+```python
+for pair, discrepancies in result.matched_with_discrepancies_seq:
+    adjustment = pair.form_8949_column_g_basis_adjustment
+    # covered + broker basis too low  -> negative column (g)
+    # covered + broker basis too high -> positive column (g)
+    # noncovered                      -> 0.00 (correct basis goes in column (e))
 ```
 
 ### Phase 5 — CPA Handoff
@@ -120,13 +195,13 @@ If the broker issues a corrected 1099-B (rare after Mar 15, not uncommon for the
 1. Re-load both ledgers (clear the engine via `.clear()` first).
 2. Diff the corrected 1099-B rows against the prior accepted set.
 3. Re-issue the Form 8949 rows that changed, marked "corrected" in the underlying pipeline.
-4. File Form 1040-X (Amended U.S. Individual Income Tax Return) **only** if the changes exceed **$100 OR a substantive tax-change**. Per IRS instructions, do not amend unless necessary.
+4. Decide on Form 1040-X (Amended U.S. Individual Income Tax Return). The Instructions for Form 1040-X set **no dollar threshold** — there is no IRS de minimis amount below which an amendment is excused, only the filing time limits (generally 3 years from filing the original return, or 2 years from paying the tax, whichever is later). What the instructions *do* say is not to amend for math errors, which the IRS corrects itself. Any dollar figure your firm uses to trigger this step is an internal materiality policy and should be recorded as such in the artifact, alongside the tax-preparer's judgment.
 
 ## Operational Integration
 
 - **CI / pre-run checks** — re-run this skill against a fixture of internal-vs-broker known-bad data; verify discrepancy counts match the test set.
 - **Monitoring** — alert on `missing_in_broker > 5% of internal_count` and `total_basis_delta > 1000 USD`. Integrate with `runbook-automation-for-common-incident-types`.
-- **Audit trail** — every run writes a JSON-serialized `ReconciliationResult` plus input ledger checksums under a dated path. Retention: minimum 7 years (US Pub 583).
+- **Audit trail** — every run writes a JSON-serialized `ReconciliationResult` plus input ledger checksums under a dated path. Output ordering is deterministic (internal-ledger order), so a rerun over the same input diffs cleanly against the previously accepted artifact. For retention periods see `standards.md` → Security / PII guidance; note that the corrected-1099-B tail runs up to 3 years past the original filing.
 - **PII handling** — see `standards.md` Security / PII guidance. Never route raw 1099-B through LLM tooling without redaction.
 
 ## Mid-Year (Non-EOY) Reconciliation
@@ -134,7 +209,7 @@ If the broker issues a corrected 1099-B (rare after Mar 15, not uncommon for the
 Useful for risk-managed intraday positions, wash-sale surplus accumulation, and §475 traders with mark-to-market election.
 
 1. Run reconciliation on a quarterly cadence (Mar 31, Jun 30, Sep 30, Dec 31).
-2. Broker 1099-B filings are produced by the broker on-demand for mid-year; users must personally request the "year-to-date" statement.
+2. There is no mid-year 1099-B — it is an annual information return. Reconcile instead against the broker's year-to-date **realized gain/loss statement** or the raw trade-confirmation feed, and treat the result as a pipeline health check rather than a tax filing input. Expect the broker's YTD wash-sale and basis figures to be provisional until the annual form is cut.
 3. Tighter tolerances may be appropriate (e.g. `$0.01` absolute) since mid-year aggregation rules are simpler than EOY.
 4. Most discrepancies in mid-year reconciliation indicate **internal** issues (corporate action mis-applied, missing dividend reinvestment, wash-sale window from previous-month round trip).
 

@@ -25,6 +25,14 @@
      snapshot per poll.
    - Set `market_open_volatility = True` on snapshots that overlap a known
      market-open / fast-market window.
+   - Scrape per version/SHA, not per fleet, or the previous version's healthy
+     traffic dilutes the new version's breach.
+   - Treat an incomplete scrape as an evaluation failure, not a healthy sample:
+     if a series is missing, the scrape timed out, or the returned sample is
+     older than the poll interval, escalate rather than construct a snapshot.
+     Never substitute the previous value or a zero. `DeploymentHealthMetrics`
+     raises `ValueError` on any non-finite field, so a `NaN`/`Inf` reaching the
+     poller surfaces as an exception to handle rather than a silent `HEALTHY`.
 
 4. **Anomaly Evaluation**
    - Feed each snapshot into `AutomatedRollbackEngine.evaluate_metrics()`.
@@ -47,9 +55,22 @@
 
 7. **Rollback-Loop Guard**
    - While the cooldown is active, further `ROLLBACK` decisions are suppressed
-     (`SUPPRESSED`, `remaining_cooldown_s > 0`).
+     (`SUPPRESSED`, `remaining_cooldown_s > 0`) and the confirmation streak is
+     **held, not advanced** — samples taken while traffic is still rerouting to
+     the previous version are not evidence about the version under test. The
+     next automatic rollback must therefore earn a fresh streak after the
+     cooldown expires; without that, the cooldown would only pace a rollback
+     loop instead of preventing it.
    - Once `max_rollbacks_per_deployment` is reached, all further automatic
-     rollbacks are suppressed and the engine escalates to a human on-call.
+     rollbacks are suppressed and the engine escalates to a human on-call. A
+     firm at its cap is not waiting for anything, so the cooldown does not hold
+     the escalation back: at the default cap of 1 the next *confirmed* breach
+     pages immediately.
+   - Confirmation is evaluated before either guard, in every mode. A single
+     transient spike is never escalated, and detection-only mode
+     (`max_rollbacks_per_deployment = 0`) pages only on a confirmed anomaly.
+   - Both guards return `SUPPRESSED`; tell them apart by `rollbacks_issued` and
+     `remaining_cooldown_s` on the result.
 
 8. **Reversion**
    - The CI/CD controller scales down / drains the new container and scales up /
@@ -67,16 +88,26 @@
 ## Decision Flow
 
 ```
-snapshot -> detect anomalies?
-  no  -> HEALTHY (reset streak)
-  yes -> market_open_volatility?
-         yes -> SUPPRESSED (do not advance streak)
-         no  -> advance streak
-                -> rollback cap reached?  -> SUPPRESSED (escalate)
-                -> cooldown active?       -> SUPPRESSED
-                -> streak >= required?    -> ROLLBACK (record, cooldown, reset streak)
-                -> else                   -> CONFIRMING
+snapshot (fresh, complete, finite -- else escalate, do not evaluate)
+  -> detect anomalies?
+     no  -> HEALTHY (reset streak)
+     yes -> market_open_volatility?
+            yes -> SUPPRESSED (streak held)
+            no  -> cooldown active AND rollback budget remains?
+                   yes -> SUPPRESSED (streak held)
+                   no  -> advance streak
+                          -> streak < required   -> CONFIRMING
+                          -> cap reached         -> SUPPRESSED (escalate;
+                                                    streak keeps advancing as
+                                                    an escalation signal)
+                          -> otherwise           -> ROLLBACK (record, start
+                                                    cooldown, reset streak)
 ```
+
+Guard order matters twice. Confirmation precedes both loop guards, so a single
+transient spike is neither rolled back nor escalated in any mode. And the cooldown
+is bypassed once the cap is reached, so a firm out of rollback budget pages a human
+immediately rather than after the cooldown expires.
 
 ## Failure Modes and Recovery
 
@@ -87,3 +118,6 @@ snapshot -> detect anomalies?
 | Real market event misread as defect | Rejects/latency spike across both versions | `market_open_volatility` guard; confirm deployment correlation. |
 | Rollback causes harm (in-flight state) | Post-rollback verify window still failing | Do not re-roll back automatically; escalate; ensure rollback-safe schemas. |
 | Stale engine state from prior deploy | State carried across deployments | Call `engine.reset()` at the start of each new deployment. |
+| Frozen or incomplete telemetry | Gate reports `HEALTHY` for the whole window while the deployment misbehaves; sample timestamp stops advancing | Poller-side freshness and completeness check; a missing or stale sample escalates instead of evaluating. |
+| Non-finite metric or threshold | `ValueError` at snapshot/config construction | Fix the query or the scrape; never coerce `NaN`/`Inf` to a number to keep the pipeline moving. |
+| Rollback loop paced by the cooldown | Second rollback fires on the first sample after the cooldown expires | Cooldown-suppressed samples do not advance the streak; a fresh confirmation streak is required. |

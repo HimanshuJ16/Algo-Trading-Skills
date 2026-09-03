@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-28T15:41:32.030231+00:00",
+  "generated_at": "2026-09-03T04:12:18.933470+00:00",
   "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
   "domain": "algorithmic-trading",
   "total_skills": 504,
@@ -20,7 +20,7 @@
         "decimal-arithmetic"
       ],
       "brokers_frameworks": [],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/1099-b-and-broker-tax-reporting-reconciliation",
@@ -28,7 +28,7 @@
     },
     {
       "name": "adaptive-batch-size-tuning-under-load",
-      "description": "Use when writing market data or order logs to downstream databases (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch sizes and flush timeouts based on queue pressure and sink write latency. Hysteresis-shaped, EWMA-smoothed, back-pressure-aware. Single-writer / multi-producer thread-safe engine, not a generic embedder.",
+      "description": "Use when writing market data or order logs to downstream databases (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch sizes and flush timeouts based on batch fullness at the flush boundary and sink write latency. Hysteresis-shaped, EWMA-smoothed, back-pressure-aware. Single-writer / multi-producer thread-safe engine, not a generic embedder.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -41,7 +41,7 @@
         "ewma"
       ],
       "brokers_frameworks": [],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/adaptive-batch-size-tuning-under-load",
@@ -63,7 +63,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/adaptive-execution-under-volatility-spikes",
@@ -86,7 +86,7 @@
         "Adaptive Tick Sampler",
         "Python Real-Time Engine"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/adaptive-sampling-under-extreme-tick-rates",
@@ -109,7 +109,7 @@
         "Price Adjustment Auditor",
         "Python"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/adjusted-vs-unadjusted-price-series-pitfalls",
@@ -117,7 +117,7 @@
     },
     {
       "name": "adversarial-robustness-of-trading-signals",
-      "description": "Pre-deployment governance gate that measures how often an ML trading signal can be flipped by epsilon-bounded feature perturbations (FGSM-lite / market microstructure noise). Deterministic, domain-clipped, multi-noise-model robustness tester producing a vulnerability score and flipped-sample indices. Rejects models whose signal flips faster than the configured tolerance before they go live.",
+      "description": "Pre-deployment governance gate that measures how often an ML trading signal can be flipped by epsilon-bounded feature perturbations (FGSM-lite / market microstructure noise). Deterministic, domain-clipped, multi-noise-model robustness tester producing a vulnerability score with a Wilson confidence bound and flipped-sample indices. Rejects models whose signal flips faster than the configured tolerance before they go live.",
       "domain": "algorithmic-trading",
       "subdomain": "financial-ml-robustness",
       "tags": [
@@ -133,7 +133,7 @@
         "scikit-learn",
         "numpy"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/adversarial-robustness-of-trading-signals",
@@ -141,7 +141,7 @@
     },
     {
       "name": "adverse-selection-measurement-for-passive-orders",
-      "description": "Post-trade markout engine for passive (resting limit) fills. Computes forward-horizon markouts in basis points across a sorted, lookahead-safe market mid series to quantify adverse selection (toxic flow). Per-horizon distribution stats, quantity-weighting, fill-to-mid and arrival-to-mid bases, no-lookahead as-of guard, and explicit truncation accounting. Flags a curve as toxic when a majority of horizons are negative.",
+      "description": "Post-trade markout engine for passive (resting limit) fills. Computes forward-horizon markouts in basis points against the prevailing (as-of) mid at each horizon, never the nearest in time, so a 100 ms markout is not silently measured from a later quote. Per-horizon distribution stats, quantity-weighting, fill-to-mid and arrival-to-mid (mid-to-mid) bases, a no-lookahead as-of guard on both bases, an optional mid-staleness bound, and explicit truncation accounting. Refuses to fabricate a mid, and scores toxicity over evaluable horizons only so a missing horizon never votes healthy.",
       "domain": "algorithmic-trading",
       "subdomain": "execution-quality",
       "tags": [
@@ -156,7 +156,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/adverse-selection-measurement-for-passive-orders",
@@ -164,22 +164,31 @@
     },
     {
       "name": "air-gapped-signing-workflow-for-cold-storage",
-      "description": "Models a strict air-gapped Ethereum-style signing workflow (Coordinator -> QR/SD -> Offline Vault -> Sign -> Broadcast) for institutional crypto custody.",
-      "domain": "crypto-custody-security",
-      "subdomain": "Key Management",
+      "description": "Air-gapped signing workflow for Ethereum-style cold storage. An online coordinator issues chain-bound transfer intents that cross a QR/SD gap to an offline vault, which re-derives the approval display from the exact bytes it will sign, applies its own policy and anti-replay ledger, and returns an envelope bound to the payload hash. Broadcast is single-shot and reports an ambiguous RPC outcome as unresolved rather than failed.",
+      "domain": "Crypto Custody & Security",
+      "subdomain": "Air-Gapped Signing & Key Isolation",
       "tags": [
-        "crypto",
-        "custody",
-        "security",
+        "crypto-custody",
         "air-gap",
-        "clear-signing"
+        "cold-storage",
+        "clear-signing",
+        "blind-signing",
+        "eip-155",
+        "replay-protection",
+        "transaction-signing"
       ],
       "brokers_frameworks": [
-        "Generic"
+        "Generic EVM RPC",
+        "Hardware Wallet (Ledger/Trezor)",
+        "HSM",
+        "CCSS v9",
+        "EIP-155",
+        "ERC-7730",
+        "Python Dataclasses"
       ],
-      "version": "1.1.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/air-gapped-signing-workflow-for-cold-storage",
       "skill_md": "skills/air-gapped-signing-workflow-for-cold-storage/SKILL.md"
     },
@@ -198,7 +207,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algo-parameter-defaults-by-instrument-liquidity-tier",
@@ -220,7 +229,7 @@
       "brokers_frameworks": [
         "generic-fix"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algo-trading-disclosure-to-exchange-membership",
@@ -228,7 +237,7 @@
     },
     {
       "name": "algo-wheel-broker-execution-quality-comparison",
-      "description": "Compares broker execution quality with validated, notional-weighted implementation shortfall and produces deterministic canary-preserving flow allocations for an algorithmic broker wheel.",
+      "description": "Compares broker execution quality with validated, notional-weighted executed-quantity implementation shortfall and produces deterministic canary-preserving flow allocations for an algorithmic broker wheel.",
       "domain": "execution-algorithms",
       "subdomain": "smart-order-routing",
       "tags": [
@@ -242,7 +251,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algo-wheel-broker-execution-quality-comparison",
@@ -250,7 +259,7 @@
     },
     {
       "name": "algorithmic-trading-firm-licensing-thresholds",
-      "description": "Evaluates proprietary trading activity against global regulatory thresholds (SEC Rule 15b9-1, MiFID II, SEBI) to trigger mandatory firm licensing and registration alerts.",
+      "description": "Screens a trading firm against the quantitative registration triggers that actually exist \u2014 the 17 CFR 240.15b9-1 conditions for exemption from FINRA membership, the Article 19 message-rate test that makes a firm a MiFID II high-frequency trader, and the exchange Threshold Orders Per Second above which a retail API algorithm must be registered \u2014 and reports \"cannot determine\" rather than \"compliant\" when the measuring input is missing.",
       "domain": "regulatory-compliance",
       "subdomain": "legal-and-registration",
       "tags": [
@@ -258,12 +267,19 @@
         "sec",
         "finra",
         "mifid-ii",
-        "hft"
+        "hft",
+        "sebi",
+        "registration-thresholds"
       ],
       "brokers_frameworks": [
-        "Generic"
+        "17 CFR 240.15b9-1 as amended (88 FR 61893, Sept. 7, 2023)",
+        "Securities Exchange Act section 15(b)(8)",
+        "MiFID II Article 4(1)(40) and Article 2(1)(d)(iii)",
+        "Commission Delegated Regulation (EU) 2017/565 Article 19",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/0000013 with NSE/INVG/67858",
+        "Python Dataclasses"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/algorithmic-trading-firm-licensing-thresholds",
@@ -271,7 +287,7 @@
     },
     {
       "name": "alpaca-paper-live-key-separation",
-      "description": "Use when connecting a bot to Alpaca Trading API to strictly segregate paper and live credentials, enforce base URL endpoint matching, validate account environment flags, and prevent accidental live capital loss",
+      "description": "Use when connecting a bot to Alpaca Trading API to strictly segregate paper and live credentials, enforce base URL endpoint matching, validate account status and order-blocking flags, and prevent accidental live capital loss",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -284,7 +300,7 @@
       "brokers_frameworks": [
         "Alpaca Trading API v2"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/alpaca-paper-live-key-separation",
@@ -305,7 +321,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/alternative-data-feature-integration",
@@ -326,7 +342,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/alternative-data-vendor-due-diligence-checklist",
@@ -334,19 +350,22 @@
     },
     {
       "name": "american-vs-european-style-option-exercise-handling",
-      "description": "Quantitative decision engine for determining optimal early exercise conditions for American options vs holding to expiration (European style).",
-      "domain": "multi-asset-derivatives",
-      "subdomain": "options-pricing",
+      "description": "Holder-side exercise-vs-sell engine for long American-style options, deciding on intrinsic value against the executable bid, with the exact Merton ex-dividend condition available as a model cross-check when the quote cannot be trusted.",
+      "domain": "Options & Derivatives Trading",
+      "subdomain": "Holder-Side Early Exercise Decisions",
       "tags": [
         "options",
         "derivatives",
         "early-exercise",
+        "american-options",
+        "ex-dividend",
+        "put-call-parity",
         "quantitative-finance"
       ],
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "2.0.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/american-vs-european-style-option-exercise-handling",
@@ -354,7 +373,7 @@
     },
     {
       "name": "annual-compliance-attestation-workflow",
-      "description": "Automated compliance verification engine for SEC Rule 206(4)-7, FINRA Rule 3130, FINRA Rule 3120, and SEC Rule 15c3-5 annual attestations in quantitative hedge funds and broker-dealers.",
+      "description": "Annual compliance attestation gate for US advisers and broker-dealers \u2014 SEC Rule 206(4)-7(b), the Rule 204-2(a)(17)(ii) review record, FINRA Rule 3130 and 3120, and SEC Rule 15c3-5(e), with every block traced to the provision that requires it.",
       "domain": "regulatory-compliance",
       "subdomain": "institutional-reporting",
       "tags": [
@@ -369,7 +388,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/annual-compliance-attestation-workflow",
@@ -392,7 +411,7 @@
         "Security Audit Engine",
         "Python Security"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/api-key-least-privilege-audit-tool",
@@ -413,7 +432,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/app-download-and-usage-data-for-consumer-companies",
@@ -434,7 +453,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/arrival-price-benchmark-execution-algo",
@@ -442,7 +461,7 @@
     },
     {
       "name": "asic-market-integrity-rules-automated-trading",
-      "description": "Compliance engine enforcing ASIC Market Integrity Rules (MIRs) for Automated Order Processing (AOP), including pre-trade filters and kill switches.",
+      "description": "Automated Order Processing gate for Australian licensed securities markets under ASIC Market Integrity Rules (Securities Markets) 2017 Part 5.6 \u2014 reject-outcome pre-trade filters on value, volume and price deviation, scoped Rule 5.6.3(1)(d) suspension of AOP by authorised person, client, product, market or algorithm, the 5.6.3(1)(e) cancellation hand-off for messages already in the market, and recorded filter-parameter control under 5.6.3(2).",
       "domain": "regulatory-compliance-global",
       "subdomain": "regulatory",
       "tags": [
@@ -455,7 +474,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "2.0.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/asic-market-integrity-rules-automated-trading",
@@ -476,7 +495,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "2.0.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/auction-only-order-types-for-illiquid-names",
@@ -484,20 +503,21 @@
     },
     {
       "name": "audit-logging-for-configuration-changes",
-      "description": "Immutable audit logging engine enforcing SEC Reg SCI and FINRA Rule 3110 compliance for algorithmic trading configuration changes.",
+      "description": "Tamper-evident, hash-chained audit trail for changes to trading-system configuration and risk-control parameters \u2014 recording who changed what, from which value to which, why, and in which environment; retaining rejected attempts as supervisory evidence; and verifying an archived chain for edits, middle deletions, reordering and gaps.",
       "domain": "deployment-ops",
       "subdomain": "regulatory",
       "tags": [
         "compliance",
         "audit-logging",
-        "sec-reg-sci",
+        "change-management",
+        "tamper-evident",
         "finra-3110",
         "risk-controls"
       ],
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/audit-logging-for-configuration-changes",
@@ -505,7 +525,7 @@
     },
     {
       "name": "australia-asic-drt-obligations",
-      "description": "Compliance validation engine enforcing ASIC Derivative Transaction Rules (DRT) 2024, ensuring mandatory LEI, UTI, and UPI fields for OTC derivatives reporting.",
+      "description": "Pre-submission validation gate for OTC derivative reports under the ASIC Derivative Transaction Rules (Reporting) 2024 \u2014 ISO 17442 LEI with MOD 97-10 check digits, ISO 23897 UTI, ISO 4914 UPI and the Item 92 package identifier, plus the Rule 2.2.3 T+2/T+4 business-day deadline including the FX-swap-leg carve-out and the repository-unavailability relief.",
       "domain": "regulatory-compliance-global",
       "subdomain": "regulatory",
       "tags": [
@@ -521,7 +541,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "2.0.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/australia-asic-drt-obligations",
@@ -543,7 +563,7 @@
       "brokers_frameworks": [
         "direct-market-access"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/australian-securities-exchange-asx-api",
@@ -564,7 +584,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "2.0.0",
+      "version": "2.1.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/automated-rollback-triggers-on-anomaly-detection",
@@ -586,7 +606,7 @@
       "brokers_frameworks": [
         "generic"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": "System",
       "license": "MIT",
       "path": "skills/automated-tax-lot-reporting-pipeline",
@@ -11507,7 +11527,7 @@
     },
     {
       "name": "tail-correlation-between-strategies-under-stress",
-      "description": "Quantify lower-tail dependence and non-linear correlation spikes between strategies during market crash regimes.",
+      "description": "Measure lower-tail dependence and joint-tail exceedance correlation between strategies, benchmarked against a Gaussian-copula null so conditioning bias is not mistaken for diversification breakdown.",
       "domain": "portfolio-multi-strategy",
       "subdomain": "tail-risk",
       "tags": [
@@ -11519,10 +11539,9 @@
       ],
       "brokers_frameworks": [
         "numpy",
-        "pandas",
-        "scipy"
+        "pandas"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "Quant Team",
       "license": "MIT",
       "path": "skills/tail-correlation-between-strategies-under-stress",
@@ -11530,7 +11549,7 @@
     },
     {
       "name": "tail-risk-hedging-with-options",
-      "description": "Implement systematic out-of-the-money put option overlays, negative carry budgeting, and Black-Scholes convex crash payout simulation.",
+      "description": "Use when sizing a systematic out-of-the-money index put overlay against a stated annual premium budget. Prices the put with Black-Scholes (including dividend yield), returns Delta, Gamma, Vega and Theta, spreads the annual carry budget across the roll cycle instead of spending it on every tranche, caps hedged notional at portfolio notional, and reports crash payoffs net of premium paid. Requires the selected strike's own implied volatility, not ATM vol.",
       "domain": "risk-management",
       "subdomain": "tail-risk",
       "tags": [
@@ -11539,82 +11558,99 @@
         "otm-puts",
         "black-scholes",
         "convex-payoff",
-        "carry-budget"
+        "carry-budget",
+        "volatility-skew",
+        "roll-cycle"
       ],
       "brokers_frameworks": [
-        "numpy",
-        "scipy"
+        "Python Standard Library (math)",
+        "Python Dataclasses",
+        "Black-Scholes-Merton",
+        "CBOE SPX Index Options",
+        "OCC Equity Options"
       ],
-      "version": "1.0.0",
-      "author": "Quant Team",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/tail-risk-hedging-with-options",
       "skill_md": "skills/tail-risk-hedging-with-options/SKILL.md"
     },
     {
       "name": "taiwan-stock-exchange-twse-api",
-      "description": "Institutional trading integration with Taiwan Stock Exchange (TWSE), enforcing FINI registration IDs, 10% daily price limits, dynamic tick size regimes, board lot validation, and naked short selling restrictions.",
-      "domain": "Execution",
-      "subdomain": "Venue Integration",
+      "description": "Use when an order is about to be sent to the Taiwan Stock Exchange and must first be legal for the security it names \u2014 the six-band equity tick schedule of Operating Rules Article 62 (which is not the two-tier ETF table), the Article 63 \u00b110% band whose bounds are snapped onto the tick grid toward the auction reference price, the 1,000-share trading unit and its odd-lot exceptions, the session-by-session order-type matrix, and the \u5e73\u76e4\u4ee5\u4e0b short-sale restriction that replaces any notion of a US-style locate.",
+      "domain": "Global Market Integration & FX",
+      "subdomain": "Taiwanese Market Connectivity & TWSE Gateway",
       "tags": [
-        "taiwan-stock-exchange",
         "twse",
+        "taiwan-stock-exchange",
         "fini",
-        "venue-integration",
-        "execution"
+        "tick-size",
+        "price-limit",
+        "odd-lot-trading",
+        "short-selling"
       ],
       "brokers_frameworks": [
-        "generic"
+        "TWSE centralised market (\u96c6\u4e2d\u4ea4\u6613\u5e02\u5834) matching engine",
+        "TWSE Operating Rules Articles 62 and 63",
+        "TWSE \u5e73\u76e4\u4e0b\u5f97\u878d(\u501f)\u5238\u8ce3\u51fa daily list (report TWT92U)",
+        "TWSE OpenAPI (open data only, no order entry)",
+        "TWSE member securities-firm order-entry link (\u96fb\u8166\u81ea\u52d5\u4ea4\u6613\u8cb7\u8ce3\u7533\u5831)",
+        "Python Decimal"
       ],
-      "version": "1.0.0",
-      "author": "System",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/taiwan-stock-exchange-twse-api",
       "skill_md": "skills/taiwan-stock-exchange-twse-api/SKILL.md"
     },
     {
       "name": "tase-israel-exchange-api",
-      "description": "Institutional connectivity engine for the Tel Aviv Stock Exchange (TASE), supporting FIX 5.0 SP2 session management, Agorot-ILS currency scaling, Sunday-Thursday trading calendar compliance, and pre-trade risk controls.",
+      "description": "Use when routing orders to the Tel Aviv Stock Exchange (TASE): resolves the Monday-Friday trading week adopted on 5 January 2026 (replacing Sunday-Thursday) with an Asia/Jerusalem IST/IDT-aware session calendar, scales prices between Agorot, ILS and percentage-of-par without the 100x denomination error, and fails pre-trade risk controls closed on unknown symbols and unpriced market orders.",
       "domain": "Execution",
       "subdomain": "Venue Integration",
       "tags": [
         "tase",
         "israel",
-        "fix-protocol",
-        "order-routing",
-        "market-data",
+        "venue-integration",
+        "session-calendar",
         "agorot-conversion",
-        "sunday-trading"
+        "price-denomination",
+        "pre-trade-risk"
       ],
       "brokers_frameworks": [
-        "quickfix",
-        "tase-data-hub"
+        "TASE (Nasdaq Genium INET platform)",
+        "QuickFIX / FIX 4.4",
+        "Python standard library (zoneinfo)"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/tase-israel-exchange-api",
       "skill_md": "skills/tase-israel-exchange-api/SKILL.md"
     },
     {
       "name": "tastytrade-api-integration",
-      "description": "Use when connecting to Tastytrade (Tastyworks) API for options and futures trading to handle session token auth, option chain OCC ticker resolution, multi-leg complex option order construction, and account position tracking.",
+      "description": "Use when connecting a bot to the Tastytrade API for options or futures trading. The first finding is usually that the flow you were about to write no longer exists: Tastytrade discontinued POST /sessions username-and-password session-token authentication on 2025-12-01, replacing it with an OAuth2 refresh-token grant whose access tokens live 15 minutes. Covers the OAuth2 flow, the required <product>/<version> User-Agent, strict 21-character OCC option symbol construction, the /orders/dry-run buying-power preflight, multi-leg order payloads whose direction lives in price-effect rather than the sign of price, and the reconcile-don't-retry rule for an order submission with no client-supplied idempotency key.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
         "broker-integration",
         "tastytrade",
         "tastyworks",
+        "oauth2",
         "options-trading",
         "multi-leg-orders",
+        "occ-symbology",
+        "order-reconciliation",
         "futures"
       ],
       "brokers_frameworks": [
-        "Tastytrade API",
-        "Python requests",
-        "tastytrade-sdk"
+        "Tastytrade API (api.tastyworks.com)",
+        "OAuth 2.0 refresh-token grant (RFC 6749)",
+        "OCC 21-character option symbology",
+        "tastyware/tastytrade (community reference client)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/tastytrade-api-integration",
@@ -11622,34 +11658,36 @@
     },
     {
       "name": "test-transaction-verification-before-large-transfers",
-      "description": "Institutional crypto custody & treasury verification engine requiring mandatory dust test transactions, address whitelisting, on-chain confirmation depth verification, and time-decay security windows prior to releasing high-value transfers.",
-      "domain": "Crypto Custody",
-      "subdomain": "Security",
+      "description": "Pre-signing policy gate for high-value crypto transfers. Requires a dust test transaction bound to the request's recipient address, chain and amount, an out-of-band counterparty receipt attestation, live confirmation depth, and a time-decay window latched at first confirmation \u2014 because confirmation depth alone confirms a wrong address just as reliably as a right one.",
+      "domain": "Crypto Custody Security",
+      "subdomain": "Treasury Transfer Verification & Destination Address Controls",
       "tags": [
-        "crypto",
-        "custody",
-        "treasury",
-        "security",
+        "crypto-custody",
         "test-transaction",
         "dust-verification",
-        "mpc-vault",
-        "multi-sig"
+        "treasury",
+        "address-whitelisting",
+        "destination-tag",
+        "confirmation-depth",
+        "spend-verification"
       ],
       "brokers_frameworks": [
-        "fireblocks",
-        "bitgo",
-        "coinbase-custody",
-        "safe-multisig"
+        "Fireblocks",
+        "BitGo",
+        "Coinbase Custody",
+        "Safe{Wallet} Smart Account",
+        "CCSS v9",
+        "Python Dataclasses"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/test-transaction-verification-before-large-transfers",
       "skill_md": "skills/test-transaction-verification-before-large-transfers/SKILL.md"
     },
     {
       "name": "third-party-custody-audit-report-review-cadence",
-      "description": "Institutional audit review engine for third-party crypto & asset custodians, enforcing annual SOC 1/2 Type II reviews, gap letter coverage, Proof of Reserves attestations, and CUEC control compliance.",
+      "description": "Audit-evidence review cadence engine for third-party crypto and asset custodians: tracks SOC 1/SOC 2 Type II coverage against a configurable review cadence, validates auditor opinions, accepts or rejects management bridge (gap) letters on their real evidential weight, checks Proof of Reserves freshness, and scores the firm's own implementation of the report's Complementary User Entity Controls. Fails closed: unassessed evidence is never scored as compliant.",
       "domain": "Crypto Custody",
       "subdomain": "Security",
       "tags": [
@@ -11666,11 +11704,14 @@
         "fireblocks",
         "bitgo",
         "coinbase-custody",
-        "bny-mellon"
+        "bny-mellon",
+        "AICPA SOC 1 (AT-C 320) / SOC 2",
+        "SEC Rule 206(4)-2",
+        "PCAOB Investor Advisory 2023-03-08"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/third-party-custody-audit-report-review-cadence",
       "skill_md": "skills/third-party-custody-audit-report-review-cadence/SKILL.md"
     },
@@ -11680,10 +11721,17 @@
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
-        "real-time-architecture"
+        "real-time-architecture",
+        "tick-buffering",
+        "burst-handling",
+        "thread-safety"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "Zerodha Kite Connect v3 (WebSocket streaming)",
+        "Binance Spot WebSocket Streams",
+        "Nasdaq UTP SIP (UQDF/UTDF)"
+      ],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/tick-buffering-burst-handling",
@@ -11691,7 +11739,7 @@
     },
     {
       "name": "tick-data-schema-versioning",
-      "description": "Use when deploying distributed tick processing pipelines to attach explicit schema version headers (v1, v2, v3), execute backward/forward schema migration adapters, and prevent deserialization crashes across consumer microservices.",
+      "description": "Use when an internal tick schema changes while consumers are deployed at mixed versions \u2014 attach an explicit schema_version envelope, run chained upgrade/downgrade adapters between versions, and surface per-field provenance so a consumer can tell a published quote from one the migration synthesized. Covers rollout ordering (consumers-first vs producers-first), unknown-field preservation across intermediate hops, and refusing an unversioned or non-conforming payload instead of fabricating a tick.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -11699,14 +11747,18 @@
         "schema-versioning",
         "migration-adapters",
         "backward-compatibility",
+        "forward-compatibility",
         "event-schema",
         "serialization"
       ],
       "brokers_frameworks": [
-        "Tick Schema Versioner",
-        "Python Real-Time Engine"
+        "Confluent Schema Registry",
+        "Apache Avro",
+        "Protocol Buffers",
+        "FIX Simple Binary Encoding (SBE)",
+        "Python Standard Library"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/tick-data-schema-versioning",
@@ -11714,31 +11766,34 @@
     },
     {
       "name": "tick-size-pilot-program-impact-assessment",
-      "description": "Institutional market microstructure analytics skill for assessing tick size regime changes (e.g. SEC Tick Size Pilot $0.05 widening, sub-penny regimes, MiFID II bands), measuring spread components, queue dynamics, and recalibrating algo execution strategies.",
+      "description": "Use when a change in the minimum pricing increment \u2014 the SEC Tick Size Pilot's $0.05 test groups, the amended Rule 612 $0.005 tier, a MiFID II RTS 11 band reclassification, or a venue retick \u2014 must be measured rather than assumed: Rule 605 share-weighted quoted, effective and realized spread decomposition, top-of-book depth and queue impact, order-to-trade ratio and fill rate, and the execution-algorithm parameters those measurements should move.",
       "domain": "Market Microstructure",
       "subdomain": "Order Book Dynamics",
       "tags": [
         "market-microstructure",
         "tick-size-pilot",
         "spread-decomposition",
+        "rule-605",
+        "adverse-selection",
         "queue-dynamics",
-        "algo-execution",
-        "order-book"
+        "algo-execution"
       ],
       "brokers_frameworks": [
-        "direct-market-access",
-        "qtg",
-        "kdb-plus"
+        "SEC Rule 605 (17 CFR 242.605; definitions at 17 CFR 242.600(b))",
+        "SEC Rule 612 (17 CFR 242.612, minimum pricing increment)",
+        "Tick Size Pilot Program NMS Plan (approved 2015-05-06; ran 2016-10-03 to 2018-09-28)",
+        "MiFID II RTS 11 (Commission Delegated Regulation (EU) 2017/588)",
+        "Python standard library (dataclasses, enum, math)"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/tick-size-pilot-program-impact-assessment",
       "skill_md": "skills/tick-size-pilot-program-impact-assessment/SKILL.md"
     },
     {
       "name": "tick-to-trade-latency-measurement",
-      "description": "Institutional high-frequency trading (HFT) latency profiling skill for sub-microsecond Tick-to-Trade (T2T) measurement, hardware timestamping, stage-by-stage pipeline decomposition, and percentile SLA breach monitoring.",
+      "description": "Wire-to-wire tick-to-trade (T0->T5) latency measurement for HFT and market-making pipelines: six hardware/software capture points decomposed into five correctly-labelled stages, HdrHistogram nearest-rank percentiles, a sample-count resolution gate that refuses to approve a tail it cannot measure, and tail attribution that names the stage which actually produced the P99 instead of summing per-stage percentiles that do not add up.",
       "domain": "Market Microstructure",
       "subdomain": "Ultra-Low Latency & High-Frequency Trading",
       "tags": [
@@ -11747,17 +11802,17 @@
         "hft",
         "low-latency",
         "ptp-clock-sync",
-        "kernel-bypass",
         "hardware-timestamping",
-        "percentile-sla"
+        "percentile-sla",
+        "tail-attribution"
       ],
       "brokers_frameworks": [
-        "solarflare-onload",
-        "dpdk",
-        "fpga",
-        "quickfix"
+        "HdrHistogram (nearest-rank semantics)",
+        "Linux SO_TIMESTAMPING / PTP hardware clock",
+        "CLOCK_MONOTONIC_RAW",
+        "Python Dataclasses"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/tick-to-trade-latency-measurement",
@@ -11765,11 +11820,12 @@
     },
     {
       "name": "token-lifecycle-live-probing",
-      "description": "Use when a bot needs to decide whether a cached broker token is still valid before making trading calls \u2014 especially for brokers that invalidate tokens outside their documented expiry windows",
+      "description": "Use when a bot needs to decide whether a cached broker token is still valid before making trading calls \u2014 especially for brokers that invalidate tokens outside their documented expiry windows. The decision has three outcomes, not two: the third is \"the probe reached no verdict\", and treating that as invalidity turns a broker outage into a login-rate-limit lockout.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
         "broker-integration",
+        "token-lifecycle",
         "fyers-api-v3",
         "icici-breeze-api",
         "zerodha-kite-connect"
@@ -11779,7 +11835,7 @@
         "ICICI Breeze API",
         "Zerodha Kite Connect"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/token-lifecycle-live-probing",
@@ -11787,7 +11843,7 @@
     },
     {
       "name": "total-return-swap-synthetic-exposure",
-      "description": "Institutional financial engineering skill for Total Return Swaps (TRS), pricing synthetic asset exposure, modeling total return legs (capital gains + manufactured dividends), SOFR funding legs, periodic net resets, and ISDA variation margin calls.",
+      "description": "Prices and risk-manages a share-locked equity Total Return Swap (TRS): total return leg (capital return + manufactured dividends filtered by ISDA Dividend Period), funding leg (SOFR/ESTR/SONIA + prime broker spread on the period-reset notional), signed net settlement and mark-to-market per side, synthetic share delta, and separately reported ISDA CSA initial, maintenance and variation margin requirements.",
       "domain": "Multi-Asset Derivatives",
       "subdomain": "Swaps & Synthetic Structures",
       "tags": [
@@ -11801,19 +11857,20 @@
         "prime-brokerage"
       ],
       "brokers_frameworks": [
-        "isda-master-agreement",
-        "qtg",
-        "quantlib"
+        "2002 ISDA Equity Derivatives Definitions",
+        "2006 ISDA Definitions (day count)",
+        "BCBS-IOSCO Uncleared Margin Requirements",
+        "Python Standard Library (dataclasses, datetime)"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/total-return-swap-synthetic-exposure",
       "skill_md": "skills/total-return-swap-synthetic-exposure/SKILL.md"
     },
     {
       "name": "tradestation-websocket-order-updates",
-      "description": "Use when consuming TradeStation's WebAPI order update stream to manage streaming WebSocket connections, gap-reconciliation via REST fallback, and fill deduplication across network reconnects",
+      "description": "Use when consuming TradeStation's v3 order update stream (its \"WebSocket\" order feed, actually HTTP chunked streaming) to classify stream and control frames, detect stalled connections via heartbeats, reconcile gaps through REST catch-up on reconnect, and deduplicate cumulative fill snapshots across network reconnects",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -11824,9 +11881,9 @@
         "gap-reconciliation"
       ],
       "brokers_frameworks": [
-        "TradeStation WebAPI v2/v3"
+        "TradeStation WebAPI v3"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/tradestation-websocket-order-updates",
@@ -11834,7 +11891,7 @@
     },
     {
       "name": "transaction-cost-analysis-tca-integration",
-      "description": "Use when validating strategy backtests to integrate Transaction Cost Analysis (TCA) frameworks, decompose implementation shortfall into delay cost, spread cross, market impact, and commissions, and calibrate backtest slippage models.",
+      "description": "Use when validating strategy backtests to integrate Transaction Cost Analysis (TCA), decompose implementation shortfall into delay cost, spread cross, square-root market impact, commissions, and opportunity cost on unfilled shares, compare modelled cost against realized fills, and calibrate the backtest slippage model from the difference.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -11846,10 +11903,9 @@
         "transaction-costs"
       ],
       "brokers_frameworks": [
-        "TCA Backtest Integrator",
-        "Python Real-Time Engine"
+        "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/transaction-cost-analysis-tca-integration",
@@ -11857,104 +11913,108 @@
     },
     {
       "name": "transfer-learning-across-correlated-instruments",
-      "description": "Institutional financial Machine Learning skill for solving cold-start problems in illiquid or newly-listed instruments by transferring pre-trained feature representations & model weights from correlated liquid assets via L2-regularized fine-tuning.",
-      "domain": "Financial Machine Learning",
-      "subdomain": "Model Optimization & Transfer Learning",
+      "description": "Use when a newly listed or thinly traded instrument \u2014 an IPO, a new token, an illiquid sector ETF, an off-the-run bond \u2014 has too little history to fit a forecasting model on its own, and the model should instead be bootstrapped from a liquid correlated instrument; fine-tunes the source model onto the sparse target with an L2-SP penalty toward the pre-trained weights, screens for negative transfer with a correlation and standardized-mean-difference gate, and decides deployment on a chronological out-of-sample comparison against a target-only baseline",
+      "domain": "algorithmic-trading",
+      "subdomain": "financial-ml",
       "tags": [
-        "machine-learning",
+        "financial-ml",
         "transfer-learning",
         "cold-start",
-        "feature-transfer",
+        "l2-sp-fine-tuning",
+        "negative-transfer",
         "covariate-shift",
-        "regularization",
-        "model-adaptation"
+        "out-of-sample-validation"
       ],
       "brokers_frameworks": [
-        "scikit-learn",
-        "pytorch",
-        "xgboost"
+        "Python standard library (math, logging, dataclasses)"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/transfer-learning-across-correlated-instruments",
       "skill_md": "skills/transfer-learning-across-correlated-instruments/SKILL.md"
     },
     {
       "name": "transfer-pricing-considerations-for-multi-entity-trading-operations",
-      "description": "Institutional tax engineering & transfer pricing skill for multi-entity quantitative trading operations, enforcing OECD BEPS guidelines, Arm's Length Principle, Cost-Plus markups, CUP benchmarks, DEMPE residual profit split, and Berry Ratio compliance.",
-      "domain": "Tax, Accounting & Global Compliance",
+      "description": "Intercompany pricing engine for trading groups spread across legal entities \u2014 computes Cost Plus, CUP and TNMM settlement amounts from benchmarks you register, computes a Berry ratio only from a supplied COGS/opex split, and runs a DEMPE-keyed profit split as either a contribution or a residual analysis.",
+      "domain": "Tax Accounting & Reporting",
       "subdomain": "Transfer Pricing & Multi-Entity Allocation",
       "tags": [
         "transfer-pricing",
         "oecd-beps",
         "dempe",
-        "arm-length-principle",
+        "arms-length-principle",
         "cost-plus",
         "berry-ratio",
-        "multi-entity",
-        "tax-compliance"
+        "profit-split",
+        "multi-entity"
       ],
       "brokers_frameworks": [
-        "oecd-transfer-pricing-guidelines",
-        "irs-section-482",
-        "hmrc-transfer-pricing"
+        "OECD Transfer Pricing Guidelines 2022 (Ch. II, VI, VII)",
+        "IRC s.482 and Treas. Reg. s.1.482-9",
+        "IRC s.6662(e)/(h) and Treas. Reg. s.1.6662-6",
+        "TIOPA 2010 Part 4 (UK)",
+        "IRAS Transfer Pricing Guidelines (Singapore)",
+        "Python Dataclasses"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/transfer-pricing-considerations-for-multi-entity-trading-operations",
       "skill_md": "skills/transfer-pricing-considerations-for-multi-entity-trading-operations/SKILL.md"
     },
     {
       "name": "uk-fca-algorithmic-trading-systems-controls",
-      "description": "Institutional regulatory compliance skill for UK FCA MiFID II RTS 6 (Commission Delegated Regulation 2017/589) & FG18/9 guidelines, enforcing pre-trade risk controls, OTR limits, system capacity thresholds, and automated Kill Switches.",
+      "description": "Fail-closed pre-trade order-entry gate for UK algorithmic trading under MiFID RTS 6 Article 15 (Commission Delegated Regulation (EU) 2017/589 as it forms part of UK law) and FCA Handbook MAR 7A.3.2R \u2014 price collars against a firm-documented reference price, maximum order value and volume, a message ceiling, the Article 15(3) repeated-execution throttle, firm-set credit limits, and Article 12 kill functionality with real venue mass-cancel and an authorised reset. Every numeric limit is a firm calibration, not a regulatory value.",
       "domain": "Global Regulatory Compliance & Risk Control",
       "subdomain": "Algorithmic Systems Governance (UK FCA RTS 6)",
       "tags": [
         "compliance",
         "uk-fca",
+        "mar-7a",
         "mifid2-rts6",
-        "fg18-9",
         "pre-trade-controls",
         "kill-switch",
         "price-collars",
-        "otr-limits",
+        "fail-closed",
         "risk-governance"
       ],
       "brokers_frameworks": [
-        "fca-handbook",
-        "mifid2-rts6",
-        "quickfix"
+        "MiFID RTS 6 (Comm. Del. Reg. (EU) 2017/589, UK assimilated law)",
+        "FCA Handbook MAR 7A.3",
+        "MiFID RTS 9 (Comm. Del. Reg. (EU) 2017/566)",
+        "FCA Multi-firm review of algorithmic trading controls (Aug 2025)",
+        "Python Dataclasses"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/uk-fca-algorithmic-trading-systems-controls",
       "skill_md": "skills/uk-fca-algorithmic-trading-systems-controls/SKILL.md"
     },
     {
       "name": "uk-senior-managers-regime-algo-accountability",
-      "description": "Institutional regulatory governance skill for UK FCA Senior Managers & Certification Regime (SM&CR under SUP 10C & FG18/9), mapping SMF functions (SMF24, SMF16, SMF4), developer Certification F&P checks, Reasonable Steps sign-offs, and Management Responsibilities Map (MRM) reports.",
+      "description": "Institutional regulatory governance skill for the UK FCA Senior Managers & Certification Regime (SM&CR), mapping algorithmic trading strategies to Senior Management Functions under SUP 10C, tracking SYSC 27 certification F&P certificate validity, recording version-bound reasonable-steps deployment sign-offs, and producing SYSC 25 management responsibilities map evidence.",
       "domain": "Global Regulatory Compliance & Risk Governance",
       "subdomain": "Senior Managers Regime & Executive Accountability (UK FCA)",
       "tags": [
         "smcr",
         "uk-fca",
-        "smf24",
-        "smf16",
-        "smf4",
-        "fg18-9",
+        "sup-10c",
+        "sysc-25",
+        "sysc-27",
+        "mar-7a",
         "reasonable-steps",
         "fitness-and-propriety",
         "algo-governance"
       ],
       "brokers_frameworks": [
         "fca-handbook-sup10c",
-        "fca-fg18-9",
-        "pra-rulebook"
+        "fca-handbook-sysc",
+        "fca-handbook-mar7a",
+        "uk-assimilated-rts6"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/uk-senior-managers-regime-algo-accountability",
@@ -11962,7 +12022,7 @@
     },
     {
       "name": "unicode-and-encoding-issues-in-global-instrument-names",
-      "description": "Institutional reference data skill for resolving Unicode character encoding issues, byte-order-mark (BOM) stripping, Mojibake text repair, NFC/NFD normalization, invisible control character removal, and ASCII slug generation across global exchange feeds.",
+      "description": "Institutional reference data skill for resolving Unicode character encoding issues in global instrument names: byte-order-mark (BOM) detection across UTF-8/16/32, round-trip Mojibake repair, NFC/NFD normalization for security master keys, invisible and control character removal, and lossy-aware ASCII transliteration for FIX SecurityDesc and legacy exchange interfaces.",
       "domain": "Global Reference Data & Security Master",
       "subdomain": "Character Encoding & Data Sanitization",
       "tags": [
@@ -11977,31 +12037,30 @@
       ],
       "brokers_frameworks": [
         "quickfix",
-        "pandas",
         "sqlalchemy"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/unicode-and-encoding-issues-in-global-instrument-names",
       "skill_md": "skills/unicode-and-encoding-issues-in-global-instrument-names/SKILL.md"
     },
     {
       "name": "upstox-oauth-refresh-token-rotation",
-      "description": "Use when implementing Upstox API v2 OAuth2 token management to handle single-use refresh token rotation, thread-safe token persistence, and seamless session renewal for long-running trading bots",
+      "description": "Use when managing Upstox API v2/v3 access tokens for a long-running trading bot. Upstox issues NO refresh token and supports no refresh grant \u2014 the access token dies at 03:30 IST daily, so this covers correct expiry derivation, single-flight daily re-authentication, atomic token persistence, and read-only-token misuse guards",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
         "broker-integration",
         "upstox-api-v2",
         "oauth2",
-        "token-rotation",
-        "refresh-token"
+        "access-token-lifecycle",
+        "daily-session-expiry"
       ],
       "brokers_frameworks": [
-        "Upstox API v2"
+        "Upstox API v2/v3"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/upstox-oauth-refresh-token-rotation",
@@ -12009,7 +12068,7 @@
     },
     {
       "name": "us-reg-nms-order-protection-rule-compliance",
-      "description": "Institutional regulatory compliance skill for US SEC Regulation NMS Rule 611 (Order Protection Rule), verifying executions against Protected NBBO, detecting trade-through violations, and validating statutory exemptions (ISO, Self-Help, VWAP/Benchmark, Flickering Quotes).",
+      "description": "Use when an execution in a US NMS stock must be tested against the protected quotations displayed at the moment it printed \u2014 SEC Regulation NMS Rule 611. Covers the definition that actually governs (Rule 600(b)(105) makes a trade-through a price test, not a side test, and confines it to 09:30\u201316:00 ET), the per-venue one-second flickering-quote exception of Rule 611(b)(8), the Rule 600(b)(47)(ii) sweep obligation behind an ISO marking, Self-Help declarations as time intervals, and the crossed-market, auction, benchmark and stopped-order exceptions.",
       "domain": "US Regulatory Compliance & Market Structure",
       "subdomain": "SEC Regulation NMS (Rule 611 Order Protection)",
       "tags": [
@@ -12020,22 +12079,24 @@
         "iso-orders",
         "self-help",
         "market-structure",
-        "finra-compliance"
+        "finra-cat"
       ],
       "brokers_frameworks": [
-        "sec-reg-nms",
-        "finra-cats",
-        "quickfix"
+        "17 CFR 242.611 (Order Protection Rule)",
+        "17 CFR 242.600(b) (Reg NMS definitions)",
+        "SEC Division of Trading and Markets Reg NMS Rule 610/611 FAQ",
+        "FINRA CAT (Consolidated Audit Trail) / CAT NMS Plan",
+        "FIX ExecInst (tag 18) = 'f' Intermarket Sweep (FIX 5.0 SP2; carried as a venue extension on earlier FIX sessions)"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/us-reg-nms-order-protection-rule-compliance",
       "skill_md": "skills/us-reg-nms-order-protection-rule-compliance/SKILL.md"
     },
     {
       "name": "us-reg-sho-short-sale-locate-requirements",
-      "description": "Institutional regulatory compliance skill for US SEC Regulation SHO (17 CFR \u00a7 242.200-204), validating Rule 200 order markings (LONG, SHORT, SHORT_EXEMPT), Rule 203(b)(1) short sale locates, Rule 201 Short Sale Restriction (SSR / Alternative Uptick Rule) price tests, and locate pool inventory.",
+      "description": "Institutional regulatory compliance skill for US SEC Regulation SHO (17 CFR 242.200-204), enforcing Rule 200(g) order markings (LONG, SHORT, SHORT_EXEMPT with a named 242.201(c)/(d) basis), Rule 203(b)(1) short sale locate verification and reservation, and the Rule 201 short sale price test (alternative uptick rule) against the current national best bid.",
       "domain": "US Regulatory Compliance & Market Structure",
       "subdomain": "SEC Regulation SHO (Short Sale Regulations)",
       "tags": [
@@ -12053,7 +12114,7 @@
         "finra-cats",
         "quickfix"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/us-reg-sho-short-sale-locate-requirements",
@@ -12061,7 +12122,7 @@
     },
     {
       "name": "value-at-risk-var-live-monitoring",
-      "description": "Use when monitoring live portfolio risk to calculate real-time Parametric VaR, Historical Simulation VaR, and Conditional VaR (CVaR) and block order placement upon VaR limit breaches",
+      "description": "Use when monitoring a live position book to compute Parametric VaR, Historical Simulation VaR and Conditional VaR (CVaR / Expected Shortfall) on the current holdings, and to veto new risk-increasing orders when a VaR limit is breached while still letting risk-reducing orders through",
       "domain": "algorithmic-trading",
       "subdomain": "risk-management",
       "tags": [
@@ -12070,16 +12131,18 @@
         "var-monitoring",
         "expected-shortfall",
         "cvar",
-        "live-risk"
+        "live-risk",
+        "pre-trade-controls"
       ],
       "brokers_frameworks": [
-        "SciPy",
-        "PyPFcon",
-        "NumPy",
-        "Pandas",
-        "Custom Live Risk Engine"
+        "Variance-Covariance (delta-normal) VaR",
+        "Historical Simulation VaR",
+        "BCBS FRTB (MAR32 / MAR33)",
+        "12 CFR 217 Subpart F (US market risk rule)",
+        "17 CFR 240.15c3-5 (market access controls)",
+        "Python standard library (statistics, dataclasses)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/value-at-risk-var-live-monitoring",
@@ -12087,7 +12150,7 @@
     },
     {
       "name": "variance-swap-and-volatility-derivative-pricing",
-      "description": "Institutional quantitative pricing skill for Variance Swaps, Volatility Swaps, and volatility derivatives using static log-contract option strip replication (Demeterfi et al., 1999), realized log-return variance calculation, convexity adjustment, and Mark-to-Market (MTM) valuation.",
+      "description": "Use when pricing, marking, or risk-managing an OTC variance swap or volatility swap. Replicates the fair variance strike $K_{\\text{var}}$ from an out-of-the-money European option strip using the Demeterfi-Derman-Kamal-Zou (1999) log contract, anchored on the traded reference strike $S^* = K_0$; computes zero-mean realized log-return variance, the volatility-swap convexity correction, the $N_{\\text{var}} = N_{\\text{vega}} / (2K_{\\text{vol}})$ notional conversion, and seasoned mark-to-market. Every number is carried in volatility points squared.",
       "domain": "Multi-Asset Quantitative Derivatives & Volatility Trading",
       "subdomain": "Exotics & Volatility Derivative Pricing",
       "tags": [
@@ -12101,19 +12164,20 @@
         "mtm-valuation"
       ],
       "brokers_frameworks": [
-        "isda-matrix",
-        "quantlib",
-        "scipy"
+        "Demeterfi-Derman-Kamal-Zou (1999)",
+        "Cboe Volatility Index Mathematics Methodology",
+        "ISDA Equity Derivatives Definitions",
+        "Python Standard Library (math)"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/variance-swap-and-volatility-derivative-pricing",
       "skill_md": "skills/variance-swap-and-volatility-derivative-pricing/SKILL.md"
     },
     {
       "name": "vat-gst-treatment-of-trading-related-services",
-      "description": "Institutional indirect tax accounting skill for assessing VAT/GST treatment of trading-related services (exchange execution fees, clearing fees, co-location, market data feeds, software licenses, management fees), applying cross-border Reverse Charge Mechanism (RCM), and calculating Partial Exemption Pro-Rata Input Tax Recovery Ratios under UK HMRC, EU, Singapore IRAS, and Australia ATO tax rules.",
+      "description": "Use when determining the VAT/GST treatment of a trading entity's purchase ledger. Classifies each invoice as exempt financial supply, standard-rated, cross-border reverse charge or out of scope for UK, German, Irish, Singapore and Australian entities; applies a partial exemption pro-rata recovery ratio with the statutory UK reg 101 / EU Art 175 rounding-up rule; reports both reverse-charge legs (self-assessed output VAT and the restricted input tax claim); and aggregates a period return summary with a per-invoice audit trail. Determinations are indicative and carry explicit warnings where the contract, not the category, decides.",
       "domain": "Global Tax Accounting & Regulatory Reporting",
       "subdomain": "Indirect Tax (VAT/GST) Compliance",
       "tags": [
@@ -12123,40 +12187,49 @@
         "rcm",
         "partial-exemption",
         "input-tax-recovery",
+        "place-of-supply",
         "trading-expenses",
         "tax-accounting"
       ],
       "brokers_frameworks": [
-        "uk-vata-1994",
-        "eu-vat-directive-2006-112",
-        "singapore-iras-gst",
-        "australia-ato-gst"
+        "VATA 1994 (ss.7A, 8, 26; Sch 9 Grp 5)",
+        "VAT Regulations 1995 (SI 1995/2518) reg 101",
+        "VAT (Input Tax) (Specified Supplies) Order 1999 (SI 1999/3121)",
+        "EU VAT Directive 2006/112/EC (Arts 44, 47, 135, 174-175, 196)",
+        "HMRC VAT Notice 701/49",
+        "IRAS GST Reverse Charge Regime",
+        "A New Tax System (GST) Act 1999 Div 84 (Australia)",
+        "Python Standard Library"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/vat-gst-treatment-of-trading-related-services",
       "skill_md": "skills/vat-gst-treatment-of-trading-related-services/SKILL.md"
     },
     {
       "name": "vectorized-vs-event-driven-backtest-tradeoffs",
-      "description": "Use when selecting backtesting engine architecture to evaluate strategy characteristics, run fast vectorized matrix backtests for initial parameter discovery, and cross-validate against high-fidelity event-driven backtest engines to measure execution drag.",
+      "description": "Use when choosing between a vectorized and an event-driven backtest engine, or when measuring how much of a backtest's reported performance is an artefact of its fill assumption. Routes strategies whose execution a vectorized engine cannot represent -- path-dependent stops, limit orders -- to the event-driven engine, and runs a matched pair of engines that differ in one variable at a time so transaction-cost drag and fill-latency drag are separately attributable. Reports measured speedup, not a quoted constant.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
         "backtesting-methodology",
         "vectorized-backtest",
         "event-driven-backtest",
-        "tradeoff-analysis",
         "execution-drag",
-        "performance-parity"
+        "fill-latency",
+        "transaction-costs",
+        "engine-parity"
       ],
       "brokers_frameworks": [
-        "Dual Engine Backtest Selector",
         "NumPy",
-        "Pandas"
+        "Python Standard Library",
+        "backtesting.py",
+        "Backtrader",
+        "VectorBT",
+        "Zipline"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/vectorized-vs-event-driven-backtest-tradeoffs",
@@ -12164,7 +12237,7 @@
     },
     {
       "name": "vendor-lock-in-risk-for-proprietary-custody-formats",
-      "description": "Institutional risk management skill for evaluating crypto custody vendor lock-in risks, key format portability (BIP-39, SLIP-0039, BIP-32, WIF vs proprietary MPC/HSM blobs), open-source recovery tool availability, migration cost/friction estimation, and disaster recovery self-sovereignty.",
+      "description": "Institutional risk management skill for evaluating crypto custody vendor lock-in, key format portability (BIP-39, SLIP-0039, BIP-32, WIF vs proprietary MPC/HSM blobs), separating secret-bearing key material from derivation metadata, open-source offline recovery tool availability, migration cost/friction estimation, and disaster recovery self-sovereignty.",
       "domain": "Crypto Custody & Infrastructure Security",
       "subdomain": "Vendor Risk Management & Key Portability",
       "tags": [
@@ -12184,43 +12257,43 @@
         "copper",
         "safe-gnosis"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/vendor-lock-in-risk-for-proprietary-custody-formats",
       "skill_md": "skills/vendor-lock-in-risk-for-proprietary-custody-formats/SKILL.md"
     },
     {
       "name": "vendor-outage-fallback-data-source-hierarchy",
-      "description": "Institutional market data resilience skill for managing multi-vendor fallback hierarchies (Primary, Secondary, Tertiary, Synthetic Cache), detecting feed staleness/disconnections, executing automated failover, enforcing anti-flapping recovery cooling periods, and maintaining quote continuity.",
-      "domain": "Market Data Infrastructure & Quantitative Execution",
-      "subdomain": "Feed Resilience & High Availability",
+      "description": "Use when a strategy prices off market data from more than one vendor and must keep deciding, continuously, which source it is entitled to trade on \u2014 covering priority-ranked failover, staleness and disconnect detection, promotion that requires demonstrated stability rather than elapsed time, and a bounded last-known-price cache that never presents an obsolete quote as a current one.",
+      "domain": "algorithmic-trading",
+      "subdomain": "real-time-architecture",
       "tags": [
-        "market-data",
+        "real-time-architecture",
         "vendor-outage",
         "fallback-hierarchy",
         "failover",
         "staleness-detection",
         "anti-flapping",
-        "synthetic-cache",
-        "high-availability"
+        "synthetic-cache"
       ],
       "brokers_frameworks": [
-        "bloomberg-bpipe",
-        "refinitiv-elektron",
-        "polygon-io",
-        "iex-cloud",
-        "exchange-direct-itch"
+        "Bloomberg B-PIPE",
+        "LSEG Real-Time (formerly Refinitiv Elektron)",
+        "Polygon.io",
+        "Nasdaq TotalView-ITCH (direct exchange feed)",
+        "MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589), Articles 4 and 14",
+        "SEC Rule 2a-5 (17 CFR 270.2a-5) pricing-service oversight"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/vendor-outage-fallback-data-source-hierarchy",
       "skill_md": "skills/vendor-outage-fallback-data-source-hierarchy/SKILL.md"
     },
     {
       "name": "vendor-specific-adjustment-methodology-reconciliation",
-      "description": "Institutional market data skill for modeling vendor corporate action adjustment methodologies (CRSP Total Return, Bloomberg Proportional, Refinitiv Split-Only, Raw Unadjusted), computing price/volume cumulative adjustment factors, detecting cross-vendor divergence anomalies, and generating audit reconciliation reports.",
+      "description": "Institutional market data skill for modeling vendor corporate action adjustment methodologies (total-return, proportional, price-return, raw unadjusted), computing separate price and volume cumulative adjustment factors, detecting cross-vendor divergence anomalies, and generating audit reconciliation reports.",
       "domain": "Market Data Architecture & Quantitative Research",
       "subdomain": "Corporate Action Adjustments & Data Hygiene",
       "tags": [
@@ -12240,7 +12313,7 @@
         "factset",
         "polygon-io"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/vendor-specific-adjustment-methodology-reconciliation",
@@ -12248,7 +12321,7 @@
     },
     {
       "name": "vix-and-volatility-index-derivative-strategies",
-      "description": "Institutional volatility trading skill for analyzing VIX futures term structure (Contango vs Backwardation), calculating roll yield decay, executing VIX Roll Yield Harvesting (Short VIX Futures) and Tail Risk Protection (VIX Call Spreads), and pricing options off forward VIX futures curves.",
+      "description": "Use when classifying the VIX futures curve and sizing a position off it. Classifies the front-two term structure as contango, backwardation or flat, annualizes the front-month basis as a static-spot carry estimate, sizes a short VX position against a notional budget with a computed buy-stop, and prices 1x1 VIX call spreads with Black-76 off the front-month future. Keeps the $1,000 futures multiplier and the $100 options multiplier strictly separate, floors contract counts to zero rather than rounding a budget up to one lot, and requires the strike's own implied volatility or an observed net debit -- it never invents a premium.",
       "domain": "Multi-Asset Derivatives & Volatility Trading",
       "subdomain": "VIX Futures & Options Strategies",
       "tags": [
@@ -12259,24 +12332,26 @@
         "contango",
         "backwardation",
         "roll-yield",
-        "tail-hedging"
+        "tail-hedging",
+        "black-76",
+        "position-sizing"
       ],
       "brokers_frameworks": [
-        "cboe",
-        "vix-futures",
-        "vix-options",
-        "svxy",
-        "uvxy"
+        "Cboe Futures Exchange (VX)",
+        "Cboe VIX Options",
+        "Python Standard Library (math, datetime)",
+        "Python Dataclasses",
+        "Black (1976)"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/vix-and-volatility-index-derivative-strategies",
       "skill_md": "skills/vix-and-volatility-index-derivative-strategies/SKILL.md"
     },
     {
       "name": "walk-forward-hyperparameter-search-budget",
-      "description": "Use when conducting walk-forward strategy optimization to compute, bound, and enforce hyperparameter search budgets ($N_{\\text{evals}}$), preventing indirect overfitting from excessive trial iterations across out-of-sample slices.",
+      "description": "Use when conducting walk-forward strategy optimization to compute, bound, and enforce hyperparameter search budgets, and to audit the cumulative trial count across every window. Bounds and counts trials; it does not compute PBO or deflate a Sharpe ratio.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -12291,7 +12366,7 @@
         "Hyperparameter Search Budgeter",
         "Python"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/walk-forward-hyperparameter-search-budget",
@@ -12299,7 +12374,7 @@
     },
     {
       "name": "walk-forward-optimization-window-management",
-      "description": "Use when conducting quantitative backtests to generate rolling or anchored in-sample and out-of-sample time windows, enforce zero lookahead leakage, and calculate Walk-Forward Efficiency (WFE)",
+      "description": "Use when conducting quantitative backtests to generate rolling or anchored in-sample and out-of-sample time windows separated by a purge/embargo gap, enforce zero lookahead leakage, and calculate Walk-Forward Efficiency (WFE)",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -12307,6 +12382,7 @@
         "walk-forward-optimization",
         "in-sample-out-of-sample",
         "lookahead-prevention",
+        "purge-embargo",
         "overfitting-control"
       ],
       "brokers_frameworks": [
@@ -12315,7 +12391,7 @@
         "VectorBT",
         "Custom Python Backtesters"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/walk-forward-optimization-window-management",
@@ -12323,14 +12399,25 @@
     },
     {
       "name": "walk-forward-validation-setup",
-      "description": "Use when validating a trading strategy or ML signal model on historical time-series data, to avoid the invalid train/test splits that k-fold cross-validation produces on non-stationary sequential data",
+      "description": "Use when validating a trading strategy or ML signal model on historical time-series data, to generate chronological train/test folds separated by a purge/embargo gap and aggregate out-of-sample results across every fold, instead of the invalid splits k-fold cross-validation produces on non-stationary sequential data",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
-        "backtesting-methodology"
+        "backtesting-methodology",
+        "walk-forward-validation",
+        "purge-embargo",
+        "lookahead-prevention",
+        "out-of-sample-testing",
+        "cross-validation",
+        "lopez-de-prado"
       ],
-      "brokers_frameworks": [],
-      "version": "1.0.0",
+      "brokers_frameworks": [
+        "scikit-learn TimeSeriesSplit",
+        "QuantConnect LEAN",
+        "Backtrader",
+        "Python standard library"
+      ],
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/walk-forward-validation-setup",
@@ -12338,7 +12425,7 @@
     },
     {
       "name": "warrants-and-structured-product-integration",
-      "description": "Institutional equity derivatives skill for pricing covered warrants, Turbo Warrants / CBBCs, and structured products, modeling Entitlement Ratios (R_ent), evaluating Mandatory Call Event (MCE) knock-out barriers, computing Effective Gearing, and generating real-time Delta Hedge rebalancing signals.",
+      "description": "Use when pricing, risk-managing or delta-hedging listed covered warrants and Turbo warrants / CBBCs on HKEX, Euronext, SGX or Borsa Italiana. Prices covered warrants with Black-Scholes-Merton and Turbo warrants / CBBCs with the issuer's delta-one intrinsic-plus-funding-cost convention, scales every price and Greek by the entitlement ratio, evaluates Mandatory Call Events including Category N vs Category R residual value, computes HKEX simple and effective gearing, and sizes signed delta-hedge rebalances.",
       "domain": "Multi-Asset Derivatives & Structured Products",
       "subdomain": "Warrants & Exotic Derivatives Integration",
       "tags": [
@@ -12348,25 +12435,26 @@
         "turbo-warrants",
         "entitlement-ratio",
         "effective-gearing",
-        "knock-out-barrier",
+        "mandatory-call-event",
         "delta-hedging"
       ],
       "brokers_frameworks": [
         "hkex-warrants",
         "euronext-warrants",
         "sgx-warrants",
-        "cboe",
-        "borsa-italiana"
+        "borsa-italiana",
+        "Black-Scholes-Merton",
+        "Python Standard Library (math)"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/warrants-and-structured-product-integration",
       "skill_md": "skills/warrants-and-structured-product-integration/SKILL.md"
     },
     {
       "name": "wash-sale-rule-tracking-us",
-      "description": "Institutional tax accounting skill for tracking US IRS 26 U.S. Code \u00a7 1091 Wash Sale rules, scanning the 61-day window (30 days prior, trade date, 30 days post), matching replacement shares, disallowing loss deductions, adjusting replacement cost basis, and generating Form 1099-B Box 1g audit disclosures.",
+      "description": "US federal wash sale tracking under IRC 26 U.S.C. \u00a7 1091 for a high-turnover equity ledger: FIFO tax lot matching, 61-day replacement window scanning (30 days before the disposition, the disposition date, 30 days after), \u00a7 1091(d) basis carry-forward into the replacement lot, and Form 1099-B Box 1d/1e/1g figures for one account and one security identifier.",
       "domain": "Global Tax Accounting & Regulatory Reporting",
       "subdomain": "US IRS Tax Compliance (IRC \u00a7 1091)",
       "tags": [
@@ -12384,7 +12472,7 @@
         "finra",
         "sec"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/wash-sale-rule-tracking-us",
@@ -12392,36 +12480,38 @@
     },
     {
       "name": "wash-trade-and-spoofing-self-detection",
-      "description": "Institutional market integrity skill for real-time self-detection of Wash Trades (self-cross executions without change in beneficial ownership) and Spoofing / Layering patterns (non-bona fide order cancellations following opposite-side fills) under CFTC, SEC, FINRA, and MiFID II RTS 6 rules.",
+      "description": "Streaming self-surveillance over a firm's own order flow for the two patterns a regulator looks for first \u2014 self-matches / wash trades (own buy and own sell crossing under one beneficial owner) and layering-spoofing (opposite-side execution surrounded by the withdrawal of materially larger size) \u2014 grounded in CEA s.4c(a)(1),(2)(A) and s.4c(a)(5)(C), CME Rules 534 and 575, FINRA Rule 5210.02/.03 and MiFID II RTS 6 Article 13. Emits alerts for human analysis, never findings of a breach.",
       "domain": "Global Regulatory Compliance & Market Integrity",
-      "subdomain": "Algorithmic Market Abuse Surveillance (MiFID II RTS 6 / CFTC Rule 1.38)",
+      "subdomain": "Algorithmic Market Abuse Self-Surveillance (Wash Trades & Layering)",
       "tags": [
         "wash-trade",
         "spoofing",
         "layering",
         "market-manipulation",
-        "self-match-prevention",
-        "mifid-ii-rts-6",
-        "cftc-rule-1-38",
-        "finra-rule-5210"
+        "self-match-detection",
+        "beneficial-ownership",
+        "cea-4c-a",
+        "finra-rule-5210",
+        "mifid-ii-rts-6"
       ],
       "brokers_frameworks": [
-        "cftc",
-        "sec",
-        "finra",
-        "mifid-ii-rts-6",
-        "ice",
-        "cme"
+        "CEA s.4c(a)(1),(2)(A) and s.4c(a)(5)(C) (7 U.S.C. 6c(a); Dodd-Frank s.747)",
+        "CFTC Antidisruptive Practices interpretive guidance (78 FR 31890)",
+        "CME Rule 534 (Wash Trades Prohibited) and Rule 575 (Disruptive Practices)",
+        "FINRA Rule 5210 Supplementary Material .02 (self-trades) and .03 (disruptive quoting)",
+        "Exchange Act s.9(a)(2), s.10(b) / Rule 10b-5",
+        "Commission Delegated Regulation (EU) 2017/589 (RTS 6) Article 13",
+        "Python Dataclasses"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/wash-trade-and-spoofing-self-detection",
       "skill_md": "skills/wash-trade-and-spoofing-self-detection/SKILL.md"
     },
     {
       "name": "weather-data-signal-research-for-commodity-strategies",
-      "description": "Institutional alternative data skill for researching weather signals, calculating population-weighted Heating Degree Days (HDD), Cooling Degree Days (CDD), and Growing Degree Days (GDD), computing 10-year climate anomaly Z-scores, and generating directional trading signals for Energy (Natural Gas, Power) and Agricultural futures (Corn, Soybeans).",
+      "description": "Institutional alternative data skill for researching weather signals, calculating population-weighted Heating Degree Days (HDD), Cooling Degree Days (CDD), and NOAA Modified Growing Degree Days (GDD), computing strictly-trailing climate anomaly Z-scores without look-ahead bias, and generating directional trading signals for Energy (Natural Gas, Power) and Agricultural futures (Corn, Soybeans).",
       "domain": "Quantitative Research & Alternative Data",
       "subdomain": "Meteorological & Commodity Signal Research",
       "tags": [
@@ -12443,7 +12533,7 @@
         "ecmwf",
         "gfs"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/weather-data-signal-research-for-commodity-strategies",
@@ -12451,7 +12541,7 @@
     },
     {
       "name": "weather-derivatives-and-niche-instrument-handling",
-      "description": "Institutional exotics skill for pricing and settling CME Weather Derivatives (HDD, CDD, CAT futures & options) and OTC niche instruments (capped weather swaps), executing Burn Analysis historical simulation, and applying the standard $20 per index point tick multiplier.",
+      "description": "Use when pricing, settling, or risk-managing CME weather derivatives (HDD, CDD and CAT futures and options) or capped OTC weather swaps. Accumulates degree-day and CAT indexes from daily station temperatures under an explicit temperature unit and base, settles at the contract's own multiplier and currency \u2014 USD 20/point for US degree-day contracts, EUR 20/point for European HDD and CAT, JPY 2,500/point for Pacific Rim CAT, never a single universal multiplier \u2014 and values contracts by burn analysis over linearly detrended historical seasons.",
       "domain": "Multi-Asset Derivatives & Exotic Instruments",
       "subdomain": "Weather Derivatives & Niche Instrument Pricing",
       "tags": [
@@ -12459,18 +12549,18 @@
         "cme-weather",
         "hdd-futures",
         "cdd-futures",
+        "cat-index",
         "burn-analysis",
         "otc-swaps",
-        "tick-multiplier",
         "niche-instruments"
       ],
       "brokers_frameworks": [
-        "cme",
-        "ice",
-        "noaa",
-        "otc-isda"
+        "CME Rulebook Ch. 403 (US Degree Days Index Futures)",
+        "CME Rulebook Ch. 411 (Pacific Rim CAT Index Futures)",
+        "Speedwell Settlement Services",
+        "ISDA (OTC weather swap documentation)"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/weather-derivatives-and-niche-instrument-handling",
@@ -12478,7 +12568,7 @@
     },
     {
       "name": "web-scraped-sentiment-data-pipeline",
-      "description": "Institutional alternative data skill for scraping, cleaning, tokenizing, and scoring financial text using the Loughran-McDonald Lexicon, aggregating volume-weighted sentiment metrics, calculating 30-day baseline Z-score anomalies, and generating directional trading signals.",
+      "description": "Use when turning scraped financial text (news wires, SEC filings, Reddit, X/Twitter, StockTwits) into a point-in-time sentiment feature for a ticker. Cleans HTML/URL/entity noise, scores against verified Loughran-McDonald financial word lists with negation handling, collapses syndicated wire duplicates, aggregates a daily mean strictly at or before the signal date, and standardises it against a caller-supplied baseline \u2014 refusing to emit a Z-score when the document count, the per-document lexicon evidence, or the baseline is too thin to interpret.",
       "domain": "Quantitative Research & Alternative Data",
       "subdomain": "Financial NLP & Web-Scraped Sentiment Analysis",
       "tags": [
@@ -12488,24 +12578,26 @@
         "loughran-mcdonald",
         "web-scraping",
         "z-score",
+        "point-in-time",
         "feature-engineering"
       ],
       "brokers_frameworks": [
-        "news-feed",
-        "reddit-wsb",
-        "twitter-x",
-        "stocktwits",
-        "sec-edgar"
+        "news-wire-feeds",
+        "sec-edgar",
+        "reddit-api",
+        "x-twitter-api",
+        "stocktwits-api",
+        "python-standard-library"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/web-scraped-sentiment-data-pipeline",
       "skill_md": "skills/web-scraped-sentiment-data-pipeline/SKILL.md"
     },
     {
       "name": "webhook-based-order-fill-notifications",
-      "description": "Use when building webhook consumers for broker order fill notifications to handle HMAC-SHA256 signature verification, at-least-once delivery deduplication, and out-of-order execution sequencing",
+      "description": "Use when a trading bot receives order fill or execution notifications by inbound HTTP webhook. The first finding is usually that your broker does not send them: Interactive Brokers, Alpaca, TradeStation and Coinbase Advanced Trade all push fills over a persistent stream, not a webhook, so check before building a receiver. Where webhooks do exist they are weaker than they look -- DhanHQ postbacks carry no signature at all, and Zerodha Kite's checksum covers only order_id + order_timestamp + api_secret, leaving the filled quantity unauthenticated. Covers HMAC-SHA256 verification over the raw body, the five-minute replay window, the atomic order_id:exec_id idempotency claim that must be taken once and never re-applied, out-of-order and missing-sequence detection, and the reconcile-before-you-book rule that keeps an unverifiable payload out of the position ledger.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -12513,15 +12605,19 @@
         "webhooks",
         "order-fills",
         "deduplication",
-        "at-least-once-delivery"
+        "at-least-once-delivery",
+        "idempotency",
+        "replay-protection",
+        "hmac-sha256",
+        "reconciliation"
       ],
       "brokers_frameworks": [
-        "Generic Broker Webhooks",
-        "Interactive Brokers",
-        "TradeStation",
-        "Alpaca"
+        "Zerodha Kite Connect v3 postbacks",
+        "DhanHQ v2 postbacks",
+        "Standard Webhooks specification",
+        "OWASP Cheat Sheet Series (webhook security guidelines)"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/webhook-based-order-fill-notifications",
@@ -12529,22 +12625,24 @@
     },
     {
       "name": "websocket-reconnect-without-duplicate-subscriptions",
-      "description": "Use when implementing reconnection logic for a broker market-data WebSocket, to avoid duplicate ticks, duplicate subscriptions, or silent gaps in coverage after a network blip",
+      "description": "Use when writing reconnection logic for a broker market-data WebSocket, to restore exactly the intended subscription set after a drop \u2014 reconciling the broker's own acknowledgement instead of assuming the subscribe succeeded, backfilling the gap window in the right order, and deduplicating ticks replayed across the reconnect boundary",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
         "real-time-architecture",
-        "websocket-streaming-apis-\u2014-fyers",
-        "kite",
-        "ibkr"
+        "websocket",
+        "resubscription",
+        "duplicate-prevention",
+        "gap-backfill",
+        "connection-recovery"
       ],
       "brokers_frameworks": [
-        "WebSocket streaming APIs \u2014 Fyers",
-        "Kite",
-        "IBKR",
-        "Alpaca market data streams"
+        "Zerodha Kite Connect v3 WebSocket",
+        "Alpaca Market Data Stream",
+        "IBKR Client Portal Web API",
+        "Fyers Data WebSocket"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/websocket-reconnect-without-duplicate-subscriptions",
@@ -12552,7 +12650,7 @@
     },
     {
       "name": "websocket-reconnection-with-state-recovery",
-      "description": "Use when managing real-time market data or order update WebSocket streams to execute automatic reconnection with exponential backoff and randomized jitter, re-subscribe active symbol channels, and perform REST sequence gap-filling to prevent missed tick data.",
+      "description": "Use when a market-data or order-update WebSocket must reconnect and then prove its state still matches the venue's \u2014 bounded jittered backoff that never exceeds its own ceiling, deterministic re-subscription from desired state, and fail-closed sequence-gap recovery that withholds messages until the gap is provably filled or the stream is re-snapshotted.",
       "domain": "algorithmic-trading",
       "subdomain": "real-time-architecture",
       "tags": [
@@ -12560,14 +12658,17 @@
         "websocket",
         "reconnection",
         "exponential-backoff",
+        "full-jitter",
         "state-recovery",
-        "gap-fill"
+        "sequence-gap",
+        "fail-closed"
       ],
       "brokers_frameworks": [
-        "WebSocket Manager",
-        "Python Async Engine"
+        "Binance Spot WebSocket Streams",
+        "Coinbase Advanced Trade WebSocket",
+        "Python Standard Library"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/websocket-reconnection-with-state-recovery",
@@ -12575,7 +12676,7 @@
     },
     {
       "name": "withdrawal-velocity-limits-and-anomaly-detection",
-      "description": "Institutional crypto custody security skill for enforcing multi-window rolling withdrawal velocity caps (1-hour, 24-hour) per account and global hot wallet, calculating 90-day user historical anomaly Z-scores, verifying destination address whitelisting age, and executing automated circuit breakers (APPROVED, TIMELOCK_HOLD, REJECTED_FREEZE).",
+      "description": "Pre-disbursement gate for crypto withdrawals that scores a request against rolling per-account and global hot-wallet USD velocity caps, a per-account size baseline, and the age of the destination address record, returning APPROVED, TIMELOCK_HOLD, or a latching REJECTED_FREEZE that only a named operator can reset.",
       "domain": "Crypto Custody & Exchange Risk Engineering",
       "subdomain": "Automated Hot Wallet Security & Velocity Controls",
       "tags": [
@@ -12585,25 +12686,25 @@
         "velocity-limits",
         "anomaly-detection",
         "hot-wallet-freeze",
-        "timelock-escrow",
+        "circuit-breaker",
         "z-score"
       ],
       "brokers_frameworks": [
-        "bitgo",
-        "fireblocks",
-        "coinbase-custody",
-        "anchorage",
-        "custom-hsm"
+        "Fireblocks TAP",
+        "BitGo Wallet Policies",
+        "Coinbase Prime",
+        "Anchorage Digital",
+        "Python Dataclasses"
       ],
-      "version": "1.1.0",
-      "author": "Quant Engineering",
-      "license": "MIT",
+      "version": "2.0.0",
+      "author": "algo-trading-skills-contributors",
+      "license": "Apache-2.0",
       "path": "skills/withdrawal-velocity-limits-and-anomaly-detection",
       "skill_md": "skills/withdrawal-velocity-limits-and-anomaly-detection/SKILL.md"
     },
     {
       "name": "zero-downtime-database-schema-migrations",
-      "description": "Institutional deployment engineering skill for orchestrating 5-Phase Expand-Contract zero-downtime database schema migrations, generating non-blocking DDL scripts (CREATE INDEX CONCURRENTLY), executing batched asynchronous backfills, and verifying reader cutover safety.",
+      "description": "Institutional deployment engineering skill for orchestrating 5-Phase Expand-Contract zero-downtime database schema migrations, generating lock-bounded non-blocking DDL (CREATE INDEX CONCURRENTLY, ALGORITHM=INSTANT), pacing batched backfills against replica lag, and gating reader cutover on a verified residual-NULL count rather than a backfill counter.",
       "domain": "Deployment Operations & Database Infrastructure",
       "subdomain": "Zero-Downtime Schema Evolution & Lock-Free DDL",
       "tags": [
@@ -12623,7 +12724,7 @@
         "gh-ost",
         "pt-online-schema-change"
       ],
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": "Quant Engineering",
       "license": "MIT",
       "path": "skills/zero-downtime-database-schema-migrations",
@@ -12631,19 +12732,20 @@
     },
     {
       "name": "zerodha-kite-postback-webhook-verification",
-      "description": "Use when consuming Zerodha Kite Connect order postback webhooks to verify SHA-256 signature authenticity, prevent request spoofing, enforce timestamp replay protection, and guarantee idempotent order state updates",
+      "description": "Use when consuming Zerodha Kite Connect order postbacks. The checksum Kite sends is SHA-256(order_id + order_timestamp + api_secret) \u2014 it authenticates those two fields and nothing else, so status, filled_quantity and average_price arrive unauthenticated and a verified postback is a trigger to reconcile, never a fact to post to a ledger.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
         "broker-integration",
         "zerodha-kite-connect",
         "postback-webhooks",
-        "webhook-security"
+        "webhook-security",
+        "idempotency"
       ],
       "brokers_frameworks": [
         "Zerodha Kite Connect v3 API"
       ],
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/zerodha-kite-postback-webhook-verification",

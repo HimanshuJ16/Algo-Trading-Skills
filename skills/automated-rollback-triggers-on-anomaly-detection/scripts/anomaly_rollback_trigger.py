@@ -23,14 +23,36 @@ self-inflicted outage:
 Detection always uses absolute threshold comparison (the THRESHOLD strategy).
 See ``references/standards.md`` for the PREVIOUS and CANARY_BASELINE
 comparison strategies an operator can adopt for tighter false-positive control.
+
+Input-validity contract: every threshold and every observed value must be a
+finite number. ``NaN`` and ``Inf`` are rejected at construction rather than
+compared, because IEEE 754 makes every ordered comparison against ``NaN``
+false -- a ``NaN`` latency sample would be reported ``HEALTHY``, and a ``NaN``
+or ``Inf`` latency threshold would silently disable latency detection for the
+whole deployment. Telemetry backends do produce these values (Prometheus
+transfers ``NaN``/``Inf`` as quoted JSON strings, and a reject ratio over a
+window with no orders is 0/0), so the poller must treat an invalid or missing
+sample as an evaluation failure to escalate -- never as a healthy sample.
 """
 import dataclasses
 import enum
 import logging
+import math
 import time
 from typing import Callable, List, Optional
 
 logger = logging.getLogger(__name__)
+
+
+def _require_finite(name: str, value: float) -> None:
+    """Raise ``ValueError`` unless ``value`` is a finite number.
+
+    Guards the engine against ``NaN``/``Inf`` silently defeating every
+    threshold comparison. See the input-validity contract in the module
+    docstring.
+    """
+    if not math.isfinite(value):
+        raise ValueError(f"{name} must be a finite number, got {value!r}")
 
 
 class AnomalySeverity(enum.Enum):
@@ -82,6 +104,10 @@ class RollbackThresholdConfig:
     max_rollbacks_per_deployment: int = 1
 
     def __post_init__(self) -> None:
+        _require_finite("max_latency_ms", self.max_latency_ms)
+        _require_finite("max_http_5xx_error_rate", self.max_http_5xx_error_rate)
+        _require_finite("max_order_reject_rate", self.max_order_reject_rate)
+        _require_finite("rollback_cooldown_seconds", self.rollback_cooldown_seconds)
         if self.max_latency_ms < 0:
             raise ValueError("max_latency_ms must be >= 0")
         if not (0.0 <= self.max_http_5xx_error_rate <= 1.0):
@@ -111,6 +137,9 @@ class DeploymentHealthMetrics:
     market_open_volatility: bool = False
 
     def __post_init__(self) -> None:
+        _require_finite("latency_ms", self.latency_ms)
+        _require_finite("http_5xx_error_rate", self.http_5xx_error_rate)
+        _require_finite("order_reject_rate", self.order_reject_rate)
         if self.latency_ms < 0:
             raise ValueError("latency_ms must be >= 0")
         if not (0.0 <= self.http_5xx_error_rate <= 1.0):
@@ -137,6 +166,13 @@ class RollbackEvaluationResult:
     only need the action bit; ``decision`` carries the richer policy state.
     ``anomalies`` is the structured record; ``anomalies_detected`` retains the
     human-readable message list for log parity with the original API.
+
+    ``consecutive_failures`` is the streak as it stood when the decision was
+    taken (on ``ROLLBACK``, the confirmed streak before the internal reset).
+    It is frozen, not advanced, on samples suppressed by the market-open guard
+    or by an active cooldown. ``remaining_cooldown_s`` is the cooldown in force
+    *after* this evaluation, so a ``ROLLBACK`` result reports the full cooldown
+    it just started.
     """
     should_rollback: bool
     decision: RollbackDecision
@@ -156,6 +192,10 @@ class AutomatedRollbackEngine:
     The engine is stateful across calls within a single deployment: it tracks
     the consecutive-failure streak, the last rollback time, and the rollback
     count. Call ``reset()`` at the start of each new deployment.
+
+    It is not thread-safe. Drive it from a single poller loop; concurrent
+    ``evaluate_metrics`` calls would interleave the streak updates and the
+    rollback count that the safety policy depends on.
     """
 
     def __init__(
@@ -230,17 +270,41 @@ class AutomatedRollbackEngine:
     ) -> RollbackEvaluationResult:
         """Evaluate one telemetry snapshot and return the rollback decision.
 
-        Raises ``ValueError`` if ``metrics`` is structurally invalid (the
-        ``DeploymentHealthMetrics.__post_init__`` validation runs on
-        construction, but this guards direct calls with malformed inputs).
+        This method raises nothing: field validation runs in
+        ``DeploymentHealthMetrics.__post_init__`` when the snapshot is
+        constructed, so a snapshot that reaches here already carries finite,
+        in-range values. Every outcome is expressed as a ``RollbackDecision``.
+
+        The engine can only judge the samples it is given. A poller that
+        substitutes the previous sample, or a zero, for a metric the backend
+        did not return will hold this gate at ``HEALTHY`` for the whole
+        burn-in window while a defective version keeps trading -- construct
+        the snapshot only from a fresh, complete scrape and escalate
+        otherwise.
         """
         anomalies = self._detect_anomalies(metrics)
         messages = [a.detail for a in anomalies]
         cooldown_remaining = self._remaining_cooldown()
+        cap_reached = (
+            self._rollbacks_issued >= self.config.max_rollbacks_per_deployment
+        )
+        # Streak value reported to the caller. Set explicitly only by the
+        # ROLLBACK branch, which resets the live counter after confirming.
+        streak_at_decision: Optional[int] = None
 
-        # Market-open / fast-market guard: detect and log, but do not count
-        # the breach toward a rollback. The anomaly may be a real signal.
-        if anomalies and metrics.market_open_volatility:
+        if not anomalies:
+            self._consecutive_failures = 0
+            decision = RollbackDecision.HEALTHY
+            should_rollback = False
+            logger.info(
+                "Deployment health metrics are within acceptable parameters.",
+                extra={"decision": decision.value},
+            )
+
+        elif metrics.market_open_volatility:
+            # Market-open / fast-market guard: detect and log, but neither
+            # advance nor reset the streak. The anomaly may be a real market
+            # event rather than a deployment defect.
             decision = RollbackDecision.SUPPRESSED
             should_rollback = False
             logger.warning(
@@ -248,88 +312,97 @@ class AutomatedRollbackEngine:
                 "rollback suppressed (may be a real signal, not a defect).",
                 extra={"anomaly_count": len(anomalies), "decision": decision.value},
             )
-            return RollbackEvaluationResult(
-                should_rollback=should_rollback,
-                decision=decision,
-                anomalies=anomalies,
-                anomalies_detected=messages,
-                consecutive_failures=self._consecutive_failures,
-                remaining_cooldown_s=cooldown_remaining,
-                rollbacks_issued=self._rollbacks_issued,
-            )
 
-        # Update the consecutive-failure streak.
-        if anomalies:
-            self._consecutive_failures += 1
-        else:
-            self._consecutive_failures = 0
-        streak_at_decision = self._consecutive_failures
-
-        if not anomalies:
-            decision = RollbackDecision.HEALTHY
-            should_rollback = False
-            logger.info(
-                "Deployment health metrics are within acceptable parameters.",
-                extra={"decision": decision.value},
-            )
-        elif self._rollbacks_issued >= self.config.max_rollbacks_per_deployment:
-            # Rollback cap reached: do not loop, escalate to a human.
-            decision = RollbackDecision.SUPPRESSED
-            should_rollback = False
-            logger.critical(
-                "Anomaly confirmed but automatic rollback cap "
-                f"({self.config.max_rollbacks_per_deployment}) reached; "
-                "ESCALATING TO HUMAN. Further rollbacks suppressed.",
-                extra={
-                    "decision": decision.value,
-                    "rollbacks_issued": self._rollbacks_issued,
-                    "consecutive_failures": self._consecutive_failures,
-                },
-            )
-        elif cooldown_remaining > 0:
+        elif cooldown_remaining > 0 and not cap_reached:
+            # Cooldown guard: samples taken while traffic is being rerouted to
+            # the previous version do not evidence a defect in the version
+            # under test, so they do NOT advance the streak. The next rollback
+            # must earn a fresh confirmation streak after the cooldown expires
+            # -- otherwise the cooldown would merely postpone a rollback loop
+            # by one cooldown period instead of preventing it.
+            #
+            # A firm already at its rollback cap is not waiting for anything,
+            # so the cooldown does not hold back its escalation below.
             decision = RollbackDecision.SUPPRESSED
             should_rollback = False
             logger.warning(
                 f"Anomaly detected but rollback cooldown active "
-                f"({cooldown_remaining:.1f}s remaining); action suppressed.",
+                f"({cooldown_remaining:.1f}s remaining); action suppressed and "
+                f"confirmation streak held.",
                 extra={
                     "decision": decision.value,
                     "remaining_cooldown_s": cooldown_remaining,
-                },
-            )
-        elif self._consecutive_failures >= self.config.consecutive_failures_required:
-            decision = RollbackDecision.ROLLBACK
-            should_rollback = True
-            self._rollbacks_issued += 1
-            self._last_rollback_time_s = self._clock()
-            # Reset the streak so the next rollback cycle requires fresh
-            # confirmation rather than riding the prior streak.
-            self._consecutive_failures = 0
-            logger.critical(
-                "ANOMALY CONFIRMED IN POST-DEPLOYMENT METRICS. "
-                "TRIGGERING ROLLBACK.",
-                extra={
-                    "decision": decision.value,
-                    "consecutive_failures": streak_at_decision,
-                    "rollbacks_issued": self._rollbacks_issued,
-                },
-            )
-            for anomaly in anomalies:
-                logger.error(
-                    "- %s (severity=%s)", anomaly.detail, anomaly.severity.value,
-                )
-        else:
-            decision = RollbackDecision.CONFIRMING
-            should_rollback = False
-            logger.warning(
-                "Anomaly detected; awaiting consecutive confirmation "
-                f"({self._consecutive_failures}/"
-                f"{self.config.consecutive_failures_required}).",
-                extra={
-                    "decision": decision.value,
                     "consecutive_failures": self._consecutive_failures,
                 },
             )
+
+        else:
+            # Confirmation runs before the cap is consulted, in every mode. The
+            # cap decides whether a *confirmed* anomaly becomes a rollback or a
+            # page -- it must not turn a single transient spike into either.
+            self._consecutive_failures += 1
+            confirmed = (
+                self._consecutive_failures
+                >= self.config.consecutive_failures_required
+            )
+
+            if not confirmed:
+                decision = RollbackDecision.CONFIRMING
+                should_rollback = False
+                logger.warning(
+                    "Anomaly detected; awaiting consecutive confirmation "
+                    f"({self._consecutive_failures}/"
+                    f"{self.config.consecutive_failures_required}).",
+                    extra={
+                        "decision": decision.value,
+                        "consecutive_failures": self._consecutive_failures,
+                    },
+                )
+            elif cap_reached:
+                # Confirmed, but no rollback budget left (or none configured,
+                # in detection-only mode): do not loop, escalate to a human.
+                # The streak keeps advancing here as an escalation signal --
+                # it says how many consecutive samples have breached.
+                decision = RollbackDecision.SUPPRESSED
+                should_rollback = False
+                logger.critical(
+                    "Anomaly confirmed but automatic rollback cap "
+                    f"({self.config.max_rollbacks_per_deployment}) reached; "
+                    "ESCALATING TO HUMAN. Further rollbacks suppressed.",
+                    extra={
+                        "decision": decision.value,
+                        "rollbacks_issued": self._rollbacks_issued,
+                        "consecutive_failures": self._consecutive_failures,
+                    },
+                )
+            else:
+                decision = RollbackDecision.ROLLBACK
+                should_rollback = True
+                streak_at_decision = self._consecutive_failures
+                self._rollbacks_issued += 1
+                self._last_rollback_time_s = self._clock()
+                # Reset the streak so the next rollback cycle requires fresh
+                # confirmation rather than riding the prior streak.
+                self._consecutive_failures = 0
+                # Report the cooldown this rollback just started, not the
+                # (zero) value observed before it.
+                cooldown_remaining = self._remaining_cooldown()
+                logger.critical(
+                    "ANOMALY CONFIRMED IN POST-DEPLOYMENT METRICS. "
+                    "TRIGGERING ROLLBACK.",
+                    extra={
+                        "decision": decision.value,
+                        "consecutive_failures": streak_at_decision,
+                        "rollbacks_issued": self._rollbacks_issued,
+                    },
+                )
+                for anomaly in anomalies:
+                    logger.error(
+                        "- %s (severity=%s)", anomaly.detail, anomaly.severity.value,
+                    )
+
+        if streak_at_decision is None:
+            streak_at_decision = self._consecutive_failures
 
         return RollbackEvaluationResult(
             should_rollback=should_rollback,

@@ -1,29 +1,113 @@
-# Institutional Crypto Custody & Withdrawal Velocity Standards
+# Withdrawal Velocity Limits — Standards and Sourced Parameters
 
-## 1. Withdrawal Security Threshold & Decision Matrix
-| Velocity / Risk Category | Condition Formula | Operational Action | Required Timelock / Escrow |
+## 1. Status of these requirements
+
+**No regulator prescribes a withdrawal velocity number.** There is no rule that
+says $100k per hour, $2M per hot wallet, or 24 hours of address cooling. Every
+threshold in this skill is an **engineering placeholder** to be calibrated
+against your own flow.
+
+What regulators do address is the *control class* — that abnormal withdrawal
+activity must be detected, that limits must exist and be "appropriate", and that
+alerts must escalate. The distinction matters: a compliance write-up that cites a
+regulator as the source of a specific number is misinformation.
+
+| Source | Reference | What it actually says | Applicability |
 | :--- | :--- | :--- | :--- |
-| **Normal Compliant** | $V_{\text{1h}} \le L_{\text{1h}} \ \land \ Z_{\text{size}} < 3.0 \ \land \ t_{\text{addr\_age}} \ge 24\text{h}$ | **APPROVED** | 0 Hours (Automated Processing) |
-| **Account Hourly Limit Breached** | $V_{\text{1h}} + A_{\text{req}} > L_{\text{1h}} \ ( \$100\text{k} )$ | **TIMELOCK_HOLD** | 24-Hour Cooling-Off Period |
-| **Account Daily Limit Breached** | $V_{\text{24h}} + A_{\text{req}} > L_{\text{24h}} \ ( \$500\text{k} )$ | **TIMELOCK_HOLD** | 24-Hour Cooling-Off / Multi-Sig |
-| **Anomaly Size Outlier** | $Z_{\text{size}} = \frac{A_{\text{req}} - \mu_{90\text{d}}}{\sigma_{90\text{d}}} \ge 3.0$ | **TIMELOCK_HOLD** | Step-Up 2FA & Manual Review |
-| **New Destination Address** | $t_{\text{now}} - t_{\text{whitelist\_added}} < 24.0\ \text{hours}$ | **TIMELOCK_HOLD** | 24-Hour Whitelist Cooling |
-| **Hot Wallet Circuit Breaker** | $V_{\text{global\_1h}} + A_{\text{req}} > L_{\text{global\_1h}} \ ( \$2\text{M} )$ | **REJECTED_FREEZE** | **Automated Hot Wallet Freeze** |
+| HK SFC | Circular **SFO/IS/005/2026**, 11 Feb 2026, para 20 | VA brokers permitting client withdrawals should collaborate with VATP operators "to strengthen abnormal withdrawal detection, such as by setting **appropriate** withdrawal limits at the omnibus account level or for **newly whitelisted client wallets**, blocking suspicious withdrawal attempts, and ensuring timely escalation to the VA broker". Also expects "continuous monitoring with effective incident escalation and suspension mechanisms during and outside normal office hours", and systems "sufficiently robust to prevent, detect and respond to unauthorised attempts to initiate client withdrawals". | Hong Kong SFC-licensed corporations providing VA dealing services under an omnibus arrangement. **Names the controls, sets no numbers** — "appropriate" is left to the firm. This is the closest thing to a regulatory hook for this skill, and it maps onto all three of its layers: aggregate limits, newly-whitelisted-address treatment, and escalation/suspension. |
+| HK SFC | Circular **SFO/IS/025/2025**, 15 Aug 2025 (custody of virtual assets) | "destination addresses for client withdrawal instructions cannot be modified before the transactions are signed and broadcast to the respective blockchain." Also requires real-time reconciliation of on-chain client assets against ledger balance, with prompt SOC alerting on discrepancies. | HK SFC-licensed VATP operators. This is the requirement behind the engine's address-binding check: an approval that is not bound to the exact destination it was granted for does not satisfy it. |
 
----
+**Everything else is firm policy.** If you need a second jurisdiction's position,
+verify it against that regulator's own text before citing it here — do not carry
+these HK citations across borders.
 
-## 2. Quantitative Velocity & Anomaly Formulas
+### What this skill is *not* evidence of
 
-### A. Rolling Window Velocity ($V_{\text{rolling}}$):
-$$V_{\text{rolling}}(T_{\text{hours}}) = \sum_{i \in \text{Withdrawals in } [t_{\text{now}} - T,\; t_{\text{now}}]} A_{\text{usd}, i}$$
+Velocity caps here are a **security** control against credential compromise. They
+are not AML transaction monitoring, and the thresholds are not
+suspicious-activity or Travel Rule thresholds. Those regimes have their own
+triggers and their own numbers; conflating them produces a control that satisfies
+neither.
 
-### B. User Historical Anomaly Z-Score ($Z_{\text{size}}$):
-$$Z_{\text{size}} = \frac{A_{\text{req}} - \mu_{90\text{d}}}{\sigma_{90\text{d}}}$$
+## 2. Engine defaults — engineering policy, not standards
 
-Where $\mu_{90\text{d}}$ and $\sigma_{90\text{d}}$ are the user's historical 90-day mean and standard deviation of USD withdrawal amounts.
+| Parameter | Default | Basis |
+| :--- | :--- | :--- |
+| `account_hourly_limit_usd` | 100,000 | Placeholder. **No regulatory basis.** Calibrate to the account tier's observed flow. |
+| `account_daily_limit_usd` | 500,000 | Placeholder. **No regulatory basis.** Validated as `>= hourly`, or the daily cap could never bind. |
+| `global_hot_wallet_hourly_limit_usd` | 2,000,000 | Placeholder. **No regulatory basis.** Should relate to the hot wallet float you are willing to lose in one hour, not to a round number. |
+| `anomaly_zscore_threshold` | 3.0 | Conventional outlier cut-off. Not a false-positive guarantee — see §3. |
+| `min_profile_observations` | 30 | Engineering floor for a usable sigma. Constrained by the Grubbs bound in §3. |
+| `address_whitelist_cooling_hours` | 24.0 | Placeholder. **Not a standard** — venue practice ranges 12–72h. See `exchange-withdrawal-whitelist-enforcement/references/standards.md`, which records the per-venue spread. |
+| `timelock_hold_hours` | 24.0 | Placeholder; should exceed your actual review SLA. |
+| `max_clock_skew_seconds` | 300.0 | Warning threshold only; never changes a decision. |
 
----
+## 3. The Z-score is a ranked outlier score, not a probability
 
-## 3. Circuit Breaker Escalation Standard
-1. **TIMELOCK_HOLD**: Automatically locks withdrawal for 24 hours. Sends push notification and email alert to account owner with cancellation link.
-2. **REJECTED_FREEZE**: Immediately halts automated hot wallet disbursement queue. Dispatches PagerDuty alert to Security Operations Center (SOC) and key custodians.
+`Z = (A_req - mu) / sigma` where `mu`, `sigma` are the account's own historical
+mean and standard deviation over a stated lookback.
+
+**Attainability (Grubbs bound).** For a sample of size `n`, when `mu` and `sigma`
+are that sample's own mean and (n-1 denominator) standard deviation, no single
+in-sample observation can exceed
+
+```
+max |Z| = (n - 1) / sqrt(n)
+```
+
+| n | max in-sample \|Z\| |
+| :--- | :--- |
+| 5 | 1.79 |
+| 10 | 2.85 |
+| 11 | 3.02 |
+| 30 | 5.29 |
+
+So a `Z >= 3.0` rule on a 5-observation profile is **incoherent**: no withdrawal
+the account ever made could have scored above 1.79, meaning the threshold was
+never calibrated against observed behaviour. `Z = 3.0` first becomes attainable
+in-sample at `n = 11`. `WithdrawalVelocityEngine.__init__` refuses a
+threshold/`min_profile_observations` pair that fails this test, rather than
+shipping a rule that cannot fire. (The bound constrains points *inside* the
+sample; a new request is out-of-sample and may exceed it, but a sigma estimated
+from a handful of points is too unstable for the excess to carry meaning.)
+
+**Distributional caveat.** Withdrawal sizes are right-skewed and heavy-tailed,
+not Gaussian. "3 sigma" therefore does **not** imply a ~0.13% one-sided false
+positive rate. Calibrate the threshold against your realised alert volume, or
+score `log(amount)` if you want the normal approximation to be less wrong.
+
+**The rule is one-sided by design.** Only `Z >= threshold` flags. An unusually
+*small* withdrawal is not a draining signal, and flagging it would bury the
+analyst in noise. Note the corollary: an attacker who keeps each withdrawal near
+the account's historical mean is invisible to this layer — the rolling velocity
+caps, not the Z-score, are what catch that.
+
+**Baseline poisoning.** If `mu` and `sigma` are recomputed from a window that
+includes an attacker's own recent withdrawals, the baseline drifts toward the
+attack. Compute the profile from a lookback that lags the current window, and
+exclude amounts that were themselves flagged.
+
+## 4. Vendor mapping — configure the equivalent policy at the custodian
+
+This engine gates *your* code. An attacker with your custodian credentials never
+executes it. The equivalent server-side control, where the vendor offers one:
+
+| Vendor | Mechanism | Verified detail |
+| :--- | :--- | :--- |
+| **Fireblocks** | Transaction Authorization Policy (TAP) | A rule takes `amount`, `amountCurrency` (`USD`, `EURO`, or `NATIVE`), and `amountScope` — `SINGLE_TX` for a per-transaction ceiling or `TIMEFRAME` for a cumulative limit over `periodSec` seconds. Actions are `ALLOW`, `BLOCK`, or `2-TIER` (additional approval). Rules resolve on a **first-match** principle, so ordering is part of the policy. `amountCurrency: USD` is what makes a fiat-denominated cap possible at the vendor. **Not verified:** the docs describe TIMEFRAME aggregation as accumulating "until the total exceeds the value you specify" but do **not** state whether the period is a rolling window or a fixed bucket — confirm with Fireblocks before assuming your local rolling semantics match theirs. |
+| **BitGo** | Wallet policy rules | A **Velocity Limit** rule type constrains how much is withdrawn from a wallet over a time window; other rule types include destination, initiator, percentage-of-wallet-balance, threshold, and webhook. Policy outcomes are automatic approve/deny or requiring a second approval. **Not verified:** exact parameter names and window semantics are not given in the policies overview — read the API reference for the wallet type you actually use. |
+| **Coinbase Prime / Anchorage** | Vendor-managed withdrawal controls and approval quorums | **Not independently verified for this skill.** Treat the frontmatter listing as "this skill's pattern is relevant to these platforms", not as a claim about specific configurable fields. Confirm against current vendor documentation before relying on any parameter. |
+
+The takeaway from the spread — per-transaction vs. cumulative, rolling vs.
+unstated, block vs. escalate-for-approval — is that a local cap and a vendor cap
+are **not** interchangeable, and the two can disagree about whether a given
+request breached a limit. Configure both, and reconcile which one you treat as
+authoritative.
+
+## 5. Escalation semantics
+
+| Decision | Meaning | Required follow-through |
+| :--- | :--- | :--- |
+| `APPROVED` | Within every cap; consumed velocity capacity at the trusted clock. | Route to signer. |
+| `TIMELOCK_HOLD` | One or more risk flags. Funds have **not** moved and no capacity was consumed. | Human review. On release, `release_held_withdrawal(...)` so the amount counts toward velocity; on rejection, `cancel_held_withdrawal(...)`. A `WHITELIST_RECORD_MISMATCH` flag is an integration fault or tampering — investigate the lookup path before releasing anything. |
+| `REJECTED_FREEZE` | Global hot-wallet cap breached. The breaker is **latched**. | Halt the automated disbursement queue, page the SOC, and investigate. The only exit is `reset_hot_wallet_freeze(authorized_by=...)`, which records who re-armed it. Aligns with the SFC's expectation of "suspension mechanisms" and timely escalation (§1). |

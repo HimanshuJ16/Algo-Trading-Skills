@@ -12,6 +12,10 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
+# Inference outcome used when a matched cash-dividend discontinuity proves the
+# series is not total-return adjusted but cannot separate raw from split-adjusted.
+NOT_TOTAL_RETURN_ADJUSTED = "NOT_TOTAL_RETURN_ADJUSTED"
+
 
 class SeriesAdjustmentMode(Enum):
     UNADJUSTED = "UNADJUSTED"
@@ -31,7 +35,7 @@ class CorporateAction:
         if not normalized_date:
             raise ValueError("corporate action date must be a non-empty ISO date")
         try:
-            calendar_date.fromisoformat(normalized_date)
+            canonical_date = calendar_date.fromisoformat(normalized_date).isoformat()
         except ValueError as exc:
             raise ValueError("corporate action date must be ISO formatted") from exc
 
@@ -47,10 +51,8 @@ class CorporateAction:
         normalized_ratio = float(self.ratio)
         if not math.isfinite(normalized_ratio) or normalized_ratio <= 0.0:
             raise ValueError("corporate action ratio must be finite and positive")
-        if normalized_action_type == "DIVIDEND" and normalized_ratio < 0.0:
-            raise ValueError("dividend amount cannot be negative")
 
-        object.__setattr__(self, "date", normalized_date)
+        object.__setattr__(self, "date", canonical_date)
         object.__setattr__(self, "action_type", normalized_action_type)
         object.__setattr__(self, "ratio", normalized_ratio)
 
@@ -65,6 +67,8 @@ class DiscontinuityEvent:
     volume_consistent: bool
     observed_price_ratio: float
     action_match: Optional[bool] = None
+    action_types: tuple[str, ...] = ()
+    expected_price_ratio: Optional[float] = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -78,6 +82,7 @@ class AdjustmentAuditReport:
     message: str
     declared_series_mode: str = SeriesAdjustmentMode.UNKNOWN.value
     unexplained_discontinuities: int = 0
+    boundary_source: str = "NEXT_OPEN"
 
 
 class PriceAdjustmentAuditor:
@@ -93,7 +98,19 @@ class PriceAdjustmentAuditor:
         discontinuity_threshold_pct: float = 30.0,
         volume_ratio_tolerance_pct: float = 25.0,
         series_mode: SeriesAdjustmentMode = SeriesAdjustmentMode.UNKNOWN,
+        price_match_tolerance_pct: float = 5.0,
     ):
+        """Configure detection thresholds.
+
+        ``price_match_tolerance_pct`` is the relative tolerance applied to the
+        ex-date price ratio when testing whether known corporate actions explain
+        a jump. It is deliberately separate from, and much tighter than,
+        ``volume_ratio_tolerance_pct``: the ex-date price factor is mechanical,
+        whereas traded volume around an ex-date varies widely. The 5% default
+        only absorbs ordinary overnight drift; tighten it for high-quality
+        vendor data. Neither tolerance substitutes for vendor factor
+        reconciliation.
+        """
         self.threshold_pct = self._finite_real(
             discontinuity_threshold_pct, "discontinuity_threshold_pct"
         )
@@ -104,6 +121,11 @@ class PriceAdjustmentAuditor:
         )
         if self.volume_ratio_tolerance_pct < 0.0:
             raise ValueError("volume_ratio_tolerance_pct cannot be negative")
+        self.price_match_tolerance_pct = self._finite_real(
+            price_match_tolerance_pct, "price_match_tolerance_pct"
+        )
+        if self.price_match_tolerance_pct < 0.0:
+            raise ValueError("price_match_tolerance_pct cannot be negative")
         self.series_mode = self._coerce_series_mode(series_mode)
 
     @staticmethod
@@ -151,18 +173,21 @@ class PriceAdjustmentAuditor:
         if opens is not None and len(opens) != len(closes):
             raise ValueError("opens must have the same length as closes")
 
-        normalized_dates = []
+        normalized_dates: list[str] = []
+        previous_parsed: Optional[calendar_date] = None
         for current_date in dates:
             if not isinstance(current_date, str):
                 raise TypeError("dates must contain ISO date strings")
-            normalized_date = current_date.strip()
             try:
-                calendar_date.fromisoformat(normalized_date)
+                parsed_date = calendar_date.fromisoformat(current_date.strip())
             except ValueError as exc:
                 raise ValueError("dates must contain ISO date strings") from exc
-            if normalized_dates and normalized_date <= normalized_dates[-1]:
+            if previous_parsed is not None and parsed_date <= previous_parsed:
                 raise ValueError("dates must be strictly increasing")
-            normalized_dates.append(normalized_date)
+            previous_parsed = parsed_date
+            # Canonical YYYY-MM-DD keys so corporate-action lookup cannot miss a
+            # bar because the vendor used a different accepted ISO spelling.
+            normalized_dates.append(parsed_date.isoformat())
 
         normalized_closes = []
         normalized_volumes = []
@@ -186,24 +211,36 @@ class PriceAdjustmentAuditor:
 
         return normalized_closes, normalized_volumes, normalized_dates, normalized_opens
 
-    def _action_matches(
-        self,
-        action: CorporateAction,
+    @staticmethod
+    def _expected_price_ratio(
+        actions: Sequence[CorporateAction],
         previous_close: float,
-        next_open: float,
-    ) -> bool:
-        observed_ratio = next_open / previous_close
-        if action.action_type == "SPLIT":
-            expected_ratio = 1.0 / action.ratio
-        else:
-            expected_ratio = (previous_close - action.ratio) / previous_close
-            if expected_ratio <= 0.0:
-                return False
-        return self._relative_match(
-            observed_ratio,
-            expected_ratio,
-            self.volume_ratio_tolerance_pct,
-        )
+    ) -> Optional[float]:
+        """Composite ex-date price factor for every action sharing one ex-date.
+
+        Individual factors are multiplied and same-date cash dividends are
+        summed, following the documented vendor convention in
+        ``references/standards.md``. A split factor is ``1 / ratio``; the cash
+        factor is ``(previous_close - total_dividend) / previous_close``, which
+        assumes the dividend is quoted on the same pre-split share basis as
+        ``previous_close``. Returns ``None`` when no expectation can be formed
+        (no actions, or a cash amount implying a non-positive price).
+        """
+        if not actions:
+            return None
+        expected_ratio = 1.0
+        total_dividend = 0.0
+        for action in actions:
+            if action.action_type == "SPLIT":
+                expected_ratio /= action.ratio
+            else:
+                total_dividend += action.ratio
+        if total_dividend > 0.0:
+            cash_factor = (previous_close - total_dividend) / previous_close
+            if cash_factor <= 0.0:
+                return None
+            expected_ratio *= cash_factor
+        return expected_ratio
 
     def _is_expected_for_mode(self, action_type: str) -> bool:
         if self.series_mode == SeriesAdjustmentMode.UNADJUSTED:
@@ -252,54 +289,55 @@ class PriceAdjustmentAuditor:
             dividend_actions = [
                 action for action in actions if action.action_type == "DIVIDEND"
             ]
-            matching_actions = [
-                action
-                for action in actions
-                if self._action_matches(action, previous_close, next_open)
-            ]
-            action_match = bool(matching_actions) if actions else None
-
-            if split_actions:
-                split_action = split_actions[0]
-                likely_cause = f"SPLIT (ratio={split_action.ratio:g})"
-                if normalized_volumes[index - 1] > 0.0:
-                    observed_volume_ratio = (
-                        normalized_volumes[index] / normalized_volumes[index - 1]
-                    )
-                    volume_consistent = self._relative_match(
-                        observed_volume_ratio,
-                        split_action.ratio,
-                        self.volume_ratio_tolerance_pct,
-                    )
-                else:
-                    volume_consistent = False
-            elif dividend_actions:
-                dividend_action = dividend_actions[0]
-                likely_cause = (
-                    f"DIVIDEND_CASH_EVENT (amount={dividend_action.ratio:g})"
+            expected_price_ratio = self._expected_price_ratio(actions, previous_close)
+            if not actions:
+                action_match = None
+            elif expected_price_ratio is None:
+                action_match = False
+            else:
+                action_match = self._relative_match(
+                    observed_ratio,
+                    expected_price_ratio,
+                    self.price_match_tolerance_pct,
                 )
-                volume_consistent = True
+
+            causes = [f"SPLIT (ratio={action.ratio:g})" for action in split_actions]
+            causes.extend(
+                f"DIVIDEND_CASH_EVENT (amount={action.ratio:g})"
+                for action in dividend_actions
+            )
+
+            volume_consistent = True
+            if split_actions:
+                likely_cause = " + ".join(causes)
+                expected_volume_ratio: Optional[float] = 1.0
+                for action in split_actions:
+                    expected_volume_ratio *= action.ratio
+            elif dividend_actions:
+                likely_cause = " + ".join(causes)
+                # A cash distribution does not change shares outstanding, so the
+                # traded-volume series needs no split-style rescaling.
+                expected_volume_ratio = None
             else:
-                likely_cause = "UNKNOWN â€” possible corporate action or data error"
+                likely_cause = "UNKNOWN - no corporate action recorded on this date"
+                expected_volume_ratio = 1.0 / observed_ratio
+
+            if expected_volume_ratio is not None:
                 if normalized_volumes[index - 1] > 0.0:
                     observed_volume_ratio = (
                         normalized_volumes[index] / normalized_volumes[index - 1]
                     )
                     volume_consistent = self._relative_match(
                         observed_volume_ratio,
-                        1.0 / observed_ratio,
+                        expected_volume_ratio,
                         self.volume_ratio_tolerance_pct,
                     )
                 else:
                     volume_consistent = False
 
-            if actions:
-                if not action_match or not all(
-                    self._is_expected_for_mode(action.action_type)
-                    for action in matching_actions
-                ):
-                    unexplained_discontinuities += 1
-            else:
+            if not action_match or not all(
+                self._is_expected_for_mode(action.action_type) for action in actions
+            ):
                 unexplained_discontinuities += 1
 
             if (
@@ -319,19 +357,27 @@ class PriceAdjustmentAuditor:
                     volume_consistent=volume_consistent,
                     observed_price_ratio=round(observed_ratio, 8),
                     action_match=action_match,
+                    action_types=tuple(action.action_type for action in actions),
+                    expected_price_ratio=(
+                        None
+                        if expected_price_ratio is None
+                        else round(expected_price_ratio, 8)
+                    ),
                 )
             )
 
         if self.series_mode != SeriesAdjustmentMode.UNKNOWN:
             detected_type = self.series_mode.value
-        elif discontinuities:
-            detected_type = (
-                "UNADJUSTED"
-                if any(event.action_match for event in discontinuities)
-                else "UNKNOWN"
-            )
         else:
-            detected_type = SeriesAdjustmentMode.UNKNOWN.value
+            detected_type = self._infer_adjustment_type(discontinuities)
+
+        boundary_source = "NEXT_OPEN" if opens is not None else "PRIOR_CLOSE_FALLBACK"
+        if opens is None:
+            logger.warning(
+                "No opens supplied for '%s': discontinuities measured close-to-close, "
+                "which can understate or hide overnight ex-date gaps.",
+                normalized_symbol,
+            )
 
         if discontinuities:
             message = (
@@ -358,7 +404,26 @@ class PriceAdjustmentAuditor:
             message=message,
             declared_series_mode=self.series_mode.value,
             unexplained_discontinuities=unexplained_discontinuities,
+            boundary_source=boundary_source,
         )
+
+    @staticmethod
+    def _infer_adjustment_type(
+        discontinuities: Sequence[DiscontinuityEvent],
+    ) -> str:
+        """Infer only what the observed jumps actually prove.
+
+        A matched raw split jump proves the series is neither split-adjusted nor
+        total-return adjusted. A matched cash-dividend jump only proves the
+        series is not total-return adjusted; it cannot separate raw from
+        split-adjusted. Absence of jumps proves nothing.
+        """
+        matched = [event for event in discontinuities if event.action_match]
+        if any("SPLIT" in event.action_types for event in matched):
+            return SeriesAdjustmentMode.UNADJUSTED.value
+        if any("DIVIDEND" in event.action_types for event in matched):
+            return NOT_TOTAL_RETURN_ADJUSTED
+        return SeriesAdjustmentMode.UNKNOWN.value
 
     def apply_split_adjustment(
         self,
@@ -404,8 +469,9 @@ class PriceAdjustmentAuditor:
             return True, "Universe consistent: no reports supplied."
 
         declared_modes = {report.declared_series_mode for report in reports}
-        if len(declared_modes) > 1 and SeriesAdjustmentMode.UNKNOWN.value not in declared_modes:
-            message = f"MIXED DECLARED SERIES MODES in universe: {declared_modes}."
+        known_modes = declared_modes - {SeriesAdjustmentMode.UNKNOWN.value}
+        if len(known_modes) > 1:
+            message = f"MIXED DECLARED SERIES MODES in universe: {sorted(known_modes)}."
             logger.error(message)
             return False, message
 

@@ -1,5 +1,6 @@
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from unittest import mock
 
 from australian_securities_exchange_asx_api import (
     AsxConnectionConfig,
@@ -9,6 +10,7 @@ from australian_securities_exchange_asx_api import (
     AsxProtocol,
     AsxSequenceTracker,
     AsxSessionSchedule,
+    InboundSeqNumStatus,
 )
 
 
@@ -98,6 +100,28 @@ class TestAsxIntegrationEngine(unittest.TestCase):
         engine = AsxIntegrationEngine(config)  # must NOT raise
         self.assertEqual(engine.sequence, None)  # no FIX sequence tracker
 
+    # ---- connection-parameter validation ----
+
+    def test_empty_comp_id_rejected(self):
+        for bad in ("", "   "):
+            with self.assertRaises(ValueError):
+                AsxIntegrationEngine(self._fix_config(comp_id=bad))
+
+    def test_empty_host_rejected(self):
+        for bad in ("", "  "):
+            with self.assertRaises(ValueError):
+                AsxIntegrationEngine(self._fix_config(host=bad))
+
+    def test_out_of_range_port_rejected(self):
+        for bad in (0, -1, 65536):
+            with self.assertRaises(ValueError):
+                AsxIntegrationEngine(self._fix_config(port=bad))
+
+    def test_port_boundaries_accepted(self):
+        for ok in (1, 65535):
+            engine = AsxIntegrationEngine(self._fix_config(port=ok))
+            self.assertEqual(engine.config.port, ok)
+
     # ---- test-host warning path ----
 
     def test_test_host_without_cde_flags_warning(self):
@@ -142,6 +166,55 @@ class TestAsxIntegrationEngine(unittest.TestCase):
         ))
         self.assertIsNone(itch_engine.sequence)
 
+    # ---- inbound sequence-number classification ----
+    # A forward gap and a too-low number both "are a gap", but the FIX-correct
+    # responses are opposite: ResendRequest (2) vs. Logout (5) + terminate. These
+    # tests pin the distinction the boolean predicate cannot express.
+
+    def test_classify_in_sequence(self):
+        self.assertIs(
+            AsxSequenceTracker.classify_inbound(None, 1), InboundSeqNumStatus.IN_SEQUENCE,
+        )
+        self.assertIs(
+            AsxSequenceTracker.classify_inbound(5, 6), InboundSeqNumStatus.IN_SEQUENCE,
+        )
+
+    def test_classify_forward_gap_requests_resend(self):
+        self.assertIs(AsxSequenceTracker.classify_inbound(5, 8), InboundSeqNumStatus.GAP)
+        self.assertIs(AsxSequenceTracker.classify_inbound(None, 4), InboundSeqNumStatus.GAP)
+
+    def test_classify_too_low_is_fatal_not_a_resend(self):
+        # PossDupFlag (43) not set and MsgSeqNum below expected: FIX session layer
+        # requires Logout (5) with SessionStatus (1409) = 9, not a ResendRequest.
+        self.assertIs(AsxSequenceTracker.classify_inbound(5, 5), InboundSeqNumStatus.TOO_LOW)
+        self.assertIs(AsxSequenceTracker.classify_inbound(5, 1), InboundSeqNumStatus.TOO_LOW)
+
+    def test_classify_poss_dup_is_not_a_session_error(self):
+        # Regression: messages replayed in response to our own ResendRequest carry
+        # PossDupFlag (43) = Y and must not be treated as a fatal too-low sequence.
+        self.assertIs(
+            AsxSequenceTracker.classify_inbound(5, 3, poss_dup=True),
+            InboundSeqNumStatus.POSS_DUP,
+        )
+        self.assertIs(
+            AsxSequenceTracker.classify_inbound(5, 5, poss_dup=True),
+            InboundSeqNumStatus.POSS_DUP,
+        )
+
+    def test_classify_poss_dup_does_not_mask_a_forward_gap(self):
+        # PossDupFlag=Y on a number ABOVE expected is still a gap.
+        self.assertIs(
+            AsxSequenceTracker.classify_inbound(5, 9, poss_dup=True), InboundSeqNumStatus.GAP,
+        )
+
+    def test_classify_rejects_invalid_sequence_numbers(self):
+        with self.assertRaises(ValueError):
+            AsxSequenceTracker.classify_inbound(5, 0)
+        with self.assertRaises(ValueError):
+            AsxSequenceTracker.classify_inbound(5, -3)
+        with self.assertRaises(ValueError):
+            AsxSequenceTracker.classify_inbound(0, 4)
+
     # ---- session schedule / market phase ----
 
     def test_phase_pre_open(self):
@@ -160,13 +233,35 @@ class TestAsxIntegrationEngine(unittest.TestCase):
     def test_phase_closing_auction(self):
         self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(16, 10, 30)), AsxMarketPhase.CLOSING_AUCTION)
 
-    def test_phase_closed_after_cspa(self):
-        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(16, 30, 0)), AsxMarketPhase.CLOSED)
+    # Regression: before the Service Release 15 schedule was modelled, everything
+    # from 16:11 onwards collapsed into CLOSED, which hid the Post Close trading
+    # session (16:11:00-16:21:30, matching at the CSPA price) entirely.
+
+    def test_phase_post_close(self):
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(16, 15, 0)), AsxMarketPhase.POST_CLOSE)
+
+    def test_phase_boundary_post_close_start(self):
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(16, 11, 0)), AsxMarketPhase.POST_CLOSE)
+
+    def test_phase_boundary_post_close_end(self):
+        # 16:21:29 is the last Post Close second; 16:21:30 begins Adjust.
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(16, 21, 29)), AsxMarketPhase.POST_CLOSE)
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(16, 21, 30)), AsxMarketPhase.ADJUST)
+
+    def test_phase_adjust_covers_adjust_and_adjust_on(self):
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(16, 30, 0)), AsxMarketPhase.ADJUST)
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(17, 0, 0)), AsxMarketPhase.ADJUST)
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(18, 49, 59)), AsxMarketPhase.ADJUST)
+
+    def test_phase_closed_after_adjust(self):
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(18, 50, 0)), AsxMarketPhase.CLOSED)
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(21, 0, 0)), AsxMarketPhase.CLOSED)
         self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(3, 0, 0)), AsxMarketPhase.CLOSED)
 
     def test_phase_boundary_pre_open_start(self):
         # 07:00:00 exactly is the start of PRE_OPEN
         self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(7, 0, 0)), AsxMarketPhase.PRE_OPEN)
+        self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(6, 59, 59)), AsxMarketPhase.CLOSED)
 
     def test_phase_boundary_normal_start(self):
         self.assertEqual(AsxSessionSchedule.phase_at(_sydney_naive(9, 59, 45)), AsxMarketPhase.NORMAL)
@@ -182,21 +277,105 @@ class TestAsxIntegrationEngine(unittest.TestCase):
         )
         self.assertEqual(AsxSessionSchedule.phase_at(dt_utc), AsxMarketPhase.NORMAL)
 
+    def test_daylight_saving_boundaries_use_local_wallclock(self):
+        # The Sydney UTC offset differs across DST but the local session times do
+        # not: 00:00 UTC is 11:00 Sydney in AEDT (January) and 10:00 Sydney in AEST
+        # (July). Both are NORMAL, and the AEST->AEDT shift must not move the open.
+        aedt = datetime(2024, 1, 15, 0, 0, 0, tzinfo=timezone.utc)   # 11:00 Sydney
+        aest = datetime(2024, 7, 15, 0, 0, 0, tzinfo=timezone.utc)   # 10:00 Sydney
+        self.assertEqual(AsxSessionSchedule.phase_at(aedt), AsxMarketPhase.NORMAL)
+        self.assertEqual(AsxSessionSchedule.phase_at(aest), AsxMarketPhase.NORMAL)
+        # 23:00 UTC in AEDT is 10:00 next-day Sydney (NORMAL); in AEST it is 09:00
+        # Sydney, which is still PRE_OPEN. A fixed-offset implementation gets one
+        # of these two wrong.
+        self.assertEqual(
+            AsxSessionSchedule.phase_at(datetime(2024, 1, 14, 23, 0, tzinfo=timezone.utc)),
+            AsxMarketPhase.NORMAL,
+        )
+        self.assertEqual(
+            AsxSessionSchedule.phase_at(datetime(2024, 7, 14, 23, 0, tzinfo=timezone.utc)),
+            AsxMarketPhase.PRE_OPEN,
+        )
+
     def test_order_entry_window(self):
         self.assertTrue(AsxSessionSchedule.is_order_entry_window(_sydney_naive(8, 0)))
         self.assertTrue(AsxSessionSchedule.is_order_entry_window(_sydney_naive(12, 0)))
         self.assertFalse(AsxSessionSchedule.is_order_entry_window(_sydney_naive(17, 0)))
 
-    def test_connect_during_closed_warns_but_succeeds(self):
+    def test_post_close_accepts_new_orders(self):
+        # Regression: Post Close is a real trading session (matching at the CSPA
+        # price), not part of CLOSED. Gating order entry off it drops live liquidity.
+        self.assertTrue(AsxSessionSchedule.is_order_entry_window(_sydney_naive(16, 15)))
+
+    def test_adjust_blocks_new_orders_but_allows_amend_cancel(self):
+        # ASX accepts no new orders and executes no trades during Adjust, but
+        # participants may still cancel/amend. A kill-switch must not conclude that
+        # its resting orders are untouchable.
+        self.assertFalse(AsxSessionSchedule.is_order_entry_window(_sydney_naive(17, 0)))
+        self.assertTrue(AsxSessionSchedule.is_amend_cancel_window(_sydney_naive(17, 0)))
+
+    def test_amend_cancel_window_false_when_closed(self):
+        self.assertFalse(AsxSessionSchedule.is_amend_cancel_window(_sydney_naive(19, 30)))
+        self.assertFalse(AsxSessionSchedule.is_amend_cancel_window(_sydney_naive(3, 0)))
+
+    def test_amend_cancel_window_is_superset_of_order_entry(self):
+        for h, m in ((8, 0), (9, 59), (12, 0), (16, 5), (16, 10), (16, 15), (17, 0), (20, 0)):
+            dt = _sydney_naive(h, m)
+            if AsxSessionSchedule.is_order_entry_window(dt):
+                self.assertTrue(
+                    AsxSessionSchedule.is_amend_cancel_window(dt),
+                    msg=f"amend/cancel must be permitted whenever order entry is, at {h}:{m}",
+                )
+
+    def test_connect_outside_order_entry_warns_but_succeeds(self):
         engine = AsxIntegrationEngine(self._fix_config())
-        self.assertTrue(engine.connect(at=_sydney_naive(17, 0)))
+        self.assertTrue(engine.connect(at=_sydney_naive(20, 0)))
         self.assertEqual(engine.state, AsxConnectionState.CONNECTED)
         self.assertEqual(engine.market_phase(at=_sydney_naive(12, 0)), AsxMarketPhase.NORMAL)
 
-    def test_market_phase_returns_normal_for_default_now(self):
+    def test_market_phase_default_now_is_timezone_aware(self):
+        # Regression: the default used to be `datetime.now()`, whose naive host-local
+        # wall-clock the schedule reads as Sydney time. On a UTC host that is a 10-11
+        # hour misclassification. Pin the behaviour by running the default path with
+        # a UTC "now" that is unambiguously NORMAL in Sydney and CLOSED read naively.
+        engine = AsxIntegrationEngine(self._fix_config())
+        fake_utc_now = datetime(2024, 7, 15, 3, 0, 0, tzinfo=timezone.utc)  # 13:00 Sydney
+        real_datetime = datetime
+
+        class _FrozenDatetime(real_datetime):
+            @classmethod
+            def now(cls, tz=None):
+                if tz is None:
+                    # naive host-local clock of a UTC server
+                    return fake_utc_now.replace(tzinfo=None)
+                return fake_utc_now.astimezone(tz)
+
+        with mock.patch(
+            "australian_securities_exchange_asx_api.datetime", _FrozenDatetime,
+        ):
+            self.assertEqual(engine.market_phase(), AsxMarketPhase.NORMAL)
+        # Sanity: the naive reading of the same instant is NOT the correct phase,
+        # so the assertion above genuinely discriminates between the two.
+        self.assertEqual(
+            AsxSessionSchedule.phase_at(fake_utc_now.replace(tzinfo=None)),
+            AsxMarketPhase.CLOSED,
+        )
+
+    def test_market_phase_returns_a_phase_for_real_now(self):
         # Smoke test: default argument (now) must not raise and must return a member.
         phase = AsxIntegrationEngine(self._fix_config()).market_phase()
         self.assertIsInstance(phase, AsxMarketPhase)
+
+    def test_every_minute_of_the_day_maps_to_a_phase(self):
+        # Exhaustive sweep: the phase table must be total and must never leave a
+        # hole between the SR15 phases.
+        seen = set()
+        base = datetime(2024, 3, 4, 0, 0, 0)
+        for minute in range(24 * 60):
+            phase = AsxSessionSchedule.phase_at(base + timedelta(minutes=minute))
+            self.assertIsInstance(phase, AsxMarketPhase)
+            seen.add(phase)
+        self.assertEqual(seen, set(AsxMarketPhase))
 
 
 if __name__ == "__main__":

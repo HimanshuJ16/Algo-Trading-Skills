@@ -10,7 +10,10 @@
 3. **Order Interception**: Intercept the order before FIX or broker serialization.
    Validate identity fields, manual trader attribution, and algorithm metadata.
 4. **Registry Validation**: Require an exact `algo_id` match and `APPROVED` status.
-   Apply venue and registered-version constraints when present.
+   Apply venue and registered-version constraints when present. The registry
+   itself is validated once, when the engine is constructed: a duplicate key, a
+   blank status or version, or a venue scope declared as a bare string aborts
+   startup rather than degrading a later order decision.
 5. **Lineage Validation**: When an order is a child of an algorithmic parent,
    propagate the parent identifier and reject mismatches or omissions at the
    child-order boundary.
@@ -23,7 +26,9 @@
 ## Registry Update and Deployment
 
 1. Create a new registry record for a new or materially changed algorithm;
-   never overwrite the prior record in place.
+   never overwrite the prior record in place, and never mutate the running
+   engine's snapshot — rebuild and redeploy it so the change carries an
+   approval and audit record.
 2. Obtain the required compliance, exchange, or broker approval and record the
    effective venue scope and version.
 3. Test the strategy and adapter in a non-production environment, including

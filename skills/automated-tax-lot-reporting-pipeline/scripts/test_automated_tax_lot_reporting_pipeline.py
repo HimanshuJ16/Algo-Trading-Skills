@@ -283,5 +283,210 @@ class TestTaxLotReporting(unittest.TestCase):
         self.assertEqual(lots[0].remaining_quantity, 100.0)
 
 
+class TestSellAtomicity(unittest.TestCase):
+    """A sell that cannot be covered must leave the ledger untouched.
+
+    Regression tests for the partial-commit defect: the engine previously
+    consumed lots and appended RealizedGainRecords as it walked the ledger, and
+    only raised the oversell error afterwards. A caught exception then left a
+    committed disposal with no corresponding sellable position.
+    """
+
+    def test_oversell_consumes_no_lots(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "AAPL", TradeAction.BUY, 10.0, 100.0, 1000))
+
+        with self.assertRaises(ValueError):
+            engine.process_trade(TradeRecord("S1", "AAPL", TradeAction.SELL, 15.0, 110.0, 2000))
+
+        # The 10-unit lot must be fully intact, not consumed.
+        self.assertEqual(engine.get_total_open_lot_count(), 1)
+        lot = engine.open_lots["AAPL"][0]
+        self.assertEqual(lot.lot_id, "B1")
+        self.assertEqual(lot.remaining_quantity, 10.0)
+
+    def test_oversell_records_no_gains(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "AAPL", TradeAction.BUY, 10.0, 100.0, 1000))
+
+        with self.assertRaises(ValueError):
+            engine.process_trade(TradeRecord("S1", "AAPL", TradeAction.SELL, 15.0, 110.0, 2000))
+
+        # No phantom disposal may reach the realized-gain ledger (and hence a
+        # Form 8949) for a sale that was rejected.
+        self.assertEqual(engine.realized_gains, [])
+
+    def test_oversell_spanning_multiple_lots_consumes_none(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "AAPL", TradeAction.BUY, 10.0, 100.0, 1000))
+        engine.process_trade(TradeRecord("B2", "AAPL", TradeAction.BUY, 10.0, 120.0, 2000))
+
+        with self.assertRaises(ValueError):
+            engine.process_trade(TradeRecord("S1", "AAPL", TradeAction.SELL, 25.0, 110.0, 3000))
+
+        self.assertEqual(engine.get_total_open_lot_count(), 2)
+        self.assertEqual([l.remaining_quantity for l in engine.open_lots["AAPL"]], [10.0, 10.0])
+        self.assertEqual(engine.realized_gains, [])
+
+    def test_ledger_still_usable_after_rejected_oversell(self):
+        """The caller can correct the quantity and re-sell against the same lots."""
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "AAPL", TradeAction.BUY, 10.0, 100.0, 1000))
+
+        with self.assertRaises(ValueError):
+            engine.process_trade(TradeRecord("S1", "AAPL", TradeAction.SELL, 15.0, 110.0, 2000))
+
+        gains = engine.process_trade(TradeRecord("S2", "AAPL", TradeAction.SELL, 10.0, 110.0, 3000))
+        self.assertEqual(len(gains), 1)
+        # 10 units * ($110 - $100) = $100
+        self.assertEqual(gains[0].realized_pnl, 100.0)
+        self.assertEqual(engine.get_total_open_lot_count(), 0)
+
+    def test_oversell_error_states_no_lots_consumed(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "AAPL", TradeAction.BUY, 10.0, 100.0, 1000))
+
+        with self.assertRaises(ValueError) as context:
+            engine.process_trade(TradeRecord("S1", "AAPL", TradeAction.SELL, 15.0, 110.0, 2000))
+        self.assertIn("No lots were consumed", str(context.exception))
+
+
+class TestFractionalQuantityPrecision(unittest.TestCase):
+    """Float dust must not pin a depleted lot open.
+
+    Regression tests for exhaustion being tested with ``== 0``: buying 0.3 and
+    selling 0.1 three times left 2.78e-17 on the lot, so it was never removed and
+    the third sell raised "Oversold ... Remaining 2.7755575615628914e-17 units"
+    against a position the holder still fully owned.
+    """
+
+    def test_fractional_position_can_be_fully_liquidated(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "BTC", TradeAction.BUY, 0.3, 50000.0, 1000))
+
+        for i in range(3):
+            engine.process_trade(
+                TradeRecord("S%d" % i, "BTC", TradeAction.SELL, 0.1, 60000.0, 2000 + i)
+            )
+
+        self.assertEqual(engine.get_total_open_lot_count(), 0)
+
+    def test_fractional_liquidation_totals_are_exact(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "BTC", TradeAction.BUY, 0.3, 50000.0, 1000))
+
+        total_pnl = 0.0
+        total_qty = 0.0
+        for i in range(3):
+            for gain in engine.process_trade(
+                TradeRecord("S%d" % i, "BTC", TradeAction.SELL, 0.1, 60000.0, 2000 + i)
+            ):
+                total_pnl += gain.realized_pnl
+                total_qty += gain.quantity_sold
+
+        # Independently derived: 0.3 units * ($60,000 - $50,000) = $3,000.
+        self.assertAlmostEqual(total_pnl, 3000.0, places=6)
+        self.assertAlmostEqual(total_qty, 0.3, places=12)
+
+    def test_dust_remainder_does_not_strand_a_lot(self):
+        """A lot depleted to sub-epsilon dust is treated as closed."""
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "BTC", TradeAction.BUY, 0.1, 50000.0, 1000))
+        engine.process_trade(TradeRecord("B2", "BTC", TradeAction.BUY, 0.2, 50000.0, 2000))
+
+        # 0.1 + 0.2 == 0.30000000000000004 in binary floating point, so the sell
+        # quantity is very slightly larger than the sum of the two lots.
+        engine.process_trade(TradeRecord("S1", "BTC", TradeAction.SELL, 0.1 + 0.2, 60000.0, 3000))
+        self.assertEqual(engine.get_total_open_lot_count(), 0)
+
+
+class TestNonFiniteAndBooleanInputs(unittest.TestCase):
+    """Non-finite inputs must be rejected before they reach the gain records.
+
+    Regression tests for infinities passing validation: an infinite price
+    produced ``realized_pnl = nan`` (inf - inf), silently poisoning a tax report
+    with no exception raised anywhere.
+    """
+
+    def _buy(self, **overrides):
+        args = dict(trade_id="T1", symbol="AAPL", action=TradeAction.BUY,
+                    quantity=100.0, price=10.0, timestamp_ms=1000)
+        args.update(overrides)
+        return TradeRecord(**args)
+
+    def test_validation_rejects_infinite_price(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        for bad_price in (float('inf'), float('-inf')):
+            with self.assertRaises(ValueError) as context:
+                engine.process_trade(self._buy(price=bad_price))
+            self.assertIn("price must be a valid number", str(context.exception))
+
+    def test_validation_rejects_infinite_quantity(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        with self.assertRaises(ValueError) as context:
+            engine.process_trade(self._buy(quantity=float('inf')))
+        self.assertIn("quantity must be a valid number", str(context.exception))
+
+    def test_no_nan_pnl_can_be_produced_from_accepted_input(self):
+        """The previous failure path: inf in, nan realized_pnl out, no error."""
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        with self.assertRaises(ValueError):
+            engine.process_trade(self._buy(price=float('inf')))
+        self.assertEqual(engine.realized_gains, [])
+
+    def test_validation_rejects_boolean_quantity(self):
+        """``True`` is an ``int`` in Python and previously booked a 1-unit lot."""
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        with self.assertRaises(ValueError) as context:
+            engine.process_trade(self._buy(quantity=True))
+        self.assertIn("quantity must be a valid number", str(context.exception))
+
+    def test_validation_rejects_boolean_timestamp(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        with self.assertRaises(ValueError) as context:
+            engine.process_trade(self._buy(timestamp_ms=True))
+        self.assertIn("timestamp_ms must be a non-negative integer", str(context.exception))
+
+
+class TestForm8949Fields(unittest.TestCase):
+    """Realized gain records must carry the dates Form 8949 requires.
+
+    Form 8949 reports column (b) "Date acquired" and column (c) "Date sold or
+    disposed of" per transaction, and separates Part I (short-term) from Part II
+    (long-term) on the holding period. Without both timestamps on the record the
+    documented Form 8949 mapping is not derivable from the engine's output.
+    """
+
+    def test_record_carries_acquisition_and_disposal_timestamps(self):
+        engine = AutomatedTaxLotReportingPipelineEngine()
+        engine.process_trade(TradeRecord("B1", "AAPL", TradeAction.BUY, 10.0, 100.0, 1600000000000))
+        gains = engine.process_trade(TradeRecord("S1", "AAPL", TradeAction.SELL, 10.0, 120.0, 1700000000000))
+
+        self.assertEqual(gains[0].acquired_timestamp_ms, 1600000000000)
+        self.assertEqual(gains[0].disposed_timestamp_ms, 1700000000000)
+
+    def test_each_leg_of_a_multi_lot_sell_carries_its_own_acquisition_date(self):
+        """A sell spanning two lots is two Form 8949 rows with two acquired dates."""
+        engine = AutomatedTaxLotReportingPipelineEngine(strategy=LotMatchingStrategy.FIFO)
+        engine.process_trade(TradeRecord("B1", "AAPL", TradeAction.BUY, 100.0, 10.0, 1000))
+        engine.process_trade(TradeRecord("B2", "AAPL", TradeAction.BUY, 100.0, 20.0, 2000))
+
+        gains = engine.process_trade(TradeRecord("S1", "AAPL", TradeAction.SELL, 150.0, 15.0, 3000))
+
+        self.assertEqual([g.acquired_timestamp_ms for g in gains], [1000, 2000])
+        self.assertEqual([g.disposed_timestamp_ms for g in gains], [3000, 3000])
+
+    def test_hifo_record_reports_the_matched_lots_acquisition_date(self):
+        """Under HIFO the acquired date must follow the matched lot, not lot age."""
+        engine = AutomatedTaxLotReportingPipelineEngine(strategy=LotMatchingStrategy.HIFO)
+        engine.process_trade(TradeRecord("B1", "AAPL", TradeAction.BUY, 100.0, 10.0, 1000))
+        engine.process_trade(TradeRecord("B2", "AAPL", TradeAction.BUY, 100.0, 20.0, 2000))
+
+        gains = engine.process_trade(TradeRecord("S1", "AAPL", TradeAction.SELL, 50.0, 15.0, 3000))
+
+        self.assertEqual(gains[0].buy_lot_id, "B2")
+        self.assertEqual(gains[0].acquired_timestamp_ms, 2000)
+
+
 if __name__ == '__main__':
     unittest.main()

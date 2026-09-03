@@ -21,10 +21,13 @@ from __future__ import annotations
 
 import dataclasses
 import logging
+import math
 from datetime import datetime
+from numbers import Real
 from typing import Iterable, List, Sequence
 
 logger = logging.getLogger(__name__)
+
 
 __all__ = [
     "AppUsageDataPoint",
@@ -32,6 +35,25 @@ __all__ = [
     "EngineConfig",
     "AppUsageSignalEngine",
 ]
+
+
+def _require_finite_count(name: str, value: object, ticker: str) -> None:
+    """Reject non-numeric, boolean, NaN and infinite panel counts.
+
+    Vendor panel exports routinely encode gaps as NaN and overflow artefacts as
+    inf, and both propagate silently through a plain division: ``nan / nan`` is
+    ``nan``, every threshold comparison against ``nan`` evaluates ``False``, and
+    the engine would emit a well-formed "Average engagement" signal derived from
+    a missing observation. Failing fast forces the point to be quarantined
+    upstream instead of entering portfolio construction as a neutral reading.
+    """
+    if isinstance(value, bool) or not isinstance(value, Real):
+        raise TypeError(
+            f"{name} must be a real number for {ticker}, "
+            f"got {type(value).__name__}."
+        )
+    if not math.isfinite(value):
+        raise ValueError(f"{name} must be finite for {ticker}, got {value!r}.")
 
 
 # --- Engine defaults ---------------------------------------------------------
@@ -42,9 +64,17 @@ DEFAULT_WORLD_CLASS_THRESHOLD: float = 0.50
 # A stickiness ratio below this value indicates low daily engagement.
 DEFAULT_LOW_STICKINESS_THRESHOLD: float = 0.20
 
-# Daily downloads expressed as a fraction of MAU at or above which an app is
+# Downloads expressed as a fraction of MAU at or above which an app is
 # considered to be in aggressive acquisition mode. Combined with low stickiness
 # this defines the "Leaky Bucket" churn-risk condition.
+#
+# UNITS: ``downloads`` is a flow and ``mau`` a 30-day stock, so this fraction is
+# only meaningful once the caller fixes the window over which downloads are
+# aggregated. This default assumes downloads summed over the SAME trailing
+# 30-day window as MAU. Feeding single-day downloads against it makes the
+# condition effectively unreachable -- a real app rarely acquires 10% of its MAU
+# in a single day -- and that fails silently as a missing warning, not an error.
+# See ``references/standards.md`` -> "Threshold provenance and calibration".
 DEFAULT_HIGH_ACQUISITION_FRACTION: float = 0.10
 
 
@@ -54,6 +84,14 @@ class EngineConfig:
 
     All thresholds are inclusive/exclusive as documented on each field so that
     the engine behaves deterministically at exact boundary values.
+
+    The defaults are industry rules of thumb for habitual consumer-social apps,
+    not validated constants -- no standards body or peer-reviewed source defines
+    them. Published DAU/MAU benchmarks put entire healthy verticals (e-commerce,
+    insurance) at or below the 20% "low engagement" default, so applying these
+    values unchanged to a non-social issuer manufactures false churn warnings.
+    Calibrate against a category peer cohort before trading the output; see
+    ``references/standards.md`` -> "Threshold provenance and calibration".
     """
 
     # Stickiness >= this value => world-class (inclusive).
@@ -83,13 +121,23 @@ class AppUsageDataPoint:
     that the signal is only usable on the date the data actually became
     available -- is the caller's responsibility and is handled by the
     ``alternative-data-feature-integration`` skill before ingestion here.
+
+    The count fields are typed ``float`` because vendor panel figures are
+    extrapolated model estimates and are frequently fractional; integers are
+    accepted unchanged. All three must be finite real numbers -- NaN and inf are
+    rejected by ``AppUsageSignalEngine.process`` rather than propagated.
+
+    ``downloads`` must be aggregated over the same window used to calibrate
+    ``EngineConfig.high_acquisition_fraction`` (the default assumes a trailing
+    30-day sum, matching MAU's window). Record which window was used; the engine
+    cannot infer it.
     """
 
     ticker: str
     date: datetime
-    downloads: int
-    dau: int  # Daily Active Users
-    mau: int  # Monthly Active Users
+    downloads: float  # Installs over the caller's chosen aggregation window
+    dau: float  # Daily Active Users
+    mau: float  # Monthly Active Users (trailing 30-day)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -118,10 +166,11 @@ class AppUsageSignalEngine:
         """Transform a single data point into an ``AppUsageSignal``.
 
         Raises:
-            ValueError: if any field is structurally invalid (empty ticker,
-                negative counts, non-positive MAU, or DAU so large it cannot
-                be clamped).
-            TypeError: if ``data`` is not an ``AppUsageDataPoint``.
+            ValueError: if any field is structurally invalid -- empty ticker,
+                a non-finite (NaN/inf) count, a negative ``downloads``/``dau``,
+                or a non-positive ``mau``.
+            TypeError: if ``data`` is not an ``AppUsageDataPoint``, or if a
+                count field is not a real number.
         """
         if not isinstance(data, AppUsageDataPoint):
             raise TypeError("data must be an AppUsageDataPoint instance.")
@@ -176,10 +225,10 @@ class AppUsageSignalEngine:
     ) -> List[AppUsageSignal]:
         """Process an ordered batch of data points.
 
-        A single invalid point raises ``ValueError`` (fail-fast) rather than
-        silently dropping it, because a partial batch in a signal pipeline
-        typically indicates an upstream data-quality problem that should
-        surface immediately.
+        A single invalid point raises (``ValueError`` or ``TypeError``, per
+        ``process``) rather than being silently dropped, because a partial batch
+        in a signal pipeline typically indicates an upstream data-quality
+        problem that should surface immediately.
         """
         if not isinstance(data_points, Iterable):
             raise TypeError("data_points must be an iterable of AppUsageDataPoint.")
@@ -187,8 +236,13 @@ class AppUsageSignalEngine:
 
     @staticmethod
     def _validate(data: AppUsageDataPoint) -> None:
-        if not data.ticker or not data.ticker.strip():
+        if not isinstance(data.ticker, str) or not data.ticker.strip():
             raise ValueError("ticker must be a non-empty string.")
+        # Type/finiteness first: a NaN or inf count passes every range check
+        # below (all comparisons against NaN are False) and would otherwise
+        # produce a silent NaN signal.
+        for field_name in ("downloads", "dau", "mau"):
+            _require_finite_count(field_name, getattr(data, field_name), data.ticker)
         if data.downloads < 0:
             raise ValueError(f"downloads must be >= 0 for {data.ticker}.")
         if data.dau < 0:

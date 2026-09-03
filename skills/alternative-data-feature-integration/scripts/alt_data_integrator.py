@@ -77,12 +77,19 @@ class PointInTimeFeature:
     could have known it. Frozen so PIT facts are value objects: hashable for
     set-based dedup and safe to share. Use `dataclasses.replace()` to derive
     a revised fact rather than mutating.
+
+    `event_timestamp` retains the originating event's timestamp so an auditor
+    can re-derive the applied lag (`knowledge_timestamp - event_timestamp`, or
+    `knowledge_timestamp - revised_date` for a restatement) from the stored
+    fact alone. It is always populated by `ingest_events`; the default exists
+    only to keep the field order backward compatible.
     """
     source_id: str
     knowledge_timestamp: datetime
     feature_value: float
     schema_version: str = "1.0"
     revised_date: Optional[datetime] = None
+    event_timestamp: Optional[datetime] = None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -120,13 +127,15 @@ class AltDataIntegrator:
     Integrates alternative data by calculating strict Knowledge Dates and
     aligning irregular frequencies to the strategy's trading timeline.
 
-    Ingest is atomic and idempotent: all events are validated in a first pass
-    (raising AltDataValidationError on the first bad event without mutating
-    state), then upserted keyed on ``(source_id, knowledge_timestamp)`` with
-    last-write-wins on ``feature_value`` so a backfill/restart resending the
-    same events dedups rather than duplicates. Revisions are appended as new
-    PIT facts; the original is served until the restatement's knowledge
-    timestamp passes.
+    Ingest is atomic and idempotent: all events are validated and staged in a
+    first pass (raising AltDataValidationError on the first bad event without
+    mutating state), then committed keyed on ``(source_id,
+    knowledge_timestamp)`` so a backfill/restart resending the same events
+    dedups rather than duplicates. Two *different* facts colliding on that key
+    inside one batch are rejected rather than silently resolved by list order;
+    a later ingest call still overwrites an earlier fact, which is the
+    in-place correction path. Revisions are appended as new PIT facts; the
+    original is served until the restatement's knowledge timestamp passes.
     """
 
     def __init__(self, source_configs: Optional[dict[str, SourceConfig]] = None):
@@ -146,21 +155,29 @@ class AltDataIntegrator:
         Validate, then convert raw events into Point-In-Time features by
         applying the publication lag.
 
-        Pass 1 validates every event and raises AltDataValidationError on the
-        first violation WITHOUT mutating state, so the integrator is never
-        left half-populated by a mid-batch exception. Pass 2 upserts the
-        validated events. A restatement (``revised_date`` set) is appended as
-        a new PIT fact with ``knowledge_timestamp = revised_date +
-        publication_lag``; it does not overwrite the original, so the as-of
-        merge serves the original until the restatement's knowledge
-        timestamp passes.
+        Pass 1 validates every event, stages the derived PIT facts, and raises
+        AltDataValidationError on the first violation WITHOUT mutating state,
+        so the integrator is never left half-populated by a mid-batch
+        exception. Pass 2 commits the staged facts. A restatement
+        (``revised_date`` set) is appended as a new PIT fact with
+        ``knowledge_timestamp = revised_date + publication_lag``; it does not
+        overwrite the original, so the as-of merge serves the original until
+        the restatement's knowledge timestamp passes.
+
+        Within a single batch, two events that map to the same
+        ``(source_id, knowledge_timestamp)`` but carry different content are
+        **ambiguous**: only one can be the as-of value, and silently taking the
+        list-order-last one would make ``pit_features`` depend on the order the
+        batch happened to arrive in. Such a collision raises
+        AltDataValidationError. Byte-identical repeats are true duplicates (a
+        backfill or restart resending the same rows) and collapse silently, so
+        ingest stays idempotent. Across separate calls the later call still
+        wins, which is the documented in-place correction path.
         """
-        # Pass 1: validate everything first (atomicity).
+        # Pass 1: validate and stage everything first (atomicity).
+        staged: dict[tuple[str, datetime], PointInTimeFeature] = {}
         for event in events:
             self._validate_event(event)
-
-        # Pass 2: upsert (idempotent, last-write-wins on feature_value).
-        for event in events:
             publication_reference = (
                 event.revised_date if event.revised_date is not None
                 else event.event_timestamp
@@ -172,8 +189,23 @@ class AltDataIntegrator:
                 feature_value=event.feature_value,
                 schema_version=event.schema_version,
                 revised_date=event.revised_date,
+                event_timestamp=event.event_timestamp,
             )
-            self._pit_by_key[(event.source_id, knowledge_time)] = pit_feature
+            key = (event.source_id, knowledge_time)
+            previous = staged.get(key)
+            if previous is not None and previous != pit_feature:
+                raise AltDataValidationError(
+                    f"ambiguous within-batch collision for source "
+                    f"{event.source_id!r} at knowledge_timestamp "
+                    f"{knowledge_time.isoformat()}: {previous!r} vs "
+                    f"{pit_feature!r}. Two different facts cannot both be the "
+                    f"as-of value; resolve upstream or ingest the correction "
+                    f"in a separate call."
+                )
+            staged[key] = pit_feature
+
+        # Pass 2: commit (idempotent; a later call overwrites an earlier fact).
+        self._pit_by_key.update(staged)
 
         self._rebuild_indices()
         logger.info(f"Ingested and PIT-mapped {len(events)} alternative data events.")
@@ -239,6 +271,15 @@ class AltDataIntegrator:
             for sid, feats in self._by_source.items()
         }
 
+    def _known_source_ids(self) -> list[str]:
+        """Every source the integrator must report on, in deterministic order.
+
+        The union of sources with ingested facts and sources declared in
+        ``source_configs``: a declared source that never delivered data is a
+        vendor outage to report as UNKNOWN, not a key to omit.
+        """
+        return sorted(set(self._by_source) | set(self._source_configs))
+
     # ------------------------------------------------------------------ #
     # Read-only access
     # ------------------------------------------------------------------ #
@@ -269,6 +310,19 @@ class AltDataIntegrator:
         clobbering: each source's last-known value, knowledge timestamp, age,
         and staleness state are preserved independently.
 
+        Every source that has ingested facts **and** every source named in
+        ``source_configs`` appears in each slot, so a configured source that
+        has never delivered a single row surfaces as
+        :attr:`StalenessState.UNKNOWN` rather than being absent from the
+        mapping. A silently missing key is the shape a vendor outage takes,
+        and it reaches the model as a ``KeyError`` or, worse, a defaulted
+        ``0.0``; an explicit UNKNOWN is what the degradation policy can act on.
+
+        Because the result is keyed by trading time, duplicate
+        ``trading_times`` collapse into one entry: ``len(result)`` may be less
+        than ``len(trading_times)``. Look values up by timestamp; never zip the
+        result positionally against another series.
+
         Bounded staleness: when ``(trading_time - knowledge_timestamp)`` exceeds
         the source's ``max_age`` (from :class:`SourceConfig`, else the
         ``max_age`` argument), the value is reported as ``None`` with
@@ -289,16 +343,20 @@ class AltDataIntegrator:
                     f"for {t!r}."
                 )
 
+        # Hoisted: the source universe is fixed for the whole schedule.
+        source_ids = self._known_source_ids()
+
         aligned_features: dict[datetime, dict[str, AlignedValue]] = {}
         for t in trading_times:  # caller's original order is preserved
             per_source: dict[str, AlignedValue] = {}
-            for source_id, feats in self._by_source.items():
+            for source_id in source_ids:
                 cfg = self._source_configs.get(source_id)
                 src_max_age = (
                     cfg.max_age if cfg is not None and cfg.max_age is not None
                     else max_age
                 )
-                ts_list = self._timestamps_by_source[source_id]
+                feats = self._by_source.get(source_id, [])
+                ts_list = self._timestamps_by_source.get(source_id, [])
                 idx = bisect.bisect_right(ts_list, t) - 1
                 if idx < 0:
                     per_source[source_id] = AlignedValue(

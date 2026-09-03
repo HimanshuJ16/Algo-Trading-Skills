@@ -21,6 +21,16 @@ class SamplingMode(Enum):
 
 @dataclass(frozen=True, slots=True)
 class SampledTick:
+    """One emitted aggregate representing ``aggregated_tick_count`` raw trades.
+
+    ``price`` is the volume-weighted average price of the trades represented,
+    not a traded price, whenever ``aggregated_tick_count > 1``. ``sequence_id``
+    and ``timestamp`` identify the last raw trade in the block (``-1`` for a
+    synthetic flush). ``mode`` and ``sampling_factor`` describe the policy in
+    force at emission time, so only ``aggregated_tick_count`` is authoritative
+    for how many raw trades the record carries.
+    """
+
     symbol: str
     sequence_id: int
     timestamp: float
@@ -187,6 +197,19 @@ class AdaptiveTickSamplerEngine:
                 normalized_volume,
                 normalized_timestamp,
             ) = self._validate_tick(symbol, sequence_id, price, volume, timestamp)
+
+            # Checked before any state mutation - including the rolling-rate
+            # window - so a rejected tick leaves the engine unchanged and can be
+            # quarantined upstream without a state rollback.
+            next_volume = (
+                self.accumulated_vol.get(normalized_symbol, 0.0) + normalized_volume
+            )
+            next_notional = self.accumulated_notional.get(normalized_symbol, 0.0) + (
+                normalized_price * normalized_volume
+            )
+            if not math.isfinite(next_volume) or not math.isfinite(next_notional):
+                raise OverflowError("aggregate volume or notional exceeded finite range")
+
             current_rate = self._get_rolling_rate(
                 normalized_symbol, normalized_timestamp
             )
@@ -201,13 +224,6 @@ class AdaptiveTickSamplerEngine:
                 mode = SamplingMode.PASSTHROUGH
 
             self._initialize_symbol(normalized_symbol)
-            next_volume = self.accumulated_vol[normalized_symbol] + normalized_volume
-            next_notional = self.accumulated_notional[normalized_symbol] + (
-                normalized_price * normalized_volume
-            )
-            if not math.isfinite(next_volume) or not math.isfinite(next_notional):
-                raise OverflowError("aggregate volume or notional exceeded finite range")
-
             self.tick_counters[normalized_symbol] += 1
             self.accumulated_vol[normalized_symbol] = next_volume
             self.accumulated_notional[normalized_symbol] = next_notional

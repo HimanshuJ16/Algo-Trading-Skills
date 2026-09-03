@@ -292,7 +292,7 @@ All 504 skills across all 16 engineering domains have been physically built, tes
 - **[BUILT]** `hong-kong-sfc-algorithmic-trading-guidelines` — Following Hong Kong SFC's guidelines on the use of algorithmic trading by licensed firms.
 - **[BUILT]** `japan-fsa-high-speed-trading-registration` — Understanding Japan FSA's registration requirements specifically for high-speed trading firms.
 - **[BUILT]** `india-sebi-algo-trading-tagging-requirements` — Complying with SEBI's algo-order tagging and approval requirements for Indian markets (extends the original India-first pass with current specifics).
-- **[BUILT]** `australia-asic-drt-obligations` — Meeting ASIC's Direct Market Access / automated order processing obligations for Australian trading participants.
+- **[BUILT]** `australia-asic-drt-obligations` — Meeting ASIC's Derivative Transaction Rules (Reporting) 2024 obligations: mandatory LEI/UTI/UPI/package identifiers and the Rule 2.2.3 T+2/T+4 business-day deadline for OTC derivative reports to an Australian trade repository.
 - **[BUILT]** `eu-market-abuse-regulation-mar-surveillance` — Building self-surveillance checks aligned with EU Market Abuse Regulation (MAR) requirements around algorithmic order patterns.
 - **[BUILT]** `uk-senior-managers-regime-algo-accountability` — Understanding how the UK's Senior Managers and Certification Regime assigns individual accountability for algorithmic trading systems.
 - **[BUILT]** `us-reg-sho-short-sale-locate-requirements` — Complying with Reg SHO's locate requirements before placing short-sale orders in US equities.

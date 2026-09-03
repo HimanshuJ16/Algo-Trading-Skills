@@ -12,7 +12,7 @@ tags:
 - urgency
 brokers_frameworks:
 - generic
-version: "1.2.0"
+version: "1.3.0"
 author: System
 license: MIT
 ---
@@ -27,6 +27,8 @@ This execution algorithm minimizes **Implementation Shortfall (IS)** — the dif
 2. **Timing Risk (Volatility)**: Trading too slow exposes the unfilled order to adverse price drift.
 
 The schedule is the closed-form Almgren-Chriss optimal trajectory `x_t = X * sinh(kappa * (T - t)) / sinh(kappa * T)`, where `kappa` encodes the trader's risk aversion (urgency). The trade size for each bin is the drop in remaining shares across that bin, which is always non-negative and monotonically decreasing for `kappa > 0`.
+
+Note that `1/kappa` is the trade's **half-life** and is independent of the horizon `T`. Stretching `T` at fixed urgency does not spread the order out — it appends near-empty tail bins while the leading bins stay where they were. To trade more patiently, lower the urgency; do not simply lengthen the horizon.
 
 ## When NOT to Use
 
@@ -54,7 +56,14 @@ The schedule is the closed-form Almgren-Chriss optimal trajectory `x_t = X * sin
    - **LOW Urgency** (`kappa -> 0`, the linear limit): exactly uniform TWAP, minimizing immediate market impact and accepting the full timing risk.
 4. **Execute Child Orders**: Route the child orders to the market according to the generated schedule, slightly randomizing timing/sizing within each bin so the pattern is not predictable to other participants.
 5. **Handle Deviations**: On a rejected or partially-filled child order, apply the pre-decided catch-up/give-up policy — either redistribute the unfilled quantity across remaining bins (catch-up, more impact) or accept incomplete execution by the window's end (give-up, opportunity cost). Never blindly resubmit the exact same child order size.
-6. **Measure Implementation Shortfall**: At completion, compute `IS = (Arrival Price - Average Execution Price) * Total Shares` (sign-adjusted for buy/sell). Compare against expected shortfall `E(x) + lambda * V(x)` from the Almgren-Chriss cost model to validate the algo is performing as designed.
+6. **Measure Implementation Shortfall**: At completion, with `s = +1` for a buy and `s = -1` for a sell, compute
+
+   ```
+   IS = s * [ Q_filled * (Avg Exec Price - Arrival Price)
+            + (Q_parent - Q_filled) * (Horizon End Price - Arrival Price) ] + fees
+   ```
+
+   Positive means underperformance. Note the execution term multiplies the **filled** quantity, not the parent — the unfilled remainder is an opportunity cost measured against the horizon price, which is exactly the case a give-up policy produces. Then compare against the model: `forecast_shortfall(trajectory.child_order_sizes, params, risk_aversion)` returns `E(x)`, `V(x)` and the objective `E + lambda*V`. Compare realised shortfall against `E` in units of `sqrt(V)` — `V` is in currency *squared*. A persistent excess means the impact/volatility assumptions feeding `kappa` are miscalibrated, not that the algo is broken.
 
 > Full step-by-step procedure with broker-specific detail: see `references/workflows.md`.
 > Urgency/kappa calibration table and cost-model notes: see `references/standards.md`.
@@ -69,6 +78,8 @@ The schedule is the closed-form Almgren-Chriss optimal trajectory `x_t = X * sin
 - **Recomputing the Arrival Price**: Using "current mid" as the benchmark partway through execution instead of the frozen snapshot from decision time. This hides real shortfall.
 - **Predictable Child-Order Patterns**: Evenly spaced, identical child orders are detectable and exploitable. Randomize within-bin timing/sizing.
 - **Integer Rounding Drift**: Naive floor-and-residual apportionment can distort the curve or produce negative tail sizes. The generator uses the largest-remainder method to keep the shape intact and the sum exact.
+- **Lengthening the Horizon to Trade More Patiently**: Adding bins at fixed urgency does not reduce front-loading — the half-life `1/kappa` does not depend on `T`, so the leading bins are unchanged and the extra bins are near-empty. Lower the urgency instead.
+- **Comparing Realised Shortfall Against `V` Instead of `sqrt(V)`**: The Almgren-Chriss `V(x)` is a variance, in currency *squared*. Alerting on `IS > E + V` compares incommensurable units and will effectively never fire. Use `sqrt(V)` as the scale.
 
 ## Verification
 
@@ -79,6 +90,9 @@ The schedule is the closed-form Almgren-Chriss optimal trajectory `x_t = X * sin
 - Confirm `LOW` urgency produces an exact uniform TWAP schedule.
 - Confirm front-loading strictly increases LOW < MEDIUM < HIGH for the first bin.
 - Confirm the same inputs always produce the same output (determinism).
+- Confirm long horizons stay on the exact curve rather than degenerating: at `HIGH` urgency the first bin is ~63.2% of the parent at 10 bins and still ~63.2% at 10,000 bins (the half-life does not depend on `T`), with no overflow, `NaN`, or 100%-in-bin-0 collapse.
+- Confirm `forecast_shortfall` reproduces the Almgren-Chriss limiting cases: the uniform schedule matches Eqs. (10)/(11) and the single-bin dump matches Eq. (13).
+- Confirm forecast `E(x)` is strictly positive across the usable `kappa` range and that `V(x)` rises as urgency falls (front-loading buys impact to shed timing risk).
 - After a live/paper execution, confirm a shortfall report comparing achieved price to the frozen arrival price is produced and reviewed, not assumed adequate.
 
 ## Related Skills

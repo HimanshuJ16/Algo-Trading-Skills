@@ -13,6 +13,8 @@
 - [ ] Run `python -m unittest discover -s skills/adaptive-sampling-under-extreme-tick-rates/scripts`.
 - [ ] Verify invalid symbols, non-finite prices/volumes/timestamps, non-positive values, duplicate sequences, and backwards timestamps are rejected.
 - [ ] Verify passthrough and sampled boundaries, including `rate == target` and `rate > target`.
+- [ ] Verify a burst that decays below the target drains its partial block as a `PASSTHROUGH` emission with `aggregated_tick_count > 1` and no volume loss.
+- [ ] Verify a rejected tick, including one whose aggregate would overflow, leaves rate-window and accumulator state unchanged.
 - [ ] Verify output volume and price-volume notional reconcile to raw input within the documented tolerance.
 - [ ] Run multi-symbol and concurrent-ingestion tests with no state contamination.
 

@@ -58,12 +58,19 @@ This document details recommended workflows for implementing and operating the a
 4. **Pre-flight Checks**: Validate engine readiness (connections, memory, dependencies)
 5. **Monitoring Setup**: Configure logging, metrics, and alerting
 
-**Configuration Parameters**:
-- matching_strategy: FIFO|HIFO
-- validation_strictness: lenient|standard|strict
-- precision_mode: decimal|float
-- memory_warning_threshold: lot count threshold for alerts
-- error_handling: fail_fast|continue_with_logging
+**Engine Configuration**:
+
+`AutomatedTaxLotReportingPipelineEngine.__init__` takes exactly one parameter:
+
+- `strategy: LotMatchingStrategy` — `FIFO` (default) or `HIFO`
+
+Everything else below is a property of the pipeline you build *around* the
+engine, not a constructor argument. Do not expect the engine to honour them:
+
+- Validation strictness — the engine always validates, and always raises `ValueError`. There is no lenient mode.
+- Precision mode — the engine is float-based. Quantities are compared against `_QUANTITY_EPSILON` (1e-9) rather than exact zero. If your jurisdiction or instrument demands exact decimal arithmetic, round to the instrument's precision upstream or carry `decimal.Decimal` in your own pipeline.
+- Memory warning thresholds — poll `get_total_open_lot_count()` / `get_open_lot_count()` yourself and alert from your own monitoring.
+- Error handling policy — see the error-handling rules below; the engine has no configurable failure mode.
 
 ### 4. Trade Processing Loop
 **Objective**: Process each trade through the tax lot matching engine.
@@ -90,9 +97,21 @@ This document details recommended workflows for implementing and operating the a
 5. **Post-processing Updates**: Update monitoring metrics and internal state
 
 **Error Handling**:
-- Validation Errors: Log invalid trade, skip processing, continue with next trade
-- Processing Errors (oversell, no lots): Log error, optional notification, continue or halt based on configuration
-- System Errors: Implement circuit breaker patterns, fallback to manual processing
+
+Every failure the engine raises is a `ValueError`, and every one of them is
+raised *before* the ledger is mutated. `_validate_trade_record` runs first, and a
+sell is planned in full before a single lot is consumed. So a caught exception
+always means "this trade did not happen"; the ledger is byte-for-byte what it was
+before the call.
+
+- **Validation errors** (bad trade_id, symbol, action, quantity, price, timestamp): log the record, route to a dead letter queue, continue with the next trade. Nothing was mutated.
+- **Oversell / no open lots**: the sell was rejected in full — no lots consumed, no `RealizedGainRecord` written. Do **not** paper over it by continuing silently. A shortfall means the trade history feeding the engine is wrong: a missing buy, a lot booked under the wrong symbol or account, a duplicated sell, or a transfer-in that was never recorded as an acquisition. Halt the symbol, fix the input, replay. Never resolve it by inventing cost basis.
+- **System errors**: circuit-break, fall back to manual processing, and rebuild from the last checkpoint rather than resuming mid-stream.
+
+> Historical note: before v1.3.0 an oversell was raised *after* lots had been
+> consumed and gains committed, so catching it left the ledger diverged from the
+> trade history. If you are running an older copy of this helper, treat an
+> oversell as a stop-and-rebuild condition.
 
 ### 5. Report Generation and Output
 **Objective**: Convert engine output into actionable tax and reporting formats.
@@ -101,13 +120,15 @@ This document details recommended workflows for implementing and operating the a
 1. **Collect Results**: Gather RealizedGainRecord objects from engine processing
 2. **Aggregate**: Group by tax lot or time period as required for reporting
 3. **Format Conversion**:
-   - **Form 8949**: Map to IRS required columns:
-     * Description of property (symbol)
-     * Date acquired (lot timestamp → date)
-     * Date sold (sell timestamp → date)
-     * Proceeds (quantity * sell_price)
-     * Cost basis (quantity * cost_basis_price)
-     * Gain/loss (quantity * (sell_price - cost_basis_price))
+   - **Form 8949**: Map `RealizedGainRecord` to the IRS columns:
+     * (a) Description of property — `symbol` plus `quantity_sold`
+     * (b) Date acquired — `acquired_timestamp_ms` → date, in your reporting timezone
+     * (c) Date sold or disposed of — `disposed_timestamp_ms` → date, same timezone
+     * (d) Proceeds — `quantity_sold * sell_price`
+     * (e) Cost or other basis — `quantity_sold * cost_basis_price`
+     * (f)/(g) Adjustment code and amount — **you must supply these**; the engine models no wash sale, corporate action, or fee adjustment
+     * (h) Gain or loss — `realized_pnl`
+     * Part I vs Part II — classify each row short-term (one year or less) or long-term (more than one year), counting from the day after acquisition through the disposal date. The engine supplies both timestamps but does not classify, because the calendar date depends on a timezone it does not assume.
    - **CSV/Excel**: For internal reporting or spreadsheet import
    - **JSON/XML**: For system-to-system integration
    - **PDF**: For formal client statements
@@ -236,9 +257,9 @@ This document details recommended workflows for implementing and operating the a
 
 ### Hybrid Architecture (Recommended)
 ```
-[Real-time Feed] → [Stream Processor] → [Tax Lot Engine] → [Real-time Dashboard]
-                        � ↓                    ↑                  ↑                  ↑
-[End-of-day File] ──→ [Batch Processor] ───�┘                  └──→ [Daily Reports] → [Archival]
+[Real-time Feed] ──→ [Stream Processor] ──┐
+                                          ├──→ [Tax Lot Engine] ──┬──→ [Real-time Dashboard]
+[End-of-day File] ─→ [Batch Processor] ───┘                       └──→ [Daily Reports] → [Archival]
 ```
 
 ## Performance and Scaling Guidelines
@@ -246,7 +267,7 @@ This document details recommended workflows for implementing and operating the a
 ### Throughput Optimization
 - **Lot Storage**: Use efficient data structures (TreeMap, skip lists) for sorted lot access
 - **Batch Processing**: Process trades in chunks to amortize sorting overhead
-- **Pre-sorting**: Maintain lots in sorted order to avoid O(n log n) per transaction
+- **Pre-sorting**: Maintain lots in sorted order to avoid the O(n log n) re-sort this helper performs on every sell (see Performance Characteristics)
 - **Memory Pooling**: Reuse lot objects to reduce garbage collection pressure
 - **Parallel Processing**: Process different symbols in parallel (lot ledgers are symbol-independent)
 
@@ -366,25 +387,23 @@ This document details recommended workflows for implementing and operating the a
   - Standardize fee handling approach
   - Coordinate wash sale calculations
 
-## Performance Benchmarks
+## Performance Characteristics
 
-### Typical Processing Rates
-- **Low Volume** (<100 trades/sec): <1ms latency per trade
-- **Medium Volume** (1,000 trades/sec): 2-5ms latency per trade
-- **High Volume** (10,000+ trades/sec): 10-20ms latency per trade (with optimization)
-- **Burst Handling**: Capable of processing 100k+ trade bursts with appropriate buffering
+No latency or throughput figures are published for this helper, because none have
+been measured on a defined machine and workload. Quote your own numbers from your
+own hardware; do not carry an unmeasured figure into a capacity plan or an SLA.
 
-### Resource Utilization
-- **Memory**: Approximately 1-2KB per open lot (varies with symbol count and lot fragmentation)
-- **CPU**: Minimal - primarily limited by I/O and validation overhead
-- **Storage**: Negligible for engine itself (state persistence depends on implementation)
-- **Network**: Determined by data feed characteristics
+What *is* known, from reading the implementation:
 
-### Scaling Characteristics
-- **Symbol Parallelism**: Near-linear scaling with number of distinct symbols (independent ledgers)
-- **Trade Volume**: Sub-linear scaling due to shared resources (memory, CPU)
-- **Lot Depth**: Logarithmic scaling with lots per symbol (efficient sorting data structures)
-- **Batch Size**: Optimal batch size typically 100-1000 trades for amortized overhead
+### Algorithmic Complexity (as shipped)
+- **BUY** — O(1): construct a lot, append to the symbol's list.
+- **SELL** — **O(n log n) in the number of open lots for that symbol**, dominated by `_sort_lots_for_strategy`, which re-sorts the whole list on *every* sell. The subsequent plan/commit walk is O(n). This is the cost driver, and it grows with lot fragmentation, not with trade rate.
+- **Memory** — O(total open lots). Settled lots are dropped on the sell that closes them, so the ledger tracks the open position, not cumulative trade history.
+
+### Consequences
+- A symbol accumulating many small unsold lots (dividend reinvestment, dollar-cost averaging, fractional accumulation) gets progressively more expensive per sell. Watch `get_open_lot_count()` per symbol, not just the total.
+- Replacing the per-sell re-sort with an ordering maintained incrementally on insert (a heap for HIFO, an append-ordered list for FIFO when input is already chronological) would reduce a sell to O(k log n) in the lots actually consumed. This is **not** what the shipped helper does — it is the optimisation to reach for if profiling shows sorting dominates, and profiling should come first.
+- Ledgers are independent per symbol, so sharding by symbol across workers scales cleanly. One engine instance is not thread-safe; give each worker its own.
 
 ## Glossary
 

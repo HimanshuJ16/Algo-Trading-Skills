@@ -14,7 +14,7 @@ tags:
 brokers_frameworks:
 - Adaptive Tick Sampler
 - Python Real-Time Engine
-version: "1.1.0"
+version: "1.2.0"
 author: algo-trading-skills-contributors
 license: Apache-2.0
 ---
@@ -45,7 +45,7 @@ The default target of 5,000 ticks/second is an example capacity parameter, not a
 1. **Set the capacity contract**: Construct `AdaptiveTickSamplerEngine(target_max_rate_per_sec=...)` with a positive integer target. Keep `enforce_monotonic_sequence=True` unless the feed contract explicitly permits another policy.
 2. **Validate feed identity upstream**: Verify symbol, sequence, timestamp, price, and volume semantics. The engine rejects empty symbols, non-finite values, non-positive prices/volumes, duplicate or decreasing sequences, and backwards event timestamps.
 3. **Ingest one trade tick at a time**: Call `ingest_tick(...)`. Under the target rate it emits a passthrough aggregate; above the target it computes `k = ceil(rate / target)` with a minimum sampled factor of 2.
-4. **Consume explicit metadata**: Use `mode` and `sampling_factor` to identify policy, `aggregated_tick_count` to identify how many raw trades are represented, and `is_flush` to distinguish synthetic residual output.
+4. **Consume explicit metadata**: Use `mode` and `sampling_factor` to identify policy, `aggregated_tick_count` to identify how many raw trades are represented, and `is_flush` to distinguish synthetic residual output. Treat `aggregated_tick_count > 1` — not `mode` — as the test for whether `price` is a VWAP rather than a traded price, because a `PASSTHROUGH` emission also drains any residual sampled block.
 5. **Handle errors fail-closed**: Route validation exceptions to the feed-integrity path. Do not retry the same malformed or duplicate tick as if it were new data.
 6. **Manage lifecycle**: Call `flush(symbol)` for an individual stream, `flush_all()` during shutdown/checkpointing, and `reset_symbol(flush=True)` when a symbol leaves the stream or its sequence domain resets.
 7. **Monitor quality**: Track input/output rates, sampling factor, aggregate counts, volume/notional reconciliation, validation failures, flush counts, queue latency, and downstream processing latency.
@@ -54,6 +54,7 @@ The default target of 5,000 ticks/second is an example capacity parameter, not a
 
 - **Discarding skipped volume**: Emitting only the selected tick loses traded volume and corrupts aggregate VWAP.
 - **Calling the result a full feed**: A VWAP aggregate preserves volume and notional, not every price path, quote, or order-book event.
+- **Keying on `mode` to detect a raw trade**: when the rate falls back below target mid-block, the draining emission reports `PASSTHROUGH` with `sampling_factor=1` while still carrying `aggregated_tick_count > 1` and a VWAP price no venue printed. Only `aggregated_tick_count` separates a raw trade from an aggregate.
 - **Accepting duplicate or out-of-order data**: Repeated trades double-count volume; backwards event time corrupts rolling-rate windows.
 - **Using wall-clock flush timestamps**: A flush must remain deterministic in replay; the implementation defaults to the last event timestamp unless an explicit later timestamp is supplied.
 - **Leaking symbol state**: Long-lived feeds must reset inactive symbols after flushing so per-symbol dictionaries do not grow without bound.
@@ -67,7 +68,7 @@ Run the focused test suite:
 python -m unittest discover -s skills/adaptive-sampling-under-extreme-tick-rates/scripts
 ```
 
-The tests cover passthrough, overload sampling, volume/notional preservation, zero timestamps, deterministic flushes, sorted `flush_all`, symbol reset, duplicate/out-of-order rejection, malformed tick values, invalid targets, and symbol isolation. Production sign-off additionally requires replaying calibrated bursts and verifying downstream reconciliation against raw input totals.
+The tests cover passthrough, the `rate == target` boundary, overload sampling, volume/notional preservation across a burst, the `PASSTHROUGH` drain of a partial sampled block, zero timestamps, deterministic flushes, rejection of a flush timestamp preceding the last accepted tick, sorted `flush_all`, `reset_symbol` with and without a flush, duplicate/out-of-order rejection, the optional non-monotonic sequence policy, malformed tick values, invalid targets, symbol isolation, state-neutral rejection of an overflowing aggregate, and concurrent multi-threaded ingestion of a shared symbol. Production sign-off additionally requires replaying calibrated bursts and verifying downstream reconciliation against raw input totals.
 
 ## Related Skills
 
