@@ -1,27 +1,17 @@
 ---
 name: esg-data-signal-research-and-vendor-comparison
-description: Cross-vendor ESG rating normalization engine for MSCI, Morningstar
-  Sustainalytics and LSEG/Refinitiv scores, computing consensus scores, vendor
-  disagreement dispersion, rule-based exclusion flags and ESG factor overlay
-  research signals.
-domain: Quantitative Research & Alternative Data
-subdomain: ESG Data & Factor Investing
-tags:
-- esg-data
-- alternative-data
-- msci-esg
-- sustainalytics
-- lseg-refinitiv-esg
-- vendor-reconciliation
-- rating-divergence
-brokers_frameworks:
-- MSCI ESG Ratings
-- Morningstar Sustainalytics ESG Risk Ratings
-- LSEG ESG Scores (formerly Refinitiv)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when ESG ratings for the same issuer disagree across MSCI, Sustainalytics and
+  LSEG, producing a consensus score plus an explicit dispersion measure of how much the
+  vendors disagree.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: esg-data, alternative-data, msci-esg, sustainalytics, lseg-refinitiv-esg, vendor-reconciliation, rating-divergence
+  brokers_frameworks: "MSCI ESG Ratings; Morningstar Sustainalytics ESG Risk Ratings; LSEG ESG Scores (formerly Refinitiv); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

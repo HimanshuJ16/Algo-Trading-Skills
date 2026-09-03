@@ -1,21 +1,17 @@
 ---
 name: alternative-data-feature-integration
-description: Integrates alternative data sources (e.g., satellite, credit card logs,
-  sentiment) into quantitative features while enforcing strict Point-in-Time (PIT)
-  lag mapping to prevent look-ahead bias.
-domain: financial-ml
-subdomain: data-engineering
-tags:
-- machine-learning
-- alternative-data
-- look-ahead-bias
-- point-in-time
-- feature-engineering
-brokers_frameworks:
-- generic
-version: "1.3.0"
-author: System
-license: MIT
+description: >-
+  Use when turning an alternative data source into model features and the event date
+  differs from the date your fund actually received the data; enforces point-in-time lag
+  mapping from knowledge date so the feature cannot see the future.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: machine-learning, alternative-data, look-ahead-bias, point-in-time, feature-engineering
+  brokers_frameworks: generic
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -79,7 +79,7 @@ actually implementing the skill, not just when deciding whether it applies.
      buckets (two snapshots cannot reveal the rate at which the conversion executed).
      Net external flows and conversions out before reading these components as P&L.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Unconverted P&L summation:** local-currency P&L added straight into a base-currency
   balance. Prevented structurally by tagging every field with its unit.

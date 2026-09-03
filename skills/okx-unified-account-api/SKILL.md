@@ -1,17 +1,17 @@
 ---
 name: okx-unified-account-api
 description: >-
-  OKX v5 Unified Account integration covering HMAC-SHA256 request signing, live/demo
-  environment separation via x-simulated-trading, tiered multi-currency discount and
-  margin-ratio arithmetic for multi-currency margin mode, and idempotent, validated
-  /api/v5/trade/order payload construction.
-domain: Broker & Exchange Integration
-subdomain: Crypto Unified Account & Margin Management
-tags: ["okx", "unified-account", "v5-api", "hmac-sha256", "multi-currency-margin", "crypto-derivatives", "margin-ratio", "clordid-idempotency"]
-brokers_frameworks: ["OKX REST API v5", "Python HMAC & Hashlib", "Python Decimal", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a bot signs OKX v5 private endpoints or sizes orders on a Unified Account:
+  the prehash signing string, live and demo separation via the simulated-trading header,
+  and tiered multi-currency margin ratio arithmetic.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: okx, unified-account, v5-api, hmac-sha256, multi-currency-margin, crypto-derivatives, margin-ratio, clordid-idempotency
+  brokers_frameworks: "OKX REST API v5; Python HMAC & Hashlib; Python Decimal; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

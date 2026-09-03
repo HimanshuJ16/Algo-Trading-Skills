@@ -1,27 +1,17 @@
 ---
 name: walk-forward-validation-setup
-description: Use when validating a trading strategy or ML signal model on historical
-  time-series data, to generate chronological train/test folds separated by a purge/embargo
-  gap and aggregate out-of-sample results across every fold, instead of the invalid splits
-  k-fold cross-validation produces on non-stationary sequential data
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- walk-forward-validation
-- purge-embargo
-- lookahead-prevention
-- out-of-sample-testing
-- cross-validation
-- lopez-de-prado
-brokers_frameworks:
-- scikit-learn TimeSeriesSplit
-- QuantConnect LEAN
-- Backtrader
-- Python standard library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when validating a strategy or ML model on time-series data, because shuffled
+  k-fold trains on the future; generates chronological train and test folds with a
+  boundary gap and aggregates out-of-sample results.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, walk-forward-validation, purge-embargo, lookahead-prevention, out-of-sample-testing, cross-validation, lopez-de-prado
+  brokers_frameworks: "scikit-learn TimeSeriesSplit; QuantConnect LEAN; Backtrader; Python standard library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -5,9 +5,9 @@
 **No regulator, exchange, standards body or commercial market data vendor publishes a
 microsecond latency SLA for a real-time feed.** The `500 µs` P99 budget shipped as this
 module's default is an engineering starting point with no external authority behind it.
-An earlier revision of this file presented three engineering opinions in a table headed
-"Engineering Standard" using RFC 2119 "MUST" language, which implied a source that does
-not exist. That framing was wrong and has been removed.
+Engineering opinion in this area is sometimes dressed up in a table headed "Engineering
+Standard" using RFC 2119 "MUST" language. That framing implies a source that does not
+exist; do not adopt it.
 
 Vendor latency commitments are contractual and negotiated per client, per co-location
 site and per product. Bloomberg's B-PIPE and LSEG's real-time feed marketing material

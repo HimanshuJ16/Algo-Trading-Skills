@@ -81,7 +81,7 @@ actually implementing the skill, not just when deciding whether it applies.
      and re-check after any parameter-file change. Treat a persistently low bias as a
      blocker.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Naive leg summation.** Charging each short leg its naked requirement on a defined-risk
   spread, over-constraining capital by a multiple of what the position actually blocks.

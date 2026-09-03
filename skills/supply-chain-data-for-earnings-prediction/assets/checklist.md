@@ -77,8 +77,6 @@ Sign off before a supply-chain read-through signal is allowed to influence capit
       fundamental estimate and not an order instruction?
 - [ ] Is it understood that the engine applies no industry or macro control — a
       supplier growing 20% in a sector growing 25% scores positive?
-- [ ] Is `generate_signals` excluded from every production path, and understood to be
-      a deprecated placeholder that multiplies a column by 1.5?
 - [ ] If any input derives from shipping manifests, logistics feeds or expert
       networks rather than public filings, have the MNPI controls in
       `insider-trading-controls-for-alternative-data-usage` been applied?

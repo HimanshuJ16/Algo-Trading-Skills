@@ -1,14 +1,17 @@
 ---
 name: quanto-options-and-cross-currency-derivative-structures
 description: >-
-  Use when pricing or risk-managing a European quanto option — a foreign-currency-denominated underlying settled in the domestic currency at a contractually fixed exchange rate. Applies the Black-Scholes cross-currency drift adjustment $r_f - q - \rho\sigma_S\sigma_X$, discounts at the domestic rate, and returns quanto Delta, Gamma, the two-channel quanto Vega, and correlation sensitivity $\partial V/\partial\rho$ — with the two conventions that decide the sign (FX quoted domestic-per-foreign, strike in foreign units) stated explicitly.
-domain: Derivatives & Cross-Currency Structuring
-subdomain: Exotic Derivatives & FX Risk Engineering
-tags: ["quanto-options", "cross-currency", "black-scholes", "correlation-drift", "quanto-delta", "quanto-vega", "derivatives-pricing", "fx-correlation-risk"]
-brokers_frameworks: ["Black-Scholes-Merton", "Haugh IEOR E4707 Quanto Formulation", "Python Standard Library (math)"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an underlying trades in one currency but the payoff settles in another at a
+  rate fixed in the term sheet, applying the quanto drift adjustment for the asset-FX
+  correlation. A composite option converts at spot instead.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: quanto-options, cross-currency, black-scholes, correlation-drift, quanto-delta, quanto-vega, derivatives-pricing, fx-correlation-risk
+  brokers_frameworks: "Black-Scholes-Merton; Haugh IEOR E4707 Quanto Formulation; Python Standard Library (math)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,28 +1,17 @@
 ---
 name: data-localization-requirements-for-trade-records
-description: Storage-residency gate for trade records — audits destination cloud
-  regions against origin-jurisdiction localization regimes (China CSL/PIPL/DSL, India
-  RBI payment-data circular, GDPR Chapter V, SEC Rule 17a-4) and fails closed on
-  unresolved routes.
-domain: Data Management Global
-subdomain: Regulatory Compliance & Sovereignty
-tags:
-- data-localization
-- trade-record-sovereignty
-- pipl
-- rbi-data-localization
-- mifid-ii
-- sec-17a-4
-- cross-border-egress
-brokers_frameworks:
-- China CSL Art. 37 / PIPL Art. 40 / DSL
-- India RBI Payment System Data Circular
-- EU GDPR Chapter V / MiFID II
-- SEC Rule 17a-4
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when deciding whether a cloud region is an acceptable resting place for a class of
+  trade record, against genuine in-country storage mandates such as China CSL Article 37
+  and the RBI payment-data circular. Transfer lawfulness is a separate question.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: data-localization, trade-record-sovereignty, pipl, rbi-data-localization, mifid-ii, sec-17a-4, cross-border-egress
+  brokers_frameworks: "China CSL Art. 37 / PIPL Art. 40 / DSL; India RBI Payment System Data Circular; EU GDPR Chapter V / MiFID II; SEC Rule 17a-4; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

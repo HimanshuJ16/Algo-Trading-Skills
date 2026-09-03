@@ -1,26 +1,17 @@
 ---
 name: credit-card-transaction-data-signal-construction
-description: Quantitative alternative data pipeline module for aggregating credit card
-  transaction panel data, normalizing panel bias, computing YoY sales growth metrics,
-  and predicting Wall Street earnings surprises.
-domain: Quant Research & Alt Data
-subdomain: Consumer Transaction Data
-tags:
-- alt-data
-- credit-card-data
-- earnings-prediction
-- yoy-growth
-- consensus-surprise
-- panel-normalization
-brokers_frameworks:
-- Python Dataclasses
-- Yodlee
-- Bloomberg Second Measure
-- Earnest Analytics
-- Facteus
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when forecasting a consumer company's quarterly revenue from card transaction
+  panels ahead of the earnings release, normalising panel bias and computing
+  year-on-year growth against consensus.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: alt-data, credit-card-data, earnings-prediction, yoy-growth, consensus-surprise, panel-normalization
+  brokers_frameworks: "Python Dataclasses; Yodlee; Bloomberg Second Measure; Earnest Analytics; Facteus"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

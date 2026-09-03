@@ -1,28 +1,17 @@
 ---
 name: broker-api-idempotent-cancel-requests
-description: Use when cancelling live orders to de-duplicate cancel retries, classify
-  Cancel-vs-Fill race responses, and distinguish a cancel the broker *acknowledged*
-  from one it *completed* — so a timeout, 5xx, 429, or "order not found" is never
-  mistaken for proof that a working order is dead.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- idempotency
-- order-cancellation
-- race-condition
-- cancel-vs-fill
-- resilience
-- concurrency
-brokers_frameworks:
-- FIX 4.4 (OrderCancelRequest 35=F / OrdStatus 39)
-- Alpaca Trading API
-- Binance Spot REST API
-- Zerodha Kite Connect v3
-- Python Trading Engine
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when cancelling live orders over an unreliable network. De-duplicates cancel
+  retries and separates a cancel the broker acknowledged from one it completed, so a
+  timeout, 5xx or order-not-found is never read as proof the order is dead.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, idempotency, order-cancellation, race-condition, cancel-vs-fill, resilience, concurrency
+  brokers_frameworks: "FIX 4.4 (OrderCancelRequest 35=F / OrdStatus 39); Alpaca Trading API; Binance Spot REST API; Zerodha Kite Connect v3; Python Trading Engine"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

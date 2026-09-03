@@ -1,8 +1,8 @@
 # Reference Architecture
 
-The 504 built skills in this repo (spanning all 16 engineering domains on the global roadmap — see
-`docs/ROADMAP_500.md`) assume (and are easiest to apply within) a system shaped
-roughly like this — the architecture the skills were extracted from:
+The skills in this repo span 16 engineering domains (listed by domain in
+[`ROADMAP_500.md`](ROADMAP_500.md)) and assume a system shaped roughly like this — the
+architecture they were extracted from:
 
 ```
                  ┌─────────────────────┐
@@ -14,7 +14,7 @@ roughly like this — the architecture the skills were extracted from:
                             ▼
    ┌─────────────────────────────────────────────────┐
    │              WebSocket Relay Process            │  ← producer-consumer-tick-pipeline
-   │       (owns broker session, tick ingestion)     │     websocket-reconnect-without-duplicate-subscriptions
+   │       (owns broker session, tick ingestion)     │     websocket-subscription-reconciliation-after-reconnect
    └────────────────────────┬────────────────────────┘
                             │ pub-sub / queue (Redis or in-process)
                             ▼
@@ -49,7 +49,8 @@ roughly like this — the architecture the skills were extracted from:
                  → paper-to-live-promotion-checklist
 ```
 
-A dashboard/mobile-alert layer (e.g. Next.js + React Native, reading the same shared
-Postgres state) typically sits alongside this for monitoring, but doesn't have
-dedicated skills in this first pass — see the "Domains not yet covered" note in the
-main README if you're contributing.
+A dashboard and alerting layer reading the same shared state typically sits alongside
+this for monitoring. The operational side of it is covered by
+`log-aggregation-and-centralized-observability`, `structured-logging-for-post-incident-forensics`
+and `on-call-rotation-and-escalation-for-trading-systems`; the front end itself is out of
+scope for this library.

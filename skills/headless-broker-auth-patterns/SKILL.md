@@ -1,25 +1,17 @@
 ---
 name: headless-broker-auth-patterns
-description: Use when integrating a new broker (Fyers, Zerodha Kite, ICICI Breeze,
-  Upstox, Alpaca, IBKR) that requires unattended/headless login for a bot that runs
-  without a human clicking through an OAuth screen daily
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- fyers-api-v3
-- zerodha-kite-connect
-- icici-breeze-api
-brokers_frameworks:
-- Fyers API v3
-- Zerodha Kite Connect
-- ICICI Breeze API
-- Upstox API v2
-- Alpaca Trading API
-- IBKR TWS/Gateway API
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a bot must authenticate to a broker with no human at the keyboard. Classifies
+  the broker into one of five auth archetypes before you build, so you do not implement
+  a mechanism the broker neither publishes nor permits.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, headless-auth, totp, selenium-login, session-token, fyers-api-v3, zerodha-kite-connect
+  brokers_frameworks: "Fyers API v3; Zerodha Kite Connect; ICICI Breeze API; Upstox API v2; Alpaca Trading API; IBKR TWS/Gateway API"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

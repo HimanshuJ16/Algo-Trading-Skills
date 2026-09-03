@@ -28,12 +28,31 @@ wrongly. See `references/standards.md`.
 
 **Brinson weights are start-of-period weights.** Using end-of-period weights
 double-counts the return that produced them.
+
+**Undefined is not zero.** A zero-variance benchmark leaves beta unidentified and
+raises; a constant return series leaves correlation undefined and reports `nan`;
+zero active risk against a non-zero active return leaves the information ratio
+unbounded and reports `+/-inf`. Reporting `0.0` for any of these would make a
+perfectly consistent outperformer indistinguishable from a manager with no skill.
+Degeneracy tolerances sit at the floating-point noise floor (`1e-12`), never at a
+plausible financial magnitude: a `variance > 1e-8` guard misclassifies a genuine
+cash or short-duration benchmark (daily sigma ~1bp, variance ~1e-8) as constant.
+
+**Every caveat is surfaced, not just logged.** `AttributionSummary.warnings`
+carries the sub-one-year sample, thin-sample, insignificant-t and undefined-metric
+notes so a report generator cannot quote a headline number without them.
+
+**Multi-strategy comparison.** `compare_strategies` runs the same decomposition for
+several strategies against one benchmark over one window, so the rows are actually
+comparable. It is not a multi-factor model: each row is still single-factor CAPM,
+and a strategy that is really a small-cap or value tilt will show that tilt as
+alpha in every row alike.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import logging
 import math
 import statistics
-from typing import Dict, List, Optional, Sequence
+from typing import Dict, List, Mapping, Optional, Sequence
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +71,17 @@ _ZERO_VARIANCE_TOL = 1e-12
 
 # Annualised tracking error at or below this is numerical noise, not active risk.
 _TE_ZERO_TOL = 1e-12
+
+# A per-period standard deviation at or below this is constant to within
+# floating-point resolution. Deliberately far below any real return series: a
+# genuine cash or short-duration benchmark runs a daily sigma of ~1bp (1e-4), and
+# a degeneracy guard placed at a plausible financial magnitude would misclassify
+# it as constant and report a correlation of nan alongside a beta of 1.
+_ZERO_STD_TOL = 1e-12
+
+# Two-sided 95% critical value for the active-return t-statistic. A heuristic
+# reporting threshold, not a standard.
+_SIGNIFICANCE_T = 1.96
 
 # Portfolio and benchmark weight vectors must each sum to 1 within this tolerance,
 # otherwise the Brinson effects do not reconcile to active return.
@@ -92,6 +122,13 @@ class AttributionSummary:
         is the usual 95% two-sided threshold, so an IR of 0.5 needs roughly 15
         years of data to be distinguishable from zero. Assumes i.i.d. active
         returns; serial correlation inflates it.
+    :param correlation_to_benchmark: Pearson correlation of the two series.
+        `nan` -- never `0.0` -- when either series is constant, because
+        correlation is then 0/0 and undefined rather than absent.
+    :param warnings: Every caveat that applies to these numbers: a sub-one-year
+        sample, a thin sample, an insignificant t-statistic, an undefined
+        correlation, an unbounded information ratio. Read this list before
+        quoting any figure from the summary; an empty list means no caveats.
     """
 
     alpha_annualized: float
@@ -102,6 +139,30 @@ class AttributionSummary:
     is_alpha_positive: bool
     observations: int = 0
     information_ratio_t_stat: float = float("nan")
+    correlation_to_benchmark: float = float("nan")
+    warnings: List[str] = field(default_factory=list)
+
+
+@dataclass
+class StrategyComparisonRow:
+    """
+    One strategy's row in a multi-strategy comparison against a shared benchmark.
+
+    Rows in a single `compare_strategies` result are directly comparable: same
+    benchmark, same window, same annualization factor and same risk-free rate.
+    Rows from separate calls are not, unless all four match.
+    """
+
+    strategy: str
+    alpha_annualized: float
+    beta: float
+    correlation_to_benchmark: float
+    tracking_error_annualized: float
+    information_ratio: float
+    information_ratio_t_stat: float
+    active_return_annualized: float
+    observations: int
+    warnings: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -204,12 +265,21 @@ class PerformanceAttributionEngine:
             raise AttributionError(
                 f"Insufficient return samples: {n}. Min {_MIN_OBSERVATIONS} required."
             )
+
+        warnings: List[str] = []
+        years = n / self.annualization_factor
         if n < _THIN_SAMPLE_OBSERVATIONS:
-            logger.warning(
-                "Attribution computed over only %d observations; beta and alpha point "
+            message = (
+                f"Attribution computed over only {n} observations; beta and alpha point "
                 "estimates from a sample this short are not statistically meaningful. "
-                "Read information_ratio_t_stat before acting on them.",
-                n,
+                "Read information_ratio_t_stat before acting on them."
+            )
+            warnings.append(message)
+            logger.warning("%s", message)
+        if years < 1.0:
+            warnings.append(
+                f"Sample covers only {years:.2f} year(s) ({n} periods). Annualized alpha "
+                "and tracking error are extrapolations from a sub-annual window."
             )
 
         mean_p = statistics.mean(p_ret)
@@ -246,6 +316,37 @@ class PerformanceAttributionEngine:
         information_ratio = self._information_ratio(active_annualized, te_annualized)
         t_stat = self._information_ratio_t_stat(information_ratio, n)
 
+        # Correlation is 0/0 -- undefined, not zero -- against a constant series.
+        # var_b > _ZERO_VARIANCE_TOL is already guaranteed above; the portfolio
+        # series can still be flat (a cash sleeve, or a strategy that never traded).
+        std_p = math.sqrt(statistics.variance(p_ret))
+        std_b = math.sqrt(var_b)
+        if std_p > _ZERO_STD_TOL and std_b > _ZERO_STD_TOL:
+            correlation = cov_pb / (std_p * std_b)
+            # Clip float error rather than emitting |rho| > 1.
+            correlation = max(-1.0, min(1.0, correlation))
+        else:
+            correlation = float("nan")
+            warnings.append(
+                "Correlation to the benchmark is undefined (0/0): the portfolio return "
+                "series is constant. Reported as nan, not 0.0."
+            )
+
+        if not math.isfinite(information_ratio):
+            warnings.append(
+                f"Information ratio is unbounded ({information_ratio}): active risk is zero "
+                f"with an annualized active return of {active_annualized:+.4f}. A constant "
+                "active return means deterministic out/under-performance, not an absence "
+                "of skill -- reporting 0.0 here would score the most consistent manager "
+                "possible as merely average."
+            )
+        elif math.isfinite(t_stat) and abs(t_stat) < _SIGNIFICANCE_T:
+            warnings.append(
+                f"Active return t-statistic is {t_stat:+.2f}, inside +/-{_SIGNIFICANCE_T}: "
+                f"the information ratio of {information_ratio:.2f} over {years:.2f} year(s) "
+                "is not distinguishable from zero at the 95% level."
+            )
+
         logger.info(
             "Attribution over %d observations: alpha %.2f%%, beta %.2f, TE %.2f%%, IR %.2f (t=%.2f)",
             n,
@@ -265,7 +366,130 @@ class PerformanceAttributionEngine:
             is_alpha_positive=alpha_annualized > 0.0,
             observations=n,
             information_ratio_t_stat=t_stat,
+            correlation_to_benchmark=correlation,
+            warnings=warnings,
         )
+
+    def compare_strategies(
+        self,
+        strategy_returns: Mapping[str, Sequence[float]],
+        benchmark_returns: Sequence[float],
+        *,
+        sort_by_information_ratio: bool = True,
+    ) -> List[StrategyComparisonRow]:
+        """
+        Run the same decomposition for several strategies against one benchmark.
+
+        This is the multi-strategy view: it answers "which of these sleeves is
+        actually earning its benchmark-relative keep", and — pointed at the *simple
+        alternative* the book is meant to beat (a static 60/40 blend, an
+        equal-weight sleeve, or cash) — whether the added complexity earns a
+        positive alpha at a defensible information ratio at all.
+
+        Every row uses the same benchmark, window, `annualization_factor` and
+        `risk_free_rate`, which is what makes the rows comparable. Rows from
+        separate calls are not comparable unless all four match.
+
+        This remains **single-factor CAPM per row**. A sleeve that is really a
+        small-cap or value tilt shows that tilt as alpha here exactly as it would
+        in a single-strategy run; use `strategy-performance-attribution-vs-market-beta`
+        when the question is which factors the return came from.
+
+        :param strategy_returns: Mapping of strategy name to its periodic return
+            series. Every series must be date-aligned with `benchmark_returns` and
+            of equal length; alignment itself is the caller's responsibility.
+        :param benchmark_returns: The shared benchmark's periodic returns.
+        :param sort_by_information_ratio: Sort rows by information ratio descending
+            (undefined and `-inf` ratios last), ties broken by strategy name. Set
+            `False` to preserve the mapping's insertion order.
+        :return: One `StrategyComparisonRow` per strategy.
+        :raises AttributionError: if the mapping is empty, a key is not a non-empty
+            string, or any strategy fails the single-strategy validation. A failing
+            strategy raises rather than being dropped -- a comparison table with a
+            silently missing row is worse than no table.
+        """
+        if not strategy_returns:
+            raise AttributionError(
+                "strategy_returns is empty; a comparison needs at least one strategy."
+            )
+
+        rows: List[StrategyComparisonRow] = []
+        for name, series in strategy_returns.items():
+            if not isinstance(name, str) or not name.strip():
+                raise AttributionError(
+                    f"Strategy names must be non-empty strings, got {name!r}."
+                )
+            try:
+                summary = self.evaluate_alpha_beta(series, benchmark_returns)
+            except AttributionError as exc:
+                raise AttributionError(f"Strategy {name!r}: {exc}") from exc
+
+            rows.append(
+                StrategyComparisonRow(
+                    strategy=name,
+                    alpha_annualized=summary.alpha_annualized,
+                    beta=summary.beta,
+                    correlation_to_benchmark=summary.correlation_to_benchmark,
+                    tracking_error_annualized=summary.tracking_error_annualized,
+                    information_ratio=summary.information_ratio,
+                    information_ratio_t_stat=summary.information_ratio_t_stat,
+                    active_return_annualized=summary.active_return_annualized,
+                    observations=summary.observations,
+                    warnings=list(summary.warnings),
+                )
+            )
+
+        if sort_by_information_ratio:
+            rows.sort(key=self._comparison_sort_key)
+
+        logger.info(
+            "Compared %d strategies against a shared benchmark over %d observations.",
+            len(rows), rows[0].observations,
+        )
+        return rows
+
+    @staticmethod
+    def _comparison_sort_key(row: "StrategyComparisonRow"):
+        """
+        Information ratio descending, with undefined ratios last and name as the
+        tie-break so the ordering is deterministic.
+        """
+        ir = row.information_ratio
+        rank = -math.inf if math.isnan(ir) else ir
+        return (-rank, row.strategy)
+
+    @staticmethod
+    def render_comparison_table(rows: Sequence["StrategyComparisonRow"]) -> str:
+        """
+        Render comparison rows as a fixed-width text table.
+
+        The caveat count is a column, not a footnote: a row whose information ratio
+        rests on four months of data must not read the same as one built on ten
+        years. Read `StrategyComparisonRow.warnings` for the caveats themselves.
+        """
+        header = (
+            f"{'Strategy':<24}{'Alpha':>10}{'Beta':>8}{'Corr':>8}"
+            f"{'TE':>10}{'IR':>8}{'t':>8}{'Obs':>7}{'Caveats':>9}"
+        )
+        lines = [header, "-" * len(header)]
+        for row in rows:
+            # Snap display-invisible magnitudes to zero so a 1e-18 alpha does not
+            # render as "-0.00%", which reads as a loss.
+            alpha_pct = row.alpha_annualized * 100.0
+            if abs(alpha_pct) < 5e-3:
+                alpha_pct = 0.0
+            lines.append(
+                f"{row.strategy[:23]:<24}"
+                f"{alpha_pct:>9.2f}%"
+                f"{row.beta:>8.2f}"
+                f"{row.correlation_to_benchmark:>8.2f}"
+                f"{row.tracking_error_annualized * 100.0:>9.2f}%"
+                f"{row.information_ratio:>8.2f}"
+                f"{row.information_ratio_t_stat:>8.2f}"
+                f"{row.observations:>7d}"
+                f"{len(row.warnings):>9d}"
+            )
+        return "\n".join(lines)
 
     @staticmethod
     def _information_ratio(active_annualized: float, tracking_error: float) -> float:

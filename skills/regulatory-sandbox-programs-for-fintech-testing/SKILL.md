@@ -1,14 +1,17 @@
 ---
 name: regulatory-sandbox-programs-for-fintech-testing
 description: >-
-  Regulatory sandbox monitoring engine auditing live fintech testing telemetry against the firm's own approved boundary conditions (FCA UK, MAS Singapore, SEBI India) including client caps, cumulative volume caps, AUM caps, duration limits, and exit-plan requirements. Ships no default caps: regulators set sandbox limits per test.
-domain: Regulatory & Financial Compliance
-subdomain: Regulatory Sandbox & Innovation Governance
-tags: ["regulatory-sandbox", "fintech-testing", "fca-sandbox", "mas-sandbox", "sebi-sandbox", "boundary-conditions", "compliance-boundaries"]
-brokers_frameworks: ["FCA Regulatory Sandbox", "MAS FinTech Regulatory Sandbox", "SEBI Regulatory Sandbox", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when testing a strategy or product with real clients under a regulator-approved
+  sandbox authorisation from the FCA, MAS or SEBI, auditing live telemetry against the
+  client caps, cumulative volume and duration boundaries the approval set.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: regulatory-sandbox, fintech-testing, fca-sandbox, mas-sandbox, sebi-sandbox, boundary-conditions, compliance-boundaries
+  brokers_frameworks: "FCA Regulatory Sandbox; MAS FinTech Regulatory Sandbox; SEBI Regulatory Sandbox; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

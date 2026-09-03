@@ -1,24 +1,17 @@
 ---
 name: conflict-of-interest-disclosure-for-prop-vs-client-flow
-description: Pre-trade gate auditing proprietary orders against the firm's own unexecuted
-  customer orders under FINRA Rule 5320 (Manning), covering the no-knowledge information
-  barrier, negative-consent and minimum-price-improvement exceptions.
-domain: Compliance & Regulation
-subdomain: Order Handling & Conflicts
-tags:
-- finra-rule-5320
-- manning-rule
-- prop-vs-client
-- conflict-of-interest
-- information-barrier
-- mifid-ii
-brokers_frameworks:
-- FINRA
-- SEC Rule 605/606
-- Generic Broker Engine
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a broker-dealer trades proprietarily in US equities alongside unexecuted
+  customer orders, under FINRA Rule 5320 Manning: the no-knowledge information barrier,
+  negative consent and minimum price improvement.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: finra-rule-5320, manning-rule, prop-vs-client, conflict-of-interest, information-barrier, mifid-ii
+  brokers_frameworks: "FINRA; SEC Rule 605/606; Generic Broker Engine"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

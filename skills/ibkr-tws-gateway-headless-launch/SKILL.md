@@ -1,23 +1,17 @@
 ---
 name: ibkr-tws-gateway-headless-launch
-description: Use when deploying an Interactive Brokers (IBKR) trading bot to a headless
-  server or container to manage IB Gateway / IBC headless startup, port probes, daily
-  reset handling, and socket readiness checks
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- ibkr
-- ib-gateway
-- tws-api
-- docker-headless
-brokers_frameworks:
-- Interactive Brokers TWS API
-- IB Gateway
-- IBC
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an Interactive Brokers bot runs on a headless server or container: IB Gateway
+  or TWS under Xvfb with IBC, port probes, daily reset handling, and socket readiness
+  checks before the API session is assumed live.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, ibkr, ib-gateway, tws-api, docker-headless
+  brokers_frameworks: "Interactive Brokers TWS API; IB Gateway; IBC"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -97,5 +91,5 @@ This skill covers the *transport and process layer*: paper/live port guarding, s
 
 - `headless-broker-auth-patterns`
 - `systemd-supervision-for-trading-bots`
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `token-lifecycle-live-probing`

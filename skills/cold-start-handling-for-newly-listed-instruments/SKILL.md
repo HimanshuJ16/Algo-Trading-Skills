@@ -1,24 +1,17 @@
 ---
 name: cold-start-handling-for-newly-listed-instruments
-description: Use when an instrument's own price history is too short to estimate risk
-  from — IPOs, spin-offs, new listings, freshly launched tokens — and a rolling
-  volatility window would otherwise return NaN or a number built from five days of
-  noise; shrinks the short sample toward a peer prior in variance space with conjugate
-  degrees-of-freedom weighting, and ramps a separate size cap across the probation
-  window.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- cold-start
-- ipo
-- shrinkage
-- volatility-estimation
-- position-sizing
-brokers_frameworks: []
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an instrument has too little price history to estimate risk from, such as an
+  IPO, spin-off or new token, and a rolling volatility window would return NaN or a
+  meaningless number that then sizes a position.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: risk-management, cold-start, ipo, shrinkage, volatility-estimation, position-sizing
+  brokers_frameworks: ""
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

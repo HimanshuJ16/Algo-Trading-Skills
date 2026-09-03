@@ -53,7 +53,7 @@ procedure to another venue.
    - Retain the offending delta as the new buffer head and keep buffering subsequent deltas
      throughout the re-sync, so step 4 can be run against the replacement snapshot.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Stale Snapshot Accepted Silently:** Applying a snapshot whose `last_update_id` precedes
   the first buffered `U`. Every subsequent continuity check passes, so no alarm ever fires

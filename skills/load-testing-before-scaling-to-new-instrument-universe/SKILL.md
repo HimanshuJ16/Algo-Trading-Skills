@@ -1,14 +1,17 @@
 ---
 name: load-testing-before-scaling-to-new-instrument-universe
 description: >-
-  Pre-scaling infrastructure capacity projection and scale-up gate, projecting tick message throughput, L2 order book memory footprints, network bandwidth and database write IOPS before expanding an instrument universe.
-domain: Data Management Global
-subdomain: Infrastructure Capacity & System Scalability
-tags: ["load-testing", "universe-scaling", "throughput", "memory-footprint", "network-bandwidth", "capacity-planning", "hft-infrastructure"]
-brokers_frameworks: ["k6 / Gatling Load Benchmarks", "Prometheus / Grafana Observability", "Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use as the gate before expanding an instrument universe, projecting tick throughput,
+  order-book memory, bandwidth and database write IOPS from measured per-symbol figures
+  to decide whether a replay test is warranted.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: load-testing, universe-scaling, throughput, memory-footprint, network-bandwidth, capacity-planning, hft-infrastructure
+  brokers_frameworks: "k6 / Gatling Load Benchmarks; Prometheus / Grafana Observability; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

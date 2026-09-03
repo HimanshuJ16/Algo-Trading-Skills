@@ -1,27 +1,17 @@
 ---
 name: multi-horizon-forecasting-architecture
 description: >-
-  Use when combining ML return forecasts made over different forward horizons
-  (5-min, 15-min, 60-min, one session) into a single tradeable alpha: rescales
-  each forecast onto one target horizon before weighting, blends by IC or
-  inverse-horizon decay, and arbitrates short-vs-long directional conflicts.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- multi-horizon
-- alpha-combination
-- information-coefficient
-- signal-decay
-- conflict-arbitration
-brokers_frameworks:
-- Information Coefficient (IC)
-- Grinold Alpha = Volatility x IC x Score
-- Square-Root-of-Time Volatility Scaling
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when models forecast the same instrument over several forward horizons at once and
+  their outputs must become one tradeable alpha; rescales each forecast onto a common
+  horizon before weighting them.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, multi-horizon, alpha-combination, information-coefficient, signal-decay, conflict-arbitration
+  brokers_frameworks: "Information Coefficient (IC); Grinold Alpha = Volatility x IC x Score; Square-Root-of-Time Volatility Scaling; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

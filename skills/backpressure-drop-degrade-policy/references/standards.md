@@ -41,9 +41,8 @@ organisational requirements of investment firms engaged in algorithmic trading
   activity that takes place under its trading code… for signs of disorderly
   trading."
 
-> **Correction to earlier versions of this file.** A previous revision labelled a
-> claim "EU MiFID II RTS 6" while citing and describing **Article 48 of MiFID II**.
-> These are different instruments with different addressees. Article 48 imposes
+> **Do not conflate RTS 6 with Article 48 of MiFID II.** They are different
+> instruments with different addressees. Article 48 imposes
 > systems-resilience and circuit-breaker obligations on **regulated markets**
 > (extended to MTFs and OTFs by Article 18(5)) — that is, on **trading venues**,
 > not on participant firms. A trading firm designing its own backpressure policy
@@ -60,11 +59,10 @@ subsequently deferred by follow-up circulars.
 > **Verification note.** The circular number, title, and date were confirmed
 > against SEBI's website. The full text was **not** machine-readable at the time
 > of writing, so this file makes **no claim** about specific capacity-monitoring,
-> throughput, or alerting provisions within it. An earlier revision asserted that
-> it "outlines expectations for system resilience, capacity monitoring, and
-> alerting mechanisms" and cited a third-party PDF rather than SEBI; that
-> characterisation was unverified and has been removed. Read the primary circular
-> before relying on it for any compliance conclusion.
+> throughput, or alerting provisions within it. Third-party summaries describing it
+> as one that "outlines expectations for system resilience, capacity monitoring,
+> and alerting mechanisms" are unverified against SEBI's own text. Read the primary
+> circular before relying on it for any compliance conclusion.
 
 ## Sources
 

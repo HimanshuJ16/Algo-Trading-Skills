@@ -526,7 +526,7 @@ class BackpressureManager:
 
 
 class BackpressurePolicy:
-    """Legacy wrapper preserving the pre-2.0 return shape.
+    """Legacy wrapper preserving the older return shape.
 
     ``handle_full`` returns the completed OHLC bar (DEGRADE) or ``None``, which
     cannot express rejection. Prefer :class:`BackpressureManager` directly so

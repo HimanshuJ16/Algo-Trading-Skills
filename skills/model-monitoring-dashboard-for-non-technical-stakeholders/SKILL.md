@@ -1,28 +1,17 @@
 ---
 name: model-monitoring-dashboard-for-non-technical-stakeholders
-description: Use when a live ML trading model's health must be reported to a reader
-  who cannot audit a PSI figure — an independent risk-control function, a compliance
-  officer, a portfolio manager — to grade accuracy, model age, feature-drift PSI and
-  inference latency into GREEN/AMBER/RED components, aggregate to the worst of them,
-  and emit a plain-language recommended action that never reports GREEN for a metric
-  it did not measure.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- monitoring-dashboard
-- model-health
-- non-technical
-- traffic-light
-- risk-reporting
-- population-stability-index
-- model-governance
-brokers_frameworks:
-- Model Monitoring Dashboard Engine
-- Python standard library (dataclasses, math, logging)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a live model's health must reach a risk officer or portfolio manager who
+  cannot interpret a PSI figure; grades accuracy, drift and staleness into plain
+  statuses. Not a substitute for MiFID II RTS 6 real-time monitoring.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, monitoring-dashboard, model-health, non-technical, traffic-light, risk-reporting, population-stability-index, model-governance
+  brokers_frameworks: "Model Monitoring Dashboard Engine; Python standard library (dataclasses, math, logging)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

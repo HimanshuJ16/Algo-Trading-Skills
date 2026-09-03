@@ -71,7 +71,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - The schedule registry is copied per scheduler instance, so `register_schedule()` cannot mutate
      `DEFAULT_EXCHANGE_SCHEDULES` or another component's registry.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Hardcoded UTC offsets** — "NYSE opens at UTC-5", producing a one-hour error for the ~8 months
   of the year the US is on EDT (UTC-4).

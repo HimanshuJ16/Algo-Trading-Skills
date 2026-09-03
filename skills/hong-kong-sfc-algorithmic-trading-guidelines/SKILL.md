@@ -1,19 +1,17 @@
 ---
 name: hong-kong-sfc-algorithmic-trading-guidelines
 description: >-
-  Use when an algorithmic trading system or DMA gateway sends orders to the Stock Exchange
-  of Hong Kong and must satisfy the SFC Code of Conduct paragraph 18 and Schedule 7
-  electronic-trading requirements — governance and testing sign-off, automated pre-trade
-  controls, a kill switch scoped below firm level, and the covered short selling regime of
-  SFO sections 170–172 plus the Designated Securities, order-marking and tick rules of the
-  Rules of the Exchange — with a 2-year audit trail of every decision.
-domain: Regulatory Compliance Global
-subdomain: Hong Kong SFC Schedule 7 & Algorithmic Governance
-tags: ["sfc", "schedule-7", "hong-kong-regulation", "algorithmic-trading", "pre-trade-controls", "covered-short-selling", "tick-rule", "kill-switch"]
-brokers_frameworks: ["SFC Code of Conduct paragraph 18 and Schedule 7", "SFC Circular on Algorithmic Trading (13 Dec 2016)", "Securities and Futures Ordinance ss.170-172", "SEHK Rules of the Exchange Rule 563D", "SEHK Eleventh Schedule Short Selling Regulations", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an algorithmic system or DMA gateway sends orders to the Stock Exchange of
+  Hong Kong and must satisfy SFC Code of Conduct paragraph 18 and Schedule 7 electronic
+  trading requirements. The SFC sets no numeric limits; you calibrate them.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: sfc, schedule-7, hong-kong-regulation, algorithmic-trading, pre-trade-controls, covered-short-selling, tick-rule, kill-switch
+  brokers_frameworks: "SFC Code of Conduct paragraph 18 and Schedule 7; SFC Circular on Algorithmic Trading (13 Dec 2016); Securities and Futures Ordinance ss.170-172; SEHK Rules of the Exchange Rule 563D; SEHK Eleventh Schedule Short Selling Regulations; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

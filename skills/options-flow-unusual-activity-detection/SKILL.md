@@ -1,14 +1,17 @@
 ---
 name: options-flow-unusual-activity-detection
 description: >-
-  Use when screening an options trade feed for unusual activity — prints whose size is large relative to the series' open interest and ADV and whose premium is plausibly institutional — and inferring buyer/seller direction from the quote rule, with explicit handling of what OPRA does not tell you.
-domain: Quant Research & Alt Data
-subdomain: Options Order Flow Analytics & Smart Money Tracking
-tags: ["options-flow", "unusual-activity", "vol-to-oi", "options-sweep", "block-trades", "smart-money", "quant-research"]
-brokers_frameworks: ["OPRA / Polygon Options Feed", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when screening an options print feed for trades large relative to the series open
+  interest and average volume carrying six-figure premium, and inferring buy or sell
+  side from the quote. Every label is an inference.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: options-flow, unusual-activity, vol-to-oi, options-sweep, block-trades, smart-money, quant-research
+  brokers_frameworks: "OPRA / Polygon Options Feed; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

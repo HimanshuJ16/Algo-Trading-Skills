@@ -1,27 +1,17 @@
 ---
 name: deutsche-borse-xetra-api-integration
-description: "Client-side pre-dispatch validation and T7 ETI request-header framing\
-  \ for Deutsche B\xF6rse Xetra cash orders — RTS 11 tick size by liquidity band,\
-  \ ETI field domains (TradingCapacity, Side, OrderOrigination), and scaled-integer\
-  \ price encoding."
-domain: Venue Integration & Protocols
-subdomain: European Exchange Integration (Xetra/Eurex)
-tags:
-- xetra
-- t7-eti
-- deutsche-borse
-- mifid-ii
-- rts-11
-- tick-size-regime
-- binary-protocol
-- european-equities
-brokers_frameworks:
-- "Deutsche B\xF6rse T7 ETI (Cash)"
-- MiFID II RTS 11 (Delegated Regulation (EU) 2017/588)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when building an order path into Deutsche Boerse Xetra over the T7 Enhanced
+  Trading Interface, validating RTS 11 tick size by liquidity band and the ETI field
+  domains client-side before the message leaves your process.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: xetra, t7-eti, deutsche-borse, mifid-ii, rts-11, tick-size-regime, binary-protocol, european-equities
+  brokers_frameworks: "Deutsche Börse T7 ETI (Cash); MiFID II RTS 11 (Delegated Regulation (EU) 2017/588); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,26 +1,17 @@
 ---
 name: dependency-pinning-and-reproducible-builds
-description: Auditor for pip requirements files that verifies exact version pinning
-  (==x.y.z) and valid strong package hashes, so a lockfile can be checked before it
-  is used with pip hash-checking mode (pip install --require-hashes).
-domain: Infrastructure & DevOps
-subdomain: Reproducible Builds & Dependency Governance
-tags:
-- dependency-pinning
-- reproducible-builds
-- poetry-lock
-- pip-tools
-- sha256-hash-verification
-- supply-chain-security
-- lockfile-audit
-brokers_frameworks:
-- Poetry
-- pip-tools
-- pip-compile
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when auditing a requirements file before it is used with pip hash-checking mode,
+  to verify exact == pins and valid strong hashes. It audits; resolving versions is
+  pip-compile or uv with generate-hashes.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: dependency-pinning, reproducible-builds, poetry-lock, pip-tools, sha256-hash-verification, supply-chain-security, lockfile-audit
+  brokers_frameworks: "Poetry; pip-tools; pip-compile; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

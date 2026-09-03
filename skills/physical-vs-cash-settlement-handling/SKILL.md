@@ -1,20 +1,17 @@
 ---
 name: physical-vs-cash-settlement-handling
 description: >-
-  Expiry settlement engine for derivatives: classifies cash-settled versus
-  physically delivered contracts, resolves the delivery obligation by position
-  direction (a long pays an invoice, a short must produce the deliverable),
-  selects the deadline that actually binds that side — first notice day for a
-  long, last trading day for a short — prices the delivery invoice at the
-  settlement price or the strike, and separates the final variation cashflow
-  from lifetime PnL.
-domain: Derivatives Settlement & Post-Trade Operations
-subdomain: Expiration & Physical Delivery Risk Management
-tags: ["settlement", "physical-delivery", "cash-settlement", "first-notice-date", "last-trading-day", "futures-expiration", "derivatives"]
-brokers_frameworks: ["CME Group Delivery Rules", "COMEX / NYMEX Contract Specifications", "IBKR Futures Close-Out Policy", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use on a position in an expiring contract, to resolve what the account is obliged to
+  do and by when: a long pays an invoice, a short must present the deliverable, and cash
+  settlement does neither.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: settlement, physical-delivery, cash-settlement, first-notice-date, last-trading-day, futures-expiration, derivatives
+  brokers_frameworks: "CME Group Delivery Rules; COMEX / NYMEX Contract Specifications; IBKR Futures Close-Out Policy; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -148,9 +148,6 @@ parameter, so the Z-score is not reproducible from the inputs alone.
 
 ## 9. Deprecated surface
 
-- `generate_signals(DataFrame)` multiplies a `raw_val` column by 1.5. It computes
-  nothing related to supply chains, logs a WARNING, and now labels its output
-  `DEPRECATED_PLACEHOLDER` rather than version 1.0.0's `BUY_EARNINGS_SURPRISE`.
 - `Config`, `Engine` and `SupplierCustomerLink` are import-compatibility shims. The
   scoring path reads none of them; `SupplierObservation` supersedes
   `SupplierCustomerLink`.

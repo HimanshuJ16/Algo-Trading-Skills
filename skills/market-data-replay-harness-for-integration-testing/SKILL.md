@@ -1,27 +1,17 @@
 ---
 name: market-data-replay-harness-for-integration-testing
-description: Use when integration-testing a trading engine, risk layer or execution
-  algorithm against a recorded tick session — replaying captured ticks through the
-  real pipeline in a reproducible order, at 1x, at a speed multiplier or as fast as
-  the consumer can take them, and measuring the scheduling lag so the replay's timing
-  fidelity is proven rather than assumed
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- tick-replay
-- integration-testing
-- deterministic-replay
-- mifid-ii-rts-6
-- event-driven
-brokers_frameworks:
-- Tick Replay Harness
-- MiFID II RTS 6 (EU 2017/589)
-- FCA Algorithmic Trading Compliance (Feb 2018)
-- Python standard library (time, dataclasses)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when integration-testing the real feed handler, strategy and risk pipeline against
+  a recorded session. Replays captured ticks in a reproducible order at 1x or a speed
+  multiplier and measures the scheduling lag of the replay itself.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, tick-replay, integration-testing, deterministic-replay, mifid-ii-rts-6, event-driven
+  brokers_frameworks: "Tick Replay Harness; MiFID II RTS 6 (EU 2017/589); FCA Algorithmic Trading Compliance (Feb 2018); Python standard library (time, dataclasses)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -100,7 +100,7 @@ Injects `target.shift(-1)` and returns the strength the auditor **actually repor
 
 `shift(+k)` is a **lag** (row $t$ receives the value from $t-k$); `shift(-k)` is a **lead**, legitimate only when constructing labels. `verify_shift_direction(series, periods, expected_lag=...)` enforces the sign in both directions and rejects a zero shift.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Negative Shift Inversion:** `.shift(-1)` instead of `.shift(1)`, feeding future price moves into current model inputs.
 - **Same-Bar Direction Contamination:** predicting $\text{sign}(r_{t+1})$ while a feature carries $r_{t+1}$ under a scaling or monotone transform — invisible to correlation, caught by the separation test.

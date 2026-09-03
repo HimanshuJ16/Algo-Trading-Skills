@@ -1,25 +1,17 @@
 ---
 name: backtest-audit-trail-for-regulatory-review
-description: Use when conducting production backtests to record an HMAC-authenticated
-  audit trail capturing code git commit SHA, per-file data checksums (SHA256),
-  hyperparameter manifest, and execution environment metadata for internal governance
-  and regulatory review (SEC Rule 17a-4 recordkeeping context).
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- regulatory-compliance
-- audit-trail
-- reproducibility
-- sec-compliance
-- data-lineage
-- hmac-integrity
-brokers_frameworks:
-- Regulatory Audit Trail Engine
-- Python hashlib/hmac (standard library)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a backtest result needs a durable record of exactly what produced it: git
+  commit SHA, per-file data checksums, hyperparameter manifest and environment, signed
+  with HMAC for integrity against outsiders.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, regulatory-compliance, audit-trail, reproducibility, sec-compliance, data-lineage, hmac-integrity
+  brokers_frameworks: "Regulatory Audit Trail Engine; Python hashlib/hmac (standard library)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

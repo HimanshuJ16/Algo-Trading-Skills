@@ -1,29 +1,17 @@
 ---
-name: cme-group-fix-api-for-futures
-description: Use when encoding or decoding tag=value FIX for CME Group — building
-  wire-valid FIX 4.2/4.4 messages (BodyLength, CheckSum, SOH, SendingTime), driving the
-  inbound MsgSeqNum recovery state machine without a resend storm, and getting the CME
-  order tags right (1028 ManualOrderIndicator, 7928/8000 Self-Match Prevention, 50
-  operator ID) — including how each maps onto iLink 3, which replaced tag=value FIX order
-  entry at CME.
-domain: Market Connectivity
-subdomain: FIX Protocol
-tags:
-- cme-group
-- fix-protocol
-- futures
-- tag1028
-- smp
-- self-match-prevention
-- seqnum
-- ilink3
-brokers_frameworks:
-- CME STP FIX 4.4
-- CME iLink 2 (decommissioned)
-- CME iLink 3 (SBE/FIXP)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+name: cme-stp-fix-and-ilink2-tag-value-encoding
+description: >-
+  Use when a system speaks tag=value FIX to CME Group: an STP FIX 4.4 trade-capture
+  session, a replay over archived iLink 2 flow, or a conformance harness. Not for live
+  order entry, which moved to iLink 3 binary; see cme-globex-futures-api-integration.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: cme-group, fix-protocol, futures, tag1028, smp, self-match-prevention, seqnum, ilink3
+  brokers_frameworks: "CME STP FIX 4.4; CME iLink 2 (decommissioned); CME iLink 3 (SBE/FIXP)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -176,7 +164,7 @@ It covers the four things hand-rolled CME FIX code gets wrong:
   `None`.
 - Confirm `to_ilink3_order_fields()` maps `50→5392`, `7928→2362` (as an integer) and
   `1028` to `0`/`1`, and raises on a non-numeric SMP ID.
-- Run `python -m unittest discover -s skills/cme-group-fix-api-for-futures/scripts` and confirm a 100% pass rate.
+- Run `python -m unittest discover -s skills/cme-stp-fix-and-ilink2-tag-value-encoding/scripts` and confirm a 100% pass rate.
 - Against a venue test session only: send one built message unmodified through the real
   transport and confirm it is accepted. A framing bug that unit tests cannot see is one
   where the transport rewrites the bytes.

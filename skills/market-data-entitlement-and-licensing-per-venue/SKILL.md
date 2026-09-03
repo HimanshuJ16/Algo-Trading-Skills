@@ -1,17 +1,17 @@
 ---
 name: market-data-entitlement-and-licensing-per-venue
 description: >-
-  Fail-closed pre-stream gate for exchange market data entitlements — per-venue
-  licences, depth-of-book tier, non-display activity category, and professional
-  vs non-professional subscriber classification — with an auditable reason
-  recorded for every decision.
-domain: Data Management Global
-subdomain: Exchange Licensing & Data Entitlement Governance
-tags: ["market-data", "entitlements", "exchange-licensing", "non-display-license", "professional-subscriber", "cta-utp-plan", "cme-non-display", "depth-of-book"]
-brokers_frameworks: ["Nasdaq US Equities and Options Data Policies", "CTA/CQ Nonprofessional Subscriber Policy", "CME Group Information License Agreement", "London Stock Exchange Non-Display Declaration", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use before a system inside the firm opens a market data stream, to prove the firm was
+  licensed for that venue at that depth for that use; covers non-display categories and
+  professional subscriber classification, failing closed.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: market-data, entitlements, exchange-licensing, non-display-license, professional-subscriber, cta-utp-plan, cme-non-display, depth-of-book
+  brokers_frameworks: "Nasdaq US Equities and Options Data Policies; CTA/CQ Nonprofessional Subscriber Policy; CME Group Information License Agreement; London Stock Exchange Non-Display Declaration; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

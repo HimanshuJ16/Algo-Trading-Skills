@@ -1,25 +1,17 @@
 ---
 name: walk-forward-optimization-window-management
-description: Use when conducting quantitative backtests to generate rolling or anchored
-  in-sample and out-of-sample time windows separated by a purge/embargo gap, enforce
-  zero lookahead leakage, and calculate Walk-Forward Efficiency (WFE)
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- walk-forward-optimization
-- in-sample-out-of-sample
-- lookahead-prevention
-- purge-embargo
-- overfitting-control
-brokers_frameworks:
-- Backtrader
-- Zipline
-- VectorBT
-- Custom Python Backtesters
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when generating the rolling or anchored in-sample and out-of-sample windows for
+  parameter optimisation, separated by a purge and embargo gap, and computing
+  walk-forward efficiency across them.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, walk-forward-optimization, in-sample-out-of-sample, lookahead-prevention, purge-embargo, overfitting-control
+  brokers_frameworks: "Backtrader; Zipline; VectorBT; Custom Python Backtesters"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

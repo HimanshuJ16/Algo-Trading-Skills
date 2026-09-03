@@ -53,10 +53,10 @@ actually implementing the skill, not just when deciding whether it applies.
      and counts anything still queued at `drain_timeout` as `total_ticks_undrained`.
    - Stop the producer first: ticks submitted after shutdown has begun have no consumer left.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **In-Callback Strategy Execution:** Executing ML inference or DB writes inside `on_message`, causing socket buffer overruns and connection drops during market spikes.
-- **Cross-Thread Queue Push:** Pushing onto an `asyncio.Queue` from the SDK's callback thread. Nothing raises and the depth metric looks right, but consumption stalls until the loop wakes for an unrelated reason — a 2.7 s stall was measured against this skill's previous implementation.
+- **Cross-Thread Queue Push:** Pushing onto an `asyncio.Queue` from the SDK's callback thread. Nothing raises and the depth metric looks right, but consumption stalls until the loop wakes for an unrelated reason — a 2.7 s stall has been measured this way.
 - **Round-Robin Worker Partitioning:** Partitioning worker tasks using round-robin, introducing out-of-order tick processing for individual symbols.
 - **Salted-Hash Partitioning:** `hash(symbol) % N` reshuffles the symbol→worker mapping on restart, so ordering guarantees do not survive a redeploy or extend across processes.
 - **Unbounded Memory Queues:** Allowing queues to grow infinitely (including via `maxsize=0`), causing silent host Out-Of-Memory (OOM) crashes during volatility bursts.

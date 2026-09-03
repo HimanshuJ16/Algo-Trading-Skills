@@ -1,27 +1,17 @@
 ---
 name: form-1099-b-and-broker-tax-reporting-reconciliation
-description: Use when reconciling internal algorithmic trading trade ledgers
-  (realized tax lots) against official broker 1099-B filings for end-of-year
-  tax preparation, broker-error detection, or Form 8949 generation. Compares
-  lots on (symbol, quantity, dates, proceeds, cost basis) within configurable
-  tolerances, surfaces wash-sale mismatches, missing records, and basis
-  out-of-tolerance events. Single-jurisdiction (US/IRS) scope.
-domain: tax-accounting-reporting-global
-subdomain: tax-reporting
-tags:
-- tax
-- reconciliation
-- compliance
-- 1099-B
-- form-8949
-- wash-sale
-- decimal-arithmetic
-brokers_frameworks: []
-jurisdictions:
-- US
-version: "1.3.0"
-author: System
-license: MIT
+description: >-
+  Use when reconciling an internal realised-lot ledger against broker 1099-B filings
+  before Form 8949, to detect wrong basis, missing lots and wash-sale flag disagreements
+  while there is still time to fix them.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: tax, reconciliation, compliance, 1099-B, form-8949, wash-sale, decimal-arithmetic
+  brokers_frameworks: ""
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

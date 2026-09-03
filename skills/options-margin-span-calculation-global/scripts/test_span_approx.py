@@ -5,7 +5,7 @@ Expected values are derived independently of the implementation: Black-Scholes
 against a textbook reference and put-call parity, scenario payoffs against
 hand-computed intrinsic values, and worst-case losses against strike-width
 arithmetic. Several tests are explicit regressions against defects in the
-pre-2.0 implementation and are marked as such.
+older implementation and are marked as such.
 """
 import logging
 import math
@@ -68,7 +68,7 @@ class TestScenarioGrid(unittest.TestCase):
 
     def test_standard_grid_has_sixteen_span_scenarios(self):
         # 7 price fractions x 2 volatility directions + 2 extreme moves.
-        # REGRESSION: the pre-2.0 grid was 7 x 2 = 14 while the docs claimed 16.
+        # REGRESSION: an earlier grid was 7 x 2 = 14 while the docs claimed 16.
         payoffs = self.calc.evaluate_scenario_grid(
             _iron_condor(), spot=100.0, vol=0.20)
         self.assertEqual(len(payoffs), 16)
@@ -101,7 +101,7 @@ class TestScenarioGrid(unittest.TestCase):
         self.assertFalse(any("extreme" in name for name in payoffs))
 
     def test_volatility_shock_changes_the_payoff_when_time_value_exists(self):
-        # REGRESSION: the pre-2.0 payoff function accepted a scenario vol and
+        # REGRESSION: an earlier payoff function accepted a scenario vol and
         # ignored it, so every vol-up scenario equalled its vol-down twin.
         payoffs = self.calc.evaluate_scenario_grid(
             [OptionLeg(100.0, OptionType.CALL, 1.0, time_to_expiry_years=T30)],
@@ -163,7 +163,7 @@ class TestMarginCalculation(unittest.TestCase):
         logging.disable(logging.NOTSET)
 
     def test_long_only_position_requires_no_margin(self):
-        # REGRESSION: the pre-2.0 code charged the full premium (500) as margin
+        # REGRESSION: a naive code charged the full premium (500) as margin
         # on a long call. A long option is paid for in full and cannot be
         # margined -- its worst case is losing the premium already paid.
         res = self.calc.calculate_span_margin(
@@ -174,7 +174,7 @@ class TestMarginCalculation(unittest.TestCase):
         self.assertEqual(res.exposure_margin, 0.0)
 
     def test_iron_condor_requires_positive_margin_capped_at_max_loss(self):
-        # REGRESSION: the pre-2.0 code returned 0.0 for a short iron condor,
+        # REGRESSION: a naive code returned 0.0 for a short iron condor,
         # implying a credit spread could be opened with no capital at all.
         res = self.calc.calculate_span_margin(
             _iron_condor(), spot=100.0, vol=0.20)
@@ -225,7 +225,7 @@ class TestMarginCalculation(unittest.TestCase):
             capped.span_margin + capped.exposure_margin, places=2)
 
     def test_ratio_spread_does_not_get_defined_risk_relief(self):
-        # REGRESSION: the pre-2.0 defined-risk test only looked for an opposite
+        # REGRESSION: an earlier defined-risk test only looked for an opposite
         # -signed leg of the same option type, so ten short puts hedged by one
         # long put were treated as fully hedged and margined at 0.0.
         legs = [
@@ -257,7 +257,7 @@ class TestMarginCalculation(unittest.TestCase):
         self.assertGreater(res.total_required_margin, 0.0)
 
     def test_margin_responds_to_a_volatility_change(self):
-        # REGRESSION: the pre-2.0 calculation was completely vol-insensitive,
+        # REGRESSION: an earlier calculation was completely vol-insensitive,
         # which defeats the purpose of a volatility scan.
         legs = _iron_condor()
         low = self.calc.calculate_span_margin(legs, spot=100.0, vol=0.10)
@@ -266,7 +266,7 @@ class TestMarginCalculation(unittest.TestCase):
                                   high.total_required_margin, places=2)
 
     def test_entry_premium_does_not_affect_the_requirement(self):
-        # REGRESSION: the pre-2.0 scan measured profit and loss against the
+        # REGRESSION: an earlier scan measured profit and loss against the
         # entry premium, so the same live position produced a different margin
         # depending on the price it was filled at.
         cheap = self.calc.calculate_span_margin(

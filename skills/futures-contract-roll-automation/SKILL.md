@@ -1,14 +1,17 @@
 ---
 name: futures-contract-roll-automation
 description: >-
-  Quantitative execution engine for automating futures contract roll decisions via volume/open-interest crossover, days-to-expiration, and First Notice Day deadlines, describing the calendar spread order that performs the roll.
-domain: Execution Algorithms
-subdomain: Futures Derivatives & Roll Automation
-tags: ["futures-roll", "calendar-spread", "volume-crossover", "open-interest", "first-notice-day", "contango", "backwardation", "derivatives"]
-brokers_frameworks: ["CME Group", "Interactive Brokers", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an open futures position must move to the next expiration before the contract
+  becomes an obligation, triggering on volume and open-interest crossover, days to
+  expiration and first notice day.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: futures-roll, calendar-spread, volume-crossover, open-interest, first-notice-day, contango, backwardation, derivatives
+  brokers_frameworks: "CME Group; Interactive Brokers; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

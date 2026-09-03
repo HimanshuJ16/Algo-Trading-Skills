@@ -1,7 +1,7 @@
 """
 Behavioural tests for the model registry and rollback engine.
 
-Several tests are regressions against specific defects in the pre-2.0
+Several tests are regressions against specific defects in an earlier
 implementation and are marked as such: registering a PRODUCTION artifact used to
 silently unseat the live model, a NaN drawdown used to read as healthy, a
 64-character non-hex string used to pass as a digest, a failed rollback used to

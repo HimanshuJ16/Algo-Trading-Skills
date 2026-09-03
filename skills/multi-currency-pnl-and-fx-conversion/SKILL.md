@@ -1,29 +1,17 @@
 ---
 name: multi-currency-pnl-and-fx-conversion
-description: Use when a bot or backtest holds positions denominated in more than one
-  currency, to stop P&L from different currencies being silently summed as if they
-  were the same unit, to resolve point-in-time FX rates without lookahead or silent
-  parity fallbacks, and to separate a strategy's price P&L from its incidental
-  currency P&L
-domain: algorithmic-trading
-subdomain: data-management-global
-tags:
-- data-management-global
-- multi-currency
-- fx-conversion
-- point-in-time-rates
-- pnl-decomposition
-- iso-4217
-- currency-translation
-- base-currency
-brokers_frameworks:
-- ISO 4217
-- IFRS IAS 21
-- GIPS 2020 (Firms)
-- Python standard library (decimal, bisect)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a book holds positions in more than one currency and P&L must not be summed
+  across units, resolving point-in-time FX rates and separating trading result from
+  currency translation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: data-management-global, multi-currency, fx-conversion, point-in-time-rates, pnl-decomposition, iso-4217, currency-translation, base-currency
+  brokers_frameworks: "ISO 4217; IFRS IAS 21; GIPS 2020 (Firms); Python standard library (decimal, bisect)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

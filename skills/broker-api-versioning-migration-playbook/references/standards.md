@@ -72,9 +72,8 @@ last few minutes of it — so the implementation uses **reservoir sampling** (Vi
 Algorithm R) to hold a uniform sample of the whole phase in fixed memory, alongside
 exact streaming `count`, `mean` and `max`.
 
-**On the two-sample t-test.** An earlier revision of this document specified a t-test
-between V1 and V2 round-trip times with a pass condition of *p > 0.05*. That is wrong in
-two independent ways and should not be reproduced:
+**On the two-sample t-test.** Do not gate V1-vs-V2 round-trip times on a t-test with a
+pass condition of *p > 0.05*. That construction is wrong in two independent ways:
 
 1. **It accepts the null hypothesis.** A large p-value is a failure to detect a
    difference, not evidence of equivalence. With small or noisy samples it is the

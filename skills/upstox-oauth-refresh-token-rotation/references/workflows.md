@@ -136,7 +136,7 @@ HTTP 200 is not proof of success: errors arrive in the body as
 `{"status": "error", "errors": [{"error_code": ..., "message": ...}]}`. Branch on the
 code, never on message substrings.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Implementing a refresh exchange that does not exist.** Code and generated snippets
   offering Upstox "refresh token rotation" target `grant_type=refresh_token` and a

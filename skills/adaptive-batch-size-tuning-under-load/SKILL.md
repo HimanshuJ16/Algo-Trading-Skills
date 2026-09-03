@@ -1,25 +1,17 @@
 ---
 name: adaptive-batch-size-tuning-under-load
-description: Use when writing market data or order logs to downstream databases
-  (TimescaleDB, ClickHouse) or message brokers to dynamically adapt write batch
-  sizes and flush timeouts based on batch fullness at the flush boundary and
-  sink write latency. Hysteresis-shaped, EWMA-smoothed, back-pressure-aware.
-  Single-writer / multi-producer thread-safe engine, not a generic embedder.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- adaptive-batching
-- dynamic-tuning
-- throughput-optimization
-- database-sink
-- backpressure
-- ewma
-brokers_frameworks: []
-jurisdictions: [global]  # technique is jurisdiction-agnostic
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when writing high-volume ticks or order logs into TimescaleDB, ClickHouse or Kafka
+  and one static batch size either stalls in quiet markets or floods the sink in a
+  burst; adapts batch size and flush timeout from EWMA sink latency.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, adaptive-batching, dynamic-tuning, throughput-optimization, database-sink, backpressure, ewma
+  brokers_frameworks: ""
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

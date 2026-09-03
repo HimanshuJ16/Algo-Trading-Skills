@@ -1,14 +1,17 @@
 ---
 name: options-implied-volatility-surface-construction
 description: >-
-  Use when calibrating an implied volatility surface to live option quotes: inverts Black-Scholes market prices to implied volatilities, least-squares fits a quadratic moneyness smile per expiration, and audits the two static no-arbitrage conditions — calendar spread (total implied variance non-decreasing at fixed log-forward moneyness) and butterfly (call price convex in strike, so the risk-neutral density is non-negative).
-domain: Quantitative Finance & Derivatives Modeling
-subdomain: Implied Volatility Surface Calibration & Arbitrage Verification
-tags: ["iv-surface", "volatility-smile", "black-scholes", "arbitrage-free", "calendar-spread", "butterfly-arbitrage", "options-pricing", "derivatives"]
-brokers_frameworks: ["Black-Scholes-Merton", "Gatheral-Jacquier Static Arbitrage Conditions", "Python Standard Library (math)"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when calibrating a surface to live quotes and you need evidence it holds no static
+  arbitrage, inverting Black-Scholes prices to implied volatilities and fitting a smile
+  per expiration with butterfly and calendar checks.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: iv-surface, volatility-smile, black-scholes, arbitrage-free, calendar-spread, butterfly-arbitrage, options-pricing, derivatives
+  brokers_frameworks: "Black-Scholes-Merton; Gatheral-Jacquier Static Arbitrage Conditions; Python Standard Library (math)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

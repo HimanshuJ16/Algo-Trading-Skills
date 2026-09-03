@@ -1,25 +1,17 @@
 ---
 name: decentralized-exchange-dex-integration-uniswap-style
-description: Pre-trade audit engine for Uniswap v2 style constant-product AMM pools,
-  calculating swap outputs (x*y=k), price impact, the amountOutMin slippage floor,
-  and the router deadline before a swap transaction is signed.
-domain: Decentralized Finance (DeFi) & DEX
-subdomain: AMM Trading & Execution
-tags:
-- uniswap
-- amm
-- constant-product
-- price-impact
-- slippage-tolerance
-- mev-protection
-- dex-trading
-brokers_frameworks:
-- Uniswap v2 (and x*y=k forks: Sushiswap, PancakeSwap v2)
-- web3.py
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before submitting a swap to a Uniswap v2 style constant-product pool, to compute
+  output from x*y=k, price impact, the amountOutMin slippage floor and the router
+  deadline. Concentrated-liquidity v3 and v4 pools behave differently.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: uniswap, amm, constant-product, price-impact, slippage-tolerance, mev-protection, dex-trading
+  brokers_frameworks: "{'Uniswap v2 (and x*y=k forks': 'Sushiswap, PancakeSwap v2)'}; web3.py; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

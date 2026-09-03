@@ -1,21 +1,18 @@
 ---
 name: blue-green-deployment-for-live-strategy-updates
-description: Use when updating a trading strategy that is already live and holding
-  positions — staging the new version on a standby slot, health-checking it, synchronizing
-  portfolio and open-order state, cutting over order routing atomically, and keeping a
-  guarded rollback path — without a gap in market coverage or duplicate order risk.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- blue-green
-- zero-downtime-cutover
-- rollback
-- state-synchronization
-brokers_frameworks: []
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a strategy that is currently routing orders and holding positions must be
+  replaced without waiting for a maintenance window; stages the new build on a standby
+  slot, health-checks it, syncs position and open-order state, then cuts routing
+  authority over.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-ops, blue-green, zero-downtime-cutover, rollback, state-synchronization
+  brokers_frameworks: ""
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

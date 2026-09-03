@@ -1,23 +1,17 @@
 ---
 name: algo-trading-disclosure-to-exchange-membership
 description: >-
-  Designs and validates a venue-aware pre-trade control that identifies
-  algorithmic orders, checks disclosed algorithm registrations, and blocks
-  orders whose exchange-facing metadata is missing, stale, or unauthorized.
-domain: regulatory-compliance
-subdomain: exchange-connectivity
-tags:
-- compliance
-- regulatory
-- mifid-ii
-- sebi
-- algo-id
-- pre-trade-risk
-brokers_frameworks:
-- generic-fix
-version: "1.3.0"
-author: System
-license: MIT
+  Use when an order is generated or parameterised by an algorithm and the venue or
+  regulator requires algorithm identification, registration or disclosure; blocks orders
+  whose exchange-facing metadata is missing or stale, before FIX serialisation.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: compliance, regulatory, mifid-ii, sebi, algo-id, pre-trade-risk
+  brokers_frameworks: generic-fix
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## Purpose and Scope

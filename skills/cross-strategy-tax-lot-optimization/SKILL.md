@@ -1,25 +1,17 @@
 ---
 name: cross-strategy-tax-lot-optimization
-description: US tax-lot selection engine for multi-strategy entities - HIFO / Specific
-  Lot Identification and LTCG-preferring ordering under Treas. Reg. 1.1012-1(c), internal
-  cross-strategy order netting, and an IRC 1091 wash-sale interception screen across
-  sub-strategies.
-domain: Tax Accounting & Optimization
-subdomain: Tax-Lot Accounting
-tags:
-- tax-lot
-- hifo
-- tax-loss-harvesting
-- wash-sale
-- internal-netting
-- capital-gains
-- cross-strategy
-brokers_frameworks:
-- IRS Form 8949
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when several strategies trade the same securities under one US tax entity and
+  uncoordinated sells default to the earliest lot; applies specific-lot identification
+  with long-term-gain preference and internal netting.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: tax-lot, hifo, tax-loss-harvesting, wash-sale, internal-netting, capital-gains, cross-strategy
+  brokers_frameworks: "IRS Form 8949; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

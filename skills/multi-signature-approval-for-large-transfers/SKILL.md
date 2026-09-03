@@ -1,17 +1,17 @@
 ---
 name: multi-signature-approval-for-large-transfers
 description: >-
-  Off-chain M-of-N approval gate for large crypto transfers. Binds every signer
-  approval to a SHA-256 digest of the exact payload reviewed, counts only signers
-  on a registered roster and only across distinct roles, and runs the high-value
-  timelock against a trusted clock the requester cannot back-date.
-domain: Crypto Custody Security
-subdomain: Multi-Signature Approval Workflows & Governance Controls
-tags: ["multisig", "transfer-approval", "m-of-n", "timelock", "governance", "crypto-custody", "role-based-access", "payload-binding"]
-brokers_frameworks: ["Multisig Policy Engine", "Safe{Wallet} Smart Account", "Role-Based Access Control (RBAC)", "CCSS v9", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a large crypto transfer needs independent human authorisation before it
+  proceeds, binding each approval to a hash of the exact payload reviewed and counting
+  only registered signers across distinct devices.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: multisig, transfer-approval, m-of-n, timelock, governance, crypto-custody, role-based-access, payload-binding
+  brokers_frameworks: "Multisig Policy Engine; Safe{Wallet} Smart Account; Role-Based Access Control (RBAC); CCSS v9; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

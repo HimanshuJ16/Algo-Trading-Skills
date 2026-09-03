@@ -1,26 +1,17 @@
 ---
 name: backtest-outlier-and-bad-tick-filtering
-description: Use when cleaning historical tick and bar data for backtesting to detect
-  and filter erroneous price prints, fat-finger quotes, stale prices, and out-of-sequence
-  ticks before they distort signal generation. Purges bad prints; it does not interpolate,
-  reprice, or reconstruct the ticks it removes.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- bad-tick-filtering
-- outlier-detection
-- data-cleaning
-- median-filter
-- price-spikes
-brokers_frameworks:
-- Outlier Bad Tick Filter Engine
-- Python
-- NIST/SEMATECH e-Handbook
-- FINRA Clearly Erroneous Transactions
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when ingesting raw tick or bar files that contain fat-finger prints, test
+  messages, zero prices and out-of-sequence ticks, so one bad print does not create a
+  phantom signal. Every purge also removes a price a stop might genuinely have hit.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, bad-tick-filtering, outlier-detection, data-cleaning, median-filter, price-spikes
+  brokers_frameworks: "Outlier Bad Tick Filter Engine; Python; NIST/SEMATECH e-Handbook; FINRA Clearly Erroneous Transactions"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

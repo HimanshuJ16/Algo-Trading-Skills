@@ -1,117 +1,203 @@
 #!/usr/bin/env python3
 """
-Example 02: Lookahead-Free Backtest with Realistic Slippage & Tearsheet
+Example 02: Lookahead-Free Backtest with Realistic Fills & a Standard Tearsheet
 
-Chains 3 Skills:
-  1. lookahead-bias-elimination (Point-in-time signal calculations using bar close offset)
-  2. realistic-slippage-fee-latency-simulation (Execution modeling with latency & market impact)
-  3. standardized-tearsheet-generation (Institutional summary metrics: Sharpe, Drawdown, CAGR)
+Runs the real helper modules from three skills — nothing here re-implements
+them:
+
+  1. lookahead-bias-elimination              (`leak_audit.LookaheadBiasAuditor`)
+     Build the causal execution column (a signal raised on bar T fills at bar
+     T+1's open), then audit the finished frame for same-bar fills — and
+     calibrate the auditor so a clean report means something.
+  2. execution-realistic-simulation           (`fill_model.RealisticExecutionSimulator`)
+     Price each fill by crossing the half-spread and paying square-root market
+     impact, I(Q) = gamma * sigma * sqrt(Q / ADV) * mid, then apply the dated,
+     source-attributed statutory fee stack for the market.
+  3. backtest-reporting-standardized-tearsheet (`tearsheet_generator.StandardizedTearsheetGenerator`)
+     Report Sharpe, Sortino, Calmar and drawdown under one stated convention.
+
+Run from the repository root:
+
+    python examples/02_lookahead_free_backtest_with_slippage.py
 """
-import math
-import random
-from typing import List, Dict, Any
+import logging
+import os
+import sys
+
+import numpy as np
+import pandas as pd
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _slug in (
+    "lookahead-bias-elimination",
+    "execution-realistic-simulation",
+    "backtest-reporting-standardized-tearsheet",
+):
+    sys.path.insert(0, os.path.join(REPO_ROOT, "skills", _slug, "scripts"))
+
+from fill_model import MarketType, RealisticExecutionSimulator  # noqa: E402
+from leak_audit import LookaheadBiasAuditor  # noqa: E402
+from tearsheet_generator import StandardizedTearsheetGenerator  # noqa: E402
+
+# Seeded so this walkthrough produces the same bars, and therefore the same
+# tearsheet, on every run.
+RNG = np.random.default_rng(42)
+
+# The helper modules log through the standard library. Surface their warnings,
+# prefixed so they are visibly theirs and not this script's narration.
+logging.basicConfig(level=logging.WARNING, format="  [%(name)s] %(message)s")
+
+FAST_WINDOW = 5
+SLOW_WINDOW = 20
+EXECUTION_LAG = 1        # bars between the decision and the fill
+ORDER_QTY = 500.0        # shares per trade
+HALF_SPREAD = 0.01       # USD, one side of a 2-cent-wide quote
+ADV = 2_000_000.0        # average daily volume, same units as the order size
+DAILY_VOL = 0.02         # 2% per day, the sigma of the square-root law
 
 
-def generate_mock_bar_data(num_bars: int = 100) -> List[Dict[str, float]]:
+def generate_bars(num_bars: int = 160) -> pd.DataFrame:
+    """A synthetic daily OHLCV frame. Not a market — just a well-formed input."""
     price = 100.0
-    bars = []
+    rows = []
     for i in range(num_bars):
-        change = random.gauss(0.0005, 0.01)
+        change = RNG.normal(0.0005, 0.01)
         open_p = price
-        close_p = price * (1 + change)
-        high_p = max(open_p, close_p) * (1 + random.uniform(0.001, 0.005))
-        low_p = min(open_p, close_p) * (1 - random.uniform(0.001, 0.005))
-        bars.append({"timestamp": i, "open": open_p, "high": high_p, "low": low_p, "close": close_p, "volume": random.randint(1000, 5000)})
+        close_p = price * (1.0 + change)
+        rows.append({
+            "timestamp": pd.Timestamp("2026-01-01") + pd.Timedelta(days=i),
+            "open": open_p,
+            "high": max(open_p, close_p) * (1.0 + RNG.uniform(0.001, 0.005)),
+            "low": min(open_p, close_p) * (1.0 - RNG.uniform(0.001, 0.005)),
+            "close": close_p,
+            "volume": float(RNG.integers(1_000, 5_000)),
+        })
         price = close_p
-    return bars
+    return pd.DataFrame(rows)
 
 
-class LookaheadFreeSignalEngine:
-    """Skill: lookahead-bias-elimination"""
-
-    def compute_signal(self, historical_bars: List[Dict[str, float]]) -> float:
-        """
-        Calculates moving average crossover using STRICTLY completed historical bars.
-        Never references current bar's close price until the bar period ends.
-        """
-        if len(historical_bars) < 20:
-            return 0.0
-        # Use completed bars up to index -1
-        short_ma = sum(b["close"] for b in historical_bars[-5:]) / 5.0
-        long_ma = sum(b["close"] for b in historical_bars[-20:]) / 20.0
-        return 1.0 if short_ma > long_ma else -1.0
+def build_signals(bars: pd.DataFrame) -> pd.DataFrame:
+    """Moving-average crossover, decided on each bar's own completed close."""
+    df = bars.copy()
+    df["ma_fast"] = df["close"].rolling(FAST_WINDOW).mean()
+    df["ma_slow"] = df["close"].rolling(SLOW_WINDOW).mean()
+    warm = df["ma_fast"].notna() & df["ma_slow"].notna()
+    df["signal"] = np.where(warm, np.where(df["ma_fast"] > df["ma_slow"], 1, -1), 0)
+    df["signal"] = df["signal"].astype(int)
+    return df
 
 
-class RealisticExecutionSimulator:
-    """Skill: realistic-slippage-fee-latency-simulation"""
-
-    def __init__(self, fee_bps: float = 5.0, latency_bars: int = 1):
-        self.fee_bps = fee_bps
-        self.latency_bars = latency_bars
-
-    def execute_trade(self, signal: float, execution_bar: Dict[str, float], qty: float) -> Dict[str, float]:
-        base_price = execution_bar["open"]
-        # Quadratic market impact slippage simulation
-        slippage_pct = 0.0002 * math.sqrt(abs(qty) / 100.0)
-        filled_price = base_price * (1 + slippage_pct) if signal > 0 else base_price * (1 - slippage_pct)
-        fee = filled_price * qty * (self.fee_bps / 10000.0)
-        return {"filled_price": filled_price, "fee": fee}
-
-
-class StandardizedTearsheet:
-    """Skill: standardized-tearsheet-generation"""
-
-    def generate(self, returns: List[float]):
-        if not returns:
-            return
-        avg_ret = sum(returns) / len(returns)
-        std_ret = math.sqrt(sum((r - avg_ret) ** 2 for r in returns) / len(returns)) if len(returns) > 1 else 1e-6
-        sharpe = (avg_ret / std_ret) * math.sqrt(252) if std_ret > 0 else 0.0
-        cum_equity = [1.0]
-        for r in returns:
-            cum_equity.append(cum_equity[-1] * (1 + r))
-        max_dd = 0.0
-        peak = cum_equity[0]
-        for e in cum_equity:
-            if e > peak:
-                peak = e
-            dd = (peak - e) / peak
-            if dd > max_dd:
-                max_dd = dd
-
-        print("\n--- Institutional Strategy Performance Tearsheet ---")
-        print(f"Total Trades Executed : {len(returns)}")
-        print(f"Mean Period Return    : {avg_ret * 100:.4f}%")
-        print(f"Annualized Sharpe     : {sharpe:.2f}")
-        print(f"Max Peak-to-Trough DD : {max_dd * 100:.2f}%")
-        print("---------------------------------------------------\n")
-
-
-def main():
+def main() -> None:
     print("=== Walkthrough 02: Lookahead-Free Backtest & Execution Simulation ===\n")
-    bars = generate_mock_bar_data(120)
-    engine = LookaheadFreeSignalEngine()
-    simulator = RealisticExecutionSimulator(fee_bps=5.0, latency_bars=1)
-    tearsheet = StandardizedTearsheet()
+
+    df = build_signals(generate_bars())
+
+    # --- Step 1: make the execution causal, then audit that it is ----------
+    auditor = LookaheadBiasAuditor(warmup_periods=SLOW_WINDOW)
+    aligned = auditor.align_signal_execution(
+        df,
+        signal_col="signal",
+        open_col="open",
+        execution_lag=EXECUTION_LAG,
+        timestamp_col="timestamp",
+    )
+
+    detected = auditor.run_timing_calibration(
+        aligned,
+        signal_col="executed_signal",
+        fill_price_col="fill_price",
+        timestamp_col="timestamp",
+        indicator_cols=["ma_fast", "ma_slow"],
+    )
+    print("Auditor calibration: %.0f%% of deliberately injected same-bar fills "
+          "were caught." % (100.0 * detected))
+    print("  A clean audit is only worth what the calibration says it is.")
+
+    findings = auditor.audit_backtest_timing(
+        aligned,
+        signal_col="executed_signal",
+        fill_price_col="fill_price",
+        timestamp_col="timestamp",
+        indicator_cols=["ma_fast", "ma_slow"],
+    )
+    print("Timing audit of the aligned frame: %d finding(s)." % len(findings))
+    for finding in findings[:3]:
+        print("  [%s] %s" % (finding.violation_type.value, finding.details))
+    print("  No screen fired: fills sit on bar T+%d's open, never on the bar that "
+          "produced the signal.\n" % EXECUTION_LAG)
+
+    # --- Step 2: price the fills the way the venue would -------------------
+    simulator = RealisticExecutionSimulator()   # gamma defaults to 0.5
+    executed = aligned[aligned["executed_signal"] != 0]
 
     returns = []
-    position = 0.0
+    first_trade_printed = False
+    for row in executed.itertuples():
+        exit_index = row.Index + 1
+        if exit_index not in aligned.index:
+            break
+        exit_row = aligned.loc[exit_index]
 
-    for i in range(20, len(bars) - 1):
-        # Step 1: Compute signal on COMPLETED historical bars (0..i-1)
-        history = bars[:i]
-        signal = engine.compute_signal(history)
+        direction = 1.0 if row.executed_signal > 0 else -1.0
+        entry_side = "BUY" if direction > 0 else "SELL"
+        exit_side = "SELL" if direction > 0 else "BUY"
 
-        # Step 2: Execute trade on NEXT bar's open (simulating 1-bar latency & slippage)
-        if signal != position:
-            exec_bar = bars[i]  # Next bar
-            fill = simulator.execute_trade(signal, exec_bar, qty=100.0)
-            trade_return = (bars[i+1]["close"] - fill["filled_price"]) / fill["filled_price"] if signal > 0 else (fill["filled_price"] - bars[i+1]["close"]) / fill["filled_price"]
-            returns.append(trade_return)
-            position = signal
+        entry = simulator.simulate_fill(
+            side=entry_side, order_size=ORDER_QTY, mid_price=row.open,
+            half_spread=HALF_SPREAD, adv=ADV, volatility=DAILY_VOL,
+            market_type=MarketType.US_EQUITY,
+        )
+        exit_fill = simulator.simulate_fill(
+            side=exit_side, order_size=ORDER_QTY, mid_price=float(exit_row["open"]),
+            half_spread=HALF_SPREAD, adv=ADV, volatility=DAILY_VOL,
+            market_type=MarketType.US_EQUITY,
+        )
 
-    # Step 3: Generate performance tearsheet
-    tearsheet.generate(returns)
+        gross = (exit_fill.fill_price - entry.fill_price) * ORDER_QTY * direction
+        fees = (entry.fee_breakdown.total_fees + exit_fill.fee_breakdown.total_fees)
+        notional = entry.fill_price * ORDER_QTY
+        returns.append((gross - fees) / notional)
+
+        if not first_trade_printed:
+            first_trade_printed = True
+            print("First modelled trade (%s %g shares):" % (entry_side, ORDER_QTY))
+            print("  mid %.4f -> fill %.4f (half-spread %.2f + impact %.4f/share)"
+                  % (row.open, entry.fill_price, HALF_SPREAD,
+                     entry.market_impact_per_unit))
+            print("  participation %.4f%% of ADV, slippage cost %.2f, fees %.2f"
+                  % (100.0 * entry.participation_ratio, entry.slippage_cost,
+                     entry.fee_breakdown.total_fees))
+            print("  Impact follows the square-root law, not a fixed percentage: "
+                  "doubling the size raises it by about 41%, not 100%.")
+            print("  Fees are 0.00 on the buy leg by construction: the US_EQUITY "
+                  "schedule carries the sell-side SEC Section 31 fee and a zero "
+                  "default commission, which you replace with your broker's.\n")
+
+    # --- Step 3: one tearsheet, one stated convention ----------------------
+    tearsheet = StandardizedTearsheetGenerator(
+        risk_free_rate=0.0,
+        periods_per_year=252,     # one bar = one trading day
+    )
+    metrics = tearsheet.generate(returns)
+
+    print("--- Standardized Performance Tearsheet ---")
+    print("Trades (one-bar holds)  : %d" % metrics["Periods"])
+    print("Total Return            : %.4f%%" % (100.0 * metrics["Total Return"]))
+    print("Annualized Return       : %.2f%%" % (100.0 * metrics["Annualized Return"]))
+    print("Annualized Volatility   : %.2f%%" % (100.0 * metrics["Annualized Volatility"]))
+    print("Sharpe Ratio            : %.2f" % metrics["Sharpe Ratio"])
+    print("Sortino Ratio           : %.2f" % metrics["Sortino Ratio"])
+    print("Calmar Ratio            : %.2f  [%s]"
+          % (metrics["Calmar Ratio"], metrics["Calmar Convention"]))
+    print("Max Drawdown            : %.2f%%" % (100.0 * metrics["Max Drawdown"]))
+    print("Hit Rate                : %.2f%%" % (100.0 * metrics["Hit Rate"]))
+    print("Annualization extrapolated from under a year: %s"
+          % metrics["Annualization Extrapolated"])
+    print("------------------------------------------")
+    print("The bars are a seeded random walk, so these numbers describe the "
+          "machinery, not an edge: a crossover on noise pays the spread and "
+          "loses.\n")
+
     print("=== Walkthrough 02 Completed Cleanly ===")
 
 

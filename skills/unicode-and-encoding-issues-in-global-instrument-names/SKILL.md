@@ -1,23 +1,17 @@
 ---
 name: unicode-and-encoding-issues-in-global-instrument-names
-description: "Institutional reference data skill for resolving Unicode character encoding issues in global instrument names: byte-order-mark (BOM) detection across UTF-8/16/32, round-trip Mojibake repair, NFC/NFD normalization for security master keys, invisible and control character removal, and lossy-aware ASCII transliteration for FIX SecurityDesc and legacy exchange interfaces."
-domain: Global Reference Data & Security Master
-subdomain: Character Encoding & Data Sanitization
-tags:
-- unicode
-- encoding
-- mojibake
-- nfc-normalization
-- reference-data
-- security-master
-- ascii-slug
-- multi-exchange
-brokers_frameworks:
-- quickfix
-- sqlalchemy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when instrument names arrive in mixed encodings such as Shift-JIS, GBK, EUC-KR or
+  Latin-1 and must survive the pipeline intact, covering byte-order-mark detection,
+  mojibake repair and Unicode normalisation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: unicode, encoding, mojibake, nfc-normalization, reference-data, security-master, ascii-slug, multi-exchange
+  brokers_frameworks: "quickfix; sqlalchemy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

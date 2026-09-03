@@ -1,25 +1,17 @@
 ---
 name: clock-skew-correction-for-tick-timestamps
-description: Use when captured tick data carries two timestamps — the venue's and the
-  local recorder's — and the local clock runs at a slightly different rate, to estimate
-  the drift from windowed minimum one-way delays, re-express local timestamps on the
-  venue timescale, and keep the result strictly monotonic without mistaking network
-  congestion for clock drift.
-domain: Data Management
-subdomain: Market Data Infrastructure
-tags:
-- clock-skew
-- minimum-delay-filtering
-- timestamps
-- market-data
-- hft
-- monotonicity
-brokers_frameworks:
-- Generic Infrastructure
-- NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when captured ticks carry both a venue send time and a local receive time and the
+  local clock drifts. Estimates rate offset from windowed minimum one-way delays and
+  re-expresses local stamps on the venue timescale, monotonically.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: clock-skew, minimum-delay-filtering, timestamps, market-data, hft, monotonicity
+  brokers_frameworks: "Generic Infrastructure; NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

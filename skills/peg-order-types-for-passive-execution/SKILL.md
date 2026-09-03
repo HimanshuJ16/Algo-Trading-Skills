@@ -1,14 +1,17 @@
 ---
 name: peg-order-types-for-passive-execution
 description: >-
-  Pegged limit-price engine for Primary, Midpoint and Market pegs against the NBBO, applying side-relative offsets and then clamping to every protective bound — passivity, LULD band, Reg SHO Rule 201 floor and limit cap — before quantizing to the minimum price variation.
-domain: Algorithmic Execution & Order Routing
-subdomain: Passive Liquidity Provision & Pegged Order Routing
-tags: ["pegged-orders", "primary-peg", "midpoint-peg", "market-peg", "passive-execution", "nbbo", "tick-size", "reg-nms"]
-brokers_frameworks: ["FIX 4.4 ExecInst(18) / FIX 5.0 PegInstructions", "Nasdaq Equity 4 Rule 4703(d)", "Python Decimal", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a resting limit price should track the NBBO automatically rather than being
+  resubmitted on every quote change, applying primary, midpoint or market pegs with
+  offsets clamped to passivity and price-band bounds.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: pegged-orders, primary-peg, midpoint-peg, market-peg, passive-execution, nbbo, tick-size, reg-nms
+  brokers_frameworks: "FIX 4.4 ExecInst(18) / FIX 5.0 PegInstructions; Nasdaq Equity 4 Rule 4703(d); Python Decimal; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

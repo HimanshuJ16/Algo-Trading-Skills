@@ -1,30 +1,17 @@
 ---
 name: execution-algorithm-kill-switch-integration
 description: >-
-  Use when wiring a kill switch into an execution algorithm or order gateway —
-  latching order-entry lockout before dispatching cancels, sending FIX
-  OrderMassCancelRequest (tag 530=7) per venue, tracking which cancels the venue
-  actually confirmed versus merely accepted, failing closed on unusable risk
-  data, and requiring an authorised manual reset.
-domain: Execution Algorithms
-subdomain: Emergency Safety & Risk Controls
-tags:
-- kill-switch
-- sec-rule-15c3-5
-- mifid-ii-rts-6
-- fix-mass-cancel
-- runaway-algo-protection
-- risk-control
-- emergency-shutdown
-brokers_frameworks:
-- MiFID II RTS 6 (EU 2017/589)
-- SEC Rule 15c3-5
-- FIX 4.4 / 5.0 SP2 OrderMassCancelRequest
-- Nasdaq Rule 6130 Kill Switch
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building the component that executes an emergency stop in an order gateway or
+  algorithm: latches order entry shut before dispatching cancels, sends mass-cancel per
+  venue and tracks acknowledgements. Authorisation happens upstream.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: kill-switch, sec-rule-15c3-5, mifid-ii-rts-6, fix-mass-cancel, runaway-algo-protection, risk-control, emergency-shutdown
+  brokers_frameworks: "MiFID II RTS 6 (EU 2017/589); SEC Rule 15c3-5; FIX 4.4 / 5.0 SP2 OrderMassCancelRequest; Nasdaq Rule 6130 Kill Switch; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

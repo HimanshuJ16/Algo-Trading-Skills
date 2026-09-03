@@ -1,17 +1,17 @@
 ---
 name: real-time-vs-delayed-data-entitlement-handling
 description: >-
-  Fail-closed gate deciding whether a consumer receives a real-time stream, a
-  delayed stream, or nothing — using each venue's own delay definition, emitting
-  the prominent delay message a delayed display must carry, and refusing live
-  order execution driven by a delayed feed.
-domain: Data Management Global
-subdomain: Market Data Entitlement & Licensing Compliance
-tags: ["entitlement-handling", "real-time-data", "delayed-data", "delay-interval-policy", "display-requirements", "exchange-licensing", "market-data-compliance"]
-brokers_frameworks: ["Nasdaq Display Requirements Policy", "CME Group Data Licensing Policy Guidelines", "ICE Futures Europe Market Data Policy", "MiFIR Article 13 / ESMA market data terminology", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use at the point a consumer asks for data and something must decide between a live
+  stream, a delayed stream carrying its delay label, or a refusal, using each venue's
+  own delay definition. Depth and non-display licensing is separate.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: entitlement-handling, real-time-data, delayed-data, delay-interval-policy, display-requirements, exchange-licensing, market-data-compliance
+  brokers_frameworks: "Nasdaq Display Requirements Policy; CME Group Data Licensing Policy Guidelines; ICE Futures Europe Market Data Policy; MiFIR Article 13 / ESMA market data terminology; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

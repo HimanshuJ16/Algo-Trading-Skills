@@ -37,7 +37,7 @@ class TestKrxTickSchedule(unittest.TestCase):
                 )
 
     def test_boundaries_are_exclusive_upper_bounds(self):
-        # Regression guard for the 2023 revision. Under the pre-2023 schedule
+        # Regression guard for the 2023 revision. Under an earlier schedule
         # these three prices took KRW 5, KRW 50 and KRW 500 respectively.
         self.assertEqual(self.engine.get_krx_tick_size_krw(1_500), Decimal("1"))
         self.assertEqual(self.engine.get_krx_tick_size_krw(15_000), Decimal("10"))
@@ -208,7 +208,7 @@ class TestKrxOrderRouting(unittest.TestCase):
         self.assertEqual(report.upper_limit_price_krw, Decimal("195000"))
 
     def test_regression_krw_150200_is_valid_under_the_current_schedule(self):
-        # Fails against the pre-2023 schedule, which put 150,000-500,000 on a
+        # Fails against an earlier schedule, which put 150,000-500,000 on a
         # KRW 500 tick and rejected this price.
         report = self.engine.validate_and_route_order(
             KrxOrderPayload("005930", "BUY", 150_200, 10, 150_000)

@@ -1,18 +1,17 @@
 ---
 name: options-chain-expiry-cycle-conventions-by-exchange
 description: >-
-  Resolves listed options expiry conventions per exchange — the monthly-cycle
-  expiry date (Cboe/CME/Eurex third Friday, Deribit last Friday, Cboe VIX 30-day
-  Wednesday), the last trading day, which for AM-settled monthlies precedes the
-  expiration date, holiday roll-back to the preceding business day, and
-  settlement, exercise style and delivery type from a sourced contract registry.
-domain: Derivatives Market Structure
-subdomain: Global Options Expiry Cycles & Settlement Rules
-tags: ["options-conventions", "expiry-cycles", "cboe-spx", "am-settlement", "pm-settlement", "3rd-friday", "dte", "derivatives"]
-brokers_frameworks: ["Cboe Options Exchange", "CME Group", "Eurex", "Deribit", "OCC", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a chain model, roll scheduler or expiry-day process needs the contractual
+  terms rather than a rule of thumb: the monthly-cycle expiry date per exchange, the
+  last trading day, and when they differ.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: options-conventions, expiry-cycles, cboe-spx, am-settlement, pm-settlement, 3rd-friday, dte, derivatives
+  brokers_frameworks: "Cboe Options Exchange; CME Group; Eurex; Deribit; OCC; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

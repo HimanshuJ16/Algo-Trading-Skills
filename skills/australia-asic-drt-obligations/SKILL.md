@@ -1,26 +1,18 @@
 ---
 name: australia-asic-drt-obligations
-description: Pre-submission validation gate for OTC derivative reports under the ASIC
-  Derivative Transaction Rules (Reporting) 2024 — ISO 17442 LEI with MOD 97-10 check
-  digits, ISO 23897 UTI, ISO 4914 UPI and the Item 92 package identifier, plus the
-  Rule 2.2.3 T+2/T+4 business-day deadline including the FX-swap-leg carve-out and
-  the repository-unavailability relief.
-domain: regulatory-compliance-global
-subdomain: regulatory
-tags:
-- compliance
-- asic
-- australia
-- otc-derivatives
-- trade-reporting
-- lei
-- uti
-- upi
-brokers_frameworks:
-- generic
-version: "2.0.0"
-author: System
-license: MIT
+description: >-
+  Use when a Reporting Entity under the ASIC Derivative Transaction Rules 2024 must
+  validate an OTC derivative report before submission: ISO 17442 legal entity
+  identifiers with check digits, ISO 23897 transaction identifiers and ISO 4914 product
+  identifiers.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: compliance, asic, australia, otc-derivatives, trade-reporting, lei, uti, upi
+  brokers_frameworks: generic
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

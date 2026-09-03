@@ -16,7 +16,11 @@ import unittest
 from implementation_shortfall_minimization import (
     ImplementationShortfallEngine,
     ExecutedTradeFill,
+    ImpactParameters,
+    ShortfallForecast,
     almgren_chriss_kappa,
+    forecast_shortfall,
+    median_mid_arrival_price,
     _sinh_ratio,
     STATUS_SUCCESS,
     STATUS_NO_FILLS,
@@ -35,6 +39,38 @@ def reference_trajectory(total_qty, n_intervals, kappa):
         held.append(int(round(total_qty * fraction)))
     held.append(0)
     return [held[j] - held[j + 1] for j in range(n_intervals)]
+
+
+def reference_float_trade_list(total_qty, n_intervals, kappa):
+    """
+    Eq. (17) differenced into an *unrounded* trade list, on an independent
+    numerical path: ``math.exp`` applied to the analytic identity
+
+        sinh(a)/sinh(b) = exp(a-b) * (1 - exp(-2a)) / (1 - exp(-2b))
+
+    rather than the module's ``expm1``-based helper. Used where the reference
+    value must be the exact optimum rather than its whole-share rounding.
+    """
+    def ratio(a, b):
+        if a <= 0.0:
+            return 0.0
+        return math.exp(a - b) * (1.0 - math.exp(-2.0 * a)) / (1.0 - math.exp(-2.0 * b))
+
+    horizon = float(n_intervals)
+    remaining = [
+        total_qty * ratio(kappa * (horizon - t), kappa * horizon)
+        for t in range(n_intervals + 1)
+    ]
+    return [remaining[t] - remaining[t + 1] for t in range(n_intervals)]
+
+
+def lambda_for_kappa(kappa):
+    """
+    Risk aversion that yields exactly ``kappa`` at the dimensionless defaults
+    (sigma = eta = tau = 1, gamma = 0): inverting
+    ``kappa = arccosh(1 + lambda/2)`` gives ``lambda = 2*(cosh(kappa) - 1)``.
+    """
+    return 2.0 * (math.cosh(kappa) - 1.0)
 
 
 class TestAlmgrenChrissKappa(unittest.TestCase):
@@ -424,6 +460,409 @@ class TestShortfallInputValidation(unittest.TestCase):
     def test_non_fill_object_raises(self):
         with self.assertRaises(TypeError):
             self._evaluate(executed_fills=[{"quantity": 500, "fill_price": 100.10}])
+
+
+# ---------------------------------------------------------------------- #
+# Arrival price benchmark (folded in from implementation-shortfall-minimization)
+# ---------------------------------------------------------------------- #
+class TestArrivalPriceBenchmark(unittest.TestCase):
+    """The benchmark is the median mid over the one-second submission window."""
+
+    def test_median_of_an_odd_window(self):
+        # Mids: 100.00, 100.02, 100.04 -> median 100.02.
+        quotes = [(99.98, 100.02), (100.00, 100.04), (100.02, 100.06)]
+        self.assertAlmostEqual(median_mid_arrival_price(quotes), 100.02, places=12)
+
+    def test_even_window_averages_the_two_central_mids(self):
+        # Mids: 100.00, 100.02, 100.04, 100.10 -> (100.02 + 100.04)/2 = 100.03.
+        quotes = [(99.98, 100.02), (100.00, 100.04), (100.02, 100.06), (100.08, 100.12)]
+        self.assertAlmostEqual(median_mid_arrival_price(quotes), 100.03, places=12)
+
+    def test_median_is_robust_to_a_single_flickering_tick(self):
+        """Why the convention is a 1-second median and not one tick.
+
+        A single wide print moves a single-tick benchmark by the full excursion
+        and the median by nothing.
+        """
+        steady = [(99.99, 100.01)] * 8
+        flicker = steady + [(100.90, 101.10), (99.99, 100.01)]
+        self.assertAlmostEqual(median_mid_arrival_price(flicker), 100.00, places=12)
+        # A single-tick capture that landed on the flicker would have been 100 bps
+        # away, and the mean is dragged 10 bps by it.
+        mids = [(b + a) / 2 for b, a in flicker]
+        self.assertAlmostEqual(max(mids), 101.00, places=12)
+        self.assertGreater(sum(mids) / len(mids), 100.09)
+
+    def test_locked_market_is_accepted(self):
+        # bid == ask is locked, not crossed; the mid is well defined.
+        self.assertAlmostEqual(median_mid_arrival_price([(100.0, 100.0)]), 100.0, places=12)
+
+    def test_empty_window_raises_instead_of_inferring_a_benchmark(self):
+        with self.assertRaises(ValueError):
+            median_mid_arrival_price([])
+
+    def test_crossed_quote_raises(self):
+        with self.assertRaises(ValueError) as ctx:
+            median_mid_arrival_price([(100.05, 100.00)])
+        self.assertIn("crossed", str(ctx.exception))
+
+    def test_invalid_quote_prices_raise(self):
+        for bad in (0.0, -1.0, float("nan"), float("inf")):
+            with self.subTest(price=bad):
+                with self.assertRaises(ValueError):
+                    median_mid_arrival_price([(bad, 100.0)])
+                with self.assertRaises(ValueError):
+                    median_mid_arrival_price([(100.0, bad)])
+
+    def test_malformed_quote_entries_raise(self):
+        for bad in (100.0, "100/101", (100.0,), (100.0, 100.1, 100.2)):
+            with self.subTest(entry=bad):
+                with self.assertRaises(TypeError):
+                    median_mid_arrival_price([bad])
+
+    def test_benchmark_feeds_the_delay_impact_split(self):
+        """End to end: capture P_a from the window, then split the executed leg."""
+        arrival = median_mid_arrival_price([(100.08, 100.12), (100.09, 100.11)])
+        self.assertAlmostEqual(arrival, 100.10, places=12)
+
+        report = ImplementationShortfallEngine().evaluate_implementation_shortfall(
+            symbol="TEST",
+            side="BUY",
+            total_order_qty=10_000,
+            decision_price_p0=100.00,
+            executed_fills=[
+                ExecutedTradeFill("f1", 4_000, 100.20, 10.0, 1),
+                ExecutedTradeFill("f2", 4_000, 100.30, 10.0, 2),
+            ],
+            final_market_price=101.00,
+            arrival_price=arrival,
+        )
+        self.assertAlmostEqual(report.delay_cost_usd, 800.00, places=2)
+        self.assertAlmostEqual(report.market_impact_cost_usd, 1_200.00, places=2)
+        self.assertAlmostEqual(
+            report.delay_cost_usd + report.market_impact_cost_usd,
+            report.execution_cost_usd,
+            places=2,
+        )
+
+
+# ---------------------------------------------------------------------- #
+# Long-horizon trajectory numerics
+# (folded in from implementation-shortfall-minimization)
+# ---------------------------------------------------------------------- #
+class TestTrajectoryLongHorizonNumerics(unittest.TestCase):
+    """
+    Regression tests for the sinh overflow failure mode.
+
+    An implementation that multiplies the parent size by ``math.sinh(...)``
+    before dividing overflows to ``inf`` while ``kappa*T`` is still under the
+    ~710 float64 limit, and ``inf - inf`` then yields ``NaN``; a naive
+    ``kappa*T > 700`` guard instead short-circuits the whole parent into
+    interval 0 -- the maximum-impact outcome for an execution algo. The correct
+    behaviour follows from the half-life ``1/kappa`` being independent of the
+    horizon (A&C 2000, Sec. 2.3): at ``kappa = 1`` the first interval is
+    ``1 - e^-1`` = 63.2% of the parent at *any* horizon.
+    """
+
+    def setUp(self):
+        self.engine = ImplementationShortfallEngine()
+        self.lam_k1 = lambda_for_kappa(1.0)
+        self.lam_k05 = lambda_for_kappa(0.5)
+
+    def test_lambda_for_kappa_helper_is_exact(self):
+        self.assertAlmostEqual(almgren_chriss_kappa(self.lam_k1), 1.0, places=12)
+        self.assertAlmostEqual(almgren_chriss_kappa(self.lam_k05), 0.5, places=12)
+
+    def test_first_interval_share_is_horizon_independent(self):
+        expected = 1.0 - math.exp(-1.0)
+        for n_intervals in (10, 100, 701, 1000, 5000):
+            with self.subTest(n_intervals=n_intervals):
+                schedule = self.engine.calculate_almgren_chriss_trajectory(
+                    1_000_000, n_intervals, self.lam_k1
+                )
+                self.assertEqual(sum(schedule), 1_000_000)
+                self.assertAlmostEqual(schedule[0] / 1_000_000, expected, places=5)
+                # Explicitly reject the degenerate single-interval dump.
+                self.assertLess(schedule[0], 1_000_000)
+                self.assertGreater(schedule[1], 0)
+
+    def test_horizon_at_the_overflow_boundary_does_not_raise(self):
+        # kappa*T in (697, 700] is where an unguarded sinh product turns NaN.
+        for n_intervals in (698, 699, 700):
+            with self.subTest(n_intervals=n_intervals):
+                schedule = self.engine.calculate_almgren_chriss_trajectory(
+                    1_000_000, n_intervals, self.lam_k1
+                )
+                self.assertEqual(sum(schedule), 1_000_000)
+                self.assertTrue(all(size >= 0 for size in schedule))
+
+    def test_slower_urgency_long_horizon(self):
+        # kappa = 0.5 crosses the same boundary at ~1400 intervals; the correct
+        # first interval is 1 - e^-0.5 = 39.3% of the parent regardless.
+        expected = 1.0 - math.exp(-0.5)
+        for n_intervals in (1396, 1400, 1402, 2000):
+            with self.subTest(n_intervals=n_intervals):
+                schedule = self.engine.calculate_almgren_chriss_trajectory(
+                    1_000_000, n_intervals, self.lam_k05
+                )
+                self.assertEqual(sum(schedule), 1_000_000)
+                self.assertAlmostEqual(schedule[0] / 1_000_000, expected, places=5)
+
+    def test_matches_independent_closed_form_across_horizons(self):
+        for n_intervals, lam, kappa in (
+            (10, self.lam_k1, 1.0),
+            (10, self.lam_k05, 0.5),
+            (250, self.lam_k1, 1.0),
+            (900, self.lam_k1, 1.0),
+        ):
+            with self.subTest(n_intervals=n_intervals, kappa=kappa):
+                got = self.engine.calculate_almgren_chriss_trajectory(
+                    1_000_000, n_intervals, lam
+                )
+                expected = reference_float_trade_list(1_000_000, n_intervals, kappa)
+                for i, (g, e) in enumerate(zip(got, expected)):
+                    self.assertLessEqual(
+                        abs(g - e), 1.0, msg=f"interval {i}: got {g}, closed form {e}"
+                    )
+
+    def test_extreme_horizon_stays_finite_and_effectively_monotone(self):
+        schedule = self.engine.calculate_almgren_chriss_trajectory(
+            10_000_000, 20_000, self.lam_k1
+        )
+        self.assertEqual(sum(schedule), 10_000_000)
+        self.assertTrue(all(size >= 0 for size in schedule))
+        # Whole-share rounding of the holdings path can swap adjacent slices by
+        # at most one share; it can never make the schedule rise.
+        for i in range(len(schedule) - 1):
+            self.assertGreaterEqual(schedule[i], schedule[i + 1] - 1)
+
+    def test_schedule_is_deterministic(self):
+        a = self.engine.calculate_almgren_chriss_trajectory(10_000, 10, self.lam_k1)
+        b = self.engine.calculate_almgren_chriss_trajectory(10_000, 10, self.lam_k1)
+        self.assertEqual(a, b)
+
+    def test_one_share_across_many_intervals(self):
+        for lam in (0.0, self.lam_k05, self.lam_k1):
+            with self.subTest(risk_aversion=lam):
+                schedule = self.engine.calculate_almgren_chriss_trajectory(1, 10, lam)
+                self.assertEqual(sum(schedule), 1)
+                self.assertTrue(all(size in (0, 1) for size in schedule))
+
+    def test_quantity_smaller_than_interval_count(self):
+        for lam in (0.0, self.lam_k05, self.lam_k1):
+            with self.subTest(risk_aversion=lam):
+                schedule = self.engine.calculate_almgren_chriss_trajectory(3, 10, lam)
+                self.assertEqual(sum(schedule), 3)
+                self.assertEqual(len(schedule), 10)
+                self.assertTrue(all(size >= 0 for size in schedule))
+
+
+# ---------------------------------------------------------------------- #
+# Shortfall forecast (folded in from implementation-shortfall-minimization)
+# ---------------------------------------------------------------------- #
+class TestShortfallForecast(unittest.TestCase):
+    """
+    Cost-model tests.
+
+    Expected values are derived independently of ``forecast_shortfall``: from the
+    closed-form limiting cases Almgren & Chriss (2000) give for specific
+    trajectories -- Eq. (10)/(11) for the uniform (TWAP) schedule and Eq. (13) for
+    the single-interval dump -- and from Eq. (20) for the optimal trajectory. None
+    shares an evaluation path with the implementation, which sums Eqs. (5)/(8)
+    interval by interval.
+    """
+
+    def setUp(self):
+        self.sigma = 0.02
+        self.eta = 1e-6
+        self.gamma = 5e-8
+        self.epsilon = 0.01
+        self.tau = 1.0
+        self.params = ImpactParameters(
+            sigma=self.sigma, eta=self.eta, gamma=self.gamma,
+            epsilon=self.epsilon, tau=self.tau,
+        )
+        self.total = 1_000_000
+
+    def test_eta_tilde_matches_paper(self):
+        self.assertAlmostEqual(
+            self.params.eta_tilde, self.eta - 0.5 * self.gamma * self.tau, places=18
+        )
+
+    def test_uniform_schedule_matches_equation_10_and_11(self):
+        # Eq. (10): E = gamma*X^2/2 + eps*X + (eta - gamma*tau/2) * X^2/T
+        # Eq. (11): V = (1/3) sigma^2 X^2 T (1 - 1/N)(1 - 1/(2N))
+        n_intervals = 10
+        horizon = n_intervals * self.tau
+        schedule = [self.total / n_intervals] * n_intervals
+
+        expected_e = (
+            0.5 * self.gamma * self.total ** 2
+            + self.epsilon * self.total
+            + (self.eta - 0.5 * self.gamma * self.tau) * self.total ** 2 / horizon
+        )
+        expected_v = (
+            (1.0 / 3.0) * self.sigma ** 2 * self.total ** 2 * horizon
+            * (1.0 - 1.0 / n_intervals) * (1.0 - 1.0 / (2.0 * n_intervals))
+        )
+
+        got = forecast_shortfall(schedule, self.params)
+        self.assertAlmostEqual(got.expected_cost / expected_e, 1.0, places=12)
+        self.assertAlmostEqual(got.variance / expected_v, 1.0, places=12)
+
+    def test_single_interval_dump_matches_equation_13(self):
+        # Eq. (13): E = eps*X + eta*X^2/tau, V = 0. That equals
+        # gamma*X^2/2 + eps*X + eta_tilde*X^2/tau, so it cross-checks the gamma
+        # bookkeeping rather than restating the implementation.
+        schedule = [self.total] + [0] * 9
+        expected_e = self.epsilon * self.total + self.eta * self.total ** 2 / self.tau
+
+        got = forecast_shortfall(schedule, self.params)
+        self.assertAlmostEqual(got.expected_cost / expected_e, 1.0, places=12)
+        self.assertEqual(got.variance, 0.0)
+        self.assertEqual(got.stdev, 0.0)
+
+    def test_optimal_trajectory_matches_equation_20(self):
+        # Eq. (20), the closed-form E/V of the *optimal* trajectory, evaluated
+        # directly with math.sinh (well conditioned at these moderate kappa*T).
+        for n_intervals, kappa in ((10, 1.0), (10, 0.5), (25, 0.5)):
+            with self.subTest(n_intervals=n_intervals, kappa=kappa):
+                horizon = n_intervals * self.tau
+                schedule = reference_float_trade_list(self.total, n_intervals, kappa)
+
+                kt = kappa * horizon
+                ktau = kappa * self.tau
+                expected_e = (
+                    0.5 * self.gamma * self.total ** 2
+                    + self.epsilon * self.total
+                    + self.params.eta_tilde * self.total ** 2 * math.tanh(0.5 * ktau)
+                    * (self.tau * math.sinh(2 * kt) + 2 * horizon * math.sinh(ktau))
+                    / (2 * self.tau ** 2 * math.sinh(kt) ** 2)
+                )
+                expected_v = (
+                    0.5 * self.sigma ** 2 * self.total ** 2
+                    * (
+                        self.tau * math.sinh(kt) * math.cosh(kappa * (horizon - self.tau))
+                        - horizon * math.sinh(ktau)
+                    )
+                    / (math.sinh(kt) ** 2 * math.sinh(ktau))
+                )
+
+                got = forecast_shortfall(schedule, self.params)
+                self.assertAlmostEqual(got.expected_cost / expected_e, 1.0, places=10)
+                self.assertAlmostEqual(got.variance / expected_v, 1.0, places=10)
+
+    def test_expected_cost_and_variance_are_positive_across_kappa(self):
+        # An impact cost cannot be negative for a one-sided schedule with
+        # non-negative parameters, at any urgency.
+        for n_intervals in (5, 10, 100):
+            for kappa in (2.0, 1.0, 0.5, 0.1, 0.01, 1e-4):
+                with self.subTest(n_intervals=n_intervals, kappa=kappa):
+                    got = forecast_shortfall(
+                        reference_float_trade_list(self.total, n_intervals, kappa),
+                        self.params,
+                    )
+                    self.assertGreater(got.expected_cost, 0.0)
+                    self.assertGreater(got.variance, 0.0)
+
+    def test_variance_rises_to_the_twap_limit_as_kappa_falls(self):
+        n_intervals = 10
+        horizon = n_intervals * self.tau
+        twap_variance = (
+            (1.0 / 3.0) * self.sigma ** 2 * self.total ** 2 * horizon
+            * (1.0 - 1.0 / n_intervals) * (1.0 - 1.0 / (2.0 * n_intervals))
+        )
+        previous = 0.0
+        for kappa in (2.0, 1.0, 0.5, 0.1, 0.01):
+            variance = forecast_shortfall(
+                reference_float_trade_list(self.total, n_intervals, kappa), self.params
+            ).variance
+            self.assertGreater(variance, previous)
+            previous = variance
+        self.assertAlmostEqual(
+            forecast_shortfall(
+                reference_float_trade_list(self.total, n_intervals, 1e-6), self.params
+            ).variance / twap_variance,
+            1.0,
+            places=6,
+        )
+
+    def test_front_loading_trades_impact_for_variance(self):
+        """The core Almgren-Chriss tradeoff, priced on the integer schedule."""
+        engine = ImplementationShortfallEngine()
+        forecasts = [
+            forecast_shortfall(
+                engine.calculate_almgren_chriss_trajectory(self.total, 20, lam),
+                self.params,
+            )
+            for lam in (lambda_for_kappa(1.0), lambda_for_kappa(0.5), 0.0)
+        ]
+        urgent, medium, patient = forecasts
+        self.assertGreater(urgent.expected_cost, medium.expected_cost)
+        self.assertGreater(medium.expected_cost, patient.expected_cost)
+        self.assertLess(urgent.variance, medium.variance)
+        self.assertLess(medium.variance, patient.variance)
+
+    def test_objective_includes_the_risk_aversion_term(self):
+        schedule = [self.total / 10] * 10
+        neutral = forecast_shortfall(schedule, self.params, risk_aversion=0.0)
+        averse = forecast_shortfall(schedule, self.params, risk_aversion=1e-6)
+        self.assertEqual(neutral.objective, neutral.expected_cost)
+        self.assertAlmostEqual(
+            averse.objective, averse.expected_cost + 1e-6 * averse.variance, places=6
+        )
+        self.assertGreater(averse.objective, neutral.objective)
+
+    def test_stdev_is_sqrt_of_variance_not_the_variance(self):
+        got = forecast_shortfall([500, 300, 200], self.params)
+        self.assertIsInstance(got, ShortfallForecast)
+        self.assertAlmostEqual(got.stdev, math.sqrt(got.variance), places=12)
+        # V is in currency squared; comparing a realised shortfall against it
+        # rather than against stdev is the never-fires alert.
+        self.assertNotAlmostEqual(got.stdev, got.variance, places=6)
+
+    def test_forecast_is_immutable(self):
+        got = forecast_shortfall([500, 300, 200], self.params)
+        with self.assertRaises(AttributeError):
+            got.expected_cost = 0.0
+
+    def test_non_convex_parameters_rejected(self):
+        # eta_tilde = eta - gamma*tau/2 <= 0 leaves the objective non-convex, so
+        # the "optimal" trajectory is not a minimiser (A&C 2000, after Eq. 8).
+        with self.assertRaises(ValueError):
+            ImpactParameters(sigma=0.02, eta=1e-6, gamma=4e-6, tau=1.0)
+
+    def test_invalid_impact_parameters_rejected(self):
+        for kwargs in (
+            {"sigma": 0.02, "eta": 0.0},
+            {"sigma": 0.02, "eta": -1e-6},
+            {"sigma": -0.02, "eta": 1e-6},
+            {"sigma": 0.02, "eta": 1e-6, "gamma": -1e-9},
+            {"sigma": 0.02, "eta": 1e-6, "epsilon": -0.01},
+            {"sigma": 0.02, "eta": 1e-6, "tau": 0.0},
+            {"sigma": float("nan"), "eta": 1e-6},
+        ):
+            with self.subTest(**kwargs):
+                with self.assertRaises(ValueError):
+                    ImpactParameters(**kwargs)
+        with self.assertRaises(TypeError):
+            ImpactParameters(sigma=0.02, eta=True)
+
+    def test_invalid_schedules_rejected(self):
+        with self.assertRaises(ValueError):
+            forecast_shortfall([], self.params)
+        with self.assertRaises(ValueError):
+            forecast_shortfall([0, 0, 0], self.params)
+        with self.assertRaises(ValueError):
+            forecast_shortfall([100, -1], self.params)
+        with self.assertRaises(ValueError):
+            forecast_shortfall([100, float("nan")], self.params)
+        with self.assertRaises(ValueError):
+            forecast_shortfall([100, 100], self.params, risk_aversion=-1.0)
+        with self.assertRaises(TypeError):
+            forecast_shortfall("1000", self.params)
+        with self.assertRaises(TypeError):
+            forecast_shortfall([100, 100], {"sigma": 0.02})
 
 
 if __name__ == "__main__":

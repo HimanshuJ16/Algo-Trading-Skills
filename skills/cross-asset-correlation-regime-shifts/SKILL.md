@@ -1,22 +1,17 @@
 ---
 name: cross-asset-correlation-regime-shifts
-description: Quantitative macro risk engine for monitoring cross-asset correlation
-  matrices (Equities, Bonds, Gold, Crypto), calculating K-normalized Frobenius matrix
-  distance, and detecting correlation breakdown regime shifts.
-domain: Macro & Risk Management
-subdomain: Correlation Regimes
-tags:
-- cross-asset
-- correlation-matrix
-- frobenius-norm
-- regime-shift
-- risk-parity
-- diversification-breakdown
-brokers_frameworks:
-- NumPy
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a multi-asset or risk-parity book depends on bonds hedging equities and you
+  need to detect the regime shift where that relationship breaks, using a normalised
+  matrix distance between correlation snapshots.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: cross-asset, correlation-matrix, frobenius-norm, regime-shift, risk-parity, diversification-breakdown
+  brokers_frameworks: NumPy
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -82,4 +77,4 @@ Use this skill in multi-asset macro strategies, risk-parity portfolios, or stati
 ## Related Skills
 
 - `correlation-aware-exposure-limits`
-- `strategy-correlation-matrix-live-recomputation`
+- `cross-strategy-correlation-monitoring`

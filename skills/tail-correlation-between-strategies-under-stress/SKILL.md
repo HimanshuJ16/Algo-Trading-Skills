@@ -1,13 +1,17 @@
 ---
 name: tail-correlation-between-strategies-under-stress
-description: Measure lower-tail dependence and joint-tail exceedance correlation between strategies, benchmarked against a Gaussian-copula null so conditioning bias is not mistaken for diversification breakdown.
-domain: portfolio-multi-strategy
-subdomain: tail-risk
-tags: [tail-correlation, lower-tail-dependence, copula, diversification-breakdown, stress-testing]
-brokers_frameworks: [numpy, pandas]
-version: "2.0.0"
-author: Quant Team
-license: MIT
+description: >-
+  Use when an allocation assumes diversification survives a crash, measuring lower-tail
+  dependence and joint-tail exceedance between strategies against a Gaussian-copula null
+  so conditioning bias is not read as breakdown.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: tail-correlation, lower-tail-dependence, copula, diversification-breakdown, stress-testing
+  brokers_frameworks: "numpy; pandas"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Tail Correlation Between Strategies Under Stress

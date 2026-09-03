@@ -1,14 +1,17 @@
 ---
 name: intraday-vs-eod-backtest-granularity-tradeoffs
 description: >-
-  Backtest data-resolution advisor: audits the in-bar execution-path ambiguity that OHLC bars of any length leave unresolved for stop-loss strategies, matches resolution to the declared holding period, and sizes the dataset from a venue-specific session calendar.
-domain: Quant Research & Alt Data
-subdomain: Backtesting Engine Design & Data Granularity
-tags: ["backtesting", "data-granularity", "ohlc-bias", "intraday-vs-eod", "tick-data", "compute-footprint", "simulation-bias"]
-brokers_frameworks: ["Vectorized / Event-Driven Backtesters", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when choosing bar resolution for a backtest or buying the data to feed one; an
+  OHLC bar records four prices and no path, so stop-and-target strategies are ambiguous
+  inside every bar regardless of bar length.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting, data-granularity, ohlc-bias, intraday-vs-eod, tick-data, compute-footprint, simulation-bias
+  brokers_frameworks: "Vectorized / Event-Driven Backtesters; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

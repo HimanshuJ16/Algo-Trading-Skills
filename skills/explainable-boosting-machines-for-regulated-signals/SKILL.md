@@ -1,27 +1,17 @@
 ---
 name: explainable-boosting-machines-for-regulated-signals
 description: >-
-  Use when a trading signal must be explainable to a model-risk reviewer or a
-  regulator — composing an already-fitted Explainable Boosting Machine (EBM /
-  GA2M) from its shape functions, auditing declared monotonicity constraints,
-  and emitting a reproducible per-prediction governance record.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- ebm
-- ga2m
-- glass-box-ml
-- interpretml
-- model-governance
-- model-risk-management
-brokers_frameworks:
-- InterpretML EBM
-- GA2M
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a signal must be explainable to a model-risk reviewer; composes an
+  already-fitted explainable boosting machine from its shape functions and audits
+  declared versus realised interactions, so attribution survives review.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, ebm, ga2m, glass-box-ml, interpretml, model-governance, model-risk-management
+  brokers_frameworks: "InterpretML EBM; GA2M; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

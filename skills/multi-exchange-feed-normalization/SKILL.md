@@ -1,25 +1,18 @@
 ---
 name: multi-exchange-feed-normalization
-description: Use when a trading system ingests trade ticks from more than one venue,
-  to map heterogeneous WebSocket/REST payloads onto one canonical UnifiedTick with a
-  single symbol namespace, a single aggressor-side convention, and one timestamp
-  timescale, failing loudly instead of substituting defaults for fields it cannot read
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- feed-normalization
-- multi-exchange
-- unified-tick
-- market-data-schema
-brokers_frameworks:
-- Binance
-- Coinbase
-- Zerodha Kite
-- Custom venues via register_parser
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when trade prints arrive from several venues and downstream code must not branch
+  per venue. Maps payloads onto one canonical tick with a single symbol namespace,
+  aggressor-side convention and timestamp timescale, failing loudly on unreadable
+  fields.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, feed-normalization, multi-exchange, unified-tick, market-data-schema
+  brokers_frameworks: "Binance; Coinbase; Zerodha Kite; Custom venues via register_parser"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

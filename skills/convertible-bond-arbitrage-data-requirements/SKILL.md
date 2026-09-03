@@ -1,25 +1,17 @@
 ---
 name: convertible-bond-arbitrage-data-requirements
-description: Quantitative fixed-income and equity derivatives module for auditing Convertible
-  Bond (CB) Arbitrage data completeness and computing parity, conversion premium, bond
-  floor from the issuer credit spread, delta hedge sizing, and the full carry breakdown
-  of a delta-hedged CB package.
-domain: Derivatives & Fixed Income
-subdomain: Convertible Securities
-tags:
-- convertible-bond
-- arbitrage
-- delta-hedging
-- parity
-- conversion-premium
-- credit-spread
-- borrow-rate
-brokers_frameworks:
-- Python Standard Library
-- Generic Fixed Income
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when defining the data contract for a convertible bond arbitrage strategy and
+  computing the screening metrics on top of it: parity, conversion premium, bond floor
+  from the issuer credit spread, delta hedge size and net carry.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: convertible-bond, arbitrage, delta-hedging, parity, conversion-premium, credit-spread, borrow-rate
+  brokers_frameworks: "Python Standard Library; Generic Fixed Income"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

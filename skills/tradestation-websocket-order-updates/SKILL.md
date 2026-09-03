@@ -1,23 +1,17 @@
 ---
 name: tradestation-websocket-order-updates
-description: Use when consuming TradeStation's v3 order update stream (its
-  "WebSocket" order feed, actually HTTP chunked streaming) to classify stream and
-  control frames, detect stalled connections via heartbeats, reconcile gaps through
-  REST catch-up on reconnect, and deduplicate cumulative fill snapshots across
-  network reconnects
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- tradestation-api
-- websocket-stream
-- order-updates
-- gap-reconciliation
-brokers_frameworks:
-- TradeStation WebAPI v3
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when consuming TradeStation's v3 order update stream, which is HTTP chunked
+  streaming rather than a WebSocket. Classifies stream and control frames, detects
+  stalls by heartbeat, and dedupes cumulative fill snapshots across reconnects.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, tradestation-api, websocket-stream, order-updates, gap-reconciliation
+  brokers_frameworks: TradeStation WebAPI v3
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -179,7 +173,7 @@ frame shapes and status codes here are TradeStation-specific.
 ## Related Skills
 
 - `websocket-reconnection-with-state-recovery`
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `order-placement-idempotency`
 - `sandbox-vs-production-endpoint-drift`
 - `webhook-based-order-fill-notifications`

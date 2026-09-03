@@ -1,18 +1,17 @@
 ---
 name: test-transaction-verification-before-large-transfers
 description: >-
-  Pre-signing policy gate for high-value crypto transfers. Requires a dust test
-  transaction bound to the request's recipient address, chain and amount, an
-  out-of-band counterparty receipt attestation, live confirmation depth, and a
-  time-decay window latched at first confirmation — because confirmation depth
-  alone confirms a wrong address just as reliably as a right one.
-domain: Crypto Custody Security
-subdomain: Treasury Transfer Verification & Destination Address Controls
-tags: ["crypto-custody", "test-transaction", "dust-verification", "treasury", "address-whitelisting", "destination-tag", "confirmation-depth", "spend-verification"]
-brokers_frameworks: ["Fireblocks", "BitGo", "Coinbase Custody", "Safe{Wallet} Smart Account", "CCSS v9", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use before releasing a high-value crypto transfer, requiring a dust test bound to the
+  same recipient, chain and amount plus an out-of-band counterparty receipt, so a wrong
+  address costs cents rather than the notional.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-custody, test-transaction, dust-verification, treasury, address-whitelisting, destination-tag, confirmation-depth, spend-verification
+  brokers_frameworks: "Fireblocks; BitGo; Coinbase Custody; Safe{Wallet} Smart Account; CCSS v9; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

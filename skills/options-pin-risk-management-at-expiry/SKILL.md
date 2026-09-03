@@ -1,18 +1,17 @@
 ---
 name: options-pin-risk-management-at-expiry
 description: >-
-  Options pin risk engine for expiration day: measures strike proximity and signed
-  moneyness against the OCC exercise-by-exception threshold, separates the
-  in-the-money and out-of-the-money surprise directions a writer faces, nets the
-  range of share positions a book can wake up to, and emits close directives before
-  trading ceases.
-domain: Derivatives Risk & Expiry Operations
-subdomain: Pin Risk & Contrary Exercise Mitigation
-tags: ["options-pin-risk", "expiry-operations", "contrary-exercise", "assignment-risk", "0dte-risk", "derivatives-risk"]
-brokers_frameworks: ["OCC Rule 805 Exercise-by-Exception", "FINRA Rule 2360", "Cboe Options", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use on expiration day while the option can still be traded, measuring strike proximity
+  and signed moneyness against the exercise-by-exception threshold so a writer knows
+  what position they may hold on Monday.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: options-pin-risk, expiry-operations, contrary-exercise, assignment-risk, 0dte-risk, derivatives-risk
+  brokers_frameworks: "OCC Rule 805 Exercise-by-Exception; FINRA Rule 2360; Cboe Options; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

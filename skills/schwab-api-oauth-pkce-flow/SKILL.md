@@ -1,30 +1,17 @@
 ---
 name: schwab-api-oauth-pkce-flow
 description: >-
-  Use when connecting a bot to the Charles Schwab Trader API. The first finding is
-  usually that Schwab does not use PKCE: its published flow is a confidential-client
-  authorization-code exchange with HTTP Basic client authentication, and no Schwab
-  source documents a code_challenge. Covers the flow Schwab actually documents —
-  percent-encoded authorization URL, the URL-decoded callback code, Basic-auth token
-  exchange, the 30-minute access token, atomic 0600 token persistence, and the hard
-  7-day refresh window that no code can renew.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- schwab-trader-api
-- oauth2-authorization-code
-- token-lifecycle
-- credential-hygiene
-- rfc-7636
-brokers_frameworks:
-- Charles Schwab Trader API (api.schwabapi.com)
-- OAuth 2.0 authorization code grant (RFC 6749)
-- RFC 7636 PKCE (helper only — not part of Schwab's flow)
-- schwab-py (community reference)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when authenticating against the Charles Schwab Trader API or migrating off TD
+  Ameritrade. Schwab documents a confidential-client authorization-code flow with HTTP
+  Basic auth and no code_challenge, plus a 7-day refresh ceiling.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, schwab-trader-api, oauth2-authorization-code, token-lifecycle, credential-hygiene, rfc-7636
+  brokers_frameworks: "Charles Schwab Trader API (api.schwabapi.com); OAuth 2.0 authorization code grant (RFC 6749); RFC 7636 PKCE (helper only — not part of Schwab's flow); schwab-py (community reference)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,24 +1,17 @@
 ---
 name: order-placement-idempotency
-description: Use whenever a bot places, modifies, or cancels live orders and must
-  guarantee it never double-executes an order due to retries, timeouts, or reconnects
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- fyers-api-v3
-- zerodha-kite-connect
-- icici-breeze-api
-brokers_frameworks:
-- Fyers API v3
-- Zerodha Kite Connect
-- ICICI Breeze API
-- Upstox API v2
-- Alpaca Trading API
-- IBKR API
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use whenever a bot places or modifies live orders and must never double-execute after
+  a retry, timeout or reconnect, because a timeout means unknown rather than failed. For
+  cancel races see broker-api-idempotent-cancel-requests.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, idempotency, client-order-id, order-ledger, retry-safety, ambiguous-timeout, duplicate-orders
+  brokers_frameworks: "Fyers API v3; Zerodha Kite Connect; ICICI Breeze API; Upstox API v2; Alpaca Trading API; IBKR API"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -120,6 +113,16 @@ duplicative orders**."
      while one is working. The next signal duplicates it. Interim states such as `PUT ORDER
      REQ RECEIVED` or `VALIDATION PENDING` are likewise not rejections. Anything the broker
      did not state unambiguously is `UNKNOWN`.
+   - **Decision point — a failure *word* is not a refusal.** Kite Connect answers a gateway
+     fault with `{"status": "error", "error_type": "NetworkException"}` — the same `status`
+     token it uses for a flat refusal such as `InputException`, but an outcome that is
+     genuinely unknown: the request may have reached the matching engine before the gateway
+     gave up. Only an explicit refusal is `REJECTED`: an explicit rejection status, or an
+     `error_type` naming a class the broker uses to *decline* a request (`InputException`,
+     `OrderException`, `MarginException`, `PermissionException`, `TokenException`). Transport
+     and gateway classes, unrecognised error classes and every 5xx are `UNKNOWN` and go to
+     reconciliation. Matching on the word `error` alone writes "no order exists" during exactly
+     the network event most likely to have left one working.
    - **Decision point — a success with no order id is not a success.** An acknowledgement you
      cannot reconcile later is an order you have lost track of. Mark it `UNKNOWN`; never
      fabricate a placeholder id.
@@ -129,8 +132,14 @@ duplicative orders**."
 
 5. **Reconcile `UNKNOWN` against the broker order book — as a tri-state, not a boolean.**
    - **Found** → link the broker order id; the intent is settled.
-   - **Absent** → safe to re-send under the same key.
+   - **Absent** → release the claim on the key and re-send under it.
    - **Inconclusive** → park it and alert. Do not re-send.
+   - **Decision point — "safe to re-send" has to free the claim.** The ledger row is what
+     stops a re-send, so a verdict of *absent* that leaves the row in `PENDING`/`UNKNOWN` is a
+     dead end: the next call hits the same claim, reconciles, concludes absent again, and
+     loops. `ABSENT` is the one outcome that releases the claim — archive the released row
+     rather than dropping it, so the placement history of a key survives. Nothing else may
+     release it: an unresolved intent that has *not* been proved absent stays claimed.
    - **Decision point — absence is only evidence when the broker echoes your key.** If the
      broker returns your tag in its order book, a miss means the order is not there. If it
      does not (ICICI Breeze's `user_remark` is reported not to survive into responses), a miss
@@ -169,6 +178,14 @@ duplicative orders**."
 - **Treating any response that is not the exact success shape as a rejection.** Kite's
   success body is `{"status": "success", "data": {"order_id": …}}`; a strict equality check
   against `"SUCCESS"` records a live order as rejected.
+- **Reading `"error"` or `"failed"` as a terminal rejection.** Kite returns
+  `{"status": "error", "error_type": "NetworkException"}` for a gateway fault, and a 5xx is
+  the server failing to answer rather than declining the order. Both may leave a live order.
+  The `error_type` — not the `status` word — is what separates a refusal from an unknown.
+- **Telling the caller an order is "safe to re-send" while the ledger still blocks it.** The
+  advice and the claim have to move together. If the row stays `PENDING`/`UNKNOWN`, the
+  re-invocation reconciles back to *absent* forever and the order is never sent — the
+  mirror-image failure of the duplicate, and quieter.
 - **Deriving a key longer than the broker's tag field.** Kite Connect documents `tag` as
   "alphanumeric, max 20 chars". A 24-character key is either rejected or silently truncated,
   and a truncated key is a key you cannot match on.

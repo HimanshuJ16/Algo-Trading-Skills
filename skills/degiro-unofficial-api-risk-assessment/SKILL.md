@@ -1,25 +1,17 @@
 ---
 name: degiro-unofficial-api-risk-assessment
-description: Use when assessing or building automated access to DEGIRO via
-  reverse-engineered Web API endpoints — DEGIRO states that API wrappers and custom
-  scripts violate its terms of service, so this skill covers that contractual risk
-  plus session handling, the two-step checkOrder/confirm flow, and duplicate-order safety.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- degiro
-- european-markets
-- unofficial-api
-- risk-assessment
-- euronext
-brokers_frameworks:
-- DEGIRO Web API (unofficial)
-- degiro-connector (community reference)
-- Custom Risk Engine
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when assessing automated access to DEGIRO through reverse-engineered Web API
+  endpoints. DEGIRO states that API wrappers and custom scripts violate its terms, so
+  the contractual finding comes before session handling or the checkOrder flow.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, degiro, european-markets, unofficial-api, risk-assessment, euronext
+  brokers_frameworks: "DEGIRO Web API (unofficial); degiro-connector (community reference); Custom Risk Engine"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

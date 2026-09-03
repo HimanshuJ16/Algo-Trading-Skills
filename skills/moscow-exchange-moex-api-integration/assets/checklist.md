@@ -3,17 +3,33 @@
 Sign off before any order leaves the process. Facts and citations behind each
 item are in `references/standards.md`.
 
-## Sanctions — do this first
+## Sanctions gate — the item the rest of this list is subordinate to
 
 - [ ] Sanctions position for this entity, counterparties and activity determined
       with counsel, not inferred from this repository.
+- [ ] Current designation status re-derived from the OFAC list itself
+      (<https://sanctionssearch.ofac.treas.gov/>), not from this repository's copy.
 - [ ] Screening performed against the regimes that bind us, and the result,
-      regimes and date recorded on the session.
+      regimes, date and reference recorded on the session.
 - [ ] It is understood that MOEX's central counterparty (NCC) is itself
       OFAC-designated, so the clearing leg is inside the block.
 - [ ] Re-screening cadence set deliberately, or `max_screening_age_days` left at
       `None` as a conscious choice; `as_of` supplied when a cadence is set.
-- [ ] The gate fails closed: an absent attestation blocks the order.
+
+### Gate proven closed, not merely present
+
+- [ ] **Missing** attestation (a default `MOEXSessionConfig`) ⇒
+      `MOEX_SANCTIONS_GATE_NOT_CLEARED`, `ready_to_send=False`, empty
+      `fix_fields`.
+- [ ] **Revoked** attestation (`cleared=False`) ⇒ the same.
+- [ ] **Expired** attestation (older than `max_screening_age_days` at `as_of`)
+      ⇒ the same.
+- [ ] All three checked on every order path we support — LIMIT and MARKET, each
+      board — not only on the happy-path order.
+- [ ] An order with a second defect still reports the sanctions status: the gate
+      is evaluated before every other check and cannot be masked by one.
+- [ ] A `cleared=True` attestation with no regimes or no date raises at
+      construction rather than passing.
 
 ## Instrument and board
 
@@ -64,10 +80,12 @@ item are in `references/standards.md`.
 - [ ] On an ambiguous timeout, order state is resolved through the venue and the
       original `ClOrdID` reused — never a blind resubmit.
 
-## Before promoting to live
+## Before signing off the adapter
 
-- [ ] One validated order exercised against a MOEX test environment; the (336,
-      55) pair resolved to a security.
-- [ ] `python -m unittest discover -s skills/moscow-exchange-moex-api-integration/scripts` passes 100%.
+- [ ] `python -m unittest discover -s skills/moscow-exchange-moex-api-integration/scripts` passes 100%,
+      including the sanctions-gate cases.
 - [ ] It is understood that `ready_to_send` means "passed local checks", never
-      "MOEX accepted the order".
+      "MOEX accepted the order", and that these checks cannot prove a (336, 55)
+      pair resolves to a real security — that is only observable at the venue.
+- [ ] No code path, test fixture or example in the repository sends anything to
+      MOEX or implies that doing so is a supported step.

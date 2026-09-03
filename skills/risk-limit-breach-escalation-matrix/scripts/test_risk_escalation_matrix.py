@@ -545,7 +545,7 @@ class TestAuditTrail(unittest.TestCase):
 
 class TestRegressions(unittest.TestCase):
     """
-    Each test here fails against the pre-2.0.0 implementation. They are the
+    Each test here fails against a naive implementation. They are the
     reason this skill was revised, not general coverage.
     """
 

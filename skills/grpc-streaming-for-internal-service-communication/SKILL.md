@@ -1,25 +1,17 @@
 ---
 name: grpc-streaming-for-internal-service-communication
-description: Use when connecting internal microservices (Order Gateway, Risk Engine,
-  Portfolio Manager) to replace REST JSON polling with gRPC bi-directional HTTP/2
-  binary streaming for low-latency, strongly-typed data communication.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- grpc
-- protobuf
-- http2
-- streaming
-- low-latency
-- microservices
-brokers_frameworks:
-- gRPC Engine
-- Protocol Buffers
-- Python asyncio
-version: "1.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when internal trading services poll each other over REST JSON and the poll
+  interval sets the latency floor. Replaces it with gRPC bi-directional HTTP/2
+  streaming, typed protobuf payloads and push semantics.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, grpc, protobuf, http2, streaming, low-latency, microservices
+  brokers_frameworks: "gRPC Engine; Protocol Buffers; Python asyncio"
+  version: "1.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

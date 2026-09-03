@@ -1,28 +1,17 @@
 ---
 name: adversarial-robustness-of-trading-signals
-description: Pre-deployment governance gate that measures how often an ML trading
-  signal can be flipped by epsilon-bounded feature perturbations (FGSM-lite / market
-  microstructure noise). Deterministic, domain-clipped, multi-noise-model robustness
-  tester producing a vulnerability score with a Wilson confidence bound and
-  flipped-sample indices. Rejects models whose signal flips faster than the
-  configured tolerance before they go live.
-domain: algorithmic-trading
-subdomain: financial-ml-robustness
-tags:
-- ml
-- trading
-- adversarial-robustness
-- fgsm
-- signal-processing
-- model-governance
-- pre-deployment-gate
-brokers_frameworks:
-- scikit-learn
-- numpy
-jurisdictions: [global]  # technique is jurisdiction-agnostic
-version: "1.3.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before promoting an ML trading signal, to measure how often epsilon-bounded
+  feature perturbations flip its output. A black-box gradient-free test; for a
+  differentiable net, true FGSM or PGD gives a tighter worst-case bound.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: ml, trading, adversarial-robustness, fgsm, signal-processing, model-governance, pre-deployment-gate
+  brokers_frameworks: scikit-learn, numpy
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

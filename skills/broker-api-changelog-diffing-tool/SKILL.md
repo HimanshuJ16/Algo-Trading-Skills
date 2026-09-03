@@ -1,24 +1,17 @@
 ---
 name: broker-api-changelog-diffing-tool
-description: Use when updating broker SDKs or API integrations to diff release-over-release
-  OpenAPI schemas, resolving $ref models and detecting breaking endpoint removals, removed
-  response codes and content types, requirement changes, direction-aware enum mutations,
-  and type changes before production deployment.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- api-changelog
-- schema-diffing
-- openapi
-- breaking-changes
-- ci-cd
-brokers_frameworks:
-- OpenAPI 3.x
-- Swagger 2.0 (reference resolution only)
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before upgrading a broker SDK or OpenAPI spec, to diff two schema snapshots for
+  removed endpoints, newly required parameters, enum mutations and type changes so CI
+  fails before the change reaches an order path.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, api-changelog, schema-diffing, openapi, breaking-changes, ci-cd
+  brokers_frameworks: "OpenAPI 3.x; Swagger 2.0 (reference resolution only)"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

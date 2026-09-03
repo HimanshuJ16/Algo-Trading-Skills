@@ -1,24 +1,17 @@
 ---
 name: american-vs-european-style-option-exercise-handling
-description: Holder-side exercise-vs-sell engine for long American-style options,
-  deciding on intrinsic value against the executable bid, with the exact Merton
-  ex-dividend condition available as a model cross-check when the quote cannot be
-  trusted.
-domain: Options & Derivatives Trading
-subdomain: Holder-Side Early Exercise Decisions
-tags:
-- options
-- derivatives
-- early-exercise
-- american-options
-- ex-dividend
-- put-call-parity
-- quantitative-finance
-brokers_frameworks:
-- generic
-version: "2.0.0"
-author: System
-license: MIT
+description: >-
+  Use when a book holds long American-style options and today's question is exercise now
+  or sell, comparing intrinsic value against the executable bid with the Merton
+  ex-dividend condition as a cross-check.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: options, derivatives, early-exercise, american-options, ex-dividend, put-call-parity, quantitative-finance
+  brokers_frameworks: generic
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

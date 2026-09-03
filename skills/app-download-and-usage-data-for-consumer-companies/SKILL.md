@@ -1,20 +1,17 @@
 ---
 name: app-download-and-usage-data-for-consumer-companies
-description: Quantitative alternative data engine for analyzing app engagement metrics
-  (DAU, MAU, Downloads) to generate predictive signals for consumer companies.
-domain: quant-research-alt-data
-subdomain: digital-footprint
-tags:
-- alt-data
-- dau-mau
-- consumer-tech
-- signal-generation
-- churn-prediction
-brokers_frameworks:
-- generic
-version: "1.3.0"
-author: System
-license: MIT
+description: >-
+  Use when turning mobile app engagement panels such as downloads and active users into
+  a fundamental signal for consumer companies, with the panel normalisation and lag that
+  makes the estimate point-in-time defensible.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: alt-data, dau-mau, consumer-tech, signal-generation, churn-prediction
+  brokers_frameworks: generic
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

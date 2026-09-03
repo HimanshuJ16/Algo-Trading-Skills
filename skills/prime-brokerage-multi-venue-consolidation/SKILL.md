@@ -1,27 +1,17 @@
 ---
 name: prime-brokerage-multi-venue-consolidation
-description: Use when a strategy executes across several brokers, ECNs and dark pools
-  and the fills must be consolidated into one prime-brokerage account — netting each
-  instrument, capturing both fee legs, and emitting idempotent give-up instructions
-  the prime broker can claim before the affirmation cut-off.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- prime-brokerage
-- give-up-trades
-- multi-venue
-- clearing-consolidation
-- post-trade
-- settlement
-brokers_frameworks:
-- Prime Brokerage (SEC 1994 no-action letter framework)
-- DTC ID / Institutional Trade Processing
-- FIA Tech EGUS (futures give-ups)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when execution is fragmented across brokers, ECNs and dark pools but clearing sits
+  in one prime-brokerage account; nets each instrument across venues, keeps totals in
+  the traded currency and captures both fee legs.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: broker-integration, prime-brokerage, give-up-trades, multi-venue, clearing-consolidation, post-trade, settlement
+  brokers_frameworks: "Prime Brokerage (SEC 1994 no-action letter framework); DTC ID / Institutional Trade Processing; FIA Tech EGUS (futures give-ups); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

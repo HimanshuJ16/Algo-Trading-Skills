@@ -128,7 +128,7 @@ class TestHealthyPath(unittest.TestCase):
 
 
 class TestFallbackRequiresEvidence(unittest.TestCase):
-    """Regression cover for the two failure modes in the pre-2.0 fallback logic."""
+    """Regression cover for the two failure modes in an earlier fallback logic."""
 
     def setUp(self):
         self.engine = StrategyDataDependencyEngine(

@@ -3,10 +3,13 @@
 ## Checklist
 
 - [ ] Follows the skill directory structure (`SKILL.md` + `references/` + `scripts/` + `assets/`)
-- [ ] Frontmatter includes `name`, `description`, `domain`, `subdomain`, `tags`, `brokers_frameworks`, `version`, `author`, `license`
+- [ ] Frontmatter follows the agentskills.io form: `name`, `description`, `license` at the top level, repo fields (`domain`, `subdomain`, `tags`, `brokers_frameworks`, `version`, `author`) under `metadata:` as strings
+- [ ] `description` starts with "Use when …" and fits in 280 characters
+- [ ] All seven body sections present, including `When NOT to Use` handing each excluded case to the skill that owns it
 - [ ] Reflects a real production failure mode, not generic advice available anywhere
 - [ ] `Verification` section describes a concrete, checkable test — not just "it works"
-- [ ] `index.json` updated if a skill was added, removed, or renamed
+- [ ] `python tools/validate_skills.py` and `skills-ref validate skills/<name>` both pass
+- [ ] `index.json` and `.claude-plugin/marketplace.json` regenerated (`python tools/build_index.py && python tools/build_marketplace.py`) if a skill was added, removed, or renamed
 - [ ] Any included script has been run at least once against a sandbox/paper environment where applicable
 
 ## Title format

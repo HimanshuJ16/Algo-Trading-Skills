@@ -21,4 +21,4 @@ Use this before considering the skill's implementation complete.
 - Reviewed by: ___________________________
 - Date: ___________________________
 - Rate card verified against source on: ___________________________
-- Environment tested (paper/sandbox/live): ___________________________
+- Reviewed by: ___________________________

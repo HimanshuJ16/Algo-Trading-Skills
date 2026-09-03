@@ -9,7 +9,100 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Verified claude[bot] commit attribution fix (2026-08-13)
+---
+
+## [3.0.0] - 2026-09-04
+
+A launch-readiness release. The breaking change is the frontmatter and `index.json` schema;
+anything parsing either needs updating.
+
+### Changed — specification conformance (breaking)
+- **Frontmatter now matches the [agentskills.io specification](https://agentskills.io/specification) exactly.**
+  The spec allows six top-level fields, so every repo-specific field (`domain`, `subdomain`,
+  `tags`, `brokers_frameworks`, `version`, `author`) moved under `metadata:` as a string value.
+  `tags` is comma-separated; `brokers_frameworks` is semicolon-separated. Previously 191 skills
+  failed the reference validator on flow-style YAML lists, and all of them failed on unknown
+  top-level keys.
+- **`index.json` is now a single object** with a `subdomains` count map, list-typed `tags` and
+  `brokers_frameworks`, and no `generated_at` timestamp, so regenerating unchanged sources
+  produces no diff.
+- **Taxonomy normalised.** `domain` is `algorithmic-trading` everywhere and `subdomain` is one
+  of the 16 domains in `docs/ROADMAP_500.md`, replacing 154 free-text `domain` values and 326
+  `subdomain` values. Every skill is now Apache-2.0 (31 previously claimed MIT against an
+  Apache-2.0 repository) and attributed to `algo-trading-skills-contributors`.
+- **Descriptions rewritten as triggers.** Every description starts with "Use when …" and fits
+  in 280 characters, enforced by the validator, because it is the only text an agent reads
+  before choosing a skill and it costs context on every session.
+
+### Changed — packaging
+- **One Claude Code plugin per domain** instead of a single monolith. Installing everything
+  loaded roughly 45,000 tokens of descriptions into every session, over Claude Code's listing
+  budget, so most skills were silently truncated. `tools/build_marketplace.py` generates 16
+  domain plugins plus an opt-in all-skills plugin.
+- `plugin.json` gained `homepage`, `repository`, `license` and `keywords`; the repository
+  version is now consistent across `plugin.json`, the marketplace, `index.json` and
+  `CITATION.cff`, and the validator fails if they disagree.
+
+### Fixed — reference implementations
+- `order-placement-idempotency`: the "absent, safe to re-send" path was unreachable — a
+  re-invocation looped back to ABSENT forever. Transport-level failures
+  (`NetworkException`, gateway timeouts, 5xx) were also classified as terminal rejections;
+  they are now UNKNOWN and require reconciliation, which is the exact failure the skill's own
+  pitfalls section warns about. `record_intent` now requires `symbol`.
+- `us-reg-sho-short-sale-locate-requirements`: the duplicate-order fingerprint included the
+  NBB price, so a retry carrying a fresh quote was rejected as a different order, defeating
+  retry safety.
+- `kill-switch-and-drawdown-circuit-breakers`: removed a setter that let any caller clear a
+  halt with no operator, reason, or audit record.
+- `satellite-imagery-based-signal-research` and `supply-chain-data-for-earnings-prediction`:
+  removed deprecated placeholder signal functions and the tests asserting their values.
+
+### Changed — library shape
+- Merged duplicates: `cross-strategy-correlation-monitoring` into
+  `cross-strategy-correlation-monitoring` (which gains EWMA weighting and a shrunken
+  covariance output), `implementation-shortfall-minimization` into
+  `implementation-shortfall-minimization`, and
+  `benchmark-relative-performance-attribution` into
+  `benchmark-relative-performance-attribution`.
+- Renamed for accuracy: `cme-group-fix-api-for-futures` to
+  `cme-stp-fix-and-ilink2-tag-value-encoding` (it never covered live order entry), and
+  `websocket-reconnect-without-duplicate-subscriptions` to
+  `websocket-subscription-reconciliation-after-reconnect` (its description was
+  indistinguishable from `websocket-reconnection-with-state-recovery`).
+- `moscow-exchange-moex-api-integration` reframed around its fail-closed OFAC sanctions gate,
+  with the "submit an order once your sanctions position permits" verification step removed.
+- Removed the content generator's self-narration ("an earlier revision of this file
+  asserted …") from published reference files, keeping the corrected statements.
+
+### Changed — tooling and CI
+- `tools/run_all_tests.py` runs each skill's suite in its own subprocess with a timeout, so a
+  deadlocked test can no longer hang CI for six hours and two skills may share a module name.
+  Failures print the full traceback; a green run is quiet. Added `--skill`, `--jobs`,
+  `--timeout` and `--quiet`.
+- `tools/validate_skills.py` now checks the spec's field set, description length and trigger
+  form, the domain vocabulary, single license and author, exact level-2 headings, the three
+  named reference and asset files, skill slugs quoted in the repo-level docs and examples, and
+  that the plugin manifests cover every skill exactly once.
+- `tools/build_index.py` shares the validator's parser, fails on any unparseable skill instead
+  of silently dropping it, and gained `--check` and `--output`.
+- CI runs on Python 3.10, 3.12 and 3.13 (the real floor is 3.10), adds `skills-ref validate`,
+  generated-file drift checks, the repository test suite, and the three cookbook examples, and
+  has a job timeout.
+- The Claude review workflow no longer fails on pull requests from forks, which never receive
+  secrets; the `@claude` workflow now only responds to maintainers and collaborators.
+- Added `pytest.ini` so a bare `pytest` runs the repository suite instead of colliding on
+  skill module names, and `.gitattributes` to stop CRLF/LF churn.
+
+### Changed — documentation
+- Fixed 15 references to skills that do not exist across `mappings/`, `examples/` and the root
+  docs, and the README's token-count and `index.json` shape claims.
+- `docs/ROADMAP_500.md` is now a generated skill index by domain; `docs/skill-anatomy.md`,
+  `CONTRIBUTING.md`, `CLAUDE.md`, `AGENTS.md` and the other agent rule files document the
+  current contract.
+- The examples now import the real skill helpers instead of re-implementing them inline, and
+  run deterministically under a fixed seed.
+- Removed links to the git-ignored `.claude/config.json`; Code of Conduct and support
+  channels now name real reporting routes.
 
 ---
 
@@ -22,7 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `order-placement-idempotency`: Upgraded with ambiguous timeout reconciliation, client order ID tracking ledgers, and zero-duplicate retry verification.
   - `sec-rule-15c3-5-risk-controls-us`: Upgraded pre-trade risk engine with single-order notional caps, restricted security lists, credit limit checks, and microsecond latency logging.
   - `zero-downtime-database-schema-migrations`: Standardized 5-phase Expand-Contract state machine with concurrent lock-free DDL generation (`CREATE INDEX CONCURRENTLY` in Postgres, `ALGORITHM=INPLACE` in MySQL).
-  - Upgraded core real-time tick architecture (`producer-consumer-tick-pipeline`, `tick-buffering-burst-handling`, `backpressure-drop-degrade-policy`, `websocket-reconnect-without-duplicate-subscriptions`).
+  - Upgraded core real-time tick architecture (`producer-consumer-tick-pipeline`, `tick-buffering-burst-handling`, `backpressure-drop-degrade-policy`, `websocket-subscription-reconciliation-after-reconnect`).
 
 ---
 

@@ -1,27 +1,17 @@
 ---
 name: eu-market-abuse-regulation-mar-surveillance
-description: Trade-surveillance engine that screens order and trade batches for EU
-  Market Abuse Regulation (Regulation (EU) No 596/2014) manipulative patterns —
-  wash trading, spoofing/layering, quote stuffing — and assembles a draft STOR
-  record for human analysis under Delegated Regulation (EU) 2016/957.
-domain: Trade Surveillance & Regulatory Compliance
-subdomain: Market Abuse & STOR Reporting (EU MAR)
-tags:
-- eu-mar
-- market-abuse
-- trade-surveillance
-- stor-report
-- spoofing-detection
-- wash-trading
-- quote-stuffing
-brokers_frameworks:
-- Regulation (EU) No 596/2014 (MAR)
-- Commission Delegated Regulation (EU) 2016/957 (STOR RTS)
-- Commission Delegated Regulation (EU) 2016/522 (manipulation indicators)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when screening EU or EEA order and trade batches for wash trading, spoofing,
+  layering and quote stuffing under Regulation 596/2014 Article 16, producing suspicious
+  transaction and order report candidates. The UK applies its own assimilated regime.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: eu-mar, market-abuse, trade-surveillance, stor-report, spoofing-detection, wash-trading, quote-stuffing
+  brokers_frameworks: "Regulation (EU) No 596/2014 (MAR); Commission Delegated Regulation (EU) 2016/957 (STOR RTS); Commission Delegated Regulation (EU) 2016/522 (manipulation indicators); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

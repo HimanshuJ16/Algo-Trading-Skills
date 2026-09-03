@@ -1,14 +1,17 @@
 ---
 name: philippine-stock-exchange-api
 description: >-
-  Philippine Stock Exchange (PSE / PSEi) pre-trade validation engine keying the board lot and tick size off the security's Reference Price per Article IV Section 8, enforcing the asymmetric +50% / -30% static threshold in force since 24 March 2020, and checking the per-security dynamic threshold against the last traded price.
-domain: Global Exchange Integration
-subdomain: Emerging Asian Equities Execution
-tags: ["pse", "philippine-stock-exchange", "psei", "xts", "board-lot", "tick-size", "static-threshold", "dynamic-threshold", "asian-markets"]
-brokers_frameworks: ["PSEtrade XTS Protocol", "PSE Revised Trading Rules Article IV", "Python Decimal", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when validating equity orders for the Philippine Stock Exchange, keying board lot
+  and tick size off the security's reference price and enforcing the asymmetric daily
+  price band before entry.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: pse, philippine-stock-exchange, psei, xts, board-lot, tick-size, static-threshold, dynamic-threshold, asian-markets
+  brokers_frameworks: "PSEtrade XTS Protocol; PSE Revised Trading Rules Article IV; Python Decimal; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

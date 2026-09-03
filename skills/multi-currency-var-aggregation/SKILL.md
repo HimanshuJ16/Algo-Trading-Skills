@@ -1,30 +1,17 @@
 ---
 name: multi-currency-var-aggregation
 description: >-
-  Use when aggregating Value at Risk and Expected Shortfall across a portfolio
-  holding positions in more than one currency, to stop FX volatility and
-  asset-FX correlation from being dropped out of the risk number, and to
-  decompose total VaR back onto the currencies that produced it
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-  - risk-management
-  - multi-currency
-  - value-at-risk
-  - expected-shortfall
-  - cvar
-  - fx-risk
-  - component-var
-  - parametric-var
-brokers_frameworks:
-  - Variance-Covariance VaR
-  - Historical Simulation VaR
-  - BCBS FRTB (MAR30-MAR33)
-  - 12 CFR 217 Subpart F (US market risk rule)
-  - Python standard library (statistics, dataclasses)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a book holds positions in several currencies and risk must not drop FX
+  volatility or asset-FX correlation; aggregates VaR and expected shortfall across both
+  risk factors. Linear payoffs only.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, multi-currency, value-at-risk, expected-shortfall, cvar, fx-risk, component-var, parametric-var
+  brokers_frameworks: "Variance-Covariance VaR; Historical Simulation VaR; BCBS FRTB (MAR30-MAR33); 12 CFR 217 Subpart F (US market risk rule); Python standard library (statistics, dataclasses)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,35 +1,17 @@
 ---
 name: runbook-automation-for-common-incident-types
 description: >-
-  Use when a monitoring alert for a trading incident — market data feed
-  disconnect, latency spike, broker API outage, drawdown limit breach, order
-  throttle — should trigger a pre-approved remediation sequence rather than an
-  improvisation: binds each remediation action to a handler you supply, runs the
-  playbook in order with per-step timeouts, keeps attempting the kill switch
-  after a failed cancel, refuses to invent a playbook for an unmapped incident
-  class, deduplicates redelivered alerts, and records every step for the
-  post-mortem.
-domain: SRE & Trading Operations
-subdomain: Automated Incident Response & Remediation Runbooks
-tags:
-- runbook-automation
-- incident-response
-- trading-sre
-- kill-switch
-- feed-disconnect
-- venue-failover
-- mifid-ii-rts-6
-- dora-art-17
-brokers_frameworks:
-- Commission Delegated Regulation (EU) 2017/589 (MiFID II RTS 6), Arts. 7, 12, 14, 16
-- Regulation (EU) 2022/2554 (DORA), Art. 17
-- SEC Rule 17 CFR 240.15c3-5 (Market Access Rule)
-- SEC Admin. Proc. 34-70694 (Knight Capital Americas LLC, 2013)
-- Beyer et al., Site Reliability Engineering (O'Reilly, 2016)
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when monitoring already classifies a trading incident and the first minute of
+  response should be a pre-approved sequence rather than improvisation. It executes a
+  runbook; it does not decide whether the alert is real.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: runbook-automation, incident-response, trading-sre, kill-switch, feed-disconnect, venue-failover, mifid-ii-rts-6, dora-art-17
+  brokers_frameworks: "Commission Delegated Regulation (EU) 2017/589 (MiFID II RTS 6), Arts. 7, 12, 14, 16; Regulation (EU) 2022/2554 (DORA), Art. 17; SEC Rule 17 CFR 240.15c3-5 (Market Access Rule); SEC Admin. Proc. 34-70694 (Knight Capital Americas LLC, 2013); Beyer et al., Site Reliability Engineering (O'Reilly, 2016); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

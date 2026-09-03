@@ -139,7 +139,7 @@ No key in this result asserts the universe is bias-free. The threshold is the ca
 because attrition depends on index, era and asset class, and must be recorded with the
 audit or the result is not reproducible.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Ticker-keyed registry.** Registering the new General Motors Company discarded the
   old General Motors Corporation, and every pre-2010 universe query returned nothing

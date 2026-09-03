@@ -1,26 +1,17 @@
 ---
 name: scenario-based-stress-testing-custom-shocks
 description: >-
-  Use when revaluing a factor-mapped book under deterministic multi-factor shocks —
-  historical crisis replays (2008 Lehman, 2020 Covid, 2022 rate hikes) or caller-defined
-  hypotheticals — to report scenario P&L, loss against a stated capital base, which
-  positions the scenario never touched, and whether a drawdown limit would have broken.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- stress-testing
-- custom-shocks
-- factor-shocks
-- duration-shock
-- drawdown-breach
-- scenario-coverage
-brokers_frameworks:
-- Scenario Stress Testing Engine
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when revaluing a factor-mapped book under deterministic multi-factor shocks with
+  betas and durations, whether a historical crisis or a hypothetical. Per-symbol replay
+  of a past crash is stress-testing-against-historical-crash-scenarios.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, stress-testing, custom-shocks, factor-shocks, duration-shock, drawdown-breach, scenario-coverage
+  brokers_frameworks: "Scenario Stress Testing Engine; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

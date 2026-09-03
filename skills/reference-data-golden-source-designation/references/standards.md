@@ -2,10 +2,9 @@
 
 ## What is actually mandated, and on whom
 
-An earlier revision of this file asserted three unsourced "MUST" rules in an
-"Engineering Standard" table. They were reasonable engineering opinions, but presenting
-them as standards was wrong. This section separates what a named authority actually
-requires from what this skill recommends.
+Unsourced "MUST" rules in an "Engineering Standard" table are engineering opinion, not
+standards, however reasonable they sound. This section separates what a named authority
+actually requires from what this skill recommends.
 
 ### BCBS 239 — an aspiration, for banks, about risk data
 

@@ -1,39 +1,17 @@
 ---
 name: vat-gst-treatment-of-trading-related-services
 description: >-
-  Use when determining the VAT/GST treatment of a trading entity's purchase
-  ledger. Classifies each invoice as exempt financial supply, standard-rated,
-  cross-border reverse charge or out of scope for UK, German, Irish, Singapore
-  and Australian entities; applies a partial exemption pro-rata recovery ratio
-  with the statutory UK reg 101 / EU Art 175 rounding-up rule; reports both
-  reverse-charge legs (self-assessed output VAT and the restricted input tax
-  claim); and aggregates a period return summary with a per-invoice audit
-  trail. Determinations are indicative and carry explicit warnings where the
-  contract, not the category, decides.
-domain: Global Tax Accounting & Regulatory Reporting
-subdomain: Indirect Tax (VAT/GST) Compliance
-tags:
-- vat
-- gst
-- reverse-charge-mechanism
-- rcm
-- partial-exemption
-- input-tax-recovery
-- place-of-supply
-- trading-expenses
-- tax-accounting
-brokers_frameworks:
-- VATA 1994 (ss.7A, 8, 26; Sch 9 Grp 5)
-- VAT Regulations 1995 (SI 1995/2518) reg 101
-- VAT (Input Tax) (Specified Supplies) Order 1999 (SI 1999/3121)
-- EU VAT Directive 2006/112/EC (Arts 44, 47, 135, 174-175, 196)
-- HMRC VAT Notice 701/49
-- IRAS GST Reverse Charge Regime
-- A New Tax System (GST) Act 1999 Div 84 (Australia)
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when classifying a trading entity's vendor invoices for VAT or GST across UK, EU,
+  Singapore and Australia: exempt financial supply, standard-rated, cross-border reverse
+  charge or out of scope, and the input tax that is actually recoverable.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: vat, gst, reverse-charge-mechanism, rcm, partial-exemption, input-tax-recovery, place-of-supply, trading-expenses, tax-accounting
+  brokers_frameworks: "VATA 1994 (ss.7A, 8, 26, Sch 9 Grp 5); VAT Regulations 1995 (SI 1995/2518) reg 101; VAT (Input Tax) (Specified Supplies) Order 1999 (SI 1999/3121); EU VAT Directive 2006/112/EC (Arts 44, 47, 135, 174-175, 196); HMRC VAT Notice 701/49; IRAS GST Reverse Charge Regime; A New Tax System (GST) Act 1999 Div 84 (Australia); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # VAT/GST Treatment of Trading-Related Services

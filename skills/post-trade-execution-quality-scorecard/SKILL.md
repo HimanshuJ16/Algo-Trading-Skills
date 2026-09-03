@@ -1,17 +1,17 @@
 ---
 name: post-trade-execution-quality-scorecard
 description: >-
-  Use when ranking brokers, algos or venues from your own executed-order records —
-  computes arrival slippage, VWAP slippage, Rule-605-style effective spread and
-  effective-over-quoted ratio, fill rate, and a Perold implementation shortfall that
-  charges opportunity cost on the shares that never filled.
-domain: Execution Algorithms
-subdomain: Transaction Cost Analysis & Execution Quality
-tags: ["tca", "execution-quality", "implementation-shortfall", "vwap-slippage", "effective-spread", "sec-rule-605", "opportunity-cost", "scorecard"]
-brokers_frameworks: ["SEC Rule 605 (17 CFR 242.605)", "MiFID II Art. 27(7)", "Perold Implementation Shortfall", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when ranking brokers, algos or venues from your own executed-order records:
+  arrival and VWAP slippage, effective spread and effective-over-quoted ratio, fill rate
+  and a Perold shortfall. Not a filable Rule 605 report.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: tca, execution-quality, implementation-shortfall, vwap-slippage, effective-spread, sec-rule-605, opportunity-cost, scorecard
+  brokers_frameworks: "SEC Rule 605 (17 CFR 242.605); MiFID II Art. 27(7); Perold Implementation Shortfall; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

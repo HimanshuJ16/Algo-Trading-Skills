@@ -336,7 +336,7 @@ class SyntheticContinuousFuturesEngine:
                     f"contract_expiries, or use two-digit year codes."
                 )
             roots.add(match.group("root"))
-            # Two-digit year codes resolve into 2000-2099; pre-2000 history must
+            # Two-digit year codes resolve into 2000-2099; older history must
             # supply contract_expiries.
             keys[symbol] = (2000 + int(year_code), MONTH_CODES[match.group("month")])
 

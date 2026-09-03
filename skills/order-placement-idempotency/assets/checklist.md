@@ -34,6 +34,12 @@ control; "probably fine" is a failed check.
       `ABSENT`. Verified by the timeout-then-retry regression test.
 - [ ] **Conservative classification.** Ambiguous, unparseable, and success-without-order-id
       responses land in `UNKNOWN`, never `REJECTED` and never `PLACED` with a fabricated id.
+- [ ] **Gateway faults are not refusals.** `{"status": "error", "error_type":
+      "NetworkException"}`, gateway timeouts and every 5xx classify `UNKNOWN`; only an explicit
+      rejection status or a documented refusal `error_type` reaches `REJECTED`.
+- [ ] **An `ABSENT` verdict releases the ledger claim** (archived, not dropped) so the re-send
+      it authorises actually happens. Verified by re-invoking `place_order` after an ABSENT
+      reconciliation and asserting exactly one broker send and a settled row.
 - [ ] **Rejection reasons classified** before any new order is issued — a retry after a
       rejection is a new order and needs a new key.
 - [ ] **Key stability.** `qty=50` and `qty=50.0`, naive and aware datetimes, `"buy"` and

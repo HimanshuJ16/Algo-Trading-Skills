@@ -55,7 +55,7 @@ actually implementing the skill, not just when deciding whether it applies.
      forward.
    - This tunes *when* to refresh. It never replaces the probe.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Timestamp-only expiry checks:** relying on documented TTL timestamps without live
   probing, attempting trades with invalidated tokens during market open.

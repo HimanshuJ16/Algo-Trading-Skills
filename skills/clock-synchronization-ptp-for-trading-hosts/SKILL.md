@@ -1,26 +1,17 @@
 ---
 name: clock-synchronization-ptp-for-trading-hosts
-description: Use when a Linux trading host must be disciplined to a PTP grandmaster
-  and prove it — configuring ptp4l and phc2sys against the grandmaster's actual PTP
-  profile, parsing linuxptp telemetry as it is really emitted (message tags, negative
-  path delay, summary lines), and evaluating the grandmaster-to-PHC and PHC-to-CLOCK_REALTIME
-  offsets as the serial error pair they are rather than picking the larger one.
-domain: Infrastructure
-subdomain: Network & Hardware Architecture
-tags:
-- ptp
-- ieee-1588
-- ptp4l
-- phc2sys
-- hardware-timestamping
-- hft
-- mifid-ii
-brokers_frameworks:
-- linuxptp
-- Generic Infrastructure
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when standing up or auditing the time-sync stack itself on a Linux trading host:
+  NIC hardware timestamping, ptp4l against the grandmaster profile and phc2sys to the
+  system clock, with linuxptp telemetry parsed as reported.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: ptp, ieee-1588, ptp4l, phc2sys, hardware-timestamping, hft, mifid-ii
+  brokers_frameworks: "linuxptp; Generic Infrastructure"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

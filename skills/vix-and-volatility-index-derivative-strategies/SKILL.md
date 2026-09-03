@@ -1,22 +1,17 @@
 ---
 name: vix-and-volatility-index-derivative-strategies
 description: >-
-  Use when classifying the VIX futures curve and sizing a position off it.
-  Classifies the front-two term structure as contango, backwardation or flat,
-  annualizes the front-month basis as a static-spot carry estimate, sizes a short
-  VX position against a notional budget with a computed buy-stop, and prices 1x1
-  VIX call spreads with Black-76 off the front-month future. Keeps the $1,000
-  futures multiplier and the $100 options multiplier strictly separate, floors
-  contract counts to zero rather than rounding a budget up to one lot, and
-  requires the strike's own implied volatility or an observed net debit -- it
-  never invents a premium.
-domain: Multi-Asset Derivatives & Volatility Trading
-subdomain: VIX Futures & Options Strategies
-tags: [vix, volatility-derivatives, vix-futures, term-structure, contango, backwardation, roll-yield, tail-hedging, black-76, position-sizing]
-brokers_frameworks: ["Cboe Futures Exchange (VX)", "Cboe VIX Options", "Python Standard Library (math, datetime)", "Python Dataclasses", "Black (1976)"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when classifying the front-two VIX futures curve as contango, backwardation or
+  flat and sizing a position off it, annualising the front-month basis as a static-spot
+  carry estimate rather than a forecast.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: vix, volatility-derivatives, vix-futures, term-structure, contango, backwardation, roll-yield, tail-hedging, black-76, position-sizing
+  brokers_frameworks: "Cboe Futures Exchange (VX); Cboe VIX Options; Python Standard Library (math, datetime); Python Dataclasses; Black (1976)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # VIX and Volatility Index Derivative Strategies

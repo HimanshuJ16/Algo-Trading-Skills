@@ -1,17 +1,17 @@
 ---
 name: patent-filing-data-for-innovation-signal-research
 description: >-
-  Point-in-time equity factor research on corporate patent filings — score each filing from the
-  date it actually became public (18-month pre-grant publication or grant, whichever came first),
-  remove citation truncation with Hall-Jaffe-Trajtenberg cohort scaling, and standardise velocity
-  and citation quality separately before weighting them into an Innovation Quality Score.
-domain: Quantitative Research & Alternative Data
-subdomain: Corporate Innovation & R&D Alpha Signals
-tags: ["patent-data", "uspto", "innovation-signal", "forward-citations", "point-in-time-data", "citation-truncation", "quant-factor", "r-and-d"]
-brokers_frameworks: ["USPTO Open Data Portal", "35 U.S.C. 122", "Article 93 EPC", "NBER Patent Citation Data File", "Python standard library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building a cross-sectional innovation factor from patent filings, scoring
+  each from the date it actually became public and requiring per-date citation snapshots
+  so the factor stays point-in-time.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: patent-data, uspto, innovation-signal, forward-citations, point-in-time-data, citation-truncation, quant-factor, r-and-d
+  brokers_frameworks: "USPTO Open Data Portal; 35 U.S.C. 122; Article 93 EPC; NBER Patent Citation Data File; Python standard library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

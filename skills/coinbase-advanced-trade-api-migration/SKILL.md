@@ -1,25 +1,17 @@
 ---
 name: coinbase-advanced-trade-api-migration
-description: Use when porting an existing Coinbase Pro / Coinbase Exchange order
-  path onto the Coinbase Advanced Trade v3 API, to fold time-in-force and stop
-  direction into the nested order_configuration key instead of dropping them, keep
-  a market buy's quote amount out of base_size, and treat a create-order response
-  as acceptance rather than a live order state.
-domain: Market Connectivity
-subdomain: Crypto API
-tags:
-- coinbase
-- advanced-trade
-- crypto-api
-- migration
-- order-configuration
-- broker-adapter
-brokers_frameworks:
-- Coinbase Advanced Trade API v3
-- Coinbase Pro (Legacy)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when porting an order path from the retired Coinbase Pro API onto Coinbase
+  Advanced Trade v3, where time-in-force and stop direction fold into a nested
+  order_configuration key rather than flat fields.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: coinbase, advanced-trade, crypto-api, migration, order-configuration, broker-adapter
+  brokers_frameworks: "Coinbase Advanced Trade API v3; Coinbase Pro (Legacy)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

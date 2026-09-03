@@ -1,25 +1,17 @@
 ---
 name: backtest-vs-live-performance-divergence-tracking
-description: Use when monitoring promoted strategies to systematically measure, decompose,
-  and alert on divergence between backtested (hypothetical) performance and realized
-  live trading performance across Sharpe ratio, drawdown, fill rate, and slippage
-  dimensions. Periodic snapshot comparison; not real-time monitoring and not an automatic
-  kill switch.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- backtest-live-divergence
-- performance-tracking
-- strategy-monitoring
-- slippage-drift
-- sharpe-decay
-brokers_frameworks:
-- Divergence Tracking Engine
-- Python Statistics
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use after promoting a strategy to live trading, to measure and decompose the gap
+  between backtested and realised Sharpe, hit rate and slippage, and alert when the
+  divergence exceeds what execution friction explains.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, backtest-live-divergence, performance-tracking, strategy-monitoring, slippage-drift, sharpe-decay
+  brokers_frameworks: "Divergence Tracking Engine; Python Statistics"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -127,8 +127,6 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional, Sequence, Set
 
-import pandas as pd
-
 logger = logging.getLogger(__name__)
 
 SIGNAL_BUY = "BUY_EARNINGS_SURPRISE"
@@ -237,17 +235,6 @@ class Engine:
 
     def run(self) -> bool:
         return True
-
-
-@dataclass
-class SignalResult:
-    """Legacy placeholder result type. Produced only by `generate_signals`."""
-    timestamp: str
-    signal_value: float
-    asset_id: str
-    directional_signal: str = "DEPRECATED_PLACEHOLDER"
-    estimated_revenue_growth_pct: float = 0.0
-    consensus_eps_gap_pct: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -741,29 +728,3 @@ class SupplyChainDataForEarningsPredictionEngine:
             declared_lead_time_months=self.lead_time_months,
             audit_notes=notes,
         )
-
-    def generate_signals(self, raw_data: pd.DataFrame) -> List[SignalResult]:
-        """DEPRECATED placeholder retained only for import/call compatibility.
-
-        This does NOT compute a supply-chain signal. It multiplies a `raw_val`
-        column by a fixed 1.5 and returns the product; the number has no economic
-        meaning and no relationship to suppliers, customers, concentration or
-        consensus. Version 1.0.0 additionally labelled that product
-        `BUY_EARNINGS_SURPRISE` above an arbitrary cut-off, which made a
-        meaningless placeholder look like a tradeable recommendation; the label is
-        now `DEPRECATED_PLACEHOLDER`. Use `evaluate_supply_chain_lead_signal`.
-        """
-        logger.warning(
-            "generate_signals() is a deprecated non-semantic placeholder and does not "
-            "produce a supply-chain signal; use evaluate_supply_chain_lead_signal()."
-        )
-        if raw_data.empty:
-            return []
-        results: List[SignalResult] = []
-        for index, row in raw_data.iterrows():
-            results.append(SignalResult(
-                timestamp=str(index),
-                signal_value=float(row.get("raw_val", 0.0)) * 1.5,
-                asset_id=str(row.get("asset", "unknown")),
-            ))
-        return results

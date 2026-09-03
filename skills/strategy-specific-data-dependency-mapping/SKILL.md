@@ -1,26 +1,17 @@
 ---
 name: strategy-specific-data-dependency-mapping
 description: >-
-  Map each strategy's data dependencies as a feed-level DAG with ordered vendor hierarchies,
-  explicit freshness bounds, schema contracts, and per-feed block/degrade responses; audit
-  observed vendor health into a readiness score that gates trading, and project the blast
-  radius of a vendor outage across a multi-strategy portfolio. Use for dependency inventory,
-  pre-trade readiness gating, single-point-of-failure review, and outage triage; do not use it
-  as a market-data failover mechanism, a substitute for pre-trade risk controls, or evidence
-  that an unobserved fallback vendor is alive.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- data-dependency
-- freshness-sla
-- vendor-failover
-- blast-radius
-brokers_frameworks:
-- Broker-agnostic
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when recording what data each strategy needs, how fresh each feed must be, which
+  vendors may serve it and which strategies a given vendor outage would stop, with
+  per-feed block or degrade responses.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: risk-management, data-dependency, freshness-sla, vendor-failover, blast-radius
+  brokers_frameworks: Broker-agnostic
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

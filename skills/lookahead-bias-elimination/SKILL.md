@@ -1,24 +1,17 @@
 ---
 name: lookahead-bias-elimination
-description: Use when writing or auditing backtest code to ensure no signal, feature,
-  or decision uses information that would not have been available at the actual decision
-  timestamp in live trading — same-bar close fills, unwarmed indicators, centred rolling
-  windows, and calendar-date joins of point-in-time data
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- lookahead-bias
-- execution-timing
-- point-in-time
-brokers_frameworks:
-- Python pandas
-- Python NumPy
-- backtrader
-- backtesting.py
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when writing or auditing backtest code, to ensure no signal or decision uses
+  information unavailable at the decision timestamp, starting with a bar's own close.
+  Universe-selection lookahead is backtest-look-ahead-in-universe-selection.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, lookahead-bias, execution-timing, point-in-time
+  brokers_frameworks: "Python pandas; Python NumPy; backtrader; backtesting.py"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

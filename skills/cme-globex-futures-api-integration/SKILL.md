@@ -1,27 +1,17 @@
 ---
 name: cme-globex-futures-api-integration
-description: Use when assembling CME Globex futures order entry messages, to validate
-  the Operator ID (Tag 50, Rule 576) and Manual Order Indicator (Tag 1028, Rule 536.B.)
-  a message is rejected without, apply price banding on the side CME actually constrains,
-  keep prices on the product's tick, and compute where Market-with-Protection residual
-  quantity will rest.
-domain: Market Connectivity
-subdomain: Exchange API
-tags:
-- cme-globex
-- ilink3
-- futures
-- tag50
-- tag1028
-- mwp
-- price-banding
-- tick-conformance
-brokers_frameworks:
-- CME Globex iLink 3
-- CME FIX
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when assembling CME Globex order entry messages yourself, to supply the Operator
+  ID and Manual Order Indicator a message is rejected without, apply price banding and
+  validate the fields before dispatch. This is live order entry over iLink 3.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: cme-globex, ilink3, futures, tag50, tag1028, mwp, price-banding, tick-conformance
+  brokers_frameworks: "CME Globex iLink 3; CME FIX"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -147,7 +137,7 @@ most often gets wrong:
 
 ## Related Skills
 
-- `cme-group-fix-api-for-futures`
+- `cme-stp-fix-and-ilink2-tag-value-encoding`
 - `fix-protocol-session-management-across-venues`
 - `order-placement-idempotency`
 - `exchange-self-match-prevention-configuration`

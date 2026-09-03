@@ -1,27 +1,17 @@
 ---
 name: sample-weighting-for-overlapping-labels
-description: Use when training a model on multi-bar financial labels — triple-barrier
-  outcomes, h-bar forward returns, meta-labels — whose holding periods overlap, to
-  compute label concurrency, average uniqueness, return-attribution and time-decay
-  sample weights (López de Prado, Advances in Financial Machine Learning, Ch. 4) and
-  pass them to the estimator's sample_weight argument
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- sample-weighting
-- overlapping-labels
-- sample-uniqueness
-- label-concurrency
-- triple-barrier-method
-- lopez-de-prado
-brokers_frameworks:
-- Overlapping Sample Weighter
-- Python standard library
-- scikit-learn / XGBoost sample_weight interface
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when labels span multiple bars and overlap, so consecutive observations share the
+  same price moves; computes label concurrency and average uniqueness to weight samples.
+  Fold-boundary leakage still needs purging.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, sample-weighting, overlapping-labels, sample-uniqueness, label-concurrency, triple-barrier-method, lopez-de-prado
+  brokers_frameworks: "Overlapping Sample Weighter; Python standard library; scikit-learn / XGBoost sample_weight interface"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

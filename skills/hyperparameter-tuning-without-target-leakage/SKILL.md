@@ -1,26 +1,17 @@
 ---
 name: hyperparameter-tuning-without-target-leakage
-description: Use when selecting hyperparameters for a model trained on serially
-  dependent financial time series with overlapping labels, to run purged and embargoed
-  nested cross-validation so the folds that choose the hyperparameters are never the
-  folds that score them, and to measure — rather than assume — how much a non-nested,
-  non-purged grid search would have overstated performance
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- hyperparameter-tuning
-- nested-cross-validation
-- purged-cv
-- embargo
-- selection-bias
-- backtest-overfitting
-brokers_frameworks:
-- Leakage-Free Hyperparameter Tuner
-- Python standard library (statistics, math)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a search selects hyperparameters for a model whose labels are forward-looking
+  and overlapping, such as h-bar returns or triple-barrier outcomes; purged and
+  embargoed nested cross-validation so the selection folds stay clean.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, hyperparameter-tuning, nested-cross-validation, purged-cv, embargo, selection-bias, backtest-overfitting
+  brokers_frameworks: "Leakage-Free Hyperparameter Tuner; Python standard library (statistics, math)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

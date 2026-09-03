@@ -1,14 +1,17 @@
 ---
 name: post-incident-forensics-for-suspected-key-compromise
 description: >-
-  Post-incident forensics engine for a suspected cryptographic key compromise: correlates KMS/signer access logs against a policy-held IP allowlist, separates successful access from rejected attempts, traces on-chain outflows against the suspected leak time with per-asset exact amounts, seals the analysed evidence under a canonical SHA-256 manifest digest, and emits a NIST SP 800-57 containment mandate.
-domain: Crypto Custody & Security
-subdomain: Digital Asset Security & Forensics
-tags: ["key-compromise", "crypto-custody", "digital-forensics", "on-chain-analysis", "ip-allowlist", "incident-response", "chain-of-custody"]
-brokers_frameworks: ["NIST SP 800-86", "NIST SP 800-57 Pt.1 Rev.5", "RFC 3227", "FIPS 180-4 SHA-256", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a signing key or KMS credential is suspected of having leaked and you need a
+  defensible reconstruction of what it did, correlating access logs against a policy
+  allowlist and separating success from rejected attempts.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: key-compromise, crypto-custody, digital-forensics, on-chain-analysis, ip-allowlist, incident-response, chain-of-custody
+  brokers_frameworks: "NIST SP 800-86; NIST SP 800-57 Pt.1 Rev.5; RFC 3227; FIPS 180-4 SHA-256; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

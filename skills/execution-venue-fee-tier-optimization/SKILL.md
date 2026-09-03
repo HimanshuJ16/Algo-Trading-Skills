@@ -1,14 +1,17 @@
 ---
 name: execution-venue-fee-tier-optimization
 description: >-
-  Use when distributing a period's order flow across execution venues to minimize expected net transaction cost after volume-tiered fees and rebates. Prices passive volume at its expected fill rate rather than its posted size, enforces a fill-probability floor, and models the Reg NMS Rule 610(d) prior-period tier basis that governs US equity venues.
-domain: Venue Integration & Microstructure
-subdomain: Multi-Venue Order Routing & Fee Tier Optimization
-tags: ["fee-tier-optimization", "sor-routing", "net-price-routing", "maker-taker", "fill-probability", "volume-allocation", "exchange-fees", "reg-nms-610d"]
-brokers_frameworks: ["SEC Reg NMS Rule 610(d)", "Nasdaq Equities Price List", "Cboe US Equities Fee Schedules", "SOR Net Cost Engine", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when allocating a period's flow across venues to minimise net cost after
+  volume-tiered fees and rebates, pricing passive volume at its expected fill rate. One
+  venue's own schedule is exchange-fee-tier-and-rebate-structure-analysis.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: fee-tier-optimization, sor-routing, net-price-routing, maker-taker, fill-probability, volume-allocation, exchange-fees, reg-nms-610d
+  brokers_frameworks: "SEC Reg NMS Rule 610(d); Nasdaq Equities Price List; Cboe US Equities Fee Schedules; SOR Net Cost Engine; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

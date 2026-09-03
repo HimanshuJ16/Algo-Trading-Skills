@@ -1,24 +1,17 @@
 ---
 name: cross-venue-latency-arbitrage-defensive-design
-description: Defensive market-making module scoring lead-venue depth imbalance and the
-  cancel-versus-sweep latency race, returning asymmetric spread skew, size reduction,
-  and preemptive quote-pull directives for the secondary venue.
-domain: Market Microstructure & HFT
-subdomain: Latency Arbitrage & Adverse Selection
-tags:
-- latency-arbitrage
-- hft
-- market-making
-- micro-price
-- stale-quote
-- adverse-selection
-- cross-venue
-brokers_frameworks:
-- Order Book Engine
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when quoting passively on one venue while price discovery happens on a faster lead
+  venue and stale quotes get picked off; scores lead-venue imbalance and the
+  cancel-versus-sweep race, returning spread skew and quote-pull directives.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: latency-arbitrage, hft, market-making, micro-price, stale-quote, adverse-selection, cross-venue
+  brokers_frameworks: "Order Book Engine; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

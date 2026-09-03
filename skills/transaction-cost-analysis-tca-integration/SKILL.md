@@ -1,25 +1,17 @@
 ---
 name: transaction-cost-analysis-tca-integration
 description: >-
-  Use when validating strategy backtests to integrate Transaction Cost Analysis
-  (TCA), decompose implementation shortfall into delay cost, spread cross,
-  square-root market impact, commissions, and opportunity cost on unfilled
-  shares, compare modelled cost against realized fills, and calibrate the
-  backtest slippage model from the difference.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- tca-integration
-- implementation-shortfall
-- market-impact
-- slippage-calibration
-- transaction-costs
-brokers_frameworks:
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when validating whether a backtested edge survives execution, decomposing
+  implementation shortfall into delay, spread cross, square-root impact, commission and
+  opportunity cost, and comparing estimated against realised.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, tca-integration, implementation-shortfall, market-impact, slippage-calibration, transaction-costs
+  brokers_frameworks: Python Dataclasses
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

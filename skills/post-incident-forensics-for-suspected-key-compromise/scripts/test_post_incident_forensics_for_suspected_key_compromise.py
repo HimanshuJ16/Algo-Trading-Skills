@@ -119,7 +119,7 @@ class TestAccessLogAudit(unittest.TestCase):
     def test_rejected_attempt_is_not_counted_as_a_successful_access(self):
         """A 403 probe and a 200 EXPORT_KEY are different findings.
 
-        The pre-2.0 engine counted both as 'unauthorized access', which inverts
+        a naive engine counted both as 'unauthorized access', which inverts
         triage priority and overstates the incident.
         """
         logs = covering_logs() + [
@@ -199,7 +199,7 @@ class TestOutflowTracing(unittest.TestCase):
         self.assertIn(FINDING_UNAUTHORIZED_OUTFLOW, categories(report))
 
     def test_pre_incident_transfer_is_not_counted_as_exfiltration(self):
-        """The pre-2.0 engine attributed every historical outflow to the breach."""
+        """a naive engine attributed every historical outflow to the breach."""
         report = analyse(covering_logs(),
                          [make_transfer(timestamp="2026-07-30T09:00:00Z", amount="3")])
         self.assertEqual(report.unauthorized_transfer_count, 0)
@@ -345,7 +345,7 @@ class TestEvidenceDigest(unittest.TestCase):
         self.assertEqual(analyse(self.logs, self.transfers).evidence_sha256, self.baseline)
 
     def test_altering_a_log_ip_changes_the_digest(self):
-        """The pre-2.0 digest covered record *counts*, so this mutation was invisible."""
+        """an earlier digest covered record *counts*, so this mutation was invisible."""
         tampered = list(self.logs)
         tampered[-1] = make_log(ip_address="203.0.113.9", action="EXPORT_KEY", status_code=200)
         self.assertNotEqual(analyse(tampered, self.transfers).evidence_sha256, self.baseline)

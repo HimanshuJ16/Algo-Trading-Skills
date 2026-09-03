@@ -1,14 +1,17 @@
 ---
 name: korea-exchange-krx-api-integration
 description: >-
-  Quantitative market gateway engine for Korea Exchange (KRX KOSPI / KOSDAQ, EXTURE 3.0), enforcing six-character short codes that may end in a letter, the tick size schedule KRX revised on 25 January 2023, the flat KRW 5 ETF/ETN tick, and the truncated-amount daily price limit band.
-domain: Global Market Integration & FX
-subdomain: South Korean Market Connectivity & KRX Gateway
-tags: ["krx", "korea-exchange", "kospi", "kosdaq", "exture-3", "krw-tick-sizes", "price-limit"]
-brokers_frameworks: ["KRX EXTURE 3.0 matching engine", "KRX short codes (단축코드)", "Koscom Gateway", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when routing cash-equity orders to Korea Exchange KOSPI or KOSDAQ on EXTURE 3.0,
+  enforcing six-character short codes that may end in a letter, the revised tick size
+  schedule and the truncated daily price limit band.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: krx, korea-exchange, kospi, kosdaq, exture-3, krw-tick-sizes, price-limit
+  brokers_frameworks: "KRX EXTURE 3.0 matching engine; KRX short codes (단축코드); Koscom Gateway; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

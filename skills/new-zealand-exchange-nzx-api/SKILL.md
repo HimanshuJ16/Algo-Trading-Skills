@@ -1,14 +1,17 @@
 ---
 name: new-zealand-exchange-nzx-api
 description: >-
-  New Zealand Exchange (NZX) Main Board order-entry engine enforcing the NZX price-step (tick size) schedule including the listed-funds carve-out, NZSX session-phase awareness, and FIX order lifecycle serialisation (NewOrderSingle 'D', OrderCancelRequest 'F', ExecutionReport '8' decoding).
-domain: Global Exchange Integrations
-subdomain: Australasia Markets & FIX Protocol Connectivity
-tags: ["nzx", "new-zealand-exchange", "fix-protocol", "tick-size-schedule", "nzd", "order-routing", "australasia"]
-brokers_frameworks: ["NZX Participant FIX Order Entry", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when routing cash-equity or listed-fund orders to the NZX Main Board over FIX,
+  enforcing the NZX price-step schedule including the listed-funds carve-out and NZSX
+  session-phase awareness.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: nzx, new-zealand-exchange, fix-protocol, tick-size-schedule, nzd, order-routing, australasia
+  brokers_frameworks: "NZX Participant FIX Order Entry; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

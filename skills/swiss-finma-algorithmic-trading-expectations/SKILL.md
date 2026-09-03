@@ -1,14 +1,17 @@
 ---
 name: swiss-finma-algorithmic-trading-expectations
 description: >-
-  Swiss algorithmic-trading control audit for a SIX Swiss Exchange participant — order flagging and per-algorithm identification, notification of algorithmic trading to the Exchange, order and cancellation records, peak-volume capacity, firm-calibrated trading thresholds, order-to-trade ratio and flow throttling, minimum tick size, Art. 142/143 FMIA market-abuse controls, and FINMA Circ. 13/8 strategy documentation — each mapped to the provision that requires it, with the deliberate absence of any numeric threshold in Swiss law made explicit.
-domain: Regulatory Compliance & Governance
-subdomain: Swiss Financial Market Regulation (FMIA / FMIO, SIX rulebook, FINMA)
-tags: ["swiss-finma", "finfrag", "fmio-art-31", "six-swiss-exchange", "algorithm-identification", "order-to-trade-ratio", "market-abuse", "compliance-audit"]
-brokers_frameworks: ["FMIO / FinfraV Art. 31 (SR 958.11)", "FMIA / FinfraG (SR 958.1)", "FinfraV-FINMA (SR 958.111)", "SIX Swiss Exchange Trading Rules", "SIX Directive 3: Trading", "SIX Directive 7: Sponsored Access", "FINMA Circular 2013/8 Market conduct rules", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a firm runs algorithmic trading as an admitted SIX Swiss Exchange participant
+  and must evidence the controls the Swiss framework requires: per-algorithm order
+  flagging, notification to the Exchange, and order-to-transaction ratio limits.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: swiss-finma, finfrag, fmio-art-31, six-swiss-exchange, algorithm-identification, order-to-trade-ratio, market-abuse, compliance-audit
+  brokers_frameworks: "FMIO / FinfraV Art. 31 (SR 958.11); FMIA / FinfraG (SR 958.1); FinfraV-FINMA (SR 958.111); SIX Swiss Exchange Trading Rules; SIX Directive 3: Trading; SIX Directive 7: Sponsored Access; FINMA Circular 2013/8 Market conduct rules; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -82,7 +85,7 @@ A participant is therefore bound by what its **venue rulebook** imposes under th
 - **Each control fires alone:** clearing any single attestation or evidence pointer must produce exactly one finding, carrying its citation in trailing brackets.
 - **Evidence-pointer semantics:** `has_pre_trade_thresholds=True` with a blank calibration reference fails, and so does the reverse; `limits_order_to_trade_ratio=True` with `max_order_to_trade_ratio=None` fails; `can_throttle_order_flow=True` with `max_message_rate_per_sec=None` fails; `"   "` must not count as an algorithm identifier, trader id, documentation reference or owner.
 - **Conditional DEA control:** absent DEA, `CH_ALGO_14_DEA_ORDER_DELETION` must not appear in `applicable_controls` and must not affect the score; with DEA, the denominator becomes **14** and a missing deletion capability is the sole finding.
-- **Fail-closed legacy path (regression):** `ComplianceChecker.check_compliance("T1")` must return `is_compliant=False` with a "NOT ASSESSED" note and score `0.0` — the previous implementation returned `True` with the note "Compliant with Swiss FINMA FinfraG regulations." for any string. `batch_check` must be fail-closed for every identifier, and `""`, `"   "`, `None` and `17` must not raise.
+- **Fail-closed legacy path (regression):** `ComplianceChecker.check_compliance("T1")` must return `is_compliant=False` with a "NOT ASSESSED" note and score `0.0` — never `True` with a note such as "Compliant with Swiss FINMA FinfraG regulations." for any string. `batch_check` must be fail-closed for every identifier, and `""`, `"   "`, `None` and `17` must not raise.
 - **Mis-specification raises:** a non-`AlgoTradingSystemAuditSpec` argument; a blank, whitespace or non-string `algo_id`; any of the twelve boolean fields set to `"true"`, `1`, `0`, `[]` or `None`; any evidence field set to a non-string; `max_message_rate_per_sec` or `max_order_to_trade_ratio` of NaN, infinity, `-1`, `0`, `True` or `"400"`; a `venue` of `BX_SWISS`, `SDX`, `""`, `None` or `3`.
 - **Citations:** every declared control has a non-blank citation, and none attributes an algorithmic-trading duty to "FMIA Art. 31" — the Act has no such provision.
 - Run `python -m unittest discover -s skills/swiss-finma-algorithmic-trading-expectations/scripts` and confirm all tests pass.

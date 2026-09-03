@@ -2,17 +2,17 @@
 
 ## Read this first
 
-An earlier version of this file presented three rows as "Engineering Standards" with
-the word **MUST**:
+Three claims are commonly presented as "Engineering Standards" with the word **MUST**.
+None of them is a standard:
 
-| Removed claim | Why it was removed |
+| Claim | Why it is not a standard |
 |---|---|
 | "SR 11-7 Compliance \| Regulated signals MUST require SHAP / EBM feature explainability." | No regulator has published this requirement. SR 11-7 was also superseded on 17 April 2026. |
 | "Tabular Data Preference \| Tabular financial datasets MUST default to GBDT baseline." | This is a well-evidenced *empirical prior*, not a standard anyone promulgated. Restated below as evidence. |
 | "Sub-Millisecond Latency \| Sub-500 microsecond strategies MUST prefer GBDT C++ runtimes over PyTorch/GPU." | Inference latency is governed by model size, batch size and runtime, not by model family. A 5,000-tree LightGBM model is not faster than a two-layer MLP under ONNX Runtime. This has to be measured. |
 
-None of the three has been softened into a hedge — they have been replaced by what the
-sources actually say. Two things to keep straight throughout:
+None of the three should be cited as authority; what the sources actually say is set out
+below. Two things to keep straight throughout:
 
 1. **US model-risk guidance is not a rule**, and it addresses banking organizations.
 2. **The EU explainability expectation is real but indirect**, and the document that

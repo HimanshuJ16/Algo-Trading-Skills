@@ -1,21 +1,17 @@
 ---
 name: risk-reporting-for-external-stakeholders
 description: >-
-  Use when risk figures are about to leave the firm — an LP risk letter, a prime
-  broker's daily exposure feed, a supervisory information request, an auditor's
-  risk appendix — and individual positions must not leave with them. Ranks
-  sector concentrations by size rather than slicing insertion order, validates
-  the leverage, VaR and liquidity inputs before they are sealed, verifies that no
-  withheld position identifier reached the disclosed aggregates, and seals the
-  result with a digest that covers every reported field. Explicitly NOT a Form PF
-  or AIFMD Annex IV filing generator.
-domain: Risk Management & Compliance Governance
-subdomain: External Risk Disclosure & Stakeholder Reporting
-tags: ["external-risk-reporting", "lp-reporting", "information-barrier", "position-redaction", "sec-form-pf", "aifmd-annex-iv", "report-integrity"]
-brokers_frameworks: ["SEC Form PF (17 CFR 275.204(b)-1)", "AIFMD Annex IV (Reg. (EU) 231/2013)", "FCA SUP 16.18", "NIST FIPS 198-1 (HMAC)", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when risk figures are about to leave the firm to an investor letter, a prime
+  broker feed or a supervisor, and position-level detail must be aggregated away.
+  Regulatory filings such as Form PF need the detail this withholds.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: external-risk-reporting, lp-reporting, information-barrier, position-redaction, sec-form-pf, aifmd-annex-iv, report-integrity
+  brokers_frameworks: "SEC Form PF (17 CFR 275.204(b)-1); AIFMD Annex IV (Reg. (EU) 231/2013); FCA SUP 16.18; NIST FIPS 198-1 (HMAC); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -41,8 +37,8 @@ detect alteration.
 ## When NOT to Use
 
 - **You are producing a Form PF or AIFMD Annex IV filing.** This is the most
-  important boundary in the skill and version 1 got it backwards. Those regimes
-  require exactly the detail this module withholds. Form PF Question 35 (section
+  important boundary in the skill, and it is easy to get backwards. Those
+  regimes require exactly the detail this module withholds. Form PF Question 35 (section
   2b): "For each open position of the reporting fund that represents 5% or more
   of the reporting fund's net asset value, provide the information requested
   below" — monthly, with sub-asset class. Questions 22 and 23 require the five

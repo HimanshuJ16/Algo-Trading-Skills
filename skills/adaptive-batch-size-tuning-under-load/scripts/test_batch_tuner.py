@@ -11,7 +11,7 @@ Test categories
 * Concurrency: callback re-entrancy, multi-producer item conservation.
 * API ergonomics: flush_now, flush_if_due, status.as_dict serialisation.
 
-Tests marked "regression" fail against the pre-2.0 engine and pass against
+Tests marked "regression" fail against a naive engine and pass against
 the current one; each names the defect it pins down.
 """
 
@@ -65,7 +65,7 @@ def _threshold_only_config(**overrides):
 class TestControlLawDirection(unittest.TestCase):
     """The engine must adapt *toward* load, not away from it.
 
-    Regression: the pre-2.0 engine tuned on ``queue_depth / queue_capacity``.
+    Regression: a naive engine tuned on ``queue_depth / queue_capacity``.
     Because ``add_item`` drains the buffer the instant it reaches ``B``, that
     ratio is bounded by ``B / queue_capacity`` and measures the tunable rather
     than the load — under saturation it drove ``B`` down to ``B_min`` and the

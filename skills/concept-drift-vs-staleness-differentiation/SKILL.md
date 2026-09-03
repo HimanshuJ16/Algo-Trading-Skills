@@ -1,24 +1,17 @@
 ---
 name: concept-drift-vs-staleness-differentiation
-description: Quantitative ML diagnostic module for differentiating between Concept
-  Drift (P(Y|X) structural shift / alpha decay), Covariate Shift (P(X) feature distribution
-  shift), and Data Staleness (timestamp lag).
-domain: Machine Learning
-subdomain: Model Monitoring & Diagnostics
-tags:
-- concept-drift
-- covariate-shift
-- data-staleness
-- psi
-- wasserstein
-- alpha-decay
-- monitoring
-brokers_frameworks:
-- NumPy
-- SciPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a live signal degrades and you must decide what to fix, separating concept
+  drift in the conditional relationship, covariate shift in the feature distribution,
+  and plain data staleness, since each calls for a different remedy.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: concept-drift, covariate-shift, data-staleness, psi, wasserstein, alpha-decay, monitoring
+  brokers_frameworks: "NumPy; SciPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

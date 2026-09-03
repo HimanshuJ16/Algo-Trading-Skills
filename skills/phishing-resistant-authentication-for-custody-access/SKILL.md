@@ -1,25 +1,17 @@
 ---
 name: phishing-resistant-authentication-for-custody-access
 description: >-
-  WebAuthn Relying Party policy gate for institutional crypto custody access: enforces exact origin and rpIdHash binding against server-side expectations, single-use server-issued challenges, credential-to-user binding, UP/UV flags, backup-state policy and FIDO2 signature-counter clone detection on top of a real WebAuthn verifier.
-domain: Crypto Custody & Security
-subdomain: Authentication & Access Control
-tags:
-- webauthn
-- fido2
-- phishing-resistant
-- crypto-custody
-- hardware-security-key
-- origin-binding
-- replay-protection
-brokers_frameworks:
-- W3C WebAuthn Level 3
-- FIDO2 CTAP 2.2
-- NIST SP 800-63B-4
-- 23 NYCRR Part 500
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when the login in front of a custody portal or key-management console must resist
+  adversary-in-the-middle phishing, enforcing WebAuthn origin and relying-party binding
+  with single-use server-issued challenges.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: webauthn, fido2, phishing-resistant, crypto-custody, hardware-security-key, origin-binding, replay-protection
+  brokers_frameworks: "W3C WebAuthn Level 3; FIDO2 CTAP 2.2; NIST SP 800-63B-4; 23 NYCRR Part 500"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -186,7 +186,7 @@ class TestAutoRejectionBands(unittest.TestCase):
 
     def test_drop_beyond_arb_rejected(self):
         # -20% from Rp 1,000 breaches the 15% ARB, though it would have passed
-        # under the pre-2025 symmetric 25% rule.
+        # under an earlier symmetric 25% rule.
         payload = IdxOrderPayload("BBCA", "RG", "SELL", 800.0, 100, 1000.0)
         report = self.engine.validate_and_route_order(payload)
         self.assertEqual(report.status, "AUTO_REJECTION_EXCEEDED")

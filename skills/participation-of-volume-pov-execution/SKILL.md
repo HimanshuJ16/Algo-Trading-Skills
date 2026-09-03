@@ -1,24 +1,17 @@
 ---
 name: participation-of-volume-pov-execution
 description: >-
-  Use when a parent order must be worked as a target percentage of live market volume rather than on a clock — converting away volume into whole-share child orders via the R/(1-R) participation identity, correcting drift from the cumulative target, and keeping sent, working, and filled quantities separate so the reported participation rate reflects real fills.
-domain: algorithmic-trading
-subdomain: execution-algorithms
-tags:
-- execution-algorithms
-- pov
-- participation-of-volume
-- market-impact
-- child-order-scheduling
-- fix-participationrate
-- transaction-cost-analysis
-brokers_frameworks:
-- FIX 4.4 TargetStrategy(847)=Participate / ParticipationRate(849)
-- Interactive Brokers TWS API PctVol
-- Binance Futures Algo VP (newOrderVp)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a parent order should let the market set its pace, sizing each child so
+  cumulative executions stay a chosen fraction of traded volume. POV offers no
+  completion guarantee; a deadline needs a schedule instead.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution-algorithms, pov, participation-of-volume, market-impact, child-order-scheduling, fix-participationrate, transaction-cost-analysis
+  brokers_frameworks: "FIX 4.4 TargetStrategy(847)=Participate / ParticipationRate(849); Interactive Brokers TWS API PctVol; Binance Futures Algo VP (newOrderVp)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

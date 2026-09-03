@@ -1,26 +1,17 @@
 ---
 name: broker-account-margin-call-handling
-description: Use when monitoring margin account health to calculate real-time maintenance
-  margin ratios, cross-check them against the broker's own excess-liquidity cushion,
-  enforce multi-tiered margin warning thresholds, gate new orders on initial margin, and
-  trigger liquidity-aware de-leveraging before broker forced liquidation.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- margin-call
-- risk-management
-- forced-liquidation-prevention
-- margin-utilization
-- liquidity-aware
-brokers_frameworks:
-- Interactive Brokers Reg T / Portfolio Margin
-- Zerodha RMS
-- Alpaca Margin API
-- CME SPAN
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a bot trades a Reg T, portfolio or futures margin account and must act before
+  the broker liquidates: tiered maintenance-margin warnings cross-checked against broker
+  excess liquidity, initial-margin order gating and liquidity-aware de-leveraging.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, margin-call, risk-management, forced-liquidation-prevention, margin-utilization, liquidity-aware
+  brokers_frameworks: "Interactive Brokers Reg T / Portfolio Margin; Zerodha RMS; Alpaca Margin API; CME SPAN"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

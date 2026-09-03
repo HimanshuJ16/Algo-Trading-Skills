@@ -1,35 +1,17 @@
 ---
 name: wash-trade-and-spoofing-self-detection
 description: >-
-  Streaming self-surveillance over a firm's own order flow for the two patterns a
-  regulator looks for first — self-matches / wash trades (own buy and own sell crossing
-  under one beneficial owner) and layering-spoofing (opposite-side execution surrounded by
-  the withdrawal of materially larger size) — grounded in CEA s.4c(a)(1),(2)(A) and
-  s.4c(a)(5)(C), CME Rules 534 and 575, FINRA Rule 5210.02/.03 and MiFID II RTS 6
-  Article 13. Emits alerts for human analysis, never findings of a breach.
-domain: Global Regulatory Compliance & Market Integrity
-subdomain: Algorithmic Market Abuse Self-Surveillance (Wash Trades & Layering)
-tags:
-- wash-trade
-- spoofing
-- layering
-- market-manipulation
-- self-match-detection
-- beneficial-ownership
-- cea-4c-a
-- finra-rule-5210
-- mifid-ii-rts-6
-brokers_frameworks:
-- CEA s.4c(a)(1),(2)(A) and s.4c(a)(5)(C) (7 U.S.C. 6c(a); Dodd-Frank s.747)
-- CFTC Antidisruptive Practices interpretive guidance (78 FR 31890)
-- CME Rule 534 (Wash Trades Prohibited) and Rule 575 (Disruptive Practices)
-- FINRA Rule 5210 Supplementary Material .02 (self-trades) and .03 (disruptive quoting)
-- Exchange Act s.9(a)(2), s.10(b) / Rule 10b-5
-- Commission Delegated Regulation (EU) 2017/589 (RTS 6) Article 13
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a firm wants to see the shape of a self-match or of layering in its own order
+  flow before an exchange or regulator does; streams over the firm's own events.
+  Preventing a self-match at the venue is exchange-self-match-prevention-configuration.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: wash-trade, spoofing, layering, market-manipulation, self-match-detection, beneficial-ownership, cea-4c-a, finra-rule-5210, mifid-ii-rts-6
+  brokers_frameworks: "CEA s.4c(a)(1),(2)(A) and s.4c(a)(5)(C) (7 U.S.C. 6c(a), Dodd-Frank s.747); CFTC Antidisruptive Practices interpretive guidance (78 FR 31890); CME Rule 534 (Wash Trades Prohibited) and Rule 575 (Disruptive Practices); FINRA Rule 5210 Supplementary Material .02 (self-trades) and .03 (disruptive quoting); Exchange Act s.9(a)(2), s.10(b) / Rule 10b-5; Commission Delegated Regulation (EU) 2017/589 (RTS 6) Article 13; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

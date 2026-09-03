@@ -1,26 +1,17 @@
 ---
 name: early-exercise-assignment-risk-management
-description: Options risk engine for screening short American calls/puts for early
-  exercise and assignment risk, testing ex-dividend capture against the call's
-  ex-dividend time value, flagging at-parity ITM shorts, and dispatching close/roll
-  directives.
-domain: Options & Derivatives Trading
-subdomain: Option Assignment Risk & Volatility
-tags:
-- early-exercise
-- assignment-risk
-- american-options
-- ex-dividend
-- extrinsic-value
-- covered-calls
-- option-greeks
-brokers_frameworks:
-- CBOE Options
-- OCC
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a book carries short American-style options that can be assigned before
+  expiration, screening ex-dividend capture against the call's remaining time value and
+  flagging at-parity in-the-money shorts.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: early-exercise, assignment-risk, american-options, ex-dividend, extrinsic-value, covered-calls, option-greeks
+  brokers_frameworks: "CBOE Options; OCC; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

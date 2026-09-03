@@ -1,28 +1,18 @@
 ---
 name: multi-region-failover-for-broker-connectivity
-description: Use when a trading bot must keep broker connectivity through the loss of a
-  region or network path — deciding when an endpoint is genuinely down, refusing to fail
-  over onto a path nobody has probed, fencing the outgoing path before flow moves, and
-  distinguishing "nowhere left to go" from "nothing to do".
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment
-- failover
-- high-availability
-- multi-region
-- broker-connectivity
-- split-brain-prevention
-- flap-suppression
-brokers_frameworks:
-- Binance Spot REST API (multi base endpoint)
-- IBKR TWS API / Client Portal Web API (single-session)
-- AWS / GCP / Azure multi-region
-- MiFID II RTS 6 (Reg (EU) 2017/589)
-- SEC Rule 15c3-5
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a bot reaches its broker over more than one path and something must decide
+  unattended which path carries orders; refuses to fail over onto a path nobody has
+  probed. Failing over to a different broker account is
+  broker-failover-secondary-account-routing.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment, failover, high-availability, multi-region, broker-connectivity, split-brain-prevention, flap-suppression
+  brokers_frameworks: "Binance Spot REST API (multi base endpoint); IBKR TWS API / Client Portal Web API (single-session); AWS / GCP / Azure multi-region; MiFID II RTS 6 (Reg (EU) 2017/589); SEC Rule 15c3-5"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -221,7 +211,7 @@ whether a switch is warranted and refuses the ones that are not evidenced.
 - `order-placement-idempotency`
 - `smart-order-router-failover-on-venue-outage`
 - `multi-region-active-active-tick-ingestion`
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `blue-green-deployment-for-live-strategy-updates`
 - `chaos-engineering-for-trading-infrastructure`
 - `sec-rule-15c3-5-risk-controls-us`

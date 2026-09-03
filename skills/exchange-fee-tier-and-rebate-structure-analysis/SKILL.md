@@ -1,14 +1,17 @@
 ---
 name: exchange-fee-tier-and-rebate-structure-analysis
 description: >-
-  Use when analyzing exchange maker-taker vs inverted (taker-maker) fee schedules to classify the active volume tier, compute signed net execution cost after rebates, and decide whether reaching the next tier is worth the volume required to reach it. Handles the Reg NMS Rule 610(d) prior-period tier basis that governs US equity venues.
-domain: Venue Integration & Microstructure
-subdomain: Exchange Pricing & Order Routing
-tags: ["exchange-fees", "maker-taker", "taker-maker", "rebate-analysis", "volume-tiers", "order-routing", "market-microstructure", "reg-nms-610"]
-brokers_frameworks: ["SEC Reg NMS Rule 610", "Nasdaq Equities Price List", "Cboe US Equities Fee Schedules", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when computing the signed net cost of a fill mix at one venue under its
+  maker-taker or inverted schedule and deciding whether the next volume tier is worth
+  chasing. Allocating flow across venues is execution-venue-fee-tier-optimization.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: exchange-fees, maker-taker, taker-maker, rebate-analysis, volume-tiers, order-routing, market-microstructure, reg-nms-610
+  brokers_frameworks: "SEC Reg NMS Rule 610; Nasdaq Equities Price List; Cboe US Equities Fee Schedules; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

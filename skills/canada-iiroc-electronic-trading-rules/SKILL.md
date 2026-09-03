@@ -1,21 +1,17 @@
 ---
 name: canada-iiroc-electronic-trading-rules
-description: Automated pre-trade risk and order-marking controls for Canadian marketplaces
-  under CIRO (formerly IIROC) UMIR Rule 7.1, UMIR 6.2 designations, and NI 23-103.
-domain: Compliance
-subdomain: Regulatory Controls
-tags:
-- canada
-- iiroc
-- ciro
-- umir
-- pre-trade-risk
-- compliance
-brokers_frameworks:
-- Generic Execution
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when routing orders to Canadian marketplaces such as TSX, TSX Venture, Cboe Canada
+  or an ATS, where NI 23-103 section 3 and UMIR Rule 7.1 require automated pre-trade
+  controls and UMIR 6.2 order designations on every order.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: canada, iiroc, ciro, umir, pre-trade-risk, compliance
+  brokers_frameworks: Generic Execution
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

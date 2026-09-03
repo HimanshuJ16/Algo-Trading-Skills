@@ -1,14 +1,17 @@
 ---
 name: order-to-trade-ratio-fee-penalty-avoidance
 description: >-
-  Use when an algorithm's unexecuted order-message traffic is subject to a venue order-to-trade ratio limit or surcharge — computes the RTS 9 count and volume ratios per instrument using the RTS 9 Annex message weights, estimates the venue penalty, and throttles or freezes order modifications before the limit binds.
-domain: Market Microstructure & Regulatory Compliance
-subdomain: Exchange Fee Optimization & OTR Throttling
-tags: ["otr", "order-to-trade-ratio", "exchange-fees", "fee-penalty", "quote-stuffing", "hft-compliance", "microstructure", "rts-9"]
-brokers_frameworks: ["MiFID II RTS 9 (Commission Delegated Regulation (EU) 2017/566)", "Eurex Excessive System Usage Fee", "NSE / SEBI Algo OTR Penalty Framework", "ICE Futures Europe & ICE Endex OTR Guidance", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when unexecuted order traffic is subject to a venue order-to-trade ratio limit or
+  surcharge, computing the count and volume ratios per instrument on the regulatory
+  definition. The venue computes the official number.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: otr, order-to-trade-ratio, exchange-fees, fee-penalty, quote-stuffing, hft-compliance, microstructure, rts-9
+  brokers_frameworks: "MiFID II RTS 9 (Commission Delegated Regulation (EU) 2017/566); Eurex Excessive System Usage Fee; NSE / SEBI Algo OTR Penalty Framework; ICE Futures Europe & ICE Endex OTR Guidance; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

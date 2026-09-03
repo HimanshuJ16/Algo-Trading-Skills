@@ -1,24 +1,17 @@
 ---
 name: dark-pool-routing-logic
-description: Quantitative Smart Order Router (SOR) module for routing block orders
-  across dark pools / ATS, enforcing anti-pinging MinQty (FIX tag 110) thresholds,
-  and filtering venues by self-measured post-trade markout toxicity.
-domain: Execution Algorithms
-subdomain: Smart Order Routing & ATS
-tags:
-- dark-pool
-- ats-routing
-- smart-order-router
-- min-qty
-- adverse-selection
-- toxic-flow-filtering
-- midpoint-execution
-brokers_frameworks:
-- FIX Protocol
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when slicing a block into non-displayed venues and a counterparty could probe the
+  resting size; enforces anti-pinging minimum quantity thresholds and filters venues by
+  self-measured post-trade markout.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: dark-pool, ats-routing, smart-order-router, min-qty, adverse-selection, toxic-flow-filtering, midpoint-execution
+  brokers_frameworks: "FIX Protocol; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

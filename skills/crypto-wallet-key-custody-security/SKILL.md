@@ -1,16 +1,17 @@
 ---
 name: crypto-wallet-key-custody-security
-description: Use when a trading bot has any access to crypto private keys, exchange
-  API keys with withdrawal permission, or wallet infrastructure, to bound the damage
-  a compromised bot or leaked credential can cause
-domain: algorithmic-trading
-subdomain: crypto-custody-security
-tags:
-- crypto-custody-security
-brokers_frameworks: []
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a trading bot can reach private keys or withdrawal-enabled exchange
+  credentials, so a compromise means irreversible loss; bounds the damage by auditing
+  the declared key scope, permissions and separation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-custody-security
+  brokers_frameworks: ""
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

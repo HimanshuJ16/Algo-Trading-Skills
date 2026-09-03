@@ -1,14 +1,17 @@
 ---
 name: fix-protocol-session-management-across-venues
 description: >-
-  FIX session-layer state machine for multi-venue order-entry connectivity: logon negotiation, inbound MsgSeqNum discipline, gap detection and ResendRequest recovery, SequenceReset handling that can only ever move sequence numbers forward, heartbeat/TestRequest liveness, and graceful logout.
-domain: Venue Integration & Protocols
-subdomain: FIX Session Layer & Venue Connectivity
-tags: ["fix-protocol", "session-management", "sequence-numbers", "heartbeat", "resend-request", "gap-fill", "poss-dup", "fix-engine"]
-brokers_frameworks: ["FIX 4.2 / 4.4 / 5.0 Session Layer", "QuickFIX / QuickFIX-J", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building the FIX session layer that decides whether an execution report is
+  applied once, twice or never: logon negotiation, inbound sequence discipline, gap
+  detection, resend requests and safe sequence reset handling.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: fix-protocol, session-management, sequence-numbers, heartbeat, resend-request, gap-fill, poss-dup, fix-engine
+  brokers_frameworks: "FIX 4.2 / 4.4 / 5.0 Session Layer; QuickFIX / QuickFIX-J; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -21,7 +24,7 @@ The engine performs **no I/O**. It opens no sockets, encodes no wire format, com
 
 ## When NOT to Use
 
-- **As a complete FIX engine.** There is no tag=value encoder/decoder, no `BodyLength`/`CheckSum`, no TCP handling, no persistence. Use QuickFIX or your venue's certified engine for the transport and codec; use this for the session-layer decisions and as a test harness for them. For wire encoding specifically see `cme-group-fix-api-for-futures`.
+- **As a complete FIX engine.** There is no tag=value encoder/decoder, no `BodyLength`/`CheckSum`, no TCP handling, no persistence. Use QuickFIX or your venue's certified engine for the transport and codec; use this for the session-layer decisions and as a test harness for them. For wire encoding specifically see `cme-stp-fix-and-ilink2-tag-value-encoding`.
 - **For binary session protocols.** CME iLink 3 (FIXP/SBE), Eurex T7 ETI and Nasdaq OUCH/ITCH have their own session layers with different sequencing and recovery semantics. Eurex ETI, for one, logs on at `MsgSeqNum=1` on *every* reconnect and has no sequence recovery at all — none of the rules here transfer.
 - **As the venue's specification.** Venues routinely override the session layer: permitted resend ranges, whether `ResetSeqNumFlag(141)` is allowed intraday, heartbeat multipliers, and what happens to working orders on disconnect. Read the venue spec and configure from it; the defaults here are conventions, not compliance.
 - **For order-state recovery.** This engine recovers the *message stream*, not your order book. A resynchronised session tells you nothing about which orders the venue still holds. For that see `exchange-gateway-redundancy-and-failover-testing` and reconcile before resuming flow.
@@ -97,7 +100,7 @@ The engine performs **no I/O**. It opens no sockets, encodes no wire format, com
 ## Related Skills
 
 - `exchange-gateway-redundancy-and-failover-testing`
-- `cme-group-fix-api-for-futures`
+- `cme-stp-fix-and-ilink2-tag-value-encoding`
 - `order-placement-idempotency`
 - `sequence-number-gap-detection-for-feeds`
 - `smart-order-router-failover-on-venue-outage`

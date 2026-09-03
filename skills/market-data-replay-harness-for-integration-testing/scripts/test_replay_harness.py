@@ -170,7 +170,7 @@ class TestMarketDataReplayHarness(unittest.TestCase):
         # 10 ticks spaced 10 ms, callback burns 5 ms each, replayed at 1x.
         # Correct (absolute deadlines): each sleep is 5 ms and the session spans the
         # recorded 90 ms plus the final callback = 95 ms.
-        # The pre-2.0 per-tick `sleep(delta / S)` scheme slept a full 10 ms after every
+        # an earlier per-tick `sleep(delta / S)` scheme slept a full 10 ms after every
         # 5 ms callback and took 150 ms - a 58% drift on a harness sold as "1x".
         clock = FakeClock()
         harness = MarketDataReplayHarness(

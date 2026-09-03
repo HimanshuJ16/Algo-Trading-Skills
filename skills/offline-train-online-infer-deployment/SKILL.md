@@ -1,27 +1,17 @@
 ---
 name: offline-train-online-infer-deployment
 description: >-
-  Use when exporting a trained ML signal model from an offline training pipeline
-  into a live trading bot's inference path, to eliminate train/serve skew — a
-  digest-verified artifact bundling weights, scaler parameters and feature schema,
-  strict schema and finiteness validation at load and at prediction time, and an
-  offline/online parity gate before the model drives real capital
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- train-serve-skew
-- model-artifact-export
-- feature-schema-validation
-- model-versioning
-- sha256
-brokers_frameworks:
-- scikit-learn
-- ONNX
-- PMML
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a model trained in an offline pipeline must run inference inside a live bot
+  process, to eliminate train-serve skew with a digest-verified artifact bundling
+  weights, scalers and the feature contract.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, train-serve-skew, model-artifact-export, feature-schema-validation, model-versioning, sha256
+  brokers_frameworks: "scikit-learn; ONNX; PMML"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

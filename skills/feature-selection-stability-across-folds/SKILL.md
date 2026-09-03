@@ -1,26 +1,17 @@
 ---
 name: feature-selection-stability-across-folds
-description: Use when auditing whether a feature selection step (Lasso, Boruta, RFE,
-  mutual-information filters) picks the same features across cross-validation folds,
-  using the chance-corrected Nogueira stability index and its confidence interval,
-  before a consensus feature set is promoted to a production model
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- feature-selection
-- nogueira-index
-- kuncheva-index
-- cross-validation
-- fold-stability
-- overfitting-control
-brokers_frameworks:
-- Nogueira Stability Estimator (JMLR 2018)
-- Kuncheva Consistency Index
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a selector such as Lasso, Boruta or RFE runs inside cross-validation and you
+  need to know whether its output is a property of the signal or of each fold; the
+  chance-corrected Nogueira stability index.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, feature-selection, nogueira-index, kuncheva-index, cross-validation, fold-stability, overfitting-control
+  brokers_frameworks: "Nogueira Stability Estimator (JMLR 2018); Kuncheva Consistency Index; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,29 +1,17 @@
 ---
 name: point-in-time-fundamentals-data-joins
 description: >-
-  Use when joining SEC-filed fundamental metrics (EPS, revenue, debt/equity, free
-  cash flow) to price bars for backtesting or factor research. Resolves the value
-  that was publicly available at the as-of date using filing date plus an explicit
-  availability lag, isolates later restatements from historical as-reported values,
-  and quantifies what a naive period-end join would have leaked.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- point-in-time
-- fundamentals
-- sec-edgar
-- filing-date
-- restatement
-- lookahead-bias
-- as-of-join
-brokers_frameworks:
-- SEC EDGAR Public Database
-- Point-In-Time Fundamentals Join Engine
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when joining filed fundamentals to price bars, because a join on period end
+  asserts the numbers were known on the last day of the quarter; resolves the value
+  publicly available at each as-of date instead.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: backtesting-methodology, point-in-time, fundamentals, sec-edgar, filing-date, restatement, lookahead-bias, as-of-join
+  brokers_frameworks: "SEC EDGAR Public Database; Point-In-Time Fundamentals Join Engine; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

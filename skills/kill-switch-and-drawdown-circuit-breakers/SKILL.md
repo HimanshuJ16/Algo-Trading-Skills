@@ -1,16 +1,18 @@
 ---
 name: kill-switch-and-drawdown-circuit-breakers
-description: Use when a live trading bot needs hard, strategy-independent limits that
-  force-flatten positions and halt new orders, so that a strategy bug or unexpected
-  market condition cannot cause unbounded loss
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-brokers_frameworks: []
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a live bot needs hard, strategy-independent limits that halt new orders and
+  force-flatten positions on a drawdown or loss breach, so a strategy bug cannot cause
+  unbounded loss. Degraded-condition triggers belong to
+  capital-preservation-mode-for-degraded-conditions.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, kill-switch, drawdown-limit, circuit-breaker, force-flatten, sec-15c3-5, mifid-rts6
+  brokers_frameworks: ""
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

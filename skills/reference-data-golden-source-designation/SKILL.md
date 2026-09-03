@@ -1,14 +1,17 @@
 ---
 name: reference-data-golden-source-designation
 description: >-
-  Resolving multi-vendor instrument reference data into one instrument-master record with a defensible basis for every field — priority-ranked golden source designation that refuses to guess when no rule applies, blank and sentinel gating so an empty string cannot outrank a real value, snapshot age gating against an explicitly supplied evaluation instant, and a per-field audit record of which vendor won, under which rule, and what was rejected.
-domain: Data Management Global
-subdomain: Reference Data Governance & Conflict Resolution
-tags: ["golden-source", "reference-data", "data-governance", "conflict-resolution", "multi-vendor", "authoritative-source", "instrument-master", "bcbs-239", "mifir-rts-23"]
-brokers_frameworks: ["BCBS 239 (Principle 3, para 36(d))", "MiFIR RTS 23 (Commission Delegated Regulation (EU) 2017/585)", "ISO 6166 ISIN (ANNA)", "ISO 10383 MIC (SWIFT)", "ISO 17442 LEI (GLEIF)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when several vendors describe the same instrument and one record must go into the
+  master, resolving each field by priority-ranked source with a recorded basis, and
+  refusing to guess when no rule applies.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: golden-source, reference-data, data-governance, conflict-resolution, multi-vendor, authoritative-source, instrument-master, bcbs-239, mifir-rts-23
+  brokers_frameworks: "BCBS 239 (Principle 3, para 36(d)); MiFIR RTS 23 (Commission Delegated Regulation (EU) 2017/585); ISO 6166 ISIN (ANNA); ISO 10383 MIC (SWIFT); ISO 17442 LEI (GLEIF); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

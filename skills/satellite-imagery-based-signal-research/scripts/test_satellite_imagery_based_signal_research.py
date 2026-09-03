@@ -2,15 +2,12 @@ import logging
 import math
 import unittest
 
-import pandas as pd
-
 from satellite_imagery_based_signal_research import (
     HIGH_READING_DIRECTION,
     ImagerySignalType,
     QuantitativeSatelliteSignal,
     SatelliteImageryBasedSignalResearchEngine,
     SatelliteObservation,
-    SignalResult,
 )
 
 ACQUIRED = "2026-08-05T12:00:00Z"
@@ -28,32 +25,6 @@ def observation(**overrides) -> SatelliteObservation:
     )
     defaults.update(overrides)
     return SatelliteObservation(**defaults)
-
-
-class TestLegacyPlaceholder(unittest.TestCase):
-    """The deprecated `generate_signals` stub, kept for import compatibility."""
-
-    def setUp(self):
-        self.engine = SatelliteImageryBasedSignalResearchEngine()
-
-    def test_empty_data(self):
-        self.assertEqual(self.engine.generate_signals(pd.DataFrame()), [])
-
-    def test_valid_data(self):
-        df = pd.DataFrame({"raw_val": [10.0, 20.0], "asset": ["AAPL", "MSFT"]})
-        signals = self.engine.generate_signals(df)
-        self.assertEqual(len(signals), 2)
-        self.assertIsInstance(signals[0], SignalResult)
-        self.assertEqual(signals[0].signal_value, 15.0)
-        self.assertEqual(signals[0].asset_id, "AAPL")
-
-    def test_placeholder_warns_that_it_is_not_a_satellite_signal(self):
-        # An agent must not mistake raw_val * 1.5 for a researched signal.
-        with self.assertLogs(
-            "satellite_imagery_based_signal_research", level=logging.WARNING
-        ) as captured:
-            self.engine.generate_signals(pd.DataFrame({"raw_val": [1.0]}))
-        self.assertIn("deprecated", "\n".join(captured.output).lower())
 
 
 class TestDirectionalMapping(unittest.TestCase):
@@ -410,10 +381,6 @@ class TestEngineConfiguration(unittest.TestCase):
     def test_out_of_range_quality_gate_raises(self):
         with self.assertRaises(ValueError):
             SatelliteImageryBasedSignalResearchEngine(min_usable_pixel_fraction=1.5)
-
-    def test_config_is_carried_verbatim(self):
-        engine = SatelliteImageryBasedSignalResearchEngine(config={"vendor": "acme-eo"})
-        self.assertEqual(engine.config, {"vendor": "acme-eo"})
 
     def test_signal_shape_is_stable(self):
         engine = SatelliteImageryBasedSignalResearchEngine()

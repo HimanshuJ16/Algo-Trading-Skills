@@ -1,6 +1,6 @@
 """Behavioural tests for the reproducible ML training pipeline harness.
 
-Several tests are marked REGRESSION: they fail against the pre-2.0
+Several tests are marked REGRESSION: they fail against an earlier
 implementation, which hard-coded ``is_reproducible=True``, excluded
 ``git_commit_hash`` from the manifest tag, rounded weights to 6 decimals before
 hashing, and had no code path capable of producing ``DATA_HASH_MISMATCH``.

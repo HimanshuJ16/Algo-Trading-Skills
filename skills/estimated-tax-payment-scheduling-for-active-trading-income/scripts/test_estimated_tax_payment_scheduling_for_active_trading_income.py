@@ -110,7 +110,7 @@ class TestMarriedFilingSeparatelyThreshold(unittest.TestCase):
     """Section 6654(d)(1)(C) substitutes $75,000 for a separate return."""
 
     def test_mfs_at_120k_agi_requires_110pct(self):
-        # Regression: the pre-2.0 engine hard-coded $150,000 for every filing
+        # Regression: a naive engine hard-coded $150,000 for every filing
         # status, so this trader was scheduled at 100% ($30,000) and would have
         # under-funded the safe harbor by $3,000.
         report = EstimatedTaxSchedulerEngine().generate_estimated_tax_schedule(
@@ -155,7 +155,7 @@ class TestPriorYearOptionAvailability(unittest.TestCase):
         self.engine = EstimatedTaxSchedulerEngine()
 
     def test_no_prior_return_forces_the_90pct_current_year_limb(self):
-        # Regression: the pre-2.0 engine applied the prior-year limb
+        # Regression: a naive engine applied the prior-year limb
         # unconditionally, so a first-year trader with no prior return was
         # scheduled at $0 instead of 90% of $120,000 = $108,000.
         report = self.engine.generate_estimated_tax_schedule(
@@ -244,7 +244,7 @@ class TestWithholdingCredit(unittest.TestCase):
 
     def test_withholding_reduces_the_amount_to_remit(self):
         # Required annual $55,000; withholding $20,000 credited $5,000 a quarter.
-        # Regression: the pre-2.0 engine ignored withholding entirely and would
+        # Regression: a naive engine ignored withholding entirely and would
         # have told this trader to wire $55,000 rather than $35,000.
         report = self.engine.generate_estimated_tax_schedule(
             trader_id="T", tax_year=2026,
@@ -290,7 +290,7 @@ class TestComplianceAndShortfall(unittest.TestCase):
         return self.engine.generate_estimated_tax_schedule(**params)
 
     def test_unfunded_plan_is_not_reported_compliant(self):
-        # Regression: the pre-2.0 engine hard-coded is_safe_harbor_compliant=True,
+        # Regression: a naive engine hard-coded is_safe_harbor_compliant=True,
         # so a trader who had paid nothing was told they were in safe harbor.
         report = self._base()
         self.assertFalse(report.is_safe_harbor_compliant)

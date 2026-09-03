@@ -7,4 +7,4 @@
    - Order execution functions must include client order ID idempotency.
    - Backtest feature engineering must prevent lookahead bias.
    - Risk limits (drawdown, max position size, max rate) must operate out-of-band or in dedicated risk wrapper classes.
-4. **Validation**: Test modifications with `python tools/validate_skills.py` and run tests with `python tools/run_all_tests.py`.
+4. **Validation**: Test modifications with `python tools/validate_skills.py` and run tests with `python tools/run_all_tests.py` (add `--skill <name>` to run one skill's suite).

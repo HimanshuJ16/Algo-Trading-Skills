@@ -1,26 +1,17 @@
 ---
 name: token-lifecycle-live-probing
 description: >-
-  Use when a bot needs to decide whether a cached broker token is still valid before
-  making trading calls — especially for brokers that invalidate tokens outside their
-  documented expiry windows. The decision has three outcomes, not two: the third is
-  "the probe reached no verdict", and treating that as invalidity turns a broker
-  outage into a login-rate-limit lockout.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- token-lifecycle
-- fyers-api-v3
-- icici-breeze-api
-- zerodha-kite-connect
-brokers_frameworks:
-- Fyers API v3
-- ICICI Breeze API
-- Zerodha Kite Connect
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding whether a cached broker token is still usable before trading calls,
+  because documented expiry times lie. The probe has three outcomes, and treating the
+  inconclusive one as invalid causes needless re-authentication.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, token-expiry, live-probing, session-validity, auth-refresh, cached-token
+  brokers_frameworks: "Fyers API v3; ICICI Breeze API; Zerodha Kite Connect"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

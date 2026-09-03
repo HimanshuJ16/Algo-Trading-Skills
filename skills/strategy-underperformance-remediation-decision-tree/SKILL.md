@@ -1,14 +1,17 @@
 ---
 name: strategy-underperformance-remediation-decision-tree
 description: >-
-  Deterministic underperformance triage adjudicator routing a strategy through a fixed 4-node decision tree — dead alpha hypothesis, execution/data dysfunction, market-wide regime shift, idiosyncratic parameter drift — and refusing to route on corrupt, sign-inverted, or statistically unsupportable metrics.
-domain: Investment Governance & Remediation Management
-subdomain: Quantitative Strategy Triage & Remediation
-tags: ["underperformance-remediation", "triage-decision-tree", "alpha-decay", "parameter-recalibration", "execution-optimization", "strategy-governance", "sharpe-standard-error"]
-brokers_frameworks: ["Quantitative Triage Decision Tree", "Remediation Governance Matrix", "MiFID II RTS 6", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a strategy has underperformed and someone is about to change something,
+  routing the symptom through a fixed decision tree across dead alpha, execution or data
+  dysfunction, regime shift and idiosyncratic loss.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: underperformance-remediation, triage-decision-tree, alpha-decay, parameter-recalibration, execution-optimization, strategy-governance, sharpe-standard-error
+  brokers_frameworks: "Quantitative Triage Decision Tree; Remediation Governance Matrix; MiFID II RTS 6; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

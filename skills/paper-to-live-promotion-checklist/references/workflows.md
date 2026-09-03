@@ -174,7 +174,7 @@ dependencies (data feeds, third-party providers) or ML components change — and
 series of small recalibrations accumulating into a material change unnoticed. This engine is
 stateless and has no re-promotion tracking; that bookkeeping is yours.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Tautological slippage check.** Paper fills and the backtest share one cost model, so
   `slippage_alignment` passes by construction and the promotion certifies nothing about

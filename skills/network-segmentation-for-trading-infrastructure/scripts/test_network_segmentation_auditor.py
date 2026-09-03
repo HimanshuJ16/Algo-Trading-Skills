@@ -5,7 +5,7 @@ compliance verdict a topology produces -- rather than against internal helper
 structure, so that the policy engine can be refactored without rewriting them.
 
 Several tests are explicitly labelled REGRESSION. Each names a fail-open defect
-in the pre-2.0.0 engine and asserts the topology that used to audit clean now
+in a naive engine and asserts the topology that used to audit clean now
 does not. Those tests fail against the old implementation and pass against this
 one, which is the property that makes them worth keeping.
 """
@@ -394,7 +394,7 @@ class TestInternetWildcardSource(SegmentationTestBase):
 
 class TestTransitiveReachability(SegmentationTestBase):
     def test_public_to_custody_via_strategy_engine_is_reported(self):
-        """REGRESSION: the pre-2.0.0 suite asserted this exact topology COMPLIANT.
+        """REGRESSION: an earlier suite asserted this exact topology COMPLIANT.
 
         Neither edge is individually forbidden, yet an attacker landing in the
         DMZ has a routed path to the signing keys.
@@ -564,7 +564,7 @@ class TestFailClosedInputHandling(SegmentationTestBase):
     def test_unknown_zone_tier_is_rejected(self):
         """REGRESSION: a mistyped source tier fail-opened the ingress controls.
 
-        Verified against the pre-2.0.0 engine: an SSH grant into the execution
+        Verified against a naive engine: an SSH grant into the execution
         zone from a subnet tagged `PUBLIC-DMZ`, `DMZ`, or `public dmz` audited
         COMPLIANT, because the direct-ingress and admin-port predicates both
         test for the exact string `PUBLIC_DMZ`. (The custody predicate, being a

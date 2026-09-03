@@ -1,14 +1,17 @@
 ---
 name: microwave-vs-fiber-network-links-for-cross-market-latency
 description: >-
-  Cross-market microwave-vs-fiber link arbitration: decomposes corridor latency into propagation, repeater and serialization terms instead of quoting a propagation-only floor as an estimate, and resolves the speed-versus-availability trade-off with fail-closed rain-fade failover and recovery hysteresis.
-domain: Market Microstructure Latency
-subdomain: Cross-Market Latency & Wireless Infrastructure Optimization
-tags: ["microwave-link", "fiber-optic", "cross-market-latency", "propagation-speed", "rain-fade", "chicago-to-nj", "line-of-sight", "hft-infrastructure"]
-brokers_frameworks: ["CME Aurora", "NJ Secaucus / Carteret Data Centers", "ITU-R P.453 / P.530", "FCC Part 101", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when choosing or arbitrating between a licensed microwave path and fibre on a
+  cross-market corridor, decomposing corridor latency into propagation, repeater and
+  serialisation terms rather than quoting a propagation floor.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: microwave-link, fiber-optic, cross-market-latency, propagation-speed, rain-fade, chicago-to-nj, line-of-sight, hft-infrastructure
+  brokers_frameworks: "CME Aurora; NJ Secaucus / Carteret Data Centers; ITU-R P.453 / P.530; FCC Part 101; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

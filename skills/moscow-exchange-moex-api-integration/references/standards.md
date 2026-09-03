@@ -8,7 +8,7 @@ price limits all change; re-derive them rather than trusting this copy.
 
 | Requirement | Standard |
 |---|---|
-| Sanctions gate | An order path into MOEX MUST NOT be built until a dated screening result, naming the regimes screened against, has been attached. Absence of an attestation MUST fail closed. |
+| Sanctions gate | An order path into MOEX MUST NOT be built until a dated screening result, naming the regimes screened against, has been attached. The gate MUST be evaluated before every other check, on every order path, so that no later rejection can mask it. Absence, revocation or expiry of an attestation MUST fail closed, with no message fields emitted. |
 | Quantity units | FIX Tag 38 `OrderQty` MUST carry **lots**, not shares or units. Lot size MUST come from reference data for the exact Symbol + Board pair. A quantity that is not a whole number of lots MUST raise, not round. |
 | Price step | A price MUST be an exact multiple of the instrument's `MINSTEP`. Positivity MUST be checked separately: a negative price is an exact multiple of any step. An off-step price SHOULD be rejected rather than silently moved; where it is aligned, alignment MUST be away from the market (BUY down, SELL up). |
 | Price control | A limit order MUST NOT be dispatched with no price control at all. Where the board publishes `LOWLIMIT`/`HIGHLIMIT`, those absolute bounds govern. A percentage band is the caller's own risk policy and MUST be labelled as such, never as a MOEX rule. |
@@ -23,27 +23,32 @@ price limits all change; re-derive them rather than trusting this copy.
 
 ## Sanctions status — primary source
 
-**OFAC Specially Designated Nationals and Blocked Persons List**, downloaded
-2026-08-26 from
-<https://sanctionslistservice.ofac.treas.gov/api/download/sdn.csv>.
+**OFAC Specially Designated Nationals and Blocked Persons List**. Search it at
+<https://sanctionssearch.ofac.treas.gov/>; the machine-readable list is
+published under <https://sanctionslistservice.ofac.treas.gov/>. Record-level
+identifiers are deliberately not reproduced here — they go stale, nothing in
+`scripts/` consumes them, and a copied identifier invites treating this file as
+a screening result. It is not one: re-derive the position from the list itself.
 
-| SDN uid | Name | Programs |
-|---|---|---|
-| 46526 | MOSCOW EXCHANGE | `UKRAINE-EO13662`, `RUSSIA-EO14024` |
-| 46512 | NATIONAL CLEARING CENTER | `UKRAINE-EO13662`, `RUSSIA-EO14024` |
-| 37638 | NON-BANK CREDIT INSTITUTION JOINT STOCK COMPANY NATIONAL SETTLEMENT DEPOSITORY | `UKRAINE-EO13662`, `RUSSIA-EO14024` |
+Three entities central to a MOEX order path are designated:
 
-Each entry carries the remark "Secondary sanctions risk: See Section 11 of
-Executive Order 14024." and, in the alternative, "Ukraine-/Russia-Related
-Sanctions Regulations, 31 CFR 589.201 and/or 589.209". The MOSCOW EXCHANGE entry
-records Target Type "Financial Institution" and website `www.moex.com`; the
-NATIONAL CLEARING CENTER entry records SWIFT/BIC `NCCBRUMM`.
+| Entity | Role in a MOEX order path |
+|---|---|
+| Moscow Exchange | the venue |
+| National Clearing Center | MOEX's central counterparty — the clearing leg |
+| National Settlement Depository | the central securities depository — settlement |
 
-The three designations were made on **12 June 2024**. OFAC issued General
-License 99 (wind-down of transactions involving MOEX, NCC or NSD) and General
-License 100 (divestment / currency conversion) at designation; as amended, both
-authorised activity only through **12:01 a.m. EDT on 13 August 2024** and have
-expired.
+The designations were made on **12 June 2024** under E.O. 14024, and the entries
+carry a secondary-sanctions risk remark referencing Section 11 of that order,
+alternatively the Ukraine-/Russia-Related Sanctions Regulations at 31 CFR
+589.201 and/or 589.209. OFAC issued General License 99 (wind-down of
+transactions involving MOEX, NCC or NSD) and General License 100 (divestment /
+currency conversion) at designation; as amended, both authorised activity only
+through **12:01 a.m. EDT on 13 August 2024** and have expired.
+
+Because the central counterparty is itself designated, the clearing leg of an
+exchange trade is inside the block rather than adjacent to it. That is why the
+gate in `scripts/` sits in front of message construction and not beside it.
 
 MOEX suspended trading in instruments settling in US dollars and euros from
 **13 June 2024**, the day after designation.
@@ -73,7 +78,7 @@ specification's own wording:
 
 | Tag | Field | Req'd | Type | Specification text |
 |---|---|---|---|---|
-| 11 | ClOrdID | Y | String(20) | "Unique ID of cancel request as assigned by the institution." Messages 35=F and 35=G "will be rejected via the Reject message (35=3) if the ClOrdID field (11) of these messages starts with a hash (pound) symbol '#'. You can use '#' symbol in any position of this string, except the first one." |
+| 11 | ClOrdID | Y | String(20) | Caller-assigned unique identifier for **this order**. (The specification's "Unique ID of cancel request as assigned by the institution" wording belongs to the cancel and cancel/replace messages, not to 35=D; do not read it as licence to reuse a cancel's identifier here.) The leading-`#` restriction is stated on those cancel messages: 35=F and 35=G "will be rejected via the Reject message (35=3) if the ClOrdID field (11) of these messages starts with a hash (pound) symbol '#'. You can use '#' symbol in any position of this string, except the first one." An order whose ClOrdID starts with `#` is therefore uncancellable by client order ID. |
 | 386 | NoTradingSessions | Y\* | NumInGroup | "1 (one element) … TradingSessionIDs group should contain only one element of group. Note: tags 386 and 336 compose a group and should be placed exactly in the order 386, then 336, and not separated by other tags." |
 | 336 | TradingSessionID | Y\* | String(4) | "Identifier for Trading Session which contains MOEX security board (SECBOARD)." |
 | 55 | Symbol | Y | String(12) | "Ticker symbol. The MOEX internal instrument identifier, SecCode". The `<Instrument>` note adds: "FIX gateway checks that tags 336 and 55 combination points to existing security. If there is no match, the order is rejected with 'Unknown Security' error message." |
@@ -129,10 +134,10 @@ Board registry verified against <https://iss.moex.com/iss/index.json>
 
 ### Lot size, price step and decimals are per instrument
 
-From `https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json`
-(2026-08-26), 506 securities. `LOTSIZE` distribution: **1** (331 securities),
-**10** (80), **100** (45), **1,000** (27), **10,000** (19), **100,000** (3),
-**1,000,000** (1). Worked examples used in `scripts/`:
+From `https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json`.
+`LOTSIZE` on that one board spans the full range from 1 to 1,000,000, with no
+value common enough to serve as a default. Worked examples used in `scripts/`
+(2026-08-26):
 
 | SECID | LOTSIZE | MINSTEP | DECIMALS | CURRENCYID |
 |---|---|---|---|---|
@@ -160,13 +165,16 @@ Observed 2026-08-26:
 | SECID | PREVSETTLEPRICE | LOWLIMIT | HIGHLIMIT | Implied band |
 |---|---|---|---|---|
 | `92Q6` (AI92-8.26) | 73,960 | 70,240 | 77,680 | ±5.03% |
-| `A2U6` (ASML-9.26) | 1,743.9 | 1,548.70 | 1,939.10 | ±11.19% |
-| `BTU6` (BTC-9.26) | 79,294 | 70,505 | 88,083 | ±11.08% |
+| *(illustrative — not a real quote)* contract B | 1,000 | 890 | 1,110 | ±11% |
+| *(illustrative — not a real quote)* contract C | 1,000 | 950 | 1,050 | ±5% |
 
-Three instruments on one board, three different bands. **No fixed percentage
-reproduces the exchange's bounds**, which is why any percentage band in this
-skill is labelled a client-side policy and the published bounds are consumed as
-absolute numbers.
+The first row is the observed instrument the tests use; the two illustrative
+rows stand for what was seen alongside it — contracts on the same board on the
+same day whose implied bands differed by more than a factor of two. **No fixed
+percentage reproduces the exchange's bounds**, which is why any percentage band
+in this skill is labelled a client-side policy and the published bounds are
+consumed as absolute numbers. Re-read the live values rather than reusing any
+row above.
 
 ### A listed instrument is not necessarily a trading instrument
 
@@ -181,10 +189,9 @@ current `PREVDATE`:
 | `USD000000TOD` | 0 | null |
 | `EUR_RUB__TOM` | 0 | null |
 
-`USD000000TOD` — the instrument this skill previously used as its FX example —
-is still listed and carries a stale price with no trading activity, consistent
-with the June 2024 suspension of USD and EUR settlement instruments. Screen on
-activity, not on listing status.
+`USD000000TOD` is still listed and carries a stale price with no trading
+activity, consistent with the June 2024 suspension of USD and EUR settlement
+instruments. Screen on activity, not on listing status.
 
 ## ISO 10383 MIC
 

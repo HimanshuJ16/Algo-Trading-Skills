@@ -1,0 +1,4 @@
+# Normalise line endings in the repository so Windows and Linux contributors do not
+# churn files back and forth. Checkouts still follow each machine's core.autocrlf.
+* text=auto eol=lf
+*.png binary

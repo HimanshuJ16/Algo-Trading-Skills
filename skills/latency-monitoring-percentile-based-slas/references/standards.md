@@ -4,9 +4,9 @@
 
 **No regulator, exchange or standards body publishes a mandatory tick-to-trade latency
 SLA.** The `200 µs` P99 and `1,000 µs` P99.9 figures shipped as defaults in this module
-are engineering starting points, not requirements, and earlier revisions of this skill
-were wrong to present them in a "MUST" table. Latency budgets are set by each firm
-against its own venue, colocation, strategy and hardware.
+are engineering starting points, not requirements, and presenting them in a "MUST" table
+would be wrong. Latency budgets are set by each firm against its own venue, colocation,
+strategy and hardware.
 
 What *is* regulated is the **clock** the measurement depends on — and that constrains
 how tight an SLA you can credibly claim to have measured at all.

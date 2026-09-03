@@ -1,22 +1,17 @@
 ---
 name: adjusted-vs-unadjusted-price-series-pitfalls
-description: Audit historical OHLCV series and corporate-action metadata for split, dividend, adjustment-mode, and continuity errors before backtesting.
-  Separates raw price-return, split-adjusted, and total-return semantics; it does not infer point-in-time vendor provenance from prices alone.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- price-adjustment
-- stock-splits
-- dividends
-- data-integrity
-- look-ahead-bias
-brokers_frameworks:
-- Price Adjustment Auditor
-- Python
-version: "1.3.0"
-author: System
-license: MIT
+description: >-
+  Use before loading historical OHLCV into a backtest, to declare and verify the
+  adjustment mode; separates raw, split-adjusted and total-return conventions and
+  catches split, dividend and continuity errors in vendor adjustment factors.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, price-adjustment, stock-splits, dividends, data-integrity, look-ahead-bias
+  brokers_frameworks: Price Adjustment Auditor, Python
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

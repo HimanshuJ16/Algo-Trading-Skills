@@ -1,14 +1,17 @@
 ---
 name: execution-slippage-attribution-timing-vs-sizing
 description: >-
-  Post-trade TCA engine that splits the executed leg of Implementation Shortfall into timing/delay slippage (decision to arrival) and sizing/market-impact slippage (arrival to completion), names the larger adverse component, and flags partial fills whose opportunity cost is not measured here.
-domain: Execution Algorithms
-subdomain: Post-Trade Transaction Cost Analysis (TCA)
-tags: ["tca", "implementation-shortfall", "slippage-attribution", "timing-slippage", "sizing-slippage", "market-impact", "execution-benchmarking"]
-brokers_frameworks: ["Perold (1988) Implementation Shortfall", "Delay / Trading Cost Decomposition", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an order cost money and you need to know which half of the stack to fix,
+  splitting the executed leg of implementation shortfall into decision-to-arrival timing
+  cost and arrival-to-completion impact.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: tca, implementation-shortfall, slippage-attribution, timing-slippage, sizing-slippage, market-impact, execution-benchmarking
+  brokers_frameworks: "Perold (1988) Implementation Shortfall; Delay / Trading Cost Decomposition; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -95,5 +98,4 @@ It splits the executed leg of Implementation Shortfall into two additive compone
 - `implementation-shortfall-minimization` — the full Perold decomposition including opportunity cost and explicit fees.
 - `post-trade-execution-quality-scorecard`
 - `execution-algo-parameter-optimization-via-backtest`
-- `arrival-price-benchmark-execution-algo`
 - `transaction-cost-analysis-tca-integration`

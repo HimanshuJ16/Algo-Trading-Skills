@@ -61,7 +61,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - Read paths never create a buffer for an unseen symbol, so a monitoring loop over a
      rotating universe cannot grow manager state without bound.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Average-Rate Buffer Sizing:** Sizing buffers for average-day tick rates, causing massive drop rates during market volatility bursts.
 - **Unbounded Memory Buffers:** Making buffers unbounded to avoid data loss, converting backpressure into host Out-Of-Memory (OOM) crashes.

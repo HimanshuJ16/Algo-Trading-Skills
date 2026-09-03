@@ -1,14 +1,17 @@
 ---
 name: meta-strategy-signal-arbitration
 description: >-
-  Multi-strategy signal arbitration and internal order netting engine, resolving conflicting sub-strategy signals, enforcing risk-off vetoes, suppressing rebalancing churn, and preventing opposing internal orders from reaching the venue as self-matches.
-domain: Portfolio Multi Strategy
-subdomain: Signal Arbitration & Internal Order Netting
-tags: ["meta-strategy", "signal-arbitration", "internal-order-netting", "conflict-resolution", "risk-veto", "deadband-filter", "self-match-avoidance"]
-brokers_frameworks: ["Multi-Strategy Arbitrator", "Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when concurrent strategies emit conflicting signals on the same symbol, resolving
+  them into one intent with risk-off vetoes, churn suppression and prevention of
+  opposing internal orders reaching the market.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: meta-strategy, signal-arbitration, internal-order-netting, conflict-resolution, risk-veto, deadband-filter, self-match-avoidance
+  brokers_frameworks: "Multi-Strategy Arbitrator; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

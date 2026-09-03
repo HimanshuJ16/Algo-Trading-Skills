@@ -1,27 +1,17 @@
 ---
 name: secrets-rotation-without-bot-downtime
 description: >-
-  Use when a live trading bot must swap an exchange API key or database
-  credential without restarting — pre-swap validation, an atomic hot-swap under
-  a lock, a lease-gated overlap window so in-flight requests still land, a
-  fallback that is distinct from a validation refusal, and a revocation that
-  actually calls the venue and reports failure when it does not.
-domain: DevSecOps & High-Availability Operations
-subdomain: Zero-Downtime Secret Rotation
-tags:
-- secrets-rotation
-- zero-downtime
-- hot-swap
-- dual-credential-overlap
-- credential-revocation
-- thread-safety
-- bot-reliability
-brokers_frameworks:
-- Exchange REST API keys
-- HMAC-signed venue APIs
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a long-running trading process must swap an API key or database credential
+  without restarting: pre-swap validation, an atomic hot-swap under a lock, and a
+  lease-gated overlap for in-flight requests. Not for OAuth refresh tokens.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: secrets-rotation, zero-downtime, hot-swap, dual-credential-overlap, credential-revocation, thread-safety, bot-reliability
+  brokers_frameworks: "Exchange REST API keys; HMAC-signed venue APIs"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,32 +1,17 @@
 ---
 name: multi-party-computation-mpc-custody-solutions
 description: >-
-  Quorum authorisation gate for threshold-signature (MPC/TSS) custody: validates the
-  t-of-N shard roster, rejects out-of-roster and cloned-shard attestations, enforces
-  proactive-secret-sharing key epochs and failure-domain independence, and requires an
-  explicit CVE-2023-33241 / TSSHOCK hardening attestation before a CMP, GG18 or GG20
-  signing ceremony may start. It authorises ceremonies; it never produces a signature.
-domain: Crypto Custody Security
-subdomain: Threshold Cryptography & Multi-Party Computation Custody
-tags:
-- mpc
-- custody
-- threshold-signature
-- tss
-- cggmp21
-- gg18
-- proactive-secret-sharing
-- crypto-security
-brokers_frameworks:
-- CGGMP21 / CMP Threshold ECDSA (eprint 2021/060)
-- GG18 / GG20 Threshold ECDSA
-- CVE-2023-33241 (Paillier key vulnerability)
-- TSSHOCK (Verichains, Black Hat USA 2023)
-- NIST IR 8214C (Threshold Call)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a key is split across independent parties by a threshold signature scheme,
+  validating the t-of-N shard roster, rejecting out-of-roster or cloned attestations and
+  enforcing key epochs. It authorises; it does not sign.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: mpc, custody, threshold-signature, tss, cggmp21, gg18, proactive-secret-sharing, crypto-security
+  brokers_frameworks: "CGGMP21 / CMP Threshold ECDSA (eprint 2021/060); GG18 / GG20 Threshold ECDSA; CVE-2023-33241 (Paillier key vulnerability); TSSHOCK (Verichains, Black Hat USA 2023); NIST IR 8214C (Threshold Call); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,27 +1,17 @@
 ---
 name: cross-margining-across-asset-classes
-description: Quantitative multi-asset treasury module that estimates cross-margining
-  offsets across clearing houses (CME, OCC, FICC), the initial-margin reduction they
-  imply, and the resulting capital efficiency — for planning, not as a substitute
-  for the clearing house's own margin calculation.
-domain: Treasury & Clearing Operations
-subdomain: Portfolio & Cross Margining
-tags:
-- cross-margining
-- portfolio-margin
-- cme
-- occ
-- ficc
-- margin-offset
-- capital-efficiency
-brokers_frameworks:
-- CME SPAN 2
-- OCC STANS
-- ISDA SIMM (aggregation methodology)
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when correlated positions sit at different clearing houses and you want to
+  estimate the initial-margin offset and capital efficiency an approved cross-margining
+  arrangement would give. Not the clearing house's own number.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: cross-margining, portfolio-margin, cme, occ, ficc, margin-offset, capital-efficiency
+  brokers_frameworks: "CME SPAN 2; OCC STANS; ISDA SIMM (aggregation methodology); Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

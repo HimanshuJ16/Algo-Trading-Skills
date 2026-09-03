@@ -494,7 +494,7 @@ class TestRangeSequencedStreams(unittest.TestCase):
 
 
 class TestRegressionAgainstSilentFailures(unittest.TestCase):
-    """Each case here passed silently in the pre-2.0 implementation."""
+    """Each case here passed silently in a naive implementation."""
 
     def test_buffer_cannot_grow_past_the_configured_bound(self):
         detector = SequenceGapDetector(max_buffer_size=5)

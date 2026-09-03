@@ -1,14 +1,17 @@
 ---
 name: historical-order-book-reconstruction-from-message-logs
 description: >-
-  Replay raw Level 3 (market-by-order) message logs — Add, Cancel, Delete, Execute, Replace — into Level 2 aggregated price-level depth and BBO state, with explicit detection of the log gaps that silently corrupt a reconstructed book.
-domain: Data Management Global
-subdomain: Market Microstructure & Order Book Reconstruction
-tags: ["order-book", "level-3-itch", "level-2-depth", "message-reconstruction", "market-microstructure", "bbo", "book-integrity"]
-brokers_frameworks: ["Nasdaq TotalView-ITCH 5.0", "LOBSTER Academic Data", "CME MDP 3.0 Market by Order", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when the input is a market-by-order message log rather than aggregated depth,
+  replaying add, cancel, delete, execute and replace into price-level depth and best bid
+  and offer, with explicit gap detection.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: order-book, level-3-itch, level-2-depth, message-reconstruction, market-microstructure, bbo, book-integrity
+  brokers_frameworks: "Nasdaq TotalView-ITCH 5.0; LOBSTER Academic Data; CME MDP 3.0 Market by Order; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -69,7 +72,7 @@ The second job this skill does is **telling you when the reconstruction is wrong
 - **Fabricating an order out of a `REPLACE`.** Creating the replacement when the original is absent invents depth that never rested on the book — and the side cannot even be known, because the replace message does not carry it. A reported gap is strictly better than invented liquidity.
 - **Treating `CANCEL` as a full delete.** Conflating ITCH `X` with `D` removes an order that still had displayed size, deleting real depth at the touch.
 - **Getting the price scale wrong in either direction.** A price divided by the scale twice becomes sub-tick and is rejected; a raw wire integer passed straight through is *not* — `1000000` is the ITCH `Price (4)` encoding of $100.00 but reads as a perfectly plausible $1,000,000.00 book. Only an explicit `max_price` catches that direction.
-- **Using floats as price-level keys.** `102.4 + 0.7` is `103.10000000000001`, not `103.1`. Two orders genuinely quoted at the same tick then land in different dictionary buckets and split one price level in two — in a direct test of the previous implementation this reported 2 bid levels and a best-bid size of 10 where the correct answer was 1 level of 15, a 33% understatement of depth at the BBO. Prices are integers on the wire (`Price (4)`, "dollar price times 10000"); keep them integers internally.
+- **Using floats as price-level keys.** `102.4 + 0.7` is `103.10000000000001`, not `103.1`. Two orders genuinely quoted at the same tick then land in different dictionary buckets and split one price level in two — in a direct test, that reports 2 bid levels and a best-bid size of 10 where the correct answer is 1 level of 15, a 33% understatement of depth at the BBO. Prices are integers on the wire (`Price (4)`, "dollar price times 10000"); keep them integers internally.
 - **Accepting an unrecognised side.** `bid_map if side == "BUY" else ask_map` routes `"B"`, `"Buy "`, `""` and every typo onto the ask book, manufacturing a crossed book out of a single well-formed order.
 - **Carrying an unused timestamp field.** L3 replay is order-dependent; a `timestamp_nanos` field that nothing ever reads gives a false impression that ordering is being checked. Note that *equal* timestamps are legal — multiple ITCH messages share a nanosecond — so only a strict regression is an error.
 - **Rebuilding the whole book on every snapshot.** Re-aggregating all live orders per snapshot is O(N) per message, so tick-by-tick replay degrades to O(N·M) — the same complexity blow-up that an unindexed order lookup causes, just moved to the snapshot path. Measured on a 20,000-order book with a snapshot after every message: 52.7s rebuilding versus 0.68s maintaining the aggregation incrementally.

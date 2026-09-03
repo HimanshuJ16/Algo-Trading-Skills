@@ -1,21 +1,18 @@
 ---
 name: capital-gains-vs-business-income-classification
-description: Jurisdiction-aware post-trade tax classification engine that sorts closed
-  trades into capital gains versus business income under Indian (s.43(5), s.2(42A)),
-  US (IRC s.1222, s.475(f), s.1256) and Canadian (ITA s.39(4), IT-479R, IT-346R) rules.
-domain: Back-Office
-subdomain: Taxation & Compliance
-tags:
-- tax
-- capital-gains
-- business-income
-- speculative
-- classification
-brokers_frameworks:
-- Generic Post-Trade
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when sorting a year of closed trades into the tax buckets one authority actually
+  recognises, under Indian s.43(5) and s.2(42A), US IRC s.1222, s.475(f) and s.1256, or
+  the Canadian tests. The categories differ by jurisdiction, so there is no generic
+  mode.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: tax, capital-gains, business-income, speculative, classification
+  brokers_frameworks: Generic Post-Trade
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

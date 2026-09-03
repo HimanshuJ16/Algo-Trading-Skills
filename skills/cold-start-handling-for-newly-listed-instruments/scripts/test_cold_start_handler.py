@@ -119,7 +119,7 @@ class TestDegreesOfFreedomBoundary(unittest.TestCase):
         self.assertFalse(status.used_observed_volatility)
 
     def test_nan_sample_is_ignored_below_two_observations(self):
-        # Regression: the pre-2.0 handler computed 0.0 * nan == nan here and emitted a
+        # Regression: a naive handler computed 0.0 * nan == nan here and emitted a
         # NaN volatility into the sizer. A caller with no returns yet has no sample vol
         # to report, and NaN is how that arrives in practice.
         for supplied in (float("nan"), None, 0.0):

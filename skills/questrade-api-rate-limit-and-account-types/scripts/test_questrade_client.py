@@ -188,13 +188,13 @@ class TestOAuthRotation(unittest.TestCase):
     def test_refresh_token_is_percent_encoded(self):
         """Questrade tokens contain '+' and '/'; a raw '+' decodes to a space."""
         client, transport, _ = build_client()
-        client.refresh_access_token("p4VTj45GhS8lY7aFoKDNZxB8yQHMOr+f/x")
+        client.refresh_access_token("p4VTj45GhS8lY7aFoKDNZxB8yQHMOr+f/x")  # fake fixture  # gitleaks:allow
         url = transport.calls[0][1]
         self.assertIn("refresh_token=p4VTj45GhS8lY7aFoKDNZxB8yQHMOr%2Bf%2Fx", url)
         self.assertNotIn("+f/x", url)
 
     def test_post_mode_keeps_the_secret_out_of_the_url(self):
-        secret = "p4VTj45GhS8lY7aFoKDNZxB8yQHMOr+f"
+        secret = "p4VTj45GhS8lY7aFoKDNZxB8yQHMOr+f"  # fake fixture, not a credential  # gitleaks:allow
         client, transport, _ = build_client(token_request_method="POST")
         client.refresh_access_token(secret)
         method, url, headers, body = transport.calls[0]

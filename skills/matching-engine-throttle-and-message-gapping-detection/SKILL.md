@@ -1,19 +1,17 @@
 ---
 name: matching-engine-throttle-and-message-gapping-detection
 description: >-
-  Use when a bot submits orders over an exchange order-entry session and must not be
-  rejected or disconnected for exceeding the venue's message-rate limit, and must detect
-  inbound sequence gaps so lost execution reports are retransmit-requested rather than
-  silently missed. Peak-window rate counting, per-session sequence state that holds a gap
-  open until it is actually filled, and explicit handling of the low-sequence-number
-  regression the FIX session layer requires a logout for.
-domain: Market Microstructure Latency
-subdomain: Exchange Protocol Reliability & Session Governance
-tags: ["matching-engine", "throttle-detection", "sequence-gapping", "cme-ilink3", "fixp", "nasdaq-ouch", "moldudp64", "retransmit-request", "rate-limiting", "session-recovery", "possdup"]
-brokers_frameworks: ["CME iLink 3 (FIXP)", "FIX 4.2/4.4 Session Layer", "Nasdaq OUCH / SoupBinTCP", "Nasdaq MoldUDP64 / ITCH", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an order-entry session is counted against a venue message-rate limit and
+  carries a session sequence number, pacing dispatch below the throttle and detecting
+  inbound gaps before they become a disconnect.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: matching-engine, throttle-detection, sequence-gapping, cme-ilink3, fixp, nasdaq-ouch, moldudp64, retransmit-request, rate-limiting, session-recovery, possdup
+  brokers_frameworks: "CME iLink 3 (FIXP); FIX 4.2/4.4 Session Layer; Nasdaq OUCH / SoupBinTCP; Nasdaq MoldUDP64 / ITCH; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -230,6 +228,6 @@ bounds** — a rate landing exactly on the limit takes the more conservative bra
 - `broker-side-order-throttle-detection`
 - `sequence-number-gap-detection-for-feeds`
 - `order-to-trade-ratio-fee-penalty-avoidance`
-- `cme-group-fix-api-for-futures`
+- `cme-stp-fix-and-ilink2-tag-value-encoding`
 - `fix-protocol-session-management-across-venues`
 - `websocket-reconnection-with-state-recovery`

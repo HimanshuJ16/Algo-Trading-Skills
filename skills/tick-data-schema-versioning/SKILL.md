@@ -1,32 +1,17 @@
 ---
 name: tick-data-schema-versioning
 description: >-
-  Use when an internal tick schema changes while consumers are deployed at
-  mixed versions — attach an explicit schema_version envelope, run chained
-  upgrade/downgrade adapters between versions, and surface per-field
-  provenance so a consumer can tell a published quote from one the migration
-  synthesized. Covers rollout ordering (consumers-first vs producers-first),
-  unknown-field preservation across intermediate hops, and refusing an
-  unversioned or non-conforming payload instead of fabricating a tick.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- schema-versioning
-- migration-adapters
-- backward-compatibility
-- forward-compatibility
-- event-schema
-- serialization
-brokers_frameworks:
-- Confluent Schema Registry
-- Apache Avro
-- Protocol Buffers
-- FIX Simple Binary Encoding (SBE)
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an internal tick schema changes while consumers run at mixed versions. Stamps
+  a schema_version envelope, chains upgrade and downgrade adapters, and marks the fields
+  a migration synthesised rather than received.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, schema-versioning, migration-adapters, backward-compatibility, forward-compatibility, event-schema, serialization
+  brokers_frameworks: "Confluent Schema Registry; Apache Avro; Protocol Buffers; FIX Simple Binary Encoding (SBE); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

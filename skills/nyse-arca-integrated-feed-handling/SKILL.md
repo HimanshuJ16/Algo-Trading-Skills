@@ -1,14 +1,17 @@
 ---
 name: nyse-arca-integrated-feed-handling
 description: >-
-  NYSE Arca Integrated Feed (XDP/Pillar) binary decoder for Add Order (100), Modify Order (101), Delete Order (102), Order Execution (103), Replace Order (104), and Add Order Refresh (106) messages, with per-symbol PriceScaleCode handling, sequence-gap detection, and L3 order book reconstruction.
-domain: Market Microstructure & Latency
-subdomain: Binary Feed Parsing & L3 Order Book Reconstruction
-tags: ["nyse-arca", "xdp-protocol", "pillar", "integrated-feed", "binary-feed", "l3-order-book", "little-endian", "sequence-gap-detection"]
-brokers_frameworks: ["NYSE Pillar Integrated Feed Client Specification v2.5", "NYSE Pillar Equities Common Client Specification v2.4k", "Python Struct Binary Unpacking", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when decoding the NYSE Arca and Pillar Integrated Feed over XDP to maintain a
+  per-order book, tracking each resting order by matching-engine order id through add,
+  modify, delete, execute and replace messages.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: nyse-arca, xdp-protocol, pillar, integrated-feed, binary-feed, l3-order-book, little-endian, sequence-gap-detection
+  brokers_frameworks: "NYSE Pillar Integrated Feed Client Specification v2.5; NYSE Pillar Equities Common Client Specification v2.4k; Python Struct Binary Unpacking; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

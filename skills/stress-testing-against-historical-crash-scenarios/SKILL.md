@@ -1,25 +1,17 @@
 ---
 name: stress-testing-against-historical-crash-scenarios
 description: >-
-  Use when replaying a live portfolio's current positions against per-symbol historical
-  crash return shocks (2020 COVID crash, 2008 GFC, 2015 flash crash, or your own replays)
-  to quantify tail-risk P&L, report which positions the replay never reached, and gate new
-  entries on a stressed-loss threshold.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- stress-testing
-- crash-scenarios
-- tail-risk
-- drawdown-analysis
-- scenario-coverage
-brokers_frameworks:
-- Custom Risk Engine
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when replaying the positions you hold right now against per-symbol historical
+  crash returns such as 2008, 2020 or a flash crash, to quantify tail P&L. Factor-mapped
+  shocks with betas are scenario-based-stress-testing-custom-shocks.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, stress-testing, crash-scenarios, tail-risk, drawdown-analysis, scenario-coverage
+  brokers_frameworks: "Custom Risk Engine; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,28 +1,17 @@
 ---
 name: broker-api-deprecation-notice-monitoring
-description: Use when building production broker adapters to detect impending API endpoint
-  retirements — parsing RFC 8594 Sunset headers, RFC 9745 Deprecation headers, RFC 8288
-  sunset/deprecation Link relations, and developer changelog feeds — so ops teams get a
-  dated migration deadline before a live trading bot starts calling an endpoint that no
-  longer answers.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- deprecation-monitoring
-- sunset-headers
-- rfc-8594
-- rfc-9745
-- changelog-parser
-- api-maintenance
-brokers_frameworks:
-- RFC 8594 (Sunset header)
-- RFC 9745 (Deprecation header)
-- RFC 8288 (Web Linking)
-- Python Requests
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a long-running bot calls REST endpoints a broker may retire; parses RFC 8594
+  Sunset and RFC 9745 Deprecation headers plus changelog feeds into one dated migration
+  deadline with an escalation tier.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, deprecation-monitoring, sunset-headers, rfc-8594, rfc-9745, changelog-parser, api-maintenance
+  brokers_frameworks: "RFC 8594 (Sunset header); RFC 9745 (Deprecation header); RFC 8288 (Web Linking); Python Requests"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

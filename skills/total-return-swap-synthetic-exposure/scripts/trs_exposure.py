@@ -98,7 +98,7 @@ class TRSModelError(ValueError):
     """Raised for a TRS contract, reset period or dividend input that cannot be priced."""
 
 
-# Backwards-compatible alias for the pre-2.0 exception name.
+# Backwards-compatible alias for an earlier exception name.
 DERIVATIVES_ERROR = TRSModelError
 
 

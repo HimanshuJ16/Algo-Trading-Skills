@@ -1,14 +1,17 @@
 ---
 name: shanghai-shenzhen-connect-programs
 description: >-
-  Northbound Stock Connect order gate for SSE and SZSE Securities, enforcing the RMB 52 billion per-channel Daily Quota on its published net-buy formula, SEHK pre-trade checking (the mechanism behind the T+1 no-day-trading rule), per-board lot and order-size limits including the STAR exception, price limits, tick size, and the 28%/26% foreign shareholding suspension.
-domain: Global Exchange Connectivity & Cross-Border Trading
-subdomain: China Stock Connect & Northbound Trading
-tags: ["stock-connect", "shanghai-connect", "shenzhen-connect", "northbound-trading", "daily-quota", "pre-trade-checking", "a-shares", "hkex"]
-brokers_frameworks: ["HKEX Stock Connect Rules", "SSE / SZSE Trading Rules", "CCASS / SPSA", "Python Dataclasses", "Python Decimal"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when routing Northbound orders into Shanghai or Shenzhen A-shares through Stock
+  Connect, enforcing the per-channel daily quota on its published net-buy formula and
+  the SEHK pre-trade checking that backs the no-naked-short rule.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: stock-connect, shanghai-connect, shenzhen-connect, northbound-trading, daily-quota, pre-trade-checking, a-shares, hkex
+  brokers_frameworks: "HKEX Stock Connect Rules; SSE / SZSE Trading Rules; CCASS / SPSA; Python Dataclasses; Python Decimal"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

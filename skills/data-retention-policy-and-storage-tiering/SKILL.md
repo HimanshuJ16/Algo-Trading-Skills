@@ -1,26 +1,17 @@
 ---
 name: data-retention-policy-and-storage-tiering
-description: Storage tiering and retention engine that moves market data (L2/L3
-  ticks, Parquet backtests, trade logs) across HOT (NVMe), WARM (S3), COLD (Glacier
-  Instant Retrieval) and DEEP ARCHIVE tiers without recommending deletion of
-  records still inside their retention period.
-domain: Data Management Global
-subdomain: Storage Optimization & Retention
-tags:
-- data-retention
-- storage-tiering
-- hot-warm-cold
-- s3-glacier
-- parquet-compaction
-- cost-optimization
-- sec-17a-4
-brokers_frameworks:
-- AWS S3 Lifecycle
-- Glacier Deep Archive
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when planning the lifecycle that moves tick archives, backtest outputs and trade
+  logs across hot, warm, cold and deep-archive tiers, without deleting anything a
+  retention rule still requires.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: data-retention, storage-tiering, hot-warm-cold, s3-glacier, parquet-compaction, cost-optimization, sec-17a-4
+  brokers_frameworks: "AWS S3 Lifecycle; Glacier Deep Archive; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

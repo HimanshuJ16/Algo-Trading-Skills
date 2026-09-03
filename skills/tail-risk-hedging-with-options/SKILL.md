@@ -1,19 +1,17 @@
 ---
 name: tail-risk-hedging-with-options
 description: >-
-  Use when sizing a systematic out-of-the-money index put overlay against a
-  stated annual premium budget. Prices the put with Black-Scholes (including
-  dividend yield), returns Delta, Gamma, Vega and Theta, spreads the annual carry
-  budget across the roll cycle instead of spending it on every tranche, caps
-  hedged notional at portfolio notional, and reports crash payoffs net of premium
-  paid. Requires the selected strike's own implied volatility, not ATM vol.
-domain: risk-management
-subdomain: tail-risk
-tags: [options-hedging, tail-risk, otm-puts, black-scholes, convex-payoff, carry-budget, volatility-skew, roll-cycle]
-brokers_frameworks: ["Python Standard Library (math)", "Python Dataclasses", "Black-Scholes-Merton", "CBOE SPX Index Options", "OCC Equity Options"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when converting a stated annual premium budget into a contract count for a rolling
+  out-of-the-money index put overlay, with Black-Scholes Greeks and the honest annual
+  drag across rolls.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: options-hedging, tail-risk, otm-puts, black-scholes, convex-payoff, carry-budget, volatility-skew, roll-cycle
+  brokers_frameworks: "Python Standard Library (math); Python Dataclasses; Black-Scholes-Merton; CBOE SPX Index Options; OCC Equity Options"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Tail Risk Hedging With Options

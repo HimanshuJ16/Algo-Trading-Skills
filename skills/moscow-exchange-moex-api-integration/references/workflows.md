@@ -39,6 +39,29 @@ your own policy sets a cadence — no public rule fixes one, and this skill will
 not invent a number for you. When you do set it, pass `as_of` on every call so
 the result is reproducible from the inputs.
 
+### Prove the gate is closed, not just present
+
+The gate is the deliverable, so test it the way you would test a lock rather
+than a feature. Three states must all end the same way — no fields built:
+
+| Attestation state | How it is expressed | Expected outcome |
+|---|---|---|
+| **Missing** | `MOEXSessionConfig(account=...)` with no `sanctions_screening` (the default) | `MOEX_SANCTIONS_GATE_NOT_CLEARED`, `ready_to_send=False`, `fix_fields == []` |
+| **Revoked** | `SanctionsScreening(cleared=False)` | the same |
+| **Expired** | a cleared screening older than `max_screening_age_days` at `as_of` | the same |
+
+Assert this on *every* order path you support — LIMIT and MARKET, each board,
+and an order that is independently invalid — not only on the happy-path order.
+An order carrying a second defect must still report the sanctions status: if a
+later check can answer first, the gate has become one refusal among many rather
+than the precondition for reaching them. `scripts/` holds these cases in
+`TestSanctionsGate` and `TestSanctionsGateFailsClosedOnEveryPath`; run
+`python -m unittest discover -s skills/moscow-exchange-moex-api-integration/scripts`.
+
+Everything in sections 1 to 8 below is venue protocol detail that only ever
+executes behind an open gate. It is documented so the adapter can be reviewed,
+not so it can be reached faster.
+
 ## 1. Resolve the board, and confirm the interface serves it
 
 | Board | Engine / Market | Trading system | Served by ASTS MFIX? |
@@ -132,9 +155,10 @@ A BUY rounds down and a SELL rounds up, so alignment can only make the order
 less aggressive. Rounding to nearest would push a buy *up* into the market.
 
 **Band.** Prefer the Exchange-published `LOWLIMIT`/`HIGHLIMIT` where the board
-publishes them; they are absolute per-instrument numbers, not a percentage. On
-RFUD on 2026-08-26 the implied bands ran from ±5.03% (`92Q6`) to ±11.19%
-(`A2U6`) — one constant is wrong for all but one instrument.
+publishes them; they are absolute per-instrument numbers, not a percentage.
+Implied bands on a single FORTS board on a single day differ by more than a
+factor of two between contracts, so one constant is wrong for all but one
+instrument.
 
 Where no band is published, declare your own and know what it is:
 

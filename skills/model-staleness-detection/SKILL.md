@@ -1,24 +1,17 @@
 ---
 name: model-staleness-detection
-description: Use when an ML signal model is already live and needs continuous
-  health monitoring - rolling realised accuracy with a confidence bound, binned
-  PSI feature-distribution drift against the training baseline, and an explicit
-  staleness threshold that reduces or halts the signal's position sizing -
-  rather than being trusted indefinitely after its deployment-time validation
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- model-monitoring
-- model-decay
-- psi
-- feature-drift
-- position-sizing
-brokers_frameworks:
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an ML signal model is already live and needs continuous health monitoring:
+  rolling realised accuracy with a confidence bound, binned PSI feature drift against
+  the training baseline, and a sizing multiplier that decays as it degrades.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, model-monitoring, model-decay, psi, feature-drift, position-sizing
+  brokers_frameworks: Python Standard Library
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -90,7 +83,7 @@ python -m unittest discover -s skills/model-staleness-detection/scripts
 
 - **PSI against hand-derived proportions** — a 100-value reference over 10 bins puts exactly 0.1 in each bin (asserted separately); relocating all current mass into the top bin gives a closed-form PSI of **8.283089**, independent of the module's binner.
 - **Low-cardinality bin collapse** — a 95/5 indicator flipping to 50/50, expected **1.324998** from the two-bin proportions; a naive quantile binner returns 0.0.
-- **Gaussian baseline** — with mean/std only, PSI has the closed form `z**2`; at `z = 2` the expected value is **4.0** (the previous implementation reported 2.0, the one-directional KL).
+- **Gaussian baseline** — with mean/std only, PSI has the closed form `z**2`; at `z = 2` the expected value is **4.0** (a one-directional KL reports 2.0 instead).
 - **Wilson bounds** — 33/60 gives 0.444482, 140/250 gives 0.507992, and 10/10 gives 0.787058 rather than a zero-width interval.
 - **Regressions for every pitfall above**: empty window reported as perfect accuracy, cold start reported as HEALTHY, a single breach halting, variance-only drift missed, NaN reported as clean, an empty live batch reported as clean, an unregistered feature scored against an implicit standard-normal baseline, a constant training baseline scored, `psi_halt_threshold` accepted but never read, `window=0` silently discarding every outcome, alerts re-firing every evaluation.
 - **Boundaries** — accuracy exactly at the threshold (not a breach), PSI exactly at the halt threshold (halt), the breach streak resetting on recovery, and the hold-down before full size is restored.

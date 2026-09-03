@@ -1,5 +1,5 @@
 """
-websocket-reconnect-without-duplicate-subscriptions: desired-state subscription
+websocket-subscription-reconciliation-after-reconnect: desired-state subscription
 manager for market-data WebSockets.
 
 Provides:

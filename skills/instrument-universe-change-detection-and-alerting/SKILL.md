@@ -1,14 +1,17 @@
 ---
 name: instrument-universe-change-detection-and-alerting
 description: >-
-  Reference data engine that diffs daily tradable-universe snapshots keyed on permanent identifiers (FIGI / ISIN) to detect additions, delistings, ticker renames, venue migrations and trading-status transitions, with a churn guard that stops a truncated vendor file being actioned as a mass liquidation.
-domain: Data Management Global
-subdomain: Reference Data Universe Tracking & Alerting
-tags: ["universe-detection", "security-master", "openfigi", "isin", "ticker-renames", "delistings", "reference-data"]
-brokers_frameworks: ["OpenFIGI API", "Security Master Database", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when diffing daily tradable-universe snapshots on permanent identifiers rather
+  than tickers, to catch additions, delistings, renames such as FB to META, venue
+  migrations and trading-status transitions.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: universe-detection, security-master, openfigi, isin, ticker-renames, delistings, reference-data
+  brokers_frameworks: "OpenFIGI API; Security Master Database; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

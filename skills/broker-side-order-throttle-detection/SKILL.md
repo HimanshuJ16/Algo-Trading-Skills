@@ -1,27 +1,17 @@
 ---
 name: broker-side-order-throttle-detection
-description: Use when a bot's broker does not signal congestion explicitly, to detect
-  undeclared broker-side order throttling from acknowledgment round-trip latency (ACK
-  RTT) using an exponentially weighted mean and variance baseline plus an acknowledgment
-  timeout sweep, and to pace order dispatch with AIMD backoff.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- order-throttle
-- latency-monitoring
-- ack-rtt
-- silent-throttling
-- aimd-backoff
-- ewma-anomaly-detection
-brokers_frameworks:
-- Interactive Brokers TWS API
-- Interactive Brokers Web API
-- Binance Spot REST API
-- Python High-Frequency Engine
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a venue queues excess order messages instead of rejecting them, so congestion
+  shows up only as acknowledgement latency. Detects undeclared throttling from an EWMA
+  ACK round-trip baseline and paces dispatch with AIMD backoff.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, order-throttle, latency-monitoring, ack-rtt, silent-throttling, aimd-backoff, ewma-anomaly-detection
+  brokers_frameworks: "Interactive Brokers TWS API; Interactive Brokers Web API; Binance Spot REST API; Python High-Frequency Engine"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

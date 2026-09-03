@@ -1,20 +1,18 @@
 ---
 name: best-execution-record-keeping-global
-description: Rigorous compliance controls for global best execution and audit-proof
-  record keeping in quantitative trading.
-domain: regulatory-compliance-global
-subdomain: regulatory
-tags:
-- compliance
-- risk
-- regulatory
-- best-execution
-- audit
-brokers_frameworks:
-- any
-version: "2.1.0"
-author: skill-builder
-license: MIT
+description: >-
+  Use when execution quality must be screened against a benchmark and every screening
+  decision retained as tamper-evident evidence under MiFID II Article 27 and FINRA Rule
+  5310. A screen that flags outliers, not a determination that best execution was
+  achieved.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: compliance, risk, regulatory, best-execution, audit
+  brokers_frameworks: any
+  version: "2.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,26 +1,17 @@
 ---
 name: tick-to-trade-latency-measurement
 description: >-
-  Wire-to-wire tick-to-trade (T0->T5) latency measurement for HFT and market-making pipelines: six hardware/software capture points decomposed into five correctly-labelled stages, HdrHistogram nearest-rank percentiles, a sample-count resolution gate that refuses to approve a tail it cannot measure, and tail attribution that names the stage which actually produced the P99 instead of summing per-stage percentiles that do not add up.
-domain: Market Microstructure
-subdomain: Ultra-Low Latency & High-Frequency Trading
-tags:
-- latency
-- tick-to-trade
-- hft
-- low-latency
-- ptp-clock-sync
-- hardware-timestamping
-- percentile-sla
-- tail-attribution
-brokers_frameworks:
-- HdrHistogram (nearest-rank semantics)
-- Linux SO_TIMESTAMPING / PTP hardware clock
-- CLOCK_MONOTONIC_RAW
-- Python Dataclasses
-version: "2.0.0"
-author: Quant Engineering
-license: MIT
+  Use when measuring how long your own box takes to turn a tick into an order on the
+  wire, decomposing six capture points into five labelled stages with nearest-rank
+  percentiles. Never run it on the hot path.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: latency, tick-to-trade, hft, low-latency, ptp-clock-sync, hardware-timestamping, percentile-sla, tail-attribution
+  brokers_frameworks: "HdrHistogram (nearest-rank semantics); Linux SO_TIMESTAMPING / PTP hardware clock; CLOCK_MONOTONIC_RAW; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

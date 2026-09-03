@@ -1,25 +1,17 @@
 ---
 name: currency-gain-loss-tax-treatment-for-forex-trading
-description: US federal tax characterization model for forex trading gains and losses
-  — IRC Section 988 ordinary treatment, the Section 988(a)(1)(B) capital election, and
-  Section 1256 60/40 treatment including the Section 1212(c) loss carryback.
-domain: Tax Accounting & Global Reporting
-subdomain: Forex Tax Accounting
-tags:
-- forex-tax
-- section-988
-- section-1256
-- 60-40-rule
-- ordinary-income
-- currency-gains
-- opt-out-election
-brokers_frameworks:
-- IRS Form 6781
-- IRS Form 1040 Schedule D
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when estimating US federal tax on a currency trading book and comparing the two
+  characterisations available: IRC 988 ordinary treatment as the default, the
+  988(a)(1)(B) capital election, and Section 1256 60/40 treatment.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: forex-tax, section-988, section-1256, 60-40-rule, ordinary-income, currency-gains, opt-out-election
+  brokers_frameworks: "IRS Form 6781; IRS Form 1040 Schedule D; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 > **NOT TAX ADVICE.** This skill models **US federal** income tax only, as an estimator for planning and record-keeping. Engage a qualified tax professional before making or relying on any election. Statutory citations are to the Internal Revenue Code (26 U.S.C.) and Treasury Regulations (26 C.F.R.).

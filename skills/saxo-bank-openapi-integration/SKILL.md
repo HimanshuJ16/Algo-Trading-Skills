@@ -1,14 +1,17 @@
 ---
 name: saxo-bank-openapi-integration
 description: >-
-  Production-grade client for Saxo Bank OpenAPI covering multi-asset UIC instrument resolution, order routing (FX Spot, Equities, Futures, Options), and portfolio position tracking across simulation and live environments.
-domain: Broker Integration & Connectivity
-subdomain: Multi-Asset OpenAPI Connectivity
-tags: ["saxo-bank", "openapi", "multi-asset", "fx-spot", "options-trading", "uic-resolution"]
-brokers_frameworks: ["Saxo Bank OpenAPI REST", "OAuth2 Bearer Token", "Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when routing multi-asset orders through Saxo Bank OpenAPI, which identifies
+  instruments by numeric UIC and requires an explicit AssetType on every order payload.
+  Covers FX spot, equities, futures and options across simulation and live.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: saxo-bank, openapi, multi-asset, fx-spot, options-trading, uic-resolution
+  brokers_frameworks: "Saxo Bank OpenAPI REST; OAuth2 Bearer Token; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

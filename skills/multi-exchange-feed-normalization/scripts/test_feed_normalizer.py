@@ -6,7 +6,7 @@ Expected timestamp values are computed from an independent source (an explicit
 than by re-running the module's own coercion, so a wrong coercion fails instead
 of agreeing with itself.
 
-Several tests are regression tests for defects that the pre-2.0 implementation
+Several tests are regression tests for defects that a naive implementation
 had, and are marked ``REGRESSION``: each one fails against the old behaviour and
 passes against the fix.
 """

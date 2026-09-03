@@ -260,7 +260,7 @@ class DeveloperCredentials:
 
     @property
     def sie_satisfied(self) -> bool:
-        """SIE met by examination or by pre-1 Oct 2018 grandfathering."""
+        """SIE met by examination or by older Oct 2018 grandfathering."""
         return bool(self.is_sie_active or self.is_sie_grandfathered)
 
     @property

@@ -116,7 +116,7 @@ that forgot to check `is_crossed`.
 `integrity_violation_count == 0` is the condition for a clean replay. No exception raised
 means only that no update was malformed.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Epsilon-clamped denominators.** `max(V_bid + V_ask, 1e-5)` reads as a
   division-by-zero guard and behaves as a rescaling whenever total volume is small. A

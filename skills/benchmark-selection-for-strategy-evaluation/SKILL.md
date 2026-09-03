@@ -1,19 +1,17 @@
 ---
 name: benchmark-selection-for-strategy-evaluation
-description: Choosing an appropriate benchmark against which to evaluate a strategy's
-  risk-adjusted performance.
-domain: Backtesting
-subdomain: Evaluation
-tags:
-- backtesting
-- benchmark
-- evaluation
-- metrics
-brokers_frameworks:
-- NumPy
-version: "1.1.0"
-author: System
-license: MIT
+description: >-
+  Use when choosing which index to evaluate a strategy against, before any attribution
+  runs; screens candidate benchmarks by tracking error, beta and R-squared so a
+  tech-heavy book is not flattered by a broad index or a cash rate.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting, benchmark, evaluation, metrics
+  brokers_frameworks: NumPy
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Benchmark Selection for Strategy Evaluation
@@ -69,5 +67,4 @@ Use this skill when evaluating a new strategy. Selecting the right benchmark is 
 - `backtest-reporting-standardized-tearsheet`
 - `benchmark-relative-performance-attribution`
 - `strategy-performance-attribution-vs-market-beta`
-- `benchmark-portfolio-for-multi-strategy-performance-context`
 - `risk-adjusted-performance-attribution-per-strategy`

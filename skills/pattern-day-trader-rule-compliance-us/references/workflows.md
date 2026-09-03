@@ -159,7 +159,7 @@ This is *your* estimate. The member may apply sweep-balance, market-value, "as
 of" and simultaneity policies under Rule 4210(d)(2)(B), and must assume the
 worst-case ordering where sequence cannot be demonstrated.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Regime confusion.** Blocking a trade "because FINRA requires $25,000" after
   2026-06-04, or unblocking everything because "the PDT rule is gone" while the

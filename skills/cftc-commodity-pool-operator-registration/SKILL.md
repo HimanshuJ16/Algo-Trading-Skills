@@ -1,23 +1,17 @@
 ---
 name: cftc-commodity-pool-operator-registration
-description: Pre-trade gate that evaluates a proposed commodity interest position
-  against the two quantitative trading tests of the CFTC Rule 4.13(a)(3) de minimis
-  exemption from Commodity Pool Operator registration.
-domain: Compliance & Regulation
-subdomain: US Regulatory
-tags:
-- cftc
-- cpo
-- de-minimis
-- margin
-- futures
-- compliance
-brokers_frameworks:
-- CFTC
-- NFA
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a US commodity pool relies on the 17 CFR 4.13(a)(3) de minimis exemption from
+  Commodity Pool Operator registration, to test a proposed commodity interest position
+  against the initial-margin and net-notional trading tests before it is taken.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: cftc, cpo, de-minimis, margin, futures, compliance
+  brokers_frameworks: "CFTC; NFA"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

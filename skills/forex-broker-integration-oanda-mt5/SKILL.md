@@ -1,21 +1,17 @@
 ---
 name: forex-broker-integration-oanda-mt5
-description: Use when integrating a forex broker (OANDA's REST/streaming API, or MetaTrader
-  5 for brokers that only expose an MT5 terminal) where pip-based pricing, rollover/swap
-  charges, and MT5's non-Python-native environment introduce integration patterns
-  distinct from equities brokers
-domain: algorithmic-trading
-subdomain: global-market-integration
-tags:
-- global-market-integration
-- oanda-v20-rest-api
-- metatrader-5-python-integration
-brokers_frameworks:
-- OANDA v20 REST API
-- MetaTrader 5 Python integration
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when integrating a forex broker where pip pricing, rollover and swap charges
+  apply, over either an OANDA-style REST and streaming API or a MetaTrader 5 terminal.
+  The MT5 order-submission path itself is mt5-python-bridge-for-forex-bots.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: global-market-integration, oanda-v20-rest-api, metatrader-5-python-integration
+  brokers_frameworks: "OANDA v20 REST API; MetaTrader 5 Python integration"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -39,7 +35,7 @@ Invoke this when building a bot against a forex-specific broker interface. Two c
 
 1. For OANDA-style REST+streaming APIs, treat the practice and live environments as entirely separate deployments (different base URLs, different API tokens, different account IDs) rather than a config flag on a shared client — this mirrors the archetype-separation concern in `headless-broker-auth-patterns` but is specific to forex brokers that commonly offer a full-featured practice environment which can be mistaken for a lower-stakes live-adjacent mode.
 2. For MT5-based brokers, run the bridge (Python's `MetaTrader5` package, or a broker-provided gateway) on the same host/VM as a continuously logged-in MT5 terminal instance, and monitor the terminal connection state independently from the Python process's own health — a Python process can be alive and "working" while the underlying MT5 terminal has silently lost its broker connection, producing stale or absent data with no Python-level exception.
-3. Handle the weekly market close/open explicitly: forex markets close Friday evening and reopen Sunday evening (in broker-server time, which varies by broker), unlike equities' daily close — any risk/P&L reset logic or position-monitoring cadence tuned for a daily equities session will misbehave across this weekly gap unless explicitly adapted (mirrors the same category of gap-handling concern as in `websocket-reconnect-without-duplicate-subscriptions`, but on a much longer, calendar-predictable timescale). Resolve that boundary through a timezone database against the broker's stated server timezone rather than storing it as a UTC constant — the common 17:00 America/New_York convention is 21:00 UTC under US daylight saving and 22:00 UTC outside it, so a hardcoded UTC value is wrong for roughly half the year (see `daylight-saving-time-transition-handling`).
+3. Handle the weekly market close/open explicitly: forex markets close Friday evening and reopen Sunday evening (in broker-server time, which varies by broker), unlike equities' daily close — any risk/P&L reset logic or position-monitoring cadence tuned for a daily equities session will misbehave across this weekly gap unless explicitly adapted (mirrors the same category of gap-handling concern as in `websocket-subscription-reconciliation-after-reconnect`, but on a much longer, calendar-predictable timescale). Resolve that boundary through a timezone database against the broker's stated server timezone rather than storing it as a UTC constant — the common 17:00 America/New_York convention is 21:00 UTC under US daylight saving and 22:00 UTC outside it, so a hardcoded UTC value is wrong for roughly half the year (see `daylight-saving-time-transition-handling`).
 4. Model overnight rollover/swap charges (or credits) explicitly in any P&L calculation and backtest — holding a forex position overnight incurs a swap charge/credit based on the interest-rate differential between the currency pair, and omitting this from a backtest (see `execution-realistic-simulation`) systematically misstates the profitability of any strategy that holds positions overnight, especially carry-sensitive pairs. Take the rates from the broker's published schedule; an assumed rate is a fabricated cost model, so an unconfigured pair should fail loudly rather than accrue a plausible default.
 5. Derive the triple-swap rollover from the instrument's settlement convention, not from the calendar. The rollover whose value date jumps Friday → Monday accrues three days of financing: Wednesday for T+2 instruments, but Thursday for the T+1 pairs (USD/CAD, USD/TRY, USD/RUB, USD/PHP). Count these rather than flagging them — a position held for several weeks crosses one per week, so a boolean "includes a triple swap" undercharges every multi-week hold.
 6. Take pip size from the broker's own instrument metadata — OANDA's `pipLocation` on `GET /v3/accounts/{accountID}/instruments`, or MT5's `symbol_info().digits` — rather than inferring it from the instrument's name. Name-based inference is only defensible for currency pairs (JPY-quoted pairs price the pip at the 2nd decimal, others at the 4th) and is actively wrong for metals, index and crypto CFDs, whose pip definitions vary by broker; OANDA reports `pipLocation: 0` for some CFDs, a value no name-based rule produces. If metadata is unavailable for an instrument, refuse to size it rather than guessing.

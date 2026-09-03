@@ -66,7 +66,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - Pin a concrete image tag in production instead of `stable`/`latest`, so an upstream IB
      Gateway release cannot change your runtime unannounced.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Port Misconfiguration:** connecting a paper bot to port 4001 and executing against live
   capital.

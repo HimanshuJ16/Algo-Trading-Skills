@@ -5,10 +5,9 @@
 **No regulator, exchange, standards body or vendor publishes a threshold at which a
 microstructure signal becomes "predictive alpha".** `MIN_IC_FOR_ALPHA = 0.05`,
 `MIN_HIT_RATIO_PCT = 53.0` and `MIN_EFFECTIVE_OBSERVATIONS = 30` are this skill's
-engineering choices. An earlier revision of this file presented them in a table headed
-"Engineering Standard", which overstated them; they are defaults you should calibrate
-against your own instrument, horizon and cost model, and nothing downstream should
-quote them as authority.
+engineering choices. Presenting them under a heading like "Engineering Standard"
+overstates them: they are defaults you should calibrate against your own instrument,
+horizon and cost model, and nothing downstream should quote them as authority.
 
 The floors are also not comparable across horizons. Grinold's fundamental law,
 $IR = IC \cdot \sqrt{BR}$, makes the same IC worth wildly different amounts depending on

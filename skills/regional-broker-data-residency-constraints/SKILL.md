@@ -1,18 +1,17 @@
 ---
 name: regional-broker-data-residency-constraints
 description: >-
-  Deployment-site gate for regional broker connectivity — separates the broker
-  access controls that are actually enforced (SEBI/NSE static-IP whitelisting for
-  API order placement) from the hosting-region mandates that regimes like GDPR,
-  SEC Rule 17a-4 and SEBI CSCRF do not currently impose, and escalates rather
-  than guesses on unresolved brokers, regions, and deployer roles.
-domain: Broker Integration & Connectivity
-subdomain: Deployment Region & Broker Access Constraints
-tags: ["data-residency", "cloud-region", "static-ip", "sebi-algo-circular", "gdpr", "sec-17a-4", "broker-compliance", "aws", "gcp"]
-brokers_frameworks: ["SEBI Circular CIR/2025/0000013 (retail algo / static IP)", "Zerodha Kite Connect", "Upstox Developer API", "EU GDPR Chapter V / MiFID II / DORA", "SEC Rules 17a-4 & 17a-7", "AWS Regions", "GCP Regions"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when choosing where to run a process that connects to a broker in a specific
+  national market. Separates enforced controls such as SEBI static-IP whitelisting from
+  hosting-region mandates that do not actually bind the deploying entity.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: data-residency, cloud-region, static-ip, sebi-algo-circular, gdpr, sec-17a-4, broker-compliance, aws, gcp
+  brokers_frameworks: "SEBI Circular CIR/2025/0000013 (retail algo / static IP); Zerodha Kite Connect; Upstox Developer API; EU GDPR Chapter V / MiFID II / DORA; SEC Rules 17a-4 & 17a-7; AWS Regions; GCP Regions"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

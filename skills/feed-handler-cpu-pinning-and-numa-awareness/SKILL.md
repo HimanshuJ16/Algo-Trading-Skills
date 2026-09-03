@@ -1,24 +1,17 @@
 ---
 name: feed-handler-cpu-pinning-and-numa-awareness
-description: Use when deploying ultra-low-latency feed handlers and strategy execution
-  loops to pin worker processes to dedicated CPU cores and enforce NUMA node memory
-  locality, removing scheduler migration jitter and cross-socket interconnect latency.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- cpu-pinning
-- numa-awareness
-- cpu-affinity
-- low-latency
-- os-optimization
-brokers_frameworks:
-- CPU Affinity Manager
-- Linux sysfs topology ABI
-- Python psutil
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a feed handler or execution loop shows latency jitter unrelated to market
+  activity. Pins workers to chosen cores and confirms pages are resident on the local
+  NUMA node, removing scheduler migration and cross-socket interconnect hops.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, cpu-pinning, numa-awareness, cpu-affinity, low-latency, os-optimization
+  brokers_frameworks: "CPU Affinity Manager; Linux sysfs topology ABI; Python psutil"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

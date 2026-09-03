@@ -2,7 +2,7 @@
 Unit tests for websocket-reconnection-with-state-recovery skill.
 
 The regression tests worth naming explicitly, because each one fails against the
-pre-2.0.0 implementation:
+older implementation:
 
 * ``test_backoff_never_exceeds_cap`` - additive jitter used to return up to 1.5x the
   documented ceiling.

@@ -1,17 +1,17 @@
 ---
 name: sandbox-vs-production-endpoint-drift
 description: >-
-  Use before promoting a broker integration from a sandbox/paper environment to live
-  trading, to compare captured sandbox and production responses for nested schema drift,
-  field presence and nullability differences, rate-limit and content-type header drift,
-  status-code class changes, and endpoints missing from one environment.
-domain: DevSecOps & Quality Assurance
-subdomain: API Schema Drift & Environment Parity
-tags: ["schema-drift", "sandbox-parity", "api-contract", "broker-integration", "devsecops", "promotion-gate"]
-brokers_frameworks: ["Alpaca Paper Trading API", "Binance Spot Test Network", "RFC 9110 HTTP Semantics", "IETF RateLimit Header Fields (Internet-Draft)"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use before promoting a broker integration from sandbox to live, to compare captured
+  responses for nested schema drift, nullability changes, rate-limit header differences,
+  status-code class changes and endpoints missing from one environment.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: schema-drift, sandbox-parity, api-contract, broker-integration, devsecops, promotion-gate
+  brokers_frameworks: "Alpaca Paper Trading API; Binance Spot Test Network; RFC 9110 HTTP Semantics; IETF RateLimit Header Fields (Internet-Draft)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,23 +1,17 @@
 ---
 name: configuration-drift-detection-across-environments
-description: Use when a trading configuration must be proven identical to an approved
-  Golden Source before it goes live — auditing DEV/STAGING/PROD/CANARY config trees for
-  missing keys, changed values and silent type coercion, separating legitimate
-  environment overrides from risk-parameter drift, and blocking startup or CI/CD
-  promotion when critical drift is found.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- configuration-drift
-- deployment-ops
-- env-parity
-- golden-source
-- pre-trade-gate
-- risk-control
-brokers_frameworks: []
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before a configuration tree takes effect somewhere that can send orders, to prove
+  it matches the approved baseline; catches missing keys, changed values and silent type
+  changes carried over from a debugging session.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: configuration-drift, deployment-ops, env-parity, golden-source, pre-trade-gate, risk-control
+  brokers_frameworks: ""
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

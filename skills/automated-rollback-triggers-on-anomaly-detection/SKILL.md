@@ -1,21 +1,17 @@
 ---
 name: automated-rollback-triggers-on-anomaly-detection
-description: Deployment ops engine that monitors post-deployment health metrics and
-  triggers automated rollbacks if trading or technical anomalies are detected, with
-  flapping and rollback-loop protection.
-domain: deployment-ops
-subdomain: deployment
-tags:
-- deployment
-- ci-cd
-- rollback
-- anomaly-detection
-- self-healing
-brokers_frameworks:
-- generic
-version: "2.1.0"
-author: System
-license: MIT
+description: >-
+  Use immediately after deploying a trading algorithm, to watch post-deployment health
+  metrics and roll back automatically on a deployment defect, with flapping and
+  rollback-loop protection. Not for strategy underperformance.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment, ci-cd, rollback, anomaly-detection, self-healing
+  brokers_frameworks: generic
+  version: "2.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

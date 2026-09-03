@@ -1,14 +1,18 @@
 ---
 name: risk-parity-allocation-across-strategies
 description: >-
-  Use when allocating capital across a multi-strategy book so each strategy contributes an equal share of portfolio volatility — solving the Equal Risk Contribution (ERC) portfolio from a full covariance matrix, or falling back to inverse-volatility weights where correlations are uniform, with a risk-contribution audit before capital is deployed.
-domain: Portfolio & Risk Management
-subdomain: Risk Parity & Capital Allocation
-tags: ["risk-parity", "equal-risk-contribution", "erc", "inverse-volatility", "portfolio-allocation", "capital-scaling"]
-brokers_frameworks: ["Risk Parity / Equal Risk Contribution (ERC)", "Cyclical Coordinate Descent (Griveau-Billion et al. 2013)", "Covariance Matrix Risk Decomposition", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when allocating capital so each strategy contributes an equal share of portfolio
+  volatility, solving the equal-risk-contribution weights from a covariance matrix.
+  Auditing given weights against limits is
+  strategy-specific-vs-shared-risk-budget-allocation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: risk-parity, equal-risk-contribution, erc, inverse-volatility, portfolio-allocation, capital-scaling
+  brokers_frameworks: "Risk Parity / Equal Risk Contribution (ERC); Cyclical Coordinate Descent (Griveau-Billion et al. 2013); Covariance Matrix Risk Decomposition; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

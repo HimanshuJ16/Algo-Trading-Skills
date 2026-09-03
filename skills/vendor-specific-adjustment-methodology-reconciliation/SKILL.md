@@ -1,26 +1,17 @@
 ---
 name: vendor-specific-adjustment-methodology-reconciliation
-description: "Institutional market data skill for modeling vendor corporate action adjustment methodologies (total-return, proportional, price-return, raw unadjusted), computing separate price and volume cumulative adjustment factors, detecting cross-vendor divergence anomalies, and generating audit reconciliation reports."
-domain: Market Data Architecture & Quantitative Research
-subdomain: Corporate Action Adjustments & Data Hygiene
-tags:
-- corporate-actions
-- vendor-reconciliation
-- crsp
-- bloomberg
-- refinitiv
-- adjustment-factors
-- stock-splits
-- cash-dividends
-brokers_frameworks:
-- crsp
-- bloomberg-bpipe
-- refinitiv-elektron
-- factset
-- polygon-io
-version: "2.0.0"
-author: Quant Engineering
-license: MIT
+description: >-
+  Use when historical series from different vendors disagree because each applies a
+  different corporate action convention, modelling total-return, proportional,
+  price-return and raw adjustment and reconciling the cumulative factors.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: corporate-actions, vendor-reconciliation, crsp, bloomberg, refinitiv, adjustment-factors, stock-splits, cash-dividends
+  brokers_frameworks: "crsp; bloomberg-bpipe; refinitiv-elektron; factset; polygon-io"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

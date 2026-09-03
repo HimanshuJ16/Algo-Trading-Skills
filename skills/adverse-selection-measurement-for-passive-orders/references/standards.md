@@ -64,7 +64,7 @@ across a session gap, a halt, or a dead feed. That is what
 calls the **mid-to-mid** markout: the reference is the **fill-time** mid. It is
 *not* an arrival-price benchmark in the implementation-shortfall sense (the
 price at order arrival or decision time) — for that see
-`arrival-price-benchmark-execution-algo`.
+`implementation-shortfall-minimization`.
 
 ## 3. Horizon guidance
 

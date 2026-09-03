@@ -1,16 +1,17 @@
 ---
 name: real-time-liquidity-risk-monitoring
 description: >-
-  Use when monitoring the market liquidity of a live portfolio — Days to Liquidate (DTL)
-  at a participation cap, bid-ask spread spikes, L2 depth collapse, and a
-  Liquidity-Adjusted VaR (L-VaR) add-on over a mid-price VaR.
-domain: algorithmic-trading
-subdomain: risk-management
-tags: ["risk-management", "liquidity-risk", "days-to-liquidate", "spread-spike", "order-book-depth", "l-var", "market-impact"]
-brokers_frameworks: ["Bangia-Diebold-Schuermann-Stroughair L-VaR", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a risk report computed at mid-price says nothing about the cost of getting
+  out; measures days to liquidate at a participation cap, spread spikes, depth collapse
+  and a liquidity-adjusted VaR add-on. Funding liquidity is separate.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, liquidity-risk, days-to-liquidate, spread-spike, order-book-depth, l-var, market-impact
+  brokers_frameworks: "Bangia-Diebold-Schuermann-Stroughair L-VaR; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

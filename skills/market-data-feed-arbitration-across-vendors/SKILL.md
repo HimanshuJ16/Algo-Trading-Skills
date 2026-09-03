@@ -1,29 +1,17 @@
 ---
 name: market-data-feed-arbitration-across-vendors
-description: Use when a strategy consumes the same instrument from two independent
-  market data vendors and must decide, per tick, whether a tradeable price exists and
-  whether it has been cross-verified — covering consensus pricing within a calibrated
-  divergence tolerance, stale-feed and total-blackout detection, frozen-feed
-  quarantine with hysteresis, and the distinction between a vendor bad tick and
-  ordinary cross-vendor latency skew.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- feed-arbitration
-- dual-vendors
-- bad-tick-filter
-- price-divergence
-- stale-feed-failover
-- redundancy
-brokers_frameworks:
-- CME MDP 3.0 (UDP Feed A / Feed B line arbitration)
-- SEC Regulation NMS (Rule 612 minimum pricing increment, Market Data Infrastructure)
-- MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589)
-- SEC Rule 15c3-5 (market access erroneous-order controls)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a strategy prices off two independent vendors for the same instrument and
+  must decide per tick whether a tradeable, cross-verified price exists. Covers
+  divergence tolerance, stale and frozen feed quarantine, and total blackout.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, feed-arbitration, dual-vendors, bad-tick-filter, price-divergence, stale-feed-failover, redundancy
+  brokers_frameworks: "CME MDP 3.0 (UDP Feed A / Feed B line arbitration); SEC Regulation NMS (Rule 612 minimum pricing increment, Market Data Infrastructure); MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589); SEC Rule 15c3-5 (market access erroneous-order controls)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

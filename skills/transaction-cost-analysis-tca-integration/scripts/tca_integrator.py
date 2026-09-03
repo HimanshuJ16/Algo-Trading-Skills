@@ -207,7 +207,7 @@ class TCATradeBreakdown:
     def total_shortfall_bps(self) -> float:
         """Deprecated alias for :attr:`estimated_shortfall_bps`.
 
-        Retained so pre-1.1 callers keep working. It is the *modelled* cost, not
+        Retained so older callers keep working. It is the *modelled* cost, not
         the measured implementation shortfall; new code should read
         ``estimated_shortfall_bps`` or ``realized_shortfall_bps`` explicitly.
         """
@@ -485,7 +485,7 @@ class TCABacktestIntegrator:
 
         ``capital_base`` is mandatory. A return drag is currency cost divided by
         the capital that earned the gross return; it is not a function of how many
-        trades were printed. The pre-1.1 formula summed per-trade *bps* and read
+        trades were printed. an earlier formula summed per-trade *bps* and read
         the result as a percentage, so 1,000 one-share trades costing about four
         cents in total subtracted 35 percentage points from the strategy return
         and flagged it non-viable, while a single order for half a day's volume

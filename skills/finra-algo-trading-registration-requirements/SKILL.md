@@ -1,18 +1,17 @@
 ---
 name: finra-algo-trading-registration-requirements
 description: >-
-  Use when a FINRA member firm deploys or changes an automated trading system and must
-  decide whether FINRA Rule 1220(b)(4) Securities Trader (Series 57) registration is
-  triggered — scoping by security type (equity, preferred, convertible debt), by whether
-  the system generates or routes orders, and by whether the person is primarily
-  responsible — then gate the deployment on active, CE-current registration.
-domain: Regulatory Compliance & Governance
-subdomain: FINRA Broker-Dealer Registration & Oversight
-tags: ["finra-rule-1220b4", "series-57", "securities-trader", "algorithmic-trading-registration", "regulatory-notice-16-21", "cicd-governance", "compliance-audit"]
-brokers_frameworks: ["FINRA Rule 1220(b)(4)", "FINRA Regulatory Notice 16-21", "FINRA Rule 1240 (Continuing Education)", "FINRA Rule 3110", "FINRA Rule 4511", "Series 57 / SIE", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a FINRA member deploys or materially changes an automated trading system, to
+  decide whether Rule 1220(b)(4) Securities Trader registration is triggered for the
+  person primarily responsible for its design or modification.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: finra-rule-1220b4, series-57, securities-trader, algorithmic-trading-registration, regulatory-notice-16-21, cicd-governance, compliance-audit
+  brokers_frameworks: "FINRA Rule 1220(b)(4); FINRA Regulatory Notice 16-21; FINRA Rule 1240 (Continuing Education); FINRA Rule 3110; FINRA Rule 4511; Series 57 / SIE; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

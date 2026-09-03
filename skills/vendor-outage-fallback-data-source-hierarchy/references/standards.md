@@ -44,8 +44,8 @@ Two properties matter more than the ordering:
 
 **IEX Cloud was retired on 31 August 2024**, announced on 31 May 2024 — roughly three
 months' notice, all endpoints switched off, no successor product, customers left to
-migrate themselves. This skill's earlier revision listed it as a supported framework.
-A Priority-3 cloud vendor can disappear entirely, which is a different failure from an
+migrate themselves — and it still appears in integration guides as a supported
+framework. A Priority-3 cloud vendor can disappear entirely, which is a different failure from an
 outage and is not solved by adding a Priority 4. Re-verify the tier annually alongside
 the RTS 6 Article 14(4) business-continuity test.
 

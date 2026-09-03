@@ -1,27 +1,17 @@
 ---
 name: insurance-coverage-assessment-for-custodied-crypto
 description: >-
-  Quantifies how much custodied digital asset capital a custodian's insurance
-  programme would actually return, bracketing recovery between an isolated-loss
-  upper bound and a pro-rata pooled-loss lower bound, net of retentions, and
-  sizing the residual uninsured exposure.
-domain: Crypto Custody Security
-subdomain: Institutional Treasury Audit & Custody Insurance
-tags:
-- crypto-insurance
-- custody-audit
-- specie-policy
-- crime-policy
-- hot-cold-split
-- pooled-limit-dilution
-- risk-assessment
-brokers_frameworks:
-- Institutional Crypto Custodians (BitGo, Fireblocks, Coinbase)
-- Lloyd's Specie & Crime Policies
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when sizing how much capital may sit with a custodian, bracketing what its
+  insurance programme would actually return between an isolated-loss upper bound and a
+  pro-rata pooled-loss lower bound.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-insurance, custody-audit, specie-policy, crime-policy, hot-cold-split, pooled-limit-dilution, risk-assessment
+  brokers_frameworks: "Institutional Crypto Custodians (BitGo, Fireblocks, Coinbase); Lloyd's Specie & Crime Policies; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

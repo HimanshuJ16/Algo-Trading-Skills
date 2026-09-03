@@ -59,7 +59,7 @@ class TestKillSwitchCircuitBreaker(unittest.TestCase):
     def test_position_limit_veto(self):
         # Current = 80, proposed = 30 -> 110 > 100 -> Veto!
         ok, reason = self.engine.check_proposed_order(
-            proposed_position_size=30.0, current_position_size=80.0
+            proposed_position_delta=30.0, current_position_size=80.0
         )
         self.assertFalse(ok)
         self.assertIn("exceeds max limit", reason)
@@ -148,6 +148,40 @@ class TestKillSwitchCircuitBreaker(unittest.TestCase):
         halted = cb.check_pnl(-1200, 10000)
         self.assertTrue(halted)
 
+    def test_wrapper_halt_cannot_be_cleared_by_assignment(self):
+        # Regression: the wrapper used to expose a `halted` setter, so any caller could
+        # clear a halt with no operator, no reason, and no audit row -- an unaudited
+        # bypass of the human re-enable gate.
+        cb = CircuitBreaker(
+            max_position=100,
+            max_daily_loss=1000,
+            max_drawdown_pct=0.05,
+            alert_fn=self.mock_alert,
+        )
+        self.assertTrue(cb.check_pnl(-1200, 10000))
+        self.assertTrue(cb.halted)
+
+        with self.assertRaises(AttributeError):
+            cb.halted = False
+        self.assertTrue(cb.halted)
+        self.assertEqual(cb.engine.re_enable_log, [])
+
+        # The audited path is the only way out, and it leaves evidence.
+        self.assertTrue(
+            cb.human_re_enable(
+                authorized_user="risk_mgr_alice",
+                reason="Loss limit breach investigated; cause understood",
+                new_peak_equity=10000,
+            )
+        )
+        self.assertFalse(cb.halted)
+        self.assertEqual(len(cb.engine.re_enable_log), 1)
+        entry = cb.engine.re_enable_log[0]
+        self.assertTrue(entry.granted)
+        self.assertEqual(entry.authorized_user, "risk_mgr_alice")
+        self.assertIn("investigated", entry.reason)
+        self.assertEqual(entry.cleared_status, CircuitBreakerStatus.HALTED_DAILY_LOSS)
+
     # ------------------------------------------------- fail-closed on bad input
 
     def test_nan_daily_pnl_halts_instead_of_failing_open(self):
@@ -208,7 +242,7 @@ class TestKillSwitchCircuitBreaker(unittest.TestCase):
         # blanket reject-while-halted made the breaker veto its own force-flatten.
         self.engine.trigger_emergency_kill_switch("test")
         ok, reason = self.engine.check_proposed_order(
-            proposed_position_size=-50.0, current_position_size=50.0, symbol="AAPL"
+            proposed_position_delta=-50.0, current_position_size=50.0, symbol="AAPL"
         )
         self.assertTrue(ok)
         self.assertTrue(reason.startswith(OrderDecisionCode.REDUCE_ONLY_ALLOWED.value + ":"))
@@ -229,7 +263,7 @@ class TestKillSwitchCircuitBreaker(unittest.TestCase):
         # Position 150 already exceeds the 100 limit; trimming to 120 is still over the
         # limit but strictly de-risking and must not be vetoed.
         ok, reason = self.engine.check_proposed_order(
-            proposed_position_size=-30.0, current_position_size=150.0
+            proposed_position_delta=-30.0, current_position_size=150.0
         )
         self.assertTrue(ok)
         self.assertTrue(reason.startswith(OrderDecisionCode.REDUCE_ONLY_ALLOWED.value + ":"))

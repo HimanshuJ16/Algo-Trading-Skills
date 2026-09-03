@@ -1,14 +1,17 @@
 ---
 name: message-rate-limit-vs-latency-tradeoff-tuning
 description: >-
-  Quantitative rate-limit vs adverse selection latency tuning engine, dynamically balancing quote repricing delays against exchange messages-per-second (MPS) ceilings.
-domain: Market Microstructure Latency
-subdomain: Exchange Rate Limits & Quote Repricing Optimization
-tags: ["message-rate-limit", "latency-tradeoff", "quote-suppression", "adverse-selection", "cme-ilink3", "mps-tuning", "hft-optimization"]
-brokers_frameworks: ["CME iLink 3 MPS", "Binance Rate Limits", "MiFID II RTS 6", "Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when sizing the quote reprice interval for a strategy sharing a session with a
+  message-rate ceiling, trading queue priority and adverse selection against the message
+  budget. A parameter calculator, not a runtime throttle.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: message-rate-limit, latency-tradeoff, quote-suppression, adverse-selection, cme-ilink3, mps-tuning, hft-optimization
+  brokers_frameworks: "CME iLink 3 MPS; Binance Rate Limits; MiFID II RTS 6; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

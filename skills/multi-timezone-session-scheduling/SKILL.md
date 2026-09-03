@@ -1,20 +1,17 @@
 ---
 name: multi-timezone-session-scheduling
-description: Use when a bot's scheduling logic (session start/end, intraday breaks, pre-market
-  checks, EOD tasks) must resolve exchange-local trading hours to UTC correctly across time
-  zones and daylight saving transitions, not just at a single fixed offset
-domain: algorithmic-trading
-subdomain: data-management-global
-tags:
-- data-management-global
-- iana-tz-database
-- pytz-zoneinfo
-brokers_frameworks:
-- IANA tz database
-- pytz/zoneinfo
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when scheduling logic references market open or close for an exchange in another
+  time zone, resolving local trading hours to UTC across daylight saving instead of a
+  hardcoded offset. Pair it with a holiday calendar.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: data-management-global, iana-tz-database, pytz-zoneinfo
+  brokers_frameworks: "IANA tz database; pytz/zoneinfo"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

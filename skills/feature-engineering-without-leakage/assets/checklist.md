@@ -38,5 +38,5 @@ that the feature set is leakage-free.** See "Audit Limitations" in
 
 - Reviewed by: ___________________________
 - Date: ___________________________
-- Environment tested (paper/sandbox/live): ___________________________
+- Reviewed by: ___________________________
 - Calibration strength returned: ___________________________

@@ -1,14 +1,17 @@
 ---
 name: variance-swap-and-volatility-derivative-pricing
 description: >-
-  Use when pricing, marking, or risk-managing an OTC variance swap or volatility swap. Replicates the fair variance strike $K_{\text{var}}$ from an out-of-the-money European option strip using the Demeterfi-Derman-Kamal-Zou (1999) log contract, anchored on the traded reference strike $S^* = K_0$; computes zero-mean realized log-return variance, the volatility-swap convexity correction, the $N_{\text{var}} = N_{\text{vega}} / (2K_{\text{vol}})$ notional conversion, and seasoned mark-to-market. Every number is carried in volatility points squared.
-domain: Multi-Asset Quantitative Derivatives & Volatility Trading
-subdomain: Exotics & Volatility Derivative Pricing
-tags: ["variance-swap", "volatility-swap", "static-replication", "log-contract", "convexity-adjustment", "realized-variance", "options-pricing", "mtm-valuation"]
-brokers_frameworks: ["Demeterfi-Derman-Kamal-Zou (1999)", "Cboe Volatility Index Mathematics Methodology", "ISDA Equity Derivatives Definitions", "Python Standard Library (math)"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when pricing, marking or risk-managing an OTC variance or volatility swap,
+  replicating the fair variance strike from an out-of-the-money option strip and
+  accruing realised variance on a seasoned position.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: variance-swap, volatility-swap, static-replication, log-contract, convexity-adjustment, realized-variance, options-pricing, mtm-valuation
+  brokers_frameworks: "Demeterfi-Derman-Kamal-Zou (1999); Cboe Volatility Index Mathematics Methodology; ISDA Equity Derivatives Definitions; Python Standard Library (math)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

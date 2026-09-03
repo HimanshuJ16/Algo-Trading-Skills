@@ -1,23 +1,17 @@
 ---
 name: backtest-infrastructure-cost-budgeting
-description: Budgeting compute and storage cost for large-scale backtest sweeps before
-  it becomes a surprise cloud bill, with explicit modelling of spot interruption
-  overhead, per-task billing minimums, and non-linear parallel scaling.
-domain: Backtesting
-subdomain: Infrastructure
-tags:
-- backtesting
-- cost
-- budgeting
-- cloud
-- capacity-planning
-- spot-instances
-brokers_frameworks:
-- AWS Fargate / EC2
-- Google Cloud Run / Compute Engine
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before launching a large grid search or tick-level sweep, to forecast cloud
+  compute and storage spend with spot interruption overhead, per-task billing minimums
+  and non-linear scaling, rather than discovering it on the invoice.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting, cost, budgeting, cloud, capacity-planning, spot-instances
+  brokers_frameworks: "AWS Fargate / EC2; Google Cloud Run / Compute Engine"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

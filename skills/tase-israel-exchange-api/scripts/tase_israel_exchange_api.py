@@ -29,7 +29,7 @@ Neither failure is loud. Both are caught here by making the trading week an
 explicit, dated property of ``TASESessionSchedule`` rather than an assumption
 baked into a weekday comparison.
 
-Because backtests still run over pre-2026 history, ``TASESessionSchedule.for_date``
+Because backtests still run over older history, ``TASESessionSchedule.for_date``
 selects the regime that was actually in force on a given date. Replaying 2025
 data under today's Monday-Friday calendar reintroduces the same class of error in
 reverse.
@@ -363,7 +363,7 @@ class TASESessionSchedule:
         """
         Sunday-Thursday regime in force until 4 January 2026.
 
-        Retained for backtests over pre-2026 history: replaying 2025 data under
+        Retained for backtests over older history: replaying 2025 data under
         the current Monday-Friday calendar reintroduces the same calendar error
         this module exists to prevent, merely in the opposite direction.
         """

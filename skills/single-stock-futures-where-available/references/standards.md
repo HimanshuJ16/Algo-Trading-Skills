@@ -4,8 +4,8 @@
 
 **No exchange, clearing house or regulator publishes a mispricing threshold that
 constitutes an arbitrage, nor a theoretical value a trader is required to compute.**
-An earlier revision of this file presented "±0.3% mispricing" in a table of "Standard
-Rules", which was wrong: it dressed a placeholder as a published requirement.
+A figure such as "±0.3% mispricing" presented in a table of "Standard Rules" is a
+placeholder dressed as a published requirement.
 
 `arbitrage_cost_threshold_pct = 0.3` exists so the module runs out of the box. It must
 be replaced by your own measured round-trip cost, which has to cover:

@@ -1,14 +1,17 @@
 ---
 name: incremental-capital-deployment-for-new-strategies
 description: >-
-  Portfolio risk management engine implementing 4-tier stage-gated capital ramp-up (Paper -> 10% Seed -> 50% Scale -> 100% Full) with realized Sharpe and drawdown promotion gates, one-step maintenance demotion, and an emergency drawdown deactivation gate.
-domain: Portfolio Multi-Strategy
-subdomain: Strategy Onboarding & Stage-Gated Scaling
-tags: ["capital-deployment", "stage-gated-scaling", "strategy-onboarding", "portfolio-risk", "drawdown-limits", "sharpe-ratio-gate"]
-brokers_frameworks: ["Portfolio Multi-Strategy Engine", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when ramping a newly live strategy through staged capital tiers from seed to full
+  allocation, with realised Sharpe and drawdown gates at each promotion and a
+  single-step demotion on breach.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: capital-deployment, stage-gated-scaling, strategy-onboarding, portfolio-risk, drawdown-limits, sharpe-ratio-gate
+  brokers_frameworks: "Portfolio Multi-Strategy Engine; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

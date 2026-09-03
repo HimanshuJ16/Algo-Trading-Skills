@@ -1,28 +1,17 @@
 ---
 name: strategy-performance-decay-detection-vs-market-wide-decay
-description: Use when a live strategy's realized Sharpe ratio has fallen and you must
-  decide whether its own edge decayed (decommission) or its whole peer group is
-  impaired (pause and reduce risk). Tests the strategy against a peer benchmark index
-  with the Memmel-corrected Jobson-Korkie Sharpe-difference statistic and classifies
-  the result as idiosyncratic alpha decay, a market-wide regime shift, healthy, or
-  inconclusive.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- performance-decay
-- alpha-decay
-- regime-shift
-- peer-benchmark
-- sharpe-ratio-inference
-- jobson-korkie-memmel
-brokers_frameworks:
-- Jobson-Korkie/Memmel Sharpe Difference Test
-- NumPy
-- pandas
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a live Sharpe has fallen and the remediation depends on whether this
+  strategy's own edge decayed or the whole peer group is impaired, testing the strategy
+  against its cohort rather than against zero.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: risk-management, performance-decay, alpha-decay, regime-shift, peer-benchmark, sharpe-ratio-inference, jobson-korkie-memmel
+  brokers_frameworks: "Jobson-Korkie/Memmel Sharpe Difference Test; NumPy; pandas"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -108,6 +97,6 @@ The engine takes the target's returns and a peer benchmark index over a trailing
 - `strategy-lifecycle-retirement-criteria`
 - `strategy-underperformance-remediation-decision-tree`
 - `strategy-decommissioning-and-position-unwind-procedure`
-- `benchmark-portfolio-for-multi-strategy-performance-context`
+- `benchmark-relative-performance-attribution`
 - `benchmark-selection-for-strategy-evaluation`
 - `backtest-vs-live-performance-divergence-tracking`

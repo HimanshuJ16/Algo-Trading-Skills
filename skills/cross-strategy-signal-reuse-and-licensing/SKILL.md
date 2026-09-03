@@ -1,24 +1,17 @@
 ---
 name: cross-strategy-signal-reuse-and-licensing
-description: Use when multiple strategy pods or group entities consume the same
-  proprietary alpha signal, to gate entitlement against a signal AUM capacity cap,
-  attribute an internal licence fee, and produce an auditable licensing record
-domain: Signal Governance & Licensing
-subdomain: Alpha Marketplace & Transfer Pricing
-tags:
-- signal-reuse
-- signal-licensing
-- entitlement
-- alpha-marketplace
-- transfer-pricing
-- fee-attribution
-- aum-capacity
-brokers_frameworks:
-- OECD Transfer Pricing Guidelines 2022
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when several pods or legal entities consume the same proprietary signal, gating
+  entitlement against the signal's capacity cap and attributing an internal licence fee
+  with an auditable record.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: signal-reuse, signal-licensing, entitlement, alpha-marketplace, transfer-pricing, fee-attribution, aum-capacity
+  brokers_frameworks: "OECD Transfer Pricing Guidelines 2022; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

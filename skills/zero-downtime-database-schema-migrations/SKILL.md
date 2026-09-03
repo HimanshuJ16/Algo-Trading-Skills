@@ -1,26 +1,17 @@
 ---
 name: zero-downtime-database-schema-migrations
-description: "Institutional deployment engineering skill for orchestrating 5-Phase Expand-Contract zero-downtime database schema migrations, generating lock-bounded non-blocking DDL (CREATE INDEX CONCURRENTLY, ALGORITHM=INSTANT), pacing batched backfills against replica lag, and gating reader cutover on a verified residual-NULL count rather than a backfill counter."
-domain: Deployment Operations & Database Infrastructure
-subdomain: Zero-Downtime Schema Evolution & Lock-Free DDL
-tags:
-- zero-downtime
-- database-migration
-- expand-contract
-- concurrent-index
-- postgresql
-- mysql-innodb
-- cockroachdb
-- dual-write
-brokers_frameworks:
-- alembic
-- flyway
-- liquibase
-- gh-ost
-- pt-online-schema-change
-version: "2.0.0"
-author: Quant Engineering
-license: MIT
+description: >-
+  Use when altering the schema of a database a 24/7 trading system reads or writes,
+  without a trading-hours outage; a five-phase expand-contract sequence with
+  lock-bounded non-blocking DDL for Postgres and MySQL.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: zero-downtime, database-migration, expand-contract, concurrent-index, postgresql, mysql-innodb, cockroachdb, dual-write
+  brokers_frameworks: "alembic; flyway; liquibase; gh-ost; pt-online-schema-change"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

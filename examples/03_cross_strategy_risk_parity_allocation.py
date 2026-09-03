@@ -2,87 +2,256 @@
 """
 Example 03: Cross-Strategy Correlation, Risk Parity & Strategy Retirement
 
-Chains 3 Skills:
-  1. cross-strategy-correlation-monitoring (Compute rolling correlation matrix across sub-strategies)
-  2. risk-parity-allocation (Allocate portfolio capital inverse to strategy risk/volatility)
-  3. strategy-lifecycle-retirement-criteria (Decommission degraded strategies automatically)
+Runs the real helper modules from three skills — nothing here re-implements
+them:
+
+  1. cross-strategy-correlation-monitoring
+     (`cross_strategy_correlation_monitoring.CrossStrategyCorrelationMonitor`)
+     Pairwise PnL correlations, the Choueifaty-Coignard diversification ratio,
+     and named redundancy breaches.
+  2. risk-parity-allocation-across-strategies
+     (`risk_parity_allocation_across_strategies.RiskParityAllocationEngine`)
+     Equal-risk-contribution weights solved against the covariance the monitor
+     already estimated, then audited for how close to parity they land.
+  3. strategy-lifecycle-retirement-criteria
+     (`strategy_lifecycle_retirement_criteria.StrategyLifecycleRetirementEngine`)
+     A pre-declared retirement rule applied identically to every strategy.
+
+The three compose: the monitor's covariance feeds the allocator, and a strategy
+the lifecycle engine retires drops out of the next allocation.
+
+Run from the repository root:
+
+    python examples/03_cross_strategy_risk_parity_allocation.py
 """
-import math
+import logging
+import os
+import sys
 from typing import Dict, List
 
+import numpy as np
 
-class CrossStrategyCorrelationMonitor:
-    """Skill: cross-strategy-correlation-monitoring"""
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _slug in (
+    "cross-strategy-correlation-monitoring",
+    "risk-parity-allocation-across-strategies",
+    "strategy-lifecycle-retirement-criteria",
+):
+    sys.path.insert(0, os.path.join(REPO_ROOT, "skills", _slug, "scripts"))
 
-    def compute_correlation(self, returns_a: List[float], returns_b: List[float]) -> float:
-        n = len(returns_a)
-        mean_a = sum(returns_a) / n
-        mean_b = sum(returns_b) / n
-        cov = sum((returns_a[i] - mean_a) * (returns_b[i] - mean_b) for i in range(n))
-        var_a = sum((r - mean_a) ** 2 for r in returns_a)
-        var_b = sum((r - mean_b) ** 2 for r in returns_b)
-        denom = math.sqrt(var_a * var_b)
-        return cov / denom if denom > 0 else 0.0
+from cross_strategy_correlation_monitoring import (  # noqa: E402
+    CrossStrategyCorrelationMonitor,
+)
+from risk_parity_allocation_across_strategies import (  # noqa: E402
+    AllocationMethod,
+    RiskParityAllocationEngine,
+    StrategyRiskData,
+)
+from strategy_lifecycle_retirement_criteria import (  # noqa: E402
+    StrategyLifecycleRetirementEngine,
+    StrategyPerformanceMetrics,
+)
+
+# Seeded so the correlations, weights and decisions below are the same on every
+# run; nothing here should move because a random draw moved.
+RNG = np.random.default_rng(42)
+
+# The helper modules log through the standard library. Surface their warnings,
+# prefixed so they are visibly theirs and not this script's narration.
+logging.basicConfig(level=logging.WARNING, format="  [%(name)s] %(message)s")
+
+TRADING_DAYS = 252
+OBSERVATIONS = 180
+TOTAL_CAPITAL = 5_000_000.0
+
+STRATEGIES = ["StatArb_US", "StatArb_EU", "FX_Carry"]
 
 
-class RiskParityAllocator:
-    """Skill: risk-parity-allocation"""
+def generate_pnl_matrix() -> np.ndarray:
+    """Daily returns for three pods, with a deliberate redundancy built in.
 
-    def allocate(self, volatilities: Dict[str, float]) -> Dict[str, float]:
-        inv_vols = {s: 1.0 / v for s, v in volatilities.items() if v > 0}
-        total_inv = sum(inv_vols.values())
-        return {s: inv_v / total_inv for s, inv_v in inv_vols.items()}
-
-
-class StrategyLifecycleManager:
-    """Skill: strategy-lifecycle-retirement-criteria"""
-
-    def evaluate_health(self, strategy_id: str, sharpe_ratio: float, max_drawdown: float) -> str:
-        if sharpe_ratio < 0.2 or max_drawdown > 0.25:
-            return "RETIRE"
-        elif sharpe_ratio < 0.8:
-            return "WARNING"
-        return "HEALTHY"
+    `StatArb_EU` is constructed to be ~0.9 correlated with `StatArb_US` so the
+    monitor has a genuine breach to find; `FX_Carry` is independent and drifts
+    down, so the lifecycle engine has a genuine decay to adjudicate.
+    """
+    z = RNG.normal(size=(OBSERVATIONS, 3))
+    us = 0.0004 + 0.008 * z[:, 0]
+    eu = 0.0003 + 0.009 * (0.9 * z[:, 0] + np.sqrt(1.0 - 0.81) * z[:, 1])
+    fx = -0.0006 + 0.012 * z[:, 2]
+    return np.column_stack([us, eu, fx])
 
 
-def main():
-    print("=== Walkthrough 03: Multi-Strategy Portfolio Risk Parity & Health Monitoring ===\n")
-
-    strat_returns = {
-        "StatArb_US": [0.01, -0.005, 0.012, 0.008, -0.002, 0.015, 0.003],
-        "Trend_Crypto": [0.03, -0.025, 0.04, -0.035, 0.02, 0.05, -0.04],
-        "FX_Carry_Degraded": [-0.01, -0.015, -0.008, -0.02, -0.012, -0.005, -0.018]
+def live_stats(returns: np.ndarray) -> Dict[str, float]:
+    """Annualized return and max drawdown (as a positive magnitude) for one pod."""
+    equity = np.concatenate(([1.0], np.cumprod(1.0 + returns)))
+    peak = np.maximum.accumulate(equity)
+    max_dd_pct = float(np.max((peak - equity) / peak) * 100.0)
+    annual_return_pct = float(np.mean(returns) * TRADING_DAYS * 100.0)
+    sharpe = float(np.mean(returns) / np.std(returns, ddof=1) * np.sqrt(TRADING_DAYS))
+    return {
+        "annual_return_pct": annual_return_pct,
+        "max_drawdown_pct": max_dd_pct,
+        "sharpe": sharpe,
     }
 
-    # Step 1: Monitor rolling correlations
-    corr_monitor = CrossStrategyCorrelationMonitor()
-    corr = corr_monitor.compute_correlation(strat_returns["StatArb_US"], strat_returns["Trend_Crypto"])
-    print(f"StatArb vs Trend Crypto Correlation: {corr:.3f}")
 
-    # Step 2: Risk Parity Allocation based on strategy volatility
-    volatilities = {}
-    for strat, rets in strat_returns.items():
-        mean_r = sum(rets) / len(rets)
-        vol = math.sqrt(sum((r - mean_r) ** 2 for r in rets) / len(rets))
-        volatilities[strat] = vol
+def print_allocation(report, title: str) -> None:
+    print(title)
+    print("  method=%s  covariance supplied=%s  solver sweeps=%d"
+          % (report.method, report.covariance_supplied, report.solver_iterations))
+    for allocation in report.allocations:
+        print("    %-12s weight %6.2f%%  capital %13s  vol %5.2f%%  "
+              "risk share %6.2f%% (target %.2f%%)"
+              % (allocation.strategy_id,
+                 100.0 * allocation.weight,
+                 "{:,.0f}".format(allocation.allocated_capital_usd),
+                 100.0 * allocation.annualized_volatility,
+                 allocation.risk_contribution_pct,
+                 allocation.target_risk_contribution_pct))
+    print("  portfolio vol %.2f%%, max risk-parity error %.2f pp -> %s"
+          % (report.portfolio_annualized_volatility,
+             report.max_risk_parity_error_pct, report.status))
 
-    allocator = RiskParityAllocator()
-    weights = allocator.allocate(volatilities)
-    print("\nRisk Parity Portfolio Weights:")
-    for strat, w in weights.items():
-        print(f"  {strat:20s}: {w * 100:.2f}% (Vol: {volatilities[strat]*100:.2f}%)")
 
-    # Step 3: Lifecycle Health Assessment & Retirement
-    lifecycle = StrategyLifecycleManager()
-    print("\nStrategy Health Evaluation:")
-    for strat in strat_returns.keys():
-        # Simulated metrics for health evaluation
-        sharpe = 1.8 if "StatArb" in strat else (1.1 if "Trend" in strat else -0.4)
-        dd = 0.04 if "StatArb" in strat else (0.12 if "Trend" in strat else 0.32)
-        status = lifecycle.evaluate_health(strat, sharpe, dd)
-        print(f"  {strat:20s} -> Sharpe: {sharpe:4.1f}, Max DD: {dd*100:4.1f}% | Status: {status}")
-        if status == "RETIRE":
-            print(f"    [ACTION] Decommissioning strategy {strat} and reallocating capital.")
+def main() -> None:
+    print("=== Walkthrough 03: Correlation, Risk Parity & Strategy Retirement ===\n")
+
+    pnl = generate_pnl_matrix()
+
+    # --- Step 1: is this portfolio actually diversified? -------------------
+    monitor = CrossStrategyCorrelationMonitor(
+        high_correlation_threshold=0.70,
+        redundancy_threshold=0.85,
+        min_diversification_ratio=1.20,
+        min_observations=30,
+        shrinkage_delta=0.0,   # so shrunk_covariance_matrix is the raw estimate
+    )
+    report = monitor.analyze_strategy_correlations(
+        strategy_names=STRATEGIES,
+        pnl_returns_matrix=pnl,
+        weights=[1.0 / len(STRATEGIES)] * len(STRATEGIES),
+    )
+
+    print("Correlation matrix (%d observations, effective %.1f):"
+          % (report.observations_used, report.effective_observations))
+    print("               " + "".join("%12s" % name for name in STRATEGIES))
+    for i, name in enumerate(STRATEGIES):
+        row = "".join("%12.3f" % report.correlation_matrix[i, j]
+                      for j in range(len(STRATEGIES)))
+        print("  %-12s%s" % (name, row))
+    print("  diversification ratio %.3f (floor %.2f), average off-diagonal "
+          "correlation %.3f"
+          % (report.diversification_ratio, monitor.min_diversification_ratio,
+             report.average_inter_strategy_correlation))
+    print("  healthy: %s" % report.is_diversification_healthy)
+    for breach in report.high_correlation_breaches:
+        print("  [%s] %s / %s at %.2f"
+              % (breach.severity, breach.strategy_a, breach.strategy_b,
+                 breach.correlation))
+    for recommendation in report.recommendations:
+        print("  -> %s" % recommendation)
+    print()
+
+    # --- Step 2: size by equal risk contribution, on that same covariance ---
+    # The monitor already estimated the daily covariance; annualize it rather
+    # than estimating a second, subtly different one.
+    covariance_annual = np.asarray(report.shrunk_covariance_matrix) * TRADING_DAYS
+    vols = np.sqrt(np.diag(covariance_annual))
+
+    allocator = RiskParityAllocationEngine()
+    risk_data: List[StrategyRiskData] = [
+        StrategyRiskData(strategy_id=name, annualized_volatility=float(vols[i]))
+        for i, name in enumerate(STRATEGIES)
+    ]
+    allocation_report = allocator.compute_risk_parity_allocation(
+        strategies=risk_data,
+        total_capital_usd=TOTAL_CAPITAL,
+        covariance_matrix=covariance_annual.tolist(),
+        method=AllocationMethod.EQUAL_RISK_CONTRIBUTION,
+    )
+    print_allocation(allocation_report, "Equal-risk-contribution allocation:")
+    print("  Inverse volatility alone would have given "
+          + ", ".join("%s %.2f%%" % (STRATEGIES[i], 100.0 * w)
+                      for i, w in enumerate(
+                          allocator.compute_inverse_vol_weights(risk_data)))
+          + ": the correlation structure is what moves them apart.\n")
+
+    # --- Step 3: adjudicate each strategy against a pre-declared rule ------
+    # Backtest figures and the IC t-stat come from the research record; every
+    # live figure is measured from the returns above. Against a zero benchmark
+    # and a zero risk-free rate the live information ratio is the live Sharpe,
+    # so it is passed through rather than declared separately.
+    research_record = {
+        "StatArb_US": {"backtest_sharpe": 1.90, "backtest_max_drawdown_pct": 8.0,
+                       "backtest_annual_return_pct": 14.0, "live_ic_t_stat": 3.10},
+        "StatArb_EU": {"backtest_sharpe": 1.40, "backtest_max_drawdown_pct": 10.0,
+                       "backtest_annual_return_pct": 11.0, "live_ic_t_stat": 2.20},
+        "FX_Carry":   {"backtest_sharpe": 1.20, "backtest_max_drawdown_pct": 9.0,
+                       "backtest_annual_return_pct": 12.0, "live_ic_t_stat": 0.40},
+    }
+
+    lifecycle = StrategyLifecycleRetirementEngine(min_live_observations=120)
+    survivors: List[int] = []
+    print("Lifecycle adjudication:")
+    for i, name in enumerate(STRATEGIES):
+        live = live_stats(pnl[:, i])
+        record = research_record[name]
+        decision_report = lifecycle.evaluate_strategy(StrategyPerformanceMetrics(
+            strategy_id=name,
+            backtest_sharpe=record["backtest_sharpe"],
+            backtest_max_drawdown_pct=record["backtest_max_drawdown_pct"],
+            live_sharpe=live["sharpe"],
+            live_max_drawdown_pct=live["max_drawdown_pct"],
+            live_information_ratio=live["sharpe"],
+            live_ic_t_stat=record["live_ic_t_stat"],
+            live_realized_annual_return_pct=live["annual_return_pct"],
+            backtest_annual_return_pct=record["backtest_annual_return_pct"],
+            live_observation_count=OBSERVATIONS,
+        ))
+        print("  %-12s %-22s live Sharpe %5.2f, live max DD %5.1f%%, drift %s"
+              % (name, decision_report.decision.value, live["sharpe"],
+                 live["max_drawdown_pct"],
+                 "not measurable" if decision_report.performance_drift_pct is None
+                 else "%.1f%%" % decision_report.performance_drift_pct))
+        for criterion in decision_report.breached_criteria:
+            print("      - %s" % criterion)
+        if decision_report.skipped_criteria:
+            print("      (skipped: %s)"
+                  % "; ".join(decision_report.skipped_criteria))
+        if decision_report.is_retired:
+            print("      [ACTION] %s" % decision_report.recommended_action)
+        else:
+            survivors.append(i)
+    print()
+
+    # --- Step 4: reallocate what is left -----------------------------------
+    if len(survivors) == len(STRATEGIES):
+        print("No strategy was retired; the allocation above stands.")
+    elif len(survivors) < 2:
+        print("Fewer than two strategies survive; risk parity across one book is "
+              "not a portfolio decision. Escalate to the strategy committee.")
+    else:
+        sub_cov = covariance_annual[np.ix_(survivors, survivors)]
+        sub_data = [
+            StrategyRiskData(strategy_id=STRATEGIES[i],
+                             annualized_volatility=float(vols[i]))
+            for i in survivors
+        ]
+        reallocated = allocator.compute_risk_parity_allocation(
+            strategies=sub_data,
+            total_capital_usd=TOTAL_CAPITAL,
+            covariance_matrix=sub_cov.tolist(),
+            method=AllocationMethod.EQUAL_RISK_CONTRIBUTION,
+        )
+        print_allocation(
+            reallocated,
+            "Reallocation after retirement (%s removed):"
+            % ", ".join(STRATEGIES[i] for i in range(len(STRATEGIES))
+                        if i not in survivors),
+        )
+        print("  Note the surviving pair is the redundant one the monitor "
+              "flagged: retiring a decayed pod can concentrate the book, so "
+              "read step 1 again before signing this off.")
 
     print("\n=== Walkthrough 03 Completed Cleanly ===")
 

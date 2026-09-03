@@ -1,14 +1,17 @@
 ---
 name: post-mortem-culture-and-blameless-review-process
 description: >-
-  Use after a trading production outage, algorithm glitch or venue disconnection to screen a drafted post-mortem before it becomes a retained incident record: scans all four free-text sections for personal-blame terms (with technical-vocabulary exemptions so "fault-tolerant" and "lazy loading" are not flagged), reports counterfactual phrasing as non-blocking advisories, enforces a floor on systemic contributing factors and CAPA items, and renders the approved review as Markdown.
-domain: Risk Governance & Incident Response
-subdomain: SRE Reliability Culture & Incident Governance
-tags: ["blameless-postmortem", "sre", "psychological-safety", "incident-review", "risk-governance", "systemic-factors", "capa", "dora-art-13"]
-brokers_frameworks: ["Google SRE Book Ch. 15 (Postmortem Culture)", "Etsy Code as Craft - Blameless PostMortems and a Just Culture (Allspaw, 2012)", "Regulation (EU) 2022/2554 (DORA) Art. 13", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an incident narrative has been drafted and is about to become a retained
+  record, to screen its free-text sections for personal attribution and blame language
+  before it is filed.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: blameless-postmortem, sre, psychological-safety, incident-review, risk-governance, systemic-factors, capa, dora-art-13
+  brokers_frameworks: "Google SRE Book Ch. 15 (Postmortem Culture); Etsy Code as Craft - Blameless PostMortems and a Just Culture (Allspaw, 2012); Regulation (EU) 2022/2554 (DORA) Art. 13; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,25 +1,17 @@
 ---
 name: multi-account-same-strategy-fan-out
-description: Use when one quantitative strategy signal must be split across multiple
-  client accounts or sub-accounts (fund management / prop trading) and the per-account
-  quantities must sum exactly to the master order, with deterministic collision-free
-  client order IDs and an auditable pro-rata allocation record.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- multi-account
-- fan-out
-- pro-rata
-- largest-remainder-apportionment
-- fund-management
-brokers_frameworks:
-- IBKR FA Allocation Groups
-- CME Average Price System (Rule 553)
-- Multi-Account Fan-Out Allocator
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when one master signal must be split across sub-accounts and the per-account
+  quantities must sum exactly to the parent, with deterministic collision-free client
+  order IDs and an auditable pro-rata allocation record.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, multi-account, fan-out, pro-rata, largest-remainder-apportionment, fund-management
+  brokers_frameworks: "IBKR FA Allocation Groups; CME Average Price System (Rule 553); Multi-Account Fan-Out Allocator"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

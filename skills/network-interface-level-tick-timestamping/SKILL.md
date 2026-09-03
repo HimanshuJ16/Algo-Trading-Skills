@@ -1,28 +1,17 @@
 ---
 name: network-interface-level-tick-timestamping
-description: Use when a low-latency feed handler must stamp ticks with the packet's
-  arrival time at the wire rather than at the application, by decoding Linux
-  SO_TIMESTAMPING / SCM_TIMESTAMPING ancillary control messages and reading the NIC
-  hardware timestamp from ts[2] without mislabelling a kernel software timestamp as
-  a hardware one.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- nic-timestamping
-- so-timestamping
-- scm-timestamping
-- ptp-hardware-clock
-- solarflare
-- low-latency
-brokers_frameworks:
-- Linux SO_TIMESTAMPING (SCM_TIMESTAMPING)
-- PTP hardware clock (ptp4l / phc2sys)
-- Solarflare/AMD OpenOnload & sfptpd
-- Python socket.recvmsg
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a Linux feed handler must stamp ticks at wire arrival rather than in the
+  application. Decodes SO_TIMESTAMPING ancillary messages and reads the NIC hardware
+  stamp without mistaking a kernel software timestamp for it.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, nic-timestamping, so-timestamping, scm-timestamping, ptp-hardware-clock, solarflare, low-latency
+  brokers_frameworks: "Linux SO_TIMESTAMPING (SCM_TIMESTAMPING); PTP hardware clock (ptp4l / phc2sys); Solarflare/AMD OpenOnload & sfptpd; Python socket.recvmsg"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

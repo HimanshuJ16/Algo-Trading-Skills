@@ -11,7 +11,7 @@ every check here unit-testable and deterministic.
 
 It is *not* a WebSocket client. Reconnect handling, subscription bookkeeping
 across reconnects, and heartbeat/ping management live in
-``websocket-reconnect-without-duplicate-subscriptions`` and
+``websocket-subscription-reconciliation-after-reconnect`` and
 ``websocket-reconnection-with-state-recovery``.
 
 What the 15-minute token lifetime actually means

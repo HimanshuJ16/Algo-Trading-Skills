@@ -1,25 +1,17 @@
 ---
 name: total-return-swap-synthetic-exposure
-description: "Prices and risk-manages a share-locked equity Total Return Swap (TRS): total return leg (capital return + manufactured dividends filtered by ISDA Dividend Period), funding leg (SOFR/ESTR/SONIA + prime broker spread on the period-reset notional), signed net settlement and mark-to-market per side, synthetic share delta, and separately reported ISDA CSA initial, maintenance and variation margin requirements."
-domain: Multi-Asset Derivatives
-subdomain: Swaps & Synthetic Structures
-tags:
-- total-return-swap
-- trs
-- synthetic-exposure
-- derivatives
-- sofr-funding
-- manufactured-dividends
-- isda-margin
-- prime-brokerage
-brokers_frameworks:
-- 2002 ISDA Equity Derivatives Definitions
-- 2006 ISDA Definitions (day count)
-- BCBS-IOSCO Uncleared Margin Requirements
-- Python Standard Library (dataclasses, datetime)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when pricing or risk-managing a share-locked equity total return swap: the total
+  return leg with manufactured dividends filtered by the ISDA dividend period, and the
+  funding leg on a benchmark rate plus spread.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: total-return-swap, trs, synthetic-exposure, derivatives, sofr-funding, manufactured-dividends, isda-margin, prime-brokerage
+  brokers_frameworks: "2002 ISDA Equity Derivatives Definitions; 2006 ISDA Definitions (day count); BCBS-IOSCO Uncleared Margin Requirements; Python Standard Library (dataclasses, datetime)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

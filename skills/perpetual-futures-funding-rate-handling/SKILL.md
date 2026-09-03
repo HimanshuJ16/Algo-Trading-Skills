@@ -1,14 +1,17 @@
 ---
 name: perpetual-futures-funding-rate-handling
 description: >-
-  Turning a published perpetual-swap funding print into the cash flow it actually costs this position: mark-priced notional, a payment signed from the position's side rather than the rate's, simple and compounded annualization off the symbol's real settlement interval (never an assumed 8 hours), and an adverse-carry verdict that refuses NaN rates, mismatched symbols and percent-for-decimal unit errors instead of computing through them.
-domain: Crypto Derivatives & Perpetual Swaps
-subdomain: Funding Rate Mechanics & Carry Yield
-tags: ["perpetual-futures", "funding-rate", "crypto-derivatives", "binance-futures", "okx-perpetuals", "carry-trade", "funding-arbitrage", "linear-perpetuals"]
-brokers_frameworks: ["Binance USDS-M Futures API", "Bybit / OKX Perpetual Swap API", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a linear USDT or USDC-margined crypto perpetual position crosses a funding
+  settlement and you need the real carry: mark-priced notional with the payment signed
+  from the position's side, not the rate's.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: perpetual-futures, funding-rate, crypto-derivatives, binance-futures, okx-perpetuals, carry-trade, funding-arbitrage, linear-perpetuals
+  brokers_frameworks: "Binance USDS-M Futures API; Bybit / OKX Perpetual Swap API; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

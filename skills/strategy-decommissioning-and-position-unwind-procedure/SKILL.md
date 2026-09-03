@@ -1,14 +1,17 @@
 ---
 name: strategy-decommissioning-and-position-unwind-procedure
 description: >-
-  Use when retiring a live trading strategy and flattening its book in an orderly way: hard-blocking new entry signals, cancelling working orders, releasing ADV participation-capped liquidation waves, reconciling fills against inventory, and gating the return of capital to treasury on a genuinely flat book.
-domain: Investment Governance & Capital Allocation
-subdomain: Strategy Lifecycle Decommissioning & Position Unwind
-tags: ["strategy-decommissioning", "position-unwind", "participation-capped-liquidation", "order-entry-block", "position-reconciliation", "treasury-return"]
-brokers_frameworks: ["Multi-Strategy Liquidation Framework", "Participation-of-Volume (POV) Caps", "MiFID II RTS 6", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a retired strategy's book must be flattened in an orderly way: block new
+  entries, cancel working orders, then release participation-capped liquidation waves.
+  Deliberately slow; an emergency exit uses the kill switch.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: strategy-decommissioning, position-unwind, participation-capped-liquidation, order-entry-block, position-reconciliation, treasury-return
+  brokers_frameworks: "Multi-Strategy Liquidation Framework; Participation-of-Volume (POV) Caps; MiFID II RTS 6; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

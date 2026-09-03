@@ -1,26 +1,17 @@
 ---
 name: esma-double-volume-cap-mechanism
-description: Use when gating EU dark routing under the MiFIR Article 5 volume cap —
-  the single 7% Union-wide cap on the reference price waiver that replaced the 4%/8%
-  Double Volume Cap, enforced from the ESMA-published quarterly suspension register.
-domain: Venue Integration & Protocols
-subdomain: European Regulatory Compliance (MiFID II / MiFIR)
-tags:
-- esma
-- single-volume-cap
-- mifid-ii
-- mifir-article-5
-- dark-pools
-- reference-price-waiver
-- lis-waiver
-- smart-order-router
-brokers_frameworks:
-- MiFIR Art. 5 (as amended by Reg. (EU) 2024/791)
-- ESMA Volume Cap Mechanism register
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use as the waiver gate before EU dark venue selection. The named double volume cap no
+  longer exists: Regulation 2024/791 replaced it with a single 7% Union-wide cap on the
+  reference price waiver, enforced from ESMA-published data.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: esma, single-volume-cap, mifid-ii, mifir-article-5, dark-pools, reference-price-waiver, lis-waiver, smart-order-router
+  brokers_frameworks: "MiFIR Art. 5 (as amended by Reg. (EU) 2024/791); ESMA Volume Cap Mechanism register; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

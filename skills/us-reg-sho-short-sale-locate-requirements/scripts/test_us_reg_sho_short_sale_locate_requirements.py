@@ -305,6 +305,35 @@ class TestRegSHOShortSaleEngine(unittest.TestCase):
         self.assertIs(first, third)
         self.assertEqual(self.locate.quantity_used, 400)
 
+    def test_retry_carrying_a_fresher_nbbo_tick_is_the_same_order(self):
+        # A post-timeout retry legitimately re-reads the quote before re-sending, so
+        # the NBB (and the optional NBO) will have moved. Market data is not part of
+        # the order's identity: the retry must return the original decision and must
+        # not reserve locate capacity a second time.
+        first = self.engine.validate_order_intent(
+            self._order(order_id="ORD-NBB-RETRY", quantity=400, nbb_price=199.90),
+            as_of=NOW,
+        )
+        retry = self.engine.validate_order_intent(
+            self._order(
+                order_id="ORD-NBB-RETRY", quantity=400, nbb_price=205.25, nbo_price=None
+            ),
+            as_of=NOW,
+        )
+        self.assertTrue(first.is_compliant)
+        self.assertIs(retry, first)
+        self.assertIsNone(retry.rejection_reason)
+        self.assertEqual(self.locate.quantity_used, 400)
+
+    def test_changed_quantity_is_still_rejected_even_with_a_moved_nbb(self):
+        # The converse of the retry case: dropping market data from the fingerprint
+        # must not weaken it against a genuine order_id reuse.
+        self._validate(order_id="ORD-DUP-NBB", quantity=100, nbb_price=199.90)
+        res = self._validate(order_id="ORD-DUP-NBB", quantity=900, nbb_price=205.25)
+        self.assertFalse(res.is_compliant)
+        self.assertIn("Duplicate order_id", res.rejection_reason)
+        self.assertEqual(self.locate.quantity_used, 100)
+
     def test_reused_order_id_with_different_terms_is_rejected(self):
         self._validate(order_id="ORD-DUP", quantity=100)
         res = self._validate(order_id="ORD-DUP", quantity=900)

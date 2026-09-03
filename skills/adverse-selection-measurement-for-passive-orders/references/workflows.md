@@ -212,7 +212,7 @@ selection is degrading, before it shows up in P&L.
 
 - `post-trade-execution-quality-scorecard` — parent TCA scorecard.
 - `execution-slippage-attribution-timing-vs-sizing` — slippage decomposition.
-- `arrival-price-benchmark-execution-algo` — active-order counterpart.
+- `implementation-shortfall-minimization` — active-order counterpart.
 - `queue-position-modeling-for-passive-orders` — explains size-dependent selection.
 - `tick-to-trade-latency-measurement` — remediates short-horizon toxicity.
 - `clock-skew-correction-for-tick-timestamps` — the clock alignment assumed here.

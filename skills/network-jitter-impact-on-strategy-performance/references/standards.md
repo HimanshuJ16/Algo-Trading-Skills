@@ -7,9 +7,8 @@ relating network delay variation to Sharpe ratio.** The `SR(σ) = SR_base − γ
 this skill is an engineering heuristic, and `base_sharpe = 2.5`,
 `jitter_penalty_coeff = 0.5`, `target_sharpe_min = 1.0` and
 `max_acceptable_jitter_ms = 3.0` are placeholders that let the module run, not
-requirements. An earlier revision of this file presented the formula in a "MUST" table
-of "Engineering Standards", which was wrong: it dressed a fitted heuristic as a
-published standard.
+requirements. Presenting the formula in a "MUST" table of "Engineering Standards" would
+dress a fitted heuristic as a published standard.
 
 γ is dimensioned — **Sharpe lost per millisecond of one-way delay standard deviation** —
 and is specific to a strategy, venue, instrument and network path. Obtain it by

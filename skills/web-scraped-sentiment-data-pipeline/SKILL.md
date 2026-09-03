@@ -1,28 +1,17 @@
 ---
 name: web-scraped-sentiment-data-pipeline
 description: >-
-  Use when turning scraped financial text (news wires, SEC filings, Reddit, X/Twitter, StockTwits) into a point-in-time sentiment feature for a ticker. Cleans HTML/URL/entity noise, scores against verified Loughran-McDonald financial word lists with negation handling, collapses syndicated wire duplicates, aggregates a daily mean strictly at or before the signal date, and standardises it against a caller-supplied baseline — refusing to emit a Z-score when the document count, the per-document lexicon evidence, or the baseline is too thin to interpret.
-domain: Quantitative Research & Alternative Data
-subdomain: Financial NLP & Web-Scraped Sentiment Analysis
-tags:
-- alt-data
-- sentiment-analysis
-- nlp
-- loughran-mcdonald
-- web-scraping
-- z-score
-- point-in-time
-- feature-engineering
-brokers_frameworks:
-- news-wire-feeds
-- sec-edgar
-- reddit-api
-- x-twitter-api
-- stocktwits-api
-- python-standard-library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when scraped financial text must become a point-in-time sentiment feature for a
+  ticker, cleaning markup and entity noise, scoring against a verified finance lexicon
+  and deduplicating syndicated copy.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: alt-data, sentiment-analysis, nlp, loughran-mcdonald, web-scraping, z-score, point-in-time, feature-engineering
+  brokers_frameworks: "news-wire-feeds; sec-edgar; reddit-api; x-twitter-api; stocktwits-api; python-standard-library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

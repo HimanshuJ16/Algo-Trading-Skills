@@ -1,31 +1,18 @@
 ---
 name: transfer-pricing-for-multi-entity-trading-operations
-description: Intercompany pricing engine for trading groups spread across legal
-  entities — computes Cost Plus, CUP and TNMM settlement amounts from
-  benchmarks you register, computes a Berry ratio only from a supplied
-  COGS/opex split, and runs a DEMPE-keyed profit split as either a contribution
-  or a residual analysis.
-domain: Tax Accounting & Reporting
-subdomain: Transfer Pricing & Multi-Entity Allocation
-tags:
-- transfer-pricing
-- oecd-beps
-- dempe
-- arms-length-principle
-- cost-plus
-- berry-ratio
-- profit-split
-- multi-entity
-brokers_frameworks:
-- OECD Transfer Pricing Guidelines 2022 (Ch. II, VI, VII)
-- IRC s.482 and Treas. Reg. s.1.482-9
-- IRC s.6662(e)/(h) and Treas. Reg. s.1.6662-6
-- TIOPA 2010 Part 4 (UK)
-- IRAS Transfer Pricing Guidelines (Singapore)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when value crosses between legal entities in a trading group, such as research
+  charged to the intellectual property owner or execution recharged to a fund; computes
+  cost plus, comparable uncontrolled price and TNMM settlements from benchmarks you
+  register.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: transfer-pricing, oecd-beps, dempe, arms-length-principle, cost-plus, berry-ratio, profit-split, multi-entity
+  brokers_frameworks: "OECD Transfer Pricing Guidelines 2022 (Ch. II, VI, VII); IRC s.482 and Treas. Reg. s.1.482-9; IRC s.6662(e)/(h) and Treas. Reg. s.1.6662-6; TIOPA 2010 Part 4 (UK); IRAS Transfer Pricing Guidelines (Singapore); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

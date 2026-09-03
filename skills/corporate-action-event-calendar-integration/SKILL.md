@@ -1,24 +1,17 @@
 ---
 name: corporate-action-event-calendar-integration
-description: Quantitative corporate action data integration module for tracking declaration,
-  ex-date, record date, and payment date lifecycle events, calculating dividend entitlements,
-  and auditing vendor feed parity.
-domain: Data Management & Global
-subdomain: Corporate Action Calendars
-tags:
-- corporate-actions
-- event-calendar
-- ex-date
-- record-date
-- dividends
-- splits
-- entitlement
-brokers_frameworks:
-- Generic Market Data
-- Python Dataclasses
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when ingesting corporate action calendars and tracking the declaration, ex-date,
+  record date and payment date lifecycle to compute dividend entitlements and audit
+  vendor feed parity. Building adjusted prices is corporate-action-adjusted-backtesting.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: corporate-actions, event-calendar, ex-date, record-date, dividends, splits, entitlement
+  brokers_frameworks: "Generic Market Data; Python Dataclasses"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

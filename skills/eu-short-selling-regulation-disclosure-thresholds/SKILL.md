@@ -1,31 +1,17 @@
 ---
 name: eu-short-selling-regulation-disclosure-thresholds
-description: Use when a strategy holds or builds net short positions in EU-admitted
-  shares and must decide what the EU Short Selling Regulation (Regulation (EU) No
-  236/2012) actually requires today — the 0.1% private NCA notification and 0.5%
-  public disclosure thresholds with 0.1% incremental bands, ESMA two-decimal
-  truncation, notification on falling below a band, the 15:30 deadline in the
-  competent authority's own local time, and the Art. 12 uncovered short sale gate.
-domain: Regulatory Compliance & Governance
-subdomain: European Short Selling Regulation (EU SSR)
-tags:
-- eu-ssr
-- short-selling-regulation
-- nca-notification
-- public-disclosure
-- naked-short-ban
-- locate-audit
-- esma
-brokers_frameworks:
-- Regulation (EU) No 236/2012
-- Commission Delegated Regulation (EU) 2022/27
-- Commission Delegated Regulation (EU) No 918/2012
-- Commission Implementing Regulation (EU) No 827/2012
-- ESMA SSR Q&A (ESMA70-145-408)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a strategy holds net short positions in shares admitted to an EU or EEA venue
+  and must know what Regulation 236/2012 requires today: the 0.1% private notification
+  threshold and the 0.5% public disclosure threshold. Sovereign debt has its own regime.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: eu-ssr, short-selling-regulation, nca-notification, public-disclosure, naked-short-ban, locate-audit, esma
+  brokers_frameworks: "Regulation (EU) No 236/2012; Commission Delegated Regulation (EU) 2022/27; Commission Delegated Regulation (EU) No 918/2012; Commission Implementing Regulation (EU) No 827/2012; ESMA SSR Q&A (ESMA70-145-408); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -68,7 +68,7 @@ actually implementing the skill, not just when deciding whether it applies.
      fires a **second, escalated alert** (`FORCE-FLATTEN FAILED … MANUAL INTERVENTION
      REQUIRED`), because positions are still live during a breach.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **In-Line Risk Logic:** Implementing risk checks as conditional branches inside strategy code, bypassed when a strategy bug occurs.
 - **Auto-Resume Flappers:** Automatically resuming trading after a 15-minute cooldown, incurring repeated daily loss breaches.

@@ -1,23 +1,17 @@
 ---
 name: backtesting-alt-data-strategies-with-realistic-availability-lag
-description: Use when backtesting trading strategies driven by alternative data (e.g.,
-  credit card receipts, satellite imagery) to mathematically enforce Point-in-Time
-  (PIT) publication lags and prevent catastrophic lookahead bias. Daily-granularity
-  knowledge-time filter; it does not license, source, or validate the data itself.
-domain: algorithmic-trading
-subdomain: data-management
-tags:
-- alternative-data
-- lookahead-bias
-- point-in-time
-- backtesting
-- publication-lag
-brokers_frameworks:
-- Pandas
-- Point-in-Time Enforcement
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when backtesting an alternative data strategy, to key every observation on its
+  publication date rather than its event date, because the gap between the two is where
+  impossible backtest results come from.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: alternative-data, lookahead-bias, point-in-time, backtesting, publication-lag
+  brokers_frameworks: "Pandas; Point-in-Time Enforcement"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,81 +1,124 @@
 #!/usr/bin/env python3
 """
-Scans all directories under skills/, parses frontmatter from SKILL.md,
-and builds an authoritative index.json database for the repository.
+Builds index.json, the discovery database, from every skills/*/SKILL.md frontmatter.
+
+    python tools/build_index.py            # rewrite index.json
+    python tools/build_index.py --check    # exit 1 if index.json is stale (CI)
+    python tools/build_index.py --output path/to/file.json
+
+The index carries no timestamp, so regenerating it from unchanged sources produces no
+diff. Its `version` is read from .claude-plugin/plugin.json. Frontmatter is parsed with
+the same function the validator uses, and any skill that cannot be parsed fails the
+build instead of silently dropping out of the index.
 """
-import datetime
+import argparse
 import glob
 import json
 import os
 import sys
 
-try:
-    import yaml
-except ImportError:
-    print("This script requires pyyaml. Install with: pip install pyyaml")
-    sys.exit(1)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from validate_skills import parse_frontmatter, split_list  # noqa: E402
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILLS_DIR = os.path.join(ROOT_DIR, "skills")
 INDEX_PATH = os.path.join(ROOT_DIR, "index.json")
+PLUGIN_PATH = os.path.join(ROOT_DIR, ".claude-plugin", "plugin.json")
+REPOSITORY = "https://github.com/HimanshuJ16/Algo-Trading-Skills"
 
 
-def build_index():
-    skill_dirs = sorted(glob.glob(os.path.join(SKILLS_DIR, "*")))
-    skills_metadata = []
+def repo_version():
+    with open(PLUGIN_PATH, encoding="utf-8") as fh:
+        return json.load(fh)["version"]
 
-    for s_dir in skill_dirs:
+
+def build_index(skills_dir=SKILLS_DIR):
+    """Return the index as a dict. Raises ValueError on any unparseable skill."""
+    skills = []
+    problems = []
+    for s_dir in sorted(glob.glob(os.path.join(skills_dir, "*"))):
         if not os.path.isdir(s_dir):
             continue
-
         skill_name = os.path.basename(s_dir)
         skill_md = os.path.join(s_dir, "SKILL.md")
-
         if not os.path.isfile(skill_md):
-            print(f"Warning: Missing SKILL.md in {skill_name}")
+            problems.append(f"{skill_name}: missing SKILL.md")
             continue
-
-        content = open(skill_md, "r", encoding="utf-8").read()
-        if not content.startswith("---"):
-            print(f"Warning: No frontmatter in {skill_name}/SKILL.md")
-            continue
-
+        with open(skill_md, encoding="utf-8") as fh:
+            content = fh.read()
         try:
-            parts = content.split("---", 2)
-            fm = yaml.safe_load(parts[1])
-        except Exception as e:
-            print(f"Error parsing frontmatter in {skill_name}: {e}")
+            fm, _ = parse_frontmatter(content)
+        except ValueError as e:
+            problems.append(f"{skill_name}: {e}")
             continue
-
-        skill_entry = {
+        meta = fm.get("metadata") or {}
+        if not isinstance(meta, dict):
+            problems.append(f"{skill_name}: metadata is not a mapping")
+            continue
+        skills.append({
             "name": fm.get("name", skill_name),
-            "description": fm.get("description", "").strip(),
-            "domain": fm.get("domain", "algorithmic-trading"),
-            "subdomain": fm.get("subdomain", ""),
-            "tags": fm.get("tags", []),
-            "brokers_frameworks": fm.get("brokers_frameworks", []),
-            "version": str(fm.get("version", "1.0")),
-            "author": fm.get("author", "algo-trading-skills-contributors"),
-            "license": fm.get("license", "Apache-2.0"),
+            "description": " ".join(str(fm.get("description", "")).split()),
+            "domain": str(meta.get("domain", "")),
+            "subdomain": str(meta.get("subdomain", "")),
+            "tags": split_list(meta.get("tags"), ","),
+            "brokers_frameworks": split_list(meta.get("brokers_frameworks"), ";"),
+            "version": str(meta.get("version", "")),
+            "author": str(meta.get("author", "")),
+            "license": str(fm.get("license", "")),
             "path": f"skills/{skill_name}",
             "skill_md": f"skills/{skill_name}/SKILL.md",
-        }
-        skills_metadata.append(skill_entry)
+        })
+    if problems:
+        raise ValueError("; ".join(problems))
 
-    index_data = {
-        "version": "1.0.0",
-        "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
+    by_subdomain = {}
+    for s in skills:
+        by_subdomain[s["subdomain"]] = by_subdomain.get(s["subdomain"], 0) + 1
+
+    return {
+        "version": repo_version(),
+        "repository": REPOSITORY,
         "domain": "algorithmic-trading",
-        "total_skills": len(skills_metadata),
-        "skills": skills_metadata,
+        "total_skills": len(skills),
+        "subdomains": dict(sorted(by_subdomain.items())),
+        "skills": skills,
     }
 
-    with open(INDEX_PATH, "w", encoding="utf-8") as f:
-        json.dump(index_data, f, indent=2)
 
-    print(f"Successfully generated index.json with {len(skills_metadata)} skills.")
+def render(index):
+    return json.dumps(index, indent=2, ensure_ascii=False) + "\n"
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--check", action="store_true", help="exit 1 if index.json is out of date")
+    parser.add_argument("--output", default=INDEX_PATH, help="where to write (default: index.json)")
+    args = parser.parse_args(argv)
+
+    try:
+        index = build_index()
+    except ValueError as e:
+        print(f"build_index: {e}")
+        return 1
+    text = render(index)
+
+    if args.check:
+        try:
+            with open(args.output, encoding="utf-8") as fh:
+                current = fh.read()
+        except FileNotFoundError:
+            current = ""
+        if current != text:
+            print(f"{os.path.relpath(args.output, ROOT_DIR)} is out of date -- run python tools/build_index.py")
+            return 1
+        print(f"index.json is up to date ({index['total_skills']} skills).")
+        return 0
+
+    with open(args.output, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(text)
+    print(f"Successfully generated {os.path.relpath(args.output, ROOT_DIR)} with {index['total_skills']} skills.")
+    return 0
 
 
 if __name__ == "__main__":
-    build_index()
+    sys.exit(main())

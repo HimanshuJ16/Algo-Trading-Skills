@@ -1,14 +1,17 @@
 ---
 name: portfolio-construction-with-transaction-cost-awareness
 description: >-
-  Turnover-aware rebalance planner that filters proposed weight changes through a no-trade buffer band and prices the surviving trades with proportional commission, bid-ask spread, and quadratic market impact costs.
-domain: Portfolio Multi Strategy
-subdomain: Rebalance Cost Accounting & Turnover Management
-tags: ["portfolio-construction", "transaction-costs", "rebalancing", "no-trade-band", "turnover-control", "market-impact", "cost-accounting"]
-brokers_frameworks: ["Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when an upstream allocator emits a stream of small weight changes and you must
+  decide which are worth executing, filtering through a no-trade band and pricing
+  survivors with commission, spread and impact. It runs no optimiser.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: portfolio-construction, transaction-costs, rebalancing, no-trade-band, turnover-control, market-impact, cost-accounting
+  brokers_frameworks: Python Dataclasses
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

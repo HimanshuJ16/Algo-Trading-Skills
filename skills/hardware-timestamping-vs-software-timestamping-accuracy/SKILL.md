@@ -1,16 +1,17 @@
 ---
 name: hardware-timestamping-vs-software-timestamping-accuracy
 description: >-
-  Benchmarking and audit engine that separates NIC hardware (MAC/PHY) clock divergence from UTC from
-  kernel and user-space capture-path delay, reports capture jitter distributionally, and audits the
-  recorded timestamp against the applicable MiFID II RTS 25 Annex divergence AND granularity bounds.
-domain: Market Microstructure & Latency
-subdomain: Hardware NIC Timestamping & MiFID II Compliance
-tags: ["hardware-timestamping", "solarflare", "so-timestamping", "ptp-hardware-clock", "mifid-ii", "rts-25", "capture-jitter", "clock-divergence"]
-brokers_frameworks: ["Solarflare/AMD OpenOnload & sfptpd", "Linux SO_TIMESTAMPING", "PTP IEEE 1588 / phc2sys", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding which layer's timestamp to record on a capture host, separating NIC
+  clock divergence from UTC from kernel and user-space capture-path delay, and reporting
+  capture jitter distributionally.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: hardware-timestamping, solarflare, so-timestamping, ptp-hardware-clock, mifid-ii, rts-25, capture-jitter, clock-divergence
+  brokers_frameworks: "Solarflare/AMD OpenOnload & sfptpd; Linux SO_TIMESTAMPING; PTP IEEE 1588 / phc2sys; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

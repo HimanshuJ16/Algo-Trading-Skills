@@ -1,26 +1,17 @@
 ---
 name: vendor-lock-in-risk-for-proprietary-custody-formats
-description: "Institutional risk management skill for evaluating crypto custody vendor lock-in, key format portability (BIP-39, SLIP-0039, BIP-32, WIF vs proprietary MPC/HSM blobs), separating secret-bearing key material from derivation metadata, open-source offline recovery tool availability, migration cost/friction estimation, and disaster recovery self-sovereignty."
-domain: Crypto Custody & Infrastructure Security
-subdomain: Vendor Risk Management & Key Portability
-tags:
-- crypto-custody
-- vendor-lock-in
-- key-portability
-- bip-39
-- slip-0039
-- mpc-key-shares
-- disaster-recovery
-- self-sovereignty
-brokers_frameworks:
-- fireblocks
-- bitgo
-- anchorage
-- copper
-- safe-gnosis
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when onboarding a custodian or planning a migration, scoring key format
+  portability across BIP-39, SLIP-0039 and BIP-32 against proprietary MPC or HSM blobs,
+  and estimating the exit cost.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-custody, vendor-lock-in, key-portability, bip-39, slip-0039, mpc-key-shares, disaster-recovery, self-sovereignty
+  brokers_frameworks: "fireblocks; bitgo; anchorage; copper; safe-gnosis"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

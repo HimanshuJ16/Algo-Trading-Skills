@@ -154,7 +154,7 @@ endpoints and to non-443 ports. Keep a periodic `GET /orders` sweep that reconci
 full open-order set, so a missed postback surfaces as a reconciliation difference rather
 than as a position you find out about at settlement.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Fail-open signature check.** Verifying only `if a checksum field is present` — an
   attacker omits it and forged fills are accepted as verified.

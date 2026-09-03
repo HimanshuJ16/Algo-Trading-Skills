@@ -133,7 +133,7 @@ bounded in-memory ring buffer for inspection and testing; durable retention must
 the `audit_sink` callable writing to durable, tamper-evident storage. Monitor
 `audit_sink_failures` — a non-zero value means decisions exist only in memory.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Signed quantities bypassing the caps.** Where "sell" is encoded as a negative
   quantity, `price * quantity` is negative and slides under any positive maximum-order-value

@@ -1,14 +1,17 @@
 ---
 name: futures-expiry-week-liquidity-and-volatility-handling
 description: >-
-  Microstructure execution engine for auditing futures expiry week liquidity fragmentation, wider spreads, and Quad-Witching volatility, enforcing position size haircuts and roll mandates.
-domain: Market Microstructure & Risk
-subdomain: Expiry Week Volatility & Order Book Safeguards
-tags: ["futures-expiry", "liquidity-fragmentation", "quad-witching", "order-book-depth", "bid-ask-spread", "position-haircut", "microstructure-risk"]
-brokers_frameworks: ["CME Group", "ICE Futures", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when still trading a futures contract inside its final weeks, where liquidity
+  leaves before expiry and quad-witching adds volatility; applies position-size haircuts
+  and raises a roll mandate. The roll itself is futures-contract-roll-automation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: futures-expiry, liquidity-fragmentation, quad-witching, order-book-depth, bid-ask-spread, position-haircut, microstructure-risk
+  brokers_frameworks: "CME Group; ICE Futures; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

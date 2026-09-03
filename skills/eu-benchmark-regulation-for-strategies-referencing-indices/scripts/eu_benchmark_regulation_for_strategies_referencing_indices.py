@@ -31,7 +31,7 @@ Article 2(1) to four categories only:
     (PABs);
   * commodity benchmarks subject to Annex II.
 
-Everything else is out of scope. A pre-2026 engine that flags every unregistered
+Everything else is out of scope. A older engine that flags every unregistered
 benchmark as a violation now produces false positives on indices an EU fund is
 perfectly entitled to reference, so scope is evaluated *before* any register
 test. See ``references/standards.md`` for the sourcing.
@@ -155,7 +155,7 @@ CATEGORY_SIGNIFICANT = "SIGNIFICANT"
 CATEGORY_EU_CLIMATE = "EU_CLIMATE"                      # CTB or PAB
 CATEGORY_COMMODITY_ANNEX_II = "COMMODITY_ANNEX_II"
 
-#: Everything the amended Article 2(1) leaves out, including what the pre-2026
+#: Everything the amended Article 2(1) leaves out, including what an earlier
 #: regime called a non-significant benchmark.
 CATEGORY_OUT_OF_SCOPE = "OUT_OF_SCOPE"
 

@@ -1,14 +1,17 @@
 ---
 name: multi-strategy-reporting-consolidation-for-stakeholders
 description: >-
-  Multi-strategy reporting consolidation engine that recomputes portfolio-level volatility, Sharpe ratio, max drawdown, and the Choueifaty-Coignard diversification ratio from a synthesized joint return series rather than summing or averaging sub-strategy metrics, and reports undefined metrics as NaN instead of fabricating them.
-domain: Portfolio Multi Strategy
-subdomain: Executive Reporting & Multi-Strategy Performance Consolidation
-tags: ["multi-strategy", "reporting", "stakeholder-reporting", "portfolio-attribution", "sharpe-ratio", "diversification-ratio", "pnl-consolidation"]
-brokers_frameworks: ["Executive Reporting Engine", "Portfolio Performance Attribution", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when reporting consolidated performance to a risk committee or investors,
+  recomputing portfolio volatility, Sharpe, max drawdown and the diversification ratio
+  from joint returns rather than averaging strategy-level figures.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: multi-strategy, reporting, stakeholder-reporting, portfolio-attribution, sharpe-ratio, diversification-ratio, pnl-consolidation
+  brokers_frameworks: "Executive Reporting Engine; Portfolio Performance Attribution; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -21,7 +24,7 @@ Use this skill when reporting consolidated performance across multiple sub-strat
 - **On a window shorter than one year, for external presentation.** GIPS 2020 Provision 2.A.12: "Returns for periods of less than one year must not be annualized." The engine still computes the annualized figures but flags the window in `report.warnings`.
 - **On return series that are not already aligned by date.** `daily_returns` carries no timestamps, so the engine cannot align sleeves itself. Unequal lengths are rejected rather than truncated.
 - **On heavily smoothed or illiquid marks, without a caveat.** $\sqrt{252}$ Sharpe annualization assumes serially uncorrelated returns; Lo (2002) shows a hedge fund's annual Sharpe can be overstated by as much as 65% when returns are serially correlated.
-- **For factor or benchmark decomposition.** This measures the portfolio against itself, not against market exposure — see `benchmark-portfolio-for-multi-strategy-performance-context` and `strategy-performance-attribution-vs-market-beta`.
+- **For factor or benchmark decomposition.** This measures the portfolio against itself, not against market exposure — see `benchmark-relative-performance-attribution` and `strategy-performance-attribution-vs-market-beta`.
 
 ## Prerequisites
 
@@ -73,6 +76,6 @@ Use this skill when reporting consolidated performance across multiple sub-strat
 ## Related Skills
 
 - `strategy-performance-attribution-vs-market-beta`
-- `benchmark-portfolio-for-multi-strategy-performance-context`
+- `benchmark-relative-performance-attribution`
 - `risk-adjusted-performance-attribution-per-strategy`
 - `cross-strategy-correlation-monitoring`

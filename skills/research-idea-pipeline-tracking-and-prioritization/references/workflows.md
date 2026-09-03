@@ -30,10 +30,10 @@ outside the engine. Every one of these raises `ResearchPipelineError`:
 
 | Input problem | Why it is fatal |
 |---|---|
-| Non-finite `expected_sharpe` or `estimated_capacity_usd` | `NaN` propagates into the score, and `NaN` compares `False` against everything, so the idea sorts to an arbitrary position — in the previous implementation, rank 1 — while looking like a computed result. |
+| Non-finite `expected_sharpe` or `estimated_capacity_usd` | `NaN` propagates into the score, and `NaN` compares `False` against everything, so the idea sorts to an arbitrary position — plausibly rank 1 — while looking like a computed result. |
 | `expected_sharpe < 0` | The score divides by $k \times d$, so a negative Sharpe makes a *harder* idea rank *better*: $-2.0 \times 7/1 = -14.0$ versus $-2.0 \times 7/5 = -2.8$. A losing idea belongs in `REJECTED`. |
 | `estimated_capacity_usd < 1` | $\log_{10}$ is negative below $\$1$, flipping the sign of the whole expression. |
-| `implementation_complexity` or `data_cost_tier` outside $[1,5]$, non-`int`, or `bool` | Clamping an out-of-range tier to 1 (the previous behaviour) awards the maximum possible score to the worst-specified idea. |
+| `implementation_complexity` or `data_cost_tier` outside $[1,5]$, non-`int`, or `bool` | Clamping an out-of-range tier to 1 would award the maximum possible score to the worst-specified idea. |
 | Blank `idea_id`, `title`, or `author` | An unattributable idea cannot be reviewed or chased. |
 | Unknown `stage` string | See §3 — a misspelt stage keeps a rejected idea in the ranking. |
 
@@ -76,7 +76,7 @@ produces a different "top idea".
 | Status | Meaning |
 |---|---|
 | `NO_IDEAS` | The register is empty. |
-| `NO_ACTIVE_IDEAS` | Ideas exist but every one is `REJECTED`. The previous implementation reported this as `PIPELINE_ACTIVE`. |
+| `NO_ACTIVE_IDEAS` | Ideas exist but every one is `REJECTED`. Reporting this as `PIPELINE_ACTIVE` would hide a stalled pipeline. |
 | `PIPELINE_ACTIVE` | At least one idea is rankable. |
 
 ### What the score is not
@@ -115,8 +115,8 @@ paper-trading result can send an idea back to backtesting.
 
 | Situation | Behaviour |
 |---|---|
-| Unknown `idea_id` | Raises. The previous implementation returned `False`, so a caller who ignored the return believed an idea had been rejected while it was still being ranked. |
-| Unknown stage string (`"rejcted"`, `"REJECT"`, `"done"`) | Raises, listing the legal stages. The previous implementation upper-cased any string, producing a phantom `REJCTED` bucket in the breakdown while the idea stayed active. |
+| Unknown `idea_id` | Raises. Returning `False` instead lets a caller who ignores the return believe an idea has been rejected while it is still being ranked. |
+| Unknown stage string (`"rejcted"`, `"REJECT"`, `"done"`) | Raises, listing the legal stages. Upper-casing any string instead produces a phantom `REJCTED` bucket in the breakdown while the idea stays active. |
 | Legal stage, illegal transition | Raises, naming the legal targets from the current stage. |
 | Target is the current stage | No-op, returns `False`, writes no history entry. |
 | Target is `REJECTED` with a blank `reason` | Raises. An unexplained rejection cannot stop the same idea being re-proposed next quarter. |

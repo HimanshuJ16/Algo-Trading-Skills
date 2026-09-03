@@ -1,26 +1,18 @@
 ---
 name: point-in-time-database-for-ml-training-data
-description: Use when constructing ML training datasets to as-of join features onto
-  historical labels on the knowledge axis (`available_at`), so every feature value in
-  the training matrix was genuinely knowable at the label timestamp and restatements,
-  publication lags and stale carry-forward cannot leak into the target.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- point-in-time-db
-- training-data
-- feature-store
-- data-leakage-prevention
-- as-of-join
-- knowledge-time
-- staleness-bound
-brokers_frameworks:
-- Point-In-Time ML Database Engine
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when assembling a feature and label matrix, to as-of join features on the
+  knowledge axis so no row carries a restated value that was not knowable at the label
+  timestamp. The storage schema itself is
+  backtest-database-schema-for-point-in-time-queries.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, point-in-time-db, training-data, feature-store, data-leakage-prevention, as-of-join, knowledge-time, staleness-bound
+  brokers_frameworks: "Point-In-Time ML Database Engine; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

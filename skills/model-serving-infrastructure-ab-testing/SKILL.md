@@ -1,14 +1,17 @@
 ---
 name: model-serving-infrastructure-ab-testing
 description: >-
-  Champion-Challenger model serving A/B testing engine, managing deterministic salted traffic routing, shadow execution, and Welch's two-sample t-test (Student-t reference distribution, Welch-Satterthwaite degrees of freedom) for advisory model promotion decisions.
-domain: Quant Research Alt Data
-subdomain: Model Serving Infrastructure & Live A/B Testing
-tags: ["model-serving", "ab-testing", "champion-challenger", "welchs-t-test", "shadow-mode", "traffic-routing", "model-promotion"]
-brokers_frameworks: ["Welch's Two-Sample t-Test", "SciPy", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a challenger model is evaluated against the champion in production;
+  deterministic salted traffic routing, shadow execution and a Welch two-sample t-test,
+  so promotion rests on a test rather than on luck.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: model-serving, ab-testing, champion-challenger, welchs-t-test, shadow-mode, traffic-routing, model-promotion
+  brokers_frameworks: "Welch's Two-Sample t-Test; SciPy; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

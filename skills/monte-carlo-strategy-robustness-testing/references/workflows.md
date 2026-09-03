@@ -71,7 +71,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - Re-run with an identical seed and confirm the result reproduces before the
      sign-off is recorded (`backtest-determinism-and-reproducibility`).
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Optimistic bias from broken loss clustering.** Shuffling and IID bootstrap
   assume exchangeability. When a strategy's losses cluster by regime, resampling

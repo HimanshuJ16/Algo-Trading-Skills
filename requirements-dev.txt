@@ -1,3 +1,4 @@
 # Development and CI testing dependencies for Algo-Trading-Skills
 -r requirements.txt
 pytest>=7.0.0
+skills-ref>=0.1.0   # agentskills.io reference validator: skills-ref validate skills/<name>

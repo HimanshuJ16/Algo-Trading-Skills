@@ -22,10 +22,10 @@ Malformed input raises `ValueError`. It does not produce a verdict, because
 `REJECTED_RISK_BREACH` and "the AUM field was corrupt" call for different people.
 
 - `fund_total_aum_usd` must be **strictly positive**. The concentration check is a
-  ratio; the previous implementation guarded the division with `if aum > 0` and
-  skipped the entire mandate check when it was not. A zero AUM disabled the cap.
-- Amounts must be finite and non-negative. `NaN > 20.0` is `False`, so a corrupt
-  `proposed_allocation_usd` used to clear the cap and be recorded as `APPROVED`.
+  ratio; guarding the division with `if aum > 0` instead skips the entire mandate
+  check when it is not, so a zero AUM disables the cap.
+- Amounts must be finite and non-negative. `NaN > 20.0` is `False`, so an unvalidated
+  corrupt `proposed_allocation_usd` clears the cap and is recorded as `APPROVED`.
 - `max_single_strategy_aum_pct` must lie in $(0, 100]$.
 - `proposal_id` and `strategy_id` must be non-blank. A minute keyed by an empty
   identifier is not a record.

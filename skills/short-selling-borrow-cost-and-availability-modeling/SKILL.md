@@ -1,14 +1,17 @@
 ---
 name: short-selling-borrow-cost-and-availability-modeling
 description: >-
-  Use when a strategy shorts equities and must price the securities-lending leg correctly — borrow fee accrual on the ACT/360 money-market basis against daily-marked 102% collateral (SIFMA MSLA Sec. 5.1 / 9.1), a fail-closed inventory availability gate, observed broker rates in preference to a utilization heuristic, short-proceeds rebate netting, and open-term lender recall risk under MSLA Sec. 6.1(a).
-domain: Market Microstructure & Portfolio Risk
-subdomain: Securities Lending & Short Sale Borrow Cost
-tags: ["short-selling", "borrow-cost", "hard-to-borrow", "htb-rate", "locate-availability", "securities-lending", "act-360", "recall-risk"]
-brokers_frameworks: ["SIFMA 2017 Master Securities Loan Agreement", "Interactive Brokers Stock Borrow Fee Reporting", "S&P Global / DataLend Securities Finance Metrics", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a strategy shorts equities and the securities-lending leg must be priced:
+  borrow fee accrual on an ACT/360 basis against daily-marked collateral, plus
+  availability. Not a Regulation SHO locate.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: short-selling, borrow-cost, hard-to-borrow, htb-rate, locate-availability, securities-lending, act-360, recall-risk
+  brokers_frameworks: "SIFMA 2017 Master Securities Loan Agreement; Interactive Brokers Stock Borrow Fee Reporting; S&P Global / DataLend Securities Finance Metrics; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

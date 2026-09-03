@@ -1,26 +1,17 @@
 ---
 name: uk-senior-managers-regime-algo-accountability
-description: "Institutional regulatory governance skill for the UK FCA Senior Managers & Certification Regime (SM&CR), mapping algorithmic trading strategies to Senior Management Functions under SUP 10C, tracking SYSC 27 certification F&P certificate validity, recording version-bound reasonable-steps deployment sign-offs, and producing SYSC 25 management responsibilities map evidence."
-domain: Global Regulatory Compliance & Risk Governance
-subdomain: Senior Managers Regime & Executive Accountability (UK FCA)
-tags:
-- smcr
-- uk-fca
-- sup-10c
-- sysc-25
-- sysc-27
-- mar-7a
-- reasonable-steps
-- fitness-and-propriety
-- algo-governance
-brokers_frameworks:
-- fca-handbook-sup10c
-- fca-handbook-sysc
-- fca-handbook-mar7a
-- uk-assimilated-rts6
-version: "2.0.0"
-author: Quant Engineering
-license: MIT
+description: >-
+  Use when establishing statutory accountability for algorithmic trading in a UK SMCR
+  firm, mapping each strategy to a named Senior Management Function under SUP 10C and
+  tracking the statements of responsibility that go with them.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: smcr, uk-fca, sup-10c, sysc-25, sysc-27, mar-7a, reasonable-steps, fitness-and-propriety, algo-governance
+  brokers_frameworks: "fca-handbook-sup10c; fca-handbook-sysc; fca-handbook-mar7a; uk-assimilated-rts6"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -8,9 +8,8 @@ this skill is an operational default chosen to be defensible, not an authority t
 The formulas in §2 are published methods with sources; the numbers in §1 and §3 are
 desk policy and must be calibrated on your own instruments, features and horizon.
 
-An earlier version of this file presented a "Source-Target Asset Correlation & Selection
-Matrix" of minimum correlations by asset class as though it were an institutional
-standard. It was not sourced, and it has been removed rather than re-cited.
+A "Source-Target Asset Correlation & Selection Matrix" of minimum correlations by asset
+class is not an institutional standard. No source publishes one; do not cite one.
 
 ## 1. Source-asset selection — considerations, not thresholds
 

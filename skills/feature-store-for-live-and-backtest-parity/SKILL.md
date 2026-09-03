@@ -1,26 +1,17 @@
 ---
 name: feature-store-for-live-and-backtest-parity
-description: Use when building ML feature pipelines to implement a single shared feature
-  computation engine that keeps offline batch backtesting and online live streaming
-  inference numerically identical, and to validate that parity automatically
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- feature-store
-- backtest-live-parity
-- train-test-skew
-- feature-engineering
-brokers_frameworks:
-- Feast
-- Hopsworks
-- Pandas
-- NumPy
-- TA-Lib
-- Custom Feature Engines
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a model trains offline on bars and serves online on a stream, and two
+  separate feature code paths would drift apart; one shared computation engine plus a
+  numeric parity check between batch and streaming output.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, feature-store, backtest-live-parity, train-test-skew, feature-engineering
+  brokers_frameworks: "Feast; Hopsworks; Pandas; NumPy; TA-Lib; Custom Feature Engines"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

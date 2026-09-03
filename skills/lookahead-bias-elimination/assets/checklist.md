@@ -22,4 +22,4 @@ causal — read `references/standards.md` § Audit Limitations before signing.**
 
 - Reviewed by: ___________________________
 - Date: ___________________________
-- Environment tested (paper/sandbox/live): ___________________________
+- Reviewed by: ___________________________

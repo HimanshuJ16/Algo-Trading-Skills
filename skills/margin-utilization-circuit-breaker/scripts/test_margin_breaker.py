@@ -6,7 +6,7 @@ figures are stated as plain arithmetic (e.g. 70,000 / 100,000 = 0.70) rather tha
 recomputed with the module's own expression, so a sign or operand error in the
 module cannot also flip the expectation.
 
-Every fail-open test here fails against the pre-2.0 implementation: NaN inputs,
+Every fail-open test here fails against a naive implementation: NaN inputs,
 percent-scaled thresholds, latching, staleness and the risk-reducing carve-out
 were all either absent or silently approved.
 """
@@ -105,7 +105,7 @@ class TestUtilizationGrading(unittest.TestCase):
 
 class TestNonFiniteAndInvalidInput(unittest.TestCase):
     """
-    Fail-closed behaviour. Under the pre-2.0 implementation a NaN equity produced
+    Fail-closed behaviour. Under a naive implementation a NaN equity produced
     status NORMAL and an approved order.
     """
 
@@ -199,7 +199,7 @@ class TestDeficitReporting(unittest.TestCase):
 class TestThresholdValidation(unittest.TestCase):
     """
     Configuration errors that silently disable the breaker must not construct.
-    The pre-2.0 constructor accepted every case below.
+    an earlier constructor accepted every case below.
     """
 
     def test_percent_scaled_thresholds_are_rejected(self):
@@ -364,7 +364,7 @@ class TestLatching(unittest.TestCase):
 class TestRiskReducingCarveOut(unittest.TestCase):
     """
     A breaker that blocks every order while halted also blocks the de-risking it
-    is demanding. The pre-2.0 implementation rejected a margin-releasing order
+    is demanding. a naive implementation rejected a margin-releasing order
     whenever the projection remained above the hard stop.
     """
 

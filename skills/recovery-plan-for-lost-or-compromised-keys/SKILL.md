@@ -1,14 +1,17 @@
 ---
 name: recovery-plan-for-lost-or-compromised-keys
 description: >-
-  Readiness auditor for crypto custody key-loss and key-compromise recovery plans, checking backup integrity, Shamir shard sufficiency and quorum distribution, emergency sweep readiness, key inventory, and drill recency against NIST SP 800-57 and CCSS.
-domain: Crypto Custody & Security
-subdomain: Key Recovery & Incident Response
-tags: ["key-recovery", "compromised-keys", "shamir-secret-sharing", "cold-storage", "emergency-sweep", "incident-response"]
-brokers_frameworks: ["NIST SP 800-57 Part 1 Rev. 5", "NIST CSF 2.0 (Recover)", "CCSS v9", "Shamir Secret Sharing (SSS)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when auditing in peacetime whether the key-loss and key-compromise recovery plan
+  would actually work, checking backup integrity, Shamir shard sufficiency, quorum
+  distribution and emergency sweep readiness.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: key-recovery, compromised-keys, shamir-secret-sharing, cold-storage, emergency-sweep, incident-response
+  brokers_frameworks: "NIST SP 800-57 Part 1 Rev. 5; NIST CSF 2.0 (Recover); CCSS v9; Shamir Secret Sharing (SSS); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

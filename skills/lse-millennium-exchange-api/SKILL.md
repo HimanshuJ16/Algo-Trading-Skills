@@ -1,17 +1,17 @@
 ---
 name: lse-millennium-exchange-api
 description: >-
-  Client-side pre-dispatch validation for London Stock Exchange (Millennium Exchange) orders —
-  TIDM mnemonic format against the Exchange's STRING(4) field, the per-instrument trading currency
-  (GBX pence is reference data, not a venue-wide rule), the instrument's price tick table with the
-  UK RTS 11 price x liquidity-band grid as the regulatory floor, and sterling notional valuation.
-domain: Global Market Integration & FX
-subdomain: European Equities & LSE Connectivity
-tags: ["lse", "london-stock-exchange", "millennium-exchange", "gbx", "tidm", "uk-rts-11", "tick-size", "sets"]
-brokers_frameworks: ["LSE Millennium Exchange (MIT201)", "LSE Reference Data Service (MIT401)", "UK RTS 11 — assimilated (EU) 2017/588", "Python Decimal"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when validating an order for the London Stock Exchange order book before dispatch:
+  the TIDM mnemonic format, the per-instrument trading currency including pence versus
+  pounds, and the applicable tick band.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: lse, london-stock-exchange, millennium-exchange, gbx, tidm, uk-rts-11, tick-size, sets
+  brokers_frameworks: "LSE Millennium Exchange (MIT201); LSE Reference Data Service (MIT401); UK RTS 11 — assimilated (EU) 2017/588; Python Decimal"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

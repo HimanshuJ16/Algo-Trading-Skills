@@ -1,22 +1,17 @@
 ---
 name: chaos-engineering-for-trading-infrastructure
-description: Use when a trading system's failover, timeout and gap-recovery paths have
-  never actually been exercised — injecting reproducible latency, message loss and
-  simulated process death at an I/O boundary, behind a fail-closed activation gate, and
-  counting what was injected so a green run cannot be mistaken for a resilient one.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- chaos-engineering
-- resilience
-- fault-injection
-- failover
-- grey-failure
-brokers_frameworks: []
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when failover, timeout and gap-recovery paths have never actually run under fault;
+  injects reproducible latency, message loss and simulated process death at an I/O
+  boundary, behind an activation gate and never near live capital.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-ops, chaos-engineering, resilience, fault-injection, failover, grey-failure
+  brokers_frameworks: ""
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

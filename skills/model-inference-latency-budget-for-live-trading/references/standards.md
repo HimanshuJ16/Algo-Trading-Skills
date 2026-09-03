@@ -4,9 +4,9 @@
 
 **No regulator, exchange or standards body publishes a model inference latency SLA.**
 The `1.0 ms` budget and `0.8 ms` warning threshold shipped as defaults in this module
-are engineering starting points, not requirements, and an earlier revision of this
-skill was wrong to present its engineering choices in a "MUST" table without saying
-where they came from. An inference budget is derived by subtracting the other terms of
+are engineering starting points, not requirements — presenting such choices in a "MUST"
+table without saying where they came from would be wrong. An inference budget is derived
+by subtracting the other terms of
 a strategy's tick-to-trade budget from the end-to-end latency it can actually tolerate
 — it is a property of that strategy and its venue, not of ML inference in general.
 

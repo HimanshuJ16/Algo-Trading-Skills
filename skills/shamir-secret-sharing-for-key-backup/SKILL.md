@@ -1,17 +1,17 @@
 ---
 name: shamir-secret-sharing-for-key-backup
 description: >-
-  Shamir (k, n) threshold split and reconstruction of signing keys and BIP-39 seeds over the prime
-  field M_521, with a field large enough for a 256-bit key, byte-length-preserving splitting,
-  and reconstruction that refuses duplicate, out-of-field, sub-threshold or mutually inconsistent
-  share sets instead of returning a plausible wrong key. Not SLIP-0039 compatible.
-domain: Crypto Custody & Security
-subdomain: Key Backup & Threshold Cryptography
-tags: ["shamir-secret-sharing", "sss", "threshold-cryptography", "key-backup", "lagrange-interpolation", "crypto-custody"]
-brokers_frameworks: ["Shamir (CACM 1979)", "NIST SP 800-57 Part 1 Rev. 5", "CCSS v9 (C4)", "SLIP-0039 (contrast only)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when key material that unlocks funds must survive the loss of any single custodian
+  or device while no single holder can spend, splitting and reconstructing over a prime
+  field large enough for a 256-bit key. Not SLIP-0039 compatible.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: shamir-secret-sharing, sss, threshold-cryptography, key-backup, lagrange-interpolation, crypto-custody
+  brokers_frameworks: "Shamir (CACM 1979); NIST SP 800-57 Part 1 Rev. 5; CCSS v9 (C4); SLIP-0039 (contrast only); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,27 +1,17 @@
 ---
 name: synthetic-data-generation-for-backtest-augmentation
 description: >-
-  Use when a backtest rests on too little history and needs additional price/return
-  paths: Geometric Brownian Motion diffusion baselines, GARCH(1,1) volatility
-  clustering, circular block bootstrap resampling that preserves serial dependence,
-  and a moment-parity report auditing synthetic samples against the empirical
-  baseline before they are allowed to influence a promotion decision.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- synthetic-data
-- backtest-augmentation
-- geometric-brownian-motion
-- garch
-- circular-block-bootstrap
-- monte-carlo
-brokers_frameworks:
-- Synthetic Data Generation Engine
-- NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a strategy rests on one short price history and you need more paths to judge
+  it: geometric Brownian motion, GARCH(1,1) volatility clustering and circular block
+  bootstrap, none of which invent tails beyond the sample.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, synthetic-data, backtest-augmentation, geometric-brownian-motion, garch, circular-block-bootstrap, monte-carlo
+  brokers_frameworks: "Synthetic Data Generation Engine; NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -60,7 +50,7 @@ Use it to answer "would this strategy have survived a differently-ordered versio
    - `block_size=1` degenerates to the IID bootstrap and logs a warning; `block_size > len(series)` raises.
 
 3. **Keep GARCH parameters inside the stationary region**:
-   - **Decision point — `alpha + beta >= 1` raises, it is not clamped.** At or above 1 the process has no finite unconditional variance, so there is nothing for moment validation to compare against. The previous implementation floored the denominator at 0.001 and fabricated an unconditional volatility for a process that has none. Nelson (1990) shows such a process can still be *strictly* stationary (IGARCH); that case is deliberately out of scope here rather than silently approximated.
+   - **Decision point — `alpha + beta >= 1` raises, it is not clamped.** At or above 1 the process has no finite unconditional variance, so there is nothing for moment validation to compare against. Flooring the denominator at 0.001 instead fabricates an unconditional volatility for a process that has none. Nelson (1990) shows such a process can still be *strictly* stationary (IGARCH); that case is deliberately out of scope here rather than silently approximated.
    - The recursion starts at the stationary point (`sigma_0^2 = eps_0^2 = omega / (1 - alpha - beta)`), so no burn-in period needs to be discarded.
 
 4. **Validate before use, and read the verdict for exactly what it says**:

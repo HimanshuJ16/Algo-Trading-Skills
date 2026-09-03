@@ -1,10 +1,24 @@
-"""Client-side pre-dispatch validation and MFIX field construction for Moscow Exchange orders.
+"""A fail-closed sanctions gate in front of a documented Moscow Exchange adapter.
 
-This module models the checks that belong on the client side of a MOEX order
-path, before a message leaves the process:
+The primary deliverable of this module is the **gate**, not the venue. Moscow
+Exchange, its central counterparty the National Clearing Center, and the
+National Settlement Depository are designated on the OFAC SDN list, so the
+clearing leg of an exchange trade is inside the block. The gate encodes that as
+a precondition in code rather than a note in a comment:
 
-  * a **fail-closed sanctions gate**, because Moscow Exchange and its central
-    counterparty are currently designated on the OFAC SDN list;
+  * ``validate_and_serialize_order`` evaluates the sanctions gate **before every
+    other check, on every order path**;
+  * a **missing** attestation (the default state of ``MOEXSessionConfig``), a
+    **revoked** one (``cleared=False``) and one **expired** against
+    ``max_screening_age_days`` all return
+    ``MOEX_SANCTIONS_GATE_NOT_CLEARED`` with ``ready_to_send=False`` and an
+    empty ``fix_fields`` -- nothing is built;
+  * staleness is evaluated against a caller-supplied ``as_of``, never a clock
+    read inside the module, so a refusal is reproducible from its inputs.
+
+Behind that gate sits venue protocol detail, kept here so the adapter is
+reviewable rather than so it is reachable:
+
   * **quantity in lots**, because MOEX Tag 38 ``OrderQty`` is "expressed in
     number of lots" and the lot size differs per Symbol + Board combination;
   * **price alignment to the instrument's minimum price step**, because MOEX
@@ -15,16 +29,18 @@ path, before a message leaves the process:
     Tag 386 / Tag 336 group the specification actually defines.
 
 Scope. Nothing here opens a socket, logs on to a gateway, queries ISS, or sends
-an order. ``MOEX_ORDER_VALIDATED`` means "passed the checks modelled here",
-never "MOEX has accepted the order". Reference data (lot size, price step,
-decimals, price limits) is an **input**: this module does not fetch it, and it
-does not invent defaults for it.
+an order, and no path emits a field while the gate is closed.
+``MOEX_ORDER_VALIDATED`` means "passed the checks modelled here", never "MOEX
+has accepted the order". Reference data (lot size, price step, decimals, price
+limits) is an **input**: this module does not fetch it, and it does not invent
+defaults for it.
 
 This module makes no legal determination about sanctions. The gate records an
 attestation that a screening was performed and forces the caller to supply one;
-deciding whether a transaction is permitted is the operator's obligation.
+deciding whether a transaction is permitted is the operator's obligation, taken
+with counsel and re-derived from the sanctions lists themselves.
 
-Primary sources (retrieved 2026-08-26) are listed in ``references/standards.md``.
+Sources are listed in ``references/standards.md``.
 """
 
 from __future__ import annotations

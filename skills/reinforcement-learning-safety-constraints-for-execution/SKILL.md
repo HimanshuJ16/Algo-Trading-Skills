@@ -1,18 +1,17 @@
 ---
 name: reinforcement-learning-safety-constraints-for-execution
 description: >-
-  Use when a reinforcement-learning policy proposes execution quantities, to shield those
-  proposals behind deterministic hard limits — per-order size clip, symmetric position cap,
-  wide-spread veto, terminal-horizon inventory clearance, post-deadline reduce-only, and an
-  optional per-episode traded-quantity budget — and to shape a penalty reward that
-  attributes the violation to the action the policy actually proposed.
-domain: Execution Algorithms & Machine Learning
-subdomain: Safe Reinforcement Learning & Risk Guardrails
-tags: ["reinforcement-learning", "safety-constraints", "action-shield", "execution-algo", "spread-veto", "reward-shaping", "pre-trade-controls", "sec-rule-15c3-5", "mifid-ii-rts-6"]
-brokers_frameworks: ["Safe RL (Post-Posed Shielding)", "Action-Space Clipping", "Reward Penalty Shaping", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a reinforcement-learning policy proposes execution quantities that reach an
+  order router; shields them behind deterministic hard limits on order size, position
+  cap, spread width and terminal state.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: reinforcement-learning, safety-constraints, action-shield, execution-algo, spread-veto, reward-shaping, pre-trade-controls, sec-rule-15c3-5, mifid-ii-rts-6
+  brokers_frameworks: "Safe RL (Post-Posed Shielding); Action-Space Clipping; Reward Penalty Shaping; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

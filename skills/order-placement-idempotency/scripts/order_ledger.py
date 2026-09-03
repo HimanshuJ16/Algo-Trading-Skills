@@ -12,9 +12,13 @@ Design invariants (each is covered by a test in ``test_order_ledger.py``):
    once per call**, and never at all while a prior intent for the same key is
    unresolved and reconciliation has not proven the order absent.
 3. An outcome the broker did not state unambiguously is ``UNKNOWN``, never
-   ``REJECTED`` and never ``PLACED``.
+   ``REJECTED`` and never ``PLACED``. A failure *word* is not a refusal: Kite's
+   ``{"status": "error", "error_type": "NetworkException"}`` is a gateway fault
+   whose order outcome is unknown, while ``InputException`` is a real refusal.
 4. ``UNKNOWN`` is resolved to ``ABSENT`` (safe to re-send) only when the broker
-   echoes the client key back in its order book, so absence is evidence.
+   echoes the client key back in its order book, so absence is evidence. An
+   ``ABSENT`` verdict releases the claim on the key — archived, not discarded —
+   so the re-send it authorises can actually proceed.
 5. The intent state machine rejects illegal transitions; ``PLACED`` and
    ``REJECTED`` are terminal.
 
@@ -63,7 +67,7 @@ class OrderIntentStatus(str, Enum):
     UNKNOWN = "UNKNOWN"      # Outcome indeterminate; requires reconciliation
 
 
-# Backward-compatible string constants (pre-2.0 callers imported these).
+# Backward-compatible string constants for callers that imported them directly.
 PENDING = OrderIntentStatus.PENDING.value
 PLACED = OrderIntentStatus.PLACED.value
 REJECTED = OrderIntentStatus.REJECTED.value
@@ -80,8 +84,13 @@ _ALLOWED_TRANSITIONS: Dict[OrderIntentStatus, frozenset] = {
         {OrderIntentStatus.PENDING, OrderIntentStatus.PLACED,
          OrderIntentStatus.REJECTED, OrderIntentStatus.UNKNOWN}
     ),
+    # UNKNOWN -> PENDING is deliberately absent. Re-arming an intent whose
+    # outcome is unknown is how one client key ends up with two live broker
+    # orders. The only way back to a sendable state is `release_intent`, which
+    # requires reconciliation to have proved the order ABSENT and leaves an
+    # archived record of the release.
     OrderIntentStatus.UNKNOWN: frozenset(
-        {OrderIntentStatus.UNKNOWN, OrderIntentStatus.PENDING,
+        {OrderIntentStatus.UNKNOWN,
          OrderIntentStatus.PLACED, OrderIntentStatus.REJECTED}
     ),
     OrderIntentStatus.PLACED: frozenset({OrderIntentStatus.PLACED}),
@@ -90,7 +99,11 @@ _ALLOWED_TRANSITIONS: Dict[OrderIntentStatus, frozenset] = {
 
 
 class IllegalStateTransition(RuntimeError):
-    """Raised when a caller attempts a transition out of a terminal state."""
+    """Raised when a caller attempts a transition the state machine refuses.
+
+    That is a transition out of a terminal state, or one that would re-arm an
+    unresolved intent for a second send.
+    """
 
 
 class ReconcileOutcome(str, Enum):
@@ -247,9 +260,40 @@ def make_idempotency_key(
 # --------------------------------------------------------------------------
 
 _SUCCESS_TOKENS = frozenset({"success", "ok", "placed", "accepted", "complete", "completed"})
-_REJECT_TOKENS = frozenset({"rejected", "reject", "error", "failed", "failure", "cancelled", "canceled"})
+
+#: Status tokens that are an explicit refusal on their own: the broker states
+#: that the order did not become live. Nothing ambiguous belongs here.
+_REJECT_TOKENS = frozenset({"rejected", "reject", "cancelled", "canceled"})
+
+#: Status tokens that *read* like a refusal but do not say where the failure
+#: happened. Zerodha Kite returns ``{"status": "error", "error_type": …}`` for a
+#: deterministic refusal (``InputException``) and for a gateway fault
+#: (``NetworkException``, ``GatewayTimeout``) alike — and in the second case the
+#: order may well be live. The token alone is not evidence; ``error_type`` and
+#: the HTTP status decide, and when neither settles it the answer is ``UNKNOWN``.
+_AMBIGUOUS_FAILURE_TOKENS = frozenset({"error", "failed", "failure"})
+
+#: Broker exception classes that mean the broker evaluated the request and
+#: declined it, so no order was created. Anything not listed — notably
+#: ``NetworkException``, ``GatewayTimeout``, ``DataException`` and
+#: ``GeneralException`` — is treated as indeterminate and reconciled.
+_REFUSAL_ERROR_TYPES = frozenset({
+    "inputexception",       # malformed/invalid request; never reached the book
+    "orderexception",       # order placement refused
+    "marginexception",      # insufficient margin
+    "permissionexception",  # not permitted to trade this instrument/segment
+    "tokenexception",       # session invalid; the request was not authorised
+})
+
 _ORDER_ID_FIELDS: Tuple[str, ...] = ("broker_order_id", "order_id", "orderId", "id")
 _REASON_FIELDS: Tuple[str, ...] = ("reason", "message", "error", "errorMessage", "emsg")
+_ERROR_TYPE_FIELDS: Tuple[str, ...] = ("error_type", "errorType", "exception")
+#: Only fields that unambiguously carry an *HTTP* status. Alpaca's ``code`` is a
+#: numeric error code, not an HTTP status, so reading it here would misread
+#: ``40310000`` as a 5xx.
+_HTTP_STATUS_FIELDS: Tuple[str, ...] = (
+    "status_code", "statusCode", "http_status", "httpStatus",
+)
 
 
 def _extract_order_ids(payload: Any) -> List[str]:
@@ -285,6 +329,28 @@ def _extract_reason(payload: Mapping[str, Any]) -> str:
     return "Broker rejected order (no reason supplied)"
 
 
+def _extract_error_type(payload: Mapping[str, Any]) -> str:
+    """The broker's exception class, lower-cased, or ``""`` when absent."""
+    for field in _ERROR_TYPE_FIELDS:
+        value = payload.get(field)
+        if isinstance(value, str) and value.strip():
+            return value.strip().lower()
+    return ""
+
+
+def _extract_http_status(payload: Mapping[str, Any]) -> Optional[int]:
+    """The HTTP status of the placement response, or None if not reported."""
+    for field in _HTTP_STATUS_FIELDS:
+        value = payload.get(field)
+        if isinstance(value, bool):
+            continue
+        if isinstance(value, int):
+            return value
+        if isinstance(value, str) and value.strip().isdigit():
+            return int(value.strip())
+    return None
+
+
 def classify_broker_response(
     response: Any,
 ) -> Tuple[OrderIntentStatus, Optional[str], str]:
@@ -294,6 +360,20 @@ def classify_broker_response(
     ``UNKNOWN``. Classifying it ``REJECTED`` writes "no order exists" into the
     ledger while an order may be working, and the next signal then places a
     duplicate — the precise failure this skill exists to prevent.
+
+    That rule is why a failure *word* is not enough to reach ``REJECTED``.
+    Zerodha Kite answers a gateway fault with ``{"status": "error",
+    "error_type": "NetworkException"}`` — the same ``status`` token it uses for
+    a flat refusal such as ``InputException``, but an outcome that is genuinely
+    unknown: the request may have reached the matching engine before the
+    gateway gave up. Only an explicit refusal reaches ``REJECTED``:
+
+    * an explicit rejection ``status`` (``rejected``/``cancelled``), or
+    * an ``error_type`` naming a class the broker uses to decline a request
+      (see ``_REFUSAL_ERROR_TYPES``).
+
+    Transport and gateway classes, unrecognised error classes and any 5xx are
+    ``UNKNOWN`` and must be reconciled against the order book.
 
     Returns:
         ``(status, broker_order_id, detail)``. ``broker_order_id`` is non-None
@@ -310,9 +390,36 @@ def classify_broker_response(
     raw_status = response.get("status", response.get("stat", ""))
     status_token = str(raw_status).strip().lower()
     order_ids = _extract_order_ids(response)
+    error_type = _extract_error_type(response)
+    http_status = _extract_http_status(response)
 
     if status_token in _REJECT_TOKENS:
         return OrderIntentStatus.REJECTED, None, _extract_reason(response)
+
+    if http_status is not None and http_status >= 500:
+        # A 5xx is the server failing to answer, not the server declining the
+        # order. The request may have been processed before the fault.
+        return (
+            OrderIntentStatus.UNKNOWN,
+            None,
+            "Broker returned HTTP %d (%s); the order may still have been accepted"
+            % (http_status, _extract_reason(response)),
+        )
+
+    if error_type in _REFUSAL_ERROR_TYPES:
+        return OrderIntentStatus.REJECTED, None, _extract_reason(response)
+
+    if error_type or status_token in _AMBIGUOUS_FAILURE_TOKENS:
+        # A failure the broker did not attribute to a refusal it made. Treating
+        # a NetworkException/GatewayTimeout as REJECTED records "no order
+        # exists" while one may be working at the exchange.
+        return (
+            OrderIntentStatus.UNKNOWN,
+            None,
+            "Broker reported a failure it did not attribute to a refusal "
+            "(status=%r, error_type=%r): %s — reconcile before re-sending"
+            % (raw_status, error_type or None, _extract_reason(response)),
+        )
 
     if status_token in _SUCCESS_TOKENS and not order_ids:
         # An acknowledgement with no order id cannot be reconciled later.
@@ -416,23 +523,62 @@ class OrderLedger:
             self.conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_orders_status ON orders (status)"
             )
+            # Releasing a claim removes the row from `orders` so the key can be
+            # claimed again. The row is archived here first: an auditor asking
+            # why one client tag was sent twice needs the record that says the
+            # first send was proven never to have reached the broker.
+            self.conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS released_intents (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    idempotency_key TEXT NOT NULL,
+                    strategy_id TEXT,
+                    symbol TEXT,
+                    side TEXT,
+                    quantity REAL,
+                    price REAL,
+                    status_at_release TEXT,
+                    rejection_reason TEXT,
+                    release_reason TEXT,
+                    created_at REAL,
+                    released_at REAL
+                )
+                """
+            )
+            self.conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_released_key "
+                "ON released_intents (idempotency_key)"
+            )
 
     def record_intent(
         self,
         key: str,
-        strategy_id: str = "default",
-        symbol: str = "NIFTY",
+        strategy_id: str,
+        symbol: str,
         side: str = "BUY",
         quantity: float = 1.0,
         price: float = 0.0,
     ) -> bool:
         """Commits a ``PENDING`` intent *before* the network call.
 
+        ``strategy_id`` and ``symbol`` are required. They used to default to
+        ``"default"``/``"NIFTY"``, which silently wrote a row describing an
+        order nobody placed — and attribute reconciliation (the fallback for
+        brokers that do not echo the client key) matches on exactly those
+        fields, so a wrong symbol there quietly makes the intent unmatchable.
+
         Returns:
             True if this caller created the row and therefore owns the send.
             False if an intent for ``key`` already exists — the caller must
             **not** send, and must reconcile instead.
+
+        Raises:
+            ValueError: If ``strategy_id`` or ``symbol`` is empty.
         """
+        if not str(strategy_id).strip():
+            raise ValueError("strategy_id must be a non-empty string")
+        if not str(symbol).strip():
+            raise ValueError("symbol must be a non-empty string")
         now = time.time()
         try:
             with self._lock, self.conn:
@@ -469,8 +615,9 @@ class OrderLedger:
 
         Raises:
             IllegalStateTransition: On a transition out of a terminal state
-                (``PLACED``/``REJECTED``), which would re-arm a live order for
-                re-sending.
+                (``PLACED``/``REJECTED``), or on ``UNKNOWN -> PENDING`` — both
+                would re-arm a possibly-live order for re-sending. Use
+                ``release_intent`` for the one case where that is provably safe.
             ValueError: If ``status`` is not a valid ``OrderIntentStatus``.
         """
         raw = status.value if isinstance(status, OrderIntentStatus) else str(status)
@@ -491,9 +638,14 @@ class OrderLedger:
 
             current = OrderIntentStatus(row[0])
             if new_status not in _ALLOWED_TRANSITIONS[current]:
+                why = (
+                    "%s is terminal" % current.value if current in _TERMINAL
+                    else "an unresolved intent is re-armed only via release_intent(), "
+                         "and only once reconciliation has proved it ABSENT"
+                )
                 raise IllegalStateTransition(
-                    "Refusing %s -> %s for key '%s': %s is terminal"
-                    % (current.value, new_status.value, key, current.value)
+                    "Refusing %s -> %s for key '%s': %s"
+                    % (current.value, new_status.value, key, why)
                 )
             if current in _TERMINAL:
                 # Same-state rewrite of a terminal row: no-op rather than churn.
@@ -570,6 +722,102 @@ class OrderLedger:
                 claimed.update(part for part in str(value).split(",") if part)
             return claimed
 
+    def release_intent(self, key: str, reason: str = "") -> bool:
+        """Releases a claim on ``key`` that was *proven* never to have landed.
+
+        This is the only way an intent leaves ``PENDING``/``UNKNOWN`` without a
+        broker outcome, and it exists so the "absent, safe to re-send" path can
+        actually re-send: while the row is present, ``record_intent`` refuses to
+        claim the key, so a caller told to re-invoke ``place_order`` would loop
+        on the same ``ABSENT`` verdict forever.
+
+        Call it **only** after reconciliation returned ``ABSENT`` — that is, the
+        broker echoes client keys and this key is not in its order book. Calling
+        it on an intent whose outcome is merely unknown re-arms a possibly-live
+        order for a second send, which is the duplicate this module exists to
+        prevent.
+
+        The row is copied into ``released_intents`` before deletion, so the
+        placement history of a key survives the release.
+
+        Returns:
+            True if a row was released, False if ``key`` is unknown.
+
+        Raises:
+            IllegalStateTransition: If the row is ``PLACED`` or ``REJECTED``.
+                A terminal row is a settled outcome; releasing it would allow a
+                live order to be sent again under the same key.
+        """
+        now = time.time()
+        with self._lock, self.conn:
+            cur = self.conn.execute(
+                """
+                SELECT idempotency_key, strategy_id, symbol, side, quantity, price,
+                       status, rejection_reason, created_at
+                FROM orders WHERE idempotency_key=?
+                """,
+                (key,),
+            )
+            row = cur.fetchone()
+            if row is None:
+                logger.error("release_intent called for unknown key '%s'", key)
+                return False
+
+            current = OrderIntentStatus(row[6])
+            if current in _TERMINAL:
+                raise IllegalStateTransition(
+                    "Refusing to release intent '%s': it is %s, a settled outcome; "
+                    "releasing it would permit a second send of a live order"
+                    % (key, current.value)
+                )
+
+            self.conn.execute(
+                """
+                INSERT INTO released_intents (
+                    idempotency_key, strategy_id, symbol, side, quantity, price,
+                    status_at_release, rejection_reason, release_reason,
+                    created_at, released_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (row[0], row[1], row[2], row[3], row[4], row[5],
+                 row[6], row[7], reason, row[8], now),
+            )
+            self.conn.execute("DELETE FROM orders WHERE idempotency_key=?", (key,))
+
+        logger.info("Released intent '%s' (was %s): %s", key, row[6], reason)
+        return True
+
+    def released_history(self, key: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Archived intents released after being proven absent, oldest first."""
+        sql = (
+            "SELECT idempotency_key, strategy_id, symbol, side, quantity, price, "
+            "status_at_release, rejection_reason, release_reason, created_at, "
+            "released_at FROM released_intents"
+        )
+        params: Tuple[Any, ...] = ()
+        if key is not None:
+            sql += " WHERE idempotency_key=?"
+            params = (key,)
+        sql += " ORDER BY id ASC"
+        with self._lock:
+            rows = self.conn.execute(sql, params).fetchall()
+        return [
+            {
+                "idempotency_key": r[0],
+                "strategy_id": r[1],
+                "symbol": r[2],
+                "side": r[3],
+                "quantity": r[4],
+                "price": r[5],
+                "status_at_release": r[6],
+                "rejection_reason": r[7],
+                "release_reason": r[8],
+                "created_at": r[9],
+                "released_at": r[10],
+            }
+            for r in rows
+        ]
+
 
 # --------------------------------------------------------------------------
 # Router
@@ -584,7 +832,14 @@ _BOOK_TIMESTAMP_FIELDS: Tuple[str, ...] = (
 _BOOK_CLIENT_KEY_FIELDS: Tuple[str, ...] = (
     "client_order_id", "clientOrderId", "tag", "tags", "orderTag", "user_remark",
 )
-_BOOK_TERMINAL_REJECT = frozenset({"rejected", "reject", "error"})
+#: Order-book statuses that state the broker refused the order.
+_BOOK_TERMINAL_REJECT = frozenset({"rejected", "reject"})
+
+#: Order-book statuses that report a failure without saying what happened to the
+#: order. The entry is in the book, so the order exists and must never be
+#: re-sent; but calling it REJECTED asserts more than the broker said, so these
+#: escalate instead.
+_BOOK_AMBIGUOUS_STATUS = frozenset({"error", "failed", "failure"})
 
 
 class IdempotentOrderRouter:
@@ -681,6 +936,14 @@ class IdempotentOrderRouter:
             ``ABSENT_SAFE_TO_RESEND: …``, or
             ``UNRESOLVED_REQUIRES_RECONCILIATION: …``.
 
+            When a prior intent exists and reconciliation proves the order
+            absent at the broker, this call re-sends it and returns the outcome
+            of that send (``PLACED``/``REJECTED: …``/…) — still one broker call.
+            ``ABSENT_SAFE_TO_RESEND`` is therefore only returned when a send has
+            already been made *in this call* and then proved not to have landed;
+            the claim has been released, so calling ``place_order`` again with
+            the same arguments issues the re-send.
+
         Raises:
             ValueError: If ``quantity <= 0`` or ``price < 0``.
 
@@ -706,7 +969,9 @@ class IdempotentOrderRouter:
                 key, strategy_id, symbol, side, quantity, price
             )
             if not claimed:
-                return self._handle_existing_intent(key, broker_order_book_fn)
+                return self._handle_existing_intent(
+                    key, broker_send_fn, broker_order_book_fn
+                )
             return self._dispatch(
                 key, strategy_id, symbol, side, quantity, price,
                 broker_send_fn, broker_order_book_fn,
@@ -763,7 +1028,10 @@ class IdempotentOrderRouter:
     # -- internals ---------------------------------------------------------
 
     def _handle_existing_intent(
-        self, key: str, broker_order_book_fn: Optional[OrderBookFn]
+        self,
+        key: str,
+        broker_send_fn: BrokerSendFn,
+        broker_order_book_fn: Optional[OrderBookFn],
     ) -> Tuple[bool, str, Optional[str]]:
         """Decides what to do when an intent for ``key`` already exists."""
         existing = self.ledger.get_order(key)
@@ -792,10 +1060,29 @@ class IdempotentOrderRouter:
         if result.outcome is ReconcileOutcome.FOUND_REJECTED:
             return False, "RECONCILED_REJECTED: %s" % result.detail, None
         if result.outcome is ReconcileOutcome.ABSENT:
-            # Proven absent: re-sending under the same key is safe. The caller
-            # re-invokes place_order to do so, keeping the one-send-per-call
-            # invariant intact.
-            return False, "ABSENT_SAFE_TO_RESEND: %s" % result.detail, None
+            # Proven absent: the order never reached the broker, reconciliation
+            # released the claim, and re-sending under the same key is safe.
+            # The send happens here rather than being handed back to the caller
+            # as advice — no broker call has been made in *this* place_order
+            # invocation, so issuing one now still means exactly one send per
+            # call, and it is the only way the re-send ever actually happens.
+            reclaimed = self.ledger.record_intent(
+                key, existing["strategy_id"], existing["symbol"], existing["side"],
+                existing["quantity"], existing["price"],
+            )
+            if not reclaimed:  # pragma: no cover - needs a second process
+                msg = ("Intent %s was proven absent but another writer re-claimed the "
+                       "key before it could be re-sent" % key)
+                self.alert_fn(msg)
+                return False, "UNRESOLVED_REQUIRES_RECONCILIATION: %s" % msg, None
+            logger.info(
+                "Intent %s proven absent at the broker; re-sending under the same key", key
+            )
+            return self._dispatch(
+                key, existing["strategy_id"], existing["symbol"], existing["side"],
+                existing["quantity"], existing["price"],
+                broker_send_fn, broker_order_book_fn,
+            )
 
         self.alert_fn("Intent %s remains unresolved: %s" % (key, result.detail))
         return False, "UNRESOLVED_REQUIRES_RECONCILIATION: %s" % result.detail, None
@@ -855,6 +1142,11 @@ class IdempotentOrderRouter:
         if result.outcome is ReconcileOutcome.FOUND_REJECTED:
             return False, "RECONCILED_REJECTED: %s" % result.detail, None
         if result.outcome is ReconcileOutcome.ABSENT:
+            # A broker call has already been issued in this place_order
+            # invocation, so the re-send is not made here — that would be two
+            # sends in one call. Reconciliation released the claim, so the
+            # caller's next place_order with the same arguments claims the key
+            # afresh and sends exactly once.
             return False, "ABSENT_SAFE_TO_RESEND: %s" % result.detail, None
 
         self.alert_fn("Order %s unresolved after reconciliation: %s" % (key, result.detail))
@@ -892,10 +1184,14 @@ class IdempotentOrderRouter:
                 )
 
         if match is None:
-            return ReconcileResult(
-                ReconcileOutcome.ABSENT,
-                detail="client key not present in broker order book",
-            )
+            detail = "client key not present in broker order book"
+            # Absence is proof the order never landed, so the claim on this key
+            # is released here — and only here. Leaving the row in place would
+            # make the "safe to re-send" verdict unusable: record_intent would
+            # keep refusing the key and every re-invocation would loop back to
+            # this same ABSENT.
+            self._release_absent(key, detail)
+            return ReconcileResult(ReconcileOutcome.ABSENT, detail=detail)
 
         return self._apply_match(key, match)
 
@@ -915,6 +1211,14 @@ class IdempotentOrderRouter:
             logger.info("Reconciled %s -> REJECTED at broker (%s)", key, reason)
             return ReconcileResult(ReconcileOutcome.FOUND_REJECTED, broker_id, reason)
 
+        if book_status in _BOOK_AMBIGUOUS_STATUS:
+            return ReconcileResult(
+                ReconcileOutcome.INCONCLUSIVE,
+                broker_id,
+                "book entry reports %r, which states neither working nor refused: %s"
+                % (book_status, _extract_reason(match)),
+            )
+
         if broker_id is None:
             # The order is in the book but carries no usable id — it exists, so
             # re-sending is unsafe, but it cannot be linked either.
@@ -933,6 +1237,19 @@ class IdempotentOrderRouter:
         return ReconcileResult(
             ReconcileOutcome.FOUND_PLACED, broker_id, "matched in broker order book"
         )
+
+    def _release_absent(self, key: str, detail: str) -> bool:
+        """Releases a claim reconciliation proved absent, surfacing conflicts."""
+        try:
+            return self.ledger.release_intent(
+                key, "reconciliation proved absent: %s" % detail
+            )
+        except IllegalStateTransition as exc:  # pragma: no cover - defensive
+            # The row turned terminal between the reconcile read and this write.
+            # The broker's book and the ledger now disagree; a human decides.
+            logger.error("Release conflict for %s: %s", key, exc)
+            self.alert_fn("Release conflict for %s: %s" % (key, exc))
+            return False
 
     def _safe_update(self, key: str, status: OrderIntentStatus, **fields: Any) -> bool:
         """Applies a reconciliation transition, surfacing terminal-state conflicts.
@@ -1045,7 +1362,7 @@ class IdempotentOrderRouter:
                 return dt.timestamp()
         return None
 
-    # Retained for callers that used the pre-2.0 private helper.
+    # Retained for callers that used the older private helper.
     def _reconcile_unknown(
         self, key: str, broker_order_book_fn: OrderBookFn
     ) -> Optional[str]:

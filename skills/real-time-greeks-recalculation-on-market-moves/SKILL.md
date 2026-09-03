@@ -1,25 +1,17 @@
 ---
 name: real-time-greeks-recalculation-on-market-moves
-description: Use when refreshing an options book's Greeks tick by tick and full
-  Black-Scholes revaluation of every contract on every tick is too expensive - decide
-  per position whether a delta-gamma step will do or a reprice is required, anchoring
-  the decision on the last full revaluation rather than the last tick.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- options-greeks
-- real-time-risk
-- taylor-series
-- delta-gamma-approximation
-- black-scholes-merton
-- event-driven
-brokers_frameworks:
-- Black-Scholes-Merton Closed Form
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an options book must show current Greeks on a live tape and full revaluation
+  of every contract on every tick does not fit the CPU budget; decides per position
+  between a delta-gamma step and a full reprice.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, options-greeks, real-time-risk, taylor-series, delta-gamma-approximation, black-scholes-merton, event-driven
+  brokers_frameworks: "Black-Scholes-Merton Closed Form; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,19 +1,17 @@
 ---
 name: queue-position-modeling-for-passive-orders
 description: >-
-  Queue position model for resting limit orders in strict price-time (FIFO) order
-  books. Tracks volume ahead as fills and cancellations consume the price level,
-  converts it to a queue rank, and prices complete- and partial-fill probability
-  from a Poisson trade-count model rather than a deterministic coverage ratio.
-  Validates every input fail-closed, because a NaN volume-ahead silently reports
-  front-of-queue with a certain fill.
-domain: Execution Algorithms
-subdomain: Market Microstructure & Queue Priority
-tags: ["queue-position", "fifo-order-book", "price-time-priority", "passive-execution", "fill-probability", "poisson-queue", "adverse-selection", "microstructure"]
-brokers_frameworks: ["CME Globex Matching Algorithms", "Nasdaq Equity 4 Rule 4757", "Generic L2/L3 Depth Feed", "Python Dataclasses", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when resting liquidity in a strict price-time book and you need to know how much
+  volume is still ahead of your order and what that is worth, tracking fills and cancels
+  as they consume the level.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: queue-position, fifo-order-book, price-time-priority, passive-execution, fill-probability, poisson-queue, adverse-selection, microstructure
+  brokers_frameworks: "CME Globex Matching Algorithms; Nasdaq Equity 4 Rule 4757; Generic L2/L3 Depth Feed; Python Dataclasses; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

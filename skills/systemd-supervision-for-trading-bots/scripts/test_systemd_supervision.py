@@ -4,7 +4,7 @@ Tests target observable behaviour -- the payload that would go on the wire, the
 finding codes an audit produces, the fault/closed distinction a healthcheck
 draws -- rather than internal structure.
 
-Tests marked REGRESSION name a specific defect in the pre-2.0.0 skill and assert
+Tests marked REGRESSION name a specific defect in an earlier skill and assert
 the input that used to pass now does not. Each fails against the old
 implementation and passes against this one, which is what makes them worth
 keeping:

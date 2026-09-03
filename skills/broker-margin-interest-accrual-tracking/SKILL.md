@@ -1,27 +1,17 @@
 ---
 name: broker-margin-interest-accrual-tracking
-description: Use when accounting for the financing cost of leveraged or short positions —
-  margin loan interest on tiered blended rate schedules, short borrow fees on collateral
-  value, 360 vs 365 day-count conventions, calendar-day accrual across weekends and
-  holidays — and deducting that cost from gross P&L to get a net figure a backtest can be
-  trusted on.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- margin-interest
-- accrual-tracking
-- borrowing-cost
-- pnl-accounting
-- leverage-cost
-- institutional
-brokers_frameworks:
-- Margin Cost Tracker
-- Python PnL Accounting
-- Interactive Brokers
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when computing net P&L for a leveraged or short book: tiered blended margin-loan
+  rates, short borrow fees on collateral value, 360 versus 365 day counts, and
+  calendar-day accrual across weekends and holidays.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, margin-interest, accrual-tracking, borrowing-cost, pnl-accounting, leverage-cost, institutional
+  brokers_frameworks: "Margin Cost Tracker; Python PnL Accounting; Interactive Brokers"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

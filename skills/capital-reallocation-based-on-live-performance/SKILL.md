@@ -1,21 +1,17 @@
 ---
 name: capital-reallocation-based-on-live-performance
-description: Fractional-Kelly capital allocation engine that re-weights funding across
-  multiple active strategies from their trailing live trade statistics, bounded by
-  per-strategy capacity ceilings and total fund capital.
-domain: Portfolio Management
-subdomain: Capital Allocation
-tags:
-- capital-allocation
-- dynamic-weighting
-- kelly-criterion
-- position-sizing
-- portfolio
-brokers_frameworks:
-- Generic Portfolio Management
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when capital must be re-weighted across active strategies from their trailing live
+  trade statistics, using fractional Kelly bounded by per-strategy capacity ceilings. It
+  sizes each strategy independently of the others.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: capital-allocation, dynamic-weighting, kelly-criterion, position-sizing, portfolio
+  brokers_frameworks: Generic Portfolio Management
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

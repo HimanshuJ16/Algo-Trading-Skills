@@ -33,6 +33,66 @@ The $t = IR \sqrt{T}$ identity follows directly from the definitions: with $n$ o
 over $T = n/N$ years, $t = \sqrt{n}\,\bar{D}/s_D$ and $IR = \sqrt{N}\,\bar{D}/s_D$. It assumes
 serially independent active returns — autocorrelation inflates both.
 
+## Degeneracy handling — undefined is never zero
+
+| Condition | Correct treatment | This engine |
+|---|---|---|
+| Benchmark series constant | Beta is **not identified** by the data, so CAPM alpha is undefined too. Reporting $\beta = 0$ or $1$ is a *convention* and must be labelled as one, never presented as a measurement. | Raises `AttributionError`. |
+| Either series constant | Correlation is 0/0 — **undefined**, not zero. | Reports `nan` with a warning. |
+| Active return constant (zero tracking error) | The information ratio is **unbounded**, not zero. Reporting `0.0` makes a perfectly consistent outperformer indistinguishable from a manager with no skill. | Reports $\pm\infty$ with a warning; `0.0` only when active return is also zero. |
+| Degeneracy tolerances | Must sit at the floating-point noise floor (per-period $\sigma \lesssim 10^{-12}$). A tolerance at a plausible financial magnitude — e.g. `variance > 1e-8` — misclassifies a genuine low-volatility benchmark (daily $\sigma \approx 1$bp) as constant and reports $\beta = 0$ alongside a correlation of 1.0. | `1e-12` throughout. |
+| NaN/Inf in either series | Reject. NaN propagates silently through covariance and mean, producing output that looks numeric but is meaningless — and flips `is_alpha_positive` to `False`, which reads as a legitimate fail. | Raises `AttributionError`. |
+
+Every caveat that applies to a result is surfaced in `AttributionSummary.warnings`, not
+only logged: sub-one-year sample, thin sample, $\lvert t \rvert < 1.96$, undefined
+correlation, unbounded information ratio.
+
+## Benchmark appropriateness (GIPS)
+
+The CFA Institute *Guidance Statement on Benchmarks for Firms* (effective 1 April 2021)
+sets out what makes a benchmark appropriate: **specified in advance, relevant, measurable,
+unambiguous, representative of current investment options, accountable, investable, and
+complete**. Practical requirements relevant here:
+
+- **Total returns only.** All composite, pooled fund and benchmark returns in GIPS Reports
+  must be total returns (including income). Comparing a total-return portfolio to a
+  price-only index manufactures alpha roughly equal to the index dividend yield.
+- **An appropriate benchmark must be selected where one is available**; where the firm
+  determines no appropriate benchmark exists, it must disclose why none is presented.
+- **Blended benchmarks** must be identified as a *custom benchmark*. For a
+  portfolio-weighted custom benchmark, GIPS provision 4.C.34 requires disclosure of the
+  component benchmarks and their weights as of the most recent annual period end.
+
+Source: <https://www.gipsstandards.org/wp-content/uploads/2023/08/gs_benchmarks_firms.pdf>
+
+Nothing here is legal, tax or compliance advice, and GIPS is a **voluntary** standard that
+firms opt into, not a regulation.
+
+Two mandate-level conventions worth stating explicitly because they are routinely quoted as
+if they were rules:
+
+| Heuristic | Status |
+|---|---|
+| Market-neutral beta within $\pm 0.1$ | A **fund-mandate convention**, not a limit imposed by any regulator or standard-setter. The actual limit is whatever the offering documents specify. |
+| IR "good" $> 0.5$, "excellent" $> 1.0$ | A widely repeated industry rule of thumb with no standard-setter behind it. Goodwin (1998) reports empirical IR distributions **by investment style**; style-specific percentiles are a better comparator than a universal cutoff. |
+
+## Multi-strategy comparison
+
+`compare_strategies` produces one row per strategy against a **shared** benchmark. The rows
+are comparable only because four things are held fixed across them: the benchmark series,
+the observation window, the `annualization_factor` and the `risk_free_rate`. Rows produced
+by separate calls are not comparable unless all four match, and no engine can detect that
+they do not — that is a reporting discipline, not a validation.
+
+The same arithmetic answers the capital-allocation question when the benchmark is chosen to
+be the **simple alternative** the book is supposed to beat: a static 60/40 blend, an
+equal-weight sleeve of the same strategies, or cash. A multi-strategy portfolio marketed as
+uncorrelated absolute return but showing a materially positive beta to a broad index is
+carrying hidden beta, and its "alpha" is then measured against the wrong yardstick.
+
+Each row is still **single-factor** CAPM. A comparison table does not become a factor model
+by having more rows in it.
+
 ## Single-period only
 
 Brinson allocation, selection, and interaction effects are additive **across sectors

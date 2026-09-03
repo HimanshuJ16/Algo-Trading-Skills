@@ -1,25 +1,17 @@
 ---
 name: binary-protocol-parsing-for-low-latency-feeds
 description: >-
-  Fixed-layout binary struct unpacking for low-latency market data feeds --
-  frame validation, message-type dispatch, fixed-point tick handling, and
-  offset-based zero-copy buffer walking, worked through NASDAQ ITCH 5.0.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- binary-protocol
-- struct-unpack
-- fixed-point-pricing
-- zero-copy
-brokers_frameworks:
-- Nasdaq TotalView-ITCH 5.0
-- CME MDP 3.0 (SBE)
-- Python struct
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when decoding fixed-layout binary market data by byte offset (NASDAQ ITCH, CME MDP
+  3.0 SBE, Eurex T7 EMDI): frame validation, message-type dispatch, fixed-point tick
+  prices and zero-copy buffer walking that fails loud.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, binary-protocol, struct-unpack, fixed-point-pricing, zero-copy
+  brokers_frameworks: "Nasdaq TotalView-ITCH 5.0; CME MDP 3.0 (SBE); Python struct; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Binary Protocol Parsing for Low Latency Feeds
@@ -76,7 +68,7 @@ itself to be correct and fail-loud. It applies when you are:
 
 - **Text or self-describing protocols** — FIX tag=value, JSON/WebSocket feeds.
   Those are parsed by field name, not byte offset; see
-  `websocket-reconnect-without-duplicate-subscriptions`.
+  `websocket-subscription-reconciliation-after-reconnect`.
 - **Full ITCH order book reconstruction.** This skill covers the decode layer
   generically. For the ITCH message *set* (`A`/`F`/`E`/`X`/`D`/`P`) and L3 book
   state machine, use `nasdaq-totalview-itch-feed-parsing`.

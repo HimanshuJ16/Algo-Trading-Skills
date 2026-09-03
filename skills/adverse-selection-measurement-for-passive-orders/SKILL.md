@@ -1,29 +1,17 @@
 ---
 name: adverse-selection-measurement-for-passive-orders
-description: Post-trade markout engine for passive (resting limit) fills. Computes
-  forward-horizon markouts in basis points against the prevailing (as-of) mid at
-  each horizon, never the nearest in time, so a 100 ms markout is not silently
-  measured from a later quote. Per-horizon distribution stats, quantity-weighting,
-  fill-to-mid and arrival-to-mid (mid-to-mid) bases, a no-lookahead as-of guard on
-  both bases, an optional mid-staleness bound, and explicit truncation accounting.
-  Refuses to fabricate a mid, and scores toxicity over evaluable horizons only so
-  a missing horizon never votes healthy.
-domain: algorithmic-trading
-subdomain: execution-quality
-tags:
-- execution
-- trading
-- adverse-selection
-- markouts
-- market-microstructure
-- execution-quality
-- no-lookahead
-brokers_frameworks:
-- generic
-jurisdictions: [global]  # technique is jurisdiction-agnostic
-version: "1.3.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when passive fills keep happening just before the market moves against you,
+  measuring forward markouts in basis points against the prevailing mid at each horizon.
+  Aggressive orders pay the spread instead and are measured elsewhere.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: execution, trading, adverse-selection, markouts, market-microstructure, execution-quality, no-lookahead
+  brokers_frameworks: generic
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -46,7 +34,7 @@ with distribution statistics. A persistently negative curve = toxic flow.
 - **Active / aggressing orders** (market orders, crossing sweeps). Adverse
   selection is a *passive* phenomenon — you were resting and got picked off.
   Active orders pay the spread up front; measure that with `execution-slippage-
-  attribution-timing-vs-sizing` or `arrival-price-benchmark-execution-algo`.
+  attribution-timing-vs-sizing` or `implementation-shortfall-minimization`.
 - **Latency-arbitrage diagnostics.** A sharp negative markout in the first
   1–10 ms is a *symptom* of stale-quote latency arbitrage against you, but the
   fix lives in the feed-handler/cancellation path (`tick-to-trade-latency-
@@ -206,7 +194,7 @@ with distribution statistics. A persistently negative curve = toxic flow.
 - **Confusing `arrival_to_mid` with arrival-price benchmarking.** Here it means
   the **fill-time** mid (the industry's *mid-to-mid* markout), not the price at
   order arrival or decision time. For a true arrival-price benchmark use
-  `arrival-price-benchmark-execution-algo`.
+  `implementation-shortfall-minimization`.
 - **Mean-only reporting.** A negative mean driven by a fat-tailed minority of
   badly-selected fills hides a healthy median. Always report the distribution
   (`median`, `p25`, `p75`), especially with few fills.
@@ -297,7 +285,7 @@ A markout measurement program is **healthy in production** when:
   markouts are one component.
 - `execution-slippage-attribution-timing-vs-sizing` — separates slippage into
   timing and sizing components; markouts attribute the timing/adverse side.
-- `arrival-price-benchmark-execution-algo` — active-order counterpart; this
+- `implementation-shortfall-minimization` — active-order counterpart; this
   skill is the passive-order counterpart.
 - `queue-position-modeling-for-passive-orders` — explains *why* large passive
   fills are selected differently; pair with `quantity_weighted` analysis.

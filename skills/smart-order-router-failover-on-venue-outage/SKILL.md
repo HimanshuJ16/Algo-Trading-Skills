@@ -1,14 +1,17 @@
 ---
 name: smart-order-router-failover-on-venue-outage
 description: >-
-  Smart Order Router (SOR) venue-outage failover engine: per-venue circuit breakers with cooldown and single-probe recovery, stale- and invalid-quote exclusion, best-price ranking that demotes recovering venues, local-fault self-diagnosis, and a full bypassed-venue audit trail for Rule 611(b)(1) self-help and FINRA 5310 review.
-domain: Execution & Smart Order Routing
-subdomain: Venue Outage Failover & Resiliency
-tags: ["smart-order-router", "sor-failover", "venue-outage", "circuit-breaker", "best-execution", "order-routing", "self-help-exception"]
-brokers_frameworks: ["Reg NMS Rule 611(b)(1) Self-Help", "FINRA Rule 5310", "SEC Rule 15c3-5", "MiFID II RTS 6 Article 14", "FIX Transport Circuit Breaker", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a router sends live orders to several venues and must keep working when one
+  stops: per-venue circuit breakers with cooldown and single-probe recovery, stale-quote
+  exclusion, and demotion of recovering venues.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: smart-order-router, sor-failover, venue-outage, circuit-breaker, best-execution, order-routing, self-help-exception
+  brokers_frameworks: "Reg NMS Rule 611(b)(1) Self-Help; FINRA Rule 5310; SEC Rule 15c3-5; MiFID II RTS 6 Article 14; FIX Transport Circuit Breaker; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -151,7 +154,7 @@ implementation: thread-safe, monotonic-clocked, with `HEALTHY` / `DEGRADED` /
   broken venue. Price alone cannot detect this; only quote age and health can.
 - **Treating an unquoted venue as free.** `ask_price` defaults to `0.0`. Without
   a positivity check that venue wins every buy and the router reports a fill
-  price of $0.00 — verified behaviour of the previous implementation.
+  price of $0.00.
 - **Letting a stray success clear the breaker.** Resetting to `HEALTHY` on any
   success means one late acknowledgement from before the outage re-enables the
   dead venue, and the next order goes straight back into it.
@@ -166,8 +169,7 @@ implementation: thread-safe, monotonic-clocked, with `HEALTHY` / `DEGRADED` /
   dropped are in an unknown state. Re-sending on the assumption they died is how
   one parent order becomes two positions.
 - **Defaulting an unrecognised side to SELL.** `if side == "BUY": ... else: ...`
-  turns a typo'd `"SEL"` into a live short at the bid — verified behaviour of the
-  previous implementation. Validate and raise.
+  turns a typo'd `"SEL"` into a live short at the bid. Validate and raise.
 - **Feeding business rejects into the breaker.** Insufficient buying power, a bad
   symbol, or a locked/crossed limit are your errors, not the venue's. They trip
   healthy venues and push flow to worse prices.

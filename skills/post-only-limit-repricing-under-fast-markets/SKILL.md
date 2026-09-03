@@ -1,29 +1,17 @@
 ---
 name: post-only-limit-repricing-under-fast-markets
-description: Use when submitting Post-Only (maker-only) limit orders in fast-moving
-  books, to guarantee client-side that the price is strictly passive and exactly
-  tick-aligned before it is sent, and to bound the reprice loop that would otherwise
-  burn an order-rate budget.
-domain: Execution Algorithms
-subdomain: Market Microstructure & Order Type Management
-tags:
-- post-only
-- limit-repricing
-- fast-markets
-- rejection-churn
-- maker-taker
-- microstructure
-- execution-algo
-- tick-alignment
-brokers_frameworks:
-- Nasdaq Post-Only (Equity 4, Rule 4702)
-- Binance Spot LIMIT_MAKER
-- Coinbase post_only
-- Deribit post_only / reject_post_only
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when post-only limit orders are submitted into a book that moves between reading
+  the best bid and offer and the order arriving; guarantees a strictly passive,
+  tick-aligned price client-side and bounds the reprice rate.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: post-only, limit-repricing, fast-markets, rejection-churn, maker-taker, microstructure, execution-algo, tick-alignment
+  brokers_frameworks: "Nasdaq Post-Only (Equity 4, Rule 4702); Binance Spot LIMIT_MAKER; Coinbase post_only; Deribit post_only / reject_post_only; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

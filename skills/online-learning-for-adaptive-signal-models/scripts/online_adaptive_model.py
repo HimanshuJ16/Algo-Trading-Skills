@@ -765,7 +765,7 @@ class OnlineAdaptiveSignalModel:
 
         The two windows are disjoint by construction, so the report is refused
         until ``baseline_window + recent_window`` samples have been applied. The
-        pre-2.0 audit compared the first quarter of the *entire* history against
+        older audit compared the first quarter of the *entire* history against
         the last quarter, which meant a different quantity at every sample count
         and required retaining every error ever seen.
         """
@@ -807,7 +807,7 @@ class OnlineAdaptiveSignalModel:
             improvement = ((initial_mae - final_mae) / initial_mae) * 100.0
         else:
             # A zero baseline MAE makes a percentage change undefined. The
-            # pre-2.0 code divided by a 1e-4 floor and returned a large
+            # older code divided by a 1e-4 floor and returned a large
             # fabricated number instead.
             improvement = 0.0
 

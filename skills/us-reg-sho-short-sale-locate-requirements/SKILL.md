@@ -1,24 +1,17 @@
 ---
 name: us-reg-sho-short-sale-locate-requirements
-description: "Institutional regulatory compliance skill for US SEC Regulation SHO (17 CFR 242.200-204), enforcing Rule 200(g) order markings (LONG, SHORT, SHORT_EXEMPT with a named 242.201(c)/(d) basis), Rule 203(b)(1) short sale locate verification and reservation, and the Rule 201 short sale price test (alternative uptick rule) against the current national best bid."
-domain: US Regulatory Compliance & Market Structure
-subdomain: SEC Regulation SHO (Short Sale Regulations)
-tags:
-- sec-reg-sho
-- rule-200
-- rule-203
-- rule-201
-- locate-requirements
-- short-sale
-- order-marking
-- ssr-uptick-rule
-brokers_frameworks:
-- sec-reg-sho
-- finra-cats
-- quickfix
-version: "2.0.0"
-author: Quant Engineering
-license: MIT
+description: >-
+  Use when building the pre-trade gate between an equity strategy and a US venue under
+  SEC Regulation SHO: Rule 200(g) order marking, the Rule 203(b)(1) locate requirement,
+  and the Rule 201 price test when a circuit breaker is in effect.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: sec-reg-sho, rule-200, rule-203, rule-201, locate-requirements, short-sale, order-marking, ssr-uptick-rule
+  brokers_frameworks: "sec-reg-sho; finra-cats; quickfix"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -134,17 +127,36 @@ It provides mechanisms to:
 
 ## Verification
 
-```bash
-python -m unittest discover -s skills/us-reg-sho-short-sale-locate-requirements/scripts
-```
-
-Covers Rule 200(g) marking validation including an unqualified `SHORT_EXEMPT`; locate identity,
-symbol mismatch, expiry (with a fixed clock and a naive prime-broker timestamp), and the exact
-capacity boundary; the Rule 201 price test at, above, and within one epsilon of the bid;
-fail-closed handling of a missing, zero, negative, NaN, and infinite national best bid;
-Rule 201(c) claims verified against the bid and Rule 201(d) bases bypassing it; retry
-idempotency, reused order IDs with different terms, and the reservation release lifecycle;
-and the advisory-only behaviour of the local 10% trigger.
+- Run `python -m unittest discover -s skills/us-reg-sho-short-sale-locate-requirements/scripts`
+  from the repository root and confirm every test passes.
+- **Rule 200(g) marking:** `LONG` needs no locate; `SHORT` without a locate is rejected;
+  `SHORT_EXEMPT` with no named 242.201(c)/(d) basis is rejected, and one with a basis still
+  requires a locate.
+- **Rule 203(b)(1) locate:** an unknown locate id, a locate for a different symbol, an expired
+  locate (checked against a fixed clock, including a naive prime-broker timestamp), and a
+  quantity one share past remaining capacity are each rejected; the exact capacity boundary is
+  approved.
+- **Rule 201 price test:** with the restriction active, a `SHORT` priced at the national best
+  bid is rejected, one above it is approved, and one within `NBB_PRICE_EPSILON` of it is
+  rejected — the comparison is biased toward rejection.
+- **Fail-closed on market data:** a missing, zero, negative, NaN or infinite national best bid
+  rejects the order rather than passing it. A 242.201(c) claim is verified against the bid; a
+  242.201(d) basis bypasses the price test.
+- **Retry idempotency:** re-validating the same `order_id` returns the *original* decision
+  object and reserves locate capacity exactly once. A retry carrying a fresher NBBO tick
+  (changed `nbb_price`, or `nbo_price` dropped) is still the same order — it is accepted, not
+  rejected as a duplicate, and reserves nothing further. Market data is not part of the
+  duplicate fingerprint.
+- **Order-id reuse:** the same `order_id` with different *terms* (quantity, price, symbol,
+  marking, locate, exempt basis) is rejected with `Duplicate order_id`, whether or not the NBBO
+  moved, and reserves nothing. A previously *rejected* `order_id` may be re-submitted once its
+  cause is fixed.
+- **Reservation lifecycle:** releasing a reservation returns capacity to the locate pool, and a
+  double release is refused.
+- **Restriction handling:** the restriction is only cleared on an authoritative signal, and the
+  local 10% decline check is advisory — it escalates on disagreement and never relaxes the gate.
+- Confirm every gate decision, approval and rejection alike, lands in the audit log with a
+  timezone-aware timestamp before sign-off against `assets/checklist.md`.
 
 ## Related Skills
 

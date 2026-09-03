@@ -1,27 +1,17 @@
 ---
 name: real-time-var-backtesting-kupiec-test
 description: >-
-  Use when validating a Value-at-Risk model against its realised breach count, to run
-  the Kupiec Proportion-of-Failures likelihood-ratio test for unconditional coverage
-  and classify the result into the Basel supervisory traffic-light zone with its
-  MAR32.9 capital multiplier.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- kupiec-test
-- var-backtesting
-- proportion-of-failures
-- basel-traffic-light
-- likelihood-ratio
-- risk-governance
-brokers_frameworks:
-- BCBS bcbs22 Backtesting Framework (January 1996)
-- Basel Framework MAR32 / MAR99
-- Kupiec (1995) POF Likelihood Ratio Test
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when you already hold a counted VaR backtest pair of observations and exceptions
+  and need a calibration verdict; the Kupiec proportion-of-failures likelihood-ratio
+  test for unconditional coverage. Blind to breach clustering.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: kupiec-test, var-backtesting, proportion-of-failures, basel-traffic-light, likelihood-ratio, risk-governance
+  brokers_frameworks: "BCBS bcbs22 Backtesting Framework (January 1996); Basel Framework MAR32 / MAR99; Kupiec (1995) POF Likelihood Ratio Test; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,27 +1,17 @@
 ---
 name: colocation-latency-budget-accounting
 description: >-
-  Use when accounting for the in-host tick-to-trade (T2T) latency budget of a
-  co-located trading server: decomposes a NIC-ingress-to-NIC-egress trace into
-  nanosecond phases, audits each trace against total and per-phase SLAs, names
-  the phase most over its budget, and reports P50/P95/P99/P99.9 tail jitter.
-domain: Infrastructure
-subdomain: Latency Optimization
-tags:
-- latency-budget
-- tick-to-trade
-- hft
-- colocation
-- hardware-timestamping
-- sla
-- tail-jitter
-- clock-domain
-brokers_frameworks:
-- Generic Infrastructure
-- NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when profiling the in-host hot path of a co-located server, decomposing NIC
+  ingress to NIC egress into nanosecond phases and auditing each trace against its stage
+  budget. Everything outside the box is a different skill.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: latency-budget, tick-to-trade, hft, colocation, hardware-timestamping, sla, tail-jitter, clock-domain
+  brokers_frameworks: "Generic Infrastructure; NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

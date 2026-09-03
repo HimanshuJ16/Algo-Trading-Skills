@@ -1,14 +1,17 @@
 ---
 name: on-chain-transaction-monitoring-for-anomalies
 description: >-
-  On-chain transaction anomaly monitor for EVM custody wallets, evaluating sanctions/OFAC listed-address interaction, sanctions-list staleness, high-value transfer spikes, abnormal effective-gas-price spikes, and unapproved contract method calls, with fail-closed payload validation and blocking-report evidence.
-domain: Crypto Custody & DeFi Security
-subdomain: On-Chain Anomaly Detection & KYT Compliance
-tags: ["on-chain-monitoring", "kyt-compliance", "ofac-sanctions", "anomaly-detection", "gas-spikes", "crypto-custody", "defi-security"]
-brokers_frameworks: ["EVM Blockchain RPC / Web3", "OFAC SDN List", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when screening live or pending EVM transactions from custody wallets before
+  broadcast, checking sanctioned-address interaction, list staleness, high-value
+  transfer spikes and abnormal gas patterns.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: on-chain-monitoring, kyt-compliance, ofac-sanctions, anomaly-detection, gas-spikes, crypto-custody, defi-security
+  brokers_frameworks: "EVM Blockchain RPC / Web3; OFAC SDN List; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

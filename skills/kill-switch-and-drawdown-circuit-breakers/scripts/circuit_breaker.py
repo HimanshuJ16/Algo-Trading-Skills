@@ -202,10 +202,16 @@ class KillSwitchCircuitBreaker:
     # ------------------------------------------------------------------ orders
 
     def check_proposed_order(
-        self, proposed_position_size: float, current_position_size: float, symbol: str = "DEFAULT"
+        self, proposed_position_delta: float, current_position_size: float, symbol: str = "DEFAULT"
     ) -> Tuple[bool, str]:
         """
         Vetoes an order if the breaker is halted or the projected position exceeds limits.
+
+        `proposed_position_delta` is the *change* this order would make to the position,
+        signed by side (+100 to buy 100, -100 to sell 100) - not the position the order
+        would leave behind. It is checked against the projected position
+        `current_position_size + proposed_position_delta`, so passing an absolute target
+        here would silently overstate the exposure being evaluated.
 
         Returns (approved, reason). The reason is always prefixed with an OrderDecisionCode
         value followed by ": ", so callers branch on the code rather than parsing free text.
@@ -214,16 +220,16 @@ class KillSwitchCircuitBreaker:
         even when the current position already exceeds `max_position`, unless
         `allow_reduce_only_when_halted` is False.
         """
-        if not _is_finite(proposed_position_size, current_position_size):
+        if not _is_finite(proposed_position_delta, current_position_size):
             msg = (
                 f"{OrderDecisionCode.INVALID_INPUT.value}: Order rejected for '{symbol}': non-finite "
-                f"size (proposed={proposed_position_size!r}, current={current_position_size!r})."
+                f"size (proposed={proposed_position_delta!r}, current={current_position_size!r})."
             )
             logger.error(msg)
             return False, msg
 
         with self._lock:
-            reducing = is_risk_reducing(current_position_size, proposed_position_size)
+            reducing = is_risk_reducing(current_position_size, proposed_position_delta)
 
             if self.halted:
                 if reducing and self.allow_reduce_only_when_halted:
@@ -236,7 +242,7 @@ class KillSwitchCircuitBreaker:
                     f"({self.status.value})."
                 )
 
-            projected = abs(current_position_size + proposed_position_size)
+            projected = abs(current_position_size + proposed_position_delta)
 
             if projected > self.max_position and not reducing:
                 msg = (
@@ -601,11 +607,17 @@ class CircuitBreaker:
 
     @property
     def halted(self):
+        """Read-only. A halt is cleared only through the audited `human_re_enable` path.
+
+        There is deliberately no setter: assigning `halted = False` would clear a halt
+        with no operator, no reason, and no `re_enable_log` row -- exactly the unaudited
+        bypass the module exists to prevent.
+        """
         return self.engine.halted
 
-    @halted.setter
-    def halted(self, val):
-        self.engine.halted = val
+    def human_re_enable(self, authorized_user, reason, new_peak_equity=None):
+        """The only way to clear a halt through this wrapper. Returns True if cleared."""
+        return self.engine.human_re_enable(authorized_user, reason, new_peak_equity)
 
     def check_order(self, proposed_position_size, current_position_size):
         ok, reason = self.engine.check_proposed_order(proposed_position_size, current_position_size)

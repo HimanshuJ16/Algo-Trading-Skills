@@ -1,26 +1,17 @@
 ---
 name: database-backup-and-point-in-time-restore-testing
-description: Drill harness for PostgreSQL/TimescaleDB continuous WAL archiving — replays
-  archived backup metadata to a target timestamp, detects WAL gaps and unreachable
-  recovery targets, and audits measured RPO/RTO against internal objectives.
-domain: Infrastructure & Operations
-subdomain: Database Disaster Recovery
-tags:
-- database-backup
-- pitr-restore
-- wal-archiving
-- rpo-rto-testing
-- disaster-recovery
-- timescaledb
-- postgresql
-- data-integrity
-brokers_frameworks:
-- PostgreSQL WAL
-- TimescaleDB
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a trading database must be provably restorable to an exact timestamp before a
+  bad migration; replays archived WAL metadata to a target time, detects gaps and
+  unreachable targets, and audits measured RPO and RTO.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: database-backup, pitr-restore, wal-archiving, rpo-rto-testing, disaster-recovery, timescaledb, postgresql, data-integrity
+  brokers_frameworks: "PostgreSQL WAL; TimescaleDB; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

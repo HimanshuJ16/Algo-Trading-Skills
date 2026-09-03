@@ -1,26 +1,17 @@
 ---
 name: b3-brazil-exchange-api-integration
-description: "Configuration validator and connection-state manager for B3 (Brasil Bolsa Balcão) PUMA Trading System connectivity, enforcing the gap-recovery constraint that separates the legacy FIX/FAST stack from the Binary (SBE/FIXP) stack."
-domain: global-market-integration
-subdomain: exchanges
-tags:
-- b3
-- brazil
-- puma-trading-system
-- fix-fast
-- umdf
-- sbe
-- binary-order-entry
-- direct-market-access
-- low-latency
-brokers_frameworks:
-- B3 PUMA Trading System
-- B3 UMDF (Unified Market Data Feed)
-- B3 Binary Order Entry (FIXP/SBE)
-- FIX 4.4
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when configuring B3 PUMA Trading System connectivity and choosing between the
+  legacy FIX/FAST stack and Binary SBE; enforces the SBE gap-recovery precondition that
+  separates them, and manages connection lifecycle state around a vendor SDK.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: b3, brazil, puma-trading-system, fix-fast, umdf, sbe, binary-order-entry, direct-market-access, low-latency
+  brokers_frameworks: "B3 PUMA Trading System; B3 UMDF (Unified Market Data Feed); B3 Binary Order Entry (FIXP/SBE); FIX 4.4"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## Purpose
@@ -94,7 +85,7 @@ A successful `connect()` is therefore **not** evidence of reachability, valid cr
 - **Assuming legacy FIX will stay available on the same endpoints.** B3 has been consolidating FIX order entry gateways and reassigning IPs, ports, and TargetCompIDs; sessions that miss a cutoff fail to log in.
 - **Logging the config object.** A credential in a dataclass `repr` ends up in logs and crash reporters. `password` is `repr=False` here; keep it that way if you extend the config.
 - **Unicast market data addresses in production.** UMDF is multicast; a unicast address means no data arrives. This is now rejected by default rather than merely warned about in prose.
-- **Trusting unsourced latency figures.** Earlier revisions of this skill quoted precise microsecond ranges that traced to no B3 or vendor publication. They have been removed — measure in your own footprint.
+- **Trusting unsourced latency figures.** The precise microsecond ranges commonly quoted for B3 trace to no B3 or vendor publication — measure in your own footprint.
 
 ## Verification
 

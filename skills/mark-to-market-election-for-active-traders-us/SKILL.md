@@ -1,14 +1,17 @@
 ---
 name: mark-to-market-election-for-active-traders-us
 description: >-
-  US federal tax engine comparing IRC Section 475(f) mark-to-market accounting against default capital accounting for a trader in securities: year-end marks from the Section 475(a)-adjusted basis, the scoped Section 1091 waiver, Section 461(l) excess business loss limits on the ordinary deduction, Section 1211(b)/1212(b) capital caps and carryforwards, and Form 4797 Part II vs Schedule D mapping.
-domain: Tax & Accounting Global
-subdomain: US Active Trader Tax & Section 475(f) MTM
-tags: ["tax-accounting", "section-475f", "mark-to-market", "wash-sale-exemption", "form-4797", "trader-tax-status", "ordinary-loss", "excess-business-loss"]
-brokers_frameworks: ["IRS Code Section 475(f)", "Form 4797 Part II", "Form 3115", "Form 461", "Rev. Proc. 99-17", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an active trader with trader tax status is deciding on or operating under an
+  IRC 475(f) mark-to-market election, comparing year-end marks and ordinary treatment
+  against default capital accounting with wash sales.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: tax-accounting, section-475f, mark-to-market, wash-sale-exemption, form-4797, trader-tax-status, ordinary-loss, excess-business-loss
+  brokers_frameworks: "IRS Code Section 475(f); Form 4797 Part II; Form 3115; Form 461; Rev. Proc. 99-17; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

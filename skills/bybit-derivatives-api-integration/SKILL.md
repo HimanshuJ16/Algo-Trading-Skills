@@ -1,24 +1,17 @@
 ---
 name: bybit-derivatives-api-integration
-description: Use when signing Bybit V5 REST requests directly instead of through an
-  SDK, to build the HMAC-SHA256 signature over the exact bytes transmitted, keep the
-  timestamp inside Bybit's asymmetric acceptance window, pace against the per-UID and
-  per-IP rate limits separately, and make an order retry safe with orderLinkId.
-domain: Execution
-subdomain: Venue Integration
-tags:
-- bybit
-- crypto-derivatives
-- v5-api
-- hmac-sha256
-- rate-limiting
-- request-signing
-- order-idempotency
-brokers_frameworks:
-- Bybit V5 REST
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when signing Bybit V5 REST requests by hand rather than through the pybit SDK:
+  HMAC-SHA256 over the exact bytes transmitted, a timestamp inside Bybit's asymmetric
+  acceptance window, and the recv_window semantics.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: bybit, crypto-derivatives, v5-api, hmac-sha256, rate-limiting, request-signing, order-idempotency
+  brokers_frameworks: Bybit V5 REST
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

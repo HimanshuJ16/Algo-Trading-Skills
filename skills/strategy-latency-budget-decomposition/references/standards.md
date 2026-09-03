@@ -3,9 +3,9 @@
 ## What nobody publishes
 
 **No regulator, exchange, vendor or standards body publishes a per-stage tick-to-trade
-latency budget.** A previous revision of this skill presented the table below under the
-heading "Standard Microsecond Budget SLA", which implied an authority that does not
-exist. Latency is a competitive parameter, not a regulated one: venues publish their own
+latency budget.** Presenting the table below under a heading such as "Standard
+Microsecond Budget SLA" would imply an authority that does not exist. Latency is a
+competitive parameter, not a regulated one: venues publish their own
 gateway and matching-engine characteristics, and firms derive their internal budgets from
 the opportunity they are trading. Treat any per-stage figure — including the shipped
 defaults — as an operator-chosen allocation that must be justified locally.

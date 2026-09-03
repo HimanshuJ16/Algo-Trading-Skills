@@ -1,18 +1,17 @@
 ---
 name: regulatory-custody-requirements-by-jurisdiction
 description: >-
-  Citation-carrying custody compliance engine that audits a documented custody
-  arrangement against the regime that actually governs it — the Advisers Act
-  custody rule and its surprise-examination exceptions, MiCA Articles 67 and 75,
-  FCA CASS 6 and the incoming CASS 17 cryptoasset regime, and the MAS statutory
-  trust for digital payment tokens.
-domain: Crypto Custody & Regulatory Compliance
-subdomain: Jurisdictional Custody Governance
-tags: ["regulatory-custody", "sec-custody-rule", "mica", "fca-cass", "mas", "qualified-custodian", "asset-segregation"]
-brokers_frameworks: ["SEC Rule 206(4)-2", "EU MiCA Regulation", "UK FCA CASS Rules", "MAS Payment Services Act", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a client-asset or crypto custody arrangement must answer to a named regulator
+  and every finding needs its citation, covering the Advisers Act custody rule and its
+  regional counterparts.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: regulatory-custody, sec-custody-rule, mica, fca-cass, mas, qualified-custodian, asset-segregation
+  brokers_frameworks: "SEC Rule 206(4)-2; EU MiCA Regulation; UK FCA CASS Rules; MAS Payment Services Act; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

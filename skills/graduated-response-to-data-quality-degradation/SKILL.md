@@ -1,14 +1,17 @@
 ---
 name: graduated-response-to-data-quality-degradation
 description: >-
-  Use when a live trading system must react to degraded market data (stale ticks, sequence gaps, price spikes, crossed books, spread blow-out) with a graduated de-risking mandate — size haircut, block new entries, cancel and flatten — instead of a binary on/off kill.
-domain: Real-Time Architecture & Risk
-subdomain: Data Quality Monitoring & De-Risking
-tags: ["data-quality", "de-risking", "graduated-response", "stale-ticks", "sequence-gaps", "price-spikes", "circuit-breaker"]
-brokers_frameworks: ["Generic Feed Quality Telemetry", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when market data is degraded but not obviously dead and the system must decide how
+  much to trade; converts per-symbol quality telemetry into a bounded score and one of
+  four mandates from full size to halt. It consumes telemetry rather than detecting it.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: data-quality, de-risking, graduated-response, stale-ticks, sequence-gaps, price-spikes, circuit-breaker
+  brokers_frameworks: "Generic Feed Quality Telemetry; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

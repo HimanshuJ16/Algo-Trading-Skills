@@ -96,7 +96,7 @@ Do not retry: rejection means the message was unreadable, and re-parsing identic
 produces an identical rejection. A rising rejection rate is the signal this design
 exists to produce — usually an undocumented venue schema change.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Cross-venue side inversion.** Copying Coinbase's `side` through while deriving
   Binance's from `m` places the two venues on opposite conventions. Each venue looks

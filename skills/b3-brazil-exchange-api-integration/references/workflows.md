@@ -102,8 +102,8 @@ is:
 4. Buffer incrementals arriving during recovery and replay them once
    synchronised.
 
-Do **not** design a TCP gap-fill request for the binary feed. An earlier revision
-of this skill instructed exactly that; the facility does not exist.
+Do **not** design a TCP gap-fill request for the binary feed — the facility does
+not exist.
 
 ## Phase 5 — Operations
 

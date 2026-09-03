@@ -1,41 +1,86 @@
 # Algo-Trading-Skills — Extended Documentation for LLM Context Windows
 
 ## Overview
-Algo-Trading-Skills is an open-source engineering library of 504 algorithmic trading playbooks designed specifically for AI coding agents (Claude Code, GitHub Copilot, Cursor, Windsurf, Cline, Gemini CLI, OpenAI Codex CLI, Aider, Continue, Devin, OpenHands).
+Algo-Trading-Skills is an open-source engineering library of algorithmic trading playbooks
+in the agentskills.io format, written for AI coding agents (Claude Code, GitHub Copilot,
+Cursor, Windsurf, Cline, Gemini CLI, OpenAI Codex CLI, Aider, Continue).
 
 ## Architectural Design Pattern
 Each skill follows progressive disclosure:
-1. YAML Frontmatter (~30-50 tokens): Fast indexing and relevance matching without loading complete files.
-2. SKILL.md Body (500-1500 tokens): Structured sections (`When to Use`, `Prerequisites`, `Workflow`, `Common Pitfalls`, `Verification`, `Related Skills`).
-3. `references/`: Detailed regulatory specifications, exchange API specs, and sequence diagrams.
-4. `scripts/`: Production-tested Python helper scripts with matching `test_*.py` unit test suites.
-5. `assets/`: Printable sign-off checklists (`checklist.md`).
+1. Frontmatter (name + description, ~100 tokens): what the skill does and when to trigger
+   it. This is all an agent reads while deciding which skill applies.
+2. SKILL.md body (~2,000-3,700 tokens): `When to Use`, `When NOT to Use`, `Prerequisites`,
+   `Workflow`, `Common Pitfalls`, `Verification`, `Related Skills`.
+3. `references/`: standards.md (regulatory and vendor specifications with sources) and
+   workflows.md (full technical procedure).
+4. `scripts/`: a standalone Python helper module plus its `test_*.py` unittest suite.
+5. `assets/checklist.md`: sign-off checklist derived from the Verification section.
 
-## Full Domain Breakdown (16 Domains)
-1. broker-integration (20 skills)
-2. real-time-architecture (30 skills)
-3. backtesting-methodology (35 skills)
-4. financial-ml (38 skills)
-5. risk-management (39 skills)
-6. deployment-ops (30 skills)
-7. global-market-integration (44 skills)
-8. regulatory-compliance-global (38 skills)
-9. multi-asset-derivatives (28 skills)
-10. execution-algorithms (33 skills)
-11. data-management-global (37 skills)
-12. crypto-custody-security (29 skills)
-13. portfolio-multi-strategy (30 skills)
-14. market-microstructure-latency (24 skills)
-15. quant-research-alt-data (20 skills)
-16. tax-accounting-reporting-global (16 skills)
+## Frontmatter contract
+The agentskills.io specification allows six top-level fields (`name`, `description`,
+`license`, `compatibility`, `allowed-tools`, `metadata`), so this repository's own fields
+live under `metadata:` as string values:
+
+```yaml
+---
+name: order-placement-idempotency
+description: >-
+  Use whenever a bot places, modifies, or cancels live orders and must guarantee it
+  never double-executes an order due to retries, timeouts, or reconnects
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, idempotency, client-order-id, order-ledger, retry-safety
+  brokers_frameworks: Fyers API v3; Zerodha Kite Connect; Upstox API v2; IBKR API
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
+---
+```
+
+Every description starts with "Use when …" and fits in 280 characters, because an agent
+selects a skill from its description alone and every installed skill's description is
+loaded into context at session start.
+
+## Domain Breakdown (16 domains)
+Exact per-domain counts are in `index.json` under the `subdomains` key, and every skill is
+listed by domain in `docs/ROADMAP_500.md`:
+
+1. broker-integration — headless auth, token lifecycle, order idempotency, rate limits
+2. real-time-architecture — tick pipelines, buffering, backpressure, WebSocket recovery
+3. backtesting-methodology — lookahead bias, walk-forward, slippage realism, tearsheets
+4. financial-ml — leakage-free features, labeling, drift and staleness, serving
+5. risk-management — kill switches, exposure limits, VaR, stress tests, risk governance
+6. deployment-ops — supervision, promotion gates, canary/blue-green, secrets, incidents
+7. global-market-integration — venue APIs worldwide, crypto exchanges, FX
+8. regulatory-compliance-global — SEC, FINRA, MiFID II, FCA, ASIC, MAS, SEBI, IIROC, SFC, JFSA
+9. multi-asset-derivatives — SPAN margin, rolls, Greeks, funding, exotics
+10. execution-algorithms — TWAP/VWAP/POV, implementation shortfall, routing, auctions, TCA
+11. data-management-global — calendars, time zones, clocks, symbology, corporate actions
+12. crypto-custody-security — wallet split, whitelists, multi-sig, MPC, HSM, key backup
+13. portfolio-multi-strategy — correlation, allocation, lifecycle, attribution, reporting
+14. market-microstructure-latency — colocation, clocks, tick-to-trade, book signals
+15. quant-research-alt-data — satellite, card data, sentiment, supply chain, search trends
+16. tax-accounting-reporting-global — wash sales, lots, 475/1256, crypto tax, 1099-B
+
+## Packaging
+The Claude Code marketplace (`.claude-plugin/marketplace.json`) ships one plugin per
+domain plus an all-skills plugin, generated by `tools/build_marketplace.py`. Installing a
+single domain keeps the per-session context cost to a few thousand tokens.
 
 ## Platform Rule Files
+- Claude Code: `CLAUDE.md` and `.claude-plugin/`
+- OpenAI Codex / OpenHands: `AGENTS.md`
+- Gemini CLI: `GEMINI.md`
+- GitHub Copilot: `.github/copilot-instructions.md`
 - Cursor: `.cursor/rules/algo-trading-skills.mdc`
 - Cline / Roo Code: `.clinerules`
 - Windsurf: `.windsurfrules`
-- GitHub Copilot: `.github/copilot-instructions.md`
-- Claude Code: `CLAUDE.md` and `.claude/config.json`
-- OpenAI Codex / OpenHands: `AGENTS.md`
-- Gemini CLI: `GEMINI.md`
 - Continue: `.continue/rules/algo-trading-skills.md`
 - Aider: `CONVENTIONS.md` and `.aider.conf.yml`
+
+## Verification
+- `python tools/validate_skills.py` — frontmatter, sections, cross-references, packaging
+- `skills-ref validate skills/<name>` — the agentskills.io reference validator
+- `python tools/run_all_tests.py` — every skill's unittest suite, isolated per subprocess
+- `python tools/build_index.py --check` / `build_marketplace.py --check` — generated files

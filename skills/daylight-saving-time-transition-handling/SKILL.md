@@ -1,25 +1,17 @@
 ---
 name: daylight-saving-time-transition-handling
-description: IANA zone-aware market session engine for Daylight Saving Time transitions
-  across US, EU, and Asian exchanges — computes UTC session opens and nanosecond epochs,
-  flags skipped/repeated local wall times, and detects the US-EU desynchronization windows.
-domain: Data Management Global
-subdomain: Timezone & Session Scheduling
-tags:
-- dst-transition
-- timezone-handling
-- utc-normalization
-- iana-timezones
-- session-scheduling
-- cross-border-desync
-- market-hours
-brokers_frameworks:
-- Python zoneinfo
-- IANA Time Zone Database
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a session boundary or scheduled job is expressed in exchange-local time and
+  daylight saving shifts it; resolves local boundaries to UTC across zones and flags
+  skipped and repeated wall-clock times.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: dst-transition, timezone-handling, utc-normalization, iana-timezones, session-scheduling, cross-border-desync, market-hours
+  brokers_frameworks: "Python zoneinfo; IANA Time Zone Database; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

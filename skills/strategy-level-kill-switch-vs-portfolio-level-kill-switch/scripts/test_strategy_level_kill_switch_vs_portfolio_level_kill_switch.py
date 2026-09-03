@@ -87,7 +87,7 @@ class TestHierarchicalKillSwitchEngineAdvanced(_EngineFixture):
 
     def test_healthy_strategy_reports_no_action_not_soft_halt(self):
         # A caller reading report.action without checking is_triggered must not halt a
-        # strategy that never breached. Pre-2.0.0 this returned SOFT_HALT.
+        # strategy that never breached. older this returned SOFT_HALT.
         report = self.engine.evaluate_strategy_kill_switch("MOMENTUM", 98_000.0)
         self.assertFalse(report.is_triggered)
         self.assertFalse(report.is_trading_halted)

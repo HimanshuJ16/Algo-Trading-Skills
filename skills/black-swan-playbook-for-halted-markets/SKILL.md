@@ -1,26 +1,17 @@
 ---
 name: black-swan-playbook-for-halted-markets
-description: Institutional quant standard playbook for handling US NMS equity trading
-  halts (LULD single-name pauses, market-wide circuit breakers). Includes microstructure
-  awareness, notional-scaled basis-risk-filtered proxy hedging, market-wide-halt hedge
-  suppression, and fair-value auction resumption management.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- trading-halt
-- circuit-breaker
-- black-swan
-- proxy-hedging
-- luld
-- halt-playbook
-- institutional
-brokers_frameworks:
-- Black Swan Halted Market Engine
-- Python
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a venue disseminates a LULD pause or market-wide circuit breaker on a symbol
+  you hold; covers order lockdown, risk-limit expansion and notional-scaled
+  basis-risk-aware proxy hedging, with no proxy hedge during a market-wide halt.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, trading-halt, circuit-breaker, black-swan, proxy-hedging, luld, halt-playbook, institutional
+  brokers_frameworks: "Black Swan Halted Market Engine; Python"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

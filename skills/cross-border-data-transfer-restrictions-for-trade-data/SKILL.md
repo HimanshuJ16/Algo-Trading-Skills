@@ -1,24 +1,17 @@
 ---
 name: cross-border-data-transfer-restrictions-for-trade-data
-description: Quantitative data governance engine for enforcing cross-border trade
-  data transfer compliance (GDPR, PIPL, Swiss Secrecy), pseudonymizing PII, and auditing
-  cross-jurisdiction telemetry egress.
-domain: Compliance & Data Governance
-subdomain: Cross-Border Data Regulations
-tags:
-- cross-border
-- data-governance
-- gdpr
-- pipl
-- pii-masking
-- tokenization
-- data-residency
-brokers_frameworks:
-- Generic Compliance Engine
-- Python Dataclasses
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when trade telemetry containing personal data crosses a border, to enforce route
+  policy under GDPR Chapter V, China PIPL Articles 38 to 40, Swiss banking secrecy and
+  similar regimes, and to pseudonymise before egress.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: cross-border, data-governance, gdpr, pipl, pii-masking, tokenization, data-residency
+  brokers_frameworks: "Generic Compliance Engine; Python Dataclasses"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

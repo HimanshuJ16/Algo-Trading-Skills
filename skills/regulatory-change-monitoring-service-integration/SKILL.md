@@ -1,31 +1,17 @@
 ---
 name: regulatory-change-monitoring-service-integration
 description: >-
-  Use when wiring a regulatory change feed (SEC/Federal Register, FCA Handbook
-  notices, SEBI circulars, ESMA/EUR-Lex, MAS) into a trading firm's compliance
-  workflow. Resolves the deadline that actually binds — the compliance date,
-  which is usually not the effective date the feed publishes — flags open items
-  that are urgent or already overdue, filters feed noise without silently
-  dropping it, and produces an auditable assessment record.
-domain: algorithmic-trading
-subdomain: regulatory-compliance-global
-tags:
-- regulatory-compliance-global
-- regulatory-change-monitoring
-- compliance-deadline-tracking
-- horizon-scanning
-- finra-rule-3110
-- rts-6-article-9
-brokers_frameworks:
-- Federal Register API (SEC rulemaking documents)
-- FCA Handbook Notices
-- SEBI Circulars
-- EUR-Lex / ESMA publications
-- MAS Notices and Guidelines
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a firm subscribes to regulatory feeds such as the Federal Register, FCA
+  Handbook notices, SEBI circulars or EUR-Lex and needs to know which published changes
+  still require work and how long is left before the operative deadline.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: regulatory-compliance-global, regulatory-change-monitoring, compliance-deadline-tracking, horizon-scanning, finra-rule-3110, rts-6-article-9
+  brokers_frameworks: "Federal Register API (SEC rulemaking documents); FCA Handbook Notices; SEBI Circulars; EUR-Lex / ESMA publications; MAS Notices and Guidelines; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

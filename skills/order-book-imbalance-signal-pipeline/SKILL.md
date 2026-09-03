@@ -1,17 +1,17 @@
 ---
 name: order-book-imbalance-signal-pipeline
 description: >-
-  Order book imbalance (OBI) signal pipeline computing signed top-of-book and
-  depth-aggregated queue imbalance plus the imbalance-weighted mid-price, with
-  fail-closed validation of crossed books, non-finite volumes and out-of-order
-  updates before any signal reaches an execution worker.
-domain: Market Microstructure & Latency
-subdomain: Order Book Signal Generation
-tags: ["order-book-imbalance", "queue-imbalance", "weighted-mid-price", "micro-price", "l2-book", "hft-signals", "fast-path"]
-brokers_frameworks: ["Generic L2 Depth Feed", "Python Dataclasses", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a strategy trades on the relative size of resting queues. Computes signed
+  top-of-book and depth-aggregated imbalance plus the imbalance-weighted mid, rejecting
+  crossed books and out-of-order updates before a signal reaches execution.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: order-book-imbalance, queue-imbalance, weighted-mid-price, micro-price, l2-book, hft-signals, fast-path
+  brokers_frameworks: "Generic L2 Depth Feed; Python Dataclasses; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

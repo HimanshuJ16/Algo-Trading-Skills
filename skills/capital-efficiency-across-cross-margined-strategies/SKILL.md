@@ -1,28 +1,17 @@
 ---
 name: capital-efficiency-across-cross-margined-strategies
-description: Use when deciding how much collateral a portfolio-margined account frees up
-  versus margining each strategy standalone — estimating spread credits between opposing
-  legs the way SPAN-style inter-commodity credits work, netting the same instrument across
-  strategy sleeves first, and keeping the estimate conservative enough that capital is
-  never sized against an offset the broker will not actually grant.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- cross-margin
-- portfolio-margin
-- capital-efficiency
-- margin-offset
-- collateral
-- institutional
-brokers_frameworks:
-- CME SPAN
-- OCC TIMS / Customer Portfolio Margin
-- Interactive Brokers
-- Bybit Unified Trading Account
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when several strategies share one portfolio-margined account and you need to
+  estimate how much collateral cross-margining frees versus margining each sleeve
+  standalone, using SPAN-style spread credits.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: risk-management, cross-margin, portfolio-margin, capital-efficiency, margin-offset, collateral, institutional
+  brokers_frameworks: "CME SPAN; OCC TIMS / Customer Portfolio Margin; Interactive Brokers; Bybit Unified Trading Account"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -108,9 +97,9 @@ per-spread audit trail showing which credit produced which dollar.
 ## Common Pitfalls
 
 - **Passing the same symbol twice.** Two sleeves' BTC rows margined as two legs get a
-  *spread credit* against each other instead of netting to flat: a genuinely flat book
-  reported $12,000 of requirement under the previous implementation. This now raises
-  `MarginInputError` and points at `net_positions_by_symbol`.
+  *spread credit* against each other instead of netting to flat — a genuinely flat book
+  reporting $12,000 of requirement. This raises `MarginInputError` and points at
+  `net_positions_by_symbol`.
 - **Believing a correlation is a credit rate.** Exchanges publish offset percentages as
   fixed parameters — SPAN's inter-commodity credit table, OCC's product-group offsets —
   set from their own analysis and revised on their schedule, not from your EWMA window.

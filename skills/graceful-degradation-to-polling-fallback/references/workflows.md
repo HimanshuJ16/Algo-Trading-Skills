@@ -94,7 +94,7 @@ guessing any of the three produces a control that fails in production rather tha
    - Decide in advance, and write down, whether blindness with open positions means flat,
      hedge, or hold. Making that decision during the outage is making it badly.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Silent stream freezes.** A dead TCP connection with no `on_close` event. RFC 1122
   §4.2.3.6 requires TCP keep-alives to default off and, when on, to a ≥ 2-hour interval,

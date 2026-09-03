@@ -1,28 +1,17 @@
 ---
 name: emergency-manual-override-access-control
-description: Use when building or reviewing the break-glass path that lets a human
-  fire an emergency manual override (kill switch, strategy halt, order pause) —
-  RBAC, four-eyes dual sign-off, verified single-use break-glass tokens, bounded
-  TTL with real expiry, replay protection, and a chained tamper-evident audit trail
-  covering approvals and denials.
-domain: Infrastructure & Security
-subdomain: Access Control & Emergency Overrides
-tags:
-- emergency-override
-- break-glass
-- kill-switch
-- rbac
-- dual-sign-off
-- audit-logging
-- compliance
-brokers_frameworks:
-- MiFID II RTS 6 (EU 2017/589)
-- SEC Rule 15c3-5
-- NIST SP 800-53 Rev. 5
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when designing the break-glass path a human uses to fire a kill switch, halt a
+  strategy or pause orders: role checks, four-eyes sign-off, verified single-use tokens
+  and a record of who authorised what. It authorises; it does not cancel.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: emergency-override, break-glass, kill-switch, rbac, dual-sign-off, audit-logging, compliance
+  brokers_frameworks: "MiFID II RTS 6 (EU 2017/589); SEC Rule 15c3-5; NIST SP 800-53 Rev. 5; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

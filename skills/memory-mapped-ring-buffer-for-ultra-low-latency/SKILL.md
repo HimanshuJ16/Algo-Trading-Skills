@@ -1,28 +1,17 @@
 ---
 name: memory-mapped-ring-buffer-for-ultra-low-latency
 description: >-
-  Single-producer/single-consumer ring buffer over a shared memory-mapped file,
-  for handing ticks between processes without a language-level queue -- fixed
-  binary slots, split head/tail index ownership, explicit drop-on-full, and the
-  atomicity and memory-ordering limits that decide whether it is safe to use.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- memory-mapped
-- mmap
-- ring-buffer
-- shared-memory
-- low-latency
-- ipc
-brokers_frameworks:
-- Python mmap
-- Python struct
-- POSIX shared file mappings
-- LMAX Disruptor (design reference)
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when handing ticks between two processes without a language-level queue: fixed
+  binary slots in a shared memory-mapped file, split head and tail ownership, explicit
+  drop-on-full, single producer and single consumer only.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, memory-mapped, mmap, ring-buffer, shared-memory, low-latency, ipc
+  brokers_frameworks: "Python mmap; Python struct; POSIX shared file mappings; LMAX Disruptor (design reference)"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Memory-Mapped Ring Buffer for Ultra-Low Latency

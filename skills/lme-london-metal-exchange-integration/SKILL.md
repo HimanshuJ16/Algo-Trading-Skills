@@ -1,18 +1,17 @@
 ---
 name: lme-london-metal-exchange-integration
 description: >-
-  Client-side pre-dispatch validation for London Metal Exchange outright orders —
-  per-metal lot tonnage (Copper/Aluminium 25 MT, Nickel 6 MT, Tin 5 MT), the per-metal
-  LMEselect outright tick ($0.50/MT, but $5.00/MT for Nickel and Tin), the symmetric
-  Daily Price Limit band around the previous 3-month Closing Price, and prompt-date
-  structure and tenor limits.
-domain: Global Market Integration & FX
-subdomain: Commodity Futures & LME Connectivity
-tags: ["lme", "london-metal-exchange", "lmeselect", "prompt-dates", "daily-price-limits", "tick-sizes", "base-metals", "3m-benchmark"]
-brokers_frameworks: ["LMEselect", "LMEselect FIX Order Entry Gateway", "LME Rulebook", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building an order path into the London Metal Exchange for outright base metal
+  futures, applying per-metal lot tonnage, the per-metal LMEselect tick, and prompt-date
+  validity before dispatch.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: lme, london-metal-exchange, lmeselect, prompt-dates, daily-price-limits, tick-sizes, base-metals, 3m-benchmark
+  brokers_frameworks: "LMEselect; LMEselect FIX Order Entry Gateway; LME Rulebook; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

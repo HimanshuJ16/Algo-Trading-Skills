@@ -1,28 +1,17 @@
 ---
 name: corporate-action-adjusted-backtesting
-description: Use when a backtest reads historical equity or ETF prices that span
-  a split, reverse split or cash dividend — builds a CRSP-convention backward-adjusted
-  price series for signals (dividend factor referenced to the close *preceding* the
-  ex-date, volume adjusted by share-count events only) while keeping the raw series
-  intact for order sizing and cash accounting, with a point-in-time `as_of` view that
-  hides events which had not gone ex yet.
-domain: Data Management & Backtesting
-subdomain: Corporate Actions
-tags:
-- corporate-actions
-- stock-splits
-- dividends
-- caf
-- adjusted-prices
-- backtesting
-- point-in-time
-brokers_frameworks:
-- Pandas
-- NumPy
-- Generic Backtester
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a backtest window contains a split, reverse split or cash dividend and raw
+  venue prices show artificial gaps; builds a CRSP-convention backward-adjusted series
+  for signals while keeping dividend cash accounted separately.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: corporate-actions, stock-splits, dividends, caf, adjusted-prices, backtesting, point-in-time
+  brokers_frameworks: "Pandas; NumPy; Generic Backtester"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,28 +1,17 @@
 ---
 name: online-learning-for-adaptive-signal-models
-description: Use when a live linear signal model must be updated observation-by-observation
-  as market dynamics shift, rather than by periodic batch refit - LMS, energy-normalised
-  LMS or recursive least squares with an exponential forgetting factor, with the
-  label horizon enforced structurally so the model is never trained on a return that
-  has not happened yet, and a Page-Hinkley test on the model's own error to decide
-  when the adaptation itself needs resetting
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- online-learning
-- adaptive-model
-- incremental-learning
-- rls
-- nlms
-- concept-drift
-- page-hinkley
-brokers_frameworks:
-- Online Adaptive Model Engine
-- Python standard library (math, collections)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a live linear signal model must update observation by observation because the
+  relationship moves faster than the retraining cadence; LMS, normalised LMS or
+  recursive least squares with forgetting.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, online-learning, adaptive-model, incremental-learning, rls, nlms, concept-drift, page-hinkley
+  brokers_frameworks: "Online Adaptive Model Engine; Python standard library (math, collections)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,26 +1,17 @@
 ---
 name: regime-detection-for-strategy-switching
-description: Use when routing live capital between strategy variants (trend-following,
-  mean-reversion, risk-off) by classifying each closed bar into a market regime with
-  Wilder ADX/DMI and an ATR volatility z-score, then requiring N consecutive confirming
-  bars before the active variant is allowed to change.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- regime-detection
-- adx
-- atr
-- volatility-zscore
-- hysteresis
-- strategy-switching
-- trend-detection
-brokers_frameworks:
-- Wilder ADX/DMI (1978)
-- Wilder ATR (1978)
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when several strategy variants are live and only one should be armed at a time;
+  classifies each closed bar with Wilder ADX/DMI and an ATR volatility z-score, with
+  hysteresis that also delays the risk-off switch.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: regime-detection, adx, atr, volatility-zscore, hysteresis, strategy-switching, trend-detection
+  brokers_frameworks: "Wilder ADX/DMI (1978); Wilder ATR (1978); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

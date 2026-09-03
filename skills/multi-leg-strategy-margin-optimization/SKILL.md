@@ -1,14 +1,17 @@
 ---
 name: multi-leg-strategy-margin-optimization
 description: >-
-  Strategy-based (Reg T) margin estimator for listed multi-leg option positions — computes the FINRA Rule 4210(f)(2) naked, spread and maximum-potential-loss requirements for verticals, iron condors and butterflies, and quantifies the capital an exchange-recognised combination frees versus legging in. Not a portfolio-margin (OCC TIMS) calculation.
-domain: Risk Management & Margin Optimization
-subdomain: Multi-Leg Derivatives & Options Margin Efficiency
-tags: ["options-margin", "multi-leg-strategy", "reg-t", "finra-4210", "vertical-spread", "iron-condor", "margin-optimization"]
-brokers_frameworks: ["FINRA Rule 4210(f)(2)", "Cboe Rule 10.3 (strategy-based margin)", "Regulation T (12 CFR 220.12)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when sizing listed multi-leg option positions in a strategy-based margin account,
+  computing the FINRA Rule 4210(f)(2) spread and maximum-potential-loss requirements so
+  short legs are not margined naked.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: options-margin, multi-leg-strategy, reg-t, finra-4210, vertical-spread, iron-condor, margin-optimization
+  brokers_frameworks: "FINRA Rule 4210(f)(2); Cboe Rule 10.3 (strategy-based margin); Regulation T (12 CFR 220.12); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

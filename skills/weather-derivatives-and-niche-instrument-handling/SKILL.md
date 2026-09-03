@@ -1,26 +1,17 @@
 ---
 name: weather-derivatives-and-niche-instrument-handling
 description: >-
-  Use when pricing, settling, or risk-managing CME weather derivatives (HDD, CDD and CAT futures and options) or capped OTC weather swaps. Accumulates degree-day and CAT indexes from daily station temperatures under an explicit temperature unit and base, settles at the contract's own multiplier and currency — USD 20/point for US degree-day contracts, EUR 20/point for European HDD and CAT, JPY 2,500/point for Pacific Rim CAT, never a single universal multiplier — and values contracts by burn analysis over linearly detrended historical seasons.
-domain: Multi-Asset Derivatives & Exotic Instruments
-subdomain: Weather Derivatives & Niche Instrument Pricing
-tags:
-- weather-derivatives
-- cme-weather
-- hdd-futures
-- cdd-futures
-- cat-index
-- burn-analysis
-- otc-swaps
-- niche-instruments
-brokers_frameworks:
-- CME Rulebook Ch. 403 (US Degree Days Index Futures)
-- CME Rulebook Ch. 411 (Pacific Rim CAT Index Futures)
-- Speedwell Settlement Services
-- ISDA (OTC weather swap documentation)
-version: "2.0.0"
-author: Quant Engineering
-license: MIT
+  Use when accumulating a heating or cooling degree-day or CAT index from station
+  temperatures and pricing a CME weather future, option or capped OTC swap by burn
+  analysis. Official settlement comes from the exchange's index provider.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: weather-derivatives, cme-weather, hdd-futures, cdd-futures, cat-index, burn-analysis, otc-swaps, niche-instruments
+  brokers_frameworks: "CME Rulebook Ch. 403 (US Degree Days Index Futures); CME Rulebook Ch. 411 (Pacific Rim CAT Index Futures); Speedwell Settlement Services; ISDA (OTC weather swap documentation)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -70,8 +70,8 @@ and time of any **reportable event**" with UTC.
 (Article 3, Annex Table 2): maximum divergence from UTC **100 microseconds**,
 timestamp granularity **1 microsecond or better**.
 
-> Correction to earlier versions of this skill: RTS 25 governs the clocks used
-> to timestamp **reportable trading events**. It does not impose a 100µs
+> RTS 25 governs the clocks used to timestamp **reportable trading events**.
+> It does not impose a 100µs
 > accuracy requirement on the timestamp of a backtest manifest, and a research
 > artifact is not a reportable event. This module records UTC timestamps at
 > microsecond granularity because precise lineage is useful, **not** because

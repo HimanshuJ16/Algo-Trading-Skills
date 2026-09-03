@@ -1,24 +1,17 @@
 ---
 name: producer-consumer-tick-pipeline
-description: Use when designing the ingestion path for a WebSocket market data feed,
-  to prevent slow strategy/processing logic from blocking or dropping the socket's
-  read loop
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- websocket-ingestion
-- tick-pipeline
-- queue-partitioning
-- thread-safety
-brokers_frameworks:
-- Fyers API v3 (fyers-apiv3 FyersDataSocket)
-- Zerodha Kite Connect (pykiteconnect KiteTicker)
-- IBKR TWS / Gateway API
-- Alpaca market data streams
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when non-trivial work runs inside a WebSocket on_message callback and can stall
+  the socket read loop. Moves processing off the read path so a slow database write, GC
+  pause or inference call cannot cause a broker disconnect.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, websocket-ingestion, tick-pipeline, queue-partitioning, thread-safety
+  brokers_frameworks: "Fyers API v3 (fyers-apiv3 FyersDataSocket); Zerodha Kite Connect (pykiteconnect KiteTicker); IBKR TWS / Gateway API; Alpaca market data streams"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -57,7 +50,7 @@ Invoke this whenever a bot subscribes to a live tick/quote WebSocket feed and ru
 ## Common Pitfalls
 
 - Writing strategy logic directly in the `on_message`/`on_tick` handler because "it's simpler" during prototyping, then never refactoring before going live — this pattern works fine on a quiet market and fails specifically during the high-volatility bursts when correct signals matter most.
-- Pushing onto an `asyncio.Queue` directly from the broker SDK's callback thread. It does not raise, the queue depth looks correct, and the tick still gets processed *eventually* — so the bug reads as "occasional latency" rather than as a threading error. Measured against this skill's previous implementation, a tick pushed while the loop was parked in `select()` waited 2.7 s to be picked up.
+- Pushing onto an `asyncio.Queue` directly from the broker SDK's callback thread. It does not raise, the queue depth looks correct, and the tick still gets processed *eventually* — so the bug reads as "occasional latency" rather than as a threading error. In direct measurement, a tick pushed while the loop was parked in `select()` waited 2.7 s to be picked up.
 - Using an unbounded queue and treating memory growth as "not a problem yet" — by the time it becomes a visible problem it is usually during a volatility spike, the worst time for the bot to OOM-crash. Passing `maxsize=0` to `asyncio.Queue` to mean "no queue limit needed here" produces exactly that unbounded queue.
 - Partitioning consumer workers by round-robin instead of by symbol, causing out-of-order processing for a single instrument's tick sequence — or partitioning by symbol with the builtin `hash()`, which is stable within one process and reshuffles on the next restart.
 - Not distinguishing between I/O-bound processing (safe to run many async consumers) and CPU-bound processing like ML inference (needs a process pool, since Python's GIL means CPU-bound work in threads doesn't actually parallelize).
@@ -80,6 +73,6 @@ Invoke this whenever a bot subscribes to a live tick/quote WebSocket feed and ru
 
 - `tick-buffering-burst-handling`
 - `backpressure-drop-degrade-policy`
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `graceful-shutdown-draining-in-flight-ticks`
 - `redis-streams-multi-consumer-tick-fanout`

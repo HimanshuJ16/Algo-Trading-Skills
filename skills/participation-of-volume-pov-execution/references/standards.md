@@ -37,8 +37,8 @@ Confirm which one a counterparty implements before relying on it.
 | Binance Futures Algo, `POST /sapi/v1/algo/futures/newOrderVp` | `urgency` | Enum **LOW / MEDIUM / HIGH** — no numeric rate is exposed at all. Notional must exceed 10,000 USDT and stay below 1,000,000 USDT; maximum 10 open algo orders. | [Binance Open Platform — Futures Algo](https://developers.binance.com/docs/algo/future-algo) |
 | FIX `ParticipationRate(849)` | Percentage | Up to 99.99% is representable | As above |
 
-**The "30% maximum participation" figure carried by earlier revisions of this skill is
-not a standard.** It is a common institutional risk-policy default. No regulator, venue
+**The commonly quoted "30% maximum participation" figure is not a standard.** It is a
+common institutional risk-policy default. No regulator, venue
 or protocol reviewed here imposes it: IBKR documents a 50% ceiling, FIX permits values
 approaching 100%, and Binance does not expose a rate. Set `max_rate` from your own
 market-impact analysis and record who signed it off. Do not present it as a rule.

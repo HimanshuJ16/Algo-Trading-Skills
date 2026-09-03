@@ -30,11 +30,10 @@ notification. Look yours up and record it.
 
 ### What this skill deliberately does not claim
 
-- **No mandatory liquidation deadline is asserted.** Earlier revisions recorded
-  "MANDATORY liquidation/roll $\ge 3$ days prior to FND" as an engineering
-  standard. No regulator or exchange publishes that requirement, and the one
-  published deadline located here — a broker's — is 2 business days and is
-  keyed to a *different date* for each side. The buffer is now a configurable
+- **No mandatory liquidation deadline is asserted.** No regulator or exchange
+  publishes a "MANDATORY liquidation/roll $\ge 3$ days prior to FND" rule, and
+  the one published deadline located here — a broker's — is 2 business days and
+  is keyed to a *different date* for each side. The buffer is a configurable
   policy value with the provenance stated, not a constant.
 - **Invoice amounts are principal only.** Grade and location differentials,
   storage, demurrage and load-out charges are contract-specific and are not

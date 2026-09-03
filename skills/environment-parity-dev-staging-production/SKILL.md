@@ -1,27 +1,18 @@
 ---
 name: environment-parity-dev-staging-production
-description: Use when gating a promotion between DEV, STAGING and PRODUCTION trading
-  environments — auditing five parity vectors (Python runtime release, dependency
-  lockfile SHA-256, Alembic schema head(s), broker endpoint mode, mandatory environment
-  variables) against an approved release specification and blocking the deployment when
-  any vector fails.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- environment-parity
-- dev-staging-prod
-- 12-factor-app
-- dependency-lockfile
-- db-schema-parity
-- ci-cd-gate
-brokers_frameworks:
-- 12-Factor App
-- Alembic
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use as the gate when a build moves between dev, staging and production, auditing
+  declared runtime release, dependency lockfile hash, schema head and broker endpoint.
+  Numeric research-versus-live signal parity is
+  research-environment-vs-production-environment-parity.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-ops, environment-parity, dev-staging-prod, 12-factor-app, dependency-lockfile, db-schema-parity, ci-cd-gate
+  brokers_frameworks: "12-Factor App; Alembic; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

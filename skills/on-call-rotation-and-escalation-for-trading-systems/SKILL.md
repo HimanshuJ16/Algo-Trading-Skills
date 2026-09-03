@@ -1,14 +1,17 @@
 ---
 name: on-call-rotation-and-escalation-for-trading-systems
 description: >-
-  Shift-aware on-call rotation resolver and incident escalation manager for live trading systems: severity-driven escalation ladders (Primary, Secondary, Executive), acknowledgement-SLA auditing that does not erase late responses, acknowledgement-timeout re-triggers, and explicit undeliverable-page detection.
-domain: SRE & System Reliability
-subdomain: On-Call Rotations & Automated Escalation Policies
-tags: ["on-call", "sre", "escalation-policy", "incident-management", "sev1-sla", "pagerduty", "trading-reliability"]
-brokers_frameworks: ["PagerDuty / Opsgenie escalation semantics (reference only, no integration)", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when designing on-call rotations and escalation for live trading, where an
+  unacknowledged kill-switch alert means a position running unsupervised; shift-aware
+  resolution, severity ladders and acknowledgement SLA auditing.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: on-call, sre, escalation-policy, incident-management, sev1-sla, pagerduty, trading-reliability
+  brokers_frameworks: "PagerDuty / Opsgenie escalation semantics (reference only, no integration); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

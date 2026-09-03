@@ -1,24 +1,17 @@
 ---
 name: paper-to-live-promotion-checklist
 description: >-
-  Use when deciding whether a strategy that has completed a paper-trading period may begin routing real orders with real capital, evaluating six conjunctive criteria (duration, trade count, slippage alignment, accuracy alignment, risk controls exercised, broker reauth survived) against recorded thresholds and requiring a discrete human sign-off before the verdict authorises anything.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- paper-trading
-- promotion-gate
-- go-live-readiness
-- strategy-governance
-- rollback-planning
-- human-sign-off
-brokers_frameworks:
-- MiFID II RTS 6 (EU) 2017/589
-- SEBI Master Circular for Stock Exchanges (Ch. 2)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use as the final gate before a strategy routes real orders with real capital, scoring
+  six conjunctive criteria including paper duration, trade count and slippage alignment.
+  Every input is an observation you supply, not a verification.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-ops, paper-trading, promotion-gate, go-live-readiness, strategy-governance, rollback-planning, human-sign-off
+  brokers_frameworks: "MiFID II RTS 6 (EU) 2017/589; SEBI Master Circular for Stock Exchanges (Ch. 2); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

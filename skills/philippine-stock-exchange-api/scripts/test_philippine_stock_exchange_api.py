@@ -10,7 +10,7 @@ implementation:
   PHP 1,642.00 -> ceiling PHP 2,463.00, floor PHP 1,150.00.
 
 Tests whose name ends in ``_regression`` are written to FAIL against the
-pre-2.0.0 implementation and PASS against the fix.
+older implementation and PASS against the fix.
 """
 import unittest
 from decimal import Decimal
@@ -130,7 +130,7 @@ class TestStaticThresholdBand(unittest.TestCase):
         self.assertEqual(floor, Decimal("70"))
         self.assertEqual(ceiling, Decimal("150"))
 
-        # PHP 60.00 is -40%: legal under the pre-2020 -50% floor, rejected now.
+        # PHP 60.00 is -40%: legal under an earlier -50% floor, rejected now.
         report = self.engine.validate_pse_order(
             PSEOrderRequest("BDO", "BUY", Decimal("60.00"), 10,
                             reference_price=Decimal("100.00"))
@@ -242,7 +242,7 @@ class TestOrderValidation(unittest.TestCase):
 
         An order priced at PHP 5.05 does not move the security into the
         100-share band: Article IV Section 8 keys the lot off the Reference
-        Price. The pre-2.0.0 engine looked the tier up from the order price and
+        Price. a naive engine looked the tier up from the order price and
         accepted 100 shares here.
         """
         rejected = self.engine.validate_pse_order(
@@ -263,7 +263,7 @@ class TestOrderValidation(unittest.TestCase):
 
         PHP 2,005.00 is on that lattice and inside the band, so it is valid --
         even though PHP 2,005.00 sits in the band whose own tick is PHP 2.00.
-        The pre-2.0.0 engine rejected it as INVALID_TICK_SIZE.
+        a naive engine rejected it as INVALID_TICK_SIZE.
         """
         report = self.engine.validate_pse_order(
             PSEOrderRequest("TEL", "BUY", Decimal("2005.00"), 5,
@@ -275,7 +275,7 @@ class TestOrderValidation(unittest.TestCase):
     def test_sub_tick_price_rejected_regression(self):
         """PHP 1,000.00005 is off the PHP 1.00 tick.
 
-        The pre-2.0.0 scale-and-round test computed
+        an earlier scale-and-round test computed
         ``round(1000.00005 * 10000) % round(1.0 * 10000)``, whose left operand
         rounds to 10,000,000 -- the sub-tick remainder vanishes and the order
         was reported ORDER_VALID_COMPLIANT.
@@ -477,7 +477,7 @@ class TestInputGuards(unittest.TestCase):
     def test_non_finite_reference_price_raises_regression(self):
         """A NaN Reference Price is a data fault, not a rule breach.
 
-        Every ``<=`` against NaN is False, so the pre-2.0.0 engine returned
+        Every ``<=`` against NaN is False, so a naive engine returned
         PRICE_BAND_BREACH -- indistinguishable from an order the exchange would
         genuinely reject.
         """

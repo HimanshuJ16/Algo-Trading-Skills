@@ -1,17 +1,17 @@
 ---
 name: kraken-websocket-v2-auth-and-subscriptions
 description: >-
-  Sign the Kraken REST call that mints a WebSocket token and build validated
-  Kraken WebSocket v2 subscribe frames, routing each channel to the correct one
-  of three endpoints, enforcing the token's 900-second use-by window at the
-  moment of use, and keeping the bearer token out of logs.
-domain: Crypto Custody & Security
-subdomain: Kraken Exchange Connectivity & WS v2 API
-tags: ["kraken", "websocket-v2", "hmac-sha512", "ws-token", "executions-channel", "crypto-api", "order-book-v2"]
-brokers_frameworks: ["Kraken Spot WebSocket v2", "Kraken Spot REST Private API", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a bot connects to Kraken Spot WebSocket v2: signs the REST call that mints
+  the token, builds validated subscribe frames, routes each channel to the right
+  endpoint and respects the token's 900-second use window.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: kraken, websocket-v2, hmac-sha512, ws-token, executions-channel, crypto-api, order-book-v2
+  brokers_frameworks: "Kraken Spot WebSocket v2; Kraken Spot REST Private API; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -35,7 +35,7 @@ here deterministic and unit-testable.
 
 - **As a WebSocket client.** It builds frames; it does not connect, reconnect,
   ping, or track which subscriptions are live. Pair it with
-  `websocket-reconnect-without-duplicate-subscriptions` and
+  `websocket-subscription-reconciliation-after-reconnect` and
   `websocket-reconnection-with-state-recovery`.
 - **For order entry.** `add_order` and `cancel_order` are v2 *request methods*,
   not channels. This engine deliberately refuses to wrap them in a subscribe
@@ -181,7 +181,7 @@ here deterministic and unit-testable.
 
 ## Related Skills
 
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `websocket-reconnection-with-state-recovery`
 - `crypto-exchange-api-integration`
 - `token-lifecycle-live-probing`

@@ -1,14 +1,17 @@
 ---
 name: kyc-aml-considerations-for-algo-trading-entities
 description: >-
-  Entity-level KYC/AML onboarding audit for algorithmic trading funds and proprietary trading firms, covering both FinCEN CDD Rule beneficial-ownership prongs (25% ownership and the mandatory control person), the OFAC 50 Percent Rule aggregation test, FATF jurisdiction risk tiers, and FATF Recommendation 12 PEP measures.
-domain: Regulatory Compliance Global
-subdomain: Corporate Governance & Anti-Money Laundering (AML)
-tags: ["kyc", "aml", "ubo", "fincen-cdd-rule", "fatf", "sanctions-screening", "pep", "enhanced-due-diligence", "ofac-50-percent-rule"]
-brokers_frameworks: ["FinCEN CDD Rule (31 CFR 1010.230)", "OFAC 50 Percent Rule", "FATF Recommendations 12/19/24", "EU Regulation 2024/1624 (AMLR)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when onboarding a trading fund or proprietary firm with a prime broker, exchange
+  or clearing member, covering both FinCEN customer due diligence prongs: the 25%
+  beneficial-ownership test and the mandatory control person.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: kyc, aml, ubo, fincen-cdd-rule, fatf, sanctions-screening, pep, enhanced-due-diligence, ofac-50-percent-rule
+  brokers_frameworks: "FinCEN CDD Rule (31 CFR 1010.230); OFAC 50 Percent Rule; FATF Recommendations 12/19/24; EU Regulation 2024/1624 (AMLR); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

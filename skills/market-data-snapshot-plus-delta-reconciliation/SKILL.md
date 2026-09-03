@@ -1,24 +1,17 @@
 ---
 name: market-data-snapshot-plus-delta-reconciliation
-description: Use when initializing Level 2/3 order book streams to buffer delta updates,
-  align initial REST snapshots by sequence ID, and detect sequence gaps for automated
-  order book re-synchronization
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- order-book
-- l2-reconciliation
-- snapshot-delta
-- sequence-alignment
-brokers_frameworks:
-- Binance L2 API
-- Coinbase Advanced L2
-- Bybit L2
-- Crypto/Forex Orderbooks
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when initialising an L2 or L3 book from a WebSocket delta stream plus a REST
+  snapshot: buffers deltas, aligns on the snapshot sequence id, discards stale updates,
+  and flags the gaps that force a re-sync.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, order-book, l2-reconciliation, snapshot-delta, sequence-alignment
+  brokers_frameworks: "Binance L2 API; Coinbase Advanced L2; Bybit L2; Crypto/Forex Orderbooks"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

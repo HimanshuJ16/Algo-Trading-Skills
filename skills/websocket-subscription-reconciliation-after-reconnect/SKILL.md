@@ -1,27 +1,17 @@
 ---
-name: websocket-reconnect-without-duplicate-subscriptions
-description: Use when writing reconnection logic for a broker market-data WebSocket, to
-  restore exactly the intended subscription set after a drop — reconciling the broker's
-  own acknowledgement instead of assuming the subscribe succeeded, backfilling the gap
-  window in the right order, and deduplicating ticks replayed across the reconnect
-  boundary
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- websocket
-- resubscription
-- duplicate-prevention
-- gap-backfill
-- connection-recovery
-brokers_frameworks:
-- Zerodha Kite Connect v3 WebSocket
-- Alpaca Market Data Stream
-- IBKR Client Portal Web API
-- Fyers Data WebSocket
-version: "2.0.0"
-author: algo-trading-skills-contributors
+name: websocket-subscription-reconciliation-after-reconnect
+description: >-
+  Use when reconnect logic must restore exactly the intended subscription set.
+  Reconciles the broker's own subscribe acknowledgements rather than assuming success,
+  backfills the gap window in order, and dedupes ticks replayed across the reconnect.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, websocket, resubscription, duplicate-prevention, gap-backfill, connection-recovery
+  brokers_frameworks: "Zerodha Kite Connect v3 WebSocket; Alpaca Market Data Stream; IBKR Client Portal Web API; Fyers Data WebSocket"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -187,7 +177,7 @@ different problem with different rules (see `order-placement-idempotency`).
 - Confirm the gap backfill (where implemented) covers through the moment resubscription
   completed, and that a backfill failure is surfaced as missing data rather than logged and
   ignored.
-- Run `python -m unittest discover -s skills/websocket-reconnect-without-duplicate-subscriptions/scripts`
+- Run `python -m unittest discover -s skills/websocket-subscription-reconciliation-after-reconnect/scripts`
   and confirm a 100% pass rate.
 
 ## Related Skills

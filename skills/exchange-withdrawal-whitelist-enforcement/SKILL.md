@@ -1,17 +1,17 @@
 ---
 name: exchange-withdrawal-whitelist-enforcement
 description: >-
-  Client-side pre-flight gate for automated exchange withdrawals that binds every
-  request to an allowlisted (asset, network, address, memo) destination, enforces a
-  tamper-resistant cool-off lock against a trusted clock, and blocks withdrawal-capable
-  API keys that carry no IP restriction.
-domain: Crypto Custody & Security
-subdomain: Exchange Security & Address Whitelisting
-tags: ["withdrawal-whitelist", "address-allowlist", "crypto-custody", "cooloff-lock", "api-key-drain", "destination-tag", "network-scoping"]
-brokers_frameworks: ["Binance SAPI Wallet", "Coinbase Exchange Address Book", "Kraken Global Settings Lock", "OKX Allowlist", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a bot or treasury job can move crypto off an exchange without a human,
+  binding each request to an allowlisted asset, network, address and memo, with a
+  cool-off lock on newly added destinations.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: withdrawal-whitelist, address-allowlist, crypto-custody, cooloff-lock, api-key-drain, destination-tag, network-scoping
+  brokers_frameworks: "Binance SAPI Wallet; Coinbase Exchange Address Book; Kraken Global Settings Lock; OKX Allowlist; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

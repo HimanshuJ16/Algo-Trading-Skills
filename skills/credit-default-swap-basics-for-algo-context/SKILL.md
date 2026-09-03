@@ -1,24 +1,17 @@
 ---
 name: credit-default-swap-basics-for-algo-context
-description: Quantitative credit trading module for calculating Credit Default Swap
-  (CDS) hazard rates, implied default probabilities, indicative ISDA-convention upfront
-  payments, RPV01, and equity-CDS cross-asset signals.
-domain: Derivatives & Fixed Income
-subdomain: Credit Derivatives
-tags:
-- cds
-- credit-default-swap
-- hazard-rate
-- default-probability
-- isda-upfront
-- rpv01
-- cross-asset
-brokers_frameworks:
-- ISDA CDS Conventions
-- Python Math
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when integrating credit default swap metrics into a strategy or capital-structure
+  arbitrage: hazard rates, implied default probability, indicative upfront on the
+  post-2009 fixed-coupon convention, and risky annuity.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: cds, credit-default-swap, hazard-rate, default-probability, isda-upfront, rpv01, cross-asset
+  brokers_frameworks: "ISDA CDS Conventions; Python Math"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

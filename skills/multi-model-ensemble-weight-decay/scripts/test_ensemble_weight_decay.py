@@ -6,7 +6,7 @@ number is asserted. The two-model softmax has a closed logistic form,
 reached without reproducing the module's max-shift normalisation, and the EWMA
 and half-life values are hand-computable.
 
-Tests marked REGRESSION fail against the pre-2.0 implementation.
+Tests marked REGRESSION fail against a naive implementation.
 """
 import logging
 import math

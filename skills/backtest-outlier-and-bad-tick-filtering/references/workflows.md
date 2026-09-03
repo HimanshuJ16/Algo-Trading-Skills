@@ -68,7 +68,7 @@ its sourcing, and threshold calibration live in `references/standards.md`.
    Persist the raw prices, the purged indices, and the filter configuration alongside the
    cleaned series so any deleted print can be reviewed and the pass replayed.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **NaN accepted and propagated.** `nan <= 0` is False and `abs(nan - prev)/prev > pct` is
   False, so an unguarded filter writes NaN into the clean series. Every later window that

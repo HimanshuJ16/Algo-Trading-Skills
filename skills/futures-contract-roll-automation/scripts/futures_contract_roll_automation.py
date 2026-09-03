@@ -88,7 +88,7 @@ class FuturesContractState:
     daily_volume: int
     open_interest: int
     last_price: float
-    # Fields below were appended in 2.0.0 and default to the pre-2.0.0 behaviour,
+    # Fields below were appended in 2.0.0 and default to the the older behaviour,
     # so existing positional construction keeps working unchanged.
     is_physically_delivered: bool = False
     days_to_first_notice: Optional[int] = None

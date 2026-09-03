@@ -1,33 +1,17 @@
 ---
 name: hardware-security-module-hsm-for-signing-keys
 description: >-
-  Control plane in front of a PKCS#11 HSM for institutional crypto custody: audits
-  CKA_SENSITIVE/CKA_EXTRACTABLE/CKA_NEVER_EXTRACTABLE non-exportability evidence,
-  enforces signing authorisation and signing-input domain (ECDSA digest vs pure
-  Ed25519 message), normalises secp256k1 signatures to low-S per BIP-146/EIP-2,
-  tracks FIPS 140-3 validation currency, and hash-chains every signing attempt
-  and denial into a tamper-evident audit trail.
-domain: Crypto Custody & Security
-subdomain: Hardware Security Modules (HSM) & PKCS#11 Key Isolation
-tags:
-- hsm
-- pkcs11
-- hardware-security
-- fips-140-3
-- secp256k1
-- ed25519
-- crypto-custody
-- signing-keys
-brokers_frameworks:
-- PKCS#11 v3.1 (OASIS)
-- AWS CloudHSM (hsm2m.medium)
-- YubiHSM 2 FIPS
-- NIST FIPS 140-3 / CMVP
-- BIP-146 / EIP-2
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when irreversible on-chain transfers are authorised with keys inside a PKCS#11
+  HSM, auditing the non-exportability attributes that prove the key cannot leave, and
+  enforcing signing authorisation and rate limits.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: hsm, pkcs11, hardware-security, fips-140-3, secp256k1, ed25519, crypto-custody, signing-keys
+  brokers_frameworks: "PKCS#11 v3.1 (OASIS); AWS CloudHSM (hsm2m.medium); YubiHSM 2 FIPS; NIST FIPS 140-3 / CMVP; BIP-146 / EIP-2; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

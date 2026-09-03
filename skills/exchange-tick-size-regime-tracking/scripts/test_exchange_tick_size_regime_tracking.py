@@ -82,7 +82,7 @@ class TestRTS11LiquidityBands(unittest.TestCase):
                 )
 
     def test_price_only_table_would_have_been_forty_times_too_fine(self):
-        # Regression: the pre-2.0 engine returned EUR 0.005 for any EUR 10-50 order.
+        # Regression: a naive engine returned EUR 0.005 for any EUR 10-50 order.
         # An illiquid (band 1) name at EUR 25 must be quoted in EUR 0.2 steps.
         self.assertEqual(
             self.engine.get_active_tick_size_decimal("EU_RTS11", "25.00", liquidity_band=1),
@@ -132,7 +132,7 @@ class TestDFMCircular022026(unittest.TestCase):
                 )
 
     def test_high_price_band_regression(self):
-        # Regression: the pre-2.0 table stopped at AED 50 and returned 0.05 above it,
+        # Regression: an earlier table stopped at AED 50 and returned 0.05 above it,
         # so AED 150.05 was reported compliant. Under Circular 02/2026 the tick is 0.10
         # and 150.05 is off-tick.
         report = self.engine.audit_order_tick_compliance("DFM_DUBAI", "EMAAR", "150.05")

@@ -60,7 +60,7 @@ actually implementing the skill, not just when deciding whether it applies.
      ordering and validate each slice through the broker's own pre-trade check.
    - Generate execution slices to send to the execution algorithms (e.g., TWAP/VWAP).
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Passive Waiting for Broker Liquidation:** Allowing broker RMS to liquidate positions at market, incurring massive slippage.
 - **Uncanceled Pending Orders:** Leaving active limit orders in the market that consume margin during adverse price moves.

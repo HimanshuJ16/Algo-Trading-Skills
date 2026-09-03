@@ -1,37 +1,17 @@
 ---
 name: multi-order-netting-before-routing
 description: >-
-  Use when several strategies, sub-accounts or desks generate opposing orders in
-  the same symbol inside one batching window and the firm wants to cross them
-  internally at the mid before routing a single net residual — covering
-  beneficial-ownership classification (book transfer vs reportable cross),
-  pro-rata fill allocation, limit-price eligibility, stale and crossed quote
-  guards, and a cost-saving estimate that subtracts the fees internalisation
-  does not avoid.
-domain: Execution Algorithms
-subdomain: Pre-Routing Internal Order Netting & Cost Optimization
-tags:
-- multi-order-netting
-- pre-routing
-- internal-crossing
-- midpoint-cross
-- beneficial-ownership
-- pro-rata-allocation
-- order-routing
-- wash-trade-prevention
-brokers_frameworks:
-- FINRA Rule 5210 and Supplementary Material .02 (self-trades)
-- FINRA Rule 6380A (OTC transaction reporting, 10 seconds)
-- FINRA Rule 5310 and Supplementary Material .09 (best execution)
-- SEC Regulation NMS Rules 611 and 612 (17 CFR 242.611, 242.612)
-- Section 31 regulatory transaction fee / FINRA Trading Activity Fee
-- Advisers Act Section 206(3) and Rule 206(3)-2 (agency cross)
-- MiFIR Article 4(1)(a) reference price waiver / Article 5 volume cap
-- Smart Order Routing (SOR) / internal crossing engine
-- Python Dataclasses + decimal
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a batch contains opposing interest in the same symbol from different
+  strategies or desks, crossing them internally at the mid before routing the residual.
+  Not a complete self-match control on its own.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: multi-order-netting, pre-routing, internal-crossing, midpoint-cross, beneficial-ownership, pro-rata-allocation, order-routing, wash-trade-prevention
+  brokers_frameworks: "FINRA Rule 5210 and Supplementary Material .02 (self-trades); FINRA Rule 6380A (OTC transaction reporting, 10 seconds); FINRA Rule 5310 and Supplementary Material .09 (best execution); SEC Regulation NMS Rules 611 and 612 (17 CFR 242.611, 242.612); Section 31 regulatory transaction fee / FINRA Trading Activity Fee; Advisers Act Section 206(3) and Rule 206(3)-2 (agency cross); MiFIR Article 4(1)(a) reference price waiver / Article 5 volume cap; Smart Order Routing (SOR) / internal crossing engine; Python Dataclasses + decimal"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

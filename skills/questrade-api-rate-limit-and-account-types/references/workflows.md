@@ -210,8 +210,8 @@ Per record:
 Order of evaluation:
 
 1. **Order side must be documented.** `Buy`, `Sell`, `Short`, `Cov`, `BTO`,
-   `STC`, `STO`, `BTC`. Anything else — including the previously used
-   `"SellShort"`, which is not a Questrade value — raises `ValueError`, because
+   `STC`, `STO`, `BTC`. Anything else — including `"SellShort"`, which is a
+   plausible guess but not a Questrade value — raises `ValueError`, because
    an unrecognised side is a programming error and silently denying it would hide
    the bug.
 2. **Account status.** `Liquidate Only` permits only position-reducing sides

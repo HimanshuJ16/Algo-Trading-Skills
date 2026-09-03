@@ -1,23 +1,18 @@
 ---
 name: crypto-exchange-api-integration
-description: Use when integrating a crypto exchange (Binance, Coinbase Advanced Trade,
-  Kraken) for spot or derivatives trading, where 24/7 markets, structurally different
-  rate-limit models, and exchange-specific order semantics break assumptions carried
-  over from equities broker integration
-domain: algorithmic-trading
-subdomain: global-market-integration
-tags:
-- global-market-integration
-- binance-spot-futures-api
-- coinbase-advanced-trade-api
-- kraken-rest-websocket-v2
-brokers_frameworks:
-- Binance Spot/Futures API
-- Coinbase Advanced Trade API
-- Kraken REST/WebSocket v2
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a bot trades a crypto exchange rather than an equities broker, for 24/7
+  sessions, incompatible rate-limit models and exchange-specific order semantics.
+  Venue-specific skills exist for Bybit, OKX, Kraken, Coinbase, Binance futures and
+  Deribit.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: global-market-integration, binance-spot-futures-api, coinbase-advanced-trade-api, kraken-rest-websocket-v2
+  brokers_frameworks: "Binance Spot/Futures API; Coinbase Advanced Trade API; Kraken REST/WebSocket v2"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -28,7 +23,7 @@ Invoke this when a bot needs to place orders or consume market data on a crypto 
 
 - **As a portable multi-exchange rate limiter.** The three exchanges named here use three incompatible limiting models. A weight-per-window limiter cannot express Kraken's decaying counter or Coinbase's requests-per-second throttle; forcing one model onto all three produces a limiter that is wrong in both directions. `scripts/weight_rate_limiter.py` ships the two models it can implement from unambiguous published figures and deliberately ships no Coinbase preset.
 - **As a source of current rate limits.** Published limits change — Binance Spot's REQUEST_WEIGHT limit was 1,200/min until 2023-08-25, when it became 6,000/min. Any constant in this skill is a starting default to confirm against the exchange, not an authority. Read Binance's live limits from `GET /api/v3/exchangeInfo`.
-- **As a complete exchange client.** There is no auth/signing, no WebSocket transport, no order-state machine here. Signing and key custody belong to `crypto-wallet-key-custody-security`; reconnect semantics to `websocket-reconnect-without-duplicate-subscriptions`.
+- **As a complete exchange client.** There is no auth/signing, no WebSocket transport, no order-state machine here. Signing and key custody belong to `crypto-wallet-key-custody-security`; reconnect semantics to `websocket-subscription-reconciliation-after-reconnect`.
 - **For non-Binance order payloads.** `CryptoOrderPayload` renders Binance REST parameters specifically. Coinbase and Kraken use different field names and order grammars entirely.
 
 ## Prerequisites
@@ -54,7 +49,7 @@ Invoke this when a bot needs to place orders or consume market data on a crypto 
 
 5. **Express post-only the way the target market actually spells it.** There is no `execInst` parameter on Binance — that is BitMEX syntax, and sending it does not make an order post-only; it just leaves a supposedly maker-only order free to cross the spread and pay taker fees. On Binance **spot**, post-only is `type=LIMIT_MAKER` with no `timeInForce`. On **USD-M futures**, `LIMIT_MAKER` does not exist at all; post-only is `type=LIMIT` with `timeInForce=GTX`. Sending `timeInForce` where it is not required is rejected outright ("Parameter 'timeInForce' sent when not required"). `CryptoOrderPayload` requires `market_type` for exactly this reason.
 
-6. **Prefer the WebSocket user-data stream for fills, but reconcile over REST on reconnect** exactly as in `websocket-reconnect-without-duplicate-subscriptions` — crypto user-data streams are as prone to silent gaps around a reconnect as any other WebSocket feed.
+6. **Prefer the WebSocket user-data stream for fills, but reconcile over REST on reconnect** exactly as in `websocket-subscription-reconciliation-after-reconnect` — crypto user-data streams are as prone to silent gaps around a reconnect as any other WebSocket feed.
 
 7. **Treat maintenance windows as a distinct failure class.** Even "24/7" exchanges have scheduled maintenance and unscheduled outages during which order placement is rejected or the socket stays down for an extended period. Back off with jitter; do not treat an extended outage as a transient blip. On Binance a 429 carries `Retry-After` and must be honoured, and continuing to send after 429s escalates to an automated IP ban (HTTP 418) that scales from 2 minutes to 3 days for repeat offenders.
 
@@ -92,7 +87,7 @@ Invoke this when a bot needs to place orders or consume market data on a crypto 
 ## Related Skills
 
 - `multi-broker-rate-limit-handling`
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `crypto-wallet-key-custody-security`
 - `multi-timezone-session-scheduling`
 - `binance-futures-testnet-to-mainnet-promotion`

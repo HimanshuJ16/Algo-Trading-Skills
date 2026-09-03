@@ -21,7 +21,7 @@ before relying on any number here.
 
 The iLink 3 SBE field is identified by **name** (`SenderID`), and sources disagree on the
 tag number behind it: the OnixS tag-based mapping above shows tag 50, while
-`cme-group-fix-api-for-futures` documents it as tag 5392, String(20). Nothing in this
+`cme-stp-fix-and-ilink2-tag-value-encoding` documents it as tag 5392, String(20). Nothing in this
 skill depends on the number — it validates the value, not the encoding — but confirm it
 against the iLink 3 SBE schema before wiring an encoder. Note also that a 20-byte field
 width does not relax the Rule 576 limit of 18 characters.

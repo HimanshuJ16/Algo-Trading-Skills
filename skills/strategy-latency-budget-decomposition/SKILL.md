@@ -1,14 +1,17 @@
 ---
 name: strategy-latency-budget-decomposition
 description: >-
-  Allocating a strategy's end-to-end tick-to-trade budget across pipeline stages and auditing whether the allocation holds: the total budget kept independent of the sum of stage budgets so over- and under-commitment are visible, one definition of "bottleneck" (furthest over its allocated share), an Amdahl bound on which stage can arithmetically close a deficit, and a batch tail profile that reports the measured total P99 next to the sum of per-stage P99s because the two are not the same number.
-domain: Market Microstructure & High-Frequency Trading
-subdomain: Latency Budget Allocation & Bottleneck Attribution
-tags: ["latency-budget", "budget-allocation", "tick-to-trade", "pipeline-bottleneck", "p99-latency", "nearest-rank", "amdahl", "sla-breach"]
-brokers_frameworks: ["HdrHistogram (nearest-rank semantics)", "MiFID II RTS 25", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a strategy has an end-to-end tick-to-trade budget and it must be split across
+  pipeline stages, checking the allocation is feasible and showing where optimisation
+  effort actually pays.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: latency-budget, budget-allocation, tick-to-trade, pipeline-bottleneck, p99-latency, nearest-rank, amdahl, sla-breach
+  brokers_frameworks: "HdrHistogram (nearest-rank semantics); MiFID II RTS 25; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

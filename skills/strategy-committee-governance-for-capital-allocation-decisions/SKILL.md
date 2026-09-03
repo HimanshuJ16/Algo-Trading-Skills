@@ -1,14 +1,17 @@
 ---
 name: strategy-committee-governance-for-capital-allocation-decisions
 description: >-
-  Use when a multi-strategy fund puts a capital allocation — onboarding, scaling, cutting, decommissioning — to a strategy committee, and the vote must produce an auditable record: quorum, per-member ballots, the fund's single-strategy concentration mandate, any charter veto, and the thresholds that were in force.
-domain: Investment Governance & Capital Allocation
-subdomain: Strategy Committee Governance
-tags: ["strategy-committee", "capital-allocation", "investment-governance", "cro-veto", "quorum-threshold", "risk-mandate", "audit-trail"]
-brokers_frameworks: ["AIFMD Directive 2011/61/EU", "Commission Delegated Regulation (EU) 231/2013", "SEC Advisers Act Rules 206(4)-7 / 204-2", "Investment Policy Statement (IPS)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a committee votes on onboarding, scaling, cutting or decommissioning a
+  strategy and the decision must survive being read months later: quorum, per-member
+  ballots, conflicts and an auditable minute.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: strategy-committee, capital-allocation, investment-governance, cro-veto, quorum-threshold, risk-mandate, audit-trail
+  brokers_frameworks: "AIFMD Directive 2011/61/EU; Commission Delegated Regulation (EU) 231/2013; SEC Advisers Act Rules 206(4)-7 / 204-2; Investment Policy Statement (IPS); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

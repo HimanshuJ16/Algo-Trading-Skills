@@ -1,32 +1,17 @@
 ---
 name: algorithmic-trading-firm-licensing-thresholds
 description: >-
-  Screens a trading firm against the quantitative registration triggers that
-  actually exist — the 17 CFR 240.15b9-1 conditions for exemption from FINRA
-  membership, the Article 19 message-rate test that makes a firm a MiFID II
-  high-frequency trader, and the exchange Threshold Orders Per Second above
-  which a retail API algorithm must be registered — and reports "cannot
-  determine" rather than "compliant" when the measuring input is missing.
-domain: regulatory-compliance
-subdomain: legal-and-registration
-tags:
-- compliance
-- sec
-- finra
-- mifid-ii
-- hft
-- sebi
-- registration-thresholds
-brokers_frameworks:
-- 17 CFR 240.15b9-1 as amended (88 FR 61893, Sept. 7, 2023)
-- Securities Exchange Act section 15(b)(8)
-- MiFID II Article 4(1)(40) and Article 2(1)(d)(iii)
-- Commission Delegated Regulation (EU) 2017/565 Article 19
-- SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/0000013 with NSE/INVG/67858
-- Python Dataclasses
-version: "2.0.0"
-author: System
-license: MIT
+  Use when auditing whether a proprietary trading firm has crossed a quantitative
+  registration trigger: the 17 CFR 240.15b9-1 conditions for FINRA membership exemption,
+  the MiFID II Article 19 message-rate test, and the SEBI limbs.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: compliance, sec, finra, mifid-ii, hft, sebi, registration-thresholds
+  brokers_frameworks: "17 CFR 240.15b9-1 as amended (88 FR 61893, Sept. 7, 2023); Securities Exchange Act section 15(b)(8); MiFID II Article 4(1)(40) and Article 2(1)(d)(iii); Commission Delegated Regulation (EU) 2017/565 Article 19; SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/0000013 with NSE/INVG/67858; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

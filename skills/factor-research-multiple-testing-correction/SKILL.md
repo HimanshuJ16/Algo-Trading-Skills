@@ -1,14 +1,17 @@
 ---
 name: factor-research-multiple-testing-correction
 description: >-
-  Quantitative research engine applying multiple hypothesis testing corrections (Bonferroni, Holm, Benjamini-Hochberg FDR, Benjamini-Hochberg-Yekutieli FDR under arbitrary dependence) and the Harvey-Liu-Zhu (2016) t>=3.0 hurdle, so a factor zoo screened at p<=0.05 does not promote noise to production.
-domain: Quantitative Research
-subdomain: Factor Research & Overfitting Control
-tags: ["factor-research", "multiple-testing-correction", "p-hacking", "fdr", "benjamini-hochberg", "benjamini-yekutieli", "harvey-liu-zhu"]
-brokers_frameworks: ["Harvey-Liu-Zhu (2016) RFS", "Benjamini-Hochberg (1995)", "Benjamini-Yekutieli (2001)", "Holm (1979)", "Python Standard Library"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when a research pipeline screens many candidate factors and selection rests on
+  t-statistics, applying Bonferroni, Holm and Benjamini-Hochberg false discovery
+  corrections plus the Harvey-Liu haircut.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: factor-research, multiple-testing-correction, p-hacking, fdr, benjamini-hochberg, benjamini-yekutieli, harvey-liu-zhu
+  brokers_frameworks: "Harvey-Liu-Zhu (2016) RFS; Benjamini-Hochberg (1995); Benjamini-Yekutieli (2001); Holm (1979); Python Standard Library"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

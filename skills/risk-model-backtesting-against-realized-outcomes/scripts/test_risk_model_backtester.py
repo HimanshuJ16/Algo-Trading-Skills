@@ -74,7 +74,7 @@ def make_series(n, exception_indices, var=10_000.0, loss=-15_000.0, gain=500.0,
 
 
 class TestLegacyApi(unittest.TestCase):
-    """The pre-2.0.0 public surface must keep working."""
+    """an earlier public surface must keep working."""
 
     def setUp(self):
         self.engine = RiskModelBacktesterEngine()
@@ -282,7 +282,7 @@ class TestBaselZoneBoundaries(unittest.TestCase):
 
     def test_boundaries_are_not_the_linear_rescaling(self):
         """
-        Regression guard for the pre-2.0.0 defect. Linear rescaling of the exception count
+        Regression guard for an earlier defect. Linear rescaling of the exception count
         to a 250-day equivalent implies (20, 40) at T = 1000; the binomial rule gives
         (15, 24). Rescaling would report a model with 30 exceptions in 1000 days as green.
         """
@@ -336,7 +336,7 @@ class TestBacktestZoneAssignment(unittest.TestCase):
 
     def test_short_window_is_not_falsely_reddened(self):
         """
-        Regression: the pre-2.0.0 linear rescaling turned 1 exception in 25 days into
+        Regression: an earlier linear rescaling turned 1 exception in 25 days into
         int(round(1 * 250/25)) = 10 -> RED and "model rejected", while Kupiec's own p-value
         was 0.26. The binomial rule puts the red boundary for T = 25 well above 1.
         """
@@ -625,7 +625,7 @@ class TestClusteringDetection(unittest.TestCase):
     def test_kupiec_cannot_distinguish_what_independence_does(self):
         """
         Same count, same Kupiec statistic, opposite independence verdicts. This is the
-        capability the frontmatter advertises and the pre-2.0.0 engine did not have.
+        capability the frontmatter advertises and a naive engine did not have.
         """
         clustered = self.engine.backtest_var_model(make_series(250, set(range(40, 48))))
         spread = self.engine.backtest_var_model(make_series(250, set(range(0, 240, 30))))
@@ -776,7 +776,7 @@ class TestReportIntegrity(unittest.TestCase):
 
     def test_statistics_are_not_rounded_away(self):
         """
-        Regression: the pre-2.0.0 engine rounded the p-value to 4 decimals, printing a
+        Regression: a naive engine rounded the p-value to 4 decimals, printing a
         decisive rejection as "p-val = 0.0" in the audit trail.
         """
         report = self.engine.backtest_var_model(make_series(250, set(range(0, 100, 5))))

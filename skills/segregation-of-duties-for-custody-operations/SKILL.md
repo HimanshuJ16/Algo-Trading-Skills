@@ -1,14 +1,17 @@
 ---
 name: segregation-of-duties-for-custody-operations
 description: >-
-  Maker-checker and Segregation of Duties gate for institutional custody transfers — an RBAC role-conflict matrix applied at registration, a self-approval block that cannot be bypassed by mutating a role set, approvals cryptographically bound to the payload that was reviewed, notional-tiered approval counts, optional departmental independence, and a tamper-evident SHA-256 audit chain for SOC 2 evidence.
-domain: Crypto Custody & Security
-subdomain: Segregation of Duties & Governance Controls
-tags: ["segregation-of-duties", "maker-checker", "dual-control", "m-of-n-approval", "crypto-custody", "rbac", "soc-2-evidence", "payload-binding", "tamper-evident-audit"]
-brokers_frameworks: ["AICPA Trust Services Criteria (CC1.3, CC5.1, CC6.3)", "NIST SP 800-53 Rev. 5 AC-5", "BCBS d515 Principle 9", "23 NYCRR 500.7", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a custody transfer release must require more than one person in a form an
+  auditor can read: maker-checker, a role-conflict matrix at registration, and a
+  self-approval block that surviving a role change cannot bypass.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: segregation-of-duties, maker-checker, dual-control, m-of-n-approval, crypto-custody, rbac, soc-2-evidence, payload-binding, tamper-evident-audit
+  brokers_frameworks: "AICPA Trust Services Criteria (CC1.3, CC5.1, CC6.3); NIST SP 800-53 Rev. 5 AC-5; BCBS d515 Principle 9; 23 NYCRR 500.7; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

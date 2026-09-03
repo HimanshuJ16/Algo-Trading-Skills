@@ -8,7 +8,7 @@ closed-form limits; spread payoffs are checked against a terminal payoff functio
 written in this file rather than by restating the module's algebra. A test that
 re-ran the module's own formula would have passed against every bug below.
 
-Regression coverage -- each of these fails against the pre-2.0.0 implementation:
+Regression coverage -- each of these fails against a naive implementation:
   * option P&L uses the $100 VIX **options** multiplier, not the $1,000 futures
     multiplier (every option figure was 10x too large)
   * max profit on a debit call spread is (width - debit), not the gross width
@@ -117,7 +117,7 @@ class TestContractMultipliers(_Base):
 
     def test_option_figures_use_the_options_multiplier(self):
         """
-        Regression: pre-2.0.0 priced options at $1,000/point. A 15-point spread
+        Regression: older priced options at $1,000/point. A 15-point spread
         bought for 3.00 points has a max loss of exactly $300, not $3,000.
         """
         quote = self.engine.price_vix_call_spread(
@@ -202,7 +202,7 @@ class TestCallSpreadPricing(_Base):
 
     def test_max_profit_equals_payoff_at_and_above_upper_strike(self):
         """
-        Regression: pre-2.0.0 returned the gross width as max profit. Max profit is
+        Regression: older returned the gross width as max profit. Max profit is
         what the position is actually worth when the SOQ settles at or above K2 --
         gross intrinsic minus the debit already paid.
         """
@@ -293,7 +293,7 @@ class TestCallSpreadPricing(_Base):
 
     def test_requires_a_price_source(self):
         """
-        Regression: pre-2.0.0 invented a debit of 25% of the width when none was
+        Regression: older invented a debit of 25% of the width when none was
         given. Neither IVs nor a quote must now raise rather than fabricate.
         """
         with self.assertRaises(VIXEngineError):
@@ -425,7 +425,7 @@ class TestShortVolSizing(_Base):
 
     def test_small_account_sizes_to_zero_not_one(self):
         """
-        Regression: pre-2.0.0 `max(1, int(...))` handed a $50,000 account one short
+        Regression: older `max(1, int(...))` handed a $50,000 account one short
         VX contract -- $16,000 of notional against a $2,500 stated budget, on the
         one strategy with unbounded loss.
         """
@@ -454,7 +454,7 @@ class TestTailHedgeSizing(_Base):
         $10,000,000 x 2% = $200,000 premium budget; one 40/55 spread at a 3.00-point
         debit costs 3.00 x $100 = $300. floor(200000 / 300) = 666 contracts.
 
-        Regression: pre-2.0.0 divided the budget by F1 x $1,000 = $32,000, giving 6
+        Regression: older divided the budget by F1 x $1,000 = $32,000, giving 6
         contracts -- an answer with no relationship to what the spread costs.
         """
         signal = self.engine.generate_strategy_signal(

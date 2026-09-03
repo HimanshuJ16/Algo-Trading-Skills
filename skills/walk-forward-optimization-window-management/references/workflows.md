@@ -52,7 +52,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - Treat a result with a populated `undefined_reason` as a failed slice, not as a pass or a
      zero. A non-positive in-sample Sharpe means there was no in-sample edge to generalize.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Temporal Window Overlap:** In-Sample training bars overlapping with Out-of-Sample evaluation
   bars, producing inflated backtest results.

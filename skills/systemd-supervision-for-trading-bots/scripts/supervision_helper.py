@@ -303,7 +303,7 @@ class UnitFileFinding:
 class UnitFileValidationReport:
     """Result of :meth:`SystemdSupervisionHelper.validate_unit_file_content`.
 
-    Unpacks as ``(is_valid, issues)`` so that the pre-2.0.0 call site
+    Unpacks as ``(is_valid, issues)`` so that an earlier call site
     ``valid, issues = validate_unit_file_content(text)`` keeps working, while
     ``findings`` gives callers a stable ``code`` to branch on. Branch on
     ``code``; ``description`` wording may change between versions.
@@ -850,7 +850,7 @@ class SystemdSupervisionHelper:
 
         Returns:
             A :class:`UnitFileValidationReport`. It unpacks as
-            ``(is_valid, issues)`` for the pre-2.0.0 call shape, and exposes
+            ``(is_valid, issues)`` for an earlier call shape, and exposes
             ``findings``/``codes`` for programmatic branching. ``is_valid`` is
             True only when there are no findings at all.
         """

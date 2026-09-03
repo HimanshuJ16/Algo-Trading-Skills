@@ -52,7 +52,7 @@ fall back to `PENDING`.
 - Its appearance is a defect report. Confirm the status's meaning against the broker's
   documentation, then add it to `_STATUS_MAP`.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Unknown-Status Fallback:** Defaulting an unrecognized broker status to `PENDING`.
   Terminal states a hand-written map misses — Kite `LAPSED`, IBKR `ApiCancelled`, Alpaca

@@ -80,7 +80,7 @@ class TestPositionValidation(unittest.TestCase):
                     PortfolioPosition(**{**base, **override})
 
     def test_zero_adv_is_rejected_not_floored(self):
-        # Pre-2.0.0 floored ADV to 1.0 share/day, inventing a finite DTL for an
+        # older floored ADV to 1.0 share/day, inventing a finite DTL for an
         # instrument with no volume at all.
         with self.assertRaises(ValueError):
             PortfolioPosition("DEAD", 1000.0, 10.0, adv_shares=0.0)
@@ -139,7 +139,7 @@ class TestScenarioValidation(unittest.TestCase):
 
 class TestPriceShockSign(unittest.TestCase):
     """
-    Regression cover for the pre-2.0.0 sign bug: every long booked a loss equal to
+    Regression cover for an earlier sign bug: every long booked a loss equal to
     |shock| regardless of the shock's direction, and shorts booked no gain at all, so
     no book could ever net.
     """
@@ -159,7 +159,7 @@ class TestPriceShockSign(unittest.TestCase):
         self.assertEqual(self._loss(1000.0, -0.10), 10_000.0)
 
     def test_long_gains_on_a_rally(self):
-        # -(1000 * 100 * +0.10) = -10,000, i.e. a 10,000 gain. Pre-2.0.0: +10,000 loss.
+        # -(1000 * 100 * +0.10) = -10,000, i.e. a 10,000 gain. older: +10,000 loss.
         self.assertEqual(self._loss(1000.0, 0.10), -10_000.0)
 
     def test_short_loses_on_a_rally(self):
@@ -167,7 +167,7 @@ class TestPriceShockSign(unittest.TestCase):
         self.assertEqual(self._loss(-1000.0, 0.10), 10_000.0)
 
     def test_short_gains_on_a_crash(self):
-        # -(-1000 * 100 * -0.10) = -10,000, i.e. a 10,000 gain. Pre-2.0.0: 0.0.
+        # -(-1000 * 100 * -0.10) = -10,000, i.e. a 10,000 gain. older: 0.0.
         self.assertEqual(self._loss(-1000.0, -0.10), -10_000.0)
 
     def test_hedged_book_nets_to_zero(self):
@@ -180,7 +180,7 @@ class TestPriceShockSign(unittest.TestCase):
         scenario = StressScenario("PARALLEL_SHOCK", {"DEFAULT": -0.20})
         report = self.engine.run_stress_test(positions, scenario)
 
-        self.assertEqual(report.price_shock_loss_usd, 0.0)   # Pre-2.0.0: 20,000.0
+        self.assertEqual(report.price_shock_loss_usd, 0.0)   # older: 20,000.0
         self.assertEqual(report.net_exposure_usd, 0.0)
         self.assertEqual(report.total_portfolio_value_usd, 200_000.0)  # gross, not net
 
@@ -202,7 +202,7 @@ class TestDaysToLiquidate(unittest.TestCase):
         self.assertEqual(report.illiquid_symbols, ["SMALL_CAP"])
         self.assertEqual(report.price_shock_loss_usd, 300_000.0)
         # Half of a 5x-expanded 20bps spread on $1,000,000, charged once:
-        # 0.5 * 0.0100 * 1,000,000 = 5,000. Pre-2.0.0 charged 100,000 (20x).
+        # 0.5 * 0.0100 * 1,000,000 = 5,000. older charged 100,000 (20x).
         self.assertEqual(report.spread_cost_usd, 5_000.0)
         self.assertEqual(report.total_stressed_loss_usd, 305_000.0)
 
@@ -249,7 +249,7 @@ class TestSpreadCost(unittest.TestCase):
         # 1,000 shares @ $100 = $100,000 gross; 10bps spread, no expansion.
         # Canonical (Bangia et al. 1999) cost = 0.5 * 0.0010 * 100,000 = $50.
         # ADV 1,000 with a 50% drop -> stressed ADV 500 -> 50 shares/day -> DTL 20.
-        # Pre-2.0.0 charged the full spread per day capped at 10 days: $1,000, a 20x
+        # older charged the full spread per day capped at 10 days: $1,000, a 20x
         # overstatement that grew with the liquidation horizon.
         engine = PortfolioStressTestEngine(Config())
         positions = [PortfolioPosition("SYM", 1000.0, 100.0,

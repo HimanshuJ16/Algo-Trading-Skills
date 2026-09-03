@@ -1,25 +1,17 @@
 ---
 name: earnings-call-transcript-nlp-signal-research
-description: Quantitative NLP research engine for analyzing earnings call transcripts,
-  computing Loughran-McDonald financial sentiment, Q&A tone divergence, and executive
-  uncertainty ratios for equity trading signals.
-domain: Quantitative Research & Alternative Data
-subdomain: Financial NLP & Sentiment Signals
-tags:
-- nlp-signals
-- earnings-transcripts
-- loughran-mcdonald
-- sentiment-analysis
-- qa-tone-divergence
-- alternative-data
-- negation-handling
-brokers_frameworks:
-- Loughran-McDonald Master Dictionary
-- Python Standard Library
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when building an equity feature from earnings call transcripts, scoring financial
+  sentiment with a finance-specific lexicon and measuring the tone gap between scripted
+  remarks and the spontaneous analyst question session.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: nlp-signals, earnings-transcripts, loughran-mcdonald, sentiment-analysis, qa-tone-divergence, alternative-data, negation-handling
+  brokers_frameworks: "Loughran-McDonald Master Dictionary; Python Standard Library; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

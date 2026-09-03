@@ -1,14 +1,17 @@
 ---
 name: historical-data-backfill-rate-limit-management
 description: >-
-  Use when backfilling multi-year historical tick/bar data from a rate-limited vendor REST API: token-bucket request pacing, HTTP 429 handling with full-jitter exponential backoff, RFC 9110 Retry-After compliance, error classification, and per-chunk checkpointing so an interrupted backfill resumes instead of restarting.
-domain: Data Management Global
-subdomain: Historical Data Backfills & Rate Limit Pacing
-tags: ["historical-data", "backfill", "rate-limiting", "token-bucket", "http-429", "exponential-backoff", "checkpointing"]
-brokers_frameworks: ["Polygon.io (now Massive)", "Alpha Vantage", "Binance Spot REST API", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when pulling years of history from a metered vendor REST API, pacing requests with
+  a token bucket and handling 429 responses with full-jitter backoff and Retry-After, so
+  the backfill finishes instead of being banned.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: historical-data, backfill, rate-limiting, token-bucket, http-429, exponential-backoff, checkpointing
+  brokers_frameworks: "Polygon.io (now Massive); Alpha Vantage; Binance Spot REST API; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

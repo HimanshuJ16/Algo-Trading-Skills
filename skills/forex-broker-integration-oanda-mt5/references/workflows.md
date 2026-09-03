@@ -33,7 +33,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - The weekly close/open boundary is defined in **broker-server time**, and brokers differ. The common retail convention is a Friday close and Sunday open around 17:00 America/New_York.
    - Do not hard-code that boundary as a UTC constant: 17:00 New York is 21:00 UTC during US daylight saving time and 22:00 UTC outside it, and the US and EU DST transitions do not fall on the same dates. Resolve the boundary through a timezone database against the broker's stated server timezone. See `daylight-saving-time-transition-handling` and `multi-timezone-session-scheduling`.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Pip Size Guessed From the Instrument Name:** Inferring pip size from the ticker rather than reading the broker's `pipLocation`/`digits`. Fails for JPY pairs against a 4-decimal assumption (100x), and fails for metals, index and crypto CFDs in whichever direction the guess happens to fall.
 - **Pip Value Without Currency Conversion:** Treating pip value in the quote currency as if it were in the account currency. For a USD account trading USD/JPY this overstates pip value by roughly the USD/JPY rate (~150x) and mis-sizes every risk-per-trade calculation downstream.

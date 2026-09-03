@@ -1,14 +1,17 @@
 ---
 name: warrants-and-structured-product-integration
 description: >-
-  Use when pricing, risk-managing or delta-hedging listed covered warrants and Turbo warrants / CBBCs on HKEX, Euronext, SGX or Borsa Italiana. Prices covered warrants with Black-Scholes-Merton and Turbo warrants / CBBCs with the issuer's delta-one intrinsic-plus-funding-cost convention, scales every price and Greek by the entitlement ratio, evaluates Mandatory Call Events including Category N vs Category R residual value, computes HKEX simple and effective gearing, and sizes signed delta-hedge rebalances.
-domain: Multi-Asset Derivatives & Structured Products
-subdomain: Warrants & Exotic Derivatives Integration
-tags: ["warrants", "covered-warrants", "cbbc", "turbo-warrants", "entitlement-ratio", "effective-gearing", "mandatory-call-event", "delta-hedging"]
-brokers_frameworks: ["hkex-warrants", "euronext-warrants", "sgx-warrants", "borsa-italiana", "Black-Scholes-Merton", "Python Standard Library (math)"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when pricing, hedging or marking listed covered warrants and Turbo warrants or
+  CBBCs on HKEX, Euronext, SGX or Borsa Italiana, including the knock-out barrier that
+  Turbos carry and covered warrants do not.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: warrants, covered-warrants, cbbc, turbo-warrants, entitlement-ratio, effective-gearing, mandatory-call-event, delta-hedging
+  brokers_frameworks: "hkex-warrants; euronext-warrants; sgx-warrants; borsa-italiana; Black-Scholes-Merton; Python Standard Library (math)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

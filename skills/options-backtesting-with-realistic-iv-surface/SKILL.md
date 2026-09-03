@@ -1,26 +1,17 @@
 ---
 name: options-backtesting-with-realistic-iv-surface
-description: Use when backtesting options strategies (straddles, vertical spreads,
-  iron condors) to price each leg off a parametric implied volatility (IV) surface
-  across strike moneyness and term structure, instead of a flat ATM volatility that
-  misprices the wings and short-dated skew.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- options-backtesting
-- iv-surface
-- volatility-smile
-- greeks-calculation
-- black-scholes
-- derivatives
-brokers_frameworks:
-- Options IV Surface Engine
-- Black-Scholes-Merton
-- Python Standard Library (math)
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when backtesting straddles, verticals or condors and every leg is currently priced
+  at one at-the-money volatility; prices each leg off a parametric surface across
+  moneyness and term. European exercise only.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, options-backtesting, iv-surface, volatility-smile, greeks-calculation, black-scholes, derivatives
+  brokers_frameworks: "Options IV Surface Engine; Black-Scholes-Merton; Python Standard Library (math)"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

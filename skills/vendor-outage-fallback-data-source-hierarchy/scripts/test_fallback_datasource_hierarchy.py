@@ -4,7 +4,7 @@ All time-dependent behaviour is driven by an injected fake monotonic clock rathe
 ``time.sleep``, so staleness and promotion-window boundaries are asserted exactly and
 the suite runs in milliseconds.
 
-``TestRegressions`` holds the cases that fail against the pre-2.0.0 implementation:
+``TestRegressions`` holds the cases that fail against a naive implementation:
 
   * a synthetic tick stamped with "now", hiding the age of a cached price;
   * the anti-flap hold pinning routing to a source measured stale, while a healthy
@@ -637,7 +637,7 @@ class TestConcurrency(unittest.TestCase):
 
 
 class TestRegressions(HierarchyTestCase):
-    """Each of these fails against the pre-2.0.0 implementation."""
+    """Each of these fails against a naive implementation."""
 
     def test_synthetic_tick_does_not_claim_to_be_current(self):
         self.beat_all()

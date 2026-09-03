@@ -1,14 +1,17 @@
 ---
 name: exchange-for-physical-efp-transactions
 description: >-
-  Pre-submission validator and basis calculator for the Exchange for Physical (EFP) leg of an Exchange for Related Position (EFRP) — enforces the opposite-side leg structure, checks physical-to-futures quantity equivalence against a configurable venue tolerance, records the bona fide attestations required by CME Rule 538 and ICE Futures U.S. Rule 4.06, and prices the observed basis against cost of carry.
-domain: Venue Integration & Derivatives
-subdomain: Off-Exchange & Privately Negotiated Derivatives (EFRP)
-tags: ["efp", "efrp", "cme-rule-538", "basis-trading", "futures-spot-swap", "physical-settlement", "commodities"]
-brokers_frameworks: ["CME Rule 538", "ICE Futures U.S. Rule 4.06", "Eurex off-book EFP (Conditions for Trading, Number 4.3)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an exchange for physical has been negotiated but not yet submitted,
+  validating the opposite-side leg structure, the physical-to-futures quantity
+  correspondence and the basis before it reaches the venue.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: efp, efrp, cme-rule-538, basis-trading, futures-spot-swap, physical-settlement, commodities
+  brokers_frameworks: "CME Rule 538; ICE Futures U.S. Rule 4.06; Eurex off-book EFP (Conditions for Trading, Number 4.3); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

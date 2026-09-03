@@ -1,22 +1,17 @@
 ---
 name: canary-releases-for-strategy-code-changes
-description: Use when a new or materially changed trading strategy must reach live
-  capital gradually — running it in shadow first, then routing deliberately shrunken
-  live orders bounded by absolute notional limits, then full size — with attributable
-  phase promotions and lot/minimum-size handling that keeps the canary's fill data
-  meaningful.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- canary
-- shadow-mode
-- controlled-deployment
-- order-scaling
-brokers_frameworks: []
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when new or materially changed strategy code will send live orders and the first
+  ones should be small enough that a defect costs a rounding error; shadow mode first,
+  then deliberately shrunken orders under absolute notional caps.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-ops, canary, shadow-mode, controlled-deployment, order-scaling
+  brokers_frameworks: ""
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

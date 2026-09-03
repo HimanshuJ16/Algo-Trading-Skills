@@ -167,6 +167,14 @@ class OrderIntent:
     nbb_price must be the current national best bid (242.600(b)(60)) at submission.
     It is only consulted where Rule 201 requires it; when it is required and missing
     or non-positive, the order is rejected rather than passed.
+
+    nbo_price is optional. Rule 201 is defined against the bid alone, so the offer is
+    never consulted by the price test; it is accepted so the caller can record the
+    full NBBO snapshot alongside the decision.
+
+    nbb_price and nbo_price are market data, not order terms. They are excluded from
+    the duplicate-order fingerprint: a retry of the same order after a timeout
+    legitimately carries a fresh NBBO tick and must be recognised as the same order.
     """
 
     order_id: str
@@ -175,7 +183,7 @@ class OrderIntent:
     quantity: int
     price: float
     nbb_price: float
-    nbo_price: float
+    nbo_price: Optional[float] = None
     locate_id: Optional[str] = None
     short_exempt_reason: Optional[ShortExemptReason] = None
 
@@ -222,7 +230,10 @@ class RegSHOShortSaleEngine:
 
     The engine is retry-safe: re-validating an order_id already decided returns the
     original decision and reserves nothing, so a timed-out or replayed pre-trade check
-    cannot double-count locate inventory.
+    cannot double-count locate inventory. Sameness is judged on the order's own terms
+    (symbol, marking, quantity, price, locate, exempt basis); the NBBO fields are
+    market data and a retry carrying a fresh tick is still the same order. A repeat
+    whose *terms* differ is rejected rather than silently re-decided.
 
     Not thread-safe. Serialize calls per instance, or shard by symbol, if the order
     path is concurrent -- validate_order_intent performs a read-modify-write on
@@ -432,6 +443,10 @@ class RegSHOShortSaleEngine:
         reserved nothing, so an order re-submitted after its cause is fixed (a locate
         granted, a restriction lifted) is evaluated afresh rather than being frozen
         at its first refusal.
+
+        A remembered order_id presented again with the same terms returns the original
+        decision even if nbb_price / nbo_price have moved -- the quote is not part of
+        the order's identity. The same order_id with different terms is rejected.
         """
         if not isinstance(order.order_id, str) or not order.order_id.strip():
             logger.error("Reg SHO REJECTION: order_id must be a non-empty string.")
@@ -483,12 +498,18 @@ class RegSHOShortSaleEngine:
 
     @staticmethod
     def _fingerprint(order: OrderIntent) -> tuple:
+        """The order's own terms, used to detect an order_id reused for a different order.
+
+        Market data (nbb_price, nbo_price) is deliberately absent. A retry after a
+        broker timeout is the same order with a fresher quote; fingerprinting the
+        quote turned every such retry into a "different terms" rejection, and the
+        caller then had no idempotent path back to its original decision.
+        """
         return (
             order.symbol.strip().upper() if isinstance(order.symbol, str) else order.symbol,
             order.marking,
             order.quantity,
             order.price,
-            order.nbb_price,
             order.locate_id,
             order.short_exempt_reason,
         )

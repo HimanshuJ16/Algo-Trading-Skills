@@ -2,7 +2,7 @@
 Unit tests for robinhood-unofficial-api-integration skill.
 
 Each test names the failure it defends against. The regression tests marked
-"REGRESSION" fail against the pre-2.0 client and pass against this one.
+"REGRESSION" fail against an earlier client and pass against this one.
 """
 import time
 import unittest
@@ -119,7 +119,7 @@ class TestConstruction(unittest.TestCase):
     def test_device_token_is_required(self):
         """REGRESSION: the client must never mint a throwaway device token.
 
-        The pre-2.0 client did `uuid.uuid4()` in __init__, so every process
+        an earlier client did `uuid.uuid4()` in __init__, so every process
         restart looked like a new device -- the exact behaviour the skill's own
         pitfalls warn drives repeated challenges and security flags.
         """
@@ -211,7 +211,7 @@ class TestAuthentication(unittest.TestCase):
         """REGRESSION: a verification_workflow is not an mfa_code challenge.
 
         Robinhood now routes most logins through in-app device approval. The
-        pre-2.0 client would have read this 200 as a successful login.
+        older client would have read this 200 as a successful login.
         """
         transport = RecordingTransport({
             "oauth2/token": (200, {"verification_workflow": {"id": "wf_9"}}),
@@ -323,7 +323,7 @@ class TestOrderPlacement(unittest.TestCase):
         self.assertIsNone(order.limit_price)
 
     def test_payload_carries_a_ref_id(self):
-        """REGRESSION: the pre-2.0 payload had no ref_id at all.
+        """REGRESSION: an earlier payload had no ref_id at all.
 
         Without a client-supplied ref_id there is no handle to reconcile a
         possibly-created order against, and no de-duplication key.
@@ -361,7 +361,7 @@ class TestOrderPlacement(unittest.TestCase):
         self.assertEqual(len(set(refs)), 2)
 
     def test_payload_carries_the_real_account_and_instrument_urls(self):
-        """REGRESSION: the pre-2.0 payload hardcoded '/accounts/MOCK/'."""
+        """REGRESSION: an earlier payload hardcoded '/accounts/MOCK/'."""
         client, transport = authed_client()
         client.place_order("AAPL", OrderSide.BUY, 1, instrument_url=AAPL_INSTRUMENT)
         payload = transport.order_payloads[0]
@@ -460,7 +460,7 @@ class TestOrderPlacement(unittest.TestCase):
     def test_transport_failure_is_ambiguous_and_carries_the_ref_id(self):
         """REGRESSION: a timed-out submission may already be a live order.
 
-        The pre-2.0 client let the transport exception propagate raw, giving a
+        an earlier client let the transport exception propagate raw, giving a
         caller nothing to reconcile with and inviting a duplicate-order retry.
         """
         def boom(*_args):
@@ -529,7 +529,7 @@ class TestPositions(unittest.TestCase):
     def test_symbol_is_none_not_a_placeholder(self):
         """REGRESSION: /positions/ carries no symbol field.
 
-        The pre-2.0 client did `result.get("symbol", "UNKNOWN")`, so every real
+        an earlier client did `result.get("symbol", "UNKNOWN")`, so every real
         position reconciled as the ticker "UNKNOWN". An absent symbol is correct;
         a fabricated one corrupts every downstream report.
         """

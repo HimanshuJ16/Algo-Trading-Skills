@@ -1,33 +1,17 @@
 ---
 name: structured-logging-for-post-incident-forensics
 description: >-
-  Designing and emitting a trading system's log records so an incident timeline can be
-  reconstructed by query rather than by reading prose: one JSON object per event, a
-  32-hex correlation ID linking an order's whole lifecycle, a lock-assigned sequence
-  number that orders events when the wall clock cannot, integer-nanosecond timestamps,
-  an OpenTelemetry-aligned severity, metadata redaction before anything reaches an
-  immutable archive, and an emit path that never raises no matter what it is handed.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment
-- logging
-- forensics
-- incident-response
-- structured-logs
-- observability
-- correlation-id
-- audit-trail
-brokers_frameworks:
-- Python logging (stdlib)
-- JSON Lines
-- OpenTelemetry Logs Data Model
-- W3C Trace Context
-- ELK Stack
-- Datadog
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when designing the log records a trading system writes so an incident can be
+  reconstructed by query rather than by reading prose: one JSON object per event with a
+  correlation id linking an order end to end.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment, logging, forensics, incident-response, structured-logs, observability, correlation-id, audit-trail
+  brokers_frameworks: "Python logging (stdlib); JSON Lines; OpenTelemetry Logs Data Model; W3C Trace Context; ELK Stack; Datadog"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

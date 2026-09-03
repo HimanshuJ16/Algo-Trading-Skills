@@ -1,26 +1,17 @@
 ---
 name: tick-size-pilot-program-impact-assessment
 description: >-
-  Use when a change in the minimum pricing increment — the SEC Tick Size Pilot's $0.05 test groups, the amended Rule 612 $0.005 tier, a MiFID II RTS 11 band reclassification, or a venue retick — must be measured rather than assumed: Rule 605 share-weighted quoted, effective and realized spread decomposition, top-of-book depth and queue impact, order-to-trade ratio and fill rate, and the execution-algorithm parameters those measurements should move.
-domain: Market Microstructure
-subdomain: Order Book Dynamics
-tags:
-- market-microstructure
-- tick-size-pilot
-- spread-decomposition
-- rule-605
-- adverse-selection
-- queue-dynamics
-- algo-execution
-brokers_frameworks:
-- SEC Rule 605 (17 CFR 242.605; definitions at 17 CFR 242.600(b))
-- SEC Rule 612 (17 CFR 242.612, minimum pricing increment)
-- Tick Size Pilot Program NMS Plan (approved 2015-05-06; ran 2016-10-03 to 2018-09-28)
-- MiFID II RTS 11 (Commission Delegated Regulation (EU) 2017/588)
-- Python standard library (dataclasses, enum, math)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a minimum pricing increment has changed and the desk needs a measured answer
+  on what it did to execution cost and queue position, rather than an inference from the
+  tick ratio.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: market-microstructure, tick-size-pilot, spread-decomposition, rule-605, adverse-selection, queue-dynamics, algo-execution
+  brokers_frameworks: "SEC Rule 605 (17 CFR 242.605, definitions at 17 CFR 242.600(b)); SEC Rule 612 (17 CFR 242.612, minimum pricing increment); Tick Size Pilot Program NMS Plan (approved 2015-05-06, ran 2016-10-03 to 2018-09-28); MiFID II RTS 11 (Commission Delegated Regulation (EU) 2017/588); Python standard library (dataclasses, enum, math)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,14 +1,17 @@
 ---
 name: execution-algorithm-regression-testing-suite
 description: >-
-  Fail-closed CI/CD quality gate for execution algorithm code changes — replays a candidate build against a recorded production baseline across required stress scenarios and compares Implementation Shortfall, fill-rate ratio and peak participation before release.
-domain: Execution Algorithms
-subdomain: CI/CD Quality Gates & Regulatory Testing
-tags: ["regression-testing", "ci-cd-quality-gate", "execution-algo", "implementation-shortfall", "backtesting-suite", "mifid-ii-rts-6", "fail-closed-gate"]
-brokers_frameworks: ["MiFID II RTS 6 (EU 2017/589)", "FINRA Regulatory Notice 15-09", "FCA Algorithmic Trading Compliance (Feb 2018)", "Python Dataclasses", "CI/CD Pipeline Gates"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use before promoting a change to an execution algorithm, replaying the candidate build
+  against a recorded baseline across required stress scenarios and failing the build if
+  implementation shortfall got measurably worse.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: regression-testing, ci-cd-quality-gate, execution-algo, implementation-shortfall, backtesting-suite, mifid-ii-rts-6, fail-closed-gate
+  brokers_frameworks: "MiFID II RTS 6 (EU 2017/589); FINRA Regulatory Notice 15-09; FCA Algorithmic Trading Compliance (Feb 2018); Python Dataclasses; CI/CD Pipeline Gates"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

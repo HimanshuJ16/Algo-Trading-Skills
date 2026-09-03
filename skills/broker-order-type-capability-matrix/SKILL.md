@@ -1,29 +1,17 @@
 ---
 name: broker-order-type-capability-matrix
-description: Use when building multi-broker quantitative trading systems to maintain
-  a capability matrix of native order types (Bracket, OCO, Trailing Stop, Iceberg,
-  PEG, TWAP, VWAP) supported by each broker, and synthesize software-emulated order
-  triggers (via local EMS) when native support is missing. Conserves the parent
-  quantity exactly across synthesized slices and rejects exit legs placed on the
-  wrong side of the market rather than routing an order that triggers instantly.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- order-types
-- capability-matrix
-- bracket-orders
-- oco-orders
-- synthetic-orders
-- execution-algorithms
-brokers_frameworks:
-- Interactive Brokers TWS API
-- Alpaca Trading API
-- Zerodha Kite Connect
-- Binance Spot API
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when one strategy runs across brokers with different native order types (bracket,
+  OCO, trailing stop, iceberg, peg, TWAP) and must decide whether to send a native type
+  or emulate it locally while conserving the parent quantity.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, order-types, capability-matrix, bracket-orders, oco-orders, synthetic-orders, execution-algorithms
+  brokers_frameworks: "Interactive Brokers TWS API; Alpaca Trading API; Zerodha Kite Connect; Binance Spot API"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

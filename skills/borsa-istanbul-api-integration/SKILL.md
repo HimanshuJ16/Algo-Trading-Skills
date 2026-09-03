@@ -1,25 +1,17 @@
 ---
 name: borsa-istanbul-api-integration
-description: Use when routing orders to Borsa Istanbul (BIST) over the BISTECH platform
-  via FIX 5.0 SP2 — modelling the order lifecycle, handling cancel request/confirm/reject
-  correctly, and applying execution reports idempotently so resends and cancel races do
-  not corrupt position state.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- borsa-istanbul
-- fix-protocol
-- bistech
-- order-lifecycle
-brokers_frameworks:
-- BISTECH FIX 5.0 SP2
-- BISTECH OUCH
-- BISTECH ITCH
-- QuickFIX
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when routing orders to Borsa Istanbul BISTECH over FIX 5.0 SP2 and the order
+  lifecycle must be modelled correctly: NewOrderSingle, the two possible answers to a
+  cancel request, and execution reports applied idempotently across resends.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: broker-integration, borsa-istanbul, fix-protocol, bistech, order-lifecycle
+  brokers_frameworks: "BISTECH FIX 5.0 SP2; BISTECH OUCH; BISTECH ITCH; QuickFIX"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -144,4 +136,4 @@ access.
 - `broker-api-idempotent-cancel-requests`
 - `order-placement-idempotency`
 - `nasdaq-totalview-itch-feed-parsing`
-- `cme-group-fix-api-for-futures`
+- `cme-stp-fix-and-ilink2-tag-value-encoding`

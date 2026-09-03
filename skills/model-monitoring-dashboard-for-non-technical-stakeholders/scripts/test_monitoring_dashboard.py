@@ -5,7 +5,7 @@ The band edges under test are the *documented contract* from
 from the implementation's own expressions, so a change to a comparison operator
 fails a test instead of moving the expectation with it.
 
-Tests marked "regression" fail against the pre-2.0 implementation.
+Tests marked "regression" fail against a naive implementation.
 """
 import json
 import logging
@@ -105,7 +105,7 @@ class TestHealthyAndBreachingSnapshots(unittest.TestCase):
 
 
 class TestLatencyComponent(unittest.TestCase):
-    """Regression: pre-2.0 accepted latency_ms and never evaluated it."""
+    """Regression: older accepted latency_ms and never evaluated it."""
 
     def setUp(self):
         self.dashboard = NonTechnicalMonitoringDashboard(LATENCY_BUDGET)
@@ -186,7 +186,7 @@ class TestBandEdges(unittest.TestCase):
                 self.assertEqual(self._status_of(1, staleness_days=staleness_days), expected)
 
     def test_psi_band_edges_follow_the_lewis_convention(self):
-        """Regression: pre-2.0 put exactly 0.10 in GREEN and exactly 0.25 in AMBER.
+        """Regression: older put exactly 0.10 in GREEN and exactly 0.25 in AMBER.
 
         Yurdakul & Naranjo (2020) state the rule of thumb as PSI < 0.10 little
         change, 0.10 <= PSI < 0.25 moderate, 0.25 <= PSI significant, so each
@@ -266,7 +266,7 @@ class TestUnmeasuredTelemetry(unittest.TestCase):
 
 
 class TestInputValidation(unittest.TestCase):
-    """Regression: pre-2.0 graded impossible telemetry GREEN, and NaN silently RED."""
+    """Regression: older graded impossible telemetry GREEN, and NaN silently RED."""
 
     def setUp(self):
         self.dashboard = NonTechnicalMonitoringDashboard(LATENCY_BUDGET)

@@ -1,14 +1,17 @@
 ---
 name: exchange-tick-size-regime-tracking
 description: >-
-  Use when an order price must be validated or aligned to a venue's minimum pricing increment — SEC Rule 612 penny/sub-penny bands for US NMS stocks, the two-dimensional MiFID II RTS 11 price x liquidity-band table for EU shares/DRs/ETFs, and the DFM AED tick bands — before the order is displayed, ranked, or accepted.
-domain: Data Management Global
-subdomain: Exchange Tick Rules & Price Increments
-tags: ["tick-size", "exchange-rules", "mifid-ii-rts-11", "sec-rule-612", "dfm-tick", "price-alignment", "market-data"]
-brokers_frameworks: ["SEC Rule 612 (17 CFR 242.612)", "MiFID II RTS 11 (EU) 2017/588", "DFM Circular 02/2026", "Python Decimal"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a limit price is constructed programmatically and must be a legal increment
+  on the destination venue: SEC Rule 612 penny and sub-penny bands, and the MiFID II RTS
+  11 price-by-liquidity grid.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: tick-size, exchange-rules, mifid-ii-rts-11, sec-rule-612, dfm-tick, price-alignment, market-data
+  brokers_frameworks: "SEC Rule 612 (17 CFR 242.612); MiFID II RTS 11 (EU) 2017/588; DFM Circular 02/2026; Python Decimal"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

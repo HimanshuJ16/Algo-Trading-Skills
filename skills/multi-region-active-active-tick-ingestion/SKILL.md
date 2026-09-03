@@ -1,27 +1,17 @@
 ---
 name: multi-region-active-active-tick-ingestion
-description: Use when the same market data stream is ingested simultaneously from two
-  or more cloud regions for high availability, and the arbitration layer must forward
-  the first-arriving copy of each tick, drop the redundant copies by signature within
-  a bounded dedup window, distinguish a cross-region arbitration win from a same-region
-  retransmission, and detect a silent region from message flow rather than win rate.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- active-active
-- multi-region
-- deduplication
-- latency-arbitration
-- high-availability
-brokers_frameworks:
-- CME MDP 3.0 (UDP Feed A / Feed B incremental feed arbitration)
-- MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589) Art. 14
-- Multi-region cloud ingest nodes (AWS / GCP)
-- Python threaded / asyncio feed handlers
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when the same feed is ingested from two or more cloud regions for availability and
+  something must forward the first-arriving copy of each tick, dropping redundant copies
+  by signature within a bounded dedup window.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, active-active, multi-region, deduplication, latency-arbitration, high-availability
+  brokers_frameworks: "CME MDP 3.0 (UDP Feed A / Feed B incremental feed arbitration); MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589) Art. 14; Multi-region cloud ingest nodes (AWS / GCP); Python threaded / asyncio feed handlers"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

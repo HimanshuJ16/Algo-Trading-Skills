@@ -135,7 +135,7 @@ validate in a shadow/paper environment as for any new model, then call
 `model-versioning-and-rollback` so the halt, the retrain and the promotion form
 one auditable chain.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **One-time deployment validation.** Treating deployment-time validation as
   permanent proof of reliability, ignoring regime shift.

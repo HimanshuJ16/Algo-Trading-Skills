@@ -322,7 +322,7 @@ class TestNonFiniteInputRejection(unittest.TestCase):
 
     def test_an_overflowing_step_raises_instead_of_installing_nan_weights(self):
         # 1e200 * 1e200 overflows to inf in float arithmetic without raising;
-        # pre-2.0 this silently produced NaN weights.
+        # older this silently produced NaN weights.
         model = OnlineAdaptiveSignalModel(
             1, learning_rate=1.0, l2_penalty=0.0, max_weight_norm=1e300
         )
@@ -581,7 +581,7 @@ class TestAuditReport(unittest.TestCase):
         self.assertTrue(model.audit_performance().sufficient_samples)
 
     def test_weights_in_the_report_are_a_copy(self):
-        # Regression: the pre-2.0 "not enough samples" branch returned the live
+        # Regression: an earlier "not enough samples" branch returned the live
         # weight list, letting a caller mutate model state through the report.
         model = OnlineAdaptiveSignalModel(2, l2_penalty=0.0)
         report = model.audit_performance()
@@ -595,7 +595,7 @@ class TestAuditReport(unittest.TestCase):
         self.assertNotEqual(model.weights[0], 999.0)
 
     def test_memory_is_bounded_by_the_configured_windows(self):
-        # Regression: pre-2.0 the error history was an unbounded list, so a live
+        # Regression: older the error history was an unbounded list, so a live
         # model leaked memory for as long as it ran.
         model = OnlineAdaptiveSignalModel(
             1, learning_rate=0.01, l2_penalty=0.0, baseline_window=50, recent_window=100
@@ -613,7 +613,7 @@ class TestAuditReport(unittest.TestCase):
 
     def test_baseline_window_is_fixed_at_the_start_of_the_stream(self):
         # The baseline must keep meaning the same thing as the stream grows. The
-        # pre-2.0 "first quarter of everything" moved with the sample count.
+        # older "first quarter of everything" moved with the sample count.
         model = OnlineAdaptiveSignalModel(
             1, learning_rate=1e-12, l2_penalty=0.0, baseline_window=5, recent_window=5
         )  # a negligible step keeps the weights ~frozen, so errors equal targets
@@ -626,7 +626,7 @@ class TestAuditReport(unittest.TestCase):
         self.assertAlmostEqual(report.mae_improvement_pct, 100.0, places=4)
 
     def test_zero_baseline_mae_reports_zero_change_not_a_fabricated_number(self):
-        # Regression: pre-2.0 divided by a max(1e-4, mae) floor, turning a
+        # Regression: older divided by a max(1e-4, mae) floor, turning a
         # perfect baseline into a fabricated five-figure "improvement".
         model = OnlineAdaptiveSignalModel(
             1, learning_rate=1e-12, l2_penalty=0.0, baseline_window=5, recent_window=5

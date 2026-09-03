@@ -1,30 +1,17 @@
 ---
 name: immutable-infrastructure-for-trading-bots
 description: >-
-  Use when a live trading bot, market gateway, or execution daemon is about to be
-  deployed as a container and you need positive evidence that the running code cannot
-  be changed without a rebuild — auditing a deployment spec for digest pinning,
-  read-only rootfs, read-write host mounts that reopen the hot-patching path,
-  attested Cosign signature verification, source-revision provenance, privilege
-  hardening, and noexec ephemeral scratch space.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- immutable-infrastructure
-- container-security
-- docker
-- kubernetes
-- cosign-sigstore
-- supply-chain-integrity
-brokers_frameworks:
-- Docker
-- Kubernetes
-- Cosign (Sigstore)
-- OCI Image Spec
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use before a container that can send orders reaches a host, to check the running code
+  cannot be edited in place: read-only root filesystem, pinned digest rather than a tag,
+  no interactive shell path, and a signature attestation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-ops, immutable-infrastructure, container-security, docker, kubernetes, cosign-sigstore, supply-chain-integrity
+  brokers_frameworks: "Docker; Kubernetes; Cosign (Sigstore); OCI Image Spec"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

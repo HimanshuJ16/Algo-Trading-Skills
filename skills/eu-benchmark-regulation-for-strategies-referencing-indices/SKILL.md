@@ -1,28 +1,17 @@
 ---
 name: eu-benchmark-regulation-for-strategies-referencing-indices
-description: Scope-first EU Benchmarks Regulation engine for strategies referencing
-  indices, deciding whether Regulation (EU) 2016/1011 as amended by Regulation (EU)
-  2025/914 binds at all before testing Article 29 register and public-notice
-  prohibitions and the Article 28(2) written-plan limbs.
-domain: Regulatory Compliance & Governance
-subdomain: European Index & Benchmark Regulation (EU BMR)
-tags:
-- eu-bmr
-- esma-register
-- benchmark-regulation
-- article-28-2-fallback
-- article-29-use-restriction
-- significant-benchmark
-- index-referencing
-brokers_frameworks:
-- Regulation (EU) 2016/1011
-- Regulation (EU) 2025/914
-- ESMA BMR Register
-- Commission Implementing Regulation (EU) 2016/1368
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an EU supervised entity references an index in a way Regulation 2016/1011
+  regulates, such as issuing an index-linked instrument; decides whether the Benchmarks
+  Regulation binds at all before testing the Article 29 use conditions.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: eu-bmr, esma-register, benchmark-regulation, article-28-2-fallback, article-29-use-restriction, significant-benchmark, index-referencing
+  brokers_frameworks: "Regulation (EU) 2016/1011; Regulation (EU) 2025/914; ESMA BMR Register; Commission Implementing Regulation (EU) 2016/1368; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

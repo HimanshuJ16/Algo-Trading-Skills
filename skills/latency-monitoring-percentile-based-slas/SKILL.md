@@ -1,14 +1,17 @@
 ---
 name: latency-monitoring-percentile-based-slas
 description: >-
-  Percentile-based latency SLA auditing for tick-to-trade and order-gateway pipelines: HdrHistogram-compatible nearest-rank P50-P99.9 percentiles, a sample-count resolution gate that refuses to approve a tail it cannot measure, HdrHistogram's coordinated-omission correction, and jitter reported as both standard deviation and IQR.
-domain: Market Microstructure & Latency
-subdomain: Latency Infrastructure & SLA Governance
-tags: ["latency-monitoring", "percentiles", "p99", "p999", "sla-breach", "tick-to-trade", "jitter", "coordinated-omission"]
-brokers_frameworks: ["HdrHistogram", "CLOCK_MONOTONIC_RAW", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when auditing captured latency samples against a percentile budget rather than an
+  average, with nearest-rank P50 to P99.9 and a sample-count gate that refuses to
+  certify on too few observations.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: latency-monitoring, percentiles, p99, p999, sla-breach, tick-to-trade, jitter, coordinated-omission
+  brokers_frameworks: "HdrHistogram; CLOCK_MONOTONIC_RAW; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

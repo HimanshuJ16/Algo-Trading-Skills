@@ -1,17 +1,17 @@
 ---
 name: ice-futures-us-eu-integration
 description: >-
-  Client-side pre-dispatch validation for ICE Futures Europe (IFEU) and ICE Futures U.S. (IFUS)
-  outright futures orders — the directional Reasonability Limit check against the Exchange-set
-  anchor price, per-contract minimum price fluctuation, quotation-convention-aware notional
-  valuation, and post-trade No Cancellation Range exposure.
-domain: Global Market Integration & FX
-subdomain: Commodity & Energy Derivatives Gateway
-tags: ["ice-futures", "brent-crude", "sugar-no-11", "fix-protocol", "ifeu", "ifus", "reasonability-limits", "no-cancellation-range"]
-brokers_frameworks: ["ICE Futures Europe", "ICE Futures U.S.", "FIX 4.2 / 4.4", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building an order path into ICE Futures Europe or ICE Futures US for outright
+  futures such as Brent, WTI, TTF gas or Sugar No. 11, applying the directional
+  reasonability limit against the exchange-set anchor price.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: ice-futures, brent-crude, sugar-no-11, fix-protocol, ifeu, ifus, reasonability-limits, no-cancellation-range
+  brokers_frameworks: "ICE Futures Europe; ICE Futures U.S.; FIX 4.2 / 4.4; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

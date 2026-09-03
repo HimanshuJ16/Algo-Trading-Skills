@@ -1,14 +1,17 @@
 ---
 name: sandbox-credential-leakage-prevention
 description: >-
-  Pre-request guard that binds a broker credential and a destination URL to one declared environment, refusing any outbound call whose parsed hostname and path do not positively match a declared sandbox or production gateway — an allow-list, so an unknown broker, an unrecognised host, a plaintext scheme, or a look-alike domain fails closed instead of being waved through.
-domain: DevSecOps & Security Governance
-subdomain: Environment Isolation & Credential Security
-tags: ["sandbox-isolation", "credential-leakage", "devsecops", "secret-guard", "broker-endpoints", "allow-list", "fail-closed"]
-brokers_frameworks: ["Alpaca Trading API v2", "Binance Spot & Futures API", "Saxo Bank OpenAPI", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when one process runs in both paper and live modes and a misrouted request would
+  burn real capital. An allow-list gate that refuses any outbound call whose parsed
+  hostname and path do not match the declared environment.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: sandbox-isolation, credential-leakage, devsecops, secret-guard, broker-endpoints, allow-list, fail-closed
+  brokers_frameworks: "Alpaca Trading API v2; Binance Spot & Futures API; Saxo Bank OpenAPI; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

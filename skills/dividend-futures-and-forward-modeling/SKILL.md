@@ -1,25 +1,17 @@
 ---
 name: dividend-futures-and-forward-modeling
-description: Quantitative equity forward curve engine for modeling discrete dividends,
-  present/future value calculations, fair value dividend futures pricing, and cash-and-carry
-  arbitrage detection.
-domain: Equity Derivatives & Forward Curves
-subdomain: Dividend Risk & Index Futures
-tags:
-- dividend-futures
-- forward-modeling
-- discrete-dividends
-- cash-and-carry
-- cost-of-carry
-- eurex-fexd
-- cme-sda
-brokers_frameworks:
-- Eurex FEXD
-- CME SDA
-- Python Math / Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when constructing an equity forward curve with discrete cash dividends, pricing
+  dividend futures at fair value and detecting cash-and-carry arbitrage against the
+  listed forward.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: dividend-futures, forward-modeling, discrete-dividends, cash-and-carry, cost-of-carry, eurex-fexd, cme-sda
+  brokers_frameworks: "Eurex FEXD; CME SDA; Python Math / Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

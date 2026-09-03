@@ -1,25 +1,18 @@
 ---
 name: etrade-oauth1-signature-flow
-description: Use when integrating E*TRADE's API, which uses OAuth 1.0a (not OAuth 2.0)
-  HMAC-SHA1 request signing — covering the three-legged request-token/authorize/access-token
-  flow with the mandatory oauth_callback=oob, RFC 5849 signature base string construction
-  including query parameters, and the 2-hour idle renewal and end-of-day token expiry rules.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- etrade
-- oauth1
-- hmac-sha1
-- request-signing
-- rfc-5849
-brokers_frameworks:
-- E*TRADE
-- OAuth 1.0a (RFC 5849)
-- HMAC-SHA1
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when integrating E*TRADE, which signs every request with OAuth 1.0a HMAC-SHA1
+  rather than OAuth 2.0 bearer tokens. Covers the three-legged flow with
+  oauth_callback=oob, RFC 5849 signature base strings, and the idle and end-of-day
+  expiry rules.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, etrade, oauth1, hmac-sha1, request-signing, rfc-5849
+  brokers_frameworks: "E*TRADE; OAuth 1.0a (RFC 5849); HMAC-SHA1"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

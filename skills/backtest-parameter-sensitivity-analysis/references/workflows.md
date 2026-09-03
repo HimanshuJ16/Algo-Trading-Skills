@@ -64,7 +64,7 @@ definition, verdict ladder and sourcing live in `references/standards.md`.
    the verdict. The trial count is only meaningful if you also record the sweeps you
    ran and discarded.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **A losing strategy certified as a plateau.** When the degradation term is only
   computed for a positive best Sharpe, a grid where every configuration loses money

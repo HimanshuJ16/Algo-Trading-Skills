@@ -108,7 +108,7 @@ class ColdStartHandler:
         shrink_in_variance_space: Keep this True. False switches to the naive
             standard-deviation blend at the same weight, and exists only so a pipeline
             migrating off that estimator can quantify the difference; it understates
-            volatility (see the module docstring). It does not reproduce pre-2.0 outputs
+            volatility (see the module docstring). It does not reproduce the older outputs
             exactly, because the weight changed too.
         probation_floor_pct: Optional non-zero floor for the size cap, so a probationary
             instrument is throttled rather than excluded outright. Defaults to 0.0,

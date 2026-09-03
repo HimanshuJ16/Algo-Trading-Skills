@@ -1,14 +1,17 @@
 ---
 name: risk-control-bypass-audit-logging
 description: >-
-  Tamper-evident, hash-chained audit trail for manual overrides of pre-trade and intra-trade risk controls — recording who requested, who authorised, who verified, what was overridden and until when; classifying bypass severity; flagging self-authorisation, unauthorised principals, open-ended overrides and forward-dated records.
-domain: Risk & Compliance Governance
-subdomain: Risk Override Audit & Accountability
-tags: ["risk-bypass", "audit-logging", "risk-override", "compliance-audit", "kill-switch", "position-limits", "tamper-evident", "segregation-of-duties"]
-brokers_frameworks: ["SEC Rule 15c3-5", "SEC Rule 17a-4(f)", "MiFID II RTS 6 Article 15(6)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a human can override a pre-trade or intra-trade risk control and the override
+  must leave evidence: who requested, authorised and verified it, what was bypassed and
+  until when. Parameter changes are audit-logging-for-configuration-changes.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-bypass, audit-logging, risk-override, compliance-audit, kill-switch, position-limits, tamper-evident, segregation-of-duties
+  brokers_frameworks: "SEC Rule 15c3-5; SEC Rule 17a-4(f); MiFID II RTS 6 Article 15(6); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

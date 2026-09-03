@@ -1,14 +1,17 @@
 ---
 name: network-jitter-impact-on-strategy-performance
 description: >-
-  Auditing whether a link's one-way delay variation is small enough for a latency-sensitive strategy to keep running: HdrHistogram-compatible nearest-rank P50/P95/P99 delays, jitter reported as sigma, IQR and RFC 5481 packet delay variation, a sample-count gate that refuses to approve a tail it cannot resolve, and a Sharpe degradation model that says out loud that its coefficient is operator-fitted rather than published.
-domain: Market Microstructure & Latency
-subdomain: Latency Percentiles & Strategy Degradation Audit
-tags: ["network-jitter", "packet-delay-variation", "rfc-5481", "latency-percentiles", "p99-latency", "adverse-selection", "nearest-rank", "low-latency"]
-brokers_frameworks: ["HdrHistogram (nearest-rank semantics)", "IETF RFC 5481 / RFC 3550", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a captured series of one-way packet delays must answer whether a link's delay
+  variation is small enough for a latency-sensitive strategy, reporting percentile
+  delays and jitter as a dispersion figure.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: network-jitter, packet-delay-variation, rfc-5481, latency-percentiles, p99-latency, adverse-selection, nearest-rank, low-latency
+  brokers_frameworks: "HdrHistogram (nearest-rank semantics); IETF RFC 5481 / RFC 3550; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

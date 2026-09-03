@@ -1,28 +1,18 @@
 ---
 name: broker-failover-secondary-account-routing
-description: Use when routing live orders to a backup broker account after the primary
-  degrades — classifying which failures are safe to fail over, refusing to re-send an
-  order that may already be working, keeping terminal rejections off the second account,
-  and pinning position-reducing orders to the account that actually holds the position.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- failover
-- circuit-breaker
-- high-availability
-- duplicate-order-prevention
-- position-integrity
-- resilience
-brokers_frameworks:
-- Binance Spot REST API
-- RFC 9110 (503 / Retry-After)
-- SEC Regulation SHO (17 CFR 242.200/203)
-- SEC Rule 15c3-5
-- MiFID II RTS 6 (Reg (EU) 2017/589)
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when order flow must continue on a backup broker account after the primary
+  degrades. Classifies which failures are safe to fail over, refuses to re-send an order
+  that may already be working, and pins reducing orders to the account holding the
+  position.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, failover, circuit-breaker, high-availability, duplicate-order-prevention, position-integrity, resilience
+  brokers_frameworks: "Binance Spot REST API; RFC 9110 (503 / Retry-After); SEC Regulation SHO (17 CFR 242.200/203); SEC Rule 15c3-5; MiFID II RTS 6 (Reg (EU) 2017/589)"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Broker Failover & Secondary Account Routing

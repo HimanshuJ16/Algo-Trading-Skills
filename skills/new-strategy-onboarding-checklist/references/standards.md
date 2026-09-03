@@ -2,8 +2,7 @@
 
 ## The thresholds in this skill are house defaults, not standards
 
-An earlier version of this file presented the numbers below under the heading
-"Engineering Standard" with no source. They are not standards. No regulator, exchange
+The numbers below are not standards, and nothing sources them. No regulator, exchange
 or published body of research mandates fourteen days of paper trading, three market
 regimes, a walk-forward score of $0.70$, or a backtest Sharpe of $1.5$. They are
 starting values chosen for this engine.
@@ -56,7 +55,7 @@ Nothing below makes a firm "compliant" by running this engine.
 | **RTS 6 Art. 9** "Annual self-assessment and validation" | As above | Binding | "An investment firm shall annually perform a self-assessment and validation process and on the basis of that process issue a validation report." | An onboarding pass is a point-in-time snapshot with no expiry. The annual cycle is a separate obligation this engine does not track. |
 | **RTS 6 Art. 12** "Kill functionality" | As above | Binding | "An investment firm shall be able to cancel immediately, as an emergency measure, any or all of its unexecuted orders submitted to any or all trading venues." | What `kill_switch_integrated=True` is asserting the existence of. The engine records the assertion; it does not test the switch. See `kill-switch-and-drawdown-circuit-breakers`. |
 | **SEC Rule 15c3-5** (17 CFR 240.15c3-5) | US **broker-dealers with market access**, or providing access via their MPID. Not a general obligation on funds or prop traders without market access | Binding rule | (b): such a broker-dealer "shall establish, document, and maintain a system of risk management controls and supervisory procedures reasonably designed to manage the financial, regulatory, and other risks of this business activity." (c)(1)(i): controls must "[p]revent the entry of orders that exceed appropriate pre-set credit or capital thresholds …". | The pre-trade boundary. This onboarding gate is a governance record, not a control that rejects orders. |
-| **SR 26-2** / OCC Bulletin **2026-13**, *Revised Guidance on Model Risk Management* (Federal Reserve, OCC, FDIC, 17 April 2026) | US banking organizations; "expected to be most relevant to banking organizations with over \$30 billion in total assets" | Supervisory **guidance**, not an enforceable rule | Frames model development, validation, monitoring and governance across the lifecycle. | The reference framework behind Gate 3. **Applicability caveat**: a hedge fund, prop firm or asset manager is not a banking organization and cannot be "compliant" or "non-compliant" with it. **This skill previously cited SR 11-7 (4 April 2011) — that letter was superseded by SR 26-2 on 17 April 2026 and must not be cited as current guidance.** |
+| **SR 26-2** / OCC Bulletin **2026-13**, *Revised Guidance on Model Risk Management* (Federal Reserve, OCC, FDIC, 17 April 2026) | US banking organizations; "expected to be most relevant to banking organizations with over \$30 billion in total assets" | Supervisory **guidance**, not an enforceable rule | Frames model development, validation, monitoring and governance across the lifecycle. | The reference framework behind Gate 3. **Applicability caveat**: a hedge fund, prop firm or asset manager is not a banking organization and cannot be "compliant" or "non-compliant" with it. **SR 11-7 (4 April 2011) was superseded by SR 26-2 on 17 April 2026 and must not be cited as current guidance.** |
 
 ## What no instrument in the table requires
 

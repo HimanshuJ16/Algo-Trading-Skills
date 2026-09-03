@@ -1,26 +1,17 @@
 ---
 name: execution-algo-parameter-optimization-via-backtest
-description: Use when tuning execution-algorithm parameters (participation ceiling,
-  Almgren-Chriss risk aversion, peg offset) by grid search over historical intraday
-  price paths, scoring each candidate by Implementation Shortfall including the
-  opportunity cost of unfilled quantity.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- execution-algo
-- parameter-optimization
-- almgren-chriss
-- implementation-shortfall
-- market-impact
-- tca
-brokers_frameworks:
-- Almgren-Chriss Optimal Execution Framework
-- Almgren-Thum-Hauptmann-Li Market Impact Model
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when picking concrete values for the parameters an execution algorithm exposes,
+  such as participation ceiling, Almgren-Chriss risk aversion and peg offset, by grid
+  search over historical intraday paths scored on implementation shortfall.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: backtesting-methodology, execution-algo, parameter-optimization, almgren-chriss, implementation-shortfall, market-impact, tca
+  brokers_frameworks: "Almgren-Chriss Optimal Execution Framework; Almgren-Thum-Hauptmann-Li Market Impact Model; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

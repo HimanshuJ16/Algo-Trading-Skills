@@ -1,26 +1,17 @@
 ---
 name: research-idea-pipeline-tracking-and-prioritization
 description: >-
-  Use when a quantitative research team has more candidate alpha ideas than
-  researcher-months, to register each hypothesis once, rank the active backlog
-  with a transparent multi-factor triage score (expected Sharpe, capacity,
-  implementation complexity, data cost), enforce lifecycle transitions with an
-  append-only audit trail, and surface ideas stalled in a stage.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- research-pipeline
-- idea-tracking
-- alpha-prioritization
-- research-governance
-- multiple-testing
-brokers_frameworks:
-- Research Pipeline Prioritization Engine
-- Python standard library (math, dataclasses, enum, datetime)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a research backlog is longer than the capacity to work it, registering each
+  hypothesis once and ranking the active queue by a transparent triage score so ordering
+  does not follow whoever argued most recently.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: backtesting-methodology, research-pipeline, idea-tracking, alpha-prioritization, research-governance, multiple-testing
+  brokers_frameworks: "Research Pipeline Prioritization Engine; Python standard library (math, dataclasses, enum, datetime)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

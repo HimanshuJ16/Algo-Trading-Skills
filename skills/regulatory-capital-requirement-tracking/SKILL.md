@@ -1,20 +1,17 @@
 ---
 name: regulatory-capital-requirement-tracking
 description: >-
-  Use when a trading entity is subject to a prudential capital floor — a US
-  broker-dealer under SEC Rule 15c3-1, a UK investment firm under FCA MIFIDPRU —
-  and you need to know whether it is above that floor, inside its early-warning
-  band, or deficient. Computes net capital from the balance sheet per
-  15c3-1(c)(2), aggregates the applicable requirement components by greater-of
-  rather than by sum, and surfaces the 17a-11 notification deadline the result
-  triggers.
-domain: Regulatory & Financial Compliance
-subdomain: Regulatory Capital & Financial Resource Adequacy
-tags: ["regulatory-capital", "net-capital-rule", "sec-15c3-1", "sec-17a-11", "fca-mifidpru", "capital-adequacy", "financial-compliance"]
-brokers_frameworks: ["SEC Rule 15c3-1 (Net Capital)", "SEC Rule 17a-11 (Notification)", "FCA MIFIDPRU (IFPR)", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a trading entity must stay above a prudential capital floor such as SEC Rule
+  15c3-1 net capital or FCA MIFIDPRU, and you are building the daily computation that
+  proves it did at all times.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: regulatory-capital, net-capital-rule, sec-15c3-1, sec-17a-11, fca-mifidpru, capital-adequacy, financial-compliance
+  brokers_frameworks: "SEC Rule 15c3-1 (Net Capital); SEC Rule 17a-11 (Notification); FCA MIFIDPRU (IFPR); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

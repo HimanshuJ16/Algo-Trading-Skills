@@ -1,27 +1,17 @@
 ---
 name: broker-agnostic-adapter-interface
-description: Use when designing quantitative trading systems to decouple strategy
-  logic from broker APIs using a unified abstract adapter interface, standardized
-  order models, and pluggable broker factories. Enforces Decimal arithmetic at the
-  boundary, typed exceptions, and cross-venue status normalization that reports an
-  unrecognized broker status as UNKNOWN rather than guessing the order is live.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- adapter-pattern
-- broker-agnostic
-- trading-architecture
-- order-routing
-- status-normalization
-brokers_frameworks:
-- Zerodha Kite Connect
-- Alpaca Trading API
-- Interactive Brokers TWS API
-- Upstox API
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when strategy code must run across several brokers and should not import
+  kiteconnect, alpaca-py or ibapi directly; defines an adapter contract with Decimal
+  prices, typed exceptions and normalised order status across venues.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, adapter-pattern, broker-agnostic, trading-architecture, order-routing, status-normalization
+  brokers_frameworks: "Zerodha Kite Connect; Alpaca Trading API; Interactive Brokers TWS API; Upstox API"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

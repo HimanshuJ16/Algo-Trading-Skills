@@ -92,10 +92,9 @@ divergence between runs. It is not tamper-evidence: anyone able to edit a trade
 log can recompute the digest. For an authenticated record, see
 `backtest-audit-trail-for-regulatory-review`.
 
-Earlier revisions of this skill specified `MD5(trade_list_json)` in the workflow
-while the implementation used SHA256, and described the result as a
-"cryptographic audit checksum". The documentation now matches the code, and the
-framing is corrected: this is a divergence detector, not an audit signature.
+The workflow specifies SHA256, matching the implementation — not `MD5(trade_list_json)`,
+and not a "cryptographic audit checksum". This is a divergence detector, not an
+audit signature.
 
 ## Sources
 

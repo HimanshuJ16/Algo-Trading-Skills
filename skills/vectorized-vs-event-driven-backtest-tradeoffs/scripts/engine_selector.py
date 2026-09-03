@@ -17,7 +17,7 @@ The three things that decide whether the comparison means anything
 ------------------------------------------------------------------
 **1. Both engines must express positions in the same units.** ``signals[t]`` is a
 *target exposure as a fraction of current equity* -- 1.0 fully invested long, -1.0
-fully short, 0.0 flat. It is not a share count. The pre-2.0.0 event-driven engine
+fully short, 0.0 flat. It is not a share count. an earlier event-driven engine
 held ``signals[t]`` **shares** against a fixed $100,000 of capital, so on an
 identical long-only series the vectorized engine reported 49.00% and the
 event-driven engine 0.06%. That 48.94-point "execution drag" was a unit mismatch,
@@ -76,7 +76,7 @@ process per unit of vectorizable work, so a monthly rebalance and a per-bar sign
 are not comparable. Published third-party benchmarks on realistic strategies land
 in single- to low-double-digit multiples (~6-8x Moonshot vs Zipline on a
 1,000-name monthly factor rebalance; ~20x VectorBT vs Backtrader on a 500-name
-monthly momentum rotation), not the 1,000x the pre-2.0.0 documentation asserted.
+monthly momentum rotation), not the 1,000x an earlier documentation asserted.
 Measure it on your own workload; do not quote a constant.
 """
 from dataclasses import dataclass, field
@@ -232,7 +232,7 @@ def annualized_sharpe(
 
     Returns NaN -- not a large number -- when fewer than two observations exist or
     when dispersion is below ``_MIN_RETURN_STD``. A constant return series has no
-    risk to adjust for, so its Sharpe ratio is undefined. The pre-2.0.0 guard
+    risk to adjust for, so its Sharpe ratio is undefined. an earlier guard
     (``std_r or 0.0001``) only caught a standard deviation of exactly 0.0, so a
     constant +1%/bar series -- whose sample standard deviation is ~1e-17 of float
     noise, not zero -- reported a Sharpe ratio of 1.6e15.
@@ -272,7 +272,7 @@ class DualBacktestEngineSelector:
         risk_free_rate: Annual risk-free rate, deducted per bar before the ratio.
         initial_capital: Starting equity. Returns are reported as percentages so
             this does not change them -- but it must be identical across engines,
-            which is exactly what the pre-2.0.0 implementation got wrong.
+            which is exactly what a naive implementation got wrong.
         max_abs_exposure: Rejects any |signal| above this. See ``_validate_series``.
     """
 
@@ -330,7 +330,7 @@ class DualBacktestEngineSelector:
           the exposure unconditionally, which is the assumption that every order
           filled, at the best available price.
 
-        The pre-2.0.0 rule scored these 3.0 each against a threshold of 4.0, so a
+        an earlier rule scored these 3.0 each against a threshold of 4.0, so a
         strategy whose *only* complex feature was path-dependent stops was routed to
         the vectorized engine -- the one case where the vectorized answer is not
         merely optimistic but undefined. It also contradicted this skill's own
@@ -423,7 +423,7 @@ class DualBacktestEngineSelector:
 
         Exposure over bar ``t+1`` is ``signals[t]``, with a starting exposure of 0.
         Costs are charged as a multiplicative haircut on equity at the moment of the
-        trade, proportional to ``|signals[t] - signals[t-1]|``. The pre-2.0.0
+        trade, proportional to ``|signals[t] - signals[t-1]|``. an earlier
         version charged a flat one-way cost on any change, so a -1 -> +1 reversal
         (two units of turnover) cost the same as a 0 -> +1 entry, understating the
         cost of every reversal by half.
@@ -488,13 +488,13 @@ class DualBacktestEngineSelector:
         the series ends never fills, which is the honest outcome rather than a
         retroactive fill.
 
-        Cash is debited on a buy and **credited** on a sell. The pre-2.0.0 loop
+        Cash is debited on a buy and **credited** on a sell. an earlier loop
         debited both (``cash -= cost + comm`` regardless of direction), so every exit
         and every reversal destroyed equity: a profitable long/short sample series
         reported -0.42%.
 
         Positions are sized to ``target_weight * current_equity`` in fractional
-        units. The pre-2.0.0 loop held ``signals[t]`` *shares* -- one share against
+        units. an earlier loop held ``signals[t]`` *shares* -- one share against
         $100,000 -- so its returns were three orders of magnitude smaller than the
         vectorized engine's, for reasons that had nothing to do with execution.
 

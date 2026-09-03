@@ -73,9 +73,8 @@ and §4 defines the synchronization distance `LAMBDA = EPSILON + DELTA / 2`, whi
 <https://www.rfc-editor.org/rfc/rfc5905.html>
 
 Both sources agree on the sign: half the path delay **widens** the error bound. A drift
-formula of the form `|T_A − T_B| − RTT/2` — which earlier revisions of this skill carried —
-inverts that and reports accuracy that was never measured. It is corrected in
-`scripts/clock_sync_validator.py`.
+formula of the form `|T_A − T_B| − RTT/2` inverts that and reports accuracy that was never
+measured. `scripts/clock_sync_validator.py` uses the correct sign.
 
 ## 4. Engineering tiers shipped as defaults
 

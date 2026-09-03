@@ -1,21 +1,17 @@
 ---
 name: adaptive-execution-under-volatility-spikes
-description: Execution overlay for TWAP, VWAP, and POV schedules that fails closed during abnormal volatility by bounding participation, child size, and limit offsets before routing.
-  It is an advisory decision engine; order cancellation, pre-trade risk, venue controls, and recovery remain with the execution management system.
-domain: execution-algorithms
-subdomain: execution-strategies
-tags:
-- execution
-- trading
-- algo
-- volatility
-- flash-crash
-- risk-management
-brokers_frameworks:
-- generic
-version: "1.2.0"
-author: System
-license: MIT
+description: >-
+  Use before each child-order decision in a TWAP, VWAP or POV schedule when a volatility
+  spike should bound participation, child size and limit offset; fails closed when the
+  volatility feed is stale or missing.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution, trading, algo, volatility, flash-crash, risk-management
+  brokers_frameworks: generic
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

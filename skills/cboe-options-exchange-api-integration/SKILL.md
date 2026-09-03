@@ -1,24 +1,17 @@
 ---
 name: cboe-options-exchange-api-integration
-description: Quantitative integration for Cboe Options Exchange API, specializing
-  in Complex Order Book (COB) multi-leg routing, ratio normalization, and Complex Order Auction (COA) participation.
-domain: Market Connectivity
-subdomain: Exchange API
-tags:
-- cboe
-- options
-- complex-order-book
-- multi-leg
-- fix-protocol
-- boe-protocol
-- coa
-brokers_frameworks:
-- Generic FIX Engine
-- Cboe Titanium FIX
-- Cboe BOEv3
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when trading multi-leg option strategies on Cboe options exchanges over Titanium
+  FIX: New Order Multileg construction, leg ratio normalisation and Complex Order
+  Auction participation. Single-leg orders use New Order Single instead.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: cboe, options, complex-order-book, multi-leg, fix-protocol, boe-protocol, coa
+  brokers_frameworks: "Generic FIX Engine; Cboe Titanium FIX; Cboe BOEv3"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

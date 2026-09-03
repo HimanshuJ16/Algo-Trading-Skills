@@ -1,25 +1,17 @@
 ---
 name: backpressure-drop-degrade-policy
-description: Use when a real-time pipeline's consumers fall persistently behind producers
-  and the system needs an explicit, chosen drop/sample/degrade policy per stream rather
-  than an accidental one inherited from a queue library default
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- backpressure
-- queue-overflow
-- drop-policy
-- degradation
-- tick-pipeline
-brokers_frameworks:
-- Python asyncio.Queue / collections.deque
-- ZeroMQ
-- Apache Kafka / Redis Streams
-- RxPY / ReactiveX
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a bounded tick buffer sits at capacity for sustained periods and you must
+  choose a drop, sample or degrade policy per stream instead of inheriting a queue
+  library's blocking default. For momentary spikes see tick-buffering-burst-handling.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, backpressure, queue-overflow, drop-policy, degradation, tick-pipeline
+  brokers_frameworks: "Python asyncio.Queue / collections.deque; ZeroMQ; Apache Kafka / Redis Streams; RxPY / ReactiveX"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

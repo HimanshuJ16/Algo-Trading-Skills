@@ -1,14 +1,17 @@
 ---
 name: synthetic-continuous-futures-contract-construction
 description: >-
-  Splices individual futures contract histories into a continuous back-adjusted series for backtesting, using volume/open-interest/calendar roll triggers and additive or proportional adjustment, with the newest contract left at real market prices and roll decisions taken only from completed sessions.
-domain: Data Management & Quantitative Infrastructure
-subdomain: Futures Market Data Engineering
-tags: ["futures", "continuous-series", "back-adjustment", "ratio-adjustment", "roll-trigger", "contract-month-codes", "market-data", "look-ahead-bias"]
-brokers_frameworks: ["CME Group Contract Month Codes", "CSI Unfair Advantage Back-Adjustment Convention", "Pandas", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a futures strategy needs one long price history from separately expiring
+  contracts, splicing them with volume, open-interest or calendar roll triggers and
+  additive or proportional back-adjustment.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: futures, continuous-series, back-adjustment, ratio-adjustment, roll-trigger, contract-month-codes, market-data, look-ahead-bias
+  brokers_frameworks: "CME Group Contract Month Codes; CSI Unfair Advantage Back-Adjustment Convention; Pandas; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

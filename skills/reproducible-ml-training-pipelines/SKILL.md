@@ -1,29 +1,17 @@
 ---
 name: reproducible-ml-training-pipelines
-description: Use when an ML model that will influence orders is trained, to record
-  the run's dataset, hyperparameters, code version and environment as canonical
-  SHA-256 digests, execute training under scoped RNG seeding that does not clobber
-  the caller's streams, and then measure reproducibility by re-running and comparing
-  artifact digests rather than asserting it — with optional HMAC-SHA-256 tamper
-  evidence and field-level localisation of why a later reproduction diverged
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- mlops
-- reproducibility
-- provenance-manifest
-- sha256
-- hmac
-- random-seed
-- model-attestation
-brokers_frameworks:
-- Reproducible ML Training Pipeline Engine
-- Python standard library (hashlib, hmac, random)
-- NumPy / PyTorch (optional, detected at import)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a model will size, time or select trades and someone must later reproduce it
+  exactly; records dataset, hyperparameters, code version and environment as SHA-256
+  digests and trains under scoped RNG seeding.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, mlops, reproducibility, provenance-manifest, sha256, hmac, random-seed, model-attestation
+  brokers_frameworks: "Reproducible ML Training Pipeline Engine; Python standard library (hashlib, hmac, random); NumPy / PyTorch (optional, detected at import)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -93,8 +81,8 @@ Inside that envelope the engine does three things:
 
 - **A manifest that asserts reproducibility instead of measuring it.** Hard-coding `is_reproducible=True` produces a document that looks like evidence and contains none. This is the failure mode that makes a reproducibility harness *worse* than no harness, because it certifies.
 - **Calling a bare hash a signature.** An unkeyed digest is recomputable by whoever edited the manifest. Presenting one to a validator or an auditor as tamper evidence is a misrepresentation of what SHA-256 alone provides.
-- **A tag that does not cover the fields it displays.** The previous signature covered `experiment_id`, `seed` and three hashes — so `git_commit_hash` could be rewritten freely and the manifest still verified. Whatever a manifest shows, its tag must cover.
-- **Rounding before hashing.** The previous implementation hashed `round(weight, 6)`, so the canonical divergence signature — `sum([0.1] * 10) == 0.9999999999999999` against `0.1 * 10 == 1.0` — was reported as bit-identical. Hash the exact bits.
+- **A tag that does not cover the fields it displays.** A signature over only `experiment_id`, `seed` and three hashes leaves `git_commit_hash` free to be rewritten while the manifest still verifies. Whatever a manifest shows, its tag must cover.
+- **Rounding before hashing.** Hashing `round(weight, 6)` reports the canonical divergence signature — `sum([0.1] * 10) == 0.9999999999999999` against `0.1 * 10 == 1.0` — as bit-identical. Hash the exact bits.
 - **Hashing floats through `json.dumps`.** It emits bare `NaN`/`Infinity` tokens, which are not valid JSON — and every NaN renders identically, so two runs whose weights had both collapsed to NaN hash the same and are declared reproducible.
 - **Seeding globally and not restoring.** `random.seed()` is process-wide. The damage lands on whatever else shares the interpreter and is invisible from both sides.
 - **Assuming `np.random.seed()` covers modern NumPy code.** NumPy documents it as a "convenience, legacy function that exists to support older code that uses the singleton `RandomState`". Anything built on `default_rng()` is untouched by it.

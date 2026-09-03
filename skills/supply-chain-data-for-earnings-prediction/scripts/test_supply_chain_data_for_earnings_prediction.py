@@ -8,8 +8,6 @@ import logging
 import math
 import unittest
 
-import pandas as pd
-
 from supply_chain_data_for_earnings_prediction import (
     SIGNAL_BUY,
     SIGNAL_INSUFFICIENT,
@@ -18,7 +16,6 @@ from supply_chain_data_for_earnings_prediction import (
     Config,
     CustomerObservation,
     Engine,
-    SignalResult,
     SupplierCustomerLink,
     SupplierObservation,
     SupplyChainDataForEarningsPredictionEngine,
@@ -70,9 +67,6 @@ def evaluate(engine, **overrides) -> SupplyChainEarningsSignal:
 class TestLegacyShims(unittest.TestCase):
     """Deprecated symbols kept only so existing imports keep working."""
 
-    def setUp(self):
-        self.engine = SupplyChainDataForEarningsPredictionEngine()
-
     def test_config_and_engine_shims_still_import_and_run(self):
         self.assertEqual(Engine(Config(name="test")).config.name, "test")
         self.assertTrue(Engine().run())
@@ -80,33 +74,6 @@ class TestLegacyShims(unittest.TestCase):
     def test_supplier_customer_link_still_constructs(self):
         link = SupplierCustomerLink("TSM", "NVDA", revenue_dependency_pct=20.0)
         self.assertEqual(link.lead_time_months, 3)
-
-    def test_placeholder_returns_empty_for_empty_frame(self):
-        self.assertEqual(self.engine.generate_signals(pd.DataFrame()), [])
-
-    def test_placeholder_preserves_its_arbitrary_scaling(self):
-        df = pd.DataFrame({"raw_val": [10.0, 20.0], "asset": ["AAPL", "MSFT"]})
-        signals = self.engine.generate_signals(df)
-        self.assertEqual(len(signals), 2)
-        self.assertIsInstance(signals[0], SignalResult)
-        # 10.0 * 1.5 = 15.0 -- a meaningless number, preserved only for compatibility.
-        self.assertEqual(signals[0].signal_value, 15.0)
-        self.assertEqual(signals[0].asset_id, "AAPL")
-
-    def test_placeholder_no_longer_labels_its_output_a_buy(self):
-        # v1 regression: v1 labelled raw_val * 1.5 > 10 as BUY_EARNINGS_SURPRISE,
-        # which made an arbitrary scaling read as a tradeable recommendation.
-        signals = self.engine.generate_signals(pd.DataFrame({"raw_val": [100.0]}))
-        self.assertNotEqual(signals[0].directional_signal, SIGNAL_BUY)
-        self.assertEqual(signals[0].directional_signal, "DEPRECATED_PLACEHOLDER")
-        self.assertEqual(signals[0].estimated_revenue_growth_pct, 0.0)
-
-    def test_placeholder_warns_that_it_is_not_a_supply_chain_signal(self):
-        with self.assertLogs(
-            "supply_chain_data_for_earnings_prediction", level=logging.WARNING
-        ) as captured:
-            self.engine.generate_signals(pd.DataFrame({"raw_val": [1.0]}))
-        self.assertIn("deprecated", "\n".join(captured.output).lower())
 
 
 class TestConstructorValidation(unittest.TestCase):

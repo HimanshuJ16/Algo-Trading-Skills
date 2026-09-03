@@ -1,14 +1,17 @@
 ---
 name: strategy-specific-vs-shared-risk-budget-allocation
 description: >-
-  Use when a multi-strategy book enforces two different risk limits per strategy — a strategy-specific cap on its own standalone volatility and a shared cap on its share of total portfolio risk — decomposing portfolio volatility by Euler allocation into marginal contribution to risk (MCR) and Component VaR shares, and solving for the capital scaling factor that actually brings a breaching strategy back inside its budget.
-domain: Risk Management & Portfolio Optimization
-subdomain: Euler Risk Budgeting & Allocation
-tags: ["risk-budgeting", "euler-allocation", "component-var", "mcr", "strategy-risk-limits", "portfolio-var"]
-brokers_frameworks: ["Euler Allocation Principle (Tasche 2008)", "Component VaR (Jorion, Value at Risk 3rd ed. Ch. 7)", "Parametric Variance-Covariance VaR", "Python Dataclasses", "numpy"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when each strategy faces both a standalone volatility cap and a cap on its share
+  of total portfolio risk, decomposing contributions to show which limit binds. Solving
+  for equal-risk weights is risk-parity-allocation-across-strategies.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: risk-budgeting, euler-allocation, component-var, mcr, strategy-risk-limits, portfolio-var
+  brokers_frameworks: "Euler Allocation Principle (Tasche 2008); Component VaR (Jorion, Value at Risk 3rd ed. Ch. 7); Parametric Variance-Covariance VaR; Python Dataclasses; numpy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

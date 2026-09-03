@@ -1,28 +1,17 @@
 ---
 name: consumer-group-rebalance-safety
-description: Use when a trading workload consumes market data or order events from
-  a Kafka consumer group and a rebalance can move a partition mid-flight. Fences
-  revoked partitions, drains in-flight work before committing, commits the next
-  offset rather than the last processed one, and handles lost partitions without
-  committing offsets it no longer owns.
-domain: Infrastructure
-subdomain: Event-Driven Systems & Streaming
-tags:
-- kafka
-- consumer-group
-- rebalance-safety
-- event-driven
-- idempotency
-- zombie-consumer
-- offset-management
-- streaming
-brokers_frameworks:
-- Apache Kafka / Redpanda
-- confluent-kafka-python
-- Generic Event Stream
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when trading workers consume order or tick events from a Kafka consumer group and
+  a rebalance can move a partition mid-flight. Fences revoked partitions, drains
+  in-flight work, and commits the next offset rather than the last processed one.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: kafka, consumer-group, rebalance-safety, event-driven, idempotency, zombie-consumer, offset-management, streaming
+  brokers_frameworks: "Apache Kafka / Redpanda; confluent-kafka-python; Generic Event Stream"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

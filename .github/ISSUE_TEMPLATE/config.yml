@@ -1,8 +1,8 @@
-blank_issues_enabled: false
+blank_issues_enabled: true
 contact_links:
-  - name: GitHub Discussions & Questions
-    url: https://github.com/HimanshuJ16/Algo-Trading-Skills/discussions
-    about: Ask Q&A questions, request design advice, or discuss quantitative strategy implementation.
   - name: Security Vulnerability Reporting
     url: https://github.com/HimanshuJ16/Algo-Trading-Skills/security/policy
-    about: Privately report security concerns or potential vulnerabilities.
+    about: Privately report security concerns or potential vulnerabilities. Please do not open a public issue for these.
+  - name: Contributing Guide
+    url: https://github.com/HimanshuJ16/Algo-Trading-Skills/blob/main/CONTRIBUTING.md
+    about: The skill structure, frontmatter contract, and the checks your pull request must pass.

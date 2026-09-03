@@ -1,14 +1,17 @@
 ---
 name: position-limit-breach-simulation-fire-drills
 description: >-
-  Use when running scheduled fire drills that inject simulated position-limit breaches into a non-production risk stack and grade what the pre-trade gateway, post-trade exposure control and kill switch actually did against the outcome the rule requires.
-domain: Regulatory Compliance & Risk Controls
-subdomain: Operational Risk Simulation & Compliance Fire Drills
-tags: ["fire-drill", "position-limits", "cftc-compliance", "risk-gateway", "kill-switch", "operational-risk", "simulation"]
-brokers_frameworks: ["CME Rule 559/562", "CFTC Part 150 Speculative Limits", "MiFID II RTS 6", "SEC Rule 15c3-5"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when scheduling fire drills that inject a synthetic over-limit position into a
+  non-production risk stack and grade whether the pre-trade gate, post-trade control,
+  kill switch and alerting all behaved. A grader, not a control.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: fire-drill, position-limits, cftc-compliance, risk-gateway, kill-switch, operational-risk, simulation
+  brokers_frameworks: "CME Rule 559/562; CFTC Part 150 Speculative Limits; MiFID II RTS 6; SEC Rule 15c3-5"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,23 +1,17 @@
 ---
 name: zerodha-kite-postback-webhook-verification
 description: >-
-  Use when consuming Zerodha Kite Connect order postbacks. The checksum Kite sends is
-  SHA-256(order_id + order_timestamp + api_secret) — it authenticates those two fields
-  and nothing else, so status, filled_quantity and average_price arrive unauthenticated
-  and a verified postback is a trigger to reconcile, never a fact to post to a ledger.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- zerodha-kite-connect
-- postback-webhooks
-- webhook-security
-- idempotency
-brokers_frameworks:
-- Zerodha Kite Connect v3 API
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when consuming Zerodha Kite order postbacks. The SHA-256 checksum covers only
+  order_id, order_timestamp and api_secret, so status, filled_quantity and average_price
+  arrive unauthenticated and a verified postback only triggers reconciliation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, zerodha-kite-connect, postback-webhooks, webhook-security, idempotency
+  brokers_frameworks: Zerodha Kite Connect v3 API
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,14 +1,17 @@
 ---
 name: satellite-imagery-based-signal-research
 description: >-
-  Use when turning processed Earth-observation metrics — retail parking-lot car counts, external floating-roof crude tank fill, agricultural NDVI — into Z-scored directional research signals with an explicit point-in-time availability stamp, a cloud/usable-pixel gate, and a look-ahead check on the baseline window.
-domain: Alternative Data & Quantitative Research
-subdomain: Satellite Imagery & Computer Vision Signals
-tags: ["satellite-imagery", "alternative-data", "car-counts", "oil-tank-shadows", "ndvi", "quant-signals", "point-in-time"]
-brokers_frameworks: ["Earth Observation Alternative Data", "Sentinel-2 / Landsat", "Pandas DataFrames", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a processed Earth-observation metric such as a parking-lot vehicle count,
+  tank fill fraction or vegetation index must become a z-scored research signal with an
+  explicit availability lag. Not a computer-vision pipeline.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: satellite-imagery, alternative-data, car-counts, oil-tank-shadows, ndvi, quant-signals, point-in-time
+  brokers_frameworks: "Earth Observation Alternative Data; Sentinel-2 / Landsat; Pandas DataFrames; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

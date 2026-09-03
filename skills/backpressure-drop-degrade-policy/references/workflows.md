@@ -108,7 +108,7 @@ def on_risk_message(msg):
         risk_q.append(msg)
 ```
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Silent rejection:** an overflow handler that returns `None` for both success
   and rejection, so the caller cannot tell that risk data was dropped.

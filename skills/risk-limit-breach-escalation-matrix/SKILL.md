@@ -1,14 +1,17 @@
 ---
 name: risk-limit-breach-escalation-matrix
 description: >-
-  Use when a risk-limit breach needs a graduated response instead of a binary halt: maps a breach ratio and breach duration onto a configurable severity ladder (INFO/AMBER/RED/CRITICAL) returning an action (WARN, REDUCE, HALT, FLATTEN), a notification routing set and an acknowledgement deadline, with escalation latching, replay protection for destructive actions, and an immutable audit trail.
-domain: Risk Management & Compliance Governance
-subdomain: Risk Escalation & Incident Response
-tags: ["risk-escalation", "limit-breach", "escalation-matrix", "pagerduty", "risk-governance", "automated-flatten", "duration-escalation", "audit-trail"]
-brokers_frameworks: ["MiFID II RTS 6 (Art. 12, 15, 16, 17)", "SEC Rule 15c3-5", "PagerDuty / Slack routing semantics (reference only, no integration)", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a breach needs a proportionate response rather than a binary halt; maps
+  breach ratio and duration onto a severity ladder returning the action your enforcement
+  layer should take.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-escalation, limit-breach, escalation-matrix, pagerduty, risk-governance, automated-flatten, duration-escalation, audit-trail
+  brokers_frameworks: "MiFID II RTS 6 (Art. 12, 15, 16, 17); SEC Rule 15c3-5; PagerDuty / Slack routing semantics (reference only, no integration); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

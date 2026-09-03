@@ -1,26 +1,17 @@
 ---
 name: synthetic-labels-from-triple-barrier-method
-description: Use when building the supervised target for a financial ML classifier,
-  to label each event by which of three barriers its forward price path touches first
-  — a volatility-scaled profit-taking barrier (+1), a volatility-scaled stop-loss
-  barrier (-1), or a vertical time-out (0) — instead of a naive fixed-horizon return,
-  and to derive López de Prado meta-labels when a primary model supplies the side
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- triple-barrier-method
-- lopez-de-prado
-- meta-labeling
-- path-dependent-labels
-- volatility-scaled-barriers
-brokers_frameworks:
-- Triple Barrier Labeler Engine
-- pandas
-- NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when the supervised target must reflect the path rather than the endpoint; labels
+  each event by which barrier it touches first, a volatility-scaled profit target, a
+  stop, or a time limit.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, triple-barrier-method, lopez-de-prado, meta-labeling, path-dependent-labels, volatility-scaled-barriers
+  brokers_frameworks: "Triple Barrier Labeler Engine; pandas; NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

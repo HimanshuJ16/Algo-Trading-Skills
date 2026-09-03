@@ -1,27 +1,17 @@
 ---
 name: post-breach-root-cause-analysis-template
 description: >-
-  Use when writing the post-mortem after a trading-system risk-limit breach,
-  runaway algorithm, or severe unexpected drawdown: builds a structured Root
-  Cause Analysis record with a UTC-normalised chronology, a 5-Whys drill-down,
-  a quantified financial-impact section, and CAPA items that must carry a named
-  owner and a due date, then renders it as Markdown and as a deterministic JSON
-  payload.
-domain: Risk Governance & Incident Response
-subdomain: Incident Post-Mortem & Regulatory Compliance
-tags:
-- rca
-- root-cause-analysis
-- incident-response
-- 5-whys
-- capa
-- post-mortem
-- risk-governance
-brokers_frameworks:
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use after a risk-limit breach, runaway algorithm or severe drawdown, to build the
+  post-mortem record: a UTC-normalised chronology, contributing factors and corrective
+  actions, checked for completeness rather than authored for you.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: rca, root-cause-analysis, incident-response, 5-whys, capa, post-mortem, risk-governance
+  brokers_frameworks: Python Standard Library
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

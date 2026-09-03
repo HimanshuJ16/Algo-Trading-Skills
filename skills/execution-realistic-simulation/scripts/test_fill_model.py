@@ -69,7 +69,7 @@ class TestDirectionalFillPricing(unittest.TestCase):
         self.assertAlmostEqual(res.fill_price, 100.60, places=10)
 
     def test_unrecognised_side_is_rejected_not_silently_treated_as_a_sell(self):
-        # Regression: the pre-2.0.0 model fell through to the SELL branch for any
+        # Regression: an earlier model fell through to the SELL branch for any
         # string that was not exactly "BUY", so a typo produced a reversed trade.
         for bad in ("B", "buys", "long", "", "SEL"):
             with self.subTest(side=bad):
@@ -124,7 +124,7 @@ class TestSquareRootImpactScaling(unittest.TestCase):
         self.assertGreater(0.5, SQRT_LAW_MAX_VALIDATED_PARTICIPATION)
 
     def test_impact_large_enough_to_wipe_out_the_price_raises(self):
-        # Regression: the pre-2.0.0 model clamped such a sell to a hard-coded 0.01,
+        # Regression: an earlier model clamped such a sell to a hard-coded 0.01,
         # silently reporting a fill at a price the model never produced.
         with self.assertLogs("fill_model", level="WARNING"):  # keeps stderr clean
             with self.assertRaises(ValueError):
@@ -223,7 +223,7 @@ class TestFillInputValidation(unittest.TestCase):
                     self.sim.simulate_fill(**self._with(**override))
 
     def test_zero_adv_is_rejected_rather_than_floored(self):
-        # Regression: the pre-2.0.0 model substituted adv=1.0 for any adv <= 1,
+        # Regression: an earlier model substituted adv=1.0 for any adv <= 1,
         # turning an unknown volume into a 100%-participation impact estimate.
         with self.assertRaises(ValueError):
             self.sim.simulate_fill(**self._with(adv=0.0))

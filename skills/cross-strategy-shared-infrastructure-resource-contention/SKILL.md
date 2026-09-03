@@ -1,25 +1,17 @@
 ---
 name: cross-strategy-shared-infrastructure-resource-contention
-description: Advisory contention manager for co-located trading strategies sharing a
-  host and a FIX gateway - classifies CPU, memory, and gateway-rate telemetry into
-  contention states and emits hysteresis-gated preemption and throttling directives
-  for a supervisor to enforce.
-domain: Real-Time Infrastructure
-subdomain: Shared Resource Management
-tags:
-- resource-contention
-- cpu-affinity
-- fix-rate-limiting
-- preemption
-- multi-strategy
-- latency-jitter
-- noisy-neighbor
-brokers_frameworks:
-- Linux Taskset
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when several strategies share a host or a FIX gateway session and one can starve
+  another, classifying CPU, memory and message-rate telemetry into contention states
+  with hysteresis-gated priority directives.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: resource-contention, cpu-affinity, fix-rate-limiting, preemption, multi-strategy, latency-jitter, noisy-neighbor
+  brokers_frameworks: "Linux Taskset; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

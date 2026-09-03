@@ -1,14 +1,17 @@
 ---
 name: liquidity-seeking-algorithm-across-lit-and-dark-venues
 description: >-
-  Lit/dark sequencing planner for institutional parent orders in US NMS stocks — sweeps dark ATS venues at the NBBO midpoint with IOC + MinQty before sweeping lit exchanges in strict price priority, flagging any child priced inferior to the protected NBBO as requiring ISO marking.
-domain: Execution Algorithms
-subdomain: Smart Order Routing (SOR) & Dark Pools
-tags: ["liquidity-seeking", "dark-pools", "lit-venues", "nbbo-midpoint", "sor", "smart-order-router", "signal-leakage", "trade-through", "iso"]
-brokers_frameworks: ["SEC Reg NMS Rule 611 (Order Protection)", "SEC Reg NMS Rule 612 (Minimum Pricing Increment)", "SEC Reg NMS Rule 610(e) (Locked/Crossed)", "FIX Protocol", "Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when planning where and in what order a large parent order is worked across
+  fragmented markets, sweeping dark venues at the midpoint with minimum quantity before
+  crossing lit books in price priority. A planner, not a live router.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: liquidity-seeking, dark-pools, lit-venues, nbbo-midpoint, sor, smart-order-router, signal-leakage, trade-through, iso
+  brokers_frameworks: "SEC Reg NMS Rule 611 (Order Protection); SEC Reg NMS Rule 612 (Minimum Pricing Increment); SEC Reg NMS Rule 610(e) (Locked/Crossed); FIX Protocol; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

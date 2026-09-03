@@ -1,17 +1,17 @@
 ---
 name: insider-transaction-filing-signal-research
 description: >-
-  Point-in-time factor research on SEC Form 4 Section 16 insider filings — score open-market
-  purchases and sales on the EDGAR dissemination timestamp rather than the trade date, weight
-  by the filer's Section 16 capacity, and separate opportunistic from routine insiders with the
-  Cohen-Malloy-Pomorski trade-timing test rather than the Rule 10b5-1 checkbox.
-domain: Quant Research & Alt Data
-subdomain: Insider Filing Analytics & Factor Research
-tags: ["insider-trading-signal", "sec-form-4", "section-16", "rule-10b5-1", "point-in-time-data", "alpha-factors", "insider-sentiment"]
-brokers_frameworks: ["SEC EDGAR Form 4", "17 CFR 240.16a-3", "SEC Release 33-11138", "EDGAR Ownership XML Technical Specification v3", "Python standard library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building an equity factor from SEC Form 4 insider filings, scoring
+  open-market purchases and sales on the EDGAR dissemination timestamp rather than the
+  trade date and weighting by the filer's role.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: insider-trading-signal, sec-form-4, section-16, rule-10b5-1, point-in-time-data, alpha-factors, insider-sentiment
+  brokers_frameworks: "SEC EDGAR Form 4; 17 CFR 240.16a-3; SEC Release 33-11138; EDGAR Ownership XML Technical Specification v3; Python standard library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

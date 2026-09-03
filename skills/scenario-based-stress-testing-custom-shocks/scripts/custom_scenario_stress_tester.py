@@ -173,7 +173,7 @@ class FactorShock:
     ``percentage_shock`` is read in the units implied by ``shock_type``: a fractional
     return for ``RELATIVE_RETURN``, basis points for ``YIELD_BPS``.
 
-    ``is_absolute_change`` is the pre-2.0.0 spelling of ``shock_type=YIELD_BPS`` and is
+    ``is_absolute_change`` is an earlier spelling of ``shock_type=YIELD_BPS`` and is
     still honoured, so existing construction sites keep working. Its *result* changed in
     2.0.0: it now carries the ``-duration * dy`` sign, where 1.0.0 returned a gain on a
     rate rise. Prefer ``shock_type``.

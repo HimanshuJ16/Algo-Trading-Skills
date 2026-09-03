@@ -1,32 +1,17 @@
 ---
 name: robinhood-unofficial-api-integration
 description: >-
-  Use when assessing or building automated access to a Robinhood account through
-  its unofficial/reverse-engineered REST endpoints. Robinhood's Customer
-  Agreement requires its express written consent before a customer reaches the
-  account via an API, and Robinhood now runs sanctioned alternatives (the Agentic
-  Trading MCP server for stocks, options and crypto, and the Crypto Trading API),
-  so the first finding is usually "use the supported path instead". Covers that
-  contractual gate plus device-token persistence, the device-approval login flow
-  that mfa_code cannot satisfy, ref_id order idempotency, and the paginated,
-  symbol-less /positions/ response.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- robinhood
-- unofficial-api
-- us-equities
-- order-idempotency
-- device-approval
-brokers_frameworks:
-- Robinhood unofficial REST endpoints (api.robinhood.com)
-- Robinhood Agentic Trading MCP server (official)
-- Robinhood Crypto Trading API (official)
-- robin_stocks (community reference)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when assessing programmatic access to a Robinhood account. Its Customer Agreement
+  requires express written consent before any API reaches the account, and sanctioned
+  alternatives now exist, so the contractual finding usually settles it.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, robinhood, unofficial-api, us-equities, order-idempotency, device-approval
+  brokers_frameworks: "Robinhood unofficial REST endpoints (api.robinhood.com); Robinhood Agentic Trading MCP server (official); Robinhood Crypto Trading API (official); robin_stocks (community reference)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

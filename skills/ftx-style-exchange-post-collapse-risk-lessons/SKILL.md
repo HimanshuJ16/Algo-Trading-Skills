@@ -1,19 +1,17 @@
 ---
 name: ftx-style-exchange-post-collapse-risk-lessons
 description: >-
-  Gate a centralised crypto venue against the failure modes the November 2022 FTX
-  collapse actually demonstrated: unbacked native-token collateral, absent or
-  undated Proof of Reserves, commingled customer assets, and unbounded
-  single-venue NAV concentration. Scores six separable dimensions into a bounded
-  risk index and returns a de-risking decision plus the share of venue capital to
-  withdraw.
-domain: Crypto Custody & Security
-subdomain: Exchange Counterparty & Solvency Risk
-tags: ["ftx-collapse-lessons", "counterparty-risk", "proof-of-reserves", "off-exchange-settlement", "crypto-custody", "exchange-solvency", "venue-de-risking"]
-brokers_frameworks: ["Copper ClearLoop", "Fireblocks Off Exchange", "MiCA Regulation (EU) 2023/1114", "PCAOB Investor Advisory 2023-03-08", "Merkle Tree Proof of Reserves"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding whether a centralised crypto venue may hold fund capital and how
+  much, against the failure modes the 2022 FTX collapse demonstrated: unbacked
+  native-token collateral, undated proof of reserves and commingled custody.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: ftx-collapse-lessons, counterparty-risk, proof-of-reserves, off-exchange-settlement, crypto-custody, exchange-solvency, venue-de-risking
+  brokers_frameworks: "Copper ClearLoop; Fireblocks Off Exchange; MiCA Regulation (EU) 2023/1114; PCAOB Investor Advisory 2023-03-08; Merkle Tree Proof of Reserves"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

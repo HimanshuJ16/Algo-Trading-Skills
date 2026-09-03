@@ -1,28 +1,17 @@
 ---
 name: weather-data-signal-research-for-commodity-strategies
-description: "Institutional alternative data skill for researching weather signals, calculating population-weighted Heating Degree Days (HDD), Cooling Degree Days (CDD), and NOAA Modified Growing Degree Days (GDD), computing strictly-trailing climate anomaly Z-scores without look-ahead bias, and generating directional trading signals for Energy (Natural Gas, Power) and Agricultural futures (Corn, Soybeans)."
-domain: Quantitative Research & Alternative Data
-subdomain: Meteorological & Commodity Signal Research
-tags:
-- alt-data
-- weather-signals
-- degree-days
-- hdd
-- cdd
-- gdd
-- natural-gas
-- commodities
-- z-score
-brokers_frameworks:
-- cbot
-- nymex
-- ice
-- noaa
-- ecmwf
-- gfs
-version: "1.2.0"
-author: Quant Engineering
-license: MIT
+description: >-
+  Use when researching weather signals for energy or agricultural futures, computing
+  population-weighted heating and cooling degree days and growing degree days from
+  station or forecast data. Pricing weather derivatives is a separate skill.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: alt-data, weather-signals, degree-days, hdd, cdd, gdd, natural-gas, commodities, z-score
+  brokers_frameworks: "cbot; nymex; ice; noaa; ecmwf; gfs"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

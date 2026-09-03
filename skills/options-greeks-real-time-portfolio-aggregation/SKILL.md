@@ -1,25 +1,17 @@
 ---
 name: options-greeks-real-time-portfolio-aggregation
-description: Use when monitoring a multi-leg options book in real time to net
-  per-position Delta, Gamma, Theta and Vega into portfolio-level Dollar Delta and
-  Dollar Gamma using each contract's own deliverable, and to audit every exposure
-  limit independently.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- options-greeks
-- portfolio-aggregation
-- dollar-delta
-- dollar-gamma
-- theta-decay
-- vega-exposure
-brokers_frameworks:
-- Portfolio Greeks Aggregation Engine
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a multi-leg options book needs one continuously refreshed exposure figure,
+  netting per-position delta, gamma, theta and vega into dollar terms using each
+  contract's deliverable. Acting on it is greeks-based-portfolio-hedging-automation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: risk-management, options-greeks, portfolio-aggregation, dollar-delta, dollar-gamma, theta-decay, vega-exposure
+  brokers_frameworks: "Portfolio Greeks Aggregation Engine; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

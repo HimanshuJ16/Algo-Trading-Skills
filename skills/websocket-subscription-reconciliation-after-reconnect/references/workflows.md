@@ -1,4 +1,4 @@
-# Deep Workflow Reference — websocket-reconnect-without-duplicate-subscriptions
+# Deep Workflow Reference — websocket-subscription-reconciliation-after-reconnect
 
 This file holds the full technical procedure referenced by `SKILL.md`. Load this when
 actually implementing the skill, not just when deciding whether it applies.
@@ -148,7 +148,7 @@ one-second — two genuinely different ticks collide and the second is dropped a
 duplicate. Dropping real ticks to suppress imaginary duplicates is a worse failure than
 the one being defended against.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Both sides resubscribing.** The SDK restores subscriptions on reconnect *and* the
   application does too, because nobody read the SDK's reconnect path.

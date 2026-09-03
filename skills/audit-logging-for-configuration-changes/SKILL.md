@@ -1,25 +1,17 @@
 ---
 name: audit-logging-for-configuration-changes
 description: >-
-  Tamper-evident, hash-chained audit trail for changes to trading-system
-  configuration and risk-control parameters — recording who changed what, from
-  which value to which, why, and in which environment; retaining rejected
-  attempts as supervisory evidence; and verifying an archived chain for edits,
-  middle deletions, reordering and gaps.
-domain: deployment-ops
-subdomain: regulatory
-tags:
-- compliance
-- audit-logging
-- change-management
-- tamper-evident
-- finra-3110
-- risk-controls
-brokers_frameworks:
-- generic
-version: "1.3.0"
-author: System
-license: MIT
+  Use when a change to a trading parameter or risk-control setting must leave evidence
+  of who changed what, from which value to which, and why. A hash-chained record, not an
+  authorisation gate; manual overrides belong to risk-control-bypass-audit-logging.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: compliance, audit-logging, change-management, tamper-evident, finra-3110, risk-controls
+  brokers_frameworks: generic
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

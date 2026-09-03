@@ -1,14 +1,17 @@
 ---
 name: single-stock-futures-where-available
 description: >-
-  Pricing a listed single stock future as a no-arbitrage band rather than a single fair value: a cash-and-carry ceiling and a reverse cash-and-carry floor separated by the stock's borrow fee, discrete dividend present values, the SEBI/NSE 2% gate that decides whether an ex-dividend contract adjustment happens at all, and a margin comparison that refuses to invent a percentage for venues that margin scenario-wise (NSE SPAN+ELM, Eurex Prisma). Covers NSE India, Eurex, Euronext and the CME contracts relisted in July 2026.
-domain: Derivatives & Arbitrage Trading
-subdomain: Single Stock Futures & Cash-and-Carry
-tags: ["single-stock-futures", "ssf", "cash-and-carry", "no-arbitrage-band", "borrow-cost", "eurex", "nse-india", "cme", "dividend-adjustment", "security-futures-margin"]
-brokers_frameworks: ["NSE / NSE Clearing (SEBI)", "Eurex / Eurex Clearing Prisma", "CME Group Single Stock Futures", "CFTC Rule 41.45 / SEC Rule 403", "Regulation T (12 CFR 220.12)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when checking whether a listed single stock future is priced outside the band
+  cash-and-carry arbitrage can defend, bounded above by carry and below by the reverse
+  trade net of borrow fee and discrete dividends.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: single-stock-futures, ssf, cash-and-carry, no-arbitrage-band, borrow-cost, eurex, nse-india, cme, dividend-adjustment, security-futures-margin
+  brokers_frameworks: "NSE / NSE Clearing (SEBI); Eurex / Eurex Clearing Prisma; CME Group Single Stock Futures; CFTC Rule 41.45 / SEC Rule 403; Regulation T (12 CFR 220.12); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

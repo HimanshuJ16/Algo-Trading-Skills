@@ -34,9 +34,10 @@ forum for unverified profitability claims or solicitation.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the repository maintainers via a GitHub issue marked confidential
-or through the contact method listed in the repository's profile. All
-complaints will be reviewed and investigated promptly and fairly.
+reported privately to the maintainer at himanshujangir16@gmail.com, or through
+GitHub's "Report content" flow on the offending comment. All complaints will be
+reviewed and investigated promptly and fairly, and the reporter's identity will
+be kept confidential.
 
 ## Attribution
 

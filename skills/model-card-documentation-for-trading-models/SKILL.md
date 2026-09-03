@@ -1,19 +1,17 @@
 ---
 name: model-card-documentation-for-trading-models
 description: >-
-  Use when documenting a quantitative trading model, ML alpha, execution algorithm or
-  risk model for production sign-off, to generate a structured Model Card covering
-  identity, intended and out-of-scope use, feature lineage, evaluation basis,
-  limitations, validation and ongoing monitoring — and to enumerate which of those
-  sections are still undocumented, without asserting a regulatory compliance verdict
-  the tool cannot actually establish.
-domain: Quant Research Alt Data
-subdomain: Model Governance & Model Risk Management (MRM)
-tags: ["model-card", "model-governance", "model-risk", "sr-26-2", "mifid-ii-rts-6", "feature-lineage", "documentation-generator"]
-brokers_frameworks: ["SR 26-2 interagency model risk management guidance", "MiFID II RTS 6 (EU) 2017/589", "Mitchell et al. Model Cards (FAT* 2019)", "Python standard library (dataclasses, json, datetime)"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a trading model is promoted, revalidated or handed to someone who did not
+  build it; a structured record of identity, intended and out-of-scope uses, training
+  data, evaluation, known failure modes and owner.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: model-card, model-governance, model-risk, sr-26-2, mifid-ii-rts-6, feature-lineage, documentation-generator
+  brokers_frameworks: "SR 26-2 interagency model risk management guidance; MiFID II RTS 6 (EU) 2017/589; Mitchell et al. Model Cards (FAT* 2019); Python standard library (dataclasses, json, datetime)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

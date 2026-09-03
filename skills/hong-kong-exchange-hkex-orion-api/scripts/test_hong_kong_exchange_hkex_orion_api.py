@@ -117,7 +117,7 @@ class TestSecondScheduleSpreadTables(unittest.TestCase):
                 )
 
     def test_part_a_reflects_minimum_spread_reduction_phases_1_and_2(self):
-        # Regression against the pre-2025 table: these four prices all returned a
+        # Regression against an earlier table: these four prices all returned a
         # coarser tick before Phase 1 (2025-08-04) and Phase 2 (2026-08-03).
         self.assertEqual(self.engine.get_hkex_spread_table_tick_size("5.00"), D("0.005"))
         self.assertEqual(self.engine.get_hkex_spread_table_tick_size("0.40"), D("0.005"))

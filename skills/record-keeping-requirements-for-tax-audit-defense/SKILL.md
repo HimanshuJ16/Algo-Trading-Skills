@@ -1,14 +1,17 @@
 ---
 name: record-keeping-requirements-for-tax-audit-defense
 description: >-
-  US federal trade record-keeping compliance engine validating tax audit documentation completeness — mandatory fields, IRC § 1222 holding period classification, § 1091 wash sale determinations, § 1.1012-1(c) lot identification, § 475(f) segregation evidence, and disposal-anchored retention.
-domain: Tax & Regulatory Compliance
-subdomain: Trade Record Retention & Audit Defense
-tags: ["record-keeping", "tax-audit", "cost-basis", "holding-period", "wash-sale", "retention-policy", "irs-compliance", "section-475f", "specific-identification"]
-brokers_frameworks: ["IRC § 6001 / Treas. Reg. § 1.6001-1", "IRC § 1222", "IRC § 1091", "Treas. Reg. § 1.1012-1(c)", "IRC § 475(f)", "IRS Rev. Proc. 98-25", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a US trading operation must substantiate its federal tax return positions
+  under examination, validating documentation completeness, IRC 1222 holding periods and
+  1091 wash-sale determinations against the IRC 6001 burden of proof.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: record-keeping, tax-audit, cost-basis, holding-period, wash-sale, retention-policy, irs-compliance, section-475f, specific-identification
+  brokers_frameworks: "IRC § 6001 / Treas. Reg. § 1.6001-1; IRC § 1222; IRC § 1091; Treas. Reg. § 1.1012-1(c); IRC § 475(f); IRS Rev. Proc. 98-25; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

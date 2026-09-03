@@ -1,27 +1,17 @@
 ---
 name: feature-importance-drift-monitoring
-description: Use when a deployed trading model's feature-importance ranking must be
-  compared against its training baseline, to detect regime-driven reordering of
-  predictive drivers and raise a revalidation/retraining alert before performance
-  decay shows up in PnL.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- feature-drift
-- spearman-rank-correlation
-- model-governance
-- concept-drift
-- shap
-- permutation-importance
-brokers_frameworks:
-- SHAP
-- scikit-learn permutation_importance
-- XGBoost
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a live model has a recorded training-time importance profile and you want
+  early warning that regimes have reordered its drivers; measures what the model leans
+  on, not whether it still makes money.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, feature-drift, spearman-rank-correlation, model-governance, concept-drift, shap, permutation-importance
+  brokers_frameworks: "SHAP; scikit-learn permutation_importance; XGBoost; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -10,8 +10,7 @@ $$\text{degradation} = \frac{S_{\text{best}} - \min(S_{\text{left}}, S_{\text{ri
 It is dimensionless, which is the point. A raw gradient $\Delta S/\Delta p$ carries the
 parameter's units, so no single cut-off transfers between a lookback measured in days
 and a threshold measured in basis points. Any table prescribing a universal "maximum
-Sharpe gradient" is therefore unusable as written; the earlier version of this file
-contained one, and it was not implemented by the code.
+Sharpe gradient" is therefore unusable as written, and none is implemented by the code.
 
 ## Configuration Defaults — Not Recommended Limits
 

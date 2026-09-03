@@ -2,7 +2,7 @@
 
 The expected values here are derived from the calendar and the SEC filing rules,
 not from re-running the engine's own expressions. Several tests are explicit
-regressions: they fail against the pre-2.0.0 implementation and pass against the
+regressions: they fail against a naive implementation and pass against the
 current one, and each says so in its docstring.
 """
 import unittest
@@ -51,7 +51,7 @@ class TestAvailabilityLag(unittest.TestCase):
         self.assertEqual(Config().default_availability_lag_days, 1)
 
     def test_same_day_as_filing_is_blocked_by_default(self):
-        """REGRESSION: pre-2.0.0 used `filing_date <= as_of_date` and returned
+        """REGRESSION: older used `filing_date <= as_of_date` and returned
         the value on the filing date itself."""
         self.engine.insert_filings([_record()])
         report = self.engine.execute_pit_join(PITQuery("AAPL", "eps", "2023-02-15"))
@@ -117,7 +117,7 @@ class TestRecordSelection(unittest.TestCase):
         ])
 
     def test_latest_fiscal_period_wins_over_later_filed_amendment(self):
-        """REGRESSION: pre-2.0.0 sorted by filing_date first, so the 2023-08-10
+        """REGRESSION: older sorted by filing_date first, so the 2023-08-10
         amendment to FY-2022 outranked the 2023-04-20 filing for Q1-2023 and
         'latest known EPS' resolved to a stale period."""
         report = self.engine.execute_pit_join(PITQuery("AAPL", "eps", "2023-09-01"))
@@ -216,7 +216,7 @@ class TestRestatementIsolation(unittest.TestCase):
 
 class TestLeakageClassification(unittest.TestCase):
     def test_unreleased_filing_is_not_reported_as_a_restatement(self):
-        """REGRESSION: pre-2.0.0 set restatement_leakage_blocked whenever any
+        """REGRESSION: older set restatement_leakage_blocked whenever any
         record was filtered, so a plain unreleased-earnings block was reported as
         blocked restatement leakage even with zero restatements in the data."""
         engine = PointInTimeFundamentalsDataJoinsEngine()

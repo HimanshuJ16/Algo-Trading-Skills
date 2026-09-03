@@ -1,27 +1,17 @@
 ---
 name: cross-jurisdiction-regulatory-conflict-resolution
-description: Pre-trade compliance gate for cross-jurisdiction regulatory conflicts
-  (SEC vs MiFIR vs FCA), resolving PFOF, LEI tagging, and short-selling rules under
-  Strictest Rule Primacy and recording an auditable decision per order.
-domain: Compliance & Legal
-subdomain: Cross-Jurisdiction Regulation
-tags:
-- compliance
-- regulatory-conflict
-- mifid-ii
-- sec
-- pfof
-- short-selling
-- lei
-- strictest-rule-primacy
-brokers_frameworks:
-- MiFID II
-- SEC
-- FCA
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when one order is in scope of more than one regime at once, such as SEC, MiFIR and
+  FCA, and their rules on payment for order flow, entity identifier tagging or short
+  selling disagree; resolves under strictest-rule primacy with an audit record.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: compliance, regulatory-conflict, mifid-ii, sec, pfof, short-selling, lei, strictest-rule-primacy
+  brokers_frameworks: "MiFID II; SEC; FCA; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

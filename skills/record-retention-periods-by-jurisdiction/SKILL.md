@@ -1,16 +1,17 @@
 ---
 name: record-retention-periods-by-jurisdiction
 description: >-
-  Resolves the binding minimum retention period for a trading record across every
-  jurisdiction that governs it, per record class and clock-start event, and reports the
-  earliest date on which no rule still compels retention.
-domain: Tax & Regulatory Compliance
-subdomain: Record Retention & Jurisdictional Governance
-tags: ["record-retention", "compliance", "sec-rule-17a-4", "finra-4511", "fca-sysc-9", "mifid-ii", "mas", "asic", "sebi", "jurisdiction"]
-brokers_frameworks: ["SEC Rule 17a-4 (US)", "FINRA Rule 4511 (US)", "CFTC Reg 1.31 (US)", "FCA SYSC 9 (UK)", "MiFID II Art. 16(6) (EU)", "MAS SFA (Singapore)", "Corporations Act 2001 (Australia)", "SEBI Stock Brokers Regulations (India)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a storage lifecycle policy or archive migration is about to decide whether a
+  trading record can be deleted, resolving the binding minimum retention across every
+  regulator that governs it and the earliest date no rule still compels keeping it.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: record-retention, compliance, sec-rule-17a-4, finra-4511, fca-sysc-9, mifid-ii, mas, asic, sebi, jurisdiction
+  brokers_frameworks: "SEC Rule 17a-4 (US); FINRA Rule 4511 (US); CFTC Reg 1.31 (US); FCA SYSC 9 (UK); MiFID II Art. 16(6) (EU); MAS SFA (Singapore); Corporations Act 2001 (Australia); SEBI Stock Brokers Regulations (India); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

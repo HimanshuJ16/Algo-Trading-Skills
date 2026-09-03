@@ -1,27 +1,17 @@
 ---
 name: deribit-crypto-options-api
-description: Deribit API v2 inverse options engine — JSON-RPC 2.0 payload construction
-  with explicit post_only and order labels, coin-to-USD premium conversion, portfolio
-  Greeks aggregation including the coin-settled premium leg, and a pre-trade capital
-  gate that refuses to approve a short without an exchange margin quote.
-domain: Decentralized Finance (DeFi) & Crypto Derivatives
-subdomain: Crypto Options Trading
-tags:
-- deribit
-- crypto-options
-- json-rpc-2.0
-- inverse-options
-- btc-options
-- eth-options
-- option-greeks
-- mark-iv
-brokers_frameworks:
-- Deribit API v2
-- JSON-RPC 2.0
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when trading Deribit inverse coin-settled BTC and ETH options: JSON-RPC 2.0
+  payload construction with post_only and order labels, coin-to-USD premium conversion,
+  and portfolio Greeks including the coin-settlement term.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: deribit, crypto-options, json-rpc-2.0, inverse-options, btc-options, eth-options, option-greeks, mark-iv
+  brokers_frameworks: "Deribit API v2; JSON-RPC 2.0; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

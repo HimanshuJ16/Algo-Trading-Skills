@@ -1,14 +1,17 @@
 ---
 name: japan-exchange-group-jpx-api-integration
 description: >-
-  Quantitative market gateway engine for Japan Exchange Group (JPX / Tokyo Stock Exchange, arrowhead4.0), enforcing four-character alphanumeric securities codes, the three published TSE tick size tables, 100-share trading units, and the absolute-yen daily price limit schedule.
-domain: Global Market Integration & FX
-subdomain: Japanese Market Connectivity & TSE Arrowhead Gateway
-tags: ["jpx", "japan-exchange", "tse", "arrowhead", "tokyo-stock-exchange", "board-lot", "tick-sizes"]
-brokers_frameworks: ["TSE arrowhead4.0 Cash Equity Trading System", "JPX Securities Identification Code Committee (SICC) codes", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when routing cash-equity orders to the Tokyo Stock Exchange arrowhead4.0 platform,
+  enforcing four-character securities codes, the three published TSE tick size tables
+  and absolute-yen daily price limits.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: jpx, japan-exchange, tse, arrowhead, tokyo-stock-exchange, board-lot, tick-sizes
+  brokers_frameworks: "TSE arrowhead4.0 Cash Equity Trading System; JPX Securities Identification Code Committee (SICC) codes; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

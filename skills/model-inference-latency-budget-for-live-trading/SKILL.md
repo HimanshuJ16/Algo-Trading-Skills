@@ -1,14 +1,17 @@
 ---
 name: model-inference-latency-budget-for-live-trading
 description: >-
-  Auditing an ML model's inference latency against a percentile budget on a live tick-to-trade path: HdrHistogram-compatible nearest-rank P25-P99.9 percentiles, a sample-count resolution gate that refuses to approve a tail it cannot measure, unrounded budget comparison, jitter as both sigma and IQR, and a fallback recommendation that says out loud whether the fallback was ever shown to be faster.
-domain: Market Microstructure Latency
-subdomain: ML Inference Budgeting & Real-Time SLA Governance
-tags: ["model-inference", "latency-budget", "onnx", "tensorrt", "p99-latency", "sla-governance", "quantized-fallback", "tick-to-trade"]
-brokers_frameworks: ["ONNX Runtime", "TensorRT", "CUDA Graphs", "HdrHistogram", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding whether an ML model is fast enough to keep serving live signals;
+  audits a captured latency sample against a percentile budget with nearest-rank P25 to
+  P99.9 and a sample-count gate that refuses to answer on too few points.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: model-inference, latency-budget, onnx, tensorrt, p99-latency, sla-governance, quantized-fallback, tick-to-trade
+  brokers_frameworks: "ONNX Runtime; TensorRT; CUDA Graphs; HdrHistogram; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -18,8 +21,8 @@ Use this skill when an ML model — a gradient-boosted ensemble, an LSTM, a tran
 Getting a P99 *number* out of a list of samples is easy. This module exists because four things routinely make that number wrong in ways nothing complains about:
 
 1. **The sample count may not be able to resolve the percentile.** A "P99" over 60 inference calls is not a 1-in-100 event — it is the worst of 60 calls wearing a label it did not earn. Below 100 samples the P99 rank *is* the maximum, arithmetically.
-2. **The estimator may report a latency the model never produced.** Linear interpolation — NumPy's default, and what this module's previous revision used — blends neighbouring observations. On a model that is either 0.3 ms or 2.5 ms and nothing between, it reports a median of **1.4 ms**.
-3. **The comparison may be made on a rounded value.** A P99 of 1.0004 ms displayed to three decimals is 1.0 ms, and 1.0 is not greater than a 1.0 ms budget. The previous revision recorded that case as compliant.
+2. **The estimator may report a latency the model never produced.** Linear interpolation — NumPy's default — blends neighbouring observations. On a model that is either 0.3 ms or 2.5 ms and nothing between, it reports a median of **1.4 ms**.
+3. **The comparison may be made on a rounded value.** A P99 of 1.0004 ms displayed to three decimals is 1.0 ms, and 1.0 is not greater than a 1.0 ms budget — comparing on the rounded value records that case as compliant.
 4. **The fallback may not be faster.** `QUANTIZED_ONNX_FALLBACK` is a recommendation, not a guarantee: ONNX Runtime documents that quantization "has overhead (from quantizing and dequantizing), so it is not rare to get worse performance on old devices."
 
 The engine reports nearest-rank percentiles, jitter as both $\sigma$ and IQR, and a status that distinguishes *breached*, *compliant*, and *not measurable*.
@@ -64,7 +67,7 @@ The engine reports nearest-rank percentiles, jitter as both $\sigma$ and IQR, an
 
 ## Common Pitfalls
 
-- **Approving a model on a P99 the window cannot support.** Below 100 samples the P99 nearest rank *is* the maximum. The number renders, the dashboard is green, and it describes the worst of a short run rather than a 1-in-100 event. This is the failure mode most likely to survive code review, because nothing about the output looks wrong. The same applies at 10× the scale to the P99.9 that this skill's own earlier revision told readers to compute from 100 samples.
+- **Approving a model on a P99 the window cannot support.** Below 100 samples the P99 nearest rank *is* the maximum. The number renders, the dashboard is green, and it describes the worst of a short run rather than a 1-in-100 event. This is the failure mode most likely to survive code review, because nothing about the output looks wrong. The same applies at 10× the scale to a P99.9 computed from 100 samples.
 - **Rounding the percentile before comparing it to the budget.** Round for the report, compare on the raw value, or a 1.0004 ms P99 is displayed as 1.000 and recorded as a pass.
 - **Assuming the quantized fallback is faster.** INT8 helps on "x86-64 with VNNI, GPU with Tensor Core int8 support and Arm®-based processors with dot-product instructions"; elsewhere the quantize/dequantize overhead can make it slower. Profile the fallback on the *deployment* hardware before wiring it to an automatic trigger, and pass that number as `fallback_profiled_p99_ms`.
 - **Treating the fallback as latency-only.** "Quantization is not a loss-less transformation. It may negatively affect a model's accuracy." An automatic switch to INT8 changes the signal distribution the position sizer and risk limits were calibrated on. A latency fallback is a silent strategy change unless the fallback model's signal has been backtested in its own right.

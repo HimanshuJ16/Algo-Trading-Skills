@@ -1,38 +1,17 @@
 ---
 name: webhook-based-order-fill-notifications
 description: >-
-  Use when a trading bot receives order fill or execution notifications by
-  inbound HTTP webhook. The first finding is usually that your broker does not
-  send them: Interactive Brokers, Alpaca, TradeStation and Coinbase Advanced
-  Trade all push fills over a persistent stream, not a webhook, so check before
-  building a receiver. Where webhooks do exist they are weaker than they look --
-  DhanHQ postbacks carry no signature at all, and Zerodha Kite's checksum covers
-  only order_id + order_timestamp + api_secret, leaving the filled quantity
-  unauthenticated. Covers HMAC-SHA256 verification over the raw body, the
-  five-minute replay window, the atomic order_id:exec_id idempotency claim that
-  must be taken once and never re-applied, out-of-order and missing-sequence
-  detection, and the reconcile-before-you-book rule that keeps an unverifiable
-  payload out of the position ledger.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- webhooks
-- order-fills
-- deduplication
-- at-least-once-delivery
-- idempotency
-- replay-protection
-- hmac-sha256
-- reconciliation
-brokers_frameworks:
-- Zerodha Kite Connect v3 postbacks
-- DhanHQ v2 postbacks
-- Standard Webhooks specification
-- OWASP Cheat Sheet Series (webhook security guidelines)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a venue delivers fills by POSTing to an endpoint you host. Check first
+  whether your broker sends webhooks at all, since IBKR, Alpaca, TradeStation and
+  Coinbase Advanced Trade all push fills over a persistent stream instead.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, webhooks, order-fills, deduplication, at-least-once-delivery, idempotency, replay-protection, hmac-sha256, reconciliation
+  brokers_frameworks: "Zerodha Kite Connect v3 postbacks; DhanHQ v2 postbacks; Standard Webhooks specification; OWASP Cheat Sheet Series (webhook security guidelines)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -237,7 +216,7 @@ order or trades endpoint is the authority on *what* changed.
 - `zerodha-kite-postback-webhook-verification`
 - `order-placement-idempotency`
 - `websocket-reconnection-with-state-recovery`
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `graceful-degradation-to-polling-fallback`
 - `multi-broker-consolidated-position-view`
 - `secrets-rotation-without-bot-downtime`

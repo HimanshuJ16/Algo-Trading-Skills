@@ -11,7 +11,20 @@ attribution figure externally.
 - [ ] **Annualization factor:** matches the data frequency (252 / 52 / 12 / 365). A monthly
       series left at 252 is wrong by $4.6\times$.
 - [ ] **Risk-free rate:** annual decimal, and the same $R_f$ used everywhere in the report.
+- [ ] **Simple, net returns:** both series are simple (not log) returns, and the portfolio
+      series is net of fees, financing and transaction costs.
 - [ ] **No non-finite values:** confirmed the engine raised nothing on NaN/Inf.
+
+## Benchmark appropriateness
+
+- [ ] **Specified in advance:** the benchmark was fixed before results were seen, not
+      chosen from a shortlist afterwards.
+- [ ] **Mandate-appropriate:** a long-only index is not being used to score a
+      market-neutral book (use a zero-beta custom benchmark or cash, and say which).
+- [ ] **Blends documented:** any blended benchmark is identified as a custom benchmark with
+      its components and weights.
+- [ ] **Payoff is roughly linear:** the strategy is not an options overlay or otherwise
+      heavily convex, whose residual a single beta would mislabel as alpha.
 
 ## Alpha & beta
 
@@ -20,6 +33,12 @@ attribution figure externally.
 - [ ] **Alpha convention disclosed:** arithmetic annualization stated in the report;
       any comparison against `pyfolio`/`empyrical` accounts for their geometric convention.
 - [ ] **Alpha is beta-adjusted:** active return ($R_p - R_b$) has not been reported as alpha.
+- [ ] **Leverage ruled out:** if beta is materially above 1, confirm the "alpha" is not
+      unfunded leverage ($\alpha = +R_f$ for a 2x unfunded clone).
+- [ ] **Undefined is not zero:** every `nan` / $\pm\infty$ in the output has been traced to
+      the degeneracy that caused it, and none has been substituted with `0.0`.
+- [ ] **Warnings read first:** `AttributionSummary.warnings` was read before any figure was
+      quoted; an empty list was confirmed, not assumed.
 
 ## Tracking error & information ratio
 
@@ -30,6 +49,25 @@ attribution figure externally.
       the sample length in years. $\lvert t \rvert < 1.96$ recorded as such.
 - [ ] **Sample length adequate:** more than 30 observations, and enough years that the IR
       gate is meaningful. Confirm no thin-sample warning was logged and ignored.
+- [ ] **Active returns plausibly serially uncorrelated:** smoothed or illiquid marks are
+      positively autocorrelated, which makes the $\sqrt{N}$ annualization understate $TE$
+      and inflate both the IR and its $t$-statistic.
+- [ ] **Tracking error checked against the mandate** independently of whether alpha is
+      positive.
+
+## Multi-strategy comparison
+
+- [ ] **One benchmark, one window:** every row in the table came from a single
+      `compare_strategies` call, with the same `annualization_factor` and $R_f$.
+- [ ] **No missing rows:** every strategy in scope appears; none was dropped because it
+      failed validation.
+- [ ] **Caveat counts read:** rows resting on short samples or undefined metrics are
+      labelled, not ranked alongside long-sample rows as if equivalent.
+- [ ] **Simple alternative benchmarked:** for a capital-allocation decision, the book was
+      also scored against the simple alternative it is meant to replace (60/40, equal-weight
+      sleeve, or cash), not only against a market index.
+- [ ] **Hidden beta checked:** a book sold as uncorrelated absolute return does not show a
+      material beta to a broad index.
 
 ## Brinson-Fachler attribution
 
@@ -50,7 +88,11 @@ attribution figure externally.
 ## Scope
 
 - [ ] **Single-factor limitation acknowledged:** any size/value/momentum tilt shows up as
-      alpha here. A multi-factor check was run, or its absence is disclosed.
+      alpha here, in every row of a comparison table alike. A multi-factor check
+      (`strategy-performance-attribution-vs-market-beta`) was run, or its absence is disclosed.
+- [ ] **Inference limitation acknowledged:** the reported $t$ assumes i.i.d. active returns.
+      No autocorrelation-robust (Newey-West) standard errors or confidence intervals are
+      produced here.
 - [ ] **GIPS:** if the output appears in a GIPS Report, it is labelled *supplemental
       information*. This skill alone does not establish GIPS compliance.
 

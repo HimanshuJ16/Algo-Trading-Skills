@@ -78,7 +78,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - Every `SessionInfo` carries `source` (`EXCHANGE_CALENDARS` / `STATIC_FALLBACK`
      / `NONE`) so a wrong decision is attributable to the calendar that produced it.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Silent Fallback on a Dead Primary Path:** calling a non-existent calendar method
   inside `except Exception` — the library path raises on every request, the warning

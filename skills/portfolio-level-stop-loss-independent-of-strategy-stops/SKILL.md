@@ -1,14 +1,17 @@
 ---
 name: portfolio-level-stop-loss-independent-of-strategy-stops
 description: >-
-  Independent portfolio-level stop-loss engine monitoring aggregated daily and peak-to-trough drawdowns, fail-closed on unevaluable inputs, latching a trading lockout that only a human can clear, and triggering emergency global position flattening independent of sub-strategy stops.
-domain: Portfolio Multi Strategy
-subdomain: Risk Governance & Global Circuit Breakers
-tags: ["portfolio-stop-loss", "drawdown-kill-switch", "risk-management", "circuit-breaker", "multi-strategy-risk", "nav-monitoring"]
-brokers_frameworks: ["Global Portfolio Risk Framework", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when sub-strategies have their own stops but nothing halts the book when
+  correlations spike, monitoring aggregate daily and peak-to-trough drawdown and
+  latching a lockout only a human can clear.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: portfolio-stop-loss, drawdown-kill-switch, risk-management, circuit-breaker, multi-strategy-risk, nav-monitoring
+  brokers_frameworks: "Global Portfolio Risk Framework; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

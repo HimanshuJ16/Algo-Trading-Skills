@@ -1,27 +1,17 @@
 ---
 name: broker-api-versioning-migration-playbook
-description: Use when moving a live trading system from one broker API version to the
-  next — phase-gated shadow reads, deterministic per-order canary routing that survives
-  retries and replicas, latched rollback, and a translator that refuses to silently
-  change an order's time-in-force or invent a target-version field.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- api-migration
-- canary-deployment
-- shadow-traffic
-- schema-drift
-- rollback
-- deployment-ops
-brokers_frameworks:
-- Coinbase Advanced Trade API (CreateOrder)
-- MiFID II RTS 6 (Reg (EU) 2017/589)
-- SEC Rule 15c3-5
-- Python Trading Engine
-version: "3.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when moving live order flow from one broker API version to the next: shadow reads,
+  deterministic per-order canary routing that survives retries, latched rollback, and a
+  translator that refuses to silently change time-in-force.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, api-migration, canary-deployment, shadow-traffic, schema-drift, rollback, deployment-ops
+  brokers_frameworks: "Coinbase Advanced Trade API (CreateOrder); MiFID II RTS 6 (Reg (EU) 2017/589); SEC Rule 15c3-5; Python Trading Engine"
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Broker API Versioning & Migration Playbook
@@ -44,12 +34,11 @@ a specific way of putting two orders in the market where the strategy intended o
 > **A cancel must reach the version that holds the order.**
 > **A target-version field you have not read in the spec does not exist.**
 
-That last one is not hypothetical. The previous revision of this skill's own translator
-emitted a Coinbase `order_configuration` key called `stop_stop_gtc`. No such key exists:
-the published CreateOrder schema has `stop_limit_stop_limit_gtc`, and it requires
-`limit_price`, `stop_price` and `stop_direction` together. Every stop order translated
-by that code would have been rejected by the venue — or worse, silently reshaped by a
-permissive gateway.
+That last one is not hypothetical. A translator emitting a Coinbase `order_configuration`
+key called `stop_stop_gtc` is inventing one: no such key exists. The published CreateOrder
+schema has `stop_limit_stop_limit_gtc`, and it requires `limit_price`, `stop_price` and
+`stop_direction` together. Every stop order translated by such code is rejected by the
+venue — or worse, silently reshaped by a permissive gateway.
 
 ## When NOT to Use
 

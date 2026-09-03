@@ -1,14 +1,17 @@
 ---
 name: graceful-degradation-priority-during-partial-outage
 description: >-
-  Use when a trading system is degraded but not dead and something has to be given up — decides, per task, whether to process it, defer it, or drop it under a four-tier priority hierarchy (P1 risk/cancel, P2 exits, P3 entries, P4 analytics), fails safe on unreadable health telemetry, and never sheds P1.
-domain: High-Availability Architecture
-subdomain: Fault Tolerance & Load Shedding
-tags: ["graceful-degradation", "load-shedding", "priority-queue", "partial-outage", "capital-preservation", "high-availability", "fault-tolerance"]
-brokers_frameworks: ["Generic Fault-Tolerant Architecture", "Google SRE Criticality / Load-Shedding Pattern", "MiFID II RTS 6 (EU 2017/589)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a trading system is degraded but still running and must decide which work to
+  stop doing first; a four-tier priority hierarchy that keeps risk and cancel traffic
+  ahead of analytics and logging.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: graceful-degradation, load-shedding, priority-queue, partial-outage, capital-preservation, high-availability, fault-tolerance
+  brokers_frameworks: "Generic Fault-Tolerant Architecture; Google SRE Criticality / Load-Shedding Pattern; MiFID II RTS 6 (EU 2017/589); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

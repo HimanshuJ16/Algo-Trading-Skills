@@ -1,27 +1,17 @@
 ---
 name: broker-status-page-monitoring-integration
-description: Use when building automated incident response and alerting for trading
-  bots to poll public broker status pages and status APIs (Atlassian Statuspage v2
-  `/api/v2/summary.json` endpoints) and decide whether an execution failure is a
-  broker-side outage or a bug in your own code. Requires positive, fresh evidence
-  before it will suppress a bug ticket or escalate one, and returns an explicit
-  undetermined verdict when the status feed is stale, unreachable or merely ambiguous.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- status-page
-- outage-monitoring
-- incident-response
-- statuspage-io
-- health-checks
-brokers_frameworks:
-- Atlassian Statuspage Status API v2
-- Alpaca Status Page
-- Coinbase Status Page
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an order or feed failure raises the on-call question of whether the broker is
+  down or your code is. Polls Atlassian Statuspage v2 summary feeds scoped to the
+  components your order flow uses, and requires fresh positive evidence.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, status-page, outage-monitoring, incident-response, statuspage-io, health-checks
+  brokers_frameworks: "Atlassian Statuspage Status API v2; Alpaca Status Page; Coinbase Status Page"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

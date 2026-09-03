@@ -1,25 +1,18 @@
 ---
 name: ensemble-signal-combination-without-overfitting
-description: Use when ensembling multiple trading signals or ML models to apply causal
-  signal normalization, non-negative weight constraints, 1/N shrinkage, inverse
-  forecast-error-variance weighting, and per-model weight caps without overfitting to
-  historical noise
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- ensemble-learning
-- signal-combination
-- l2-regularization
-- 1-over-n-shrinkage
-brokers_frameworks:
-- scikit-learn
-- SciPy Optimize
-- NumPy
-- Custom Signal Ensembles
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when combining several alpha signals or sub-models into one score and
+  unconstrained regression would produce extreme offsetting weights; causal
+  normalisation, non-negative weights, 1/N shrinkage and inverse forecast-error-variance
+  weighting.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, ensemble-learning, signal-combination, l2-regularization, 1-over-n-shrinkage
+  brokers_frameworks: "scikit-learn; SciPy Optimize; NumPy; Custom Signal Ensembles"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

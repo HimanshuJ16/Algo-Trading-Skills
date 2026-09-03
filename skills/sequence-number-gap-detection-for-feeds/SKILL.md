@@ -1,14 +1,17 @@
 ---
 name: sequence-number-gap-detection-for-feeds
 description: >-
-  Multi-stream sequence-continuity engine for market data feeds — tracks one expected sequence per channel or WebSocket stream, buffers out-of-order frames behind a bounded gap, computes the sequence ranges that are actually missing, and withholds trading authorization until the stream is repaired by retransmission backfill or a snapshot resynchronization.
-domain: Market Data & Messaging Protocols
-subdomain: Feed Gap Detection & State Reconciliation
-tags: ["gap-detection", "sequence-number", "moldudp64", "cme-mdp3", "binance-depth-stream", "packet-loss", "order-book-sync", "retransmission", "snapshot-recovery"]
-brokers_frameworks: ["Nasdaq MoldUDP64", "Nasdaq TotalView-ITCH", "CME MDP 3.0", "Binance WebSocket Depth Streams", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when downstream state is only correct if every feed message arrived exactly once
+  and in order. Tracks one expected sequence per stream, buffers out-of-order frames,
+  computes the missing ranges, and withholds trading authorization until repaired.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: gap-detection, sequence-number, moldudp64, cme-mdp3, binance-depth-stream, packet-loss, order-book-sync, retransmission, snapshot-recovery
+  brokers_frameworks: "Nasdaq MoldUDP64; Nasdaq TotalView-ITCH; CME MDP 3.0; Binance WebSocket Depth Streams; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

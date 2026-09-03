@@ -1,14 +1,17 @@
 ---
 name: risk-adjusted-performance-attribution-per-strategy
 description: >-
-  Use when ranking strategies in a multi-strategy portfolio by risk-adjusted return (Sharpe, Sortino, Calmar, max drawdown) and decomposing portfolio volatility across them via the Euler marginal-risk-contribution identity.
-domain: Portfolio & Risk Management
-subdomain: Performance Attribution & Risk Decomposition
-tags: ["performance-attribution", "sharpe-ratio", "sortino-ratio", "calmar-ratio", "max-drawdown", "risk-contribution", "euler-decomposition"]
-brokers_frameworks: ["Sharpe (1994)", "Sortino & Price (1994)", "Calmar (Young 1991)", "Euler Risk Decomposition", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when several strategies share one risk budget and you need to know which earn
+  their risk: per-strategy Sharpe, Sortino, Calmar and max drawdown, plus Euler
+  decomposition of portfolio volatility across them.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: performance-attribution, sharpe-ratio, sortino-ratio, calmar-ratio, max-drawdown, risk-contribution, euler-decomposition
+  brokers_frameworks: "Sharpe (1994); Sortino & Price (1994); Calmar (Young 1991); Euler Risk Decomposition; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

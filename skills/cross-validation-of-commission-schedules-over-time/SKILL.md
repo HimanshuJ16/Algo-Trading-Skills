@@ -1,22 +1,17 @@
 ---
 name: cross-validation-of-commission-schedules-over-time
-description: Use when backtesting multi-year historical strategies to model historical
-  changes in broker commission schedules over time rather than applying modern zero-commission
-  or current fee structures retroactively.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- commission-schedule
-- historical-fees
-- transaction-costs
-- broker-rates
-brokers_frameworks:
-- Historical Commission Modeler
-- Python
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a multi-year US equity backtest applies today's zero commissions to trades
+  from 2016; models the schedule that actually applied on each date. Volume-tiered rates
+  belong to exchange-fee-tier-and-rebate-structure-analysis.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, commission-schedule, historical-fees, transaction-costs, broker-rates
+  brokers_frameworks: "Historical Commission Modeler; Python"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

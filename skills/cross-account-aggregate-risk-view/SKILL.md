@@ -1,23 +1,17 @@
 ---
 name: cross-account-aggregate-risk-view
-description: Quantitative multi-account risk management engine for consolidating positions,
-  cash, and margin across sub-accounts/prime brokers, enforcing firm-wide GMV caps,
-  and flagging internal long/short offsetting friction.
-domain: Risk Management & Operations
-subdomain: Multi-Account Risk
-tags:
-- cross-account
-- aggregate-risk
-- firm-wide-limits
-- sub-accounts
-- margin-utilization
-- wash-trade-detection
-brokers_frameworks:
-- Generic Risk Engine
-- Python Dataclasses
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when risk is managed per sub-account and nothing measures firm-wide exposure;
+  consolidates positions, cash and margin across accounts, enforces gross market value
+  caps and flags internal long/short offsets.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: cross-account, aggregate-risk, firm-wide-limits, sub-accounts, margin-utilization, wash-trade-detection
+  brokers_frameworks: "Generic Risk Engine; Python Dataclasses"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

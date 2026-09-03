@@ -1,25 +1,17 @@
 ---
 name: data-pipeline-schema-contract-testing
-description: Quantitative data quality engine for enforcing schema contracts (field
-  types, nullability, value bounds, and schema drift) on incoming market data feeds
-  and feature stores.
-domain: Data Management Global
-subdomain: Data Quality & Schema Governance
-tags:
-- schema-contract
-- data-quality
-- pydantic
-- schema-drift
-- dead-letter-queue
-- null-constraint
-- type-validation
-brokers_frameworks:
-- Great Expectations
-- Pydantic
-- Python Dataclasses
-version: "1.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use at the ingestion edge, to enforce field types, nullability and value bounds
+  against a declared contract and catch silent vendor schema drift such as a renamed
+  field or a price arriving as a string.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: schema-contract, data-quality, pydantic, schema-drift, dead-letter-queue, null-constraint, type-validation
+  brokers_frameworks: "Great Expectations; Pydantic; Python Dataclasses"
+  version: "1.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

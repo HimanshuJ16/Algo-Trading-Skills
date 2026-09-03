@@ -1,14 +1,17 @@
 ---
 name: taiwan-stock-exchange-twse-api
 description: >-
-  Use when an order is about to be sent to the Taiwan Stock Exchange and must first be legal for the security it names — the six-band equity tick schedule of Operating Rules Article 62 (which is not the two-tier ETF table), the Article 63 ±10% band whose bounds are snapped onto the tick grid toward the auction reference price, the 1,000-share trading unit and its odd-lot exceptions, the session-by-session order-type matrix, and the 平盤以下 short-sale restriction that replaces any notion of a US-style locate.
-domain: Global Market Integration & FX
-subdomain: Taiwanese Market Connectivity & TWSE Gateway
-tags: ["twse", "taiwan-stock-exchange", "fini", "tick-size", "price-limit", "odd-lot-trading", "short-selling"]
-brokers_frameworks: ["TWSE centralised market (集中交易市場) matching engine", "TWSE Operating Rules Articles 62 and 63", "TWSE 平盤下得融(借)券賣出 daily list (report TWT92U)", "TWSE OpenAPI (open data only, no order entry)", "TWSE member securities-firm order-entry link (電腦自動交易買賣申報)", "Python Decimal"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a Taiwan Stock Exchange order must be legal before it reaches a securities
+  firm: the six-band equity tick schedule of Operating Rules Article 62, lot rules,
+  order types and short-sale status.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: twse, taiwan-stock-exchange, fini, tick-size, price-limit, odd-lot-trading, short-selling
+  brokers_frameworks: "TWSE centralised market (集中交易市場) matching engine; TWSE Operating Rules Articles 62 and 63; TWSE 平盤下得融(借)券賣出 daily list (report TWT92U); TWSE OpenAPI (open data only, no order entry); TWSE member securities-firm order-entry link (電腦自動交易買賣申報); Python Decimal"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

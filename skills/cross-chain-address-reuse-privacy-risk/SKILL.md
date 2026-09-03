@@ -1,24 +1,17 @@
 ---
 name: cross-chain-address-reuse-privacy-risk
-description: Quantitative crypto custody and security module for auditing cross-chain
-  address reuse, detecting deanonymization linkages across EVM/UTXO networks, and
-  calculating privacy risk scores.
-domain: Crypto Custody & Security
-subdomain: On-Chain Privacy & Deanonymization
-tags:
-- crypto-security
-- address-reuse
-- privacy-risk
-- hd-wallet
-- bip44
-- deanonymization
-- chainalysis
-brokers_frameworks:
-- BIP-44 Standard
-- Python Dataclasses
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when auditing whether reusing the same address across chains such as Ethereum,
+  Arbitrum, Solana and Bitcoin lets an observer link a desk's activity, scoring the
+  deanonymisation exposure of a wallet registry you supply.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-security, address-reuse, privacy-risk, hd-wallet, bip44, deanonymization, chainalysis
+  brokers_frameworks: "BIP-44 Standard; Python Dataclasses"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

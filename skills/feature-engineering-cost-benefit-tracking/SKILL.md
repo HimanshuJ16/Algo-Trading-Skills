@@ -1,27 +1,17 @@
 ---
 name: feature-engineering-cost-benefit-tracking
-description: Use when pruning ML feature sets to weigh each feature's marginal
-  predictive contribution (permutation importance / SHAP) against its licensing
-  cost, compute cost, and inference latency, with guards against pruning
-  correlated features whose importance is diluted and against over-stating savings
-  on shared vendor licences.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- feature-cost-benefit
-- permutation-importance
-- shapley-value
-- cost-benefit-pruning
-- feature-selection
-- inference-latency-budget
-brokers_frameworks:
-- Feature Cost-Benefit Tracker Engine
-- scikit-learn
-- SHAP
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a feature pipeline has accumulated expensive inputs with negligible marginal
+  accuracy; weighs each feature's permutation importance against its licensing cost,
+  compute cost and inference latency before pruning.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, feature-cost-benefit, permutation-importance, shapley-value, cost-benefit-pruning, feature-selection, inference-latency-budget
+  brokers_frameworks: "Feature Cost-Benefit Tracker Engine; scikit-learn; SHAP"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -153,7 +153,7 @@ class TestEsmaTruncation(SsrTestBase):
         self.assertEqual(report.current_threshold_pct, 0.30)
 
     def test_esma_worked_example_0_1987_reports_as_0_19(self):
-        # 198,700 / 100,000,000 = 0.1987%. Under the pre-2022 0.2% threshold ESMA's
+        # 198,700 / 100,000,000 = 0.1987%. Under an earlier 0.2% threshold ESMA's
         # answer was "no notification"; under today's 0.1% threshold it is
         # notifiable, but the figure filed is still the truncated 0.19%.
         report = self.evaluate(short_shares_qty=198_700)

@@ -1,23 +1,17 @@
 ---
 name: constructive-sale-rule-considerations-us
-description: US tax compliance module for detecting IRC Section 1259 constructive sales
-  of appreciated financial positions (short-against-the-box, offsetting notional principal
-  contracts, futures/forwards) and auditing the Section 1259(c)(3) 30-day/60-day safe harbor.
-domain: Tax Accounting & Compliance
-subdomain: US Tax Rules
-tags:
-- tax-accounting
-- section-1259
-- constructive-sale
-- short-against-the-box
-- safe-harbor
-- capital-gains
-brokers_frameworks:
-- IRS Section 1259
-- Generic Tax Compliance
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when hedging an appreciated position in a US taxable account and an offsetting
+  transaction could trigger an immediate constructive sale under IRC 1259, such as a
+  short against the box, offsetting notional contract, or a forward.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: tax-accounting, section-1259, constructive-sale, short-against-the-box, safe-harbor, capital-gains
+  brokers_frameworks: "IRS Section 1259; Generic Tax Compliance"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,14 +1,17 @@
 ---
 name: strategy-level-kill-switch-vs-portfolio-level-kill-switch
 description: >-
-  Two-tier circuit breaker deciding which scope must stop — isolating one strategy on its own drawdown, escalating to a master portfolio halt on fund drawdown or a cascade of strategy failures, failing closed on unevaluable equity without liquidating, latching every trip, and gating recovery behind a scope-aware audited human re-enable.
-domain: Risk Management & Circuit Breakers
-subdomain: Hierarchical Kill Switch Governance
-tags: ["strategy-kill-switch", "portfolio-kill-switch", "circuit-breaker", "drawdown-limit", "cascade-failure", "mifid-ii-rts-6", "risk-governance"]
-brokers_frameworks: ["MiFID II RTS 6 (EU 2017/589)", "SEC Rule 15c3-5", "Nasdaq Rule 6130 Kill Switch", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a multi-strategy book needs to decide which scope must stop: isolate one
+  strategy on its own drawdown, or escalate to a fund-wide halt on aggregate drawdown or
+  a cascade of strategy failures.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: strategy-kill-switch, portfolio-kill-switch, circuit-breaker, drawdown-limit, cascade-failure, mifid-ii-rts-6, risk-governance
+  brokers_frameworks: "MiFID II RTS 6 (EU 2017/589); SEC Rule 15c3-5; Nasdaq Rule 6130 Kill Switch; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

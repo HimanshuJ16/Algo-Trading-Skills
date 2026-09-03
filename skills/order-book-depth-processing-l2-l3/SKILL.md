@@ -1,25 +1,17 @@
 ---
 name: order-book-depth-processing-l2-l3
-description: Use when maintaining a local Level 2 (price-aggregated) or Level 3 (order-by-order)
-  order book from a live depth feed and deriving top-of-book, weighted mid-price and depth
-  imbalance from it under thread-safe mutation, with crossed/locked book detection and
-  explicit book-integrity accounting
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- order-book-l2-l3
-- book-imbalance
-- weighted-midprice
-- thread-safety
-brokers_frameworks:
-- Nasdaq TotalView-ITCH 5.0
-- CME MDP 3.0 (SBE)
-- Coinbase Exchange level3 / full
-- Binance Spot Diff. Depth Stream
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when maintaining a local L2 or L3 book from an already-sequenced depth feed, and
+  reading top-of-book, weighted mid-price and depth imbalance off it under thread-safe
+  mutation, with crossed and locked book detection.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, order-book-l2-l3, book-imbalance, weighted-midprice, thread-safety
+  brokers_frameworks: "Nasdaq TotalView-ITCH 5.0; CME MDP 3.0 (SBE); Coinbase Exchange level3 / full; Binance Spot Diff. Depth Stream"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

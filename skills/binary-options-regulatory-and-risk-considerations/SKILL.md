@@ -1,26 +1,17 @@
 ---
 name: binary-options-regulatory-and-risk-considerations
-description: Use before designing, backtesting, or deploying any strategy in binary
-  options or binary-payout event contracts, to establish whether the trade is lawful
-  for the client category and jurisdiction at all, whether the venue is registered,
-  and how to size discontinuous-payoff exposure
-domain: algorithmic-trading
-subdomain: regulatory-compliance-global
-tags:
-- regulatory-compliance-global
-- binary-options
-- product-intervention
-- event-contracts
-- pre-trade-compliance
-brokers_frameworks:
-- CFTC / SEC (US)
-- FCA Handbook COBS 22.4 (UK)
-- MiFIR Article 42 national measures (EU)
-- ASIC Instrument 2021/240 (AU)
-- CSA Multilateral Instrument 91-102 (CA)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before researching or deploying a strategy in binary options or fixed-return event
+  contracts, where the first question is whether the trade is lawful for that client
+  category and jurisdiction rather than whether it has edge.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: regulatory-compliance-global, binary-options, product-intervention, event-contracts, pre-trade-compliance
+  brokers_frameworks: "CFTC / SEC (US); FCA Handbook COBS 22.4 (UK); MiFIR Article 42 national measures (EU); ASIC Instrument 2021/240 (AU); CSA Multilateral Instrument 91-102 (CA)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Binary Options Regulatory & Risk Considerations

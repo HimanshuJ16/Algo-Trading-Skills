@@ -1,25 +1,17 @@
 ---
 name: interactive-brokers-global-multi-exchange-routing
 description: >-
-  Use when constructing Interactive Brokers (TWS API / ib_insync) contracts and choosing
-  between SmartRouting and a direct venue across IBKR's global markets — validating symbol,
-  secType, currency, exchange and primaryExchange before submission so contracts resolve to
-  a single conId instead of failing with error 200 or an ambiguity error
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-  - broker-integration
-  - ibkr
-  - tws-api
-  - ib-insync
-  - smart-routing
-brokers_frameworks:
-  - Interactive Brokers TWS API
-  - ib_insync
-  - IB Gateway
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when code builds an Interactive Brokers contract and must choose between
+  SmartRouting and a direct venue across IBKR global markets, resolving symbol, security
+  type, currency and exchange ambiguity. Unnecessary once you hold a conId.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: broker-integration, ibkr, tws-api, ib-insync, smart-routing
+  brokers_frameworks: "Interactive Brokers TWS API; ib_insync; IB Gateway"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

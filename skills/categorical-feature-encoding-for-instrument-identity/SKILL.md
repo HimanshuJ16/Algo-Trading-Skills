@@ -1,25 +1,17 @@
 ---
 name: categorical-feature-encoding-for-instrument-identity
-description: Use when instrument identity (ticker, symbol, contract) must become a
-  numeric feature for a cross-sectional trading model — replacing a high-cardinality
-  symbol column with a smoothed target encoding computed only from labels already
-  realized at each row's timestamp, so newly listed symbols cold-start onto a prior
-  instead of a spurious extreme and no row is encoded using its own or a later label.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- categorical-encoding
-- target-encoding
-- instrument-identity
-- point-in-time
-brokers_frameworks:
-- pandas
-- NumPy
-- scikit-learn
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a cross-sectional model needs to know which instrument a row belongs to and
+  the symbol column has hundreds or thousands of levels; smoothed target encoding
+  computed out-of-fold, instead of one-hot columns that are almost all zero.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, categorical-encoding, target-encoding, instrument-identity, point-in-time
+  brokers_frameworks: "pandas; NumPy; scikit-learn"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

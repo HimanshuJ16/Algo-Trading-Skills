@@ -236,7 +236,7 @@ class TestPointInTimeUniverse(unittest.TestCase):
 class TestTickerRecycling(unittest.TestCase):
     """Regression for the defect that silently reintroduced survivorship bias.
 
-    Keyed by ticker, registering the new GM discarded the old one and every pre-2010
+    Keyed by ticker, registering the new GM discarded the old one and every older
     universe query returned an empty list where the old issuer belonged.
     """
 

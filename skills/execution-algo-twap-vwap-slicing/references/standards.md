@@ -29,8 +29,8 @@ in algorithmic trading in the EU.
 The substantive obligation in **MiFID II Art. 27(1)** — take *all sufficient steps* to
 obtain the best possible result for the client — is unchanged and still applies.
 
-The two periodic reporting standards this skill's earlier revision cited are **no longer
-in force**:
+The two periodic reporting standards often cited in this context are **no longer in
+force**:
 
 - **RTS 27** (venue execution-quality reports) and **RTS 28** (investment firms' top-five
   venue reports) were removed by **Directive (EU) 2024/790**, published in the Official
@@ -54,9 +54,8 @@ Do not build an RTS 27/28 reporting obligation into a new execution stack.
 | **Rule 605** of Reg NMS, *Disclosure of Order Execution Information* | Market centers, and (since the 2024 amendments) broker-dealers introducing or carrying ≥100,000 customer accounts | A **disclosure** rule for the sell side. A buy-side firm slicing its own parent order has no Rule 605 obligation. Amended by Release No. 34-99679 (adopted 6 March 2024, effective 14 June 2024); the compliance date was extended to **1 August 2026**. |
 | **Rule 606** of Reg NMS | Broker-dealers routing *customer* orders | Order-routing disclosure. Same point: not an obligation of a firm executing its own orders. |
 
-The earlier revision of this file cited Rules 605/606 as though they applied here. They
-constrain the venues and brokers you route through; they are not a reporting duty this
-skill creates.
+Rules 605/606 do not apply to a firm slicing its own parent order. They constrain the
+venues and brokers you route through; they are not a reporting duty this skill creates.
 
 ## Broker / venue native algo behaviour (verified against vendor documentation)
 

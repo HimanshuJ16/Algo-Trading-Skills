@@ -1,22 +1,17 @@
 ---
 name: australian-securities-exchange-asx-api
-description: Institutional API integration adapter for the Australian Securities Exchange
-  (ASX), supporting FIX 5.0 SP2, OUCH, and ITCH protocols with AEST/AEDT session-schedule
-  awareness, ALC topology enforcement, and FIX session-state primitives.
-domain: global-market-integration
-subdomain: exchanges
-tags:
-- asx
-- australia
-- fix
-- ouch
-- itch
-- market-connectivity
-brokers_frameworks:
-- direct-market-access
-version: "1.3.0"
-author: System
-license: MIT
+description: >-
+  Use when building direct market access to the Australian Securities Exchange over FIX
+  5.0 SP2, OUCH or ITCH; covers ASX Customer Development Environment configuration, ALC
+  topology rules and AEST/AEDT session-schedule awareness.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: asx, australia, fix, ouch, itch, market-connectivity
+  brokers_frameworks: direct-market-access
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

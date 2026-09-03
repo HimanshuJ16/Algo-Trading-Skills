@@ -1,25 +1,17 @@
 ---
 name: dubai-financial-market-dfm-api
-description: Pre-trade validation and FIX 4.4 payload builder for Dubai Financial
-  Market (DFM) orders, validating 10-digit National Investor Numbers (NIN), the tick
-  size structure effective 6 April 2026, and per-security Upper/Lower Price Limits.
-domain: Venue Integration & Protocols
-subdomain: Middle East (GCC/MENA) Exchange Integration
-tags:
-- dfm
-- dubai-financial-market
-- gcc-markets
-- fix-4.4
-- nin-investor-number
-- aed-currency
-- mena-trading
-brokers_frameworks:
-- DFM FIX 4.4 Gateway
-- Dubai CSD
-- Python Dataclasses
-version: "1.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when submitting orders to Dubai Financial Market over FIX 4.4, validating the
+  10-digit National Investor Number, the tick size structure and per-security price
+  limits before dispatch under UAE SCA rules.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: dfm, dubai-financial-market, gcc-markets, fix-4.4, nin-investor-number, aed-currency, mena-trading
+  brokers_frameworks: "DFM FIX 4.4 Gateway; Dubai CSD; Python Dataclasses"
+  version: "1.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

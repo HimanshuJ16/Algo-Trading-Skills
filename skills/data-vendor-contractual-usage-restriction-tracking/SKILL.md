@@ -1,26 +1,17 @@
 ---
 name: data-vendor-contractual-usage-restriction-tracking
-description: Fail-closed pre-access gate enforcing market data vendor contract scope
-  — licensed use cases, non-display entitlement, external redistribution, seat caps,
-  and contract term — with an auditable reason recorded for every decision.
-domain: Data Management Global
-subdomain: Vendor Data Governance
-tags:
-- vendor-compliance
-- data-licensing
-- non-display-trading
-- bloomberg-bpipe
-- lseg-dacs
-- redistribution-audit
-- entitlement-tracking
-brokers_frameworks:
-- LSEG DACS (formerly Refinitiv DACS)
-- Bloomberg EMRS
-- Nasdaq Global Data Agreement
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an internal system asks for vendor market data and the firm must decide
+  whether that purpose is inside the licensed scope: use case, non-display entitlement,
+  redistribution and seat caps, failing closed with a reason.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: vendor-compliance, data-licensing, non-display-trading, bloomberg-bpipe, lseg-dacs, redistribution-audit, entitlement-tracking
+  brokers_frameworks: "LSEG DACS (formerly Refinitiv DACS); Bloomberg EMRS; Nasdaq Global Data Agreement; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

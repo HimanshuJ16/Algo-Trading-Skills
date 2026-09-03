@@ -28,7 +28,7 @@ actually implementing the skill, not while deciding whether it applies.
    - Symbols absent from the matrix are treated as their own single-symbol cluster (warning logged) — feed new listings into the next matrix refresh.
    - Every decision is appended to `audit_trail` (`PositionAuditLog`).
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Single-Symbol Limit Blind Spot:** Setting 5% limits per ticker while holding 8 tech stocks (40% total tech exposure).
 - **Static Correlation Assumption:** Assuming historical correlations remain static during market crises.

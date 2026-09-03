@@ -14,7 +14,7 @@ Covered:
 6.  ISO 4217 minor units, half-up money rounding, unknown-currency warning.
 7.  Aggregation: single rounding at the end, refusal to drop a failed leg.
 8.  Input validation (NaN/Inf, blank codes, non-positive rates, untagged numbers).
-9.  Pre-2.0 module-level helper compatibility.
+9.  older module-level helper compatibility.
 """
 import datetime
 import logging
@@ -97,7 +97,7 @@ class TestRateDirectionAndConversion(unittest.TestCase):
 
 class TestNoSilentParityFallback(unittest.TestCase):
     """
-    The pre-2.0 default provider returned 1.0 for any pair it did not know, so
+    an earlier default provider returned 1.0 for any pair it did not know, so
     BTC->USD converted at parity. Nothing about the output revealed it.
     """
 
@@ -440,7 +440,7 @@ class TestPnLDecomposition(unittest.TestCase):
                 exit_timestamp=datetime.datetime(2024, 1, 1))
 
     def test_decomposed_pnl_positional_construction_still_works(self):
-        # The three new fields are appended with defaults, so pre-2.0 positional
+        # The three new fields are appended with defaults, so older positional
         # construction of the original seven is unaffected.
         record = DecomposedPnL("USD", "INR", 8000.0, 5500.0, 13500.0, 80.0, 85.0)
         self.assertEqual(record.total_base_pnl, 13500.0)
@@ -475,7 +475,7 @@ class TestPrecisionAndRounding(unittest.TestCase):
 
     def test_krw_regression(self):
         # references/standards.md has always documented KRW as 0 decimals, but the
-        # pre-2.0 table omitted it, so it silently rounded to 2.
+        # older table omitted it, so it silently rounded to 2.
         self.assertEqual(self.engine.round_amount(1234.567, "KRW"), 1235.0)
 
     def test_iso_4217_three_decimal_currencies(self):

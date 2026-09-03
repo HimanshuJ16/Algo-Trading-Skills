@@ -1,7 +1,7 @@
 """
 Unit tests for best-execution-record-keeping-global.
 
-Regression tests are marked as such: each one fails against the pre-2.1.0 behaviour
+Regression tests are marked as such: each one fails against the the older behaviour
 (violations overwriting each other, an unassessable record silently passing, a failed
 record leaving no audit trail, and a per-record hash that made tampering undetectable).
 """

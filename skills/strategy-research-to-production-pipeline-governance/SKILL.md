@@ -1,19 +1,17 @@
 ---
 name: strategy-research-to-production-pipeline-governance
 description: >-
-  Use when governing the promotion of a trading strategy from research toward
-  live capital: enforces single-step stage sequencing (no jumping from a
-  notebook to production), reproducibility of code and dataset, out-of-sample
-  backtest gates, shadow paper-trading evidence, separation of author from
-  validator, designated-person deployment sign-off, and a hash-chained,
-  tamper-evident record of every promotion decision.
-domain: Investment Governance & MLOps
-subdomain: Model Lifecycle & Pipeline Governance
-tags: ["pipeline-governance", "research-to-production", "model-validation", "reproducibility", "shadow-trading", "risk-signoff", "audit-trail", "segregation-of-duties"]
-brokers_frameworks: ["Policy-as-Code Governance", "MiFID II RTS 6 (EU 2017/589)", "FINRA Regulatory Notice 15-09", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a strategy asks to move one step closer to live capital and someone must say
+  yes on the record, enforcing single-step stage sequencing and reproducibility of the
+  code and data behind each promotion.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: pipeline-governance, research-to-production, model-validation, reproducibility, shadow-trading, risk-signoff, audit-trail, segregation-of-duties
+  brokers_frameworks: "Policy-as-Code Governance; MiFID II RTS 6 (EU 2017/589); FINRA Regulatory Notice 15-09; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

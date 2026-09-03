@@ -160,7 +160,7 @@ oldest-first eviction. Eviction is safe *because* application is idempotent: a
 re-delivered state that has aged out is re-applied by assignment, which is a
 no-op. Size it against expected order-update volume per session, not per day.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Zero-quantity fills.** Reading `FilledQuantity` / `AveragePrice` — fields v3
   does not have — records every fill as zero. If that zero also feeds the dedupe

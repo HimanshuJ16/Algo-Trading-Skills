@@ -1,14 +1,17 @@
 ---
 name: singapore-exchange-sgx-api-integration
 description: >-
-  Use when an order is about to be sent to Singapore Exchange and must first be legal for the contract it names — the current per-contract minimum price fluctuation on Titan-DT derivatives (FTSE China A50, Nikkei 225, FTSE Taiwan, Iron Ore), the separate outright / calendar-spread / T@IC increments, and the price-tiered SGX-ST minimum bid size on the Reach-ST securities market.
-domain: Broker Integration & Exchange Connectivity
-subdomain: SGX Titan-DT Derivatives & Reach-ST Securities Connectivity
-tags: ["sgx", "singapore-exchange", "titan-dt", "reach-st", "tick-size", "minimum-bid-size", "china-a50-futures", "nikkei-225-futures", "iron-ore-futures"]
-brokers_frameworks: ["SGX Titan-DT (Nasdaq Genium INET; OUCH and FIX order entry, ITCH/GLIMPSE market data)", "SGX Reach-ST securities trading engine (Iris-ST from H2 2027)", "SGX-ST Regulatory Notice 8.5.2 (Minimum Bid Size)", "SGX derivatives contract specifications (CN, NK, TWN, FEF)", "Python Decimal"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an SGX order must be legal for the contract it names before dispatch: the
+  per-contract minimum price fluctuation on Titan-DT derivatives and the price-tiered
+  minimum bid size on the securities market.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: sgx, singapore-exchange, titan-dt, reach-st, tick-size, minimum-bid-size, china-a50-futures, nikkei-225-futures, iron-ore-futures
+  brokers_frameworks: "SGX Titan-DT (Nasdaq Genium INET, OUCH and FIX order entry, ITCH/GLIMPSE market data); SGX Reach-ST securities trading engine (Iris-ST from H2 2027); SGX-ST Regulatory Notice 8.5.2 (Minimum Bid Size); SGX derivatives contract specifications (CN, NK, TWN, FEF); Python Decimal"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -93,9 +96,9 @@ the way to S$1.995.
 2. **Resolve the contract by product code, and let an unknown code fail loudly.**
    `validate_derivatives_order` raises `UnknownContractError` for a code that is not in
    the table — including `TW`, the retired MSCI Taiwan contract that SGX replaced with
-   `TWN` (US$40 per index point, 0.25 index point outright tick) on 20 July 2020. The
-   previous implementation skipped tick validation entirely for unrecognised symbols,
-   which is precisely the case where validation matters most.
+   `TWN` (US$40 per index point, 0.25 index point outright tick) on 20 July 2020. Skipping
+   tick validation for unrecognised symbols would skip it in precisely the case where
+   validation matters most.
 3. **Select the increment by trade type, not by contract.** Pass
    `trade_type=SGXTradeType.CALENDAR_SPREAD` for a spread differential,
    `TRADE_AT_INDEX_CLOSE` for a T@IC price (entered under the `NKTI` / `TWNTI` ticker),
@@ -106,8 +109,8 @@ the way to S$1.995.
    `Decimal(price) % tick == 0`, with no tolerance. `100.03 % 0.05` is
    `0.0299999999999956` in binary float and `1.005 % 0.005` is `0.004999999999999873`;
    every fix for that is a tolerance, and every tolerance decides which illegal prices
-   to let through. The previous implementation rounded the remainder to four decimals,
-   which accepted `12500.00004` as an exact multiple of `2.5`.
+   to let through. Rounding the remainder to four decimals, for instance, accepts
+   `12500.00004` as an exact multiple of `2.5`.
 5. **On the securities side, derive the bid size from the order's price, not the
    symbol.** The same share bids in S$0.005 at S$0.95 and S$0.01 at S$1.00, so a bid
    size cached per symbol is wrong the moment the stock crosses a band edge. A

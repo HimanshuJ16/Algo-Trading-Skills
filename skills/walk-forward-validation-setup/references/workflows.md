@@ -46,7 +46,7 @@ actually implementing the skill, not just when deciding whether it applies.
      dispersion is a regime-dependent strategy, and the mean hides it.
    - Fewer than three folds cannot show regime dependence; `aggregate_folds()` warns.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Random K-Fold Cross-Validation:** Shuffling time-series data, training on future price data and creating severe lookahead bias.
 - **Gap Sized to the Feature Lookback Only:** Embargoing 5 rows for a 5-bar moving average while the target is a 20-bar forward return, leaving the label horizon leaking backwards into training.

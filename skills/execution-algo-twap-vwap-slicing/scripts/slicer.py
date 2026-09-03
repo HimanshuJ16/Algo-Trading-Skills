@@ -541,7 +541,7 @@ class ExecutionSlicer:
         time-in-force elapsed, or the caller cancelled the residual.
 
         Truncates the slice's target to what actually filled, then releases the residual
-        to the catch-up policy. That truncation is the step the pre-2.0.0 implementation
+        to the catch-up policy. That truncation is the step a naive implementation
         omitted: leaving the original target in place *while also* redistributing the
         residual made the schedule sum to more than the parent order, so a caller
         driving orders from ``target_qty`` would over-execute.
@@ -637,7 +637,7 @@ class ExecutionSlicer:
             return
 
         # Pro-rata to existing targets, so re-allocation preserves the VWAP volume
-        # curve. Flattening every open slice to an equal size — as the pre-2.0.0
+        # curve. Flattening every open slice to an equal size — as an earlier
         # implementation did — silently converts a VWAP schedule into a TWAP one.
         current = [s.target_qty for s in candidates]
         pool = math.fsum(current) + self.unassigned_qty

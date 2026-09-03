@@ -1,24 +1,17 @@
 ---
 name: multi-timeframe-backtest-consistency-checks
-description: Use when verifying that lower-resolution bars a strategy trades on (e.g.
-  5-min, 15-min) agree with the same bars independently resampled from higher-resolution
-  data (e.g. 1-min), so boundary-anchor, gap, and aggregation defects are caught before
-  a backtest is trusted.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- multi-timeframe
-- resampling
-- signal-consistency
-- data-resolution
-- boundary-alignment
-brokers_frameworks:
-- Timeframe Consistency Checker
-- Python
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a strategy trades bars it did not receive natively, resampled or
+  vendor-supplied, to rebuild them from higher-resolution data and compare; catches
+  boundary-anchor, gap and aggregation errors.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, multi-timeframe, resampling, signal-consistency, data-resolution, boundary-alignment
+  brokers_frameworks: "Timeframe Consistency Checker; Python"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

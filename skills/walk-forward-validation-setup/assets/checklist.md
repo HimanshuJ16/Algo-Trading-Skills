@@ -18,4 +18,4 @@ Use this before considering the skill's implementation complete.
 
 - Reviewed by: ___________________________
 - Date: ___________________________
-- Environment tested (paper/sandbox/live): ___________________________
+- Reviewed by: ___________________________

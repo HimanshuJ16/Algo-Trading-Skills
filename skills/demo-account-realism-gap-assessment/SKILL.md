@@ -1,23 +1,17 @@
 ---
 name: demo-account-realism-gap-assessment
-description: Use when evaluating trading performance on paper/demo broker accounts
-  to systematically compare fill latency, slippage, queue depth, and partial fill
-  rates against live production executions, calculating a realism reliability index.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- demo-account
-- paper-trading
-- realism-gap
-- slippage-analysis
-- execution-fidelity
-brokers_frameworks:
-- Broker Environment Assessor
-- Python Analytics
-version: "1.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before promoting a paper-tested strategy to live capital, to measure how far demo
+  fill latency, slippage, queue depth and partial-fill rates diverge from matched live
+  executions, and derive a Sharpe haircut from the gap.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, demo-account, paper-trading, realism-gap, slippage-analysis, execution-fidelity
+  brokers_frameworks: "Broker Environment Assessor; Python Analytics"
+  version: "1.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

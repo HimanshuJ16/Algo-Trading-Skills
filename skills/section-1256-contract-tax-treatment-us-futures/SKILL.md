@@ -1,14 +1,17 @@
 ---
 name: section-1256-contract-tax-treatment-us-futures
 description: >-
-  US federal tax engine for IRC Section 1256 contracts — the mandatory last-business-day mark under §1256(a)(1), the §1256(a)(2) prior-year basis adjustment, the 60/40 character split, the §1212(c) three-year loss carryback (Form 6781 box D), and the mapping onto Form 6781 Part I lines 5–9 and Schedule D.
-domain: Tax & Financial Accounting
-subdomain: Derivatives Tax & IRS Section 1256
-tags: ["section-1256", "60-40-rule", "mark-to-market", "form-6781", "futures-taxation", "section-1212c-carryback", "index-options"]
-brokers_frameworks: ["26 U.S.C. Sec. 1256", "26 U.S.C. Sec. 1212(c)", "IRS Form 6781", "IRS Schedule D (Form 1040)", "IRS Pub. 550", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when computing Form 6781 Part I for a book of IRC 1256 contracts: the mandatory
+  last-business-day mark, the prior-year basis adjustment, the 60/40 character split and
+  the three-year loss carryback election.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: section-1256, 60-40-rule, mark-to-market, form-6781, futures-taxation, section-1212c-carryback, index-options
+  brokers_frameworks: "26 U.S.C. Sec. 1256; 26 U.S.C. Sec. 1212(c); IRS Form 6781; IRS Schedule D (Form 1040); IRS Pub. 550; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 > **NOT TAX ADVICE.** This skill models **US federal** income tax only, as audit

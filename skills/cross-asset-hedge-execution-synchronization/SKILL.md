@@ -1,23 +1,17 @@
 ---
 name: cross-asset-hedge-execution-synchronization
-description: Quantitative execution synchronization engine for multi-leg strategies
-  (Options Delta Hedging, Convertible Arbitrage, ETF Basis Trading) to eliminate legging
-  risk and enforce latency bounds.
-domain: Execution Algorithms
-subdomain: Multi-Leg Execution & Hedging
-tags:
-- execution-algo
-- hedge-synchronization
-- legging-risk
-- delta-hedging
-- multi-leg
-- latency-bounds
-brokers_frameworks:
-- Generic FIX / OMS
-- Python Dataclasses
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a primary leg fill must be hedged immediately in another asset, as in delta
+  hedging, convertible arbitrage or ETF basis trading, enforcing latency bounds so
+  legging risk does not open between the two.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution-algo, hedge-synchronization, legging-risk, delta-hedging, multi-leg, latency-bounds
+  brokers_frameworks: "Generic FIX / OMS; Python Dataclasses"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,29 +1,17 @@
 ---
 name: gradient-boosted-tree-vs-neural-net-tradeoffs
 description: >-
-  Use when choosing between gradient-boosted trees (LightGBM/XGBoost) and deep
-  networks (LSTM/Transformer) for a financial ML signal — producing an
-  evidence-tagged, auditable prior over dataset modality, available rows,
-  inference latency and model-governance posture, as the starting hypothesis
-  for an empirical bake-off.
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- gradient-boosted-trees
-- lightgbm
-- xgboost
-- neural-networks
-- model-selection
-- model-governance
-brokers_frameworks:
-- LightGBM
-- XGBoost
-- PyTorch / TensorFlow
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a signal's architecture is still open between gradient-boosted trees on
+  tabular features and a deep network on raw sequences; produces an evidence-tagged
+  prior from published benchmarks, to be tested rather than trusted.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, gradient-boosted-trees, lightgbm, xgboost, neural-networks, model-selection, model-governance
+  brokers_frameworks: "LightGBM; XGBoost; PyTorch / TensorFlow; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

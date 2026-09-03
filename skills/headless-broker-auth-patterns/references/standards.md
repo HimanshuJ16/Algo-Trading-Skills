@@ -13,11 +13,10 @@ broker APIs change without notice, so re-verify before relying on any row.
 | Zerodha Kite Connect | **A (unofficial) / OAuth** — documented flow is the browser login endpoint returning `request_token`; `checksum = sha256(api_key + request_token + api_secret)`, no separators. Zerodha states automating the login violates the API terms of use | Access token expires ~06:00 IST next day; no refresh token |
 | ICICI Breeze API | **B** — no session-creation API exists. Manual browser login at `api.icicidirect.com/apiuser/login?api_key=...`; the redirect carries `API_Session` (that capitalisation), exchanged via `generate_session(api_secret, session_token)` | Session key valid 24h or until midnight, whichever is earlier |
 
-> The earlier revision of this table classified Upstox, Alpaca and IBKR all as
-> "Archetype A (REST)". That was wrong in a way that matters: it pointed integrations at
-> a scripted-login endpoint for brokers that publish no such endpoint, and it obscured
-> the fact that Fyers' refresh token — the one genuinely sanctioned unattended path
-> among the Indian brokers here — existed at all.
+> Do not lump Upstox, Alpaca and IBKR together as "Archetype A (REST)". That
+> classification points integrations at a scripted-login endpoint for brokers that
+> publish no such endpoint, and it hides Fyers' refresh token — the one genuinely
+> sanctioned unattended path among the Indian brokers here.
 
 ## Checksum Formula Reference
 

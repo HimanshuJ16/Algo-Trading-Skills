@@ -1,22 +1,17 @@
 ---
 name: capital-preservation-mode-for-degraded-conditions
-description: Use when a live trading system needs a strategy-independent gate that
-  blocks new orders once peak-to-trough drawdown, order submission rate, consecutive
-  venue errors, or mark-to-market feed staleness breach hard limits, and that stays
-  halted until a human clears it.
-domain: Risk Management
-subdomain: Emergency Controls
-tags:
-- kill-switch
-- capital-preservation
-- drawdown
-- circuit-breaker
-- risk
-brokers_frameworks:
-- Generic Risk Engineering
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a live system needs a strategy-independent gate that blocks new orders once
+  drawdown, order submission rate, consecutive venue errors or feed staleness breaches a
+  limit. It blocks new orders; cancelling working ones is the kill switch.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: kill-switch, capital-preservation, drawdown, circuit-breaker, risk
+  brokers_frameworks: Generic Risk Engineering
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

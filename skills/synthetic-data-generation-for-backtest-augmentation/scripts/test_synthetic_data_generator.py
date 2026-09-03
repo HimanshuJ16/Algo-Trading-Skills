@@ -6,7 +6,7 @@ recomputed with ``statistics`` (not with the module's own helpers), the GBM path
 is reconstructed from the raw normal draws, and the GARCH recursion is unrolled
 by hand for the first few steps.
 
-Tests marked REGRESSION document the pre-2.0 behavior they would have caught.
+Tests marked REGRESSION document the the older behavior they would have caught.
 Run from this directory: ``python test_synthetic_data_generator.py``.
 """
 import logging
@@ -132,14 +132,14 @@ class TestGARCH(unittest.TestCase):
         self.assertEqual(path.prices[0], 100.0)
 
     def test_two_tuple_unpacking_remains_supported(self):
-        """The pre-2.0 signature returned (prices, sigmas); that must still work."""
+        """an earlier signature returned (prices, sigmas); that must still work."""
         prices, sigmas = self.generator.generate_garch(GARCHConfig(steps=10))
         self.assertEqual(len(prices), 11)
         self.assertEqual(len(sigmas), 11)
 
     def test_returns_are_exposed_and_reconcile_with_prices(self):
         """
-        REGRESSION: the pre-2.0 implementation built a ``returns`` array and then
+        REGRESSION: a naive implementation built a ``returns`` array and then
         discarded it, so a caller following the documented workflow had no return
         series to validate. ``returns[t-1]`` must be exactly the log return over
         ``prices[t-1] -> prices[t]``.
@@ -179,7 +179,7 @@ class TestGARCH(unittest.TestCase):
 
     def test_recursion_starts_at_the_stationary_point(self):
         """
-        REGRESSION: the pre-2.0 implementation set eps_0 = 0, so
+        REGRESSION: a naive implementation set eps_0 = 0, so
         sigma_1^2 = omega + beta*sigma_bar^2 < sigma_bar^2 and early bars were
         systematically under-volatile. sigma_0 and sigma_1 must both equal the
         unconditional standard deviation exactly.
@@ -293,7 +293,7 @@ class TestCircularBlockBootstrap(unittest.TestCase):
 
     def test_every_observation_is_equally_likely(self):
         """
-        REGRESSION: the pre-2.0 implementation drew block starts from
+        REGRESSION: a naive implementation drew block starts from
         ``[0, n - block_size]`` -- a non-circular moving-block bootstrap despite
         being documented as circular. With n=20, block_size=5 the first and last
         observations appeared at ~0.26x the rate of interior ones. Wrapping makes
@@ -354,7 +354,7 @@ class TestCircularBlockBootstrap(unittest.TestCase):
 
     def test_block_size_zero_raises_instead_of_hanging(self):
         """
-        REGRESSION: block_size <= 0 produced empty slices, so the pre-2.0
+        REGRESSION: block_size <= 0 produced empty slices, so an earlier
         ``while sum(len(b) for b in blocks) < steps`` loop never terminated and
         grew the block list until memory was exhausted.
         """
@@ -405,7 +405,7 @@ class TestValidation(unittest.TestCase):
 
     def test_kurtosis_of_a_gaussian_sample_is_three_at_every_return_scale(self):
         """
-        REGRESSION: the pre-2.0 code divided by ``vol**4 + 1e-9``. At a daily
+        REGRESSION: a naive code divided by ``vol**4 + 1e-9``. At a daily
         return scale (sigma = 0.01) vol**4 = 1e-8, so the additive epsilon was 10%
         of the denominator and kurtosis came back 2.74 instead of ~3.0; at
         sigma = 0.001 it reported 0.003. The reported moments must be
@@ -496,7 +496,7 @@ class TestValidation(unittest.TestCase):
         """
         REGRESSION: a zero-volatility baseline was divided by max(h_vol, 1e-6).
         Two different constant series both carry ~1e-19 residual dispersion, so
-        the relative error came out near zero and the pre-2.0 report certified
+        the relative error came out near zero and an earlier report certified
         them ``is_statistically_consistent = True`` -- a passing verdict produced
         by the absence of data.
         """

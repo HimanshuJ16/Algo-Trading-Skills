@@ -1,23 +1,17 @@
 ---
 name: binance-futures-testnet-to-mainnet-promotion
-description: Use when promoting a Binance Futures strategy from testnet to mainnet,
-  to bind each base URL to its declared environment, keep testnet and mainnet API
-  credentials strictly separate, fail closed on missing or malformed risk limits,
-  and require explicit operator authorization before real leveraged capital is at risk
-domain: global-market-integration
-subdomain: exchanges
-tags:
-- binance-futures
-- deployment
-- risk-management
-- environment-segregation
-- live-capital-guard
-brokers_frameworks:
-- Binance USDⓈ-M Futures API
-- Binance COIN-M Futures API
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a Binance Futures strategy moves from testnet to mainnet, where the same code
+  pointed at a different host reaches real leveraged capital; binds each base URL to its
+  environment, separates credentials and fails closed on a mismatch.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: binance-futures, deployment, risk-management, environment-segregation, live-capital-guard
+  brokers_frameworks: "Binance USDⓈ-M Futures API; Binance COIN-M Futures API"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Binance Futures Testnet to Mainnet Promotion

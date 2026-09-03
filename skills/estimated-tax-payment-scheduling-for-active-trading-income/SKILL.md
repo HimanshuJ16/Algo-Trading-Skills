@@ -1,28 +1,17 @@
 ---
 name: estimated-tax-payment-scheduling-for-active-trading-income
-description: US federal quarterly estimated tax scheduler for individual trading
-  income under IRC section 6654, computing the required annual payment (90% current
-  year vs 100%/110% prior year), the four 25% installments, the section 6654(g)
-  withholding credit, section 7503-adjusted payable dates, and cumulative
-  installment shortfall.
-domain: Tax Accounting & Reporting
-subdomain: Estimated Taxes & Cash Flow Management
-tags:
-- estimated-taxes
-- quarterly-tax-schedule
-- safe-harbor-rules
-- irs-form-1040-es
-- active-trader-tax
-- tax-reserve-allocation
-- irc-6654
-brokers_frameworks:
-- IRC Section 6654
-- IRS Form 1040-ES
-- IRS Publication 505
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a US individual earns trading income with no wage withholding and must
+  schedule quarterly instalments under IRC 6654: the required annual payment on the 90%
+  current-year or 100%/110% prior-year test, and the four instalment dates.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: estimated-taxes, quarterly-tax-schedule, safe-harbor-rules, irs-form-1040-es, active-trader-tax, tax-reserve-allocation, irc-6654
+  brokers_frameworks: "IRC Section 6654; IRS Form 1040-ES; IRS Publication 505; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,27 +1,17 @@
 ---
 name: leverage-limit-enforcement-across-instruments
-description: Use when a multi-asset book (equities, crypto perpetuals, FX, futures,
-  options) needs a pre-trade gate that projects post-fill gross, net-directional,
-  and per-asset-class leverage and vetoes exposure-increasing orders that would
-  breach a cap, without ever blocking de-risking
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- leverage-limit
-- gross-leverage
-- net-leverage
-- pre-trade-risk
-- cross-asset-exposure
-brokers_frameworks:
-- Reg T (12 CFR 220)
-- FINRA Rule 4210
-- SEC Rule 15c3-5
-- AIFMD Delegated Regulation (EU) 231/2013
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when one account holds equities, perpetuals, FX, futures and options and
+  per-symbol size limits no longer describe how levered it is; projects post-fill gross,
+  net-directional and per-asset-class leverage and vetoes the order.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, leverage-limit, gross-leverage, net-leverage, pre-trade-risk, cross-asset-exposure
+  brokers_frameworks: "Reg T (12 CFR 220); FINRA Rule 4210; SEC Rule 15c3-5; AIFMD Delegated Regulation (EU) 231/2013; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

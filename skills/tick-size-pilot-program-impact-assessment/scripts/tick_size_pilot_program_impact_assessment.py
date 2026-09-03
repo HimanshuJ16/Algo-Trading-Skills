@@ -52,7 +52,7 @@ from typing import List, Optional, Sequence, Tuple
 logger = logging.getLogger(__name__)
 
 #: Realized-spread horizon, in seconds, that ``TickSnapshot.future_mid_price_5m``
-#: represents. The Tick Size Pilot and pre-2024 Rule 605 both used 5 minutes.
+#: represents. The Tick Size Pilot and older Rule 605 both used 5 minutes.
 REALIZED_SPREAD_HORIZON_SECONDS = 300
 
 #: Screening thresholds for narrative findings and tuning recommendations. These are

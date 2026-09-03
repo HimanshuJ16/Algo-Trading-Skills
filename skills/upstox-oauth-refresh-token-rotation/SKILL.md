@@ -1,22 +1,17 @@
 ---
 name: upstox-oauth-refresh-token-rotation
-description: Use when managing Upstox API v2/v3 access tokens for a long-running trading
-  bot. Upstox issues NO refresh token and supports no refresh grant — the access token
-  dies at 03:30 IST daily, so this covers correct expiry derivation, single-flight daily
-  re-authentication, atomic token persistence, and read-only-token misuse guards
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- upstox-api-v2
-- oauth2
-- access-token-lifecycle
-- daily-session-expiry
-brokers_frameworks:
-- Upstox API v2/v3
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when holding an Upstox API v2 or v3 access token across time. Upstox issues no
+  refresh token and the access token dies at 03:30 IST daily, so this covers expiry
+  derivation, single-flight daily re-authentication and atomic persistence.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, upstox-api-v2, oauth2, access-token-lifecycle, daily-session-expiry
+  brokers_frameworks: Upstox API v2/v3
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

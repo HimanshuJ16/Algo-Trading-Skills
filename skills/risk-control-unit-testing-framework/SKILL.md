@@ -1,14 +1,17 @@
 ---
 name: risk-control-unit-testing-framework
 description: >-
-  Fail-closed unit-testing framework for pre-trade risk controls — runs positive, boundary, breach and malformed-input cases against a risk engine, matches triggered rule ids exactly, enforces that every required rule was actually exercised, and emits an auditable CI/CD gate report.
-domain: Risk Management & Software Engineering
-subdomain: Automated Testing & Risk Verification
-tags: ["risk-testing", "unit-test-harness", "pre-trade-risk", "limit-breach", "fat-finger-collar", "fail-closed-gate", "rts-6-art-15", "sec-rule-15c3-5"]
-brokers_frameworks: ["MiFID II RTS 6 (EU 2017/589) Art. 5, 7, 11, 15", "SEC Rule 15c3-5 (17 CFR 240.15c3-5)", "FINRA Regulatory Notice 15-09", "FIA Guide to the Development and Operation of Automated Trading Systems (Mar 2015)", "Python Dataclasses", "unittest"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use before promoting a change to a pre-trade risk control, to run positive, boundary,
+  breach and malformed-input cases and check the engine still rejects exactly what it
+  should, matching triggered rule ids.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-testing, unit-test-harness, pre-trade-risk, limit-breach, fat-finger-collar, fail-closed-gate, rts-6-art-15, sec-rule-15c3-5
+  brokers_frameworks: "MiFID II RTS 6 (EU 2017/589) Art. 5, 7, 11, 15; SEC Rule 15c3-5 (17 CFR 240.15c3-5); FINRA Regulatory Notice 15-09; FIA Guide to the Development and Operation of Automated Trading Systems (Mar 2015); Python Dataclasses; unittest"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

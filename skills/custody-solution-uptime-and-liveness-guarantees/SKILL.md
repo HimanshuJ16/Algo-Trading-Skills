@@ -1,26 +1,17 @@
 ---
 name: custody-solution-uptime-and-liveness-guarantees
-description: Fail-closed custody liveness monitor tracking API uptime against a contractual
-  SLA target, MPC signing quorum (k-of-n) with early warning at zero redundancy, and
-  sample-gated P99 signing latency, recommending failover on breach, stale telemetry,
-  or no telemetry.
-domain: Crypto Custody & Security
-subdomain: Custody SLA & Liveness
-tags:
-- custody-sla
-- liveness-guarantees
-- mpc-quorum
-- signing-latency
-- fireblocks
-- bitgo
-- anchorage
-- uptime-monitoring
-brokers_frameworks:
-- SOC 2 Type II
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when strategies depend on a custody provider being able to sign right now,
+  tracking API uptime against the contractual target, the MPC signing quorum with
+  warning at zero redundancy, and P99 signing latency.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: custody-sla, liveness-guarantees, mpc-quorum, signing-latency, fireblocks, bitgo, anchorage, uptime-monitoring
+  brokers_frameworks: "SOC 2 Type II; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,6 +1,6 @@
 # Gemini CLI Instructions — Algo-Trading-Skills
 
-This project is a comprehensive library of **504 algorithmic trading skills** mapped across 16 financial engineering domains and 5 global regulatory frameworks.
+This project is a comprehensive library of **501 algorithmic trading skills** mapped across 16 financial engineering domains and 5 global regulatory frameworks.
 
 ## 🌟 Operating Guidelines for Gemini CLI
 
@@ -16,4 +16,5 @@ This project is a comprehensive library of **504 algorithmic trading skills** ma
 
 3. **Verification**:
    - Run `python tools/validate_skills.py` to confirm workspace skill integrity.
-   - Run `python tools/run_all_tests.py` to execute unit tests.
+   - Run `python tools/run_all_tests.py` to execute every skill's unit tests, or
+     `python tools/run_all_tests.py --skill <skill-name>` for just one.

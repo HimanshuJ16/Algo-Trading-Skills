@@ -1,25 +1,17 @@
 ---
 name: currency-pair-quoting-convention-normalization
-description: FX market data normalization module that ranks currency pairs against
-  the de-facto interbank base/terms convention, cross-inverts backwards quotes
-  (USD/EUR -> EUR/USD), sizes pips and spreads, and refuses to transform any pair
-  it cannot rank.
-domain: Data Management Global
-subdomain: FX Market Data Normalization
-tags:
-- fx-quoting
-- currency-pair
-- iso-4217
-- base-quote-currency
-- inverted-quote
-- bid-ask-conversion
-- pip-calculation
-brokers_frameworks:
-- ISO 4217
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when FX vendors disagree about which currency is the base and an inverted quote
+  would flip a signal; ranks pairs against the interbank convention, inverts backwards
+  quotes and sizes pips and spreads consistently.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: fx-quoting, currency-pair, iso-4217, base-quote-currency, inverted-quote, bid-ask-conversion, pip-calculation
+  brokers_frameworks: "ISO 4217; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

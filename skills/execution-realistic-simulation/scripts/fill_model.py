@@ -519,7 +519,7 @@ def simulate_fill_price(
     slippage assumption this skill's own guidance names as a pitfall, which understates
     cost for small orders and overstates it for large ones. It now delegates to the
     square-root law, so ``impact_coef`` is the prefactor gamma and the price returned
-    differs from the pre-2.0.0 output.
+    differs from an earlier output.
     """
     warnings.warn(
         "simulate_fill_price is deprecated; use RealisticExecutionSimulator."
@@ -552,7 +552,7 @@ def estimate_fees(
 
     Totals an explicitly supplied rate stack. The defaults are the NSE equity-options
     **sell**-side rates verified on ``FEE_SCHEDULES_VERIFIED_ON`` (stamp duty is zero
-    because stamp duty is charged on the buy side only); the pre-2.0.0 defaults were not
+    because stamp duty is charged on the buy side only); an earlier defaults were not
     the rates of any actual market. Supplying your own rates keeps the prior behaviour.
     """
     warnings.warn(

@@ -1,27 +1,17 @@
 ---
 name: questrade-api-rate-limit-and-account-types
 description: >-
-  Use when integrating the Questrade IQ API for Canadian equities, ETFs and
-  options: single-use OAuth2 refresh-token rotation against a 7-day token
-  validity window, the dynamic per-session api_server URL, category-specific
-  rate limits (Account calls 30/sec + 30,000/hour; Market Data calls 20/sec +
-  15,000/hour), and fail-closed eligibility gating across Questrade's sixteen
-  account types where only a Margin account may short.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- questrade
-- canadian-markets
-- oauth2
-- rate-limiting
-- registered-accounts
-brokers_frameworks:
-- Questrade IQ API
-- Questrade Practice (paper) environment
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when integrating the Questrade IQ API: single-use refresh-token rotation inside a
+  7-day validity window, the per-session api_server URL, and category rate limits of
+  30/second for account calls and 20/second for market data.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, questrade, canadian-markets, oauth2, rate-limiting, registered-accounts
+  brokers_frameworks: "Questrade IQ API; Questrade Practice (paper) environment"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

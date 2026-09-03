@@ -51,7 +51,7 @@ limits change; confirm against the exchange before relying on any constant here.
 6. **WebSocket & REST Fill Reconciliation:**
    - Prefer WebSocket execution streams for live fill updates; reconcile over REST on reconnect.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Wrong rate-limit model:** applying a weight-per-minute pool to Kraken (a decaying counter capped at 20 with ~1/sec decay — roughly 60 calls/min steady state, not 1,000) produces immediate `EAPI:Rate limit exceeded` responses.
 - **Header ratchet deadlock:** a sync that only increases the local counter never follows the exchange's window reset; the limiter saturates permanently and the bot stops trading while the exchange budget sits idle.

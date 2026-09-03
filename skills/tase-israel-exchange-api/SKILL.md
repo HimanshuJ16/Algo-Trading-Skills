@@ -1,23 +1,17 @@
 ---
 name: tase-israel-exchange-api
-description: "Use when routing orders to the Tel Aviv Stock Exchange (TASE): resolves the Monday-Friday trading week adopted on 5 January 2026 (replacing Sunday-Thursday) with an Asia/Jerusalem IST/IDT-aware session calendar, scales prices between Agorot, ILS and percentage-of-par without the 100x denomination error, and fails pre-trade risk controls closed on unknown symbols and unpriced market orders."
-domain: Execution
-subdomain: Venue Integration
-tags:
-- tase
-- israel
-- venue-integration
-- session-calendar
-- agorot-conversion
-- price-denomination
-- pre-trade-risk
-brokers_frameworks:
-- TASE (Nasdaq Genium INET platform)
-- QuickFIX / FIX 4.4
-- Python standard library (zoneinfo)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when routing orders to or scheduling activity against the Tel Aviv Stock Exchange,
+  which moved to a Monday-Friday trading week on 5 January 2026, with Asia/Jerusalem
+  session resolution across IST and IDT.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: tase, israel, venue-integration, session-calendar, agorot-conversion, price-denomination, pre-trade-risk
+  brokers_frameworks: "TASE (Nasdaq Genium INET platform); QuickFIX / FIX 4.4; Python standard library (zoneinfo)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

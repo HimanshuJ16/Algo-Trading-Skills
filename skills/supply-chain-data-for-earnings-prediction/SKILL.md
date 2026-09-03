@@ -1,14 +1,17 @@
 ---
 name: supply-chain-data-for-earnings-prediction
 description: >-
-  Use when forecasting a company's quarterly revenue from its supply chain — upstream supplier revenue growth read through concentration weights, downstream customer inventory build as a bullwhip drag, and the gap against sell-side consensus standardized into a surprise Z-score. Enforces a point-in-time availability cutoff on every observation, weights each link by its disclosed concentration, screens suppliers whose growth is mostly about other customers, and suppresses the signal entirely when the observed chain covers too little of the target's input spend.
-domain: Alternative Data Research & Alpha Signals
-subdomain: Supply Chain Data Intelligence
-tags: ["supply-chain", "alternative-data", "earnings-prediction", "lead-lag", "bullwhip-effect", "earnings-surprise", "point-in-time"]
-brokers_frameworks: ["Alternative Data Pipeline", "SEC EDGAR", "Pandas", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when estimating a company's quarterly revenue growth from the reported results of
+  firms one step up and down its supply chain, reading supplier growth through
+  concentration weights and customer inventory as a drag.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: supply-chain, alternative-data, earnings-prediction, lead-lag, bullwhip-effect, earnings-surprise, point-in-time
+  brokers_frameworks: "Alternative Data Pipeline; SEC EDGAR; Pandas; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -88,7 +91,6 @@ The blend weight on the supplier term is below 1.0 on purpose. Lee, Padmanabhan 
 - **Absorbing NaN into NEUTRAL**: `nan >= 1.0` and `nan <= -1.0` are both False, so an unguarded banding chain reports a confident NEUTRAL on missing data. The engine raises instead.
 - **Rounding before banding**: `round(0.99996, 4) == 1.0` promotes NEUTRAL to a directional signal on a value the data does not support.
 - **Double-counting a link**: the same supplier appearing twice in a batch double-weights it in the concentration mean. The engine raises on duplicate tickers.
-- **Treating `generate_signals` as a signal**: it is a deprecated placeholder that multiplies a column by 1.5. Version 1.0.0 labelled that product `BUY_EARNINGS_SURPRISE`; it is now labelled `DEPRECATED_PLACEHOLDER`.
 
 ## Verification
 

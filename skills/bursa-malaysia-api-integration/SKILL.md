@@ -1,26 +1,17 @@
 ---
 name: bursa-malaysia-api-integration
-description: Use when routing orders to Bursa Malaysia's BTS2 (Bursa Trade Securities
-  2) gateway over FIXT.1.1 / FIX 5.0 SP1 — enforcing the ClOrdID uniqueness BTS2
-  itself does not check, modelling cancel request/confirm/reject instead of assuming
-  a cancel succeeded, applying execution reports idempotently, and matching broker
-  codes and boards to the FIXTRADER or FIXNEGDEAL connection type.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- bursa-malaysia
-- fix-protocol
-- bts2
-- order-lifecycle
-brokers_frameworks:
-- Bursa Malaysia BTS2 FIX (Order Management)
-- Bursa Direct Access (BDA)
-- FIXT.1.1 / FIX 5.0 SP1
-- Nasdaq X-stream
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when routing orders to Bursa Malaysia BTS2 through Bursa Direct Access over
+  FIXT.1.1 and FIX 5.0 SP1; enforces the client order id uniqueness BTS2 does not check
+  itself, and models the cancel request and execution report lifecycle.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: broker-integration, bursa-malaysia, fix-protocol, bts2, order-lifecycle
+  brokers_frameworks: "Bursa Malaysia BTS2 FIX (Order Management); Bursa Direct Access (BDA); FIXT.1.1 / FIX 5.0 SP1; Nasdaq X-stream"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

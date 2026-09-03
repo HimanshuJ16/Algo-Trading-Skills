@@ -1,25 +1,17 @@
 ---
 name: deployment-freeze-windows-around-market-events
-description: Deployment freeze guard for trading systems — blocks production releases
-  inside macro-event windows (FOMC, CPI, NFP, expiry) and timezone-aware daily
-  session windows, and enforces a named, two-person break-glass override.
-domain: Infrastructure & DevOps
-subdomain: CI/CD Governance & Risk Control
-tags:
-- deployment-freeze
-- market-events
-- fomc-freeze
-- sre-guardrails
-- break-glass-protocol
-- volatility-control
-- ci-cd-governance
-brokers_frameworks:
-- GitHub Actions
-- GitLab CI
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use in a release pipeline to block production deploys inside macro-event windows such
+  as FOMC, CPI, payrolls and expiry, and inside timezone-aware session windows, with a
+  named two-person override.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-freeze, market-events, fomc-freeze, sre-guardrails, break-glass-protocol, volatility-control, ci-cd-governance
+  brokers_frameworks: "GitHub Actions; GitLab CI; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

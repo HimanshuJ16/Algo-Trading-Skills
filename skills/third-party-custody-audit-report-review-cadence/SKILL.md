@@ -1,34 +1,17 @@
 ---
 name: third-party-custody-audit-report-review-cadence
 description: >-
-  Audit-evidence review cadence engine for third-party crypto and asset
-  custodians: tracks SOC 1/SOC 2 Type II coverage against a configurable review
-  cadence, validates auditor opinions, accepts or rejects management bridge (gap)
-  letters on their real evidential weight, checks Proof of Reserves freshness, and
-  scores the firm's own implementation of the report's Complementary User Entity
-  Controls. Fails closed: unassessed evidence is never scored as compliant.
-domain: Crypto Custody
-subdomain: Security
-tags:
-- custody
-- audit
-- soc1
-- soc2
-- proof-of-reserves
-- cuec
-- risk-management
-- compliance
-brokers_frameworks:
-- fireblocks
-- bitgo
-- coinbase-custody
-- bny-mellon
-- AICPA SOC 1 (AT-C 320) / SOC 2
-- SEC Rule 206(4)-2
-- PCAOB Investor Advisory 2023-03-08
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a firm must answer on a dated basis what audit evidence it holds on each
+  custodian and how stale it is, tracking SOC 1 and SOC 2 Type II coverage against a
+  review cadence and validating auditor opinions.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: custody, audit, soc1, soc2, proof-of-reserves, cuec, risk-management, compliance
+  brokers_frameworks: "fireblocks; bitgo; coinbase-custody; bny-mellon; AICPA SOC 1 (AT-C 320) / SOC 2; SEC Rule 206(4)-2; PCAOB Investor Advisory 2023-03-08"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

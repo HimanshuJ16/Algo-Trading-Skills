@@ -31,17 +31,16 @@ underlying's after-hours behaviour and record the rationale.
 | OCC publishes an adjustment memo when a corporate action changes a contract's terms; the deliverable becomes whatever a 100-share position became. A reverse split or odd split leaves a deliverable that is not 100 shares, and the contract may deliver cash in lieu, another security, or a basket. | OCC investor education, "Splits, Mergers, Spinoffs & Bankruptcies" — <https://www.optionseducation.org/referencelibrary/faq/splits-mergers-spinoffs-bankruptcies> | Why `contract_multiplier` is a per-position input rather than a constant. |
 | Cash-settled index options settle in cash at an exercise-settlement value. AM-settled monthlies (SPX, NDX, RUT) cease trading on the business day *preceding* the expiration date; PM-settled weeklies (SPXW) cease at 4:00 p.m. ET on the day of expiration. | Cboe, S&P 500 Index Options Product Specifications — <https://www.cboe.com/tradable-products/sp-500/spx-options/spx-specifications/> | Why cash-settled positions are reported with a zero share delta and referred elsewhere. |
 
-### Correction note — the "4:30 p.m." figure
+### The "4:30 p.m." figure
 
-Earlier revisions of this skill recorded the contrary-exercise deadline as
-"4:30 p.m. EST". That conflated two things. **4:30 p.m. CT is the exchanges'
-cut-off, and it is the same instant as the 5:30 p.m. ET deadline in FINRA Rule
-2360(b)(23)(A)** — relabelling it "ET" invents a deadline an hour earlier than
-any published one. "EST" was wrong independently: the third Friday falls in
-Eastern *Daylight* Time from March to November, so an EST label is off by an
-hour for most expirations. Brokers do commonly impose earlier cutoffs, but the
-correct instruction is to look up your own broker's published time, not to
-assume a number.
+Do not record the contrary-exercise deadline as "4:30 p.m. EST". That conflates
+two things. **4:30 p.m. CT is the exchanges' cut-off, and it is the same instant
+as the 5:30 p.m. ET deadline in FINRA Rule 2360(b)(23)(A)** — relabelling it
+"ET" invents a deadline an hour earlier than any published one. "EST" is wrong
+independently: the third Friday falls in Eastern *Daylight* Time from March to
+November, so an EST label is off by an hour for most expirations. Brokers do
+commonly impose earlier cutoffs, so look up your own broker's published time
+rather than assuming a number.
 
 ## Engineering standards enforced by this skill
 

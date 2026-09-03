@@ -1,22 +1,18 @@
 ---
 name: backtesting-ml-models-against-transaction-costs
-description: Use when backtesting Machine Learning (ML) return predictions to apply
-  rigorous Transaction Cost Analysis (TCA), turnover tracking, and confidence thresholding.
-  Prevents deploying high-turnover ML models that lose money after slippage.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- machine-learning
-- tca
-- transaction-costs
-- turnover-drag
-- thresholding
-brokers_frameworks:
-- NumPy
-- ML Backtesting
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an ML model flips its prediction on nearly every bar and its Sharpe depends
+  on that turnover; applies per-turnover cost charges and confidence thresholding before
+  the strategy is judged. Order-level cost attribution is
+  transaction-cost-analysis-tca-integration.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: machine-learning, tca, transaction-costs, turnover-drag, thresholding
+  brokers_frameworks: "NumPy; ML Backtesting"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

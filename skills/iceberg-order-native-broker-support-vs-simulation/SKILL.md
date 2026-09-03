@@ -1,29 +1,17 @@
 ---
 name: iceberg-order-native-broker-support-vs-simulation
-description: Use when deciding whether to work a large parent order with a venue's
-  native iceberg parameter, a broker-simulated iceberg, or a client-side synthetic
-  slice schedule, including venue minimum-display and lot constraints, time-in-force
-  restrictions on native iceberg fields, refill queue-priority loss, and the
-  message-rate cost of client-side slicing.
-domain: algorithmic-trading
-subdomain: execution-algorithms
-tags:
-- execution-algorithms
-- iceberg-orders
-- order-slicing
-- display-quantity
-- reserve-orders
-- queue-priority
-- smart-order-routing
-brokers_frameworks:
-- CME Globex (tag 1138 DisplayQty)
-- Nasdaq Equity 4 Rule 4703(h) Reserve Orders
-- Deutsche Boerse T7 / Xetra (iceberg peak, randomised peak)
-- Binance Spot API (icebergQty)
-- Interactive Brokers TWS (Display Size)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when deciding which layer hides the reserve quantity of a large order: a
+  venue-native iceberg, a broker-simulated one, or client-side slicing, including venue
+  minimum-display rules. Detecting others' icebergs is a different skill.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution-algorithms, iceberg-orders, order-slicing, display-quantity, reserve-orders, queue-priority, smart-order-routing
+  brokers_frameworks: "CME Globex (tag 1138 DisplayQty); Nasdaq Equity 4 Rule 4703(h) Reserve Orders; Deutsche Boerse T7 / Xetra (iceberg peak, randomised peak); Binance Spot API (icebergQty); Interactive Brokers TWS (Display Size)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

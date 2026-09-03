@@ -1,14 +1,17 @@
 ---
 name: market-data-cost-optimization-tiered-subscriptions
 description: >-
-  Market data subscription tiering engine that assigns each symbol to a direct-depth, real-time top-of-book, or delayed/EOD tier from its live position, signal, and trade-recency state, and prices the change against a caller-supplied fee schedule while keeping tradeable symbols off delayed data.
-domain: Data Management Global
-subdomain: Market Data Cost & Entitlement Governance
-tags: ["market-data", "cost-optimization", "tiered-subscriptions", "bloomberg-bpipe", "refinitiv-dacs", "data-entitlements", "sip-vs-direct"]
-brokers_frameworks: ["Bloomberg EMRS", "Refinitiv DACS", "TRG Screen", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when the symbol universe is far larger than what is actually traded and the data
+  bill scales with symbol count, assigning each symbol to a direct-depth, real-time or
+  delayed tier from its live position and signal state.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: market-data, cost-optimization, tiered-subscriptions, bloomberg-bpipe, refinitiv-dacs, data-entitlements, sip-vs-direct
+  brokers_frameworks: "Bloomberg EMRS; Refinitiv DACS; TRG Screen; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

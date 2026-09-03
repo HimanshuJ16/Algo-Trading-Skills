@@ -47,7 +47,7 @@ actually implementing the skill, not just when deciding whether it applies.
 9. **Dataset-level separation.**
    - Confirm no threshold, feature selection, or hyperparameter search was run across the test period. Nothing in this module can see that — see `walk-forward-validation-setup`.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Same-Bar Close Fills:** Generating a signal from bar $T$'s Close and filling at bar $T$'s Close, assuming impossible zero-latency same-bar execution. Both backtrader and backtesting.py default to next-bar Open and expose same-bar-close only as a named opt-in.
 - **Right-Closed Window Misread as Excluding the Current Bar:** pandas rolling windows are right-closed by default, so `close.rolling(20).mean()` at bar $T$ contains `close[T]`. Legitimate for an end-of-bar decision; a leak for an intra-bar one.

@@ -1,24 +1,17 @@
 ---
 name: asic-market-integrity-rules-automated-trading
-description: Automated Order Processing gate for Australian licensed securities
-  markets under ASIC Market Integrity Rules (Securities Markets) 2017 Part 5.6 —
-  reject-outcome pre-trade filters on value, volume and price deviation, scoped
-  Rule 5.6.3(1)(d) suspension of AOP by authorised person, client, product, market
-  or algorithm, the 5.6.3(1)(e) cancellation hand-off for messages already in the
-  market, and recorded filter-parameter control under 5.6.3(2).
-domain: regulatory-compliance-global
-subdomain: regulatory
-tags:
-- compliance
-- asic
-- australia
-- pre-trade-filter
-- kill-switch
-brokers_frameworks:
-- generic
-version: "2.0.0"
-author: System
-license: MIT
+description: >-
+  Use when building the Automated Order Processing gate an Australian market participant
+  must place in front of every trading message, under ASIC Market Integrity Rules 2017
+  Part 5.6: reject-outcome filters on value, volume and price.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: compliance, asic, australia, pre-trade-filter, kill-switch
+  brokers_frameworks: generic
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

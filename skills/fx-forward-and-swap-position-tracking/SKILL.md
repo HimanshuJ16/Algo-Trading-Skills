@@ -1,14 +1,17 @@
 ---
 name: fx-forward-and-swap-position-tracking
 description: >-
-  Treasury valuation engine for FX outright forwards and FX swaps: Covered Interest Rate Parity forward pricing on per-currency day-count bases, forward/swap points at the pair's own pip size, discounted mark-to-market by quote currency, and net exposure by currency and maturity bucket.
-domain: Global Market Integration & FX
-subdomain: FX Forwards, Swaps & Treasury Risk
-tags: ["fx-forward", "fx-swap", "covered-interest-parity", "swap-points", "mark-to-market", "fx-exposure", "treasury-risk", "day-count-convention"]
-brokers_frameworks: ["Covered Interest Parity (CIRP)", "BIS Triennial FX Survey conventions", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a treasury book holds FX outright forwards or swaps, pricing them by covered
+  interest parity on each currency's own day-count basis and reporting forward points at
+  the pair's pip size with discounted mark-to-market.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: fx-forward, fx-swap, covered-interest-parity, swap-points, mark-to-market, fx-exposure, treasury-risk, day-count-convention
+  brokers_frameworks: "Covered Interest Parity (CIRP); BIS Triennial FX Survey conventions; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

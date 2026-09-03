@@ -1,26 +1,17 @@
 ---
 name: margin-utilization-circuit-breaker
-description: Use when a bot trades on margin and needs a latching, strategy-independent
-  circuit breaker on margin utilization that halts exposure-increasing orders at a
-  house budget well below the broker's liquidation point, permits only margin-releasing
-  orders while halted, and stays halted until an audited human re-arm.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- margin
-- circuit-breaker
-- leverage
-- margin-call-prevention
-brokers_frameworks:
-- Custom Risk Engine
-- Interactive Brokers
-- Alpaca
-- Zerodha Kite Connect
-- MetaTrader 5
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a bot trades on margin and needs a latching halt on margin utilisation at a
+  house budget well below the broker's liquidation point, because utilisation can spike
+  on winning positions when requirements move.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, margin, circuit-breaker, leverage, margin-call-prevention
+  brokers_frameworks: "Custom Risk Engine; Interactive Brokers; Alpaca; Zerodha Kite Connect; MetaTrader 5"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

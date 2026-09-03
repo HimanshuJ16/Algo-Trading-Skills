@@ -1,14 +1,17 @@
 ---
 name: jse-south-africa-api-integration
 description: >-
-  Quantitative market gateway engine for the Johannesburg Stock Exchange equity market (JSE, LSEG Millennium Exchange), enforcing ZAC South African Cents pricing on a flat 1-cent tick, whole-share lots up to the 99,999,999 Maximum Order Size, the ZA01 +/-90% price band, and per-segment/per-session circuit breaker tolerances.
-domain: Global Market Integration & FX
-subdomain: African Market Connectivity & JSE Gateway
-tags: ["jse", "south-africa", "johannesburg-stock-exchange", "zac-cents", "millennium-exchange", "circuit-breakers", "price-bands"]
-brokers_frameworks: ["JSE Millennium Exchange (LSEG Technology)", "JSE Trading Gateway (FIX 5.0 SP2)", "JSE Native Trading Gateway", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when routing equity orders to the Johannesburg Stock Exchange on LSEG Millennium
+  Exchange, pricing in South African cents on a flat one-cent tick with whole-share lots
+  and JSE session phases.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: jse, south-africa, johannesburg-stock-exchange, zac-cents, millennium-exchange, circuit-breakers, price-bands
+  brokers_frameworks: "JSE Millennium Exchange (LSEG Technology); JSE Trading Gateway (FIX 5.0 SP2); JSE Native Trading Gateway; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

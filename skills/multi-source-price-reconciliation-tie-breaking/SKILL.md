@@ -1,31 +1,17 @@
 ---
 name: multi-source-price-reconciliation-tie-breaking
 description: >-
-  Use when three or more vendors quote the same instrument and one canonical price
-  must be produced from them — covering median-distance outlier attribution, the
-  agreement-tolerance audit and its tick-size floor, deterministic tie-breaking when
-  vendors genuinely disagree, staleness gating before any pricing arithmetic, and the
-  separation between a price that is usable and a price that anything actually
-  corroborated.
-domain: algorithmic-trading
-subdomain: data-management-global
-tags:
-- data-management-global
-- price-reconciliation
-- tie-breaking
-- multi-vendor
-- outlier-attribution
-- canonical-price
-- independent-price-verification
-- data-quality
-brokers_frameworks:
-- SEC Reg NMS Rule 612 (17 CFR 242.612, minimum pricing increment)
-- SEC Rule 2a-5 (17 CFR 270.2a-5, fair value and pricing service oversight)
-- CRR Article 105(8) (Regulation (EU) No 575/2013, independent price verification)
-- Python standard library (statistics, dataclasses, enum)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when three or more vendors quote the same instrument and one canonical price must
+  come out, with median-distance outlier attribution and a tick-size-aware agreement
+  tolerance. Two sources cannot break a tie.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: data-management-global, price-reconciliation, tie-breaking, multi-vendor, outlier-attribution, canonical-price, independent-price-verification, data-quality
+  brokers_frameworks: "SEC Reg NMS Rule 612 (17 CFR 242.612, minimum pricing increment); SEC Rule 2a-5 (17 CFR 270.2a-5, fair value and pricing service oversight); CRR Article 105(8) (Regulation (EU) No 575/2013, independent price verification); Python standard library (statistics, dataclasses, enum)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

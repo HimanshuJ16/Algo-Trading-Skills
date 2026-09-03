@@ -40,19 +40,9 @@ import math
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from enum import Enum
-from typing import Dict, List, Optional
-
-import pandas as pd
+from typing import Dict, Optional
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class SignalResult:
-    """Legacy placeholder result type. See `generate_signals`."""
-    timestamp: str
-    signal_value: float
-    asset_id: str
 
 
 class ImagerySignalType(str, Enum):
@@ -186,7 +176,6 @@ class SatelliteImageryBasedSignalResearchEngine:
     research signal with an explicit point-in-time availability stamp.
 
     Args:
-        config: Free-form caller metadata, carried but not interpreted.
         z_score_threshold: |Z| at or above which a direction is taken. The 1.5
             default matches this skill's reference table and is a placeholder,
             not a validated constant.
@@ -201,7 +190,6 @@ class SatelliteImageryBasedSignalResearchEngine:
 
     def __init__(
         self,
-        config: Optional[dict] = None,
         z_score_threshold: float = 1.5,
         strength_saturation_z: float = 3.0,
         min_usable_pixel_fraction: float = 0.0,
@@ -217,34 +205,9 @@ class SatelliteImageryBasedSignalResearchEngine:
                 "min_usable_pixel_fraction must be within [0.0, 1.0], "
                 f"got {min_usable_pixel_fraction!r}")
 
-        self.config = config or {}
         self.z_score_threshold = float(z_score_threshold)
         self.strength_saturation_z = float(strength_saturation_z)
         self.min_usable_pixel_fraction = float(min_usable_pixel_fraction)
-
-    def generate_signals(self, raw_data: pd.DataFrame) -> List[SignalResult]:
-        """
-        DEPRECATED placeholder retained only for import/call compatibility.
-
-        This does NOT compute a satellite signal. It multiplies a `raw_val`
-        column by a fixed 1.5 and labels the product a signal; the number has no
-        economic meaning and no relationship to imagery, baselines, or lag. Use
-        `compute_satellite_signal` for real work.
-        """
-        logger.warning(
-            "generate_signals() is a deprecated non-semantic placeholder and does not "
-            "produce a satellite signal; use compute_satellite_signal() instead."
-        )
-        if raw_data.empty:
-            return []
-        results: List[SignalResult] = []
-        for index, row in raw_data.iterrows():
-            results.append(SignalResult(
-                timestamp=str(index),
-                signal_value=float(row.get("raw_val", 0) * 1.5),
-                asset_id=row.get("asset", "unknown"),
-            ))
-        return results
 
     def compute_satellite_signal(
         self,

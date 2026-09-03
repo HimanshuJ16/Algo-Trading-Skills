@@ -1,14 +1,17 @@
 ---
 name: smart-contract-approval-scope-minimization
 description: >-
-  ERC-20 approval scope minimization planner for DeFi trading bots: refuses unlimited allowances (uint256.max and Permit2's uint160.max sentinel), sizes approvals to the exact transaction notional, prefers EIP-2612 permits with short deadlines, enforces EIP-20 approve-to-zero before re-approval, and plans revocation of unlimited or stale allowances.
-domain: Crypto Custody & DeFi Security
-subdomain: Smart Contract Allowance Security
-tags: ["approval-scope-minimization", "erc-20-allowance", "eip-2612-permit", "unlimited-approval-risk", "revoke-to-zero", "defi-security"]
-brokers_frameworks: ["EIP-20", "EIP-2612 Permit Standard", "EIP-712 Typed Data", "Uniswap Permit2", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a bot grants ERC-20 spending rights to a DeFi protocol, refusing unlimited
+  allowances and sizing each approval to the exact transaction notional, with expiring
+  Permit2 allowances preferred where available.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: approval-scope-minimization, erc-20-allowance, eip-2612-permit, unlimited-approval-risk, revoke-to-zero, defi-security
+  brokers_frameworks: "EIP-20; EIP-2612 Permit Standard; EIP-712 Typed Data; Uniswap Permit2; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

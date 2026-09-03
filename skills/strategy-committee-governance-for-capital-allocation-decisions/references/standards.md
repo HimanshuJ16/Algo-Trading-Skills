@@ -2,11 +2,10 @@
 
 ## The thresholds in this skill are house defaults, not standards
 
-An earlier version of this file presented the three numbers below in a column
-headed **"Mandatory Standard"**, with no source. That heading was wrong. No
-regulator, exchange or standards body mandates a committee quorum, a voting rule,
-a Chief Risk Officer veto, or a maximum share of fund AUM per strategy. They are
-starting values chosen for this engine.
+The three numbers below are not a **"Mandatory Standard"**, and nothing sources
+them. No regulator, exchange or standards body mandates a committee quorum, a
+voting rule, a Chief Risk Officer veto, or a maximum share of fund AUM per
+strategy. They are starting values chosen for this engine.
 
 | Rule | Default | What it actually is |
 |---|---|---|

@@ -1,7 +1,7 @@
 """Unit tests for the strategy decommissioning / position unwind engine.
 
 Expected values are derived by hand from the position inputs, never by re-running the
-engine's own arithmetic. Tests marked "regression" fail against the pre-2.0.0 behaviour
+engine's own arithmetic. Tests marked "regression" fail against the the older behaviour
 described in their docstring.
 """
 import unittest

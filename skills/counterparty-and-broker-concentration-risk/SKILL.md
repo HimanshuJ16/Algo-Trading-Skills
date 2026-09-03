@@ -1,23 +1,17 @@
 ---
 name: counterparty-and-broker-concentration-risk
-description: Quantitative treasury and risk management module for auditing prime broker
-  counterparty concentration, enforcing max % NAV exposure limits and CDS spread
-  bounds, and returning smart failover order routing decisions.
-domain: Risk Management & Treasury
-subdomain: Counterparty Risk
-tags:
-- counterparty-risk
-- prime-broker
-- concentration-limits
-- cds-spread
-- smart-order-routing
-- hhi
-brokers_frameworks:
-- Generic Risk Engine
-- Python Dataclasses
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when cash, collateral and positions sit at several prime brokers or exchanges and
+  no one number says how much is at any single one; enforces NAV exposure caps and CDS
+  spread bounds, and returns an advisory routing decision.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: counterparty-risk, prime-broker, concentration-limits, cds-spread, smart-order-routing, hhi
+  brokers_frameworks: "Generic Risk Engine; Python Dataclasses"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

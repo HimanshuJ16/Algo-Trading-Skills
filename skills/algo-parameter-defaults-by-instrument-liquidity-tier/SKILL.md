@@ -1,20 +1,17 @@
 ---
 name: algo-parameter-defaults-by-instrument-liquidity-tier
-description: Assign validated, versioned execution starting profiles from instrument liquidity tiers while requiring fresh market-state and independent risk checks before routing.
-  ADV thresholds are calibration inputs, not universal market rules or permission to cross a spread.
-domain: algorithmic-trading
-subdomain: execution-algorithms
-tags:
-- execution
-- smart-order-routing
-- market-impact
-- twap
-- vwap
-brokers_frameworks:
-- generic
-version: "1.3.0"
-author: System
-license: MIT
+description: >-
+  Use when initialising VWAP, TWAP or implementation shortfall execution with
+  instrument-specific starting constraints, classifying a validated average daily volume
+  observation into a liquidity tier and returning a versioned profile.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution, smart-order-routing, market-impact, twap, vwap
+  brokers_frameworks: generic
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -83,7 +83,7 @@ actually implementing the skill, not just when deciding whether it applies.
      can be regressed against realized impact directly.
    - Cadence and statistical tests: `execution-cost-model-recalibration-cadence`.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Mid-Price Fill Assumption:** Filling all simulated orders at mid-price, overstating
   backtest performance for illiquid options.

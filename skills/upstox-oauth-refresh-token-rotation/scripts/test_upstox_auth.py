@@ -76,7 +76,7 @@ class TestSessionExpiryDerivation(unittest.TestCase):
 
     def test_utc_input_is_converted_not_truncated(self):
         # 18:00 UTC == 23:30 IST the same day -> next boundary is 03:30 IST tomorrow.
-        # A host that ignored the offset would read "18:00" as pre-03:30-of-tomorrow
+        # A host that ignored the offset would read "18:00" as older:30-of-tomorrow
         # incorrectly, or roll the day at the wrong instant.
         issued = datetime.datetime(2025, 11, 11, 18, 0, tzinfo=datetime.timezone.utc)
         expected = ist(2025, 11, 12, 3, 30).timestamp()

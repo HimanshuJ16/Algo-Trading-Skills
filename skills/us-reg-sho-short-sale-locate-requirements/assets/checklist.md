@@ -41,7 +41,11 @@
 ## Order path integrity
 - [ ] Re-validating an `order_id` reserves capacity exactly once; a retry after a timeout
       cannot double-spend a locate.
-- [ ] A reused `order_id` carrying different terms is rejected rather than silently re-decided.
+- [ ] A reused `order_id` carrying different terms (quantity, price, symbol, marking, locate,
+      exempt basis) is rejected rather than silently re-decided.
+- [ ] A retry carrying a fresher NBBO tick is recognised as the *same* order and returns the
+      original decision — market data is not part of the duplicate fingerprint, so a moved
+      national best bid must not turn a legitimate retry into a "different terms" rejection.
 - [ ] Structurally invalid orders (non-positive quantity, non-finite price, unknown marking)
       are rejected and logged, not passed and not raised as exceptions on the order path.
 - [ ] Concurrency is handled: locate reservation is a read-modify-write, so calls are
@@ -67,3 +71,8 @@
       least six years where no other period is specified, while several 17a-4 categories are
       three years. Confirm the category per artifact with compliance rather than applying one
       number to everything. Reg SHO itself prescribes no retention period.
+
+## Sign-off
+- [ ] The skill's reference suite passes from the repository root:
+      `python -m unittest discover -s skills/us-reg-sho-short-sale-locate-requirements/scripts`
+- [ ] Each box above is either ticked or has a named owner and a date against it.

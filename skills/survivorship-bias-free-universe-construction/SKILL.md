@@ -1,30 +1,17 @@
 ---
 name: survivorship-bias-free-universe-construction
-description: Use when building backtesting datasets to reconstruct point-in-time
-  tradable universes that keep delisted, bankrupt and acquired instruments in history,
-  and to settle a position's terminal cash value when a name stops trading — keyed by
-  security rather than ticker so recycled symbols do not collapse two issuers into one.
-  Resolves the listing/delisting axis and terminal settlement; it does not model index
-  membership, announcement timing, or corporate-action price adjustment.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- survivorship-bias
-- point-in-time
-- delisted-stocks
-- delisting-returns
-- ticker-recycling
-- universe-selection
-brokers_frameworks:
-- CRSP
-- Sharadar
-- Norgate Data
-- QuantConnect Data
-- Python standard library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a backtest needs the instruments actually tradable on each historical date,
+  keeping delisted, bankrupt and acquired names in history and settling their terminal
+  cash value rather than dropping them.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, survivorship-bias, point-in-time, delisted-stocks, delisting-returns, ticker-recycling, universe-selection
+  brokers_frameworks: "CRSP; Sharadar; Norgate Data; QuantConnect Data; Python standard library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

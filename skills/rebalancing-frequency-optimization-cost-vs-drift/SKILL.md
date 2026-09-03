@@ -1,16 +1,17 @@
 ---
 name: rebalancing-frequency-optimization-cost-vs-drift
 description: >-
-  Use when deciding whether and how far to rebalance a multi-asset portfolio, weighing a
-  quadratic weight-drift penalty against the transaction cost of the trade actually
-  placed, with a tolerance band and an optional trade-to-boundary destination.
-domain: Portfolio Multi-Strategy
-subdomain: Rebalancing Optimization & Execution Timing
-tags: ["rebalancing-optimization", "cost-vs-drift", "no-trade-band", "tolerance-band", "transaction-costs", "portfolio-governance"]
-brokers_frameworks: ["Threshold Rebalancing (No-Trade Band)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a portfolio has drifted from target weights and you must decide whether to
+  trade at all and how far back, weighing a quadratic drift penalty against the cost of
+  the trade actually placed.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: rebalancing-optimization, cost-vs-drift, no-trade-band, tolerance-band, transaction-costs, portfolio-governance
+  brokers_frameworks: "Threshold Rebalancing (No-Trade Band); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

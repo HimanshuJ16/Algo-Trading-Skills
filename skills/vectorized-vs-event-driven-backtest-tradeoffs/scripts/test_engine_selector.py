@@ -9,7 +9,7 @@ than against the module's own NumPy call, and the cross-engine checks assert an
 rather than a recorded output. A test that restated the module's algebra would have
 passed against every bug this suite now pins.
 
-Regression coverage -- each of these fails against the pre-2.0.0 implementation:
+Regression coverage -- each of these fails against a naive implementation:
   * the two engines agree bar for bar under matched assumptions. The old event
     engine held signals as *share counts* against fixed capital, so on an identical
     long-only series it reported 0.06% against the vectorized engine's 49.00%.
@@ -76,7 +76,7 @@ class TestVectorizedEngineArithmetic(unittest.TestCase):
         50 bars of exactly +1%, held long throughout. The position is established at
         the close of bar 0, so it earns 49 bars: 1.01**49 - 1 = 62.8348%.
 
-        The pre-2.0.0 engine summed arithmetic returns and reported 49 * 1% = 49.0%.
+        a naive engine summed arithmetic returns and reported 49 * 1% = 49.0%.
         """
         n = 50
         prices = [100.0 * (1.01 ** t) for t in range(n)]
@@ -92,7 +92,7 @@ class TestVectorizedEngineArithmetic(unittest.TestCase):
           0 -> +1 is one unit of turnover:  1 - 0.001            = -0.1000%
          -1 -> +1 is two units of turnover: 0.999 * 0.998        = -0.2998%
 
-        The pre-2.0.0 engine charged a flat one-way cost on any change, pricing both
+        a naive engine charged a flat one-way cost on any change, pricing both
         at -0.1% and understating every reversal by half.
         """
         sel = DualBacktestEngineSelector(commission_bps=10.0, slippage_bps=0.0)
@@ -113,7 +113,7 @@ class TestEventDrivenLedger(unittest.TestCase):
         Short at 100 with E of equity: units = -E/100, cash = 2E. At 90 the book is
         worth 2E - 0.9E = 1.1E, a 10% gain.
 
-        The pre-2.0.0 ledger debited cash on the sell as well as the buy, so this
+        an earlier ledger debited cash on the sell as well as the buy, so this
         position lost money in a falling market.
         """
         m = _free().run_event_driven_backtest(
@@ -130,7 +130,7 @@ class TestEventDrivenLedger(unittest.TestCase):
     def test_returns_are_invariant_to_initial_capital(self):
         """
         A percentage return must not depend on the size of the account. The
-        pre-2.0.0 engine held a fixed number of *shares*, so doubling the capital
+        older engine held a fixed number of *shares*, so doubling the capital
         halved the reported return.
         """
         prices = [100.0 * (1.0 + 0.01 * math.sin(t)) for t in range(60)]
@@ -347,7 +347,7 @@ class TestAnnualizedSharpe(unittest.TestCase):
         """
         A constant return series has no dispersion, so its Sharpe ratio is
         undefined. Its sample standard deviation is ~1e-17 of float noise rather
-        than exactly 0.0, which is why the pre-2.0.0 ``std_r or 0.0001`` guard did
+        than exactly 0.0, which is why an earlier ``std_r or 0.0001`` guard did
         not fire and a constant +1%/bar series reported a Sharpe ratio of 1.6e15.
         """
         self.assertTrue(math.isnan(annualized_sharpe([0.01] * 40)))
@@ -375,7 +375,7 @@ class TestEngineRecommendation(unittest.TestCase):
 
     def test_path_dependent_stops_alone_force_the_event_engine(self):
         """
-        Regression. The pre-2.0.0 rule scored this 3.0 against a threshold of 4.0
+        Regression. an earlier rule scored this 3.0 against a threshold of 4.0
         and returned VECTORIZED -- for the one strategy shape a vectorized backtest
         cannot represent at all, because the exposure series is not knowable before
         the run.
@@ -524,7 +524,7 @@ class TestDualEngineAudit(unittest.TestCase):
 
     def test_speedup_is_not_reported_on_a_series_too_short_to_time(self):
         """
-        Timing an eight-bar workload measures the clock. The pre-2.0.0 report
+        Timing an eight-bar workload measures the clock. an earlier report
         published that ratio anyway -- it came out at 0.78x, i.e. the "1,000x faster"
         vectorized engine measured as slower than the event loop.
         """

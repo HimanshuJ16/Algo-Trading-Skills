@@ -1,25 +1,17 @@
 ---
 name: explainability-for-live-trading-signals
-description: Use when deploying ML trading models to reconcile local feature attributions
-  (SHAP/contributions) against the score the model actually emitted, rank the drivers,
-  and write a human-readable audit record for every live signal
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- explainable-ai
-- shap-values
-- signal-attribution
-- compliance-audit
-brokers_frameworks:
-- SHAP
-- Captum
-- scikit-learn
-- XGBoost
-- Custom Explainers
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a live model score must later be explained to a risk officer or model
+  reviewer; reconciles supplied feature attributions against the score the model
+  actually emitted, ranks the drivers and writes a readable audit record.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, explainable-ai, shap-values, signal-attribution, compliance-audit
+  brokers_frameworks: "SHAP; Captum; scikit-learn; XGBoost; Custom Explainers"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

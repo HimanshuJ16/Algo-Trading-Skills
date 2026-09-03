@@ -1,22 +1,18 @@
 ---
 name: backtest-database-schema-for-point-in-time-queries
-description: Use when designing a database schema that natively supports bitemporal
-  point-in-time as-of queries, so lookahead-bias mistakes become structurally harder
-  to introduce in backtests.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- point-in-time
-- database-schema
-- lookahead-bias
-- temporal-queries
-brokers_frameworks:
-- Point-in-Time Schema Engine
-- Python
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when designing the storage layer for backtest data, so as-of queries are native:
+  two independent time axes let a query ask what was known on a date rather than what
+  the table holds today. The join engine itself is
+  point-in-time-database-for-ml-training-data.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, point-in-time, database-schema, lookahead-bias, temporal-queries
+  brokers_frameworks: "Point-in-Time Schema Engine; Python"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

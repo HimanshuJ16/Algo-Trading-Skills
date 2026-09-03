@@ -15,8 +15,8 @@ re-verify before relying on any row. Sources are listed at the bottom.
 The Fyers row is the argument in miniature. A TTL constant for Fyers cannot be
 sourced, because Fyers does not publish one. Community answers put the expiry near
 6 AM IST, but that is one forum reply from a non-staff member — not a figure to gate
-live trading on. An earlier revision of this file asserted "around 2:00–3:00 AM IST";
-no Fyers source supports that and it has been removed.
+live trading on. No Fyers source supports the "around 2:00–3:00 AM IST" figure that also
+circulates.
 
 The regulatory driver behind the daily death of Indian broker tokens *is* sourced:
 NSE circular NSE/INVG/67858 (05-May-2025), Annexure para A.8 — "All API sessions shall

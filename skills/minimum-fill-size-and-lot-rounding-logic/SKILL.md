@@ -1,33 +1,17 @@
 ---
 name: minimum-fill-size-and-lot-rounding-logic
 description: >-
-  Use when a strategy or slicing schedule produces a raw order quantity that must
-  be sized for a specific venue — rounding to a per-security board lot or crypto
-  step size with exact decimal arithmetic, clearing the venue minimum and minimum
-  notional, deciding whether an odd lot may be routed at all, and deciding whether
-  to attach the FIX Tag 110 MinQty / Tag 1089 MatchIncrement execution constraint
-  and accept its order-handling side effects.
-domain: algorithmic-trading
-subdomain: execution-algorithms
-tags:
-- execution-algorithms
-- lot-rounding
-- board-lot
-- odd-lot
-- step-size
-- min-notional
-- fix-tag-110
-brokers_frameworks:
-- FIX 4.2 / 4.4 (Tag 110 MinQty, Tag 1089 MatchIncrement, Tag 561 RoundLot, Tag 562 MinTradeVol)
-- Nasdaq Equity 4 Rule 4703 (Minimum Quantity Order Attribute)
-- SEC Regulation NMS tiered round lot (effective 3 Nov 2025)
-- HKEX Securities Market (per-security board lots, odd lot handling)
-- Japan Exchange Group / TSE (100-share trading unit)
-- SGX-ST (price-tiered board lots from 5 Oct 2026)
-- Binance Spot API (LOT_SIZE and NOTIONAL filters)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use at the last step before dispatch when the quantity was computed rather than typed,
+  rounding to a per-security board lot or crypto step size with exact decimal arithmetic
+  and reporting the overshoot.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution-algorithms, lot-rounding, board-lot, odd-lot, step-size, min-notional, fix-tag-110
+  brokers_frameworks: "FIX 4.2 / 4.4 (Tag 110 MinQty, Tag 1089 MatchIncrement, Tag 561 RoundLot, Tag 562 MinTradeVol); Nasdaq Equity 4 Rule 4703 (Minimum Quantity Order Attribute); SEC Regulation NMS tiered round lot (effective 3 Nov 2025); HKEX Securities Market (per-security board lots, odd lot handling); Japan Exchange Group / TSE (100-share trading unit); SGX-ST (price-tiered board lots from 5 Oct 2026); Binance Spot API (LOT_SIZE and NOTIONAL filters)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

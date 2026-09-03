@@ -233,7 +233,7 @@ Pair it with a periodic authenticated sweep on a timer. Webhooks are a latency
 optimisation over reconciliation, never a substitute: with no documented
 delivery guarantee, absence of a postback is not evidence that no fill occurred.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Double-counted position from a redelivered webhook.** The duplicate branch
   returned a success-shaped status with the quantity populated, and the caller

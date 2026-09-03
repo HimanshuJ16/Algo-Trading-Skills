@@ -1,14 +1,18 @@
 ---
 name: strategy-lifecycle-retirement-criteria
 description: >-
-  Deterministic strategy retirement adjudicator that applies four pre-declared guardrails — live Information Ratio, live-vs-backtest drawdown multiple, IC t-statistic, and return drift — to a performance payload and returns an auditable lifecycle decision, refusing to certify a strategy on corrupt, sign-inverted, or unevaluable metrics.
-domain: Investment Governance & Capital Allocation
-subdomain: Strategy Lifecycle Governance
-tags: ["strategy-lifecycle", "strategy-retirement", "alpha-decay", "information-ratio", "ic-t-stat", "performance-drift", "governance-audit-trail"]
-brokers_frameworks: ["Quantitative Strategy Governance", "Alpha Decay Monitoring", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when the rule for retiring a strategy must be written down before the drawdown and
+  applied identically to every strategy, testing live information ratio,
+  live-versus-backtest drawdown multiple and return drift against pre-declared
+  guardrails.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: strategy-lifecycle, strategy-retirement, alpha-decay, information-ratio, ic-t-stat, performance-drift, governance-audit-trail
+  brokers_frameworks: "Quantitative Strategy Governance; Alpha Decay Monitoring; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

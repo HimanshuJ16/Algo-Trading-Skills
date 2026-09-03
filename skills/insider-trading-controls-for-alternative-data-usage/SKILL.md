@@ -1,14 +1,17 @@
 ---
 name: insider-trading-controls-for-alternative-data-usage
 description: >-
-  Adviser-side trading-eligibility gate for onboarded alternative datasets, producing a per-control audit record across MNPI provenance, vendor diligence and terms-of-service posture, PII scrubbing with panel aggregation, and firm-policy earnings blackout windows.
-domain: Quant Research & Alt Data
-subdomain: Compliance & Legal Governance for Alt Data
-tags: ["alt-data", "insider-trading", "sec-rule-10b5", "mnpi", "section-204a", "pii-anonymization", "compliance-governance"]
-brokers_frameworks: ["SEC Rule 10b-5", "17 CFR 240.10b5-2", "Section 204A Investment Advisers Act", "GDPR Recital 26 / CCPA-CPRA 1798.140", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use at the point an already-onboarded alternative dataset is about to drive trading,
+  to produce a per-control record across material non-public information provenance,
+  vendor terms posture and personal data scrubbing. Vendor triage happens earlier.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: alt-data, insider-trading, sec-rule-10b5, mnpi, section-204a, pii-anonymization, compliance-governance
+  brokers_frameworks: "SEC Rule 10b-5; 17 CFR 240.10b5-2; Section 204A Investment Advisers Act; GDPR Recital 26 / CCPA-CPRA 1798.140; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

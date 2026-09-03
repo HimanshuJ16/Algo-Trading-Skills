@@ -1,25 +1,17 @@
 ---
 name: cross-datacenter-clock-sync-validation
-description: Use when a multi-region trading system merges or arbitrates ticks across
-  datacenters (NY4, LD4, AWS us-east-1) and must prove the sites' clocks agree closely
-  enough to order events correctly — evaluating pairwise inter-region drift with its
-  measurement uncertainty, and failing closed on missing, imprecise or corrupt probes.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- clock-sync
-- cross-datacenter
-- ptp
-- ntp
-- clock-drift
-- multi-region
-brokers_frameworks:
-- Clock Sync Validator
-- Python Real-Time Engine
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a strategy merges ticks from more than one datacenter (NY4, LD4, a cloud
+  region) and must prove those sites agree closely enough to order events correctly.
+  Measures pairwise inter-region drift with its uncertainty and fails closed.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, clock-sync, cross-datacenter, ptp, ntp, clock-drift, multi-region
+  brokers_frameworks: "Clock Sync Validator; Python Real-Time Engine"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

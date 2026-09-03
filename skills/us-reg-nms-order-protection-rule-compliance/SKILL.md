@@ -1,35 +1,18 @@
 ---
 name: us-reg-nms-order-protection-rule-compliance
 description: >-
-  Use when an execution in a US NMS stock must be tested against the protected
-  quotations displayed at the moment it printed — SEC Regulation NMS Rule 611.
-  Covers the definition that actually governs (Rule 600(b)(105) makes a
-  trade-through a price test, not a side test, and confines it to 09:30–16:00
-  ET), the per-venue one-second flickering-quote exception of Rule 611(b)(8),
-  the Rule 600(b)(47)(ii) sweep obligation behind an ISO marking, Self-Help
-  declarations as time intervals, and the crossed-market, auction, benchmark
-  and stopped-order exceptions.
-domain: US Regulatory Compliance & Market Structure
-subdomain: SEC Regulation NMS (Rule 611 Order Protection)
-tags:
-- sec-reg-nms
-- rule-611
-- trade-through
-- protected-nbbo
-- iso-orders
-- self-help
-- market-structure
-- finra-cat
-brokers_frameworks:
-- 17 CFR 242.611 (Order Protection Rule)
-- 17 CFR 242.600(b) (Reg NMS definitions)
-- SEC Division of Trading and Markets Reg NMS Rule 610/611 FAQ
-- FINRA CAT (Consolidated Audit Trail) / CAT NMS Plan
-- FIX ExecInst (tag 18) = 'f' Intermarket Sweep (FIX 5.0 SP2; carried as a venue
-  extension on earlier FIX sessions)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an execution in a US NMS stock must be tested after the fact against the
+  protected quotations displayed when it printed, under SEC Regulation NMS Rule 611 and
+  the surveillance duty in Rule 611(a)(2). Post-trade surveillance, not a router
+  control.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: sec-reg-nms, rule-611, trade-through, protected-nbbo, iso-orders, self-help, market-structure, finra-cat
+  brokers_frameworks: "17 CFR 242.611 (Order Protection Rule); 17 CFR 242.600(b) (Reg NMS definitions); SEC Division of Trading and Markets Reg NMS Rule 610/611 FAQ; FINRA CAT (Consolidated Audit Trail) / CAT NMS Plan; FIX ExecInst (tag 18) = 'f' Intermarket Sweep (FIX 5.0 SP2, carried as a venue extension on earlier FIX sessions)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

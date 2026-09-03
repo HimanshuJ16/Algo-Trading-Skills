@@ -1,14 +1,17 @@
 ---
 name: hong-kong-exchange-hkex-orion-api
 description: >-
-  Use when an order is about to be sent to HKEX's Orion Central Gateway - Securities Market (OCG-C) and must first satisfy the SEHK rulebook — the right Part of the Second Schedule spread table for that security (not one table for everything), upper-inclusive band boundaries, 5-digit HKD/RMB Dual Counter codes, issuer-set board lots, and the 3,000 board lot automatch cap.
-domain: Global Market Integration & FX
-subdomain: Asian Market Connectivity & HKEX Orion
-tags: ["hkex", "ocg-c", "omd-c", "hong-kong-exchange", "second-schedule", "spread-table", "board-lot", "odd-lot", "dual-counter"]
-brokers_frameworks: ["HKEX Orion Central Gateway - Securities Market (OCG-C)", "HKEX Orion Market Data Platform - Securities Market (OMD-C)", "SEHK Rules of the Exchange (Second Schedule)", "Python Decimal"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a Hong Kong equity, ETF, REIT, warrant or CBBC order must satisfy the SEHK
+  rulebook before reaching the Orion Central Gateway, including the correct Part of the
+  Second Schedule spread table for that security.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: hkex, ocg-c, omd-c, hong-kong-exchange, second-schedule, spread-table, board-lot, odd-lot, dual-counter
+  brokers_frameworks: "HKEX Orion Central Gateway - Securities Market (OCG-C); HKEX Orion Market Data Platform - Securities Market (OMD-C); SEHK Rules of the Exchange (Second Schedule); Python Decimal"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

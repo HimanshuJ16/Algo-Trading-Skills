@@ -1,28 +1,17 @@
 ---
 name: circuit-breaker-for-downstream-service-calls
-description: Use when a trading process calls a downstream service — reference data,
-  historical or alt-data vendors, internal microservices — and a slow or failing
-  dependency must be cut off before it exhausts threads and connection pools.
-  Covers the thread-safe CLOSED/OPEN/HALF_OPEN state machine, single-probe recovery,
-  escalating backoff, slow-call detection, and which exceptions must never trip a
-  breaker.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- circuit-breaker
-- resilience
-- fail-fast
-- downstream-dependency
-- graceful-degradation
-- thread-safety
-brokers_frameworks:
-- Generic Infrastructure
-- Python
-- requests
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a trading process calls a non-order dependency (reference data, an alt-data
+  vendor, an internal microservice) that can hang and exhaust threads and connection
+  pools. Never wrap order submission or cancels with it.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, circuit-breaker, resilience, fail-fast, downstream-dependency, graceful-degradation, thread-safety
+  brokers_frameworks: "Generic Infrastructure; Python; requests"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

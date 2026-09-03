@@ -3,12 +3,11 @@
 ## There is no published tick-to-trade latency standard
 
 **No regulator, exchange or standards body publishes a mandatory tick-to-trade latency
-SLA, and none publishes per-stage T2T budgets.** Earlier revisions of this skill shipped
-a table headed "Institutional Tick-to-Trade Latency Standards" giving hard per-stage
-budgets ($< 300\ \text{ns}$ NIC ingress, $< 2.5\ \mu\text{s}$ total, and so on) with no
-source attached. Those figures were an engineering illustration presented as a standard,
-and they have been removed. T2T budgets are set by each firm against its own venue,
-colocation, strategy and hardware.
+SLA, and none publishes per-stage T2T budgets.** A table headed "Institutional
+Tick-to-Trade Latency Standards" giving hard per-stage budgets ($< 300\ \text{ns}$ NIC
+ingress, $< 2.5\ \mu\text{s}$ total, and so on) has no source behind it — figures like
+those are engineering illustration presented as a standard. T2T budgets are set by each
+firm against its own venue, colocation, strategy and hardware.
 
 The nearest thing to an industry reference point is a **benchmark**, not a requirement:
 the STAC Benchmark Council's **STAC-N1** suite, which measures network-stack latency
@@ -73,9 +72,9 @@ own worst observations; count drops in the feed handler. For a fixed-cadence ser
 | `CLOCK_MONOTONIC_RAW` | "provides access to a raw hardware-based time that is not subject to frequency adjustments" — unlike `CLOCK_MONOTONIC`, which is "affected by frequency adjustments", and `CLOCK_REALTIME`, which is "affected by discontinuous jumps in the system time". | [`clock_gettime(2)`, man7.org](https://man7.org/linux/man-pages/man2/clock_gettime.2.html) |
 | Invariant TSC | "Processor's support for invariant TSC is indicated by CPUID.80000007H:EDX[8]." "The invariant TSC will run at a constant rate in all ACPI P-, C-. and T-states." | Intel 64 and IA-32 Architectures Software Developer's Manual, Vol. 3, "Invariant TSC" |
 
-**The correction this removes.** Earlier revisions of this skill stated that `rdtsc`
-"requires CPU core pinning and disabling C-states / Turbo Boost to ensure constant TSC
-frequency." On any processor advertising invariant TSC that is wrong: the counter runs at
+**On the `rdtsc` folklore.** It is commonly said that `rdtsc` "requires CPU core pinning
+and disabling C-states / Turbo Boost to ensure constant TSC frequency." On any processor
+advertising invariant TSC that is wrong: the counter runs at
 a constant rate across all P-, C- and T-states by definition. Disabling deep C-states
 remains worthwhile for *wake-up latency* jitter, and core pinning remains worthwhile
 because raw TSC readings are only comparable across cores when the TSC is invariant and
@@ -86,8 +85,8 @@ invariant bit and calibrating the frequency is.
 timestamping *resolution* (single-digit nanoseconds on current Solarflare/AMD and Mellanox
 parts). Resolution is not accuracy: end-to-end accuracy against UTC is set by the whole
 traceability chain — grandmaster, distribution, path asymmetry, holdover — and must be
-measured on the deployed host. Earlier revisions of this file claimed a flat
-"Precision: $< 10\ \text{ns}$" for hardware NIC timestamping; that figure has been removed.
+measured on the deployed host. A flat "Precision: $< 10\ \text{ns}$" for hardware NIC
+timestamping is not a claim any of that supports.
 See `hardware-timestamping-vs-software-timestamping-accuracy`.
 
 ## This skill's engineering rules

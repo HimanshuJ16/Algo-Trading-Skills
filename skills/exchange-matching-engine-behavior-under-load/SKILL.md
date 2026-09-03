@@ -1,18 +1,17 @@
 ---
 name: exchange-matching-engine-behavior-under-load
 description: >-
-  Use when estimating how much extra latency a matching engine adds as inbound message
-  rates approach its service capacity, and converting that engine utilisation into a
-  market-making quoting directive (normal / widen spreads / pause passive quoting).
-  Closed-form M/M/1 and M/D/1 queueing, explicit saturation handling, and the
-  reject-and-disconnect behaviour real venues exhibit above a session throttle.
-domain: Market Microstructure & High-Frequency Trading
-subdomain: Order Book Queue Dynamics & Congestion
-tags: ["matching-engine", "queuing-delay", "message-bursts", "adverse-selection", "queue-position", "mm1-queue", "md1-queue", "pollaczek-khinchine", "engine-saturation", "message-throttle", "latency-spikes"]
-brokers_frameworks: ["CME Globex iLink 3", "Nasdaq INET / OUCH", "Eurex T7 ETI", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when estimating how much extra delay a matching engine adds as inbound message
+  rates approach its capacity, and converting that utilisation into a quoting directive.
+  A closed-form model, not telemetry.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: matching-engine, queuing-delay, message-bursts, adverse-selection, queue-position, mm1-queue, md1-queue, pollaczek-khinchine, engine-saturation, message-throttle, latency-spikes
+  brokers_frameworks: "CME Globex iLink 3; Nasdaq INET / OUCH; Eurex T7 ETI; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

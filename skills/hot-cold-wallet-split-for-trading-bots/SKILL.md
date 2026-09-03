@@ -1,14 +1,17 @@
 ---
 name: hot-cold-wallet-split-for-trading-bots
 description: >-
-  Crypto treasury allocation engine that audits the Hot/Cold balance split, proposes idempotent sweep and refill transfers that net in-flight movements, enforces mandated jurisdictional hot-wallet ceilings, and flags every fund-moving permission on a trading API key.
-domain: Crypto Custody & Security
-subdomain: Wallet Allocation & Treasury Management
-tags: ["crypto-custody", "hot-wallet", "cold-storage", "treasury-management", "rebalance-sweep", "api-key-security", "circuit-breaker"]
-brokers_frameworks: ["Fireblocks", "BitGo", "Coinbase Custody", "Binance API", "SFC VATP Guidelines", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding how much crypto capital should be reachable by the trading key right
+  now, proposing idempotent sweep and refill transfers that net in-flight movements and
+  respect a hot-wallet ceiling.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-custody, hot-wallet, cold-storage, treasury-management, rebalance-sweep, api-key-security, circuit-breaker
+  brokers_frameworks: "Fireblocks; BitGo; Coinbase Custody; Binance API; SFC VATP Guidelines; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

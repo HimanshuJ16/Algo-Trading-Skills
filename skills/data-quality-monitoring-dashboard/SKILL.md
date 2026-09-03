@@ -1,25 +1,17 @@
 ---
 name: data-quality-monitoring-dashboard
-description: Real-time market data quality monitoring dashboard engine for auditing
-  completeness, timeliness (latency), accuracy (outliers), uniqueness, and feed liveness
-  across data vendors.
-domain: Data Management Global
-subdomain: Data Quality & Observability
-tags:
-- data-quality
-- observability
-- data-downtime
-- completeness-score
-- timeliness-latency
-- outlier-detection
-- data-monitoring
-brokers_frameworks:
-- Prometheus
-- Grafana
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when monitoring feed completeness, timeliness, outliers, uniqueness and liveness
+  across market data vendors, to catch null prices, latency spikes and stalled feeds
+  before an algorithm trades on them.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: data-quality, observability, data-downtime, completeness-score, timeliness-latency, outlier-detection, data-monitoring
+  brokers_frameworks: "Prometheus; Grafana; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

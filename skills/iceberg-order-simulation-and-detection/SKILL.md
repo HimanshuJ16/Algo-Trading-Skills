@@ -1,14 +1,17 @@
 ---
 name: iceberg-order-simulation-and-detection
 description: >-
-  Market microstructure screen for hidden institutional Iceberg / Reserve orders, flagging price levels where cumulative same-side trade volume exceeds displayed Level 2 depth with repeated visible refills, and estimating a lower bound on hidden size.
-domain: Market Microstructure & Latency
-subdomain: Order Flow Toxicity & Iceberg Detection
-tags: ["iceberg-detection", "hidden-liquidity", "market-microstructure", "level-2-depth", "order-flow", "institutional-accumulation"]
-brokers_frameworks: ["Level 2 Order Book Feeds", "Trade Print Logs", "Bookmap / Sierra Chart", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when screening whether a price level holds more liquidity than it displays,
+  flagging levels where cumulative same-side trade volume exceeds displayed depth with
+  repeated visible refills. It infers, it does not prove.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: iceberg-detection, hidden-liquidity, market-microstructure, level-2-depth, order-flow, institutional-accumulation
+  brokers_frameworks: "Level 2 Order Book Feeds; Trade Print Logs; Bookmap / Sierra Chart; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

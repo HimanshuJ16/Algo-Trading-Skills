@@ -1,23 +1,17 @@
 ---
 name: api-key-least-privilege-audit-tool
-description: Use when auditing broker API keys and credentials to inspect granted
-  permission scopes, enforce the principle of least privilege, and flag over-privileged
-  keys (e.g., withdrawal rights or admin access) before live deployment.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- api-keys
-- security-audit
-- least-privilege
-- withdrawal-protection
-- credential-hygiene
-brokers_frameworks:
-- Security Audit Engine
-- Python Security
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before deploying a live bot, to audit existing broker API keys for scopes they do
+  not need. Flags withdrawal, transfer and admin rights that turn a leaked execution key
+  into theft.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, api-keys, security-audit, least-privilege, withdrawal-protection, credential-hygiene
+  brokers_frameworks: "Security Audit Engine; Python Security"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

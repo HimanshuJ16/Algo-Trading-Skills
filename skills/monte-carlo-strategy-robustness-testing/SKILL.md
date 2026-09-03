@@ -1,25 +1,17 @@
 ---
 name: monte-carlo-strategy-robustness-testing
-description: Use when validating trading strategy robustness before capital deployment
-  to run Monte Carlo trade sequence shuffling, IID bootstrap resampling, and execution
-  noise perturbation, and to compute the 95th percentile maximum drawdown and the
-  probability that a simulated path breaches the drawdown limit
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- monte-carlo
-- risk-of-ruin
-- robustness-testing
-- bootstrap-resampling
-brokers_frameworks:
-- Backtrader
-- VectorBT
-- NumPy
-- Custom Backtesting Engines
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a promising equity curve is a single realised path and you need the
+  distribution around it; trade-sequence shuffling, IID bootstrap resampling and
+  execution-noise perturbation with confidence intervals on drawdown.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, monte-carlo, risk-of-ruin, robustness-testing, bootstrap-resampling
+  brokers_frameworks: "Backtrader; VectorBT; NumPy; Custom Backtesting Engines"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

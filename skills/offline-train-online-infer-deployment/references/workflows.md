@@ -75,7 +75,7 @@ ensembles and neural nets need a format that captures model structure — see
    tolerance. An empty comparison and an all-NaN comparison both return `False` —
    `abs(nan − nan) > tol` is `False`, so a naive gate reports them as verified.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Missing scaler export:** exporting coefficients without the fitted scaling
   parameters, feeding raw live features into weights fitted on standardised data. On

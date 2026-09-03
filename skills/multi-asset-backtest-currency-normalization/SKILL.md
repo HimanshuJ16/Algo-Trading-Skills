@@ -1,24 +1,17 @@
 ---
 name: multi-asset-backtest-currency-normalization
-description: Use when backtesting global multi-asset portfolios to convert multi-currency
-  cash flows, position valuations, and FX conversion rates into a single unified reporting
-  currency without currency mixing errors
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- multi-currency
-- fx-conversion
-- portfolio-accounting
-- currency-normalization
-- nav-attribution
-brokers_frameworks:
-- Interactive Brokers Multi-Currency
-- Backtrader Multi-Asset
-- VectorBT FX
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a backtest holds assets in several currencies and P&L must be reported in
+  one; converts cash flows and valuations at dated rates instead of summing unconverted
+  numbers, which silently mixes currencies.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, multi-currency, fx-conversion, portfolio-accounting, currency-normalization, nav-attribution
+  brokers_frameworks: "Interactive Brokers Multi-Currency; Backtrader Multi-Asset; VectorBT FX"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

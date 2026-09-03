@@ -112,7 +112,7 @@ class ModelIdentity:
 class ModelTrainingProvenance:
     """Feature lineage. Without it a card cannot be reproduced, which is the
     failure mode this skill exists to prevent. ``provenance`` is an optional
-    argument so pre-2.0 callers still run -- the card is then reported incomplete
+    argument so older callers still run -- the card is then reported incomplete
     rather than silently published without lineage."""
     training_data_sources: List[str]
     training_window_start: str          # ISO-8601 date
@@ -145,7 +145,7 @@ class ModelLimitations:
 
 @dataclass
 class ModelGovernanceConfig:
-    """Defaults fail **closed**. Pre-2.0 this dataclass defaulted to
+    """Defaults fail **closed**. older this dataclass defaulted to
     ``is_validated_by_mrm=True`` with a hard-coded ``validation_date``, so a
     caller who supplied no governance information at all received a card
     asserting an independent validation that had never happened."""
@@ -202,7 +202,7 @@ def _require_text(value: Any, label: str) -> None:
 def _require_finite(value: Any, label: str) -> float:
     """Reject NaN and infinity.
 
-    Pre-2.0 this check did not exist, and because every comparison against NaN is
+    older this check did not exist, and because every comparison against NaN is
     False, a card with ``max_drawdown_pct=nan`` was reported as fully compliant.
     """
     if isinstance(value, bool) or not isinstance(value, (int, float)):
@@ -256,7 +256,7 @@ class ModelCardGeneratorEngine:
     * ``advisory_findings`` -- observations about the documented model (metrics
       outside firm policy, in-sample figures, a stale validation). These do **not**
       make the card incomplete, and they are surfaced on every card, including
-      complete ones. Pre-2.0 a below-threshold Sharpe ratio was recorded internally
+      complete ones. older a below-threshold Sharpe ratio was recorded internally
       and then discarded whenever the card was otherwise compliant, so the finding
       never reached the reader.
     """

@@ -4,7 +4,7 @@ Expected values are derived by hand in the test body wherever a number is
 asserted. A test that recomputes the implementation's own formula and compares
 it to itself verifies nothing.
 
-Several tests are labelled REGRESSION: each one fails against the pre-2.0.0
+Several tests are labelled REGRESSION: each one fails against an earlier
 implementation and passes against the current one. They are the executable
 record of the defects listed in `references/standards.md`.
 """
@@ -408,7 +408,7 @@ class TestConsistency(unittest.TestCase):
             lenient.check_consistency(
                 self.high_res, wrong, factor=5, sma_period=3, bar_interval_seconds=MINUTE
             ).is_consistent,
-            "documents the pre-2.0.0 false pass; the default tolerance must not allow it",
+            "documents an earlier false pass; the default tolerance must not allow it",
         )
 
     def test_regression_insufficient_history_raises_instead_of_passing(self):
@@ -437,7 +437,7 @@ class TestConsistency(unittest.TestCase):
         """REGRESSION: the old check's verdict flipped with the price level.
 
         The same series shape at base 100 and base 10, both correctly resampled,
-        must both pass. The pre-2.0.0 comparison reported 0.60% at base 100 and
+        must both pass. an earlier comparison reported 0.60% at base 100 and
         5.56% at base 10, so a 1% threshold passed one and failed the other.
         """
         for base in (100.0, 10.0):

@@ -1,26 +1,17 @@
 ---
 name: multi-broker-consolidated-position-view
-description: Use when running quantitative trading strategies across multiple brokers
-  to aggregate, reconcile, and net position holdings, market values, and unrealized
-  P&L into a single consolidated base-currency risk accounting view.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- multi-broker
-- consolidated-view
-- position-reconciliation
-- risk-accounting
-- netting
-brokers_frameworks:
-- Multi-Broker Ledger
-- Python Risk Engine
-- IBKR API
-- Alpaca Trading API
-- Binance USD-M Futures API
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when positions live across several brokers and exchanges and risk limits need one
+  netted base-currency view. Normalises symbol formats, converts currencies, and audits
+  breaks against the strategy's own target ledger.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, multi-broker, consolidated-view, position-reconciliation, risk-accounting, netting
+  brokers_frameworks: "Multi-Broker Ledger; Python Risk Engine; IBKR API; Alpaca Trading API; Binance USD-M Futures API"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

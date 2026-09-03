@@ -1,25 +1,17 @@
 ---
 name: backtest-determinism-and-reproducibility
-description: Use when designing backtest execution frameworks to enforce deterministic
-  random seeding, sort input data streams strictly, replace wall-clock reads with a
-  simulated clock, and detect run-to-run divergence via exact-bit trade log checksums.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- reproducibility
-- determinism
-- random-seed
-- bit-identical
-- audit-checksum
-- regression-testing
-brokers_frameworks:
-- Determinism Reproducibility Engine
-- Python random / hashlib
-- NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when identical backtest code and data produce different P&L or Sharpe across runs,
+  making optimisation untrustworthy: deterministic seeding, strict input sort order, a
+  simulated clock replacing wall-clock reads, and run-to-run divergence detection.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, reproducibility, determinism, random-seed, bit-identical, audit-checksum, regression-testing
+  brokers_frameworks: "Determinism Reproducibility Engine; Python random / hashlib; NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

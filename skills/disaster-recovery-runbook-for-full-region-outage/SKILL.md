@@ -1,27 +1,18 @@
 ---
 name: disaster-recovery-runbook-for-full-region-outage
-description: Gated executor for a cross-region trading-stack failover — sequences outage
-  verification, order cancellation, database promotion, DNS switchover and reconciliation,
-  and refuses to promote or resume trading until split-brain and open-order interlocks
-  are evidenced.
-domain: Infrastructure & DevOps
-subdomain: Disaster Recovery & Multi-Region Resilience
-tags:
-- disaster-recovery
-- region-failover
-- rto-rpo
-- dns-switchover
-- aurora-global-db
-- order-cancel-killswitch
-- multi-region
-brokers_frameworks:
-- AWS Route 53 ARC
-- Aurora Global DB
-- CME Cancel on Disconnect
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a trading stack spans two cloud regions and someone must decide under time
+  pressure whether to move it; sequences outage verification, order cancellation,
+  database promotion, DNS switchover and reconciliation, refusing to resume trading on
+  unverified state.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: disaster-recovery, region-failover, rto-rpo, dns-switchover, aurora-global-db, order-cancel-killswitch, multi-region
+  brokers_frameworks: "AWS Route 53 ARC; Aurora Global DB; CME Cancel on Disconnect; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

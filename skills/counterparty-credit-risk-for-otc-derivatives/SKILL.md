@@ -1,26 +1,17 @@
 ---
 name: counterparty-credit-risk-for-otc-derivatives
-description: Quantitative OTC derivatives risk engine for computing Current Exposure
-  (CE), Potential Future Exposure (PFE), Credit Valuation Adjustment (CVA), ISDA netting
-  sets, and CSA collateral margins.
-domain: Risk Management & Derivatives
-subdomain: Counterparty Credit Risk
-tags:
-- counterparty-risk
-- otc-derivatives
-- pfe
-- cva
-- isda
-- csa
-- netting
-- sa-ccr
-brokers_frameworks:
-- ISDA Standard
-- SA-CCR
-- Python Dataclasses
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when trading bilateral OTC derivatives outside central clearing, to compute
+  current exposure, potential future exposure and credit valuation adjustment across
+  ISDA netting sets with CSA collateral terms.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: counterparty-risk, otc-derivatives, pfe, cva, isda, csa, netting, sa-ccr
+  brokers_frameworks: "ISDA Standard; SA-CCR; Python Dataclasses"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,22 +1,17 @@
 ---
 name: commodity-futures-storage-and-carry-cost-modeling
-description: Quantitative commodity pricing model for calculating theoretical futures
-  prices, extracting implied convenience yields, detecting contango vs. backwardation
-  regimes, and auditing futures prices against the full-carry no-arbitrage bound.
-domain: Derivatives & Pricing
-subdomain: Commodity Futures
-tags:
-- commodity-futures
-- cost-of-carry
-- convenience-yield
-- contango
-- backwardation
-- storage-cost
-brokers_frameworks:
-- Generic Derivatives Pricing
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when pricing physical commodity futures or designing roll strategies, linking spot
+  to futures through financing, storage and insurance, extracting implied convenience
+  yield and classifying contango against backwardation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: commodity-futures, cost-of-carry, convenience-yield, contango, backwardation, storage-cost
+  brokers_frameworks: Generic Derivatives Pricing
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

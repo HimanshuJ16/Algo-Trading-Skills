@@ -12,9 +12,8 @@ agent does not present it to an operator as a compliance mandate.
 particular overlap duration.** What the rules address is access restriction, traceability,
 and the confidentiality and availability of the firm's systems. Rotation is one way to
 serve those ends. Do not tell an operator that a regulation requires them to rotate every
-N days or to hold a fallback credential for N minutes — no cited source says so, and an
-earlier revision of this file asserted a five-minute overlap "MUST" that has no basis in
-any standard and has been removed.
+N days or to hold a fallback credential for N minutes — no cited source says so. A
+five-minute overlap "MUST", in particular, has no basis in any standard.
 
 ## 1. EU / UK — MiFID II RTS 6, Article 18 (Security and limits to access)
 
@@ -95,9 +94,8 @@ Sources: <https://support.kraken.com/articles/360000919966-how-to-create-an-api-
 
 ## 5. What an HTTP status does and does not tell you
 
-An earlier revision of this file instructed that the bot "MUST automatically revert to the
-previous key on HTTP 401/403 response." That is withdrawn: it is unsourced, and as a
-blanket rule it is unsafe.
+Do not instruct a bot to "automatically revert to the previous key on HTTP 401/403
+response." That rule is unsourced, and as a blanket rule it is unsafe.
 
 | Observation | Why an automatic revert can be wrong |
 |---|---|

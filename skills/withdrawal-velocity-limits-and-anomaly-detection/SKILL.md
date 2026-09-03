@@ -1,30 +1,17 @@
 ---
 name: withdrawal-velocity-limits-and-anomaly-detection
 description: >-
-  Pre-disbursement gate for crypto withdrawals that scores a request against
-  rolling per-account and global hot-wallet USD velocity caps, a per-account size
-  baseline, and the age of the destination address record, returning APPROVED,
-  TIMELOCK_HOLD, or a latching REJECTED_FREEZE that only a named operator can reset.
-domain: Crypto Custody & Exchange Risk Engineering
-subdomain: Automated Hot Wallet Security & Velocity Controls
-tags:
-- crypto
-- custody
-- security
-- velocity-limits
-- anomaly-detection
-- hot-wallet-freeze
-- circuit-breaker
-- z-score
-brokers_frameworks:
-- Fireblocks TAP
-- BitGo Wallet Policies
-- Coinbase Prime
-- Anchorage Digital
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a system can move crypto out of a hot wallet without per-transfer human
+  approval, scoring each request against rolling per-account and global velocity caps, a
+  size baseline and destination address age.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto, custody, security, velocity-limits, anomaly-detection, hot-wallet-freeze, circuit-breaker, z-score
+  brokers_frameworks: "Fireblocks TAP; BitGo Wallet Policies; Coinbase Prime; Anchorage Digital; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

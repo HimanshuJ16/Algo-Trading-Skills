@@ -1,14 +1,17 @@
 ---
 name: new-strategy-onboarding-checklist
 description: >-
-  Use when deciding whether a newly researched strategy may be put in front of live capital, evaluating four conjunctive governance gates (Backtest Robustness, Operational Runtime, Model Risk, Compliance Sign-off) against recorded thresholds and emitting an auditable pass/reject record.
-domain: Portfolio Multi Strategy
-subdomain: Strategy Lifecycle Governance & Production Onboarding
-tags: ["onboarding", "strategy-governance", "gatekeeper", "model-risk", "paper-trading", "compliance-approval", "production-readiness"]
-brokers_frameworks: ["MiFID II RTS 6 (EU) 2017/589", "SEC Rule 15c3-5", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a newly researched strategy asks for its first live capital, evaluating
+  conjunctive gates on backtest robustness, operational runtime readiness, model risk
+  and compliance. Every field is an attestation, not a verification.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: onboarding, strategy-governance, gatekeeper, model-risk, paper-trading, compliance-approval, production-readiness
+  brokers_frameworks: "MiFID II RTS 6 (EU) 2017/589; SEC Rule 15c3-5; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

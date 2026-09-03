@@ -142,6 +142,116 @@ class TestSanctionsGate(unittest.TestCase):
             self.engine.validate_and_serialize_order(cfg, order(), SBER)
 
 
+class TestSanctionsGateFailsClosedOnEveryPath(unittest.TestCase):
+    """The gate is the deliverable: no attestation state may leave a path open.
+
+    Three states must all end the same way on every order path -- missing,
+    revoked and expired -- with nothing built. A gate that only guards the
+    happy-path order is not a gate.
+    """
+
+    REVOKED = SanctionsScreening(cleared=False)
+    EXPIRED = SanctionsScreening(
+        cleared=True, regimes=("OFAC-SDN",), screened_on=date(2026, 1, 1)
+    )
+
+    def setUp(self):
+        self.engine = MOEXApiIntegrationEngine()
+
+    def _closed_sessions(self):
+        """Every way the gate can be shut, with the label used in failures."""
+        return (
+            # Missing: this is what a MOEXSessionConfig carries by default, so
+            # the closed state is what forgetting produces.
+            ("missing", MOEXSessionConfig(account="ACC_MOEX_01")),
+            ("revoked", session(sanctions_screening=self.REVOKED)),
+            ("expired", session(sanctions_screening=self.EXPIRED,
+                                max_screening_age_days=30)),
+        )
+
+    def _order_paths(self):
+        """Order shapes that reach different parts of the engine."""
+        return (
+            ("tqbr limit", order(), SBER),
+            ("tqbr market", order(ord_type="MARKET", price=None,
+                                  reference_price=None,
+                                  max_price_deviation=None), SBER),
+            ("cets limit", order(secid="CNYRUB_TOM", board="CETS",
+                                 quantity_lots=10, price="12.4900",
+                                 reference_price="12.49",
+                                 max_price_deviation="0.05"), CNYRUB_TOM),
+            ("rfud (not on ASTS MFIX)", order(secid="92Q6", board="RFUD",
+                                              price="73960",
+                                              reference_price="73960",
+                                              max_price_deviation="0.05"),
+             FUT_92Q6),
+        )
+
+    def test_no_attestation_state_lets_any_order_path_build_a_message(self):
+        for state, cfg in self._closed_sessions():
+            for path, req, instrument in self._order_paths():
+                with self.subTest(attestation=state, path=path):
+                    report = self.engine.validate_and_serialize_order(
+                        cfg, req, instrument, as_of=date(2026, 8, 26)
+                    )
+                    self.assertEqual(
+                        report.status, STATUS_SANCTIONS_GATE_NOT_CLEARED
+                    )
+                    self.assertFalse(report.ready_to_send)
+                    self.assertEqual(report.fix_fields, [])
+                    self.assertEqual(report.fix_field_map, {})
+
+    def test_default_session_config_is_closed(self):
+        # Nothing has to be switched on for the gate to hold; it holds until an
+        # attestation is deliberately attached.
+        self.assertIsNone(MOEXSessionConfig(account="ACC_MOEX_01")
+                          .sanctions_screening)
+
+    def test_the_gate_answers_before_every_other_check(self):
+        # Each of these orders is independently invalid. If a later check could
+        # answer first, a closed gate would be masked by an unrelated rejection
+        # in the audit trail.
+        also_invalid = (
+            ("unknown board", order(board="ZZZZ"), SBER),
+            ("over-length ClOrdID",
+             order(cl_ord_id="MOEX_CETS_CNYRUB_TOM_1000"), SBER),
+            ("off-step price", order(price="280.505"), SBER),
+            ("wrong reference data", order(), GAZP),
+            ("no price control", order(reference_price=None,
+                                       max_price_deviation=None), SBER),
+        )
+        for state, cfg in self._closed_sessions():
+            for label, req, instrument in also_invalid:
+                with self.subTest(attestation=state, defect=label):
+                    report = self.engine.validate_and_serialize_order(
+                        cfg, req, instrument, as_of=date(2026, 8, 26)
+                    )
+                    self.assertEqual(
+                        report.status, STATUS_SANCTIONS_GATE_NOT_CLEARED
+                    )
+                    self.assertEqual(report.fix_fields, [])
+
+    def test_an_expired_attestation_reopens_the_gate_only_by_re_screening(self):
+        cfg = session(sanctions_screening=self.EXPIRED,
+                      max_screening_age_days=30)
+        self.assertFalse(self.engine.validate_and_serialize_order(
+            cfg, order(), SBER, as_of=date(2026, 8, 26)).ready_to_send)
+        # A fresh screening -- not a wider limit applied after the fact.
+        rescreened = session(
+            sanctions_screening=SanctionsScreening(
+                cleared=True, regimes=("OFAC-SDN",),
+                screened_on=date(2026, 8, 20),
+            ),
+            max_screening_age_days=30,
+        )
+        self.assertTrue(self.engine.validate_and_serialize_order(
+            rescreened, order(), SBER, as_of=date(2026, 8, 26)).ready_to_send)
+
+    def test_an_attestation_that_records_nothing_is_not_an_attestation(self):
+        with self.assertRaises(ValueError):
+            SanctionsScreening(cleared=True, regimes=(), screened_on=None)
+
+
 class TestLotQuantity(unittest.TestCase):
     """Tag 38 is in lots; lot size is per Symbol + Board."""
 
@@ -293,9 +403,9 @@ class TestPriceControls(unittest.TestCase):
         self.assertFalse(report.ready_to_send)
         self.assertEqual(report.status, STATUS_NO_PRICE_CONTROL)
 
-    def test_zero_reference_price_no_longer_disables_the_check(self):
-        # The previous implementation skipped the collar entirely when the
-        # reference price was <= 0, approving any price at all.
+    def test_zero_reference_price_does_not_disable_the_check(self):
+        # A reference price of <= 0 must not skip the collar and approve any
+        # price at all; it is a caller error.
         with self.assertRaises(ValueError):
             self.engine.validate_and_serialize_order(
                 session(), order(reference_price="0"), SBER)
@@ -316,10 +426,10 @@ class TestPriceControls(unittest.TestCase):
 
     def test_published_limits_are_absolute_not_a_fixed_percentage(self):
         # 92Q6 publishes 70240 / 77680 against a 73960 settlement: +/-5.03%.
-        # Other RFUD instruments on the same board publish bands over 11% wide
-        # (A2U6: 1548.70 / 1939.10 against 1743.9), so no single percentage
-        # reproduces the exchange's bounds. The band must be consumed, not
-        # derived. The boundary itself is inclusive.
+        # Other contracts on the same board publish bands over twice as wide on
+        # the same day, so no single percentage reproduces the exchange's
+        # bounds. The band must be consumed, not derived. The boundary itself is
+        # inclusive.
         for price, expected in (("77680", True), ("77680.01", False),
                                 ("70240", True), ("70239.99", False),
                                 ("73960", True)):
@@ -496,8 +606,9 @@ class TestFieldWidths(unittest.TestCase):
         self.engine = MOEXApiIntegrationEngine()
 
     def test_cl_ord_id_over_20_characters_is_refused(self):
-        # 'MOEX_CETS_CNYRUB_TOM_1000' -- the shape the previous implementation
-        # generated -- is 25 characters and would be rejected on the wire.
+        # 'MOEX_CETS_CNYRUB_TOM_1000' -- the shape a ClOrdID derived from the
+        # order's own fields takes -- is 25 characters against a String(20)
+        # field, and would be rejected on the wire.
         report = self.engine.validate_and_serialize_order(
             session(), order(cl_ord_id="MOEX_CETS_CNYRUB_TOM_1000"), SBER)
         self.assertEqual(report.status, STATUS_FIELD_LENGTH_BREACH)

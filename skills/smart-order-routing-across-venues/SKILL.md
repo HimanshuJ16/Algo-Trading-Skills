@@ -1,14 +1,17 @@
 ---
 name: smart-order-routing-across-venues
 description: >-
-  Smart Order Routing (SOR) planner for US NMS stocks that consolidates the best accessible displayed price across lit venues, ranks equally-priced venues by fee-inclusive net price, slices a parent order across them, and refuses to plan a route inferior to a better-priced venue it can see. Covers SEC Reg NMS Rule 611 trade-through exposure, Rule 610(c) access fee caps, and the Intermarket Sweep Order obligation attached to any unrouted remainder.
-domain: Execution & Smart Order Routing
-subdomain: Reg NMS & Multi-Venue Order Routing
-tags: ["smart-order-routing", "sor", "reg-nms", "nbbo-consolidation", "maker-taker-fee", "order-book-sweep"]
-brokers_frameworks: ["SEC Regulation NMS (Rules 610, 611, 612)", "US Equities Market Microstructure", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when splitting a parent order across lit US venues and the split must be
+  defensible afterwards: consolidates the best accessible displayed price and ranks
+  equally-priced venues by fee-inclusive net price. Options have their own linkage plan.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: smart-order-routing, sor, reg-nms, nbbo-consolidation, maker-taker-fee, order-book-sweep
+  brokers_frameworks: "SEC Regulation NMS (Rules 610, 611, 612); US Equities Market Microstructure; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

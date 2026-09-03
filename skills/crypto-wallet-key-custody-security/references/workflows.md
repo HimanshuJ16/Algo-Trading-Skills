@@ -71,7 +71,7 @@ did not understand its input manufactures false assurance about irreversible los
    - A failing alert channel is caught and recorded as a HIGH finding. The monitor must
      not die on the exact event it exists to report.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Combined Trade & Withdraw Key:** Granting withdrawal permission to trading bot keys for convenience, leading to total fund drain if the bot host is compromised.
 - **Vocabulary Mismatch:** An audit grepping for `"withdraw"` passes a Binance key holding `enableInternalTransfer`, or a Coinbase key holding `can_transfer` — both of which move funds.

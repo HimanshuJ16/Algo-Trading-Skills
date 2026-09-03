@@ -1,26 +1,17 @@
 ---
 name: execution-algo-twap-vwap-slicing
-description: Use when a parent order is large relative to the instrument's typical
-  volume and must be split into scheduled child orders tracking a TWAP or VWAP
-  benchmark, including lot-aligned sizing, partial-fill and rejection rescheduling
-  under an explicit catch-up policy, and side-adjusted post-trade slippage reporting.
-domain: algorithmic-trading
-subdomain: execution-algorithms
-tags:
-- execution-algorithms
-- twap
-- vwap
-- order-slicing
-- market-impact
-- implementation-shortfall
-- transaction-cost-analysis
-brokers_frameworks:
-- Interactive Brokers IBALGO (TWAP / best-efforts VWAP)
-- Binance Algo Orders (TWAP, VP)
-- Generic DMA / FIX child-order routing
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a parent order is large relative to typical volume and must track a schedule
+  benchmark, splitting it into lot-aligned child orders across a time window or a volume
+  profile with partial-fill catch-up.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution-algorithms, twap, vwap, order-slicing, market-impact, implementation-shortfall, transaction-cost-analysis
+  brokers_frameworks: "Interactive Brokers IBALGO (TWAP / best-efforts VWAP); Binance Algo Orders (TWAP, VP); Generic DMA / FIX child-order routing"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -31,7 +22,7 @@ The `execution-realistic-simulation` skill *models* that impact cost in backtest
 
 ## When NOT to Use
 
-- **When the alpha decays faster than the execution window.** A TWAP/VWAP schedule deliberately trades slowly and therefore carries maximum timing risk: if the signal is right, the price moves away while the schedule is still working, and the opportunity cost on the unfilled remainder swamps the impact saving. Use `arrival-price-benchmark-execution-algo` or `implementation-shortfall-minimization` instead.
+- **When the alpha decays faster than the execution window.** A TWAP/VWAP schedule deliberately trades slowly and therefore carries maximum timing risk: if the signal is right, the price moves away while the schedule is still working, and the opportunity cost on the unfilled remainder swamps the impact saving. Use `implementation-shortfall-minimization` or `implementation-shortfall-minimization` instead.
 - **When the order is a large share of expected window volume.** Slicing does not create liquidity. Above roughly the participation rate your own impact model says is safe, a schedule that insists on completing simply pays impact in instalments — and a VWAP schedule becomes self-referential, because your own prints are moving the benchmark you are measured against. Use `participation-of-volume-pov-execution`, which caps participation instead of promising completion, or spread the order with `multi-day-execution-schedules-for-very-large-orders`.
 - **When the instrument can halt or gap mid-window.** This module has no halt state machine. Pair it with `execution-algo-behavior-under-halted-instrument`, and with `execution-algorithm-kill-switch-integration` so the parent order can be stopped as a unit.
 - **When the parent quantity is only a few lots.** The scheduler warns and falls back to fewer actionable child orders — slicing finer than the instrument's lot size cannot help, and the fixed per-order cost starts to dominate.
@@ -105,7 +96,6 @@ The `execution-realistic-simulation` skill *models* that impact cost in backtest
 - `order-placement-idempotency`
 - `multi-broker-rate-limit-handling`
 - `execution-realistic-simulation`
-- `arrival-price-benchmark-execution-algo`
 - `implementation-shortfall-minimization`
 - `participation-of-volume-pov-execution`
 - `execution-algo-behavior-under-halted-instrument`

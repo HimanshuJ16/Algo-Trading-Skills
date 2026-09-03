@@ -111,7 +111,7 @@ caller's job, and getting it wrong turns the override into a bypass.
 The verdict describes the **current** book. To gate on the post-fill state, fold the
 prospective fill into `positions` and evaluate that instead.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Ragged history front-truncated.** `n = min(len(...))` then indexing `0..n-1` pairs
   the oldest observations of a long series with recent observations of a short one. A

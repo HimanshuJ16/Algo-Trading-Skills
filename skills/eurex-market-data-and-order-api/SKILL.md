@@ -1,27 +1,17 @@
 ---
 name: eurex-market-data-and-order-api
-description: Client-side pre-dispatch validation for Eurex derivatives orders on T7
-  — the directional Price Reasonability Check against the opposite-side best price,
-  contract minimum price change, ETI scaled-integer price/quantity encoding, and the
-  24-byte T7 ETI request header with a gap-free MsgSeqNum.
-domain: Venue Integration & Protocols
-subdomain: European Derivatives (Eurex T7)
-tags:
-- eurex
-- t7-eti
-- t7-emdi
-- futures-trading
-- price-reasonability-check
-- euro-stoxx-50
-- euro-bund
-- binary-protocol
-brokers_frameworks:
-- Eurex T7 ETI (Derivatives)
-- T7 EMDI / MDI / RDI
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when building an order path into Eurex over the T7 Enhanced Trading Interface,
+  applying the directional price reasonability check against the opposite-side best, the
+  contract minimum price change, and ETI scaled-integer encoding.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: eurex, t7-eti, t7-emdi, futures-trading, price-reasonability-check, euro-stoxx-50, euro-bund, binary-protocol
+  brokers_frameworks: "Eurex T7 ETI (Derivatives); T7 EMDI / MDI / RDI; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

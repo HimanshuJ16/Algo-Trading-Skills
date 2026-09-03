@@ -1,14 +1,17 @@
 ---
 name: japan-fsa-high-speed-trading-registration
 description: >-
-  Regulatory compliance engine for Japan Financial Services Agency (FSA) High-Speed Trader registration under FIEA Article 2(41) and Article 66-50, classifying orders against the co-location and contention-free-transmission definition, auditing the registration or Article 29-2 notification route, kill switches, exchange order flagging, and firm pre-trade limits.
-domain: Regulatory Compliance Global
-subdomain: Japanese Market Regulation & FSA HST Governance
-tags: ["japan-fsa", "fiea", "high-speed-trading", "hst-registration", "tse", "co-location", "pre-trade-risk", "kill-switch"]
-brokers_frameworks: ["FIEA arts. 2(41)-(42), 29-2(1)(vii), 38(viii), 66-50 to 66-61", "Cabinet Office Order on Definitions under FIEA art. 2, art. 26", "Cabinet Office Order on Financial Instruments Business arts. 328, 336, 338", "FSA Guidelines for Supervision of High-Speed Traders", "FSA Notice No. 50 of 2017 designating transmission destinations", "TSE Business Regulations art. 14(1)(7)", "TSE Brokerage Agreement Standards art. 6(5)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when automated orders reach Japanese venues from co-located or proximity-hosted
+  infrastructure, to classify the activity against the FIEA Article 2(41) high-speed
+  trading definition and the Article 66-50 registration requirement.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: japan-fsa, fiea, high-speed-trading, hst-registration, tse, co-location, pre-trade-risk, kill-switch
+  brokers_frameworks: "FIEA arts. 2(41)-(42), 29-2(1)(vii), 38(viii), 66-50 to 66-61; Cabinet Office Order on Definitions under FIEA art. 2, art. 26; Cabinet Office Order on Financial Instruments Business arts. 328, 336, 338; FSA Guidelines for Supervision of High-Speed Traders; FSA Notice No. 50 of 2017 designating transmission destinations; TSE Business Regulations art. 14(1)(7); TSE Brokerage Agreement Standards art. 6(5); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

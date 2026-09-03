@@ -1,19 +1,17 @@
 ---
 name: risk-control-dependency-mapping
 description: >-
-  Build or review dependency graphs and blast-radius analyses for trading risk controls, covering market/reference data, positions, orders, balances, FX, clocks, state stores, services, broker/exchange inputs, control decisions, and execution actuators. Use for architecture reviews, change impact, incident response, resilience testing, fail-open detection, redundancy validation, recovery planning, and operational ownership; do not use a static graph as a substitute for runtime health, freshness, lineage, or control enforcement.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- dependency-mapping
-- blast-radius
-- resilience
-brokers_frameworks:
-- Broker-agnostic
-version: "1.2.0"
-author: algo-trading-skills-contributors
+  Use when you need to know what can silently impair or bypass a risk control and what
+  it takes down with it; maps dependencies on data, positions, clocks, state stores and
+  venue sessions into a blast-radius graph.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, dependency-mapping, blast-radius, resilience
+  brokers_frameworks: Broker-agnostic
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

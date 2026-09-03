@@ -15,6 +15,11 @@ defects found in the 1.0.0 reference implementation:
 * R6  ``update_status`` allowed transitions out of terminal states and wiped
       ``broker_order_id``.
 * R7  Startup crash recovery was documented but not implemented.
+* R8  ``ABSENT_SAFE_TO_RESEND`` was a dead end: nothing released the ledger
+      claim, so the re-send it authorised looped back to ABSENT forever.
+* R9  ``{"status": "error"}`` was read as a terminal rejection, so a Kite
+      ``NetworkException`` — a gateway fault whose order may well be live —
+      recorded "no order exists".
 """
 import logging
 import os
@@ -186,6 +191,58 @@ class TestResponseClassification(unittest.TestCase):
         self.assertIsNone(order_id)
         self.assertEqual(detail, "RMS blocked")
 
+    def test_regression_r9_kite_network_exception_is_unknown_not_rejected(self):
+        """A gateway fault says nothing about the order; it may well be live."""
+        for body in (
+            {"status": "error", "error_type": "NetworkException",
+             "message": "Gateway timeout"},
+            {"status": "error", "error_type": "GatewayTimeout"},
+            {"status": "error", "error_type": "DataException"},
+            {"status": "error", "error_type": "GeneralException"},
+            {"status": "failed", "message": "upstream connection reset"},
+            {"status": "error"},
+        ):
+            with self.subTest(body=body):
+                status, order_id, _ = classify_broker_response(body)
+                self.assertIs(status, OrderIntentStatus.UNKNOWN)
+                self.assertIsNone(order_id)
+
+    def test_regression_r9_kite_input_exception_is_an_explicit_rejection(self):
+        """The broker evaluated the request and declined it: no order exists."""
+        status, order_id, detail = classify_broker_response(
+            {"status": "error", "error_type": "InputException",
+             "message": "Invalid `tradingsymbol`"}
+        )
+        self.assertIs(status, OrderIntentStatus.REJECTED)
+        self.assertIsNone(order_id)
+        self.assertEqual(detail, "Invalid `tradingsymbol`")
+
+    def test_every_documented_refusal_class_rejects(self):
+        for error_type in ("InputException", "OrderException", "MarginException",
+                           "PermissionException", "TokenException"):
+            with self.subTest(error_type=error_type):
+                status, _, _ = classify_broker_response(
+                    {"status": "error", "error_type": error_type, "message": "no"}
+                )
+                self.assertIs(status, OrderIntentStatus.REJECTED)
+
+    def test_regression_r9_server_errors_are_unknown_even_when_named_a_refusal(self):
+        """A 5xx is the server failing to answer, not the server declining."""
+        status, _, detail = classify_broker_response(
+            {"status": "error", "error_type": "OrderException", "status_code": 503,
+             "message": "Service Unavailable"}
+        )
+        self.assertIs(status, OrderIntentStatus.UNKNOWN)
+        self.assertIn("503", detail)
+
+    def test_numeric_error_codes_are_not_mistaken_for_http_statuses(self):
+        """Alpaca's `code` is an error code, not a 5xx."""
+        status, order_id, _ = classify_broker_response(
+            {"status": "new", "id": "A1", "code": 40310000}
+        )
+        self.assertIs(status, OrderIntentStatus.PLACED)
+        self.assertEqual(order_id, "A1")
+
     def test_non_mapping_response_is_unknown(self):
         for body in (None, "OK", 200, ["order"]):
             with self.subTest(body=body):
@@ -213,7 +270,7 @@ class TestOrderLedger(unittest.TestCase):
         self.assertEqual(self.ledger.get_order(self.key)["quantity"], 50)
 
     def test_unresolved_tracks_pending_and_unknown_only(self):
-        self.ledger.record_intent(self.key)
+        self.ledger.record_intent(self.key, "s", "NIFTY")
         self.assertIn(self.key, self.ledger.unresolved())
         self.ledger.update_status(self.key, UNKNOWN, rejection_reason="timeout")
         self.assertIn(self.key, self.ledger.unresolved())
@@ -221,7 +278,7 @@ class TestOrderLedger(unittest.TestCase):
         self.assertNotIn(self.key, self.ledger.unresolved())
 
     def test_regression_r6_terminal_states_reject_further_transitions(self):
-        self.ledger.record_intent(self.key)
+        self.ledger.record_intent(self.key, "s", "NIFTY")
         self.ledger.update_status(self.key, PLACED, broker_order_id="b123")
         with self.assertRaises(IllegalStateTransition):
             self.ledger.update_status(self.key, PENDING)
@@ -232,7 +289,7 @@ class TestOrderLedger(unittest.TestCase):
         self.assertEqual(row["broker_order_id"], "b123")
 
     def test_regression_r6_broker_order_id_is_never_wiped(self):
-        self.ledger.record_intent(self.key)
+        self.ledger.record_intent(self.key, "s", "NIFTY")
         self.ledger.update_status(self.key, UNKNOWN, rejection_reason="timeout")
         self.ledger.update_status(self.key, PLACED, broker_order_id="b123")
         # A same-state rewrite that omits the id must preserve it.
@@ -240,7 +297,7 @@ class TestOrderLedger(unittest.TestCase):
         self.assertEqual(self.ledger.get_order(self.key)["broker_order_id"], "b123")
 
     def test_update_status_rejects_unknown_status_value(self):
-        self.ledger.record_intent(self.key)
+        self.ledger.record_intent(self.key, "s", "NIFTY")
         with self.assertRaises(ValueError):
             self.ledger.update_status(self.key, "PARTIALLY_FILLED")
 
@@ -248,9 +305,58 @@ class TestOrderLedger(unittest.TestCase):
         self.assertFalse(self.ledger.update_status("no-such-key", PLACED))
 
     def test_linked_broker_order_ids_splits_sliced_ids(self):
-        self.ledger.record_intent(self.key)
+        self.ledger.record_intent(self.key, "s", "NIFTY")
         self.ledger.update_status(self.key, PLACED, broker_order_id="A1,A2")
         self.assertEqual(self.ledger.linked_broker_order_ids(), {"A1", "A2"})
+
+    def test_release_intent_frees_the_key_and_archives_the_row(self):
+        """The claim is dropped, but the placement history is not."""
+        self.ledger.record_intent(self.key, "s", "NIFTY", "BUY", 50, 19500)
+        self.ledger.update_status(self.key, UNKNOWN, rejection_reason="timeout")
+
+        self.assertTrue(self.ledger.release_intent(self.key, "proved absent"))
+        self.assertIsNone(self.ledger.get_order(self.key))
+        self.assertEqual(self.ledger.unresolved(), [])
+        # The key can be claimed again — that is the whole point of releasing.
+        self.assertTrue(self.ledger.record_intent(self.key, "s", "NIFTY", "BUY", 50, 19500))
+
+        archived = self.ledger.released_history(self.key)
+        self.assertEqual(len(archived), 1)
+        self.assertEqual(archived[0]["status_at_release"], UNKNOWN)
+        self.assertEqual(archived[0]["symbol"], "NIFTY")
+        self.assertEqual(archived[0]["release_reason"], "proved absent")
+
+    def test_release_intent_refuses_a_terminal_row(self):
+        """Releasing a PLACED row would license a second send of a live order."""
+        self.ledger.record_intent(self.key, "s", "NIFTY", "BUY", 50, 19500)
+        self.ledger.update_status(self.key, PLACED, broker_order_id="b123")
+        with self.assertRaises(IllegalStateTransition):
+            self.ledger.release_intent(self.key, "absent")
+        self.assertEqual(self.ledger.get_order(self.key)["status"], PLACED)
+        self.assertEqual(self.ledger.released_history(), [])
+
+    def test_release_intent_on_an_unknown_key_returns_false(self):
+        self.assertFalse(self.ledger.release_intent("no-such-key"))
+
+    def test_regression_r8_unknown_cannot_be_silently_re_armed_to_pending(self):
+        """Re-arming an unresolved intent must go through the audited release."""
+        self.ledger.record_intent(self.key, "s", "NIFTY", "BUY", 50, 19500)
+        self.ledger.update_status(self.key, UNKNOWN, rejection_reason="timeout")
+        with self.assertRaises(IllegalStateTransition):
+            self.ledger.update_status(self.key, PENDING)
+        self.assertEqual(self.ledger.get_order(self.key)["status"], UNKNOWN)
+
+    def test_record_intent_requires_strategy_id_and_symbol(self):
+        """A row describing an order nobody placed is unmatchable at reconcile time."""
+        with self.assertRaises(TypeError):
+            self.ledger.record_intent(self.key)
+        with self.assertRaises(TypeError):
+            self.ledger.record_intent(self.key, "s")
+        with self.assertRaises(ValueError):
+            self.ledger.record_intent(self.key, "s", "   ")
+        with self.assertRaises(ValueError):
+            self.ledger.record_intent(self.key, "", "NIFTY")
+        self.assertIsNone(self.ledger.get_order(self.key))
 
     def test_intent_survives_a_simulated_process_restart(self):
         """The write-ahead record is worthless if it does not outlive the process."""
@@ -265,7 +371,7 @@ class TestOrderLedger(unittest.TestCase):
         ledger = OrderLedger(db_path=":memory:")
         ledger.close()
         with self.assertRaises(sqlite3.ProgrammingError):
-            ledger.record_intent(self.key)
+            ledger.record_intent(self.key, "s", "NIFTY")
 
 
 class TestPlaceOrder(unittest.TestCase):
@@ -431,6 +537,18 @@ class TestReconciliation(unittest.TestCase):
         self.assertFalse(ok)
         self.assertTrue(status.startswith("UNRESOLVED_REQUIRES_RECONCILIATION"))
 
+    def test_regression_r9_book_entry_reporting_error_is_inconclusive(self):
+        """`error` in the book states neither working nor refused — escalate."""
+        key = make_idempotency_key("s", "NIFTY", "BUY", 100, 50.0, 19500.0)
+        book = [{"tag": key, "order_id": "L1", "status": "error", "message": "upstream"}]
+        ok, status, _ = self._place(lambda: book)
+        self.assertFalse(ok)
+        self.assertTrue(status.startswith("UNRESOLVED_REQUIRES_RECONCILIATION"))
+        # Not written off as REJECTED, and the entry is in the book, so the
+        # claim survives and nothing is re-sent.
+        self.assertEqual(self.ledger.get_order(key)["status"], UNKNOWN)
+        self.assertTrue(self.alerts)
+
     def test_book_entry_without_an_order_id_is_inconclusive(self):
         key = make_idempotency_key("s", "NIFTY", "BUY", 100, 50.0, 19500.0)
         ok, status, _ = self._place(lambda: [{"tag": key, "status": "OPEN"}])
@@ -567,6 +685,12 @@ class TestStartupRecovery(unittest.TestCase):
         self.assertIs(results[dead].outcome, ReconcileOutcome.ABSENT)
         self.assertEqual(self.ledger.get_order(live)["status"], PLACED)
         self.assertEqual(self.ledger.get_order(live)["broker_order_id"], "LIVE_1")
+        # "Cleared" has to mean the sweep actually finished with it: an ABSENT
+        # row left in unresolved() blocks the strategy forever and re-reconciles
+        # to ABSENT on every subsequent sweep.
+        self.assertNotIn(dead, self.ledger.unresolved())
+        self.assertEqual(self.ledger.unresolved(), [])
+        self.assertEqual(self.ledger.released_history(dead)[0]["side"], "SELL")
         self.assertEqual(self.alerts, [])
 
     def test_unresolvable_intent_alerts_and_stays_unresolved(self):
@@ -591,13 +715,118 @@ class TestStartupRecovery(unittest.TestCase):
 
     def test_sweep_is_empty_once_everything_is_terminal(self):
         key = make_idempotency_key("s", "NIFTY", "BUY", 15)
-        self.ledger.record_intent(key)
+        self.ledger.record_intent(key, "s", "NIFTY")
         self.ledger.update_status(key, PLACED, broker_order_id="B1")
         self.assertEqual(self.router.recover_unresolved(lambda: []), {})
 
 
+class TestAbsentResend(unittest.TestCase):
+    """Regression R8 — an ABSENT verdict must lead to an actual re-send.
+
+    Before the fix, ``ABSENT_SAFE_TO_RESEND`` told the caller to call
+    ``place_order`` again, but the ledger row stayed in ``PENDING``/``UNKNOWN``.
+    The re-invocation hit the primary-key claim, reconciled, concluded ABSENT
+    again, and looped — the order was never sent, and the intent never settled.
+    """
+
+    def setUp(self):
+        self.ledger = OrderLedger(db_path=":memory:")
+        self.addCleanup(self.ledger.close)
+        self.alerts = []
+        self.router = IdempotentOrderRouter(self.ledger, alert_fn=self.alerts.append)
+        self.key = make_idempotency_key("s", "NIFTY", "BUY", 100, 50.0, 19500.0)
+
+    def _place(self, broker, book):
+        return self.router.place_order(
+            "s", "NIFTY", "BUY", 50.0, 19500.0, 100, broker,
+            broker_order_book_fn=lambda: book,
+        )
+
+    def test_regression_r8_re_invocation_after_absent_sends_exactly_once(self):
+        """Intent, timeout, reconcile to ABSENT, re-invoke: one send, settled."""
+        self.ledger.record_intent(self.key, "s", "NIFTY", "BUY", 50.0, 19500.0)
+        self.ledger.update_status(
+            self.key, UNKNOWN, rejection_reason="TimeoutError: response lost"
+        )
+
+        results = self.router.recover_unresolved(lambda: [])
+        self.assertIs(results[self.key].outcome, ReconcileOutcome.ABSENT)
+
+        broker = Mock(return_value=ok_response("RESENT_1"))
+        ok, status, broker_id = self._place(broker, [])
+
+        broker.assert_called_once()
+        self.assertTrue(ok)
+        self.assertEqual(status, "PLACED")
+        self.assertEqual(broker_id, "RESENT_1")
+        row = self.ledger.get_order(self.key)
+        self.assertEqual(row["status"], PLACED)
+        self.assertEqual(row["broker_order_id"], "RESENT_1")
+        self.assertEqual(self.ledger.unresolved(), [])
+        self.assertEqual(self.alerts, [])
+
+    def test_regression_r8_place_order_re_sends_a_crash_left_intent_proven_absent(self):
+        """One place_order call: reconcile the stale claim, then send once."""
+        self.ledger.record_intent(self.key, "s", "NIFTY", "BUY", 50.0, 19500.0)
+        broker = Mock(return_value=ok_response("RESENT_2"))
+
+        ok, status, broker_id = self._place(
+            broker, [{"tag": "someone-elses-key", "order_id": "X", "status": "OPEN"}]
+        )
+
+        broker.assert_called_once()  # the one-send-per-call invariant still holds
+        self.assertTrue(ok)
+        self.assertEqual(status, "PLACED")
+        self.assertEqual(broker_id, "RESENT_2")
+        self.assertEqual(self.ledger.get_order(self.key)["status"], PLACED)
+
+    def test_absent_after_this_calls_own_send_defers_the_re_send(self):
+        """The send already happened here; a second one would be two per call."""
+        broker = Mock(side_effect=[TimeoutError("lost"), ok_response("RESENT_3")])
+
+        ok, status, _ = self._place(broker, [])
+        self.assertFalse(ok)
+        self.assertTrue(status.startswith("ABSENT_SAFE_TO_RESEND"))
+        self.assertEqual(broker.call_count, 1)
+        self.assertEqual(self.ledger.unresolved(), [])
+
+        ok, status, broker_id = self._place(broker, [])
+        self.assertTrue(ok)
+        self.assertEqual((status, broker_id), ("PLACED", "RESENT_3"))
+        self.assertEqual(broker.call_count, 2)
+
+    def test_an_inconclusive_verdict_still_never_re_sends(self):
+        """Only proven absence releases the claim — never a failed query."""
+        self.ledger.record_intent(self.key, "s", "NIFTY", "BUY", 50.0, 19500.0)
+        broker = Mock(return_value=ok_response("MUST_NOT_SEND"))
+
+        def book():
+            raise ConnectionError("order book endpoint down")
+
+        ok, status, _ = self.router.place_order(
+            "s", "NIFTY", "BUY", 50.0, 19500.0, 100, broker,
+            broker_order_book_fn=book,
+        )
+        self.assertFalse(ok)
+        self.assertTrue(status.startswith("UNRESOLVED_REQUIRES_RECONCILIATION"))
+        broker.assert_not_called()
+        self.assertEqual(self.ledger.get_order(self.key)["status"], PENDING)
+
+    def test_a_placed_intent_is_never_re_sent_by_the_absent_path(self):
+        """Reconciliation that finds the order keeps the claim and the id."""
+        self.ledger.record_intent(self.key, "s", "NIFTY", "BUY", 50.0, 19500.0)
+        broker = Mock(return_value=ok_response("MUST_NOT_SEND"))
+        book = [{"tag": self.key, "order_id": "LIVE_9", "status": "OPEN"}]
+
+        ok, status, broker_id = self._place(broker, book)
+        broker.assert_not_called()
+        self.assertTrue(ok)
+        self.assertEqual((status, broker_id), ("RECONCILED_PLACED", "LIVE_9"))
+        self.assertEqual(self.ledger.released_history(), [])
+
+
 class TestBackwardCompatibility(unittest.TestCase):
-    """The pre-2.0 import surface stays importable and behaves sensibly."""
+    """The older import surface stays importable and behaves sensibly."""
 
     def setUp(self):
         self.ledger = OrderLedger(db_path=":memory:")
@@ -611,7 +840,7 @@ class TestBackwardCompatibility(unittest.TestCase):
 
     def test_ledger_defaults_and_status_round_trip(self):
         key = make_idempotency_key("s1", "sym", "BUY", 100)
-        self.ledger.record_intent(key)
+        self.ledger.record_intent(key, "s1", "sym")
         self.assertIn(key, self.ledger.unresolved())
         self.ledger.update_status(key, PLACED, broker_order_id="b123")
         self.assertNotIn(key, self.ledger.unresolved())

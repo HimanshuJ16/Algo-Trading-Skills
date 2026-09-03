@@ -2,11 +2,10 @@
 
 ## There is no published detection-latency standard for instrument reference data
 
-An earlier revision of this file stated, in a table headed "Engineering Standard", that
-changes "MUST be detected within 5 minutes of snapshot update" and consumers "MUST be
-notified within 1 minute of detection". **No regulator, exchange, standards body or
-vendor publishes either figure.** They were unsourced, and presenting them as MUSTs
-made an arbitrary number look like a compliance obligation. They have been removed.
+Rules of the form changes "MUST be detected within 5 minutes of snapshot update" and
+consumers "MUST be notified within 1 minute of detection" are not standards. **No
+regulator, exchange, standards body or vendor publishes either figure.** Presenting an
+unsourced number as a MUST makes an arbitrary choice look like a compliance obligation.
 
 The detection cadence you actually need is set by the publication cadence of the source
 and by the deadline of whatever consumes the data — for example, a MIC list that changes

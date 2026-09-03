@@ -1,26 +1,17 @@
 ---
 name: risk-metric-recalculation-frequency-tuning
 description: >-
-  Use when a real-time risk engine cannot afford to recompute every metric on
-  every tick: assigns risk metrics to cadence tiers (per-tick drawdown, 2s
-  Greeks, 30s VaR, 300s stress tests), accelerates every cadence with hysteresis
-  when P&L velocity spikes, reports which cadences were actually missed, and
-  keeps mandatory per-order pre-trade controls outside the tiering scheme.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- risk-frequency
-- recalculation-cadence
-- volatility-acceleration
-- pnl-velocity
-- tiered-scheduling
-brokers_frameworks:
-- Risk Metric Scheduler
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a real-time risk engine cannot recompute every metric on every tick; assigns
+  metrics to cadence tiers and accelerates them under stress. Never use it to defer a
+  per-order pre-trade check.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, risk-frequency, recalculation-cadence, volatility-acceleration, pnl-velocity, tiered-scheduling
+  brokers_frameworks: "Risk Metric Scheduler; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

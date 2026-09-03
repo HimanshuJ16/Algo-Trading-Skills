@@ -1,29 +1,17 @@
 ---
 name: exchange-multicast-feed-handling
-description: Use when building or auditing the sequencing layer of a co-located UDP
-  multicast feed handler (CME MDP 3.0, Nasdaq MoldUDP64, Eurex T7 EMDI) - arbitrating
-  the redundant A/B lines, re-sequencing out-of-order datagrams, holding a gap for an
-  arbitration window before declaring loss, and escalating through the venue's
-  retransmission and snapshot recovery tiers.
-domain: Venue Integration & Protocols
-subdomain: Multicast Line Arbitration & Feed Recovery
-tags:
-- udp-multicast
-- line-arbitration
-- cme-mdp3
-- moldudp64
-- eurex-t7-emdi
-- packet-resequencing
-- feed-recovery
-- co-location
-brokers_frameworks:
-- CME MDP 3.0
-- Nasdaq MoldUDP64
-- Eurex T7 EMDI
-- Python dataclasses / enum
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when building the sequencing layer of a co-located UDP multicast feed handler (CME
+  MDP 3.0, MoldUDP64, Eurex T7 EMDI): A/B line arbitration, datagram re-sequencing, gap
+  arbitration windows and venue retransmission escalation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: udp-multicast, line-arbitration, cme-mdp3, moldudp64, eurex-t7-emdi, packet-resequencing, feed-recovery, co-location
+  brokers_frameworks: "CME MDP 3.0; Nasdaq MoldUDP64; Eurex T7 EMDI; Python dataclasses / enum"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

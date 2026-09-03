@@ -1,7 +1,7 @@
 """
 Unit tests for the schwab-api-oauth-pkce-flow skill.
 
-Each group below pins a behaviour the pre-2.0 implementation got wrong or did not
+Each group below pins a behaviour a naive implementation got wrong or did not
 implement at all, so the suite fails against the old code and passes against the
 corrected client:
 
@@ -232,7 +232,7 @@ class TestCodeExchange(SchwabTestBase):
             self.mgr.exchange_code("KEY", "SECRET", "CODE@", REDIRECT_URI, None, transport)
 
     def test_rejection_message_does_not_leak_credentials(self):
-        """The pre-2.0 client interpolated the whole response into the exception."""
+        """an earlier client interpolated the whole response into the exception."""
         transport = RecordingTransport(
             {"error": "invalid_grant", "error_description": "bad code",
              "refresh_token": "LEAKED_REFRESH", "id_token": "LEAKED_JWT"}

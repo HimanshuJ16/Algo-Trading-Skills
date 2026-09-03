@@ -100,7 +100,7 @@ class TestRecoveryPlanForLostOrCompromisedKeys(unittest.TestCase):
     def test_exactly_at_threshold_is_high_not_critical(self):
         """3 verified shards on a 3-of-5 split: recoverable today, no margin.
 
-        The pre-2.0 engine lumped this with an unrecoverable key. It is not the
+        a naive engine lumped this with an unrecoverable key. It is not the
         same finding, and treating it as one hides the genuinely dead plans.
         """
         report = self.engine.audit_recovery_plans(
@@ -206,7 +206,7 @@ class TestRecoveryPlanForLostOrCompromisedKeys(unittest.TestCase):
         self.assertIn("KEY_INVENTORY_MISSING", self.issue_types(report))
 
     def test_single_ir_contact_flagged(self):
-        """The pre-2.0 engine collected this field and never checked it."""
+        """a naive engine collected this field and never checked it."""
         report = self.engine.audit_recovery_plans(
             [fully_ready_plan(incident_response_contacts=1)], as_of_date=AS_OF
         )

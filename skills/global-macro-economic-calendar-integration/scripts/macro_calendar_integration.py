@@ -273,7 +273,7 @@ class MacroEconomicEvent:
     consensus_forecast: Optional[float] = None
     forecast_std_dev: Optional[float] = None
     actual_release: Optional[float] = None
-    # Fields below were appended in 2.0.0 and default to the pre-2.0.0 behaviour,
+    # Fields below were appended in 2.0.0 and default to the the older behaviour,
     # so existing keyword and positional construction keeps working unchanged.
     higher_actual_is_positive_surprise: bool = True
     pre_event_buffer_override_sec: Optional[float] = None
@@ -397,7 +397,7 @@ class GlobalMacroCalendarEngine:
         post_event_buffer_sec: Seconds after a HIGH_IMPACT release at which it
             closes. Both bounds are inclusive.
         medium_pre_event_buffer_sec: Pre-release buffer for MEDIUM_IMPACT events.
-            ``None`` reuses the HIGH_IMPACT value, which is the pre-2.0.0
+            ``None`` reuses the HIGH_IMPACT value, which is an earlier
             behaviour; set it explicitly to differentiate the two tiers.
         medium_post_event_buffer_sec: Post-release buffer for MEDIUM_IMPACT events.
         max_calendar_age_sec: If set, an audit whose calendar as-of timestamp is

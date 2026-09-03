@@ -59,7 +59,7 @@ their sourcing live in `references/standards.md`.
      the auditor settings, and the findings alongside the backtest results, so a reviewer can
      replay the universe exactly. See `backtest-audit-trail-for-regulatory-review`.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Current-membership table applied backwards.** The most severe case: today's constituent
   list joined to every historical date. Every bankruptcy and delisting silently disappears.

@@ -1,14 +1,17 @@
 ---
 name: idx-indonesia-stock-exchange-api
 description: >-
-  Quantitative market gateway engine for Indonesia Stock Exchange (IDX / BEI JATS system), enforcing 4-letter tickers, IDX Fraksi Harga tick sizes anchored to the previous close, 100-share Board Lots, and the asymmetric ARA/ARB Auto Rejection bands.
-domain: Global Market Integration & FX
-subdomain: Southeast Asian Market Connectivity & IDX Gateway
-tags: ["idx", "indonesia-exchange", "bei", "jats-system", "fraksi-harga", "board-lot", "arb-ara"]
-brokers_frameworks: ["JATS (Jakarta Automated Trading System)", "IDX FIX Gateway", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when routing equity orders to the Indonesia Stock Exchange JATS system, enforcing
+  four-letter tickers, Fraksi Harga tick sizes anchored to the previous close, 100-share
+  board lots and segment designation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: idx, indonesia-exchange, bei, jats-system, fraksi-harga, board-lot, arb-ara
+  brokers_frameworks: "JATS (Jakarta Automated Trading System); IDX FIX Gateway; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,28 +1,17 @@
 ---
 name: options-margin-span-calculation-global
 description: >-
-  Use when an options or futures strategy needs a margin figure before it can be
-  sized or placed — approximates the legacy CME-SPAN scanning-risk core (the 16
-  standard risk-array scenarios, net option value, short option minimum) for
-  multi-leg listed option positions, caps the requirement at the position's
-  exact worst-case loss at expiry, and flags where SPAN, CME SPAN 2, OCC TIMS
-  portfolio margin and NSE SPAN + extreme loss margin diverge. A pre-screen, not
-  the clearing house's number.
-domain: algorithmic-trading
-subdomain: multi-asset-derivatives
-tags:
-- multi-asset-derivatives
-- span-(standard-portfolio-analysis-of-risk)
-- broker-specific-portfolio-margin-models
-brokers_frameworks:
-- CME SPAN (legacy scenario-based methodology)
-- CME SPAN 2 (filtered historical simulation VaR)
-- OCC TIMS / FINRA Rule 4210(g) portfolio margin
-- NSE Clearing SPAN + Extreme Loss Margin (India)
-- broker-specific portfolio margin models
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when the margin requirement rather than notional decides whether an options or
+  futures position is placeable, approximating the SPAN scanning-risk core across the
+  standard risk-array scenarios. Not the clearing house's authoritative number.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: multi-asset-derivatives, span-(standard-portfolio-analysis-of-risk), broker-specific-portfolio-margin-models
+  brokers_frameworks: "CME SPAN (legacy scenario-based methodology); CME SPAN 2 (filtered historical simulation VaR); OCC TIMS / FINRA Rule 4210(g) portfolio margin; NSE Clearing SPAN + Extreme Loss Margin (India); broker-specific portfolio margin models"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

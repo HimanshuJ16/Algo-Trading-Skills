@@ -1,8 +1,24 @@
 {
   "name": "algo-trading-skills",
-  "description": "504 structured algorithmic trading skills for AI agents covering broker integration, real-time market data architecture, backtesting methodology, financial ML, risk management, execution algorithms, crypto custody, regulatory compliance, and 8 more engineering domains.",
-  "version": "1.0.0",
+  "description": "Algorithmic-trading skills for AI coding agents (agentskills.io format) covering broker integration, real-time market data, backtesting, financial ML, risk management, execution algorithms, crypto custody, regulatory compliance, derivatives, data management, portfolio strategy, market microstructure, alternative data and tax accounting. Installing this manifest directly loads every skill; the marketplace splits the same skills into one plugin per domain.",
+  "version": "3.0.0",
   "author": {
-    "name": "HimanshuJ16" 
-  }
+    "name": "HimanshuJ16",
+    "url": "https://github.com/HimanshuJ16"
+  },
+  "homepage": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
+  "repository": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "algorithmic-trading",
+    "quantitative-finance",
+    "backtesting",
+    "risk-management",
+    "broker-api",
+    "market-data",
+    "execution-algorithms",
+    "regulatory-compliance",
+    "financial-ml",
+    "derivatives"
+  ]
 }

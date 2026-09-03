@@ -1,24 +1,17 @@
 ---
 name: feature-engineering-without-leakage
-description: Use when constructing or auditing features for an ML-based trading signal
-  model, to guarantee every feature is computable from information observable strictly
-  before the prediction target is realized (no-time-machine legitimacy), and to screen
-  an existing feature set for target contamination, lookahead, and non-causal construction
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- data-leakage
-- point-in-time
-- feature-auditing
-- lookahead-bias
-brokers_frameworks:
-- Feature Leakage Auditor
-- Python pandas
-- Python NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when designing or auditing features for a model that predicts a future price move,
+  to guarantee each feature is computable strictly before the target is realised;
+  catches same-bar returns and label-derived inputs.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, data-leakage, point-in-time, feature-auditing, lookahead-bias
+  brokers_frameworks: "Feature Leakage Auditor; Python pandas; Python NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

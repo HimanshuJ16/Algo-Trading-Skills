@@ -1,26 +1,17 @@
 ---
 name: central-bank-communication-nlp-analysis
-description: Quantitative NLP engine for extracting hawkish, dovish, and policy uncertainty
-  sentiment from central bank communications, featuring sentence-boundary negation isolation,
-  multi-word phrase matching, and sequential statement diffing.
-domain: Alpha Generation
-subdomain: Alternative Data
-tags:
-- nlp
-- sentiment-analysis
-- central-bank
-- fomc
-- hawkish
-- dovish
-- macro
-- statement-diff
-brokers_frameworks:
-- Generic NLP
-- Apel-Grimaldi Lexicon
-- Hansen-McMahon Framework
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when quantifying the hawkish or dovish stance of central bank statements, minutes
+  and press conferences for a macro, rates or FX strategy, with sentence-level negation
+  handling and policy uncertainty scoring.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: nlp, sentiment-analysis, central-bank, fomc, hawkish, dovish, macro, statement-diff
+  brokers_frameworks: "Generic NLP; Apel-Grimaldi Lexicon; Hansen-McMahon Framework"
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

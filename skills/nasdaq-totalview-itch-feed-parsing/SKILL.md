@@ -1,14 +1,17 @@
 ---
 name: nasdaq-totalview-itch-feed-parsing
 description: >-
-  Nasdaq TotalView-ITCH 5.0 binary protocol parsing engine unpacking Add Order (A/F), Order Executed (E/C), Cancel (X), Delete (D) and Replace (U) messages for L3 order book reconstruction, with explicit book-integrity accounting.
-domain: Market Microstructure & Latency
-subdomain: Binary Feed Parsing & L3 Order Book Reconstruction
-tags: ["nasdaq-itch", "binary-protocol", "totalview-itch", "itch-5.0", "l3-order-book", "feed-parsing", "struct-unpack"]
-brokers_frameworks: ["Nasdaq TotalView-ITCH 5.0 Spec", "MoldUDP64", "SoupBinTCP", "Python Struct Binary Unpacking", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when decoding Nasdaq TotalView-ITCH 5.0 add, execute, cancel, delete and replace
+  messages to maintain a market-by-order book. MoldUDP64 framing, line arbitration and
+  gap recovery sit upstream of this decode step.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: nasdaq-itch, binary-protocol, totalview-itch, itch-5.0, l3-order-book, feed-parsing, struct-unpack
+  brokers_frameworks: "Nasdaq TotalView-ITCH 5.0 Spec; MoldUDP64; SoupBinTCP; Python Struct Binary Unpacking; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

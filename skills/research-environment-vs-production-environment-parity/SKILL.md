@@ -1,18 +1,18 @@
 ---
 name: research-environment-vs-production-environment-parity
 description: >-
-  Use when promoting a model, alpha signal or feature pipeline out of the research
-  environment (notebooks, offline backtesters) into live execution — auditing five
-  parity vectors (CPython release, installed package versions, declared floating-point
-  precision, feature-definition hashes, and shadow-execution signal diffing) and
-  blocking the promotion when any of them breaks.
-domain: MLOps & Quantitative Research
-subdomain: Environment Parity & Live Signal Verification
-tags: ["environment-parity", "research-vs-production", "mlops", "signal-drift", "feature-parity", "precision-mismatch", "promotion-gate", "shadow-execution"]
-brokers_frameworks: ["Parity Audit Framework", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when promoting a model or feature pipeline out of notebooks into live execution
+  and the question is whether production computes the same number, auditing runtime,
+  package and data-path parity vectors. Deployment gating is
+  environment-parity-dev-staging-production.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: environment-parity, research-vs-production, mlops, signal-drift, feature-parity, precision-mismatch, promotion-gate, shadow-execution
+  brokers_frameworks: "Parity Audit Framework; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

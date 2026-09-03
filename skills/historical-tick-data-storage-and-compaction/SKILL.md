@@ -1,14 +1,17 @@
 ---
 name: historical-tick-data-storage-and-compaction
 description: >-
-  Use when designing or auditing a historical tick archive — delta-encoding timestamps and prices, laying columns out for compression, choosing a Parquet codec, and tiering partitions by age — so the archive stays small, stays losslessly decodable, and reports a compression ratio that is measured rather than assumed.
-domain: Data Management Global
-subdomain: Historical Tick Storage & Compaction Architecture
-tags: ["tick-storage", "parquet", "delta-encoding", "zstandard", "columnar-compression", "storage-tiering", "data-compaction"]
-brokers_frameworks: ["Apache Parquet", "PyArrow / DuckDB", "Zstandard (RFC 8878)", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when designing a tick archive that must stay affordable, delta-encoding timestamps
+  and prices, laying columns out for compression, choosing a Parquet codec and tiering
+  partitions by age.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: tick-storage, parquet, delta-encoding, zstandard, columnar-compression, storage-tiering, data-compaction
+  brokers_frameworks: "Apache Parquet; PyArrow / DuckDB; Zstandard (RFC 8878); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

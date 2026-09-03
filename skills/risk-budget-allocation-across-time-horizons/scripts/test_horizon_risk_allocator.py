@@ -46,7 +46,7 @@ class TestValidAllocation(unittest.TestCase):
 
     def test_position_size_scalar_is_inverse_to_sleeve_volatility(self):
         # Regression: the scalar must depend on the risk budget AND scale down a
-        # volatile sleeve. The pre-2.0 formula was base_vol / portfolio_vol, which
+        # volatile sleeve. an earlier formula was base_vol / portfolio_vol, which
         # ignored the budget entirely and scaled volatile sleeves *up*.
         report = self.engine.allocate_risk_budget(four_horizon_book())
         # 0.20 * 0.15 / 0.10 = 0.30 ; 0.30 * 0.15 / 0.12 = 0.375
@@ -98,7 +98,7 @@ class TestValidAllocation(unittest.TestCase):
         )
 
     def test_scalar_is_not_prematurely_rounded(self):
-        # 1/6 is not representable at 4 decimal places; the pre-2.0 engine rounded the
+        # 1/6 is not representable at 4 decimal places; a naive engine rounded the
         # sizing multiplier to 4dp inside the engine.
         report = self.engine.allocate_risk_budget(four_horizon_book())
         self.assertNotEqual(report.horizon_allocations[3].position_size_scalar, 0.1667)
@@ -170,7 +170,7 @@ class TestOverAndUnderAllocation(unittest.TestCase):
 
     def test_float_accumulation_does_not_fabricate_a_breach(self):
         # Regression: these four two-decimal percentages accumulate to
-        # 100.00000000000001 with a running float total, which the pre-2.0 engine
+        # 100.00000000000001 with a running float total, which a naive engine
         # reported as over-allocated while its own rounded total still read 100.0.
         book = [
             TimeHorizonBucket("A", 1, 23.35, 0.10, 2.0),
@@ -189,7 +189,7 @@ class TestOverAndUnderAllocation(unittest.TestCase):
         self.assertEqual(report.status, "RISK_BUDGET_VALID")
 
     def test_reported_total_never_contradicts_the_breach_flag(self):
-        # Regression: round(100.004, 2) == 100.0, so the pre-2.0 report showed a total
+        # Regression: round(100.004, 2) == 100.0, so an earlier report showed a total
         # of 100.0 alongside over_allocated=True.
         report = self.engine.allocate_risk_budget([
             TimeHorizonBucket("A", 1, 50.0, 0.10, 2.0),
@@ -299,7 +299,7 @@ class TestInputValidation(unittest.TestCase):
         self.engine = RiskBudgetAllocationEngine(total_portfolio_vol_target=0.15)
 
     def test_nan_allocation_raises(self):
-        # Regression: NaN > 100.0 is False, so the pre-2.0 engine returned
+        # Regression: NaN > 100.0 is False, so a naive engine returned
         # RISK_BUDGET_VALID for a budget whose total was NaN.
         with self.assertRaises(ValueError):
             self.engine.allocate_risk_budget([
@@ -314,7 +314,7 @@ class TestInputValidation(unittest.TestCase):
             ])
 
     def test_negative_allocation_raises(self):
-        # Regression: 150 + (-60) = 90 passed the pre-2.0 cap as valid.
+        # Regression: 150 + (-60) = 90 passed an earlier cap as valid.
         with self.assertRaises(ValueError):
             self.engine.allocate_risk_budget([
                 TimeHorizonBucket("A", 1, 150.0, 0.10, 2.0),
@@ -413,7 +413,7 @@ class TestInputValidation(unittest.TestCase):
 class TestEngineConfiguration(unittest.TestCase):
 
     def test_zero_portfolio_vol_target_raises(self):
-        # Regression: the pre-2.0 engine silently fell back to a scalar of 1.0, sizing
+        # Regression: a naive engine silently fell back to a scalar of 1.0, sizing
         # every horizon at base with no risk basis at all.
         with self.assertRaises(ValueError):
             RiskBudgetAllocationEngine(total_portfolio_vol_target=0.0)

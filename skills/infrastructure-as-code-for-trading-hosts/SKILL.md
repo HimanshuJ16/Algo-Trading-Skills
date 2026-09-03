@@ -1,17 +1,17 @@
 ---
 name: infrastructure-as-code-for-trading-hosts
 description: >-
-  Use when provisioning or auditing a low-latency trading host as code — validating a CPU
-  isolation / C-state / socket-buffer / PTP specification before it is rendered into Terraform
-  and Ansible, and generating kernel-argument and sysctl artifacts that actually take effect
-  rather than staging changes a host never applies.
-domain: Infrastructure & DevOps
-subdomain: Low-Latency Host Provisioning & IaC Automation
-tags: ["iac", "terraform", "ansible", "low-latency", "cpu-isolation", "isolcpus", "c-states", "ptp4l", "sysctl"]
-brokers_frameworks: ["Terraform HCL", "Ansible Playbooks", "linuxptp (ptp4l / phc2sys)", "AWS EC2 bare metal", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a co-located or bare-metal trading host is provisioned as code, to validate a
+  CPU isolation, C-state, socket buffer and PTP specification before rendering it into
+  Terraform and Ansible. It audits a spec, not a live machine.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: iac, terraform, ansible, low-latency, cpu-isolation, isolcpus, c-states, ptp4l, sysctl
+  brokers_frameworks: "Terraform HCL; Ansible Playbooks; linuxptp (ptp4l / phc2sys); AWS EC2 bare metal; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

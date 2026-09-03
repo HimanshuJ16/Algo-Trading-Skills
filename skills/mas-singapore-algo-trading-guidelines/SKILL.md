@@ -1,14 +1,17 @@
 ---
 name: mas-singapore-algo-trading-guidelines
 description: >-
-  Pre-trade compliance gate for algorithmic orders routed to Singapore Exchange, auditing SFA licensing and SGX Approved Trader registration, Clearing Member pre-execution value limits, the Forced Order Range and Force Key, and the SGX-ST circuit breaker band around the five-minute-lagged reference price.
-domain: Regulatory Compliance Global
-subdomain: Singapore SFA Licensing & SGX Pre-Trade Controls
-tags: ["mas", "singapore", "sfa", "sgx", "circuit-breaker", "forced-order-range", "pre-trade-risk", "kill-switch"]
-brokers_frameworks: ["Securities and Futures Act 2001 (Singapore)", "SGX-ST Rule 8.14 with Regulatory Notice 8.14.1 and Practice Note 8.10A", "SGX-ST Practice Note 8.6 (Forced Order Range) and Regulatory Notice 11.4.2(g) (Force Key)", "SGX Futures Trading Rules 2.13.2, 2.13.4, 3.9.1(3), 4.1.15", "SGX RegCo Algorithmic Trading Regulatory Guide", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when gating algorithmic order flow into Singapore Exchange from a MAS-regulated
+  entity: SFA licensing and SGX Approved Trader registration, clearing member
+  pre-execution value limits, and the forced order cancellation policy.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: mas, singapore, sfa, sgx, circuit-breaker, forced-order-range, pre-trade-risk, kill-switch
+  brokers_frameworks: "Securities and Futures Act 2001 (Singapore); SGX-ST Rule 8.14 with Regulatory Notice 8.14.1 and Practice Note 8.10A; SGX-ST Practice Note 8.6 (Forced Order Range) and Regulatory Notice 11.4.2(g) (Force Key); SGX Futures Trading Rules 2.13.2, 2.13.4, 3.9.1(3), 4.1.15; SGX RegCo Algorithmic Trading Regulatory Guide; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

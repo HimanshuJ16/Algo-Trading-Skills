@@ -1,28 +1,17 @@
 ---
 name: post-only-and-maker-taker-fee-optimization
 description: >-
-  Use when submitting passive limit orders to a venue with a maker-taker fee schedule and the order must not execute as a taker. Builds the post-only payload in the form the named venue actually accepts (Binance LIMIT_MAKER / GTX, Bybit PostOnly, Coinbase post_only, Kraken oflags=post, FIX ExecInst 6), refuses to submit a price that would cross the spread, and reports the maker-vs-taker fee differential as an estimate conditional on the order filling.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- post-only
-- maker-taker
-- fee-optimization
-- liquidity-provider
-- execution-cost
-- order-payload-construction
-- spread-crossing
-brokers_frameworks:
-- Binance Spot (LIMIT_MAKER) & USD-M Futures (timeInForce GTX)
-- Bybit v5 (timeInForce PostOnly)
-- Coinbase Advanced Trade (limit_limit_gtc.post_only)
-- Kraken Spot (oflags=post)
-- FIX 4.4 ExecInst (tag 18) = 6
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a limit order must rest rather than execute as a taker. Builds the post-only
+  payload each venue actually accepts (Binance LIMIT_MAKER and GTX, Bybit PostOnly,
+  Coinbase post_only, Kraken oflags=post, FIX ExecInst 6) and refuses marketable prices.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, post-only, maker-taker, fee-optimization, liquidity-provider, execution-cost, order-payload-construction, spread-crossing
+  brokers_frameworks: "Binance Spot (LIMIT_MAKER) & USD-M Futures (timeInForce GTX); Bybit v5 (timeInForce PostOnly); Coinbase Advanced Trade (limit_limit_gtc.post_only); Kraken Spot (oflags=post); FIX 4.4 ExecInst (tag 18) = 6; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

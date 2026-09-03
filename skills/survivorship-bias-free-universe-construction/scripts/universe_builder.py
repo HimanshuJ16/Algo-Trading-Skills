@@ -78,7 +78,7 @@ The registry is keyed by ``security_id``, not by ticker. Tickers are reused: the
 General Motors Corporation traded as ``GM`` until its 2009 bankruptcy (moving to
 ``GMGMQ``, then ``MTLQQ`` effective 2009-07-15), and the new General Motors Company
 took the ``GM`` ticker at its 2010-11-18 IPO. Keyed by ticker, the second registration
-overwrites the first and the old issuer vanishes from every pre-2010 universe -- which
+overwrites the first and the old issuer vanishes from every older universe -- which
 reintroduces exactly the survivorship bias this module exists to remove. Supply a
 stable identifier (CRSP PERMNO, CUSIP, SEDOL, FIGI). ``security_id`` defaults to the
 symbol, which is safe only for a universe with no recycling in it.
@@ -312,7 +312,7 @@ class SurvivorshipFreeUniverseEngine:
 
         Raises when ``security_id`` is already registered. The previous implementation
         keyed on ticker and overwrote silently, so registering old GM and new GM left a
-        single record and emptied every pre-2010 universe of the old issuer. A
+        single record and emptied every older universe of the old issuer. A
         collision here means either a duplicate load or two securities sharing an id --
         both are data errors, and neither should resolve by deletion.
         """

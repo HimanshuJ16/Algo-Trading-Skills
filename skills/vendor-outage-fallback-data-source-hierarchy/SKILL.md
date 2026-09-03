@@ -1,31 +1,17 @@
 ---
 name: vendor-outage-fallback-data-source-hierarchy
 description: >-
-  Use when a strategy prices off market data from more than one vendor and must
-  keep deciding, continuously, which source it is entitled to trade on — covering
-  priority-ranked failover, staleness and disconnect detection, promotion that
-  requires demonstrated stability rather than elapsed time, and a bounded
-  last-known-price cache that never presents an obsolete quote as a current one.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- vendor-outage
-- fallback-hierarchy
-- failover
-- staleness-detection
-- anti-flapping
-- synthetic-cache
-brokers_frameworks:
-- Bloomberg B-PIPE
-- LSEG Real-Time (formerly Refinitiv Elektron)
-- Polygon.io
-- Nasdaq TotalView-ITCH (direct exchange feed)
-- MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589), Articles 4 and 14
-- SEC Rule 2a-5 (17 CFR 270.2a-5) pricing-service oversight
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when the same instrument comes from several vendors at different quality tiers and
+  a live process must pick one on every tick, with priority-ranked failover on staleness
+  and outage. It picks a source; it does not compare them.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: real-time-architecture, vendor-outage, fallback-hierarchy, failover, staleness-detection, anti-flapping, synthetic-cache
+  brokers_frameworks: "Bloomberg B-PIPE; LSEG Real-Time (formerly Refinitiv Elektron); Polygon.io; Nasdaq TotalView-ITCH (direct exchange feed); MiFID II RTS 6 (Commission Delegated Regulation (EU) 2017/589), Articles 4 and 14; SEC Rule 2a-5 (17 CFR 270.2a-5) pricing-service oversight"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

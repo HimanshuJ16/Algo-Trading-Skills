@@ -1,14 +1,17 @@
 ---
 name: opportunity-cost-tracking-for-idle-capital
 description: >-
-  Opportunity cost tracking engine measuring idle-capital return drag as the spread between a money-market benchmark (SOFR, ACT/360) and the yield the cash already earns, sizing the sweepable balance net of an operational buffer, and testing whether a cash sweep clears its round-trip cost.
-domain: Treasury Management & Multi-Strategy
-subdomain: Capital Allocation & Cash Sweep Optimization
-tags: ["opportunity-cost", "idle-capital", "treasury-management", "cash-sweep", "sofr-benchmark", "act-360-day-count", "return-drag", "capital-allocation"]
-brokers_frameworks: ["SOFR / US Treasury Benchmark", "FRBNY SOFR Averages & Index", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when unallocated cash sits earning less than a money-market benchmark, measuring
+  the drag as the spread against that benchmark and sizing the sweepable balance net of
+  margin requirements.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: opportunity-cost, idle-capital, treasury-management, cash-sweep, sofr-benchmark, act-360-day-count, return-drag, capital-allocation
+  brokers_frameworks: "SOFR / US Treasury Benchmark; FRBNY SOFR Averages & Index; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

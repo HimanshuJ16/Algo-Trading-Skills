@@ -1,17 +1,17 @@
 ---
 name: microstructure-noise-filtering-for-hf-signals
 description: >-
-  Use when building high-frequency signals on top-of-book quote data and the raw
-  midpoint is too noisy to trade: local level (random-walk-plus-noise) Kalman
-  filtering, imbalance-weighted mid-price, and EMA smoothing, with an explicit
-  dispersion-reduction audit.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags: ["real-time-architecture", "microstructure-noise", "kalman-filter", "local-level-model", "weighted-mid-price", "high-frequency-signals", "tick-filtering"]
-brokers_frameworks: ["Python Standard Library (math, dataclasses)", "Durbin-Koopman Local Level Model"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a high-frequency signal is built on the raw top-of-book midpoint and the
+  midpoint is too noisy to trade, applying a local-level Kalman filter and an
+  imbalance-weighted mid instead.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: real-time-architecture, microstructure-noise, kalman-filter, local-level-model, weighted-mid-price, high-frequency-signals, tick-filtering
+  brokers_frameworks: "Python Standard Library (math, dataclasses); Durbin-Koopman Local Level Model"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,14 +1,17 @@
 ---
 name: fpga-based-market-data-processing-evaluation
 description: >-
-  Use when deciding whether to buy an FPGA SmartNIC tick-to-trade path instead of continuing to optimise a kernel-bypass CPU path: checks that the two latency profiles were measured on the same basis, amortises hardware and firmware capex before comparing it with annual alpha, and tests the claimed alpha gain against the strategy's own decay half-life.
-domain: Latency & Hardware Acceleration
-subdomain: FPGA Market Data & Ultra-Low-Latency Architecture
-tags: ["fpga", "hft", "market-data-parsing", "tick-to-trade", "nanosecond-latency", "smartnic", "hardware-acceleration", "stac-t0"]
-brokers_frameworks: ["AMD Alveo UL3524", "AMD Solarflare EF_VI / Onload", "Enyx FPGA", "STAC-T0", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding between continuing to optimise a kernel-bypass CPU path and buying
+  an FPGA SmartNIC tick-to-trade path, checking that the two latency profiles were
+  measured on the same basis before comparing them.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: fpga, hft, market-data-parsing, tick-to-trade, nanosecond-latency, smartnic, hardware-acceleration, stac-t0
+  brokers_frameworks: "AMD Alveo UL3524; AMD Solarflare EF_VI / Onload; Enyx FPGA; STAC-T0; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

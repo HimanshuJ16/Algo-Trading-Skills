@@ -1,26 +1,17 @@
 ---
 name: clock-drift-monitoring-alerting-thresholds
-description: Use when a trading host must prove its business clock stays inside a
-  regulatory divergence limit — evaluating PTP offset and daemon state against the
-  MiFID II RTS 25 Table 2 limit for the activity actually being run, escalating a
-  lost grandmaster and stalled telemetry as well as raw drift, and latching an
-  automated halt so non-compliant timestamps stop being written.
-domain: Compliance & Regulation
-subdomain: Infrastructure
-tags:
-- mifid-ii
-- rts-25
-- clock-drift
-- ptp
-- hft
-- compliance
-- kill-switch
-brokers_frameworks:
-- Linux PTP
-- Generic Infrastructure
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a host stamping reportable events must prove its clock stays inside the MiFID
+  II RTS 25 divergence limit for that activity, evaluating PTP offset and daemon state
+  and latching a halt on breach. Disciplining the clock is a separate skill.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: mifid-ii, rts-25, clock-drift, ptp, hft, compliance, kill-switch
+  brokers_frameworks: "Linux PTP; Generic Infrastructure"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,27 +1,17 @@
 ---
 name: euronext-optiq-market-data-integration
-description: Use when building or auditing a Euronext Optiq Market Data Gateway (MDG)
-  feed handler - parsing the Market Data Packet Header and SBE message framing, detecting
-  Packet Sequence Number gaps across the A/B multicast lines, maintaining the aggregated
-  limit book, and gating quoting on the venue's Book State and Order Entry Qualifier.
-domain: Venue Integration & Protocols
-subdomain: European Market Data (Euronext Optiq)
-tags:
-- euronext
-- optiq-mdg
-- sbe-binary
-- multicast-feed
-- packet-sequence-number
-- line-arbitration
-- l2-order-book
-- market-microstructure
-brokers_frameworks:
-- Euronext Optiq MDG
-- Simple Binary Encoding (SBE)
-- Python struct / dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when writing a feed handler for the Euronext Optiq Market Data Gateway, parsing
+  the market data packet header and SBE framing and detecting packet sequence gaps
+  across channels. Message bodies still need the SBE template XML.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: euronext, optiq-mdg, sbe-binary, multicast-feed, packet-sequence-number, line-arbitration, l2-order-book, market-microstructure
+  brokers_frameworks: "Euronext Optiq MDG; Simple Binary Encoding (SBE); Python struct / dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

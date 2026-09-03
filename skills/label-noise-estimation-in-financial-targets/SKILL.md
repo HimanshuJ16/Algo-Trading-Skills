@@ -1,14 +1,17 @@
 ---
 name: label-noise-estimation-in-financial-targets
 description: >-
-  Quantitative machine learning noise estimation engine implementing Confident Learning (Cleanlab framework) for binary financial targets, computing the confident joint and noise transition matrices, identifying mislabeled financial targets, and generating clean sample weights.
-domain: Quant Research & Alt Data
-subdomain: Financial Machine Learning & Target Labeling
-tags: ["label-noise", "confident-learning", "cleanlab", "financial-ml", "target-labeling", "noise-ratio", "sample-weighting"]
-brokers_frameworks: ["Cleanlab Framework", "scikit-learn / XGBoost", "Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when a binary financial target such as a triple-barrier or fixed-horizon label is
+  mislabelled by microstructure noise; confident learning estimates the noise transition
+  matrix and flags suspect samples before training.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: label-noise, confident-learning, cleanlab, financial-ml, target-labeling, noise-ratio, sample-weighting
+  brokers_frameworks: "Cleanlab Framework; scikit-learn / XGBoost; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

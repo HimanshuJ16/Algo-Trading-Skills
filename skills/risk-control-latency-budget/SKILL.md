@@ -1,26 +1,17 @@
 ---
 name: risk-control-latency-budget
 description: >-
-  Measure, budget, and audit live trading risk-control latency from event observation through decision, local dispatch, and broker/exchange acknowledgement. Use for pre-trade checks, drawdown breakers, kill switches, position limits, cancel paths, latency regressions, and incident review. Audits each trace against the control's declared end state, refuses to certify a measurement taken on an unsynchronized clock, and never equates local submission with effective containment.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- latency-budget
-- risk-control-sla
-- circuit-breaker-latency
-- kill-switch-latency
-- clock-synchronization
-- mifid-ii-rts-6
-brokers_frameworks:
-- Python Dataclasses
-- CLOCK_MONOTONIC_RAW
-- MiFID II RTS 6
-- MiFID II RTS 25
-- SEC Rule 15c3-5
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when auditing the timing of a risk control rather than its logic, because a
+  correct kill switch that takes seconds to get a cancel in front of the matching engine
+  has already failed; budgets observation, decision, dispatch and acknowledgement.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, latency-budget, risk-control-sla, circuit-breaker-latency, kill-switch-latency, clock-synchronization, mifid-ii-rts-6
+  brokers_frameworks: "Python Dataclasses; CLOCK_MONOTONIC_RAW; MiFID II RTS 6; MiFID II RTS 25; SEC Rule 15c3-5"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,19 +1,17 @@
 ---
 name: risk-control-configuration-change-approval-workflow
 description: >-
-  Design or review maker-checker change control for trading risk configurations, including immutable payload approval, RBAC separation, expiry, optimistic concurrency, idempotent application, audit evidence, reconciliation, and rollback readiness. Use for production changes to order, position, exposure, credit, drawdown, throttling, or kill-switch parameters; do not use as a substitute for the runtime pre-trade risk gate or emergency kill switch.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- change-control
-- maker-checker
-- configuration-governance
-brokers_frameworks:
-- Broker-agnostic
-version: "1.2.0"
-author: algo-trading-skills-contributors
+  Use when implementing maker-checker change control for production risk configuration:
+  immutable approved payloads, role separation, expiry, optimistic concurrency and
+  idempotent application. Break-glass may only tighten limits.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, change-control, maker-checker, configuration-governance
+  brokers_frameworks: Broker-agnostic
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

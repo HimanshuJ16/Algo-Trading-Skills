@@ -1,14 +1,17 @@
 ---
 name: reference-data-symbol-mapping-across-vendors
 description: >-
-  Point-in-time cross-vendor symbol cross-reference resolving vendor-specific instrument identifiers (ticker, RIC, ISIN, CUSIP, SEDOL, Bloomberg ticker, FIGI) to one canonical internal symbol and back, with effective-dated mappings so a recycled ticker never resolves to the wrong issuer.
-domain: Data Management Global
-subdomain: Reference Data & Symbol Normalization
-tags: ["symbol-mapping", "reference-data", "cross-vendor", "point-in-time", "isin", "cusip", "sedol", "bloomberg", "reuters-ric"]
-brokers_frameworks: ["Bloomberg Ticker Symbology", "Refinitiv Identification Code (RIC)", "ISO 6166 ISIN", "CUSIP Global Services", "SEDOL Masterfile", "OpenFIGI", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when data from several vendors must join on the same instrument across tickers,
+  RICs, ISINs, CUSIPs, SEDOLs and FIGIs, resolving each to one canonical internal symbol
+  point-in-time and back again.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: symbol-mapping, reference-data, cross-vendor, point-in-time, isin, cusip, sedol, bloomberg, reuters-ric
+  brokers_frameworks: "Bloomberg Ticker Symbology; Refinitiv Identification Code (RIC); ISO 6166 ISIN; CUSIP Global Services; SEDOL Masterfile; OpenFIGI; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

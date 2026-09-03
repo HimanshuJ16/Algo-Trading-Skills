@@ -49,9 +49,9 @@ portable to them without reading each broker's own documentation.
 | Upstox | The current Upstox webhook documentation describes the payload and delivery but specifies **no signature or checksum scheme**, and states the webhook endpoint "should not require authentication". Secondary sources describe an MD5 checksum on an earlier Upstox postback API | **Low — no signature verified in current primary docs.** Treat an Upstox webhook as unauthenticated unless their docs say otherwise |
 | Fyers | Fyers publishes a Postback (Webhooks) section, but no signature-verification specification was reachable in the primary docs at the time of writing | **Unverified.** No claim made here |
 
-An earlier revision of this file asserted `HMAC-SHA256(payload_body, api_secret)` for
-Upstox and "token authorization & SHA-256 payload validation" for Fyers. Neither is
-supported by the brokers' own documentation and both have been removed.
+Do not assume `HMAC-SHA256(payload_body, api_secret)` for Upstox or "token
+authorization & SHA-256 payload validation" for Fyers. Neither is supported by the
+brokers' own documentation.
 
 For the generic pattern that most non-Indian venues do use — HMAC-SHA-256 over the raw
 body, carried in a header — see `webhook-based-order-fill-notifications`.

@@ -1,14 +1,17 @@
 ---
 name: sanctions-screening-for-counterparties-and-instruments
 description: >-
-  Fail-closed sanctions screening gate for trading counterparties and instrument issuers, matching on identifier, primary name and published aliases with Unicode/punctuation normalisation before edit distance, applying the OFAC 50 Percent Rule with aggregation across blocked owners, separating blocking (SDN) from sectoral (SSI) designations, and enforcing comprehensive country plus ISO 3166-2 territorial embargoes against a dated, staleness-checked list snapshot.
-domain: Compliance & Risk Governance
-subdomain: Sanctions Screening & Counterparty AML
-tags: ["sanctions-screening", "ofac-sdn", "ofac-ssi", "eu-consolidated", "un-sanctions", "uk-sanctions-list", "fuzzy-matching", "ofac-50-percent-rule", "embargo"]
-brokers_frameworks: ["OFAC SDN List", "OFAC Sectoral Sanctions Identifications (SSI) List", "OFAC 50 Percent Rule", "EU Consolidated Financial Sanctions List", "UN Security Council Consolidated List", "UK Sanctions List (FCDO)", "Wolfsberg Sanctions Screening Guidance 2019", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when onboarding a counterparty or admitting an instrument, to screen identifiers,
+  primary names and published aliases with Unicode normalisation before edit-distance
+  matching, and to leave evidence rather than a boolean. Supply your own list data.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: sanctions-screening, ofac-sdn, ofac-ssi, eu-consolidated, un-sanctions, uk-sanctions-list, fuzzy-matching, ofac-50-percent-rule, embargo
+  brokers_frameworks: "OFAC SDN List; OFAC Sectoral Sanctions Identifications (SSI) List; OFAC 50 Percent Rule; EU Consolidated Financial Sanctions List; UN Security Council Consolidated List; UK Sanctions List (FCDO); Wolfsberg Sanctions Screening Guidance 2019; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -54,10 +57,10 @@ Reach for it specifically because sanctions screening fails *silently*. A screen
 
 - **Screening against a list you did not check the age of.** OFAC's Framework names failure "to update their screening software to incorporate updates to the SDN List or the Sectoral Sanctions Identifications List" as a root cause of actual violations, and the SDN List has *no predetermined update timetable*. A hard-coded list with no `as_of` mis-screens silently for months and reports itself clean throughout.
 - **Comparing raw name strings and calling it fuzzy matching.** Punctuation alone sinks the canonical legal-form variant below threshold. The fix is normalisation, not a lower threshold — lowering the threshold to catch `P.J.S.C.` would flood the queue with genuinely unrelated names while still missing accent and word-order variants.
-- **Treating an unresolved country as "not on any list".** This is the fail-open that never alerts. `""`, `"  KP  "`, `"IRAN"` and `"XX"` all cleared under the previous version; a leading space on a North Korea code was enough.
+- **Treating an unresolved country as "not on any list".** This is the fail-open that never alerts. `""`, `"  KP  "`, `"IRAN"` and `"XX"` must not clear — a leading space on a North Korea code is otherwise enough to get through.
 - **Letting NaN through an ownership gate.** Every comparison against NaN is `False`, so `nan >= 50.0` is `False` and a NaN ownership percentage passes the 50 Percent Rule check and reports `CLEARED`. Validate for finiteness, not just range.
-- **Hard-coding an embargo list and never revisiting it.** This skill previously hard-blocked Syria. Executive Order 14312 of 30 June 2025 revoked the Syria sanctions programme and OFAC removed the Syrian Sanctions Regulations (31 CFR part 542) from the CFR on 26 August 2025. Blocking every Syrian counterparty on the authority of a revoked programme is over-blocking; targeted Syria-related designations remain and are caught by *list* screening.
-- **Encoding a territory as if it were a country.** The previous version used a `"RU_CRIMEA"` pseudo-code that no upstream system emits, so the Crimea rule could never fire — and Crimea is not in Russia's ISO namespace in any case. Territorial embargoes need ISO 3166-2.
+- **Hard-coding an embargo list and never revisiting it.** Syria is the live example: Executive Order 14312 of 30 June 2025 revoked the Syria sanctions programme and OFAC removed the Syrian Sanctions Regulations (31 CFR part 542) from the CFR on 26 August 2025. Blocking every Syrian counterparty on the authority of a revoked programme is over-blocking; targeted Syria-related designations remain and are caught by *list* screening.
+- **Encoding a territory as if it were a country.** A `"RU_CRIMEA"` pseudo-code is emitted by no upstream system, so a Crimea rule keyed on it can never fire — and Crimea is not in Russia's ISO namespace in any case. Territorial embargoes need ISO 3166-2.
 - **Checking each blocked owner against 50% separately.** The whole point of OFAC's 2014 revision is aggregation. Per-owner comparison silently never triggers.
 - **Declining a 50%-owned entity quietly.** That is a different legal event from blocking property and reporting it to OFAC. Getting the consequence wrong is its own violation.
 - **Using `check()`.** It is a deprecated no-op shim that reads `data["valid"]` and echoes it back. It performs **no screening**. It now emits a `DeprecationWarning`; wiring it into a gate produces a confident "compliant" for a subject that was never screened against anything.

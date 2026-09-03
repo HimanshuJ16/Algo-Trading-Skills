@@ -3,7 +3,7 @@ Unit tests for transaction-cost-analysis-tca-integration.
 
 Expected values are derived by hand from the definitions, not by re-running the
 engine's own arithmetic. Where a test guards a specific defect fixed in 1.1.0 it
-is marked REGRESSION and states the pre-1.1 behaviour it must reject.
+is marked REGRESSION and states the the older behaviour it must reject.
 """
 import logging
 import math
@@ -52,7 +52,7 @@ class TestCostDecomposition(unittest.TestCase):
         self.assertAlmostEqual(trade.estimated_shortfall_bps, 9.9100831569, places=7)
 
     def test_realized_shortfall_uses_the_fill_price(self):
-        # REGRESSION: pre-1.1 p_fill was accepted, stored and never read, so a
+        # REGRESSION: older p_fill was accepted, stored and never read, so a
         # catastrophic fill produced exactly the same shortfall as a perfect one.
         #   realized execution = (150.10 - 150.00) / 150.00 * 1e4 = 6.666667 bps
         #   realized total     = 6.666667 + 2.5                   = 9.166667 bps
@@ -125,14 +125,14 @@ class TestParticipationRange(unittest.TestCase):
             market_impact_gamma=15.0, fixed_commission_bps=0.0)
 
     def test_oversized_order_is_not_silently_clamped(self):
-        # REGRESSION: pre-1.1 did min(1.0, size/adv), so a 4x-ADV order priced
+        # REGRESSION: older did min(1.0, size/adv), so a 4x-ADV order priced
         # identically to a 1x-ADV order at exactly gamma.
         at_adv = self.tca.analyze_trade(
             "X", "BUY", 100_000.0, 100_000.0, 100.0, 100.0, 100.0, 0.0)
         four_x = self.tca.analyze_trade(
             "X", "BUY", 400_000.0, 100_000.0, 100.0, 100.0, 100.0, 0.0)
 
-        # Pre-1.1 both clamped to phi=1.0 and priced at exactly gamma=15.
+        # older both clamped to phi=1.0 and priced at exactly gamma=15.
         self.assertAlmostEqual(at_adv.market_impact_bps, 15.0, places=9)
         self.assertAlmostEqual(four_x.market_impact_bps, 30.0, places=9)  # 15*sqrt(4)
         # Both are above the 10% cut-off, so both are flagged as extrapolations.
@@ -276,7 +276,7 @@ class TestPortfolioAggregation(unittest.TestCase):
             "X", "BUY", size, adv, 100.0, 100.0, p_fill, 0.0)
 
     def test_drag_is_notional_based_not_trade_count_based(self):
-        # REGRESSION: pre-1.1 drag was sum(shortfall_bps) / 100, so 1,000 tiny
+        # REGRESSION: older drag was sum(shortfall_bps) / 100, so 1,000 tiny
         # trades at 1 bp each subtracted 10 percentage points of return no matter
         # how little was actually traded.
         #   1,000 trades x 1 unit x 100.00 = 100,000 notional
@@ -442,7 +442,7 @@ class TestInputValidation(unittest.TestCase):
         return self.tca.analyze_trade(**kwargs)
 
     def test_zero_adv_is_rejected(self):
-        # REGRESSION: pre-1.1 used max(1.0, adv), so adv=0 became a 1-unit ADV,
+        # REGRESSION: older used max(1.0, adv), so adv=0 became a 1-unit ADV,
         # pinning participation at 100% and the impact estimate at gamma.
         with self.assertRaises(ValueError):
             self._call(adv=0.0)
@@ -452,17 +452,17 @@ class TestInputValidation(unittest.TestCase):
             self._call(adv=-5_000.0)
 
     def test_zero_decision_price_is_rejected(self):
-        # Pre-1.1 this raised a bare ZeroDivisionError from inside the arithmetic.
+        # older this raised a bare ZeroDivisionError from inside the arithmetic.
         with self.assertRaises(ValueError):
             self._call(p_decision=0.0)
 
     def test_negative_order_size_is_rejected(self):
-        # Pre-1.1 this surfaced as "math domain error" from sqrt().
+        # older this surfaced as "math domain error" from sqrt().
         with self.assertRaises(ValueError):
             self._call(order_size=-1_000.0)
 
     def test_nan_price_is_rejected(self):
-        # REGRESSION: pre-1.1 a NaN propagated to net_tca_return_pct, where it
+        # REGRESSION: older a NaN propagated to net_tca_return_pct, where it
         # compared False against every threshold and quietly failed viability
         # without anyone learning the costs were never computed.
         for field in ("p_decision", "p_arrival", "p_fill"):

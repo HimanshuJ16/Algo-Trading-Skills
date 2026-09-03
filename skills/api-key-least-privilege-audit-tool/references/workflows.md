@@ -48,7 +48,7 @@ A scope audit is necessary, not sufficient. It does not check, and must not be r
 - **Whether the key is the one actually deployed.** A compliant audit of key A says nothing about key B sitting in the production environment.
 - **OAuth token scopes** — a different model, see `token-lifecycle-live-probing`.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Auditing the wrong endpoint:** reading account status (`/api/v3/account`) instead of key permissions (`/sapi/v1/account/apiRestrictions`) and concluding the key is safe because the response contained no scope list at all.
 - **Empty scope set read as "unprivileged":** a failed or partially-authenticated probe returns nothing, and an empty granted set contains no forbidden scope. A gate that only inspects `excess_violations` sees an empty list and proceeds. The auditor guards against this by never reporting an empty set as compliant and by naming the failed-probe possibility in the warning.

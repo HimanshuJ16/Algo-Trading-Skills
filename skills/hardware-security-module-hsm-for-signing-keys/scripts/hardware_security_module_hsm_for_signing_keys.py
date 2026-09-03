@@ -13,7 +13,7 @@ in the right domain for the declared algorithm, whether what came back is
 well-formed, and records the attempt - successes AND denials - in a
 tamper-evident chained log.
 
-The pre-2.0 version of this module derived a "private key" as
+a naive version of this module derived a "private key" as
 ``sha256(b"HSM_ENTROPY_SEED_" + alias)`` and returned an HMAC of the payload as
 the "signature", while hard-coding ``is_signature_valid=True``. Every one of
 those keys was reconstructible by anyone who knew the alias, and every such
@@ -54,7 +54,7 @@ logger = logging.getLogger(__name__)
 # --------------------------------------------------------------------------
 # Exceptions
 #
-# Each subclasses the builtin the pre-2.0 API raised, so callers written
+# Each subclasses the builtin an earlier API raised, so callers written
 # against `except PermissionError` / `except ValueError` keep working.
 # --------------------------------------------------------------------------
 class HsmCustodyError(Exception):
@@ -92,7 +92,7 @@ class HsmSignerError(HsmCustodyError, RuntimeError):
 # Enumerations and constants
 # --------------------------------------------------------------------------
 class SigningAlgorithm(str, Enum):
-    """Values match the pre-2.0 string literals so existing configs still load."""
+    """Values match an earlier string literals so existing configs still load."""
     SECP256K1 = "SECP256K1"
     ED25519 = "ED25519"
     HMAC_SHA256 = "HMAC_SHA256"
@@ -124,7 +124,7 @@ class SigningStatus(str, Enum):
     """
     Every terminal state of a signing or export attempt.
 
-    Pre-2.0 this enumeration existed only as a comment on a field hard-coded to
+    older this enumeration existed only as a comment on a field hard-coded to
     SIGNATURE_SUCCESS; denials raised and were never recorded. Denials are
     exactly the events an auditor samples for, so each one now produces a
     record before the exception propagates.
@@ -230,7 +230,7 @@ class HsmKeyMetaData:
 
     @property
     def is_extractable(self) -> bool:
-        """Pre-2.0 field name, retained so existing callers keep reading."""
+        """older field name, retained so existing callers keep reading."""
         return self.extractable
 
 
@@ -292,7 +292,7 @@ class HsmSigningAuditReport:
 
     There is deliberately no `is_signature_valid` field. Verifying an ECDSA or
     Ed25519 signature requires the public key and curve arithmetic this
-    dependency-free module does not perform, and the pre-2.0 field was
+    dependency-free module does not perform, and an earlier field was
     hard-coded True regardless of what happened. `is_signature_well_formed`
     states only what was actually checked: that the length matches the
     algorithm (and, for secp256k1, that r and s are in range).
@@ -451,7 +451,7 @@ class HsmSigningManagerEngine:
         """
         Record the attributes of a key that ALREADY EXISTS inside the HSM.
 
-        This replaces the pre-2.0 `generate_hardware_key`, which fabricated key
+        This replaces an earlier `generate_hardware_key`, which fabricated key
         material in process memory. Key generation happens on the device
         (`C_GenerateKeyPair` with CKA_SENSITIVE=True, CKA_EXTRACTABLE=False);
         the values passed here must be read back from the device with
@@ -520,7 +520,7 @@ class HsmSigningManagerEngine:
         Mark a key unusable for signing (rotation, suspected compromise).
 
         A compromised key that can still sign is the entire exposure; the
-        pre-2.0 engine had no way to stop one.
+        older engine had no way to stop one.
         """
         meta = self.get_key(key_alias)
         detail = _require_non_blank(reason, "reason")

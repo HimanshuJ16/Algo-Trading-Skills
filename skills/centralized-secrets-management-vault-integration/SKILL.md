@@ -1,27 +1,17 @@
 ---
 name: centralized-secrets-management-vault-integration
-description: Use when a trading process must obtain exchange API keys or database
-  credentials from HashiCorp Vault instead of .env files — AppRole login, KV v2
-  reads, explicit token TTL/max-TTL handling, a TTL-bounded in-memory cache so a
-  rotated credential is actually picked up, and a redacting secret container that
-  keeps keys out of logs.
-domain: Infrastructure
-subdomain: Security
-tags:
-- vault
-- hashicorp
-- secrets
-- api-keys
-- approle
-- security
-- kv-v2
-- token-lifetime
-brokers_frameworks:
-- HashiCorp Vault
-- HashiCorp Vault KV v2
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a trading process should fetch exchange API keys or database credentials from
+  HashiCorp Vault at runtime rather than a .env file; AppRole login, KV v2 reads,
+  explicit token TTL handling and a bounded local cache.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: vault, hashicorp, secrets, api-keys, approle, security, kv-v2, token-lifetime
+  brokers_frameworks: "HashiCorp Vault; HashiCorp Vault KV v2"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

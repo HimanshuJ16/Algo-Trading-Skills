@@ -1,4 +1,4 @@
-# Broker & Framework Coverage — websocket-reconnect-without-duplicate-subscriptions
+# Broker & Framework Coverage — websocket-subscription-reconciliation-after-reconnect
 
 Each row is behaviour that changes how reconnection must be written, with the source it
 was checked against. Limits and SDK internals change; re-verify against the version you

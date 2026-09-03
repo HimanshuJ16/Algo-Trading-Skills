@@ -225,7 +225,7 @@ class TestIntradayBreaks(unittest.TestCase):
                 )
 
     def test_tse_close_reflects_the_2024_extension_to_1530_jst(self) -> None:
-        # 15:20 JST (06:20Z) still trades; the pre-2024-11-05 15:00 close would have ended it.
+        # 15:20 JST (06:20Z) still trades; an earlier-11-05 15:00 close would have ended it.
         self.assertEqual(
             self.scheduler.get_market_status("XTKS", utc(2026, 7, 15, 6, 20)),
             MarketSessionState.REGULAR_TRADING,

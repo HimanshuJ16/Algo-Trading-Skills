@@ -73,7 +73,7 @@ actually implementing the skill, not just when deciding whether it applies.
      $\phi_0 + \sum \phi_i$ from the persisted line alone, without access to the
      running system.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Reconstructing the score instead of reconciling it.** The pipeline computes
   $\hat{Y} := \phi_0 + \sum\phi_i$, so the additivity identity holds by construction and

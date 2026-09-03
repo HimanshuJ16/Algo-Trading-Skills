@@ -155,7 +155,7 @@ class TestScopeGates(BmrEngineTestBase):
         self.assertEqual(report.findings, [])
 
     def test_out_of_scope_benchmark_is_not_a_register_violation(self):
-        """Regression: the pre-2026 engine flagged this as UNAUTHORIZED."""
+        """Regression: a naive engine flagged this as UNAUTHORIZED."""
         usage = _fully_compliant_usage(
             referenced_benchmark_id="BM_CUSTOM_ALPHA",
             has_written_fallback_plan=False,
@@ -171,7 +171,7 @@ class TestScopeGates(BmrEngineTestBase):
 
     @staticmethod
     def _legacy_engine():
-        """Same out-of-scope index, but with a register check dated pre-2026."""
+        """Same out-of-scope index, but with a register check dated older."""
         engine = EuBmrComplianceEngine()
         engine.register_benchmark(BenchmarkSpec(
             benchmark_id="BM_CUSTOM_ALPHA",
@@ -487,7 +487,7 @@ class TestArticle28Limbs(BmrEngineTestBase):
         self.assertEqual(_codes(report), {FINDING_NO_ALTERNATIVE_DESIGNATED})
 
     def test_all_failing_limbs_are_reported_not_just_the_first(self):
-        """Regression: the pre-2.0 engine returned only the first violation."""
+        """Regression: a naive engine returned only the first violation."""
         usage = _fully_compliant_usage(
             referenced_benchmark_id="BM_CTB_UNREG",
             has_written_fallback_plan=True,
@@ -581,7 +581,7 @@ class TestRegisterCurrency(BmrEngineTestBase):
 class TestInputValidation(BmrEngineTestBase):
 
     def test_unknown_benchmark_id_raises_rather_than_reporting_a_violation(self):
-        """Regression: the pre-2.0 engine returned UNAUTHORIZED for a typo."""
+        """Regression: a naive engine returned UNAUTHORIZED for a typo."""
         usage = _fully_compliant_usage(referenced_benchmark_id="BM_STOXX_50")
         with self.assertRaises(BmrConfigurationError):
             self.engine.audit_strategy_bmr_compliance(usage, TODAY)

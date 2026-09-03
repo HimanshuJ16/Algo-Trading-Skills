@@ -1,14 +1,17 @@
 ---
 name: google-trends-and-search-volume-signal-research
 description: >-
-  Alternative data research engine for Google Search Volume Index (SVI) data: standardizes SVI against a strictly trailing baseline window, enforces point-in-time publication lag with an explicit as-of filter, and classifies retail attention spikes against price momentum.
-domain: Quantitative Research & Alternative Data
-subdomain: Web Search Volume & Retail Attention Signal Research
-tags: ["google-trends", "svi", "alt-data", "z-score", "retail-attention", "attention-spikes", "point-in-time"]
-brokers_frameworks: ["Google Trends (web UI)", "Google Trends API (alpha)", "pytrends (unofficial)", "Python Standard Library", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building a retail-attention feature from search volume, standardising against
+  a strictly trailing baseline and enforcing the publication lag with an explicit as-of
+  date. A research feature, not a sized signal.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: google-trends, svi, alt-data, z-score, retail-attention, attention-spikes, point-in-time
+  brokers_frameworks: "Google Trends (web UI); Google Trends API (alpha); pytrends (unofficial); Python Standard Library; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

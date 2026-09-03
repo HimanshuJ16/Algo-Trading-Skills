@@ -1,30 +1,17 @@
 ---
 name: multi-broker-rate-limit-handling
 description: >-
-  Use when a bot makes frequent API calls across one or more brokers and must avoid
-  rate-limit bans while ensuring risk-critical calls (cancel, kill-switch) are never
-  queued behind non-critical data polling: multi-window token buckets per endpoint
-  class and per account, strict tier priority admission, structural HTTP 429
-  classification, and RFC 9110 Retry-After-aware full-jitter backoff.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- rate-limiting
-- token-bucket
-- http-429
-- fyers-api-v3
-- zerodha-kite-connect
-brokers_frameworks:
-- Fyers API v3
-- Zerodha Kite Connect
-- ICICI Breeze API
-- Upstox API v2
-- Alpaca Trading API
-- IBKR API
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when API call volume approaches a broker's limits and risk-critical calls such as
+  cancels must never queue behind data polling. Multi-window token buckets per endpoint
+  class and account, strict tier priority, and structural 429 handling.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, rate-limiting, token-bucket, http-429, fyers-api-v3, zerodha-kite-connect
+  brokers_frameworks: "Fyers API v3; Zerodha Kite Connect; ICICI Breeze API; Upstox API v2; Alpaca Trading API; IBKR API"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

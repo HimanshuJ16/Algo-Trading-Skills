@@ -1,14 +1,17 @@
 ---
 name: options-chain-data-normalization-across-vendors
 description: >-
-  Options chain data normalization engine mapping heterogeneous vendor feeds (Polygon, IBKR, Bloomberg, OPRA) into standardized OCC OSI 21-character symbology, computing mid-prices, and auditing data integrity — rejecting records it cannot read instead of defaulting them into a different, real contract.
-domain: Data Management & Normalization
-subdomain: Global Options Market Data Pipelines
-tags: ["options-normalization", "osi-symbology", "occ-format", "options-chain", "ibkr-api", "polygon-options", "bloomberg-options", "market-data"]
-brokers_frameworks: ["OCC Option Symbology Initiative (OSI)", "Polygon.io Options API", "Interactive Brokers TWS API", "Bloomberg Ticker Convention", "OPRA", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when options chains arrive from several vendors under different symbology, date
+  formats and sentinel values, mapping them to the OCC 21-character standard with
+  mid-prices and an integrity audit.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: options-normalization, osi-symbology, occ-format, options-chain, ibkr-api, polygon-options, bloomberg-options, market-data
+  brokers_frameworks: "OCC Option Symbology Initiative (OSI); Polygon.io Options API; Interactive Brokers TWS API; Bloomberg Ticker Convention; OPRA; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

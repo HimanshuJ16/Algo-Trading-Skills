@@ -1,5 +1,5 @@
 """
-Unit tests for websocket-reconnect-without-duplicate-subscriptions.
+Unit tests for websocket-subscription-reconciliation-after-reconnect.
 
 Clocks are injected rather than slept through, so gap-duration assertions are
 exact instead of resolution-dependent (``time.monotonic()`` advances in ~15.6ms

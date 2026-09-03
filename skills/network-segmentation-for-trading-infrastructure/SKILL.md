@@ -1,30 +1,17 @@
 ---
 name: network-segmentation-for-trading-infrastructure
 description: >-
-  Use when auditing the network topology around order gateways, strategy hosts,
-  or key custody signers — checking a declared set of subnets and firewall /
-  security-group rules for direct or multi-hop paths from an internet-facing or
-  developer-management zone into an execution or custody zone, administrative
-  ports reachable from the DMZ, over-wide port ranges, and 0.0.0.0/0 sources
-  that survived a troubleshooting session.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- network-segmentation
-- zero-trust
-- firewall-auditing
-- key-custody
-- aws-vpc
-- dora-rts
-brokers_frameworks:
-- NIST SP 800-207 (Zero Trust Architecture)
-- AWS VPC Security Groups & Network ACLs
-- AWS Foundational Security Best Practices
-- Commission Delegated Regulation (EU) 2024/1774 (DORA RTS)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when auditing whether an attacker landing in the least-trusted subnet can reach an
+  order gateway or a signing host; checks declared subnets and firewall rules for direct
+  and multi-hop paths.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-ops, network-segmentation, zero-trust, firewall-auditing, key-custody, aws-vpc, dora-rts
+  brokers_frameworks: "NIST SP 800-207 (Zero Trust Architecture); AWS VPC Security Groups & Network ACLs; AWS Foundational Security Best Practices; Commission Delegated Regulation (EU) 2024/1774 (DORA RTS)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

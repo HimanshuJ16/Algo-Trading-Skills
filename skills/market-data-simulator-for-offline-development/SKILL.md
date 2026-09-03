@@ -1,14 +1,17 @@
 ---
 name: market-data-simulator-for-offline-development
 description: >-
-  Use when building or debugging strategy, risk and feed-handler code offline without a live market-data subscription — generating a deterministic synthetic top-of-book tick stream from Geometric Brownian Motion, quantised onto a venue tick grid with a quoted bid-ask spread, reproducible from a single seed.
-domain: Data Management Global
-subdomain: Market Data Simulation & Offline Testing
-tags: ["market-data", "simulator", "offline-development", "geometric-brownian-motion", "synthetic-ticks", "bid-ask-spread", "reproducible-fixture"]
-brokers_frameworks: ["Python Standard Library", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when developing strategy, risk or feed-handler code with no live subscription and
+  no recorded session, generating a deterministic synthetic top-of-book stream. A
+  synthetic path cannot demonstrate edge.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: market-data, simulator, offline-development, geometric-brownian-motion, synthetic-ticks, bid-ask-spread, reproducible-fixture
+  brokers_frameworks: "Python Standard Library; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

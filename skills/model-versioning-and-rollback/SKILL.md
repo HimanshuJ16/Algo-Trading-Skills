@@ -1,28 +1,17 @@
 ---
 name: model-versioning-and-rollback
 description: >-
-  Use when a trading model or execution algorithm is registered, promoted or
-  rolled back in production, to keep an append-only SHA-256 model registry where
-  a semantic version string permanently identifies one artifact, and to execute a
-  deterministic, atomic rollback to the last known healthy production version
-  when a confirmed circuit-breaker trigger fires — halting serving rather than
-  guessing when no healthy fallback exists
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- model-registry
-- model-versioning
-- rollback
-- semantic-versioning
-- sha256
-- circuit-breaker
-brokers_frameworks:
-- MLflow Model Registry (conceptual reference only)
-- Python standard library (hashlib, hmac, threading)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a model or execution algorithm is registered, promoted or rolled back in
+  production; an append-only SHA-256 registry where one semantic version permanently
+  identifies one artifact, plus a guarded rollback path.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: deployment-ops, model-registry, model-versioning, rollback, semantic-versioning, sha256, circuit-breaker
+  brokers_frameworks: "MLflow Model Registry (conceptual reference only); Python standard library (hashlib, hmac, threading)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

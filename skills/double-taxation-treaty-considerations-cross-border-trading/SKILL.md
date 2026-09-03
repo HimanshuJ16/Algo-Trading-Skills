@@ -1,27 +1,17 @@
 ---
 name: double-taxation-treaty-considerations-cross-border-trading
-description: Cross-border withholding tax and Foreign Tax Credit audit engine for
-  bilateral tax treaties — applies registered treaty rates per income article, and
-  separates recoverable credit from tax withheld above an available treaty rate,
-  which is generally not creditable.
-domain: Tax Accounting & Reporting
-subdomain: Cross-Border Tax & Double Taxation Treaties
-tags:
-- double-taxation
-- dtta
-- withholding-tax
-- wht-reduction
-- foreign-tax-credit
-- w-8ben-e
-- cross-border-trading
-brokers_frameworks:
-- OECD Model Tax Convention
-- IRS Form W-8BEN-E
-- IRC s.901 / s.904 Foreign Tax Credit
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an entity resident in one country holds securities issued in another and
+  source withholding applies; applies the treaty rate you register per income article
+  and separates recoverable foreign tax credit from over-withheld tax.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: double-taxation, dtta, withholding-tax, wht-reduction, foreign-tax-credit, w-8ben-e, cross-border-trading
+  brokers_frameworks: "OECD Model Tax Convention; IRS Form W-8BEN-E; IRC s.901 / s.904 Foreign Tax Credit; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

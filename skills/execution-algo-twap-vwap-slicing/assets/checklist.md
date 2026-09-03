@@ -5,7 +5,7 @@ Use this before routing a parent order through the slicer in a live environment.
 ## Benchmark & scope
 - [ ] Benchmark chosen deliberately (TWAP vs VWAP) and matched to the instrument's intraday volume profile — not defaulted.
 - [ ] VWAP runs supply a real volume curve with **one weight per interval**; a flat curve is a TWAP and is not labelled VWAP.
-- [ ] The order is not alpha-urgent (else `arrival-price-benchmark-execution-algo` / `implementation-shortfall-minimization`) and not an outsized share of window volume (else `participation-of-volume-pov-execution`).
+- [ ] The order is not alpha-urgent (else `implementation-shortfall-minimization` / `implementation-shortfall-minimization`) and not an outsized share of window volume (else `participation-of-volume-pov-execution`).
 
 ## Sizing & schedule
 - [ ] `lot_size` is the instrument's real quantity increment, and `total_qty` is a whole multiple of it.

@@ -169,7 +169,7 @@ class LiveValueAtRiskMonitor:
             parametric and the historical VaR. A breach is ``>= limit``.
         cvar_limit_pct: Optional separate threshold for CVaR. ``None`` (default)
             leaves CVaR reported but out of the breach decision, preserving the
-            pre-2.0.0 behaviour. Set it to bring the tail-severity measure -- the one
+            the older behaviour. Set it to bring the tail-severity measure -- the one
             FRTB actually capitalises (MAR33.3) -- into the breaker.
         min_observations: Override for the required sample size. ``0`` derives
             ``max(2, ceil(1 / (1 - confidence_level)))``: 100 at 99%, 20 at 95%,

@@ -5,7 +5,7 @@ Expected values are derived by hand in the docstrings below from the definitions
 in Lopez de Prado, *Advances in Financial Machine Learning* (Snippets 4.1, 4.2,
 4.10, 4.11), never by re-running the module's own expressions.
 
-Tests annotated "Regression" fail against the pre-2.0.0 implementation; each one
+Tests annotated "Regression" fail against a naive implementation; each one
 names the old behavior it catches.
 """
 import logging
@@ -326,7 +326,7 @@ class TestInputValidation(unittest.TestCase):
             self.engine.compute_sample_weights([])
 
     def test_error_type_stays_a_valueerror(self):
-        """Callers written against the pre-2.0.0 ValueError contract still work."""
+        """Callers written against an earlier ValueError contract still work."""
         self.assertTrue(issubclass(SampleWeightingError, ValueError))
         with self.assertRaises(ValueError):
             self.engine.compute_sample_weights([])

@@ -1,24 +1,17 @@
 ---
 name: backtest-reporting-standardized-tearsheet
-description: Use when evaluating completed backtests to generate a standardized performance
-  tearsheet computing Sharpe, Sortino, Calmar, max drawdown, win rate, and profit
-  factor for objective strategy comparison. Computes per-period statistics from a returns
-  series; it does not read a trade log or judge whether a strategy is deployable.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- tearsheet
-- performance-metrics
-- sharpe-ratio
-- drawdown
-- backtest-reporting
-brokers_frameworks:
-- Standardized Tearsheet Generator
-- Python NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use at the end of a backtest run to produce one standard performance sheet (Sharpe,
+  Sortino, Calmar, max drawdown, hit rate, profit factor) from a per-period returns
+  array, so strategies are compared on identical metrics.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, tearsheet, performance-metrics, sharpe-ratio, drawdown, backtest-reporting
+  brokers_frameworks: "Standardized Tearsheet Generator; Python NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

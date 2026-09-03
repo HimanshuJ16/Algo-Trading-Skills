@@ -1,26 +1,17 @@
 ---
 name: graceful-degradation-to-polling-fallback
-description: Use when a live strategy depends on a streaming market data feed and needs
-  to detect that the stream is dead (not merely quiet), fail over to rate-limit-aware
-  REST polling, deduplicate ticks across the handover, and declare itself blind when
-  neither source is delivering
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- feed-degradation
-- polling-fallback
-- websocket-failover
-- high-availability
-- tick-deduplication
-- rate-limit-safety
-brokers_frameworks:
-- All Market Data Feeds
-- WebSockets
-- REST APIs
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a strategy holds positions behind a streaming feed that can go silent without
+  ever firing on_close. Detects a dead stream, fails over to rate-limit-aware REST
+  polling, dedupes across the handover, and declares itself blind when both fail.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, feed-degradation, polling-fallback, websocket-failover, high-availability, tick-deduplication, rate-limit-safety
+  brokers_frameworks: "All Market Data Feeds; WebSockets; REST APIs"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -216,7 +207,7 @@ feeds the strategy if it is not, and does the caller know when *nothing* is feed
 
 ## Related Skills
 
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `producer-consumer-tick-pipeline`
 - `tick-buffering-burst-handling`
 - `multi-broker-rate-limit-handling`

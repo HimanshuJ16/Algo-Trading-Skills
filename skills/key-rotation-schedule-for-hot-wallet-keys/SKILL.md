@@ -1,31 +1,17 @@
 ---
 name: key-rotation-schedule-for-hot-wallet-keys
 description: >-
-  Lifecycle policy evaluator for online trading keys — blockchain hot wallet signing
-  keys and exchange API credentials — deciding when age, signature count or signed
-  volume force rotation, holding the old key through a settlement grace period, and
-  blocking destruction of an on-chain key until its address is actually swept.
-domain: Crypto Custody Security
-subdomain: Hot Wallet Cryptographic Lifecycle & Key Governance
-tags:
-- key-rotation
-- hot-wallet
-- crypto-custody
-- cryptoperiod
-- key-shredding
-- grace-period
-- fund-sweep
-- api-keys
-brokers_frameworks:
-- NIST SP 800-57 Part 1 Rev. 5 (cryptoperiods)
-- CCSS v9.0 (CryptoCurrency Security Standard)
-- AWS Secrets Manager / AWS Config ACCESS_KEYS_ROTATED
-- HashiCorp Vault
-- ECDSA secp256k1 / Ed25519 signing keys
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an online signing key or exchange API credential needs a defensible answer to
+  whether it should still be in service, from age, signature count and signed volume,
+  and when the old one may be destroyed.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: key-rotation, hot-wallet, crypto-custody, cryptoperiod, key-shredding, grace-period, fund-sweep, api-keys
+  brokers_frameworks: "NIST SP 800-57 Part 1 Rev. 5 (cryptoperiods); CCSS v9.0 (CryptoCurrency Security Standard); AWS Secrets Manager / AWS Config ACCESS_KEYS_ROTATED; HashiCorp Vault; ECDSA secp256k1 / Ed25519 signing keys; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -74,7 +60,7 @@ Two misconceptions it exists to break:
 - **Believing a Signature Ceiling Protects the Key**: It bounds blast radius, nothing more. Where ECDSA nonces are biased or reused, private key recovery needs on the order of 2 to a few hundred signatures — the key has already leaked long before any 100,000 trigger fires. Where nonces are deterministic (RFC 6979 ECDSA, Ed25519 per RFC 8032) there is no count bound to respect at all. Fix the RNG; do not rotate around it.
 - **Shredding an On-Chain Key Before Sweeping Its Address**: The key is the only thing that can move those funds. Destroy it with a balance still there and the balance is gone permanently — there is no recovery path and no issuer to appeal to. This is why `PENDING_FUND_SWEEP` exists and why it is not skippable.
 - **Granting a Compromised Key a Grace Period**: A drain window assumes the old key is only finishing authorised work. A leaked key is being actively used against you, and every hour of "graceful" overlap is an hour the attacker signs freely.
-- **Passing Millisecond Timestamps**: `time.time() * 1000` reads as a creation date years in the future. Under the previous implementation, which clamped negative ages to zero, that made a key of any real age report `KEY_HEALTHY_ACTIVE` indefinitely — a security control failing open and silently. The engine now rejects it.
+- **Passing Millisecond Timestamps**: `time.time() * 1000` reads as a creation date years in the future. An engine that clamps negative ages to zero then reports a key of any real age as `KEY_HEALTHY_ACTIVE` indefinitely — a security control failing open and silently. This engine rejects the timestamp instead.
 - **Re-Auditing a Key and Restarting Its Clock**: A rotation audit that re-triggers on every call never advances a key out of its grace period, floods the audit log with duplicate "rotation initiated" events, and means the documented post-grace transition never happens. Audits must be idempotent within a state.
 - **Rotating a Key While the Bot Still Holds It**: The grace period covers settlement, not deployment. If the process has the old key cached in memory or an environment variable, rotation at the KMS changes nothing until the bot reloads. See `secrets-rotation-without-bot-downtime`.
 - **Rotating on Schedule Instead of Reducing Scope**: A withdrawal-enabled API key rotated every 90 days is exposed for up to 90 days. The same key without withdrawal permission is not worth stealing. Rotation cadence is the weaker control of the two.

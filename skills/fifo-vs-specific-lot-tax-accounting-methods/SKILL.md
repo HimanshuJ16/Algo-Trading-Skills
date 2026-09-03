@@ -1,14 +1,17 @@
 ---
 name: fifo-vs-specific-lot-tax-accounting-methods
 description: >-
-  Tax lot matching engine for securities under FIFO, LIFO, HIFO and Specific Identification, computing per-lot realized short-term (STCG) vs long-term (LTCG) capital gains for US federal reporting, with the specific-identification record enforced rather than assumed.
-domain: Tax Accounting & Reporting
-subdomain: Tax Lot Matching & Capital Gains Accounting
-tags: ["tax-accounting", "fifo", "hifo", "lifo", "specific-identification", "capital-gains", "stcg", "ltcg", "tax-lot-matching", "form-8949"]
-brokers_frameworks: ["IRS Form 8949", "Treas. Reg. 1.1012-1", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a US sell must be matched against an inventory of open tax lots and the
+  method changes the answer: FIFO, LIFO, HIFO or specific identification, with per-lot
+  short-term and long-term gain classification.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: tax-accounting, fifo, hifo, lifo, specific-identification, capital-gains, stcg, ltcg, tax-lot-matching, form-8949
+  brokers_frameworks: "IRS Form 8949; Treas. Reg. 1.1012-1; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

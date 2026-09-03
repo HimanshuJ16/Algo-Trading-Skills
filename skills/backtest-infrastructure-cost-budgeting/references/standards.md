@@ -76,11 +76,10 @@ budgeting:
    rework. It defaults to 0.0, which assumes perfect checkpointing and is
    optimistic for long-running units.
 
-> An earlier revision of this file asserted spot "can reduce compute costs by
-> 70-90%" without attribution and framed under-using spot as the pitfall. The
-> figure is now attributed to AWS's "up to 90%" claim and qualified, and the
-> pitfall is reframed: for a *budget guard*, over-crediting spot savings is the
-> more dangerous error, because it biases the estimate downward.
+> Spot savings figures need attribution and qualification — the "up to 90%"
+> figure here is AWS's own claim, not a measured result. For a *budget guard*,
+> over-crediting spot savings is the more dangerous error, because it biases the
+> estimate downward; under-using spot is not the pitfall.
 
 ## Storage-month convention
 

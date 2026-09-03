@@ -1,14 +1,17 @@
 ---
 name: sec-rule-15c3-5-risk-controls-us
 description: >-
-  Fail-closed pre-order-entry market access gate under SEC Rule 15c3-5 (17 CFR 240.15c3-5) — account and firm credit thresholds, single-order quantity/notional caps, a firm-calibrated price collar against an NBBO reference, message-burst and duplicate-order controls, Regulation SHO locate verification, and restricted-list blocking, with every control mapped to the clause that requires it.
-domain: Compliance & Market Governance
-subdomain: SEC Rule 15c3-5 Market Access Controls
-tags: ["sec-rule-15c3-5", "market-access-rule", "pre-trade-risk", "credit-thresholds", "fat-finger-collar", "reg-sho-locate", "duplicative-orders", "fail-closed"]
-brokers_frameworks: ["SEC Rule 15c3-5 (17 CFR 240.15c3-5)", "SEC Release No. 34-63241 (adopting release)", "Regulation SHO Rule 203(b) (17 CFR 242.203(b))", "FINRA 2026 Annual Regulatory Oversight Report — Market Access Rule", "LULD Plan (NMS plan to address extraordinary market volatility)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building the pre-order-entry gate a broker-dealer with market access must
+  place in front of every order under 17 CFR 240.15c3-5: credit thresholds, single-order
+  quantity and notional caps, and a firm-calibrated price collar, failing closed.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: sec-rule-15c3-5, market-access-rule, pre-trade-risk, credit-thresholds, fat-finger-collar, reg-sho-locate, duplicative-orders, fail-closed
+  brokers_frameworks: "SEC Rule 15c3-5 (17 CFR 240.15c3-5); SEC Release No. 34-63241 (adopting release); Regulation SHO Rule 203(b) (17 CFR 242.203(b)); FINRA 2026 Annual Regulatory Oversight Report — Market Access Rule; LULD Plan (NMS plan to address extraordinary market volatility); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

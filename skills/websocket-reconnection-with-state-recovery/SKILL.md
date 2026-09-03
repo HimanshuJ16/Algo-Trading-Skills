@@ -1,28 +1,17 @@
 ---
 name: websocket-reconnection-with-state-recovery
-description: Use when a market-data or order-update WebSocket must reconnect and then
-  prove its state still matches the venue's — bounded jittered backoff that never exceeds
-  its own ceiling, deterministic re-subscription from desired state, and fail-closed
-  sequence-gap recovery that withholds messages until the gap is provably filled or the
-  stream is re-snapshotted.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- websocket
-- reconnection
-- exponential-backoff
-- full-jitter
-- state-recovery
-- sequence-gap
-- fail-closed
-brokers_frameworks:
-- Binance Spot WebSocket Streams
-- Coinbase Advanced Trade WebSocket
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a long-lived venue WebSocket must reconnect and then prove downstream state
+  still matches: bounded jittered backoff, deterministic re-subscription from desired
+  state, and fail-closed sequence-gap recovery that withholds messages until filled.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, websocket, reconnection, exponential-backoff, full-jitter, state-recovery, sequence-gap, fail-closed
+  brokers_frameworks: "Binance Spot WebSocket Streams; Coinbase Advanced Trade WebSocket; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
@@ -66,7 +55,7 @@ rather than letting a hole propagate into a book.
   `graceful-degradation-to-polling-fallback`.
 - **As the subscription-correctness authority.** Avoiding double-subscription and
   duplicate tick delivery across SDK reconnects is
-  `websocket-reconnect-without-duplicate-subscriptions`.
+  `websocket-subscription-reconciliation-after-reconnect`.
 - **On a latency-critical hot path.** A lock held across ingestion, `Enum` state, and
   per-message list allocation is a correctness reference, not a colocated feed handler.
 - **As the risk control itself.** `is_synchronized()` raises a flag; it does not flatten a
@@ -229,7 +218,7 @@ rather than letting a hole propagate into a book.
 
 ## Related Skills
 
-- `websocket-reconnect-without-duplicate-subscriptions`
+- `websocket-subscription-reconciliation-after-reconnect`
 - `sequence-number-gap-detection-for-feeds`
 - `market-data-snapshot-plus-delta-reconciliation`
 - `graceful-degradation-to-polling-fallback`

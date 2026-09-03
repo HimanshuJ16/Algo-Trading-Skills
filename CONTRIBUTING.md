@@ -7,20 +7,11 @@ real production bug building a trading bot, that's exactly what belongs here.
 
 ## Before you start
 
-Check [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md) first — it's a 502-entry backlog
-of titled, scoped skills covering global brokers, exchanges, regulatory regimes,
-execution algorithms, custody, and more. Most contributions should pick up an
-existing `[planned]` entry there rather than proposing something entirely new,
-since the scoping work (deciding it's worth a skill, picking a category, writing
-a one-line description) is already done. When you build one out:
-
-1. Do the research — verify the broker/exchange/regulatory specifics against
-   current, authoritative sources (broker docs, exchange rulebooks, regulator
-   publications). Roadmap entries were scoped from general domain knowledge, not
-   verified against live documentation, so this step matters.
-2. Follow the full structure in `docs/skill-anatomy.md` when building it out.
-3. Flip the entry's status from `planned` to `built` in `index.json` and remove
-   its `[planned]` line from `docs/ROADMAP_500.md` once it's built and validated.
+Read [`docs/skill-anatomy.md`](docs/skill-anatomy.md) — it documents the structure and
+frontmatter contract that `tools/validate_skills.py` enforces. Then check
+[`docs/ROADMAP_500.md`](docs/ROADMAP_500.md), which lists every skill in the library
+grouped by its domain, so you can see what already exists before proposing something
+new.
 
 Open an issue first for:
 - New category proposals or structural changes to the repo layout
@@ -32,19 +23,30 @@ For a single new skill or a fix to an existing one, a PR is fine directly.
 
 1. Create a new directory: `skills/<your-skill-name>/` (kebab-case, matching
    the `name` field you'll put in frontmatter).
-2. Populate it following the structure documented in `docs/skill-anatomy.md`:
-   - `SKILL.md` — required frontmatter fields + all six required sections
-     (`When to Use`, `Prerequisites`, `Workflow`, `Common Pitfalls`,
-     `Verification`, `Related Skills`)
+2. Populate it following the structure in `docs/skill-anatomy.md`:
+   - `SKILL.md` — agentskills.io frontmatter (repo fields under `metadata:`) plus all
+     seven required sections (`When to Use`, `When NOT to Use`, `Prerequisites`,
+     `Workflow`, `Common Pitfalls`, `Verification`, `Related Skills`)
    - `references/standards.md` — broker/framework coverage table
    - `references/workflows.md` — full technical procedure detail
-   - `scripts/` — at least one working reference implementation or helper
-   - `assets/checklist.md` — a sign-off checklist derived from your
-     Verification section
-3. Add an entry for your skill to `index.json`.
-4. Run `python tools/validate_skills.py` locally and fix anything it flags
-   before opening a PR.
-5. Open a PR titled `Add skill: your-skill-name`.
+   - `scripts/` — at least one working helper module plus its `test_*.py` suite
+   - `assets/checklist.md` — a sign-off checklist derived from your Verification section
+3. Do the research. Verify broker, exchange and regulatory specifics against current,
+   authoritative sources (broker docs, exchange rulebooks, regulator publications), and
+   cite them in `references/standards.md`. Where no external standard exists, say so and
+   label your numbers as configurable defaults rather than inventing an authority.
+4. Run the gates locally and fix anything they flag:
+
+```bash
+python tools/validate_skills.py                              # structure, frontmatter, cross-refs, packaging
+skills-ref validate skills/<your-skill-name>                  # the agentskills.io spec itself
+python -m unittest discover -s skills/<your-skill-name>/scripts
+python tools/build_index.py && python tools/build_marketplace.py   # regenerate the generated files
+```
+
+5. Commit the regenerated `index.json` and `.claude-plugin/marketplace.json` alongside
+   your skill. Both are generated artifacts — never hand-edit them.
+6. Open a PR titled `Add skill: your-skill-name`.
 
 ## Quality bar
 
@@ -56,13 +58,16 @@ Before submitting, check your skill against these questions:
 - **Is it specific enough to execute, or vague enough to be useless?**
   "Handle errors properly" is not a skill. Naming the exact failure mode and
   the exact step that prevents it is.
+- **Does the description say when to trigger?** It must start with "Use when …" and fit
+  in 280 characters. An agent picks a skill from its description alone.
 - **Does the Verification section describe something checkable?** A reviewer
   or an agent should be able to look at the described test and know whether
   the skill was actually followed, not just take it on faith.
+- **Does `## When NOT to Use` hand each excluded case to the skill that owns it?**
+  An agent applying a correct playbook to the wrong problem is its own failure mode.
 - **Does it avoid overlapping too heavily with an existing skill?** Check
-  `index.json` and the category README-equivalents first; if your idea
-  extends an existing skill rather than standing alone, consider a PR against
-  that skill instead.
+  `index.json` first; if your idea extends an existing skill rather than standing
+  alone, consider a PR against that skill instead.
 
 ## Improving existing skills
 
@@ -72,23 +77,32 @@ Before submitting, check your skill against these questions:
   skill and update `mappings/broker-api-coverage.md`.
 - Reporting without fixing: open an issue using the bug report template.
 
-## Initial 504 Skills Verification Process
+## How the library is verified
 
-All 504 skills included in the initial release underwent a multi-tier verification process before publication:
+Every push and pull request runs [`.github/workflows/validate-skills.yml`](.github/workflows/validate-skills.yml)
+on Python 3.10, 3.12 and 3.13:
 
-1. **Domain & API Specification Verification**: Every skill's technical procedure was cross-referenced against authoritative broker API documentation (Fyers v3, Zerodha Kite Connect, ICICI Breeze, Upstox v2, Alpaca, IBKR TWS/Gateway), exchange rulebooks (CME Globex, Eurex, HKEX, SGX, ASX, JPX, CBOE, LSE), and regulatory publications (US SEC 15c3-5/Reg NMS/Reg SHO, EU MiFID II/RTS 6/MAR, UK FCA SYSC 25, SEBI Algo Circulars, MAS, ASIC, ISDA).
-2. **Automated Structural & Schema Validation**: Verified via `python tools/validate_skills.py`, ensuring 100% compliance with frontmatter schemas, required sections, file hierarchy, `scripts/` layout (a helper module plus a `test_*.py` suite, never a helper named `test_*.py`), documented test commands runnable from the repository root, and `index.json` consistency.
-3. **Executable Unit Test Suites**: Executed via `python tools/run_all_tests.py`, running over 20,300 unit tests across 504 test files in `skills/*/scripts/test_*.py` using Python's `unittest` framework.
-4. **CI/CD Continuous Enforcement**: Every pull request and push automatically executes structural validation and unit test suites via GitHub Actions (`.github/workflows/validate-skills.yml`).
+1. **Structural and frontmatter validation** — `python tools/validate_skills.py` checks
+   the frontmatter contract, the seven body sections, `scripts/` layout, every skill
+   cross-reference in skills and repo docs, that documented test commands run from the
+   repository root, and that the plugin manifests cover every skill exactly once.
+2. **Specification conformance** — `skills-ref validate` runs the agentskills.io
+   reference validator against each skill.
+3. **Generated files** — `build_index.py --check` and `build_marketplace.py --check`
+   fail if `index.json` or `marketplace.json` is stale.
+4. **Tests** — the repository suite under `tests/`, then every skill's own unittest
+   suite via `tools/run_all_tests.py`, each in an isolated subprocess with a timeout.
+5. **Examples** — the three cookbook scripts in `examples/` must run clean.
+
+A regulatory or broker-behaviour claim must be verifiable against an authoritative
+source. **A missing claim is better than a wrong or fabricated one.**
 
 ## Review process
 
-PRs are reviewed for: technical accuracy, adherence to the structure enforced
-by `tools/validate_skills.py`, passing unit tests in `tools/run_all_tests.py`, and whether the skill meets the quality bar
-above. Please be patient — this is a community project reviewed by
-maintainers in their spare time.
+PRs are reviewed for technical accuracy, adherence to the enforced structure, passing
+tests, and the quality bar above. Please be patient — this is a community project
+reviewed by maintainers in their spare time.
 
 ## Code of Conduct
 
 By participating, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
-

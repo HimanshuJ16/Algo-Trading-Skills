@@ -24,13 +24,13 @@ from indexed copies of IBKR's page rather than a direct read. Confirm it with
 IBKR before relying on it. The TWS API row was read directly and is quoted
 verbatim below.
 
-Earlier revisions of this file listed `X-Hub-Signature` for TradeStation,
-`X-Alpaca-Signature` for Alpaca, and `CB-ACCESS-SIGN` for Coinbase Advanced.
-None of the three could be substantiated. `X-Hub-Signature` is a Meta/GitHub
-convention; `CB-ACCESS-SIGN` was the *outbound request* auth header for the
-legacy Coinbase Exchange/Pro REST API and was retired for Advanced Trade in
-favour of JWT bearer tokens (ES256 / EdDSA) when legacy API keys were removed on
-10 June 2024. They have been replaced by the verified rows above.
+Three signature headers are commonly attributed to these venues and none can be
+substantiated: `X-Hub-Signature` for TradeStation, `X-Alpaca-Signature` for
+Alpaca, and `CB-ACCESS-SIGN` for Coinbase Advanced. `X-Hub-Signature` is a
+Meta/GitHub convention; `CB-ACCESS-SIGN` was the *outbound request* auth header
+for the legacy Coinbase Exchange/Pro REST API and was retired for Advanced Trade
+in favour of JWT bearer tokens (ES256 / EdDSA) when legacy API keys were removed
+on 10 June 2024. Use the verified rows above instead.
 
 ## What the signature actually covers
 

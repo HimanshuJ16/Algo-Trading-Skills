@@ -1,18 +1,17 @@
 ---
 name: point-in-time-index-constituent-tracking
 description: >-
-  Use when a backtest needs the index members that were actually in an index on a
-  historical date — resolves an addition/deletion event log into the half-open
-  membership interval [add_date, del_date) so delisted and removed names stay in the
-  historical universe. Resolves the effective-date axis only; it does not model
-  announcement timing, delisting settlement prices, or index weights.
-domain: Data Management Global
-subdomain: Index Membership & Backtest Parity Architecture
-tags: ["pit", "point-in-time", "index-constituents", "survivorship-bias", "sp500", "backtest-parity", "corporate-actions"]
-brokers_frameworks: ["S&P Dow Jones Indices", "MSCI", "FTSE Russell", "CRSP", "Python standard library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a backtest needs the names actually in an index on a historical date,
+  resolving an addition and deletion log into half-open membership intervals so
+  survivorship bias cannot enter the universe.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: pit, point-in-time, index-constituents, survivorship-bias, sp500, backtest-parity, corporate-actions
+  brokers_frameworks: "S&P Dow Jones Indices; MSCI; FTSE Russell; CRSP; Python standard library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

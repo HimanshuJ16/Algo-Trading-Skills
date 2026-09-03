@@ -1,24 +1,17 @@
 ---
 name: walk-forward-hyperparameter-search-budget
-description: Use when conducting walk-forward strategy optimization to compute, bound,
-  and enforce hyperparameter search budgets, and to audit the cumulative trial count
-  across every window. Bounds and counts trials; it does not compute PBO or deflate
-  a Sharpe ratio.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- hyperparameter-budget
-- walk-forward
-- overfitting-prevention
-- pbo
-- search-space-bounding
-brokers_frameworks:
-- Hyperparameter Search Budgeter
-- Python
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when walk-forward optimisation would otherwise run tens of thousands of parameter
+  combinations per window; bounds and audits the cumulative trial count that drives
+  selection bias. It never sees a performance number.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, hyperparameter-budget, walk-forward, overfitting-prevention, pbo, search-space-bounding
+  brokers_frameworks: "Hyperparameter Search Budgeter; Python"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

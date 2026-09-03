@@ -1,22 +1,17 @@
 ---
 name: adaptive-sampling-under-extreme-tick-rates
-description: Use for high-rate trade-tick streams when downstream processing capacity is bounded and systematic 1:N aggregation can preserve traded volume and price-volume notional.
-  The sampler is thread-safe and fail-closed for malformed or out-of-order input, but it is not a quote, order-book, microstructure, or compliance feed replacement.
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- adaptive-sampling
-- flash-crash
-- tick-filtering
-- volume-preservation
-- throughput-protection
-brokers_frameworks:
-- Adaptive Tick Sampler
-- Python Real-Time Engine
-version: "1.2.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a trade-tick stream exceeds a consumer's measured processing ceiling and you
+  must emit 1:N samples that still preserve traded volume and notional. Not for
+  order-book, quote or compliance feeds that need every message.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, adaptive-sampling, flash-crash, tick-filtering, volume-preservation, throughput-protection
+  brokers_frameworks: Adaptive Tick Sampler, Python Real-Time Engine
+  version: "1.2.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

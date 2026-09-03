@@ -70,7 +70,7 @@ comparison bases and regulatory scope live in `references/standards.md`.
     Resetting the backtest baseline to recent live performance makes future divergence
     unmeasurable. If the original baseline is genuinely stale, record why and version it.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Negative drawdown convention skipping the check.** A guard of
   `if backtest.max_drawdown_pct > 0` defaulted the ratio to $1.0$ when fed the negative

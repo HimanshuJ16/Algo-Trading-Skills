@@ -1,19 +1,17 @@
 ---
 name: risk-model-backtesting-against-realized-outcomes
 description: >-
-  Use when you hold a dated series of daily realized P&L against forecast VaR (and
-  optionally Expected Shortfall) and need to turn it into an auditable model-validation
-  verdict: count exceptions under the Basel missing-data and actual-vs-hypothetical rules,
-  run Kupiec's POF test for unconditional coverage and Christoffersen's Markov test for
-  breach clustering, and assign the Basel supervisory traffic-light zone with its published
-  capital multipliers.
-domain: Risk Management & Quantitative Auditing
-subdomain: VaR Backtesting & Model Validation
-tags: ["var-backtesting", "kupiec-pof-test", "christoffersen-independence", "basel-traffic-light", "expected-shortfall", "risk-model-validation", "cvar"]
-brokers_frameworks: ["BCBS bcbs22 Backtesting Framework (January 1996)", "Basel Framework MAR32", "SEC 17 CFR 240.15c3-1e Appendix E", "Kupiec (1995) POF Test", "Christoffersen (1998) Markov Test", "Acerbi-Szekely (2014) ES Backtest"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when you hold the raw dated series of realised P&L against forecast VaR and need
+  an auditable validation verdict: exception counting plus ordering-sensitive tests. For
+  an already-counted pair see real-time-var-backtesting-kupiec-test.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: var-backtesting, kupiec-pof-test, christoffersen-independence, basel-traffic-light, expected-shortfall, risk-model-validation, cvar
+  brokers_frameworks: "BCBS bcbs22 Backtesting Framework (January 1996); Basel Framework MAR32; SEC 17 CFR 240.15c3-1e Appendix E; Kupiec (1995) POF Test; Christoffersen (1998) Markov Test; Acerbi-Szekely (2014) ES Backtest"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

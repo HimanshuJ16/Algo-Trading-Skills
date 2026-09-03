@@ -33,7 +33,7 @@ Management* (Wharton Financial Institutions Center 99-06, 1999) add a cost of li
 to VaR equal to ``0.5 * P * (mu_s + z * sigma_s)`` -- **half** the proportional bid-ask
 spread, because a liquidation crosses from the mid to the bid once. It is charged
 **once per share**, not once per share per session: slicing a position over DTL days
-does not make each share pay the spread DTL times. The pre-2.0.0 implementation charged
+does not make each share pay the spread DTL times. a naive implementation charged
 the *full* spread on the *full* position value for each of up to ten days, overstating
 this component by up to 20x. ``spread_expansion_factor`` carries the stress: ESMA34-39-897
 para. 45 notes stressed conditions are "typically characterised by higher volatility,
@@ -286,7 +286,7 @@ class StressScenario:
         """
         Returns the shock for ``symbol``, falling back to the ``DEFAULT`` entry.
 
-        Raises when neither is present. The pre-2.0.0 engine fell back to a hard-coded
+        Raises when neither is present. a naive engine fell back to a hard-coded
         -20%, so a symbol missing from the scenario was silently stress-tested against a
         shock nobody chose and which appeared nowhere in the report.
         """

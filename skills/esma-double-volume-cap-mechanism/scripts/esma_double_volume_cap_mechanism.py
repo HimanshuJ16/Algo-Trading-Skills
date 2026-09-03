@@ -14,7 +14,7 @@ Current law -- MiFIR Article 5(1) as amended:
      instrument in the Union carried out under that waiver exceeds 7 % of the
      total volume of trading in that financial instrument in the Union."
 
-Three consequences that this module encodes and that the pre-2024 design got
+Three consequences that this module encodes and that an earlier design got
 wrong:
 
 1. **One cap, not two.** There is no 4 % per-venue cap and no 8 % Union cap. The

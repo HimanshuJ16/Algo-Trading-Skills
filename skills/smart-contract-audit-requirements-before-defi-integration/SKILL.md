@@ -1,19 +1,17 @@
 ---
 name: smart-contract-audit-requirements-before-defi-integration
 description: >-
-  Pre-integration due diligence gate for third-party DeFi protocols, checking that
-  independent audits cover the code actually deployed at the target address, that
-  Critical/High findings are remediated and fix-verified, that the admin timelock and
-  M-of-N multisig controlling upgrades are genuinely constraining, and that bug bounty
-  coverage is judged against TVL rather than a headline figure, before capital is
-  allocated.
-domain: Crypto Custody & DeFi Risk Governance
-subdomain: Smart Contract Audit & Governance Due Diligence
-tags: ["smart-contract-audit", "defi-integration", "audit-scope-verification", "timelock-governance", "multisig-threshold", "bug-bounty", "protocol-counterparty-risk"]
-brokers_frameworks: ["Immunefi Scaling Bug Bounty", "SEAL Secure Multisig Best Practices", "Compound Timelock", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use before routing capital through a DeFi protocol you do not control, checking that
+  independent audits cover the code actually deployed at that address and that critical
+  findings were remediated. It scores assertions, it finds no bugs.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: smart-contract-audit, defi-integration, audit-scope-verification, timelock-governance, multisig-threshold, bug-bounty, protocol-counterparty-risk
+  brokers_frameworks: "Immunefi Scaling Bug Bounty; SEAL Secure Multisig Best Practices; Compound Timelock; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

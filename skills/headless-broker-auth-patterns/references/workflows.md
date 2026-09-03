@@ -114,7 +114,7 @@ the auth code is.
    - Immediately exchange the raw token for the broker SDK session object (Breeze:
      `generate_session(api_secret, session_token)`).
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Expired TOTP in Transit:** Submitting TOTP codes at 29s in the 30s window, causing intermittent authentication rejection.
 - **Orphaned Chrome Zombies:** Failing to quit headless browser instances, exhausting host RAM under systemd auto-restarts.

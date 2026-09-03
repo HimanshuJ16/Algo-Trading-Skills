@@ -1,14 +1,17 @@
 ---
 name: strategy-capacity-estimation-before-scaling-capital
 description: >-
-  Single-strategy AUM capacity estimator that prices scaling drag with the empirical square-root law of market impact and half-spread friction, decays the net Sharpe ratio across an AUM grid, and reports the largest capital level clearing both a minimum net Sharpe gate and an ADV participation cap.
-domain: Portfolio & Risk Management
-subdomain: AUM Capacity Estimation & Capital Scaling
-tags: ["strategy-capacity", "aum-scaling", "square-root-impact-law", "market-impact", "sharpe-decay", "turnover-limit", "adv-participation"]
-brokers_frameworks: ["Square-Root Law of Market Impact", "Portfolio Capacity Frameworks", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding how much capital a strategy can absorb before its own market impact
+  destroys the edge, decaying net Sharpe across an assets-under-management grid using
+  square-root impact and half-spread friction.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: strategy-capacity, aum-scaling, square-root-impact-law, market-impact, sharpe-decay, turnover-limit, adv-participation
+  brokers_frameworks: "Square-Root Law of Market Impact; Portfolio Capacity Frameworks; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

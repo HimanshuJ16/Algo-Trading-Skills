@@ -48,7 +48,7 @@ The checkbox is also not available historically. Before the compliance date of
 1 April 2023 the designation was voluntary: "Today, the disclosure of a purchase
 or sale under a Rule 10b5-1 trading arrangement in Forms 4 and 5 is voluntary,
 resulting in a lack of consistent and comprehensive information about such
-trades" (Release 33-11138). A pre-2023 record must therefore be supplied as
+trades" (Release 33-11138). A older record must therefore be supplied as
 `PlanStatus.UNKNOWN`, not `NON_PLAN`; `treat_unknown_plan_status_as_plan`
 controls how those are handled and the report counts them so the bias is visible.
 

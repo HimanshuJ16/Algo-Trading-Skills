@@ -1,24 +1,17 @@
 ---
 name: data-lineage-tracking-for-audit-and-debugging
-description: Append-only DAG lineage tracking engine for auditing market data pipelines,
-  feature store lineage, and model decision graphs to perform root cause debugging
-  and impact analysis.
-domain: Data Management Global
-subdomain: Data Lineage & Auditability
-tags:
-- data-lineage
-- dag-lineage
-- auditability
-- feature-store-lineage
-- root-cause-analysis
-- impact-analysis
-- openlineage
-brokers_frameworks:
-- OpenLineage Standard
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when an anomalous signal or unexplained backtest jump needs upstream and
+  downstream tracing, maintaining an append-only lineage graph across market data,
+  feature store and model decisions.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: data-lineage, dag-lineage, auditability, feature-store-lineage, root-cause-analysis, impact-analysis, openlineage
+  brokers_frameworks: "OpenLineage Standard; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

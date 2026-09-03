@@ -1,29 +1,17 @@
 ---
 name: multi-jurisdiction-tax-residency-implications
-description: Tax residency assessment engine for globally-distributed trading
-  operations — determines which jurisdictions claim an entity, resolves dual
-  corporate residence through the tie-breaker the treaty actually contains, runs
-  registered physical-presence tests for decision-makers, and flags permanent
-  establishment exposure from co-located infrastructure.
-domain: Tax Accounting & Reporting Global
-subdomain: International Tax Residency & Permanent Establishment
-tags:
-- tax-residency
-- multi-jurisdiction
-- poem
-- place-of-effective-management
-- permanent-establishment
-- substantial-presence-test
-- dual-residence
-- cross-border-tax
-brokers_frameworks:
-- OECD Model Tax Convention Art. 4 and Art. 5
-- BEPS Multilateral Instrument (MLI) Art. 4
-- IRC s.7701(b)(3) Substantial Presence Test
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a trading operation spans jurisdictions and you must establish which country
+  taxes the entity as resident before income is priced, resolving dual corporate
+  residence through the applicable treaty tie-breaker.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: tax-residency, multi-jurisdiction, poem, place-of-effective-management, permanent-establishment, substantial-presence-test, dual-residence, cross-border-tax
+  brokers_frameworks: "OECD Model Tax Convention Art. 4 and Art. 5; BEPS Multilateral Instrument (MLI) Art. 4; IRC s.7701(b)(3) Substantial Presence Test; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

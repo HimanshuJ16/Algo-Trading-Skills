@@ -1,14 +1,17 @@
 ---
 name: strategy-performance-attribution-vs-market-beta
 description: >-
-  Use when deciding whether a strategy's outperformance is genuine idiosyncratic skill or unacknowledged factor exposure. Runs CAPM and Fama-French 3-factor time-series regressions to split realized return into a risk-free component, market beta, SMB/HML style tilts, and Jensen's alpha, with exact Student-t inference and optional Newey-West standard errors.
-domain: Investment Governance & Portfolio Analytics
-subdomain: Performance Attribution & Risk Decomposition
-tags: ["performance-attribution", "market-beta", "jensens-alpha", "capm", "fama-french", "factor-regression", "newey-west"]
-brokers_frameworks: ["Jensen (1968)", "Fama-French 3-Factor Model (1993)", "Ken French Data Library", "Newey & West (1994)", "pandas", "numpy", "scipy"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a strategy has outperformed and you need to know whether that was skill or
+  unacknowledged factor exposure, regressing excess returns on the market and
+  Fama-French factors with inference on the intercept.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: performance-attribution, market-beta, jensens-alpha, capm, fama-french, factor-regression, newey-west
+  brokers_frameworks: "Jensen (1968); Fama-French 3-Factor Model (1993); Ken French Data Library; Newey & West (1994); pandas; numpy; scipy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

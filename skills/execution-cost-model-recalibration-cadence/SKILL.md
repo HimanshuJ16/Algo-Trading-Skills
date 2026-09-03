@@ -1,14 +1,17 @@
 ---
 name: execution-cost-model-recalibration-cadence
 description: >-
-  Quantitative TCA engine for auditing a pre-trade execution cost model's tracking error (RMSE) and systematic prediction bias against realized Implementation Shortfall, and refitting its spread and square-root impact coefficients by ordinary least squares under explicit sample-size and fit-quality gates.
-domain: Execution Algorithms
-subdomain: Transaction Cost Analysis (TCA) & Model Governance
-tags: ["execution-cost-model", "recalibration-cadence", "tca", "tracking-error", "rmse", "prediction-bias", "square-root-impact-model"]
-brokers_frameworks: ["Square-Root Impact Model", "TCA Governance", "Ordinary Least Squares", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a pre-trade cost model feeds sizing or venue choice and you must know whether
+  it still tracks reality; audits its error and systematic bias against realised
+  shortfall and refits the spread and impact terms.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution-cost-model, recalibration-cadence, tca, tracking-error, rmse, prediction-bias, square-root-impact-model
+  brokers_frameworks: "Square-Root Impact Model; TCA Governance; Ordinary Least Squares; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

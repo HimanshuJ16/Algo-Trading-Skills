@@ -5,10 +5,9 @@
 There is **no industry, exchange, or regulatory standard** for scoring job-posting data.
 The 120-day stale threshold, the 0.5 haircut, the 0.25 classification band, the
 10-posting floor, and the 0.5 / 0.3 role weights are this module's configurable
-defaults. Earlier revisions of this file stated them as `MUST` requirements under an
-"Engineering Standard" heading; that framing asserted an authority no source supports and
-has been removed. Calibrate every one of them on your own vendor panel and record the
-calibration.
+defaults. Stating them as `MUST` requirements under an "Engineering Standard" heading
+would assert an authority no source supports. Calibrate every one of them on your own
+vendor panel and record the calibration.
 
 ## Evidence Base
 

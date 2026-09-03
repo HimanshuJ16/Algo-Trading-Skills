@@ -1,26 +1,17 @@
 ---
 name: custodial-vs-non-custodial-tradeoff-assessment
-description: Use when choosing between custodial exchange execution, off-exchange
-  settlement, and non-custodial on-chain execution, to disqualify architectures that
-  breach a mandate's key-control, counterparty-exposure or latency limits before
-  ranking the survivors
-domain: Crypto Custody & Security
-subdomain: Custody Architecture Design
-tags:
-- crypto-custody
-- cex-vs-dex
-- non-custodial
-- off-exchange-settlement
-- fireblocks
-- counterparty-risk
-- mpc-wallet
-brokers_frameworks:
-- Fireblocks Off-Exchange
-- Copper ClearLoop
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when choosing between custodial exchange execution, off-exchange settlement and
+  non-custodial on-chain execution, disqualifying architectures that breach the
+  mandate's key-control and counterparty-exposure constraints.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-custody, cex-vs-dex, non-custodial, off-exchange-settlement, fireblocks, counterparty-risk, mpc-wallet
+  brokers_frameworks: "Fireblocks Off-Exchange; Copper ClearLoop; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

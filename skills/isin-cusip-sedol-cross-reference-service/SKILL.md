@@ -1,14 +1,17 @@
 ---
 name: isin-cusip-sedol-cross-reference-service
 description: >-
-  Security master cross-reference service validating ISIN (ISO 6166 Luhn), CUSIP (ANSI X9.6 double-add-double), SEDOL (LSE weighted sum) and FIGI (ANSI X9.145) check digits, and resolving any of them to one canonical record keyed on an immutable OpenFIGI identifier.
-domain: Data Management Global
-subdomain: Security Master & Symbology Resolution
-tags: ["isin", "cusip", "sedol", "figi", "security-master", "checksum-validation", "symbology-resolution"]
-brokers_frameworks: ["OpenFIGI API", "CUSIP Global Services", "LSE SEDOL Masterfile", "ANSI X9.145 FIGI", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building a security master or validating symbols at order entry, checking
+  ISIN, CUSIP, SEDOL and FIGI check digits and resolving any one of them to the others.
+  A valid check digit is not proof the security exists.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: isin, cusip, sedol, figi, security-master, checksum-validation, symbology-resolution
+  brokers_frameworks: "OpenFIGI API; CUSIP Global Services; LSE SEDOL Masterfile; ANSI X9.145 FIGI; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

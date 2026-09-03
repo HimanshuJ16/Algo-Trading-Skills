@@ -1,30 +1,17 @@
 ---
 name: value-at-risk-var-live-monitoring
 description: >-
-  Use when monitoring a live position book to compute Parametric VaR, Historical
-  Simulation VaR and Conditional VaR (CVaR / Expected Shortfall) on the current
-  holdings, and to veto new risk-increasing orders when a VaR limit is breached
-  while still letting risk-reducing orders through
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- value-at-risk
-- var-monitoring
-- expected-shortfall
-- cvar
-- live-risk
-- pre-trade-controls
-brokers_frameworks:
-- Variance-Covariance (delta-normal) VaR
-- Historical Simulation VaR
-- BCBS FRTB (MAR32 / MAR33)
-- 12 CFR 217 Subpart F (US market risk rule)
-- 17 CFR 240.15c3-5 (market access controls)
-- Python standard library (statistics, dataclasses)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a live book needs a portfolio loss estimate refreshed against current
+  weights, computing parametric, historical-simulation and conditional VaR and vetoing
+  risk-increasing orders that breach the limit.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, value-at-risk, var-monitoring, expected-shortfall, cvar, live-risk, pre-trade-controls
+  brokers_frameworks: "Variance-Covariance (delta-normal) VaR; Historical Simulation VaR; BCBS FRTB (MAR32 / MAR33); 12 CFR 217 Subpart F (US market risk rule); 17 CFR 240.15c3-5 (market access controls); Python standard library (statistics, dataclasses)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

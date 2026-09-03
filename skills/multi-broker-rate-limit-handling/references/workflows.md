@@ -96,7 +96,7 @@ escalate through `alert_fn` and re-raise rather than parking a worker.
 registered budget labels. Ship it to the metrics pipeline; rising Tier 3 429s are the
 signal to lower polling frequency *before* the limit becomes a ban.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Substring 429 detection.** `"429" in str(exc)` matches order id `429123` and limit
   price `429.50`. The retry that follows can duplicate an order the broker accepted.

@@ -1,14 +1,17 @@
 ---
 name: model-training-data-freshness-sla
 description: >-
-  Training-data freshness SLA gate for governed model retraining: measures event-time ingestion lag against a target/warning/breach ladder, nets out non-publishing exchange calendar time so healthy weekend-gapped feeds are not falsely halted, and returns an auditable retraining halt decision.
-domain: Data Management Global
-subdomain: Feature Store Engineering & Data Pipeline Governance
-tags: ["data-freshness", "sla-monitoring", "data-pipeline", "feature-store", "etl-lag", "retraining-governance", "data-contracts"]
-brokers_frameworks: ["Feature Store SLAs", "Data Pipeline Contracts", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use as the gate immediately before a scheduled retraining job, when an upstream
+  pipeline you do not control assembles the dataset; measures event-time ingestion lag
+  against a target and breach ladder, netting out exchange non-publishing days.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: data-freshness, sla-monitoring, data-pipeline, feature-store, etl-lag, retraining-governance, data-contracts
+  brokers_frameworks: "Feature Store SLAs; Data Pipeline Contracts; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -124,7 +124,7 @@ engine.load_manifest_from_json(archived)  # raises ManifestVerificationError if 
 - Automated unit tests: `scripts/test_regulatory_audit_trail.py`.
 - Regulatory scope and limitations: `references/standards.md`.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Unkeyed hash treated as a signature**: the manifest is edited and re-hashed;
   every check passes. This was the defect fixed in 2.0.0.

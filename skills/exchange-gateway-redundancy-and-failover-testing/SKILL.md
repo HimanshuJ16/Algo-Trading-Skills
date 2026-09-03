@@ -1,14 +1,17 @@
 ---
 name: exchange-gateway-redundancy-and-failover-testing
 description: >-
-  Active-Standby order-entry gateway failover decision engine and test harness: confirms liveness before failing over, fences the failing session against split-brain, resolves the standby's own MsgSeqNum under the venue's sequence policy, and forces reconciliation of in-flight orders before any PossResend.
-domain: Venue Integration & Protocols
-subdomain: Exchange Connectivity & High Availability
-tags: ["gateway-redundancy", "fix-failover", "active-standby", "split-brain-prevention", "poss-resend", "order-reconciliation", "high-availability"]
-brokers_frameworks: ["FIX 4.4 / 5.0 SP2", "Eurex T7 ETI", "CME iLink 3", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when redundant order-entry sessions to a venue must fail over safely, confirming
+  liveness first, fencing the failing session against split-brain and resolving the
+  standby's own sequence numbers.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: gateway-redundancy, fix-failover, active-standby, split-brain-prevention, poss-resend, order-reconciliation, high-availability
+  brokers_frameworks: "FIX 4.4 / 5.0 SP2; Eurex T7 ETI; CME iLink 3; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -62,7 +62,7 @@ definitions, conventions and sourcing live in `references/standards.md`.
    count, sample start and end, and whether costs and slippage were included. A tearsheet
    without these is not comparable to another tearsheet.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Drawdown measured from the first close instead of starting capital.** Returns
   $[-0.50, +0.10, +0.05]$ reported a maximum drawdown of $0.0$; three $-10\%$ periods

@@ -11,12 +11,12 @@ at the bottom; broker APIs change without notice, so re-verify before relying on
 | Fyers API v3 | **Yes** — refresh token valid 15 days, seeded by one interactive OAuth login | Access token daily | The one genuinely sanctioned unattended path among the Indian brokers here; `appIdHash = sha256("appId:secret")` |
 | Alpaca Trading API | Static `APCA-API-KEY-ID` / `APCA-API-SECRET-KEY` headers — no session, no login, no daily expiry | N/A | An optional client-credentials flow issues short-lived bearer tokens; this is not refresh-token rotation |
 
-> **Correction to an earlier revision of this file.** It described Upstox as performing
-> "single-use refresh token rotation; new refresh token issued per exchange call," and
-> Alpaca as "OAuth2 refresh token rotation & long-lived API keys." Both were wrong.
-> Upstox publishes no refresh credential of any kind, and Alpaca's model is static keys.
-> The earlier text pointed integrations at a `https://api.upstox.com/v2/login/auth/token`
-> endpoint and a `refresh_token` grant that do not exist.
+> **Two descriptions to avoid.** Upstox does not perform "single-use refresh token
+> rotation; new refresh token issued per exchange call," and Alpaca does not offer
+> "OAuth2 refresh token rotation & long-lived API keys." Upstox publishes no refresh
+> credential of any kind, and Alpaca's model is static keys. Both descriptions point
+> integrations at a `https://api.upstox.com/v2/login/auth/token` endpoint and a
+> `refresh_token` grant that do not exist.
 
 ## Upstox token acquisition paths
 
@@ -79,8 +79,8 @@ rather than a security BCP. Its §4.14 refresh-token guidance (sender-constraini
 rotation for public clients) is what an Upstox integration would follow *if* Upstox
 issued refresh tokens — it does not, so the applicable parts here are its general
 guidance on treating bearer tokens as sensitive credentials at rest and in transit.
-An earlier revision of this file cited "OAuth 2.0 Security Best Current Practice
-(RFC 6749 / RFC 6819)", conflating three different documents.
+Do not cite it as "OAuth 2.0 Security Best Current Practice (RFC 6749 / RFC 6819)" —
+that conflates three different documents.
 
 *Nothing here is legal or compliance advice. Confirm current requirements and your
 broker's terms of use before deploying.*

@@ -284,7 +284,7 @@ class TestDualResidenceTieBreaker(unittest.TestCase):
         # Pre-BEPS OECD Model and UN Model treaties do break the tie on place of
         # effective management, and many remain in force.
         self.engine.register_treaty_tie_breaker(TreatyResidenceTieBreaker(
-            "SG", "UK", TIEBREAK_POEM, source="pre-2017 treaty text"))
+            "SG", "UK", TIEBREAK_POEM, source="older treaty text"))
         report = self.engine.assess_entity(EntityProfile("LEGACY_LTD", "SG", "UK"), 2026)
         self.assertEqual(report.status, STATUS_DUAL_RESIDENCE_RESOLVED)
         self.assertEqual(report.resolved_residence_country, "UK")

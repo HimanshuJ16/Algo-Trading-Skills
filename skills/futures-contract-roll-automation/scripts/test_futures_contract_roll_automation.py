@@ -165,7 +165,7 @@ class TestRollTriggers(unittest.TestCase):
 class TestHoldAuditNotes(unittest.TestCase):
     """The hold note must describe only the conditions actually evaluated.
 
-    Regression: the pre-2.0.0 note asserted "Front Vol > Next Vol" unconditionally,
+    Regression: an earlier note asserted "Front Vol > Next Vol" unconditionally,
     which was false whenever the crossover trigger was switched off.
     """
 
@@ -402,7 +402,7 @@ class TestSpreadPrecision(unittest.TestCase):
         order = engine.evaluate_and_build_roll_order("6E", "LONG", 1, front, nxt).calendar_spread_order
 
         self.assertAlmostEqual(order.spread_price_diff, 0.00057, places=10)
-        # The pre-2.0.0 behaviour rounded this to 0.0006 — over one FX tick of error.
+        # The the older behaviour rounded this to 0.0006 — over one FX tick of error.
         self.assertNotEqual(order.spread_price_diff, 0.0006)
 
     def test_explicit_decimals_are_honoured(self):

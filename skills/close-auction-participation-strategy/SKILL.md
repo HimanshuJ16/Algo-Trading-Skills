@@ -1,24 +1,17 @@
 ---
 name: close-auction-participation-strategy
-description: Quantitative execution strategy for parsing closing-auction imbalance
-  feeds (Nasdaq NOII, NYSE closing imbalance publication) and placing venue-compliant
-  contra-side Limit-On-Close (LOC) orders before exchange entry cutoffs.
-domain: Execution Algorithms
-subdomain: Auction Mechanics
-tags:
-- closing-auction
-- noii
-- moc
-- loc
-- imbalance
-- execution-algo
-brokers_frameworks:
-- Nasdaq TotalView-ITCH 5.0 (NOII)
-- NYSE Closing Auction (Rule 7.35B)
-- Generic Execution
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when providing contra-side liquidity into a US closing cross against a published
+  imbalance feed, or executing a rebalance at the official closing price with price
+  protection. The opening cross is opening-auction-imbalance-based-execution.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: closing-auction, noii, moc, loc, imbalance, execution-algo
+  brokers_frameworks: "Nasdaq TotalView-ITCH 5.0 (NOII); NYSE Closing Auction (Rule 7.35B); Generic Execution"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

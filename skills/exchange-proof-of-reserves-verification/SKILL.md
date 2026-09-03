@@ -1,17 +1,17 @@
 ---
 name: exchange-proof-of-reserves-verification
 description: >-
-  Independently verify an exchange's published Merkle sum tree Proof of Reserves:
-  rehash a user's inclusion path to the declared root, audit the branch for negative
-  balances, check the committed root sum against the declared liability total, and
-  compute the on-chain reserve ratio against a configurable full-reserve threshold.
-domain: Crypto Custody & Security
-subdomain: Proof of Reserves & Solvency Audit
-tags: ["proof-of-reserves", "merkle-sum-tree", "on-chain-audit", "crypto-custody", "solvency-verification", "counterparty-risk", "sha256"]
-brokers_frameworks: ["Binance zkPoR", "Kraken Proof of Reserves", "RFC 6962 Merkle Hash Trees", "PCAOB Investor Advisory 2023-03-08", "Python Decimal"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding how much capital may sit on an exchange that publishes a Merkle sum
+  tree proof of reserves; rehashes your inclusion path to the declared root and audits
+  the branch for negative balances.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: proof-of-reserves, merkle-sum-tree, on-chain-audit, crypto-custody, solvency-verification, counterparty-risk, sha256
+  brokers_frameworks: "Binance zkPoR; Kraken Proof of Reserves; RFC 6962 Merkle Hash Trees; PCAOB Investor Advisory 2023-03-08; Python Decimal"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

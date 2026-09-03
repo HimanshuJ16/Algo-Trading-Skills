@@ -1,17 +1,17 @@
 ---
 name: opening-auction-imbalance-based-execution
 description: >-
-  Quantitative execution strategy for parsing opening-auction imbalance feeds
-  (Nasdaq Opening Cross NOII, NYSE Core Open Auction imbalance publication) and
-  deriving venue-compliant contra-side on-open orders (OIO, LOO, MOO) that are
-  legal to enter at the intended submission time.
-domain: Execution Algorithms
-subdomain: Auction Mechanics
-tags: ["opening-auction", "noii", "imbalance-execution", "market-on-open", "limit-on-open", "opening-imbalance-only", "nyse-cross", "nasdaq-cross"]
-brokers_frameworks: ["Nasdaq TotalView-ITCH 5.0 (NOII)", "Nasdaq Opening Cross (Equity 4 Rules 4702/4752)", "NYSE Core Open Auction (Rule 7.35A)", "Generic Execution"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when providing contra-side liquidity into a US opening cross against a published
+  imbalance feed, or executing a rebalance at the official opening price. The closing
+  cross is close-auction-participation-strategy.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: opening-auction, noii, imbalance-execution, market-on-open, limit-on-open, opening-imbalance-only, nyse-cross, nasdaq-cross
+  brokers_frameworks: "Nasdaq TotalView-ITCH 5.0 (NOII); Nasdaq Opening Cross (Equity 4 Rules 4702/4752); NYSE Core Open Auction (Rule 7.35A); Generic Execution"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

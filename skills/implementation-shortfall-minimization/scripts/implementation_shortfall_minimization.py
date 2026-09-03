@@ -3,13 +3,33 @@ implementation-shortfall-minimization: Almgren-Chriss (2000) optimal execution
 trajectories and the four-component Perold (1988) Implementation Shortfall
 decomposition.
 
-Two independent capabilities live here:
+Four capabilities live here:
 
-1. **Pre-trade scheduling** -- ``calculate_almgren_chriss_trajectory`` returns the
+1. **Benchmark capture** -- ``median_mid_arrival_price`` reduces a one-second
+   window of top-of-book quotes to the arrival-price benchmark.
+2. **Pre-trade scheduling** -- ``calculate_almgren_chriss_trajectory`` returns the
    share count to work in each of ``N`` intervals, following the closed-form
    Almgren-Chriss solution.
-2. **Post-trade measurement** -- ``evaluate_implementation_shortfall`` decomposes a
+3. **Pre-trade cost forecasting** -- ``forecast_shortfall`` prices a schedule under
+   the Almgren-Chriss linear-impact model, returning ``E(x)``, ``V(x)`` and the
+   mean-variance objective.
+4. **Post-trade measurement** -- ``evaluate_implementation_shortfall`` decomposes a
    completed (or partially completed) parent order against the decision price.
+
+Arrival price benchmark
+-----------------------
+The **decision price** ``P_0`` is the price when the PM decided. The **arrival
+price** ``P_a`` is the price when the order reached the venue, and the two differ
+by exactly the delay cost this module isolates. The industry convention for
+``P_a`` is the **median top-of-book mid-quote over the one-second window at
+parent-order submission**, not a single tick: one tick is a draw from the
+quote-flicker distribution, and a single crossed or stale print moves the whole
+benchmark, whereas the median over ~1s of quotes is robust to both.
+``median_mid_arrival_price`` implements that reduction.
+
+Capture it **once, at submission, and store it immutably.** Recomputing "current
+mid" partway through execution is the classic way to make a shortfall report show
+no shortfall: the benchmark chases the price the order is itself moving.
 
 Almgren-Chriss trajectory
 -------------------------
@@ -42,6 +62,13 @@ measured in seconds) sigma must be per-sqrt-second. Only the product
 ``kappa * tau`` shapes the schedule, so a mismatched pair silently rescales
 urgency rather than failing.
 
+The half-life of the trade is ``1/kappa`` and does **not** depend on the horizon
+``T`` (ibid., Sec. 2.3). Stretching ``T`` at fixed urgency therefore does not
+spread the order out: the leading intervals stay where they were and the extra
+intervals are near-empty. At ``kappa = 1`` the first interval holds ~63.2% of the
+parent whether the horizon is 10 intervals or 10,000. To trade more patiently,
+lower ``lambda``; do not simply lengthen the horizon.
+
 Their Eq. (19), ``kappa ~ sqrt(lambda * sigma^2 / eta)``, is the ``tau -> 0``
 *approximation*; this module uses the exact discrete root instead, so the schedule
 is the optimum for the interval grid actually being traded rather than for its
@@ -61,6 +88,22 @@ property is preserved here by rounding the *holdings* trajectory to whole shares
 under a monotonicity constraint and differencing it, rather than rounding each
 slice independently -- independent slice rounding can emit a negative slice, which
 is a reversing trade the model never prescribes.
+
+Shortfall forecast
+------------------
+``forecast_shortfall`` prices a schedule under the same linear-impact model, from
+the defining sums rather than the closed-form optimum:
+
+    E(x) = gamma*X^2/2 + epsilon*sum|n_k| + (eta_tilde/tau)*sum n_k^2   (Eq. 8)
+    V(x) = sigma^2 * tau * sum_{k=1..N} x_k^2                           (Eq. 5)
+
+Summing the definitions prices the *integer* schedule the algo will really send,
+and avoids the catastrophic cancellation that makes their closed-form Eq. (20)
+awkward to evaluate at small or large ``kappa*T``; the two agree to floating-point
+precision on the exact trajectory. ``E`` is in currency and ``V`` in currency
+**squared**, so a like-for-like comparison against realised shortfall uses
+``stdev``, never ``variance`` -- alerting on ``IS > E + V`` compares
+incommensurable units and effectively never fires.
 
 Implementation Shortfall
 ------------------------
@@ -120,8 +163,9 @@ Deliberate limitations
 """
 import logging
 import math
+import statistics
 from dataclasses import dataclass
-from typing import List, Optional, Sequence
+from typing import List, Optional, Sequence, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -286,6 +330,223 @@ def almgren_chriss_kappa(
             "Re-scale the parameters into consistent units."
         )
     return math.acosh(acosh_arg) / tau
+
+
+def median_mid_arrival_price(top_of_book_quotes: Sequence[Tuple[float, float]]) -> float:
+    """
+    Arrival-price benchmark: the median top-of-book mid over the submission window.
+
+    The industry convention for the arrival price is the median mid-quote across
+    the one-second window at parent-order submission, not a single tick. A single
+    tick is one draw from the quote-flicker distribution and one stale or crossed
+    print relocates the entire benchmark; the median over ~1s of quotes is robust
+    to both. Feed it the quotes captured in that window and store the result
+    immutably -- it is the benchmark for the whole order.
+
+    :param top_of_book_quotes: ``(bid, ask)`` pairs from the submission window,
+        each with finite, positive prices and ``ask >= bid``.
+    :returns: the median of the per-quote mids ``(bid + ask) / 2``. With an even
+        number of quotes this is the mean of the two central mids.
+
+    :raises TypeError: an entry is not a two-element ``(bid, ask)`` pair, or a
+        price is non-numeric.
+    :raises ValueError: the window is empty, a price is non-finite or
+        non-positive, or a quote is crossed (``bid > ask``). A crossed book is a
+        feed artefact or a genuine dislocation; either way it must be resolved
+        upstream, not averaged into the benchmark the desk is graded on.
+    """
+    quotes = list(top_of_book_quotes) if top_of_book_quotes is not None else []
+    if not quotes:
+        raise ValueError(
+            "top_of_book_quotes must not be empty: the arrival price cannot be inferred "
+            "from an empty submission window. Capture it at submission or record that it "
+            "is unavailable; never substitute the decision price or a later mid."
+        )
+
+    mids: List[float] = []
+    for index, quote in enumerate(quotes):
+        context = f"top_of_book_quotes[{index}]"
+        if isinstance(quote, (str, bytes)) or not isinstance(quote, Sequence):
+            raise TypeError(f"{context} must be a (bid, ask) pair, got {type(quote).__name__}.")
+        if len(quote) != 2:
+            raise TypeError(f"{context} must have exactly 2 elements (bid, ask), got {len(quote)}.")
+        bid = _require_positive_finite(quote[0], f"{context}.bid")
+        ask = _require_positive_finite(quote[1], f"{context}.ask")
+        if ask < bid:
+            raise ValueError(
+                f"{context}: crossed quote (bid {bid} > ask {ask}). Resolve the crossed book "
+                "upstream; averaging it into the arrival price corrupts the benchmark."
+            )
+        mids.append((bid + ask) / 2.0)
+
+    return float(statistics.median(mids))
+
+
+@dataclass(frozen=True)
+class ImpactParameters:
+    """
+    Linear market-impact parameters of Almgren & Chriss (2000), Eqs. (6)-(8).
+
+    All time-dimensioned quantities must share one time unit. A schedule from
+    ``calculate_almgren_chriss_trajectory`` treats one interval as ``tau``, so
+    pass the same ``tau`` used to build it and express ``sigma`` in price units
+    per sqrt of that unit.
+
+    :param sigma: volatility in price units per sqrt(time unit). Eq. (1).
+    :param eta: temporary impact coefficient, ($/share)/(share/time). Eq. (7).
+    :param gamma: permanent impact coefficient, ($/share)/share. Eq. (6).
+    :param epsilon: fixed cost per share -- half-spread plus fees, $/share. Eq. (7).
+    :param tau: length of one interval, in the shared time unit.
+    """
+
+    sigma: float
+    eta: float
+    gamma: float = 0.0
+    epsilon: float = 0.0
+    tau: float = 1.0
+
+    def __post_init__(self) -> None:
+        for field_name in ("sigma", "eta", "gamma", "epsilon", "tau"):
+            value = getattr(self, field_name)
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise TypeError(f"{field_name} must be a real number.")
+            if not math.isfinite(float(value)):
+                raise ValueError(f"{field_name} must be finite.")
+        if self.sigma < 0.0:
+            raise ValueError("sigma must be non-negative.")
+        if self.gamma < 0.0:
+            raise ValueError("gamma must be non-negative.")
+        if self.epsilon < 0.0:
+            raise ValueError("epsilon must be non-negative.")
+        if self.eta <= 0.0:
+            raise ValueError("eta must be strictly positive.")
+        if self.tau <= 0.0:
+            raise ValueError("tau must be strictly positive.")
+        # Almgren & Chriss (2000), following Eq. (8): the cost functional is strictly
+        # convex only while eta_tilde = eta - gamma*tau/2 > 0. Outside that range the
+        # "optimal" trajectory is not a minimiser at all, so refuse rather than return
+        # a meaningless number. This is the same degeneracy almgren_chriss_kappa rejects.
+        if self.eta_tilde <= 0.0:
+            raise ValueError(
+                "eta_tilde = eta - gamma*tau/2 must be strictly positive for the "
+                f"Almgren-Chriss cost model to be convex (got eta={self.eta}, "
+                f"gamma={self.gamma}, tau={self.tau})."
+            )
+
+    @property
+    def eta_tilde(self) -> float:
+        """Temporary impact net of the permanent-impact credit: ``eta - gamma*tau/2``."""
+        return self.eta - 0.5 * self.gamma * self.tau
+
+
+@dataclass(frozen=True)
+class ShortfallForecast:
+    """Expected implementation shortfall and its variance for a schedule."""
+
+    expected_cost: float
+    variance: float
+    stdev: float
+    objective: float
+    risk_aversion: float
+
+
+def forecast_shortfall(
+    child_order_sizes: Sequence[float],
+    params: ImpactParameters,
+    risk_aversion: float = 0.0,
+) -> ShortfallForecast:
+    """
+    Expected shortfall ``E(x)`` and variance ``V(x)`` of a trading schedule.
+
+    Computed from the defining sums of Almgren & Chriss (2000) -- Eq. (8) for the
+    expectation under linear impact, Eq. (5) for the variance -- evaluated on the
+    schedule actually being traded:
+
+        E(x) = gamma*X^2/2 + epsilon*sum|n_k| + (eta_tilde/tau)*sum n_k^2
+        V(x) = sigma^2 * tau * sum_{k=1..N} x_k^2
+
+    where ``n_k`` is the size of interval ``k`` and ``x_k`` the shares still
+    outstanding after it. Their closed-form Eq. (20) applies only to the exact
+    unrounded optimum; summing the definitions instead prices the integer schedule
+    the algo will really send, and avoids the catastrophic cancellation and
+    overflow that make Eq. (20) awkward to evaluate at small or large ``kappa*T``.
+    The two agree to floating-point precision on the exact trajectory.
+
+    ``E`` is in currency units and ``V`` in currency **squared**, so a like-for-like
+    comparison against realised shortfall uses ``stdev``, never ``variance``. A
+    realised shortfall persistently beyond ``E + k*stdev`` means the impact and
+    volatility assumptions feeding ``kappa`` are miscalibrated, not that the algo
+    is broken.
+
+    :param child_order_sizes: per-interval sizes, all non-negative and finite --
+        typically the output of ``calculate_almgren_chriss_trajectory``.
+    :param params: calibrated impact parameters.
+    :param risk_aversion: lambda in the objective ``E + lambda*V``. Must be
+        non-negative; 0.0 reports the risk-neutral cost only.
+
+    :raises TypeError: arguments are not of the expected types.
+    :raises ValueError: any size is negative or non-finite, the schedule is empty
+        or sums to zero, or ``risk_aversion`` is negative.
+    """
+    if not isinstance(params, ImpactParameters):
+        raise TypeError("params must be an ImpactParameters.")
+    if isinstance(child_order_sizes, (str, bytes)):
+        raise TypeError("child_order_sizes must be a sequence of numbers.")
+    if isinstance(risk_aversion, bool) or not isinstance(risk_aversion, (int, float)):
+        raise TypeError("risk_aversion must be a real number.")
+    if not math.isfinite(float(risk_aversion)) or risk_aversion < 0.0:
+        raise ValueError("risk_aversion must be finite and non-negative.")
+
+    sizes = list(child_order_sizes)
+    if not sizes:
+        raise ValueError("child_order_sizes must not be empty.")
+    for size in sizes:
+        if isinstance(size, bool) or not isinstance(size, (int, float)):
+            raise TypeError("child_order_sizes must contain only real numbers.")
+        if not math.isfinite(float(size)):
+            raise ValueError("child_order_sizes must be finite.")
+        if size < 0.0:
+            raise ValueError("child_order_sizes must be non-negative.")
+
+    total = math.fsum(float(n) for n in sizes)
+    if total <= 0.0:
+        raise ValueError("child_order_sizes must sum to a positive quantity.")
+
+    # Permanent impact across the whole parent, plus fixed per-share costs, plus
+    # temporary impact, which is quadratic in each interval's size (Eq. 8). Sizes
+    # are non-negative, so sum|n_k| == total.
+    sum_squares = math.fsum(float(n) * float(n) for n in sizes)
+    expected_cost = (
+        0.5 * params.gamma * total * total
+        + params.epsilon * total
+        + (params.eta_tilde / params.tau) * sum_squares
+    )
+
+    # Variance of shortfall: volatility acting on the shares still outstanding at
+    # the end of each interval (Eq. 5). The sum runs k = 1..N and so excludes the
+    # full parent x_0, which is never exposed to post-decision drift.
+    remaining = total
+    squared_exposures = []
+    for size in sizes:
+        remaining -= float(size)
+        squared_exposures.append(remaining * remaining)
+    variance = params.sigma * params.sigma * params.tau * math.fsum(squared_exposures)
+
+    objective = expected_cost + risk_aversion * variance
+
+    logger.info(
+        "Shortfall forecast over %d intervals for %.0f shares: E=%.4f, sd=%.4f, "
+        "objective(lambda=%.6g)=%.4f.",
+        len(sizes), total, expected_cost, math.sqrt(variance), risk_aversion, objective,
+    )
+
+    return ShortfallForecast(
+        expected_cost=expected_cost,
+        variance=variance,
+        stdev=math.sqrt(variance),
+        objective=objective,
+        risk_aversion=float(risk_aversion),
+    )
 
 
 class ImplementationShortfallEngine:

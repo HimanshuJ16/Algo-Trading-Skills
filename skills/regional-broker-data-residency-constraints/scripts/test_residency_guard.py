@@ -93,7 +93,7 @@ class TestOrderAccessConstraints(unittest.TestCase):
 
 class TestResidencyPosture(unittest.TestCase):
     """
-    Regression tests for the pre-2.0 behaviour, which asserted a SEBI/GDPR/SEC
+    Regression tests for the the older behaviour, which asserted a SEBI/GDPR/SEC
     hosting-region mandate that none of those regimes contains. Hosting a
     client's own algo outside the broker's jurisdiction is not a violation.
     """

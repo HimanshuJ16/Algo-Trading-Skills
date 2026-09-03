@@ -1,14 +1,17 @@
 ---
 name: global-macro-economic-calendar-integration
 description: >-
-  Fail-closed macro economic calendar gate that enforces pre/post-release trading blackout windows (FOMC, CPI, NFP), resolves release timestamps across DST, and computes standardised macro surprise only after the data is actually public.
-domain: Macro Research & Risk Management
-subdomain: Macro Economic Events & News Risk Safeguards
-tags: ["macro-calendar", "economic-events", "fomc", "cpi", "nfp", "trading-blackout", "surprise-index", "news-filter"]
-brokers_frameworks: ["Trading Economics API", "FRED API", "Bloomberg Data", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a live system must stop quoting around scheduled macro releases such as FOMC,
+  CPI and payrolls, resolving release timestamps across daylight saving and resuming
+  only when the window has genuinely closed.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: macro-calendar, economic-events, fomc, cpi, nfp, trading-blackout, surprise-index, news-filter
+  brokers_frameworks: "Trading Economics API; FRED API; Bloomberg Data; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

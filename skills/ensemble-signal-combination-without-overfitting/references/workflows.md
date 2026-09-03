@@ -46,7 +46,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - Compare weight vectors across adjacent walk-forward refits; large flips mean the
      fit is tracking noise.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Full-sample normalization:** Z-scoring against the mean and standard deviation of the
   entire series, so every historical bar encodes the future. The backtest looks excellent

@@ -56,7 +56,7 @@ This file holds the full technical procedure referenced by `SKILL.md` under inst
    - `is_compatible = False` if any breaking change of MEDIUM or higher exists.
    - Gate the build on `report.exit_code`; render findings with `report.format_report()`.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **`$ref` Blindness:** Comparing reference schemas without resolving them. Both sides
   present as empty objects, every check is skipped, and a release that deleted an entire

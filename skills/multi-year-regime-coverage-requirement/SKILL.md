@@ -1,25 +1,17 @@
 ---
 name: multi-year-regime-coverage-requirement
-description: Use when validating strategy backtests to segment historical price data
-  into distinct market regimes (Bull Trend, Bear Market, High Volatility Crash, Low
-  Volatility Range), enforce multi-regime coverage rules (>=3 regimes, each with a
-  minimum bar count), and de-average performance metrics so the worst regime is
-  visible instead of averaged away.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- regime-classification
-- market-regimes
-- multi-year-backtest
-- robustness-testing
-- de-averaged-performance
-brokers_frameworks:
-- Market Regime Coverage Engine
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use before promoting a strategy, to check its backtest actually spans bull, bear,
+  high-volatility and range regimes rather than one long trend, and to enforce a minimum
+  coverage of each. Retrospective labels only, never a live signal.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, regime-classification, market-regimes, multi-year-backtest, robustness-testing, de-averaged-performance
+  brokers_frameworks: "Market Regime Coverage Engine; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

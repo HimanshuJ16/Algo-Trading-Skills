@@ -291,7 +291,7 @@ class TestWaiverScope(unittest.TestCase):
 
 
 class TestLegacyDvcBacktestMode(unittest.TestCase):
-    """The repealed 4 %/8 % DVC, reachable only for pre-29-Sep-2025 dates."""
+    """The repealed 4 %/8 % DVC, reachable only for older-Sep-2025 dates."""
 
     def setUp(self):
         self.engine = EsmaVolumeCapEngine()
@@ -316,7 +316,7 @@ class TestLegacyDvcBacktestMode(unittest.TestCase):
         self.assertEqual(report.internal_estimate_status, "ESTIMATED_BREACH_UNION_AND_VENUE_CAP")
 
     def test_legacy_mode_caps_the_negotiated_trade_waiver(self):
-        """Pre-2024 Art. 5(1) also covered Art. 4(1)(b)(i)."""
+        """older Art. 5(1) also covered Art. 4(1)(b)(i)."""
         report = self.engine.audit_volume_cap_and_route_order(
             order(waiver="NTW"), metrics(85_000_000.0, venue_rpw_eur=10_000_000.0),
             as_of=self.hist_day, register=clean_register(date(2024, 5, 8)))

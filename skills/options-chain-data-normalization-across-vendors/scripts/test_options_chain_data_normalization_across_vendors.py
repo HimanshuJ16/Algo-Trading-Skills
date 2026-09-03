@@ -6,7 +6,7 @@ symbology (``SPX   141122P01950000``, ``LAMR  150117C00052500``) rather than by
 re-running the module's own construction, so a wrong encoding fails instead of agreeing
 with itself. Expected midpoints are arithmetic done by hand in the test.
 
-Tests marked ``REGRESSION`` each fail against the pre-2.0 implementation and pass
+Tests marked ``REGRESSION`` each fail against a naive implementation and pass
 against the fix:
 
   * ``right='CALL'`` -- an IBKR-documented value -- used to normalize to a **put**.

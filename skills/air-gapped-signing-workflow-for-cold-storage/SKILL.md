@@ -1,19 +1,17 @@
 ---
 name: air-gapped-signing-workflow-for-cold-storage
 description: >-
-  Air-gapped signing workflow for Ethereum-style cold storage. An online
-  coordinator issues chain-bound transfer intents that cross a QR/SD gap to an
-  offline vault, which re-derives the approval display from the exact bytes it
-  will sign, applies its own policy and anti-replay ledger, and returns an
-  envelope bound to the payload hash. Broadcast is single-shot and reports an
-  ambiguous RPC outcome as unresolved rather than failed.
-domain: Crypto Custody & Security
-subdomain: Air-Gapped Signing & Key Isolation
-tags: ["crypto-custody", "air-gap", "cold-storage", "clear-signing", "blind-signing", "eip-155", "replay-protection", "transaction-signing"]
-brokers_frameworks: ["Generic EVM RPC", "Hardware Wallet (Ledger/Trezor)", "HSM", "CCSS v9", "EIP-155", "ERC-7730", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when moving crypto out of cold storage and the signing key must never touch an
+  internet-connected machine; models the round trip where an intent crosses a QR or SD
+  gap and the offline vault re-derives the approval display itself.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-custody, air-gap, cold-storage, clear-signing, blind-signing, eip-155, replay-protection, transaction-signing
+  brokers_frameworks: Generic EVM RPC, Hardware Wallet (Ledger/Trezor), HSM, CCSS v9, EIP-155, ERC-7730, Python Dataclasses
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,25 +1,17 @@
 ---
 name: conditional-order-logic-for-execution-triggers
-description: Use when simulating conditional orders client-side — evaluating nested
-  Boolean condition trees (price, volume, time, cross-asset) against market data to
-  release child orders exactly once, with fail-safe handling of missing or stale quotes.
-domain: Execution Algorithms
-subdomain: Order Logic & Triggers
-tags:
-- conditional-orders
-- execution-triggers
-- boolean-tree
-- cross-asset-trigger
-- oco
-- oms
-- ems
-brokers_frameworks:
-- Generic Execution
-- FIX TriggeringInstruction
-- Python Dataclasses
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when implementing client-side conditional orders such as if-touched, bracket,
+  one-cancels-other or cross-asset triggers, evaluating a nested Boolean tree against
+  market data and releasing each child exactly once.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: conditional-orders, execution-triggers, boolean-tree, cross-asset-trigger, oco, oms, ems
+  brokers_frameworks: "Generic Execution; FIX TriggeringInstruction; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

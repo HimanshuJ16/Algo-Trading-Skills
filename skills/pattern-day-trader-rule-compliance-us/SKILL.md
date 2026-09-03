@@ -1,27 +1,18 @@
 ---
 name: pattern-day-trader-rule-compliance-us
 description: >-
-  Use when a bot day trades US equities or equity options in a margin account
-  and must not have its trading frozen by day-trading margin rules. Covers the
-  pattern day trader regime (four day trades in five business days, $25,000
-  minimum equity) that FINRA deleted effective 2026-06-04 and that brokers may
-  still apply as house policy through the 2027-10-20 phase-in, and the Rule
-  4210(d)(2) intraday margin standard that replaced it.
-domain: algorithmic-trading
-subdomain: regulatory-compliance-global
-tags:
-- regulatory-compliance-global
-- finra-rule-4210
-- intraday-margin
-- pattern-day-trader
-brokers_frameworks:
-- FINRA Rule 4210 (Margin Requirements)
-- SR-FINRA-2025-017 / SEC Release 34-105226
-- FINRA Regulatory Notice 26-10
-- Alpaca Trading API
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a bot day trades US equities or equity options in a margin account and a
+  trading freeze would break the strategy; covers the pattern day trader regime, the
+  25,000 dollar equity floor and day-trading buying power. Cash accounts are constrained
+  differently.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: regulatory-compliance-global, finra-rule-4210, intraday-margin, pattern-day-trader
+  brokers_frameworks: "FINRA Rule 4210 (Margin Requirements); SR-FINRA-2025-017 / SEC Release 34-105226; FINRA Regulatory Notice 26-10; Alpaca Trading API"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

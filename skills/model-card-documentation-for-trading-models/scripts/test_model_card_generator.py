@@ -93,7 +93,7 @@ class TestCompleteCard(ModelCardTestBase):
         self.assertEqual(report.advisory_findings, ())
 
     def test_card_contains_every_required_section_exactly_once(self):
-        """The pre-2.0 SKILL.md claimed 'all 6 required MRM sections'; the card
+        """an earlier SKILL.md claimed 'all 6 required MRM sections'; the card
         rendered three. Assert the count against the declared contract."""
         markdown = self.build().markdown_content
         headings = [ln for ln in markdown.split("\n") if ln.startswith("## ")]
@@ -138,7 +138,7 @@ class TestCompleteCard(ModelCardTestBase):
 
 
 class TestAdvisoryFindingsAreNeverSwallowed(ModelCardTestBase):
-    """Regression for the pre-2.0 defect: a sub-threshold Sharpe was appended to
+    """Regression for an earlier defect: a sub-threshold Sharpe was appended to
     an internal deficit list that was discarded whenever the card was otherwise
     compliant, so the audit note read 'APPROVED ... SR 26-2 compliant'."""
 
@@ -227,7 +227,7 @@ class TestAdvisoryFindingsAreNeverSwallowed(ModelCardTestBase):
 
 
 class TestGovernanceFailsClosed(ModelCardTestBase):
-    """Regression: pre-2.0 ModelGovernanceConfig() defaulted to
+    """Regression: older ModelGovernanceConfig() defaulted to
     is_validated_by_mrm=True with a hard-coded validation_date, so a caller who
     supplied nothing received an unearned validation stamp."""
 
@@ -446,7 +446,7 @@ class TestMissingDocumentationSections(ModelCardTestBase):
 
 
 class TestNumericValidation(ModelCardTestBase):
-    """Regression: pre-2.0, `nan > 25.0` and `nan < 1.0` are both False, so a card
+    """Regression: older, `nan > 25.0` and `nan < 1.0` are both False, so a card
     with NaN metrics was reported fully compliant."""
 
     def _metrics(self, **overrides):

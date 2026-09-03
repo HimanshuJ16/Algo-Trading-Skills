@@ -1,36 +1,17 @@
 ---
 name: tastytrade-api-integration
 description: >-
-  Use when connecting a bot to the Tastytrade API for options or futures trading.
-  The first finding is usually that the flow you were about to write no longer
-  exists: Tastytrade discontinued POST /sessions username-and-password
-  session-token authentication on 2025-12-01, replacing it with an OAuth2
-  refresh-token grant whose access tokens live 15 minutes. Covers the OAuth2
-  flow, the required <product>/<version> User-Agent, strict 21-character OCC
-  option symbol construction, the /orders/dry-run buying-power preflight,
-  multi-leg order payloads whose direction lives in price-effect rather than the
-  sign of price, and the reconcile-don't-retry rule for an order submission with
-  no client-supplied idempotency key.
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- tastytrade
-- tastyworks
-- oauth2
-- options-trading
-- multi-leg-orders
-- occ-symbology
-- order-reconciliation
-- futures
-brokers_frameworks:
-- Tastytrade API (api.tastyworks.com)
-- OAuth 2.0 refresh-token grant (RFC 6749)
-- OCC 21-character option symbology
-- tastyware/tastytrade (community reference client)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building or migrating a Tastytrade options or futures bot. Session-token
+  authentication was discontinued on 2025-12-01 in favour of an OAuth2 refresh-token
+  grant, and equity options use the 21-character OCC symbol layout.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, tastytrade, tastyworks, oauth2, options-trading, multi-leg-orders, occ-symbology, order-reconciliation, futures
+  brokers_frameworks: "Tastytrade API (api.tastyworks.com); OAuth 2.0 refresh-token grant (RFC 6749); OCC 21-character option symbology; tastyware/tastytrade (community reference client)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

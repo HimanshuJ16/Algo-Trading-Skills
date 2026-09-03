@@ -1,14 +1,17 @@
 ---
 name: job-posting-data-as-a-growth-signal
 description: >-
-  Quantitative alternative data signal engine analyzing web-scraped corporate job postings, measuring QoQ hiring velocity, engineering/R&D role mix, ghost job penalties, and corporate expansion scores.
-domain: Quant Research & Alt Data
-subdomain: Employment Alt Data & Corporate Expansion Factors
-tags: ["job-postings", "alt-data", "hiring-velocity", "growth-signal", "ghost-jobs-filter", "alpha-factors", "corporate-expansion"]
-brokers_frameworks: ["LinkUp / Coresignal Scraped Datasets", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building a fundamental growth feature from web-scraped job postings,
+  measuring quarter-on-quarter hiring velocity and engineering role mix while penalising
+  stale ghost listings.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: job-postings, alt-data, hiring-velocity, growth-signal, ghost-jobs-filter, alpha-factors, corporate-expansion
+  brokers_frameworks: "LinkUp / Coresignal Scraped Datasets; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

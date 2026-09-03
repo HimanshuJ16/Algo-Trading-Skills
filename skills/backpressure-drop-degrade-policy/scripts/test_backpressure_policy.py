@@ -132,7 +132,7 @@ class TestUnknownStream(BaseManagerTest):
 class StaleLengthDeque(collections.deque):
     """A deque that over-reports its length.
 
-    This reproduces the exact TOCTOU window deterministically: the pre-2.0 code
+    This reproduces the exact TOCTOU window deterministically: a naive code
     read ``len(queue)`` once and then popped that many times, so a consumer
     draining in between raised ``IndexError``. Simulating it with a stale length
     is reliable, whereas racing real threads detected the defect in 36/40 runs
@@ -144,7 +144,7 @@ class StaleLengthDeque(collections.deque):
 
 
 class TestConcurrencySafety(BaseManagerTest):
-    """Regression: the pre-2.0 overflow path raised IndexError against a live consumer."""
+    """Regression: an earlier overflow path raised IndexError against a live consumer."""
 
     def test_pops_are_guarded_against_a_stale_length_read(self):
         mgr = BackpressureManager(
@@ -152,7 +152,7 @@ class TestConcurrencySafety(BaseManagerTest):
             sample_keep_every_n=1,
         )
         queue = StaleLengthDeque([1, 2, 3])
-        # Pre-2.0 this raised IndexError: pop from an empty deque.
+        # older this raised IndexError: pop from an empty deque.
         decision = mgr.handle_full("ui", queue, item=99)
         self.assertTrue(decision.accepted)
 
@@ -215,7 +215,7 @@ class TestSample(BaseManagerTest):
         )
         queue = collections.deque(range(100), maxlen=100)
         mgr.handle_full("ui", queue, item=999)
-        # Pre-2.0 discarded ~50 items on a single overflow event.
+        # older discarded ~50 items on a single overflow event.
         self.assertGreaterEqual(len(queue), 99)
 
     def test_keeps_one_in_every_n(self):

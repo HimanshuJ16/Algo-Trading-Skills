@@ -1,27 +1,17 @@
 ---
 name: transfer-learning-across-correlated-instruments
-description: Use when a newly listed or thinly traded instrument — an IPO, a new
-  token, an illiquid sector ETF, an off-the-run bond — has too little history to fit a
-  forecasting model on its own, and the model should instead be bootstrapped from a
-  liquid correlated instrument; fine-tunes the source model onto the sparse target
-  with an L2-SP penalty toward the pre-trained weights, screens for negative transfer
-  with a correlation and standardized-mean-difference gate, and decides deployment on
-  a chronological out-of-sample comparison against a target-only baseline
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- transfer-learning
-- cold-start
-- l2-sp-fine-tuning
-- negative-transfer
-- covariate-shift
-- out-of-sample-validation
-brokers_frameworks:
-- Python standard library (math, logging, dataclasses)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a new or thinly traded instrument has too little history to fit a model on
+  its own and a liquid co-moving instrument exists; fits on the source and adapts,
+  rather than fitting noise on the target.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, transfer-learning, cold-start, l2-sp-fine-tuning, negative-transfer, covariate-shift, out-of-sample-validation
+  brokers_frameworks: Python standard library (math, logging, dataclasses)
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,34 +1,17 @@
 ---
 name: uk-fca-algorithmic-trading-systems-controls
 description: >-
-  Fail-closed pre-trade order-entry gate for UK algorithmic trading under MiFID
-  RTS 6 Article 15 (Commission Delegated Regulation (EU) 2017/589 as it forms
-  part of UK law) and FCA Handbook MAR 7A.3.2R — price collars against a
-  firm-documented reference price, maximum order value and volume, a message
-  ceiling, the Article 15(3) repeated-execution throttle, firm-set credit limits,
-  and Article 12 kill functionality with real venue mass-cancel and an authorised
-  reset. Every numeric limit is a firm calibration, not a regulatory value.
-domain: Global Regulatory Compliance & Risk Control
-subdomain: Algorithmic Systems Governance (UK FCA RTS 6)
-tags:
-- compliance
-- uk-fca
-- mar-7a
-- mifid2-rts6
-- pre-trade-controls
-- kill-switch
-- price-collars
-- fail-closed
-- risk-governance
-brokers_frameworks:
-- MiFID RTS 6 (Comm. Del. Reg. (EU) 2017/589, UK assimilated law)
-- FCA Handbook MAR 7A.3
-- MiFID RTS 9 (Comm. Del. Reg. (EU) 2017/566)
-- FCA Multi-firm review of algorithmic trading controls (Aug 2025)
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building the order-entry gate for algorithmic trading into a UK venue under
+  FCA Handbook MAR 7A.3.2R and RTS 6 Article 15. RTS 6 prescribes no numeric limits; the
+  firm sets them from its capital base and clearing arrangements.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: compliance, uk-fca, mar-7a, mifid2-rts6, pre-trade-controls, kill-switch, price-collars, fail-closed, risk-governance
+  brokers_frameworks: "MiFID RTS 6 (Comm. Del. Reg. (EU) 2017/589, UK assimilated law); FCA Handbook MAR 7A.3; MiFID RTS 9 (Comm. Del. Reg. (EU) 2017/566); FCA Multi-firm review of algorithmic trading controls (Aug 2025); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # UK FCA Algorithmic Trading Systems and Controls

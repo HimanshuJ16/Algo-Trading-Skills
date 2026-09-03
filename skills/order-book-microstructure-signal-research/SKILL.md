@@ -1,14 +1,17 @@
 ---
 name: order-book-microstructure-signal-research
 description: >-
-  Researching whether a top-of-book microstructure signal actually leads price: Order Flow Imbalance to the published Cont/Kukanov/Stoikov definition including both queue-depletion branches, the volume-weighted mid-price and its exact identity with depth imbalance, forward-return Information Coefficients, and a t-statistic computed on the non-overlapping effective sample so an overlapping-return study cannot report significance it does not have.
-domain: Market Microstructure & Signal Research
-subdomain: High-Frequency Order Book Signal Analytics
-tags: ["microstructure", "ofi", "order-flow-imbalance", "micro-price", "depth-imbalance", "hft-signals", "quant-research", "information-coefficient"]
-brokers_frameworks: ["Cont/Kukanov/Stoikov (2014) OFI", "Stoikov (2018) Micro-Price", "Level 1 / Top-of-Book Quote Data", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when testing whether a top-of-book signal genuinely leads the mid-price, computing
+  order flow imbalance to the published definition including both queue-depletion
+  branches. A windowed research audit, not a live generator.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: microstructure, ofi, order-flow-imbalance, micro-price, depth-imbalance, hft-signals, quant-research, information-coefficient
+  brokers_frameworks: "Cont/Kukanov/Stoikov (2014) OFI; Stoikov (2018) Micro-Price; Level 1 / Top-of-Book Quote Data; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

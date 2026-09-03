@@ -1,24 +1,17 @@
 ---
 name: wash-sale-rule-tracking-us
-description: "US federal wash sale tracking under IRC 26 U.S.C. § 1091 for a high-turnover equity ledger: FIFO tax lot matching, 61-day replacement window scanning (30 days before the disposition, the disposition date, 30 days after), § 1091(d) basis carry-forward into the replacement lot, and Form 1099-B Box 1d/1e/1g figures for one account and one security identifier."
-domain: Global Tax Accounting & Regulatory Reporting
-subdomain: US IRS Tax Compliance (IRC § 1091)
-tags:
-- wash-sale
-- irs-section-1091
-- cost-basis-adjustment
-- form-1099-b
-- capital-loss-disallowance
-- tax-lots
-- fifo-matching
-brokers_frameworks:
-- us-irc-1091
-- form-1099-b
-- finra
-- sec
-version: "2.0.0"
-author: Quant Engineering
-license: MIT
+description: >-
+  Use when a US taxable account realises losses and re-enters the same security within
+  61 days, so IRC 1091 disallows the loss: FIFO lot matching, replacement-window
+  scanning, basis carry-forward and the Form 1099-B boxes.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: tax-accounting-reporting-global
+  tags: wash-sale, irs-section-1091, cost-basis-adjustment, form-1099-b, capital-loss-disallowance, tax-lots, fifo-matching
+  brokers_frameworks: "us-irc-1091; form-1099-b; finra; sec"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

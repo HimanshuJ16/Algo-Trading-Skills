@@ -39,7 +39,7 @@ actually implementing the skill, not just when deciding whether it applies.
    - Validate configuration *before* order parameters, so a live-mode veto still fires on a malformed order rather than being masked by a `ValueError`.
    - If an account probe function is supplied, `guard_order()` performs a runtime re-probe in addition to static config validation.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Endpoint Misconfiguration:** Pairing paper credentials with `https://api.alpaca.markets`, exposing live capital to paper signals.
 - **Missing Environment Confirmation:** Launching live trading without requiring an explicit `ALLOW_LIVE_TRADING=true` confirmation flag.

@@ -1,49 +1,65 @@
 ---
 name: moscow-exchange-moex-api-integration
 description: >-
-  Client-side pre-dispatch validation for Moscow Exchange (MOEX) orders — the fail-closed
-  sanctions gate required because MOEX and its CCP are OFAC-designated, quantity in lots,
-  minimum price step alignment, Exchange-published price limits, and MFIX (FIX 4.4)
-  NewOrderSingle field construction with the board carried in the Tag 386/336 group.
-domain: Exchange Integrations Global
-subdomain: Eastern European Exchanges & MOEX Integration
-tags: ["moex", "moscow-exchange", "iss-api", "mfix", "twime", "tqbr", "cets", "sanctions-screening"]
-brokers_frameworks: ["MOEX ISS REST API", "MOEX MFIX Transactional (FIX 4.4)", "MOEX TWIME", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a trading system must be structurally prevented from routing to a sanctioned
+  venue while keeping a documented, reviewable adapter on file. Moscow Exchange and its
+  OFAC-designated CCP are the worked example of the fail-closed gate.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: sanctions-gate, ofac-sdn, fail-closed, moex, moscow-exchange, iss-api, mfix, twime, tqbr, cets, sanctions-screening
+  brokers_frameworks: "MOEX ISS REST API; MOEX MFIX Transactional (FIX 4.4); MOEX TWIME; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
 
-Use this skill when building or auditing an order path into **Moscow Exchange**
-(ISO 10383 operating MIC `MISX`) on the ASTS boards — `TQBR` equities and `CETS`
-FX. It covers the checks that belong on the client side, before a message leaves
-your process:
+Use this skill when a trading system must be **structurally prevented from
+routing orders to a sanctioned venue**, while still keeping a documented,
+reviewable adapter for that venue on file. Moscow Exchange (ISO 10383 operating
+MIC `MISX`) is the worked example: MOEX, its central counterparty the National
+Clearing Center, and the National Settlement Depository are designated on the
+OFAC SDN list, so the clearing leg of an exchange trade is inside the block, not
+adjacent to it.
 
-- **May this order path legally exist at all?** MOEX, National Clearing Center
-  and NSD are on the OFAC SDN list. This is the first question, not the last.
-- Is the quantity expressed in **lots**, and does the lot size match this exact
-  Symbol + Board pair?
-- Is the price on the instrument's **minimum price step**, at the instrument's
-  **decimals**, and inside FIX Tag 44's 10-character cap?
-- Is the price inside a price control — the Exchange-published band where the
-  board publishes one, or a client-side policy band you declared?
-- Are the MFIX fields the ones the MOEX FIX specification actually defines?
+The deliverable is the pattern, not the venue:
+
+- **A fail-closed gate in front of message construction.** With no dated
+  screening attestation attached to the session, no order object is built at
+  all — every path returns a refusal with empty `fix_fields`. Absence of an
+  answer is not clearance, and "nobody checked" cannot be the reason an order
+  goes out.
+- **An attestation that is an audit artefact, not a lookup.** It records who
+  screened, against which regimes, on what date, and under what reference, so a
+  reviewer can reconstruct on whose authority a path was opened.
+- **A staleness rule the operator sets deliberately**, evaluated against a
+  caller-supplied date rather than a clock read inside the module, so a refusal
+  is reproducible from its inputs months later.
+- **Venue protocol detail kept behind the gate as inert reference material.**
+  Quantity in lots, minimum price step alignment, Exchange-published price
+  limits and the MFIX (FIX 4.4) `NewOrderSingle` field layout are documented and
+  unit-tested so the adapter is reviewable — but nothing here opens a socket,
+  logs on, or sends anything, and no path emits a message while the gate is
+  closed.
+
+The same shape applies to any venue whose legality is a precondition rather than
+an assumption: encode the precondition as code that refuses, not as a comment
+that asks.
 
 ### The sanctions position, stated plainly
 
-Verified against the OFAC SDN list downloaded 2026-08-26:
+MOEX, National Clearing Center and NSD were designated by OFAC on 12 June 2024
+under E.O. 14024, and each designation carries an explicit secondary-sanctions
+risk note. The wind-down and divestment authorisations issued at designation
+(General Licenses 99 and 100, as amended) have expired. Other jurisdictions
+maintain their own measures on Russian financial infrastructure, on their own
+timelines.
 
-| Entity | SDN uid | Programs |
-|---|---|---|
-| MOSCOW EXCHANGE | 46526 | `UKRAINE-EO13662`, `RUSSIA-EO14024` |
-| NATIONAL CLEARING CENTER (MOEX's CCP) | 46512 | `UKRAINE-EO13662`, `RUSSIA-EO14024` |
-| NSD (central securities depository) | 37638 | `UKRAINE-EO13662`, `RUSSIA-EO14024` |
-
-All three entries carry an explicit secondary-sanctions risk note referencing
-Section 11 of E.O. 14024. The wind-down and divestment authorisations issued at
-designation (General Licenses 99 and 100, as amended) have expired.
+Confirm current status yourself against the OFAC sanctions list search,
+<https://sanctionssearch.ofac.treas.gov/>. Designations, licences and their
+scope change; nothing in this repository is a screening result.
 
 This skill does not tell you whether your trading is permitted — that depends on
 your jurisdiction, your entity, your counterparties and licences you may hold,
@@ -53,13 +69,20 @@ cannot be the reason an order goes out.
 
 ## When NOT to Use
 
+- **Not a route to trading a sanctioned venue.** Nothing here establishes that
+  an order path into MOEX is lawful for you, and a gate that opens is not a
+  permission. If what you want is the steps to start sending live orders to
+  MOEX, this skill is not it and does not contain them.
 - **Not sanctions advice and not a screening engine.** `SanctionsScreening`
   records that *you* screened and what you screened against. It looks nothing up
   and clears nothing. A `cleared=True` you passed in yourself is not diligence.
+  For screening counterparties and instruments against lists, see
+  `sanctions-screening-for-counterparties-and-instruments`.
 - **Not a transport.** Nothing here opens a socket, logs on, or sends an order.
   `ready_to_send` means "passed the checks modelled here", never "MOEX has the
   order". Session logon, sequence numbers, throttles, Cancel-on-Disconnect and
-  recovery are out of scope.
+  recovery are out of scope; see
+  `fix-protocol-session-management-across-venues`.
 - **Not an ISS client.** Lot size, price step, decimals and price limits are
   **inputs**. This module does not fetch them and deliberately supplies no
   defaults for them — MOEX has no universal lot size and no universal tick.
@@ -89,10 +112,16 @@ cannot be the reason an order goes out.
 
 ## Workflow
 
-1. **Clear the sanctions gate before anything else, and fail closed.** An absent
+1. **Clear the sanctions gate before anything else, and fail closed.** This is
+   the whole point of the module: the gate runs before board resolution, before
+   quantity conversion, before any field is formatted, and a missing, revoked or
+   expired attestation stops the order there with nothing built. An absent
    attestation is not clearance. Attach the regimes screened and the date; set
    `max_screening_age_days` if your policy requires re-screening, and pass
    `as_of` so the check is deterministic rather than clock-dependent.
+
+   Everything from step 2 onward is venue protocol detail that only ever runs
+   behind an open gate.
 2. **Resolve the board, and check the interface serves it.** `TQBR` (stock /
    shares) and `CETS` (currency / SELT) are ASTS and reachable over MFIX. `RFUD`
    (futures / FORTS) is SPECTRA and is not — building an ASTS `NewOrderSingle`
@@ -140,10 +169,11 @@ cannot be the reason an order goes out.
   an explicit secondary-sanctions warning. An integration that never asks the
   question has answered it by default.
 - **Assuming a fixed ±5% price collar.** MOEX publishes **absolute** per-
-  instrument bounds on the boards that have them, not a percentage. On RFUD on
-  2026-08-26, `92Q6` was bounded at ±5.03% of its settlement price while `A2U6`
-  was ±11.19% and `BTU6` ±11.08%. Hard-coding 5% rejects orders the exchange
-  accepts and passes orders it rejects.
+  instrument bounds on the boards that have them, not a percentage. Contracts
+  sitting on the same FORTS board on the same day carry implied bands that
+  differ by a factor of two or more, so no single percentage reproduces the
+  exchange's bounds: hard-coding 5% rejects orders the exchange accepts and
+  passes orders it rejects. Consume `LOWLIMIT`/`HIGHLIMIT` as absolute numbers.
 - **Putting shares in Tag 38.** `OrderQty` is in lots. On TQBR alone the lot
   size runs 1, 10, 100, 1,000, 10,000, 100,000 and 1,000,000 across the board.
   `VTBR` has a 10,000-share lot: sending "100" meaning 100 shares buys a million.
@@ -185,10 +215,18 @@ cannot be the reason an order goes out.
 
 ## Verification
 
-- A session with no `SanctionsScreening`, or one with `cleared=False`, ⟹
-  `MOEX_SANCTIONS_GATE_NOT_CLEARED` and an empty `fix_fields` — the message is
-  never built. A `cleared=True` screening with no regimes or no date ⟹
-  `ValueError` at construction.
+- **The gate fails closed on every order path.** A missing attestation
+  (`sanctions_screening=None`, which is what a default `MOEXSessionConfig`
+  carries), a revoked one (`cleared=False`) and one expired against
+  `max_screening_age_days` each ⟹ `MOEX_SANCTIONS_GATE_NOT_CLEARED`,
+  `ready_to_send=False` and an empty `fix_fields` — for a LIMIT order, a MARKET
+  order, a `TQBR` order, a `CETS` order and an `RFUD` order alike. The closed
+  state is what you get by forgetting, not something you opt into.
+- **The gate runs first.** An order that would also fail another check — an
+  unknown board, an over-length `ClOrdID`, an off-step price — still reports the
+  sanctions status, so a closed gate can never be masked by a later rejection.
+- A `cleared=True` screening with no regimes or no date ⟹ `ValueError` at
+  construction: an attestation that records nothing is not an attestation.
 - With `max_screening_age_days=25` and a screening dated 2026-08-01: `as_of`
   2026-08-26 (exactly 25 days) passes, 2026-08-27 does not. With no max age
   configured, a 2020 screening passes — the module invents no cadence. With a
@@ -205,9 +243,9 @@ cannot be the reason an order goes out.
 - `VTBR` at the float `51.165` against a 0.005 step ⟹ validated, price rendered
   `"51.165"`; binary float error does not turn a valid price into a rejection.
 - A limit order with no published band and no declared policy band ⟹
-  `MOEX_NO_PRICE_CONTROL`. `reference_price=0` ⟹ `ValueError` — it no longer
-  disables the check. Band boundary: 294.00 against 280.00 at 5% passes, 294.01
-  does not.
+  `MOEX_NO_PRICE_CONTROL`. `reference_price=0` ⟹ `ValueError` — a zero
+  reference must not silently disable the check. Band boundary: 294.00 against
+  280.00 at 5% passes, 294.01 does not.
 - `92Q6` published bounds 70240/77680: `is_within_exchange_limits` is True at
   both bounds and False at 70239.99 and 77680.01, and returns `None` for an
   instrument with no published band. An instrument carrying only a `high_limit`
@@ -222,12 +260,15 @@ cannot be the reason an order goes out.
   `MOEX_FIELD_LENGTH_BREACH`; 20 chars passes; `"#ORD-1"` is refused while
   `"ORD#1"` passes.
 - `RFUD` ⟹ `MOEX_BOARD_NOT_ON_ASTS_MFIX` with empty `fix_fields`.
-- Run `python -m unittest discover -s skills/moscow-exchange-moex-api-integration/scripts` and confirm a
-  100% pass rate.
-- Against a MOEX test environment only, and only once your sanctions position
-  permits it: submit one validated order and confirm the gateway accepts the
-  (336, 55) pair. A symbology error unit tests cannot see is one where the board
-  and symbol do not resolve to a security.
+- Run `python -m unittest discover -s skills/moscow-exchange-moex-api-integration/scripts`
+  and confirm a 100% pass rate. `TestSanctionsGate` and
+  `TestSanctionsGateFailsClosedOnEveryPath` are the cases that hold the gate
+  shut; a change that lets an order be built without an attestation must fail
+  them.
+- Know the boundary of what these checks can prove: whether a (336, 55) pair
+  resolves to a real security is only observable at the venue, and this skill
+  deliberately never goes there. Treat the FIX field list as a reviewable
+  artefact, not as evidence of an accepted order.
 
 ## Related Skills
 

@@ -1,30 +1,17 @@
 ---
 name: execution-algo-behavior-under-halted-instrument
 description: >-
-  Use when a parent TWAP/VWAP/POV algo's instrument stops trading continuously
-  (LULD pause, news halt, volatility interruption) — issues child-order cancel
-  requests and tracks them to venue acknowledgement rather than assuming
-  success, suppresses slicing through the reopening auction, and re-benchmarks
-  the unexecuted residual over the recovered horizon under a catch-up rate cap.
-domain: Execution Algorithms
-subdomain: Execution Safety & State Machine
-tags:
-- execution-algo
-- trading-halt
-- luld
-- limit-state
-- twap
-- vwap
-- cancel-acknowledgement
-- reopening-auction
-brokers_frameworks:
-- Nasdaq/Cboe LULD
-- CME Globex Market States
-- Eurex T7 Volatility Interruption
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a parent TWAP, VWAP or POV schedule's instrument stops trading continuously
+  on a pause or halt; issues child cancels and tracks them to venue acknowledgement
+  rather than assuming they landed.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution-algo, trading-halt, luld, limit-state, twap, vwap, cancel-acknowledgement, reopening-auction
+  brokers_frameworks: "Nasdaq/Cboe LULD; CME Globex Market States; Eurex T7 Volatility Interruption; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

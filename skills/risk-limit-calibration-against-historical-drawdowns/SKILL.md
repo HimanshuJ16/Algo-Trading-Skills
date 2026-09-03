@@ -1,26 +1,17 @@
 ---
 name: risk-limit-calibration-against-historical-drawdowns
 description: >-
-  Use when setting or recalibrating a strategy's maximum-drawdown limit, daily loss
-  limit and position-size scalar from its own realized daily return history, using
-  observed max drawdown, Ulcer Index, historical VaR/Expected Shortfall, and a
-  peaks-over-threshold generalized Pareto tail fit.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- drawdown-calibration
-- var-cvar
-- ulcer-index
-- extreme-value-theory
-- position-sizing
-brokers_frameworks:
-- Peaks-Over-Threshold GPD (Extreme Value Theory)
-- Historical Simulation VaR/ES
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when setting a maximum-drawdown limit, daily loss limit and position-size scalar
+  from a strategy's own realised return history rather than a round number, using
+  observed drawdown, Ulcer index and quantiles.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, drawdown-calibration, var-cvar, ulcer-index, extreme-value-theory, position-sizing
+  brokers_frameworks: "Peaks-Over-Threshold GPD (Extreme Value Theory); Historical Simulation VaR/ES; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

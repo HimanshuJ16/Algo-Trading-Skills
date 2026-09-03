@@ -1,27 +1,17 @@
 ---
 name: employee-offboarding-procedure-for-custody-access
-description: Offboarding attestation and key-exposure escalation engine for staff
-  holding digital asset custody access, scoring SSO revocation, exchange API key
-  destruction, custody portal removal, signing-key rotation and hardware token
-  sanitisation against configurable revocation SLAs.
-domain: Crypto Custody & Security
-subdomain: Key Management & Operational Risk
-tags:
-- offboarding-procedure
-- custody-security
-- key-rotation
-- mpc-custody
-- multi-sig
-- api-key-revocation
-- soc-2
-brokers_frameworks:
-- NIST SP 800-53 Rev. 5 PS-4
-- AICPA Trust Services Criteria CC6.2/CC6.3
-- 23 NYCRR 500.7
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when someone with digital asset custody access leaves, scoring single sign-on
+  revocation, exchange API key destruction, custody portal removal and signing-key
+  rotation into an auditable attestation record.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: offboarding-procedure, custody-security, key-rotation, mpc-custody, multi-sig, api-key-revocation, soc-2
+  brokers_frameworks: "NIST SP 800-53 Rev. 5 PS-4; AICPA Trust Services Criteria CC6.2/CC6.3; 23 NYCRR 500.7; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

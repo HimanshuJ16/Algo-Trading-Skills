@@ -1,26 +1,17 @@
 ---
 name: custody-solution-vendor-due-diligence-checklist
-description: Institutional due diligence framework for auditing digital asset custodians
-  across Advisers Act qualified custodian categories, SOC 2 Type II scope, bankruptcy
-  remoteness, insurance coverage relative to assets under custody, and FIPS-validated
-  key management.
-domain: Crypto Custody & Security
-subdomain: Vendor Risk Management
-tags:
-- custody-due-diligence
-- qualified-custodian
-- soc2-type2
-- bankruptcy-remoteness
-- crime-insurance
-- vendor-risk
-brokers_frameworks:
-- SEC Rule 206(4)-2
-- SOC 2 Type II
-- FIPS 140-3
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when evaluating or periodically reviewing a digital asset custodian, scoring
+  qualified custodian category, SOC 2 Type II scope, bankruptcy remoteness and insurance
+  relative to assets held.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: custody-due-diligence, qualified-custodian, soc2-type2, bankruptcy-remoteness, crime-insurance, vendor-risk
+  brokers_frameworks: "SEC Rule 206(4)-2; SOC 2 Type II; FIPS 140-3; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

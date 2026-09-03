@@ -1,4 +1,4 @@
-# Pre-Flight / Sign-off Checklist — websocket-reconnect-without-duplicate-subscriptions
+# Pre-Flight / Sign-off Checklist — websocket-subscription-reconciliation-after-reconnect
 
 Use this before considering the skill's implementation complete.
 
@@ -58,7 +58,7 @@ Use this before considering the skill's implementation complete.
       identical subscribe payload each cycle.
 - [ ] **Blackhole drill:** packets dropped without RST triggers the staleness timer.
 - [ ] **Automated testing:** run
-      `python -m unittest discover -s skills/websocket-reconnect-without-duplicate-subscriptions/scripts`
+      `python -m unittest discover -s skills/websocket-subscription-reconciliation-after-reconnect/scripts`
       and confirm a 100% pass rate.
 
 ## Sign-off

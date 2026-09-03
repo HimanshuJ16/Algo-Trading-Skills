@@ -1,16 +1,17 @@
 ---
 name: execution-realistic-simulation
-description: Use when building a backtest's fill/execution model, to ensure simulated
-  fills, slippage, and fees reflect what would actually happen in a live order rather
-  than idealized instantaneous execution at a quoted price
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-brokers_frameworks: []
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a backtest reports fills at the signal bar close with no slippage or fees;
+  models a marketable order crossing the spread with latency, impact and commission.
+  Passive resting orders need a queue-position model instead.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology
+  brokers_frameworks: ""
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

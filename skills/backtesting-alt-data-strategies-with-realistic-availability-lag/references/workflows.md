@@ -73,7 +73,7 @@ sourcing and the scope boundary live in `references/standards.md`.
    reconstruct them. Persist a dated copy of each delivery; that archive is the only true
    point-in-time record you will have.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **A mistyped publication column silently voiding the guarantee.** Falling back to
   `default_lag_days` when the named column is absent replaced a real 2024-06-01

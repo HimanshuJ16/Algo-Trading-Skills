@@ -1,24 +1,17 @@
 ---
 name: annual-compliance-attestation-workflow
-description: Annual compliance attestation gate for US advisers and broker-dealers
-  — SEC Rule 206(4)-7(b), the Rule 204-2(a)(17)(ii) review record, FINRA Rule 3130
-  and 3120, and SEC Rule 15c3-5(e), with every block traced to the provision that
-  requires it.
-domain: regulatory-compliance
-subdomain: institutional-reporting
-tags:
-- compliance
-- sec-20647
-- finra-3130
-- finra-3120
-- sec-15c3-5
-- regulatory
-- attestation
-brokers_frameworks:
-- generic
-version: "3.0.0"
-author: System
-license: MIT
+description: >-
+  Use when running the annual compliance readiness gate before a US chief executive and
+  chief compliance officer sign: SEC Rule 206(4)-7(b) review, the Rule 204-2(a)(17)(ii)
+  record, FINRA Rules 3130 and 3120, and SEC Rule 15c3-5(e).
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: compliance, sec-20647, finra-3130, finra-3120, sec-15c3-5, regulatory, attestation
+  brokers_frameworks: generic
+  version: "3.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

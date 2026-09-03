@@ -1,28 +1,17 @@
 ---
 name: exchange-self-match-prevention-configuration
 description: >-
-  Use when an execution algo, market maker, or SOR must configure native exchange Self-Match Prevention (SMP / STP) — CME iLink tag 7928/2362 with tag 8000, FIX SelfMatchPreventionID(2362)/SelfMatchPreventionInstruction(2964), Coinbase `stp`, Nasdaq STP — and audit its own resting book for self-collisions before routing.
-domain: Venue Integration & Protocols
-subdomain: Wash Trade Prevention & Order Routing (SMP/STP)
-tags:
-- smp
-- stp
-- self-match-prevention
-- wash-trade-prevention
-- fix-tag-7928
-- fix-tag-2362
-- fix-tag-2964
-- cme-ilink
-- order-routing
-brokers_frameworks:
-- CME Globex iLink 2 / iLink 3
-- FIX 5.0 SP2 (SelfMatchPreventionID 2362 / SelfMatchPreventionInstruction 2964)
-- Coinbase Exchange STP
-- Nasdaq INET / OUCH STP
-- Python Dataclasses
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when several order-generating processes under one beneficial owner quote the same
+  instrument on the same venue, configuring native self-match prevention such as the CME
+  iLink and FIX identifier and instruction fields.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: smp, stp, self-match-prevention, wash-trade-prevention, fix-tag-7928, fix-tag-2362, fix-tag-2964, cme-ilink, order-routing
+  brokers_frameworks: "CME Globex iLink 2 / iLink 3; FIX 5.0 SP2 (SelfMatchPreventionID 2362 / SelfMatchPreventionInstruction 2964); Coinbase Exchange STP; Nasdaq INET / OUCH STP; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,28 +1,17 @@
 ---
 name: multi-model-ensemble-weight-decay
-description: Use when live capital is split across several forecasting models
-  (XGBoost, LightGBM, LSTM, Ridge) whose relative skill drifts with the regime,
-  to discount each model's loss and information coefficient exponentially,
-  reweight them with a numerically stable softmax, and demote anti-predictive or
-  floor-breaching models out of the book entirely rather than letting a static
-  1/M allocation carry a decayed model indefinitely
-domain: algorithmic-trading
-subdomain: financial-ml
-tags:
-- financial-ml
-- ensemble
-- weight-decay
-- softmax-weighting
-- exponential-decay
-- model-demotion
-- information-coefficient
-brokers_frameworks:
-- Python Standard Library
-- EWMA (RiskMetrics convention)
-- Hedge / Exponentially Weighted Average Forecaster
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when live capital is split across several forecasting models whose relative skill
+  drifts with the regime; exponentially discounts each model's loss and information
+  coefficient so a decayed model loses weight.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: financial-ml, ensemble, weight-decay, softmax-weighting, exponential-decay, model-demotion, information-coefficient
+  brokers_frameworks: "Python Standard Library; EWMA (RiskMetrics convention); Hedge / Exponentially Weighted Average Forecaster"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

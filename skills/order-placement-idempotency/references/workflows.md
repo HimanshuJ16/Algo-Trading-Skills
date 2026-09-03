@@ -14,9 +14,11 @@ worth copying:
    earlier intent for the same key is unresolved and reconciliation has not proved the order
    absent.
 3. Any outcome the broker did not state unambiguously is `UNKNOWN` — never `REJECTED`, never
-   `PLACED`.
+   `PLACED`. A failure *word* is not a refusal: only an explicit rejection status or a
+   documented refusal `error_type` reaches `REJECTED`.
 4. `UNKNOWN` resolves to `ABSENT` (safe to re-send) **only** when the broker echoes the client
-   key back in its order book, so that absence is evidence.
+   key back in its order book, so that absence is evidence — and an `ABSENT` verdict releases
+   the ledger claim, which is what makes the re-send it authorises possible.
 5. The intent state machine refuses illegal transitions; `PLACED` and `REJECTED` are terminal.
 
 ## Full Procedure
@@ -58,13 +60,22 @@ against; the module logs a warning when one is opened.
 | Broker behaviour | Ledger status | Next step |
 |---|---|---|
 | Response carries an order id and a success token | `PLACED` | Store the id (all of them, if the broker sliced the request) |
-| Response carries an explicit rejection token and reason | `REJECTED` | Classify the reason before deciding whether a *new* order is warranted |
+| Response carries an explicit rejection status (`rejected`, `cancelled`) | `REJECTED` | Classify the reason before deciding whether a *new* order is warranted |
+| Response carries a refusal `error_type` — `InputException`, `OrderException`, `MarginException`, `PermissionException`, `TokenException` | `REJECTED` | As above; the broker evaluated the request and declined it |
+| Response carries a transport/gateway `error_type` (`NetworkException`, `GatewayTimeout`, `DataException`, `GeneralException`), or any 5xx | `UNKNOWN` | Reconcile (step 4) |
 | Response is ambiguous, unparseable, or a success with no order id | `UNKNOWN` | Reconcile (step 4) |
 | The call raised — timeout, connection reset, TLS error, library error | `UNKNOWN` | Reconcile (step 4) |
 
 `classify_broker_response()` recognises the flat shape, the Kite Connect
 `{"status": "success", "data": {"order_id": …}}` shape, and the Kite auto-slice shape where
 `data` is a list of order ids. Everything unrecognised falls through to `UNKNOWN`.
+
+The `status` word is not the classifier's evidence, because Kite spends `{"status": "error"}`
+on both a flat refusal and a gateway fault; `error_type` is. An unrecognised error class is
+`UNKNOWN` by design — the conservative direction, since a refusal misread as unknown costs one
+order-book query, while a gateway fault misread as a refusal costs a duplicate order. Only
+`status_code`/`http_status` are read as HTTP statuses; Alpaca's numeric `code` is an error code
+and reading it as one would misfile `40310000` as a 5xx.
 
 The exception handler is deliberately broad. A client library can raise almost anything on a
 lost response, and every one of those cases means "outcome unknown", not "order failed".
@@ -79,7 +90,7 @@ point:
 |---|---|---|
 | `FOUND_PLACED` | The key (or a strict attribute match) is in the order book | Link the broker order id, mark `PLACED` |
 | `FOUND_REJECTED` | The matched book entry is in a rejected state | Mark `REJECTED` with the broker's reason |
-| `ABSENT` | The broker echoes client keys and this key is not among them | Safe to re-send under the same key |
+| `ABSENT` | The broker echoes client keys and this key is not among them | Release the claim (archiving the row) and re-send under the same key |
 | `INCONCLUSIVE` | Cannot tell | Park, alert, **never re-send** |
 
 Cases that must return `INCONCLUSIVE` rather than `ABSENT`:
@@ -87,7 +98,31 @@ Cases that must return `INCONCLUSIVE` rather than `ABSENT`:
 - the broker does not echo the client key, so a miss carries no information;
 - the order-book query itself failed — most likely for the same reason the response was lost;
 - a book entry matched but carries no usable broker order id;
+- the matched entry's status is a bare `error`/`failed` — it is in the book, so the order
+  exists and must not be re-sent, but calling it `REJECTED` asserts more than the broker said;
 - attribute matching found more than one equally plausible candidate.
+
+### 4a. Releasing the claim after `ABSENT`
+
+The ledger row is what blocks a re-send, so "safe to re-send" is only true once the row is
+gone. `OrderLedger.release_intent(key, reason)` copies the row into a `released_intents`
+archive and deletes it from `orders`; `record_intent` can then claim the key again. Three
+properties make that safe rather than a back door:
+
+- it is reached **only** from an `ABSENT` verdict, which requires `broker_echoes_key=True` and
+  a successful order-book query that did not contain the key;
+- it refuses a `PLACED`/`REJECTED` row outright — releasing a settled outcome would license a
+  second send of a live order;
+- `UNKNOWN -> PENDING` is *not* in the state machine, so there is no quiet way to re-arm an
+  unresolved intent that skips the release and its archived record.
+
+Where the re-send happens depends on whether this call has already used its one broker call:
+
+- the claim was left by an **earlier** call or a crash → `place_order` reconciles, releases,
+  re-claims and sends, all inside the one invocation, and returns that send's outcome;
+- the claim was made by **this** call, whose send then proved not to have landed →
+  `ABSENT_SAFE_TO_RESEND` is returned and the claim is released; the caller's next
+  `place_order` with the same arguments claims afresh and sends exactly once.
 
 ### 5. Attribute matching — only when the key cannot be echoed
 
@@ -115,7 +150,7 @@ Any result whose `resolved` is `False` fires `alert_fn` and must block the strat
 unresolved intent is an order that may or may not be live; generating fresh signals on top of
 it is exactly how a restart doubles a position.
 
-## Failure Modes Observed in Production
+## Known Failure Modes
 
 - **Blind retries on timeout.** Retrying on a lost response without reconciling. The canonical
   double fill.
@@ -139,6 +174,13 @@ it is exactly how a restart doubles a position.
   reconciliation.
 - **Terminal states overwritten.** A late status write moving `PLACED` back to `PENDING`, or
   clearing the broker order id, re-arms a live order for re-sending.
+- **A failure word read as a refusal.** `{"status": "error", "error_type": "NetworkException"}`
+  and a 502 from the broker's edge both filed as `REJECTED`, during precisely the network event
+  most likely to have left an order working.
+- **"Safe to re-send" that never re-sends.** The router reports absence and hands the caller
+  back a status telling it to try again, but nothing releases the ledger claim, so the retry
+  reconciles to absence again and loops. The order silently never goes out — the mirror image
+  of the duplicate, and harder to spot because nothing is wrong at the broker.
 
 ## Production Implementation Reference
 
@@ -156,3 +198,7 @@ keys derived by 1.0.0 for the same order**. Do not point a 2.0.0 router at a led
 first. `place_order()` also no longer re-sends on an unresolved intent — callers that relied on
 calling it again to retry must now handle `UNRESOLVED_REQUIRES_RECONCILIATION` and
 `ABSENT_SAFE_TO_RESEND` explicitly.
+
+`OrderLedger.record_intent()` requires `strategy_id` and `symbol`; they previously defaulted to
+`"default"`/`"NIFTY"`, which wrote a row describing an order nobody placed and quietly made the
+intent unmatchable by attribute reconciliation.

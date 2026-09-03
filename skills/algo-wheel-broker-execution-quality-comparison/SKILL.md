@@ -1,23 +1,17 @@
 ---
 name: algo-wheel-broker-execution-quality-comparison
 description: >-
-  Compares broker execution quality with validated, notional-weighted
-  executed-quantity implementation shortfall and produces deterministic
-  canary-preserving flow allocations for an algorithmic broker wheel.
-domain: execution-algorithms
-subdomain: smart-order-routing
-tags:
-- execution
-- algo-wheel
-- tca
-- implementation-shortfall
-- broker-routing
-- best-execution
-brokers_frameworks:
-- generic
-version: "1.3.0"
-author: System
-license: MIT
+  Use when comparing brokers on an algo wheel from captured arrival prices and fills,
+  ranking them by notional-weighted implementation shortfall and producing
+  canary-preserving flow allocations that keep sampling alive.
+license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: execution, algo-wheel, tca, implementation-shortfall, broker-routing, best-execution
+  brokers_frameworks: generic
+  version: "1.3.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## Purpose and Scope

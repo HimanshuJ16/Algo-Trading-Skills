@@ -1,14 +1,17 @@
 ---
 name: reference-data-change-notification-pipeline
 description: >-
-  Field-level reference data change detection over instrument-master snapshots — separating identity/routing changes (symbol, exchange, ISIN) from order-construction changes (lot size, tick size, multiplier) — and routing severity-filtered notifications to downstream consumers with per-sink failure isolation.
-domain: Data Management Global
-subdomain: Reference Data Governance & Change Detection
-tags: ["reference-data", "change-detection", "notification-pipeline", "instrument-master", "corporate-actions", "symbol-change"]
-brokers_frameworks: ["ISO 10383 MIC Codes", "ISO 6166 ISIN", "CUSIP", "FIGI (OpenFIGI)", "MiFIR RTS 23 / ESMA FIRDS", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when an instrument-master record is refreshed and something downstream will act on
+  it, separating identity and routing changes such as symbol or ISIN from
+  order-construction changes such as lot size or tick size.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: reference-data, change-detection, notification-pipeline, instrument-master, corporate-actions, symbol-change
+  brokers_frameworks: "ISO 10383 MIC Codes; ISO 6166 ISIN; CUSIP; FIGI (OpenFIGI); MiFIR RTS 23 / ESMA FIRDS; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,14 +1,17 @@
 ---
 name: interest-rate-swap-exposure-in-multi-asset-portfolios
 description: >-
-  First-order interest-rate risk for vanilla fixed-vs-float swaps held beside bonds and equities: annuity-based swap DV01/PV01, signed Pay-Fixed vs Receive-Fixed exposure, USD-only aggregation, and the par-swap notional that flattens net portfolio DV01.
-domain: Portfolio Multi-Strategy
-subdomain: Fixed Income Risk & IRS Exposure Management
-tags: ["interest-rate-swap", "irs", "dv01", "pv01", "annuity-factor", "sofr", "multi-asset-risk", "duration-hedging"]
-brokers_frameworks: ["SOFR fixed-vs-float swap conventions", "PV01 annuity framework", "Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when a multi-asset book holds vanilla fixed-versus-float interest rate swaps
+  beside bonds and equities and you need first-order parallel-shift risk: annuity-based
+  DV01 with signed pay-fixed and receive-fixed exposure.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: multi-asset-derivatives
+  tags: interest-rate-swap, irs, dv01, pv01, annuity-factor, sofr, multi-asset-risk, duration-hedging
+  brokers_frameworks: "SOFR fixed-vs-float swap conventions; PV01 annuity framework; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

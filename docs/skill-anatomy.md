@@ -1,7 +1,7 @@
 # Skill Anatomy
 
 Every skill follows a consistent directory structure so agents can rely on the same
-loading pattern for all 504 (and any future) skills:
+loading pattern for all of them:
 
 ```
 skills/<skill-name>/
@@ -13,7 +13,7 @@ skills/<skill-name>/
 │   ├── <helper>.py       ← Working reference implementation / helper
 │   └── test_<helper>.py  ← unittest suite for it
 └── assets/
-    └── checklist.md       ← Printable pre-flight / sign-off checklist
+    └── checklist.md      ← Sign-off checklist for the skill's Verification section
 ```
 
 ## Why this split
@@ -26,52 +26,69 @@ a pattern in prose alone. `assets/checklist.md` gives a copy-pasteable sign-off
 artifact for the specific gates (paper-trading promotion, risk-control testing) where
 a checklist is more useful than another paragraph.
 
-## YAML frontmatter (real example)
+## YAML frontmatter
+
+The frontmatter follows the [agentskills.io specification](https://agentskills.io/specification)
+exactly. The spec allows only six top-level fields — `name`, `description`, `license`,
+`compatibility`, `allowed-tools` and `metadata` — so everything this repository adds
+lives under `metadata:` as **string** values (the spec defines `metadata` as a map from
+string keys to string values, so lists are joined into one string):
 
 ```yaml
 ---
 name: order-placement-idempotency
 description: >-
-  Use whenever a bot places, modifies, or cancels live orders and must
-  guarantee it never double-executes an order due to retries, timeouts,
-  or reconnects
-domain: algorithmic-trading
-subdomain: broker-integration
-tags: ["broker-integration", "fyers-api-v3", "zerodha-kite-connect", "icici-breeze-api"]
-brokers_frameworks: ["Fyers API v3", "Zerodha Kite Connect", "ICICI Breeze API", "Upstox API v2", "Alpaca Trading API", "IBKR API"]
-version: "1.0"
-author: algo-trading-skills-contributors
+  Use whenever a bot places, modifies, or cancels live orders and must guarantee it
+  never double-executes an order due to retries, timeouts, or reconnects
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, idempotency, client-order-id, order-ledger, retry-safety
+  brokers_frameworks: Fyers API v3; Zerodha Kite Connect; Upstox API v2; IBKR API
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 ```
 
-Frontmatter fields:
-
 | Field | Meaning |
 |---|---|
-| `name` | kebab-case identifier, must match the directory name |
-| `description` | keyword-rich, written for agent discovery (what triggers this skill) |
-| `domain` | always `algorithmic-trading` in this repo |
-| `subdomain` | one of the six categories (`broker-integration`, `real-time-architecture`, `backtesting-methodology`, `financial-ml`, `risk-management`, `deployment-ops`) |
-| `tags` | subdomain + up to 3 broker/framework tags, for keyword search |
-| `brokers_frameworks` | full list of broker APIs / frameworks the skill references |
-| `version` | skill content version, bump on material rewrites |
-| `author` | attribution |
-| `license` | `Apache-2.0`, matching the repo license |
+| `name` | kebab-case identifier, at most 64 characters, must match the directory name |
+| `description` | the **trigger**: starts with "Use when …", at most 280 characters |
+| `license` | `Apache-2.0`, matching the repository LICENSE |
+| `metadata.domain` | always `algorithmic-trading` in this repo |
+| `metadata.subdomain` | one of the 16 domains listed in [`ROADMAP_500.md`](ROADMAP_500.md) |
+| `metadata.tags` | comma-separated keywords for search |
+| `metadata.brokers_frameworks` | semicolon-separated broker APIs / frameworks the skill references (semicolons, because vendor names contain commas) |
+| `metadata.version` | skill content version, quoted semver, bump on material rewrites |
+| `metadata.author` | `algo-trading-skills-contributors` |
+
+Two constraints on `description` deserve emphasis, because they are what makes a
+library this size usable:
+
+- **It must start with `Use when …`.** The description is the only thing an agent sees
+  before deciding to open a skill. A noun phrase ("Institutional compliance skill
+  for …") describes the subject; a trigger describes the situation the agent is
+  currently in, which is what it actually has to match against.
+- **It must fit in 280 characters.** The spec permits 1024, but every installed skill's
+  description is loaded into the model's context at the start of every session. The
+  cap keeps a whole domain's worth of skills affordable to load.
 
 ## Markdown body sections
 
 ```
 ## When to Use        — trigger conditions for an agent to invoke this skill
-## When NOT to Use     — scope boundaries, each handing off to the skill that owns it
-## Prerequisites       — required tools, access, and environment setup
-## Workflow            — step-by-step execution guide (full detail also in references/workflows.md)
-## Common Pitfalls     — specific, named failure modes this skill prevents
-## Verification        — concrete tests that confirm the skill was followed correctly
-## Related Skills      — cross-links to other skills in this repo
+## When NOT to Use    — scope boundaries, each handing off to the skill that owns it
+## Prerequisites      — required tools, access, and environment setup
+## Workflow           — step-by-step execution guide (full detail also in references/workflows.md)
+## Common Pitfalls    — specific, named failure modes this skill prevents
+## Verification       — concrete tests that confirm the skill was followed correctly
+## Related Skills     — cross-links to other skills in this repo
 ```
 
-Two conventions in the tree above are enforced rather than merely suggested:
+All seven are required, as exact level-2 headings.
+
+Three further conventions are enforced rather than merely suggested:
 
 - The helper and its suite are told apart **by filename**. `tools/run_all_tests.py`
   discovers suites by globbing `test_*.py`, so a helper that itself starts with `test_`
@@ -80,5 +97,16 @@ Two conventions in the tree above are enforced rather than merely suggested:
   `python -m unittest discover -s skills/<skill-name>/scripts`, and `SKILL.md` must quote
   it at least once so the Verification section is actionable. A path relative to the
   skill directory reads fine and fails when run.
+- Every backticked skill slug in `## Related Skills` — and in the repo-level docs —
+  must name a real directory under `skills/`.
 
-See `tools/validate_skills.py` for the machine-enforced version of this contract.
+## Checking your work
+
+```bash
+python tools/validate_skills.py                            # this contract, machine-enforced
+skills-ref validate skills/<skill-name>                     # the agentskills.io spec itself
+python -m unittest discover -s skills/<skill-name>/scripts   # the skill's own suite
+```
+
+See [`tools/validate_skills.py`](../tools/validate_skills.py) for the enforced version
+of everything above.

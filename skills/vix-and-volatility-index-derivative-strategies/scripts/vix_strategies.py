@@ -6,7 +6,7 @@ stop, and Black-76 pricing of VIX call spreads off the front-month future.
 Two contract multipliers, and they are not the same
 ---------------------------------------------------
 This is the single most expensive mistake in VIX derivatives code, and the
-pre-2.0.0 version of this module made it:
+older version of this module made it:
 
   * **VIX futures (VX)** settle at **$1,000 per index point**
     (Cboe VX contract specification, "Contract Multiplier: 1000").
@@ -121,7 +121,7 @@ def _require_finite(name: str, value: float) -> float:
     Rejects NaN/Inf before it reaches any comparison.
 
     Every comparison against NaN evaluates False, so a plain ``if value <= 0``
-    guard passes NaN straight through. The pre-2.0.0 implementation did exactly
+    guard passes NaN straight through. a naive implementation did exactly
     that: a NaN spot VIX cleared the positivity check and produced a term
     structure whose roll yield was NaN, which then propagated into sizing.
     """
@@ -469,7 +469,7 @@ class VIXStrategyEngine:
 
         Supply either the two per-strike implied volatilities, or an observed
         ``net_debit`` in index points taken from the market. There is no fabricated
-        default: the pre-2.0.0 implementation assumed the debit was 25% of the
+        default: a naive implementation assumed the debit was 25% of the
         spread width -- a number with no source -- and then reported the **gross**
         width as max profit, so every spread was advertised as a 4:1 payoff by
         construction, at a $1,000 multiplier that belongs to futures rather than
@@ -571,7 +571,7 @@ class VIXStrategyEngine:
         ``POSITION_PENDING_SPREAD_QUOTE`` rather than inventing a premium.
 
         Contract counts are floored. A budget that cannot fund one contract returns
-        zero, not one: the pre-2.0.0 ``max(1, ...)`` floor issued a one-lot short VX
+        zero, not one: an earlier ``max(1, ...)`` floor issued a one-lot short VX
         to any portfolio, so a $50,000 account nominally allocating 5% ($2,500)
         received $16,000 of notional at F1=16 -- a 6.4x breach of its own stated
         limit, in the one strategy whose loss is unbounded.

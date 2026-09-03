@@ -1,14 +1,17 @@
 ---
 name: multi-day-execution-schedules-for-very-large-orders
 description: >-
-  Use when a parent order is too large to complete in one session: builds a participation-capped multi-session schedule (equal, front- or back-loaded) and prices the horizon tradeoff with Almgren-Thum-Hauptmann-Li (2005) market impact against Almgren-Chriss (2000) overnight timing risk.
-domain: Execution Algorithms
-subdomain: Multi-Day Order Scheduling & Market Impact Optimization
-tags: ["multi-day-execution", "adv-participation-cap", "parent-order", "market-impact", "overnight-risk", "athl-2005", "almgren-chriss"]
-brokers_frameworks: ["Almgren-Thum-Hauptmann-Li (2005) Impact Model", "Almgren-Chriss (2000) Timing Risk", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a parent order is too large for any acceptable participation rate to finish
+  it in one session, building a participation-capped multi-session schedule and pricing
+  the impact-versus-timing-risk tradeoff across days.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: execution-algorithms
+  tags: multi-day-execution, adv-participation-cap, parent-order, market-impact, overnight-risk, athl-2005, almgren-chriss
+  brokers_frameworks: "Almgren-Thum-Hauptmann-Li (2005) Impact Model; Almgren-Chriss (2000) Timing Risk; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

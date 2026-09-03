@@ -1,20 +1,18 @@
 ---
 name: india-sebi-algo-trading-tagging-requirements
 description: >-
-  Use when a broker, algo provider or tech-savvy retail client sends algorithmic orders to
-  an Indian exchange (NSE, BSE, MCX) and must satisfy the SEBI circular of 4 February 2025
-  on safer retail participation in algorithmic trading and the exchange implementation
-  standards under it — an Exchange-provided unique algo ID on every algo order, exchange
-  registration above the 10 orders-per-second threshold, whitelisted static IPs and
-  vendor-specific API keys, the ban on algo market orders, PRO/CLI account tagging, and the
-  member-level daily Order-to-Trade Ratio penalty and cooling-off framework.
-domain: Regulatory Compliance Global
-subdomain: Indian Market Regulation & SEBI Algo Governance
-tags: ["sebi", "algo-tagging", "nse", "bse", "algo-id", "otr-monitoring", "pro-cli-category", "ops-threshold"]
-brokers_frameworks: ["SEBI Circular SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/0000013 (4 Feb 2025)", "NSE/INVG/67858 Implementation Standards (5 May 2025)", "NSE/INVG/69255 Detailed Operational Modalities (22 Jul 2025)", "SEBI/HO/MRD1/DSAP/CIR/P/2020/107 OTR Guidelines", "NSE NNF order structure", "BSE Bolt Plus", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a broker, empanelled algo provider or tech-savvy retail client sends
+  algorithmic orders to NSE, BSE or MCX under the SEBI circular of 4 February 2025,
+  covering algorithm tagging, registration and order-per-second thresholds. Direct
+  market access flow is excluded.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: sebi, algo-tagging, nse, bse, algo-id, otr-monitoring, pro-cli-category, ops-threshold
+  brokers_frameworks: "SEBI Circular SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/0000013 (4 Feb 2025); NSE/INVG/67858 Implementation Standards (5 May 2025); NSE/INVG/69255 Detailed Operational Modalities (22 Jul 2025); SEBI/HO/MRD1/DSAP/CIR/P/2020/107 OTR Guidelines; NSE NNF order structure; BSE Bolt Plus; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

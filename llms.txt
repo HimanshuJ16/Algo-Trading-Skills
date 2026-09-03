@@ -2,25 +2,27 @@
 
 > The largest open-source algorithmic trading skills library for AI agents following the agentskills.io standard.
 
-This repository contains 504 production-grade algorithmic trading skills across 16 financial engineering domains and 5 global regulatory frameworks (SEC Rule 15c3-5, Reg NMS, EU MiFID II / RTS 6, UK FCA, SEBI, ISDA).
+This repository contains 501 production-grade algorithmic trading skills across 16 financial engineering domains and 5 global regulatory frameworks (SEC Rule 15c3-5, Reg NMS, EU MiFID II / RTS 6, UK FCA, SEBI, ISDA).
 
 ## Core Documentation
 - [README.md](README.md): Repository overview, quick start, domain breakdown, and compatible platforms.
 - [AGENTS.md](AGENTS.md): Open cross-tool AI agent instructions and execution protocol.
 - [CLAUDE.md](CLAUDE.md): Claude Code CLI project instructions.
 - [GEMINI.md](GEMINI.md): Gemini CLI instructions.
-- [index.json](index.json): Complete searchable database index of all 504 skills with frontmatter metadata.
-- [docs/ROADMAP_500.md](docs/ROADMAP_500.md): Full 504-skill indexed roadmap with single-line scope descriptions.
+- [index.json](index.json): Searchable index of every skill with its description, domain, tags and path.
+- [docs/ROADMAP_500.md](docs/ROADMAP_500.md): Every skill listed by domain.
+- [docs/skill-anatomy.md](docs/skill-anatomy.md): The structure and frontmatter contract each skill follows.
 
 ## Category Indexes & Key Skills
 - [Broker Integration](skills/): Headless auth, token probing, order idempotency (`skills/order-placement-idempotency/SKILL.md`).
-- [Real-Time Architecture](skills/): Burst buffering, tick pipelines, WebSocket reconnect (`skills/websocket-reconnect-without-duplicate-subscriptions/SKILL.md`).
+- [Real-Time Architecture](skills/): Burst buffering, tick pipelines, WebSocket reconnect (`skills/websocket-subscription-reconciliation-after-reconnect/SKILL.md`).
 - [Backtesting Methodology](skills/): Lookahead bias elimination, walk-forward validation (`skills/lookahead-bias-elimination/SKILL.md`).
 - [Risk Management](skills/): Kill switches, circuit breakers, VaR backtesting (`skills/kill-switch-and-drawdown-circuit-breakers/SKILL.md`).
 - [Regulatory Compliance](skills/): SEC Rule 15c3-5, MiFID II RTS 6, MAR, Reg SHO (`skills/sec-rule-15c3-5-risk-controls-us/SKILL.md`).
 
 ## Developer Tools & Code Executables
-- [tools/validate_skills.py](tools/validate_skills.py): Verifies YAML frontmatter structure and mandatory section headers.
-- [tools/build_index.py](tools/build_index.py): Rebuilds the JSON search index.
-- [tools/run_all_tests.py](tools/run_all_tests.py): Discovers and executes all 20,300+ unit tests across 504 test files in skill helper modules.
+- [tools/validate_skills.py](tools/validate_skills.py): Verifies frontmatter, required sections, cross-references and plugin packaging.
+- [tools/build_index.py](tools/build_index.py): Rebuilds the JSON search index (`--check` verifies it is current).
+- [tools/build_marketplace.py](tools/build_marketplace.py): Regenerates the per-domain Claude Code plugin marketplace.
+- [tools/run_all_tests.py](tools/run_all_tests.py): Runs every skill's unittest suite, each in an isolated subprocess.
 - [examples/](examples/): Runnable Python walkthroughs chaining multiple skills into complete trading pipelines.

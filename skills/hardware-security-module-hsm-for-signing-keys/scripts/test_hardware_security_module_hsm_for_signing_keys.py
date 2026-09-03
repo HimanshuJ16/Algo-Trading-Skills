@@ -1,11 +1,11 @@
 """
 Tests for the HSM signing policy engine.
 
-The pre-2.0 suite asserted only that a signature string was non-empty and that
+an earlier suite asserted only that a signature string was non-empty and that
 `is_signature_valid` was True - a field hard-coded to True. Every test below
 asserts a behaviour that can actually fail: the curve order is cross-checked
 against an independently published constant, denials are asserted to appear in
-the audit log, and each regression test names the pre-2.0 behaviour it pins.
+the audit log, and each regression test names the the older behaviour it pins.
 """
 import logging
 import threading
@@ -122,7 +122,7 @@ class TestKeyRegistration(unittest.TestCase):
         self.engine = HsmSigningManagerEngine()
 
     def test_duplicate_alias_raises_instead_of_overwriting(self):
-        # Regression: the pre-2.0 generate_hardware_key silently replaced an
+        # Regression: an earlier generate_hardware_key silently replaced an
         # existing alias, destroying the metadata of a live signing key.
         self.engine.register_hardware_key("CUSTODY_HOT_01", slot_id=1)
         with self.assertRaises(HsmKeyAlreadyRegisteredError):
@@ -130,7 +130,7 @@ class TestKeyRegistration(unittest.TestCase):
         self.assertEqual(self.engine.get_key("CUSTODY_HOT_01").slot_id, 1)
 
     def test_blank_alias_is_rejected(self):
-        # Regression: the pre-2.0 engine accepted "" and "   " as key aliases.
+        # Regression: a naive engine accepted "" and "   " as key aliases.
         for alias in ("", "   ", "\t"):
             with self.assertRaises(ValueError):
                 self.engine.register_hardware_key(alias)
@@ -148,7 +148,7 @@ class TestKeyRegistration(unittest.TestCase):
     def test_unknown_alias_lookup_raises_key_not_found(self):
         with self.assertRaises(HsmKeyNotFoundError):
             self.engine.get_key("NOPE")
-        # Still a ValueError, as the pre-2.0 API raised.
+        # Still a ValueError, as an earlier API raised.
         with self.assertRaises(ValueError):
             self.engine.get_key("NOPE")
 
@@ -177,7 +177,7 @@ class TestKeyAttributeAudit(unittest.TestCase):
 
     def test_non_sensitive_key_is_critical_even_when_non_extractable(self):
         # CKA_EXTRACTABLE=False does not stop C_GetAttributeValue reading the
-        # value; the pre-2.0 model tracked only extractability.
+        # value; an earlier model tracked only extractability.
         self.engine.register_hardware_key(
             "READABLE", sensitive=False, always_sensitive=False,
             fips_certificate_number="4703",
@@ -239,7 +239,7 @@ class TestExportRejection(unittest.TestCase):
     def test_export_attempt_raises_and_is_audited(self):
         with self.assertRaises(HsmPolicyViolationError):
             self.engine.attempt_export_private_key("CUSTODY_HOT_01", NOW)
-        # Still a PermissionError, as the pre-2.0 API raised.
+        # Still a PermissionError, as an earlier API raised.
         log = self.engine.audit_log
         self.assertEqual(len(log), 1)
         self.assertEqual(log[0].status, SigningStatus.EXPORT_ATTEMPT_REJECTED.value)
@@ -250,7 +250,7 @@ class TestExportRejection(unittest.TestCase):
             self.engine.attempt_export_private_key("CUSTODY_HOT_01", NOW)
 
     def test_export_of_an_extractable_key_still_raises(self):
-        # Regression: the pre-2.0 method returned None (a silent pass) whenever
+        # Regression: an earlier method returned None (a silent pass) whenever
         # is_extractable was True.
         self.engine.register_hardware_key("WEAK", extractable=True)
         with self.assertRaises(HsmPolicyViolationError):
@@ -290,7 +290,7 @@ class TestSigning(unittest.TestCase):
         self.assertTrue(self.engine.verify_audit_chain())
 
     def test_engine_signs_the_exact_bytes_given_without_rehashing(self):
-        # Regression: the pre-2.0 engine ran SHA-256 over whatever it was
+        # Regression: a naive engine ran SHA-256 over whatever it was
         # handed, so a caller passing an Ethereum Keccak-256 sighash got a
         # signature over sha256(keccak256(tx)) - valid, but over the wrong value.
         seen = {}
@@ -333,7 +333,7 @@ class TestSigning(unittest.TestCase):
         self.assertIsNone(record.signature_hex)
 
     def test_admin_cannot_sign_by_default_but_can_be_allowed_explicitly(self):
-        # Segregation of duties: the pre-2.0 engine let ADMIN sign implicitly.
+        # Segregation of duties: a naive engine let ADMIN sign implicitly.
         with self.assertRaises(HsmAuthorizationError):
             self.engine.sign_transaction_payload(
                 self._request(caller_role="ADMIN"), stub_signer(VALID_LOW_S_SIG), NOW

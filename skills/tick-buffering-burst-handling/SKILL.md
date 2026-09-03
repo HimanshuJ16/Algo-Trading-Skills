@@ -1,21 +1,18 @@
 ---
 name: tick-buffering-burst-handling
-description: Use when sizing and managing in-memory buffers for market data so volatility
-  bursts don't cause unbounded memory growth or silent tick loss
-domain: algorithmic-trading
-subdomain: real-time-architecture
-tags:
-- real-time-architecture
-- tick-buffering
-- burst-handling
-- thread-safety
-brokers_frameworks:
-- Zerodha Kite Connect v3 (WebSocket streaming)
-- Binance Spot WebSocket Streams
-- Nasdaq UTP SIP (UQDF/UTDF)
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when sizing in-memory tick buffers so an expiry or news burst neither drops data
+  silently nor grows unbounded into an OOM kill. Pairs with
+  producer-consumer-tick-pipeline; sustained backlog belongs to
+  backpressure-drop-degrade-policy.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: real-time-architecture, tick-buffering, burst-handling, thread-safety
+  brokers_frameworks: "Zerodha Kite Connect v3 (WebSocket streaming); Binance Spot WebSocket Streams; Nasdaq UTP SIP (UQDF/UTDF)"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

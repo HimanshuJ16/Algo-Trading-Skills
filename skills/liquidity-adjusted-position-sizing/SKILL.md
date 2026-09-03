@@ -1,23 +1,17 @@
 ---
 name: liquidity-adjusted-position-sizing
-description: Use when calculating portfolio position sizes to cap allocations by Average
-  Daily Volume (ADV) and order book depth, enforcing Days-to-Liquidate (DTL) limits
-  and preventing market impact lockup.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- position-sizing
-- liquidity-adjustment
-- adv-cap
-- days-to-liquidate
-- market-impact
-brokers_frameworks:
-- Liquidity Position Sizer Engine
-- Python NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when sizing across instruments of very different liquidity, capping each position
+  by average daily volume and book depth under a days-to-liquidate limit, so a position
+  cannot be entered that cannot be exited.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, position-sizing, liquidity-adjustment, adv-cap, days-to-liquidate, market-impact
+  brokers_frameworks: "Liquidity Position Sizer Engine; Python NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,14 +1,17 @@
 ---
 name: log-aggregation-and-centralized-observability
 description: >-
-  Centralized logging and observability pipeline for distributed trading microservices — redacting credential-bearing metadata keys before logs leave the host, emitting structured JSON lines with OpenTelemetry SeverityNumbers and microsecond timestamps for Grafana Loki / OpenTelemetry Collector ingestion, sampling high-volume diagnostic levels, and flagging error-velocity spikes per batch.
-domain: System Architecture & Infrastructure
-subdomain: Observability & Distributed Logging
-tags: ["log-aggregation", "observability", "opentelemetry", "grafana-loki", "elk-stack", "structured-json", "credential-redaction", "error-spike-alert"]
-brokers_frameworks: ["OpenTelemetry Collector", "Grafana Loki API", "Python Dataclasses"]
-version: "1.1.0"
-author: algo-trading-skills-contributors
+  Use when distributed trading services ship logs off-host to Loki, an OpenTelemetry
+  collector or ELK; redacts credential-bearing keys before they leave, and emits
+  structured JSON with trace correlation.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: log-aggregation, observability, opentelemetry, grafana-loki, elk-stack, structured-json, credential-redaction, error-spike-alert
+  brokers_frameworks: "OpenTelemetry Collector; Grafana Loki API; Python Dataclasses"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

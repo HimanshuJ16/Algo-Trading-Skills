@@ -1,25 +1,17 @@
 ---
 name: cross-sectional-vs-time-series-model-design
-description: Quantitative model architecture selector for distinguishing between Cross-Sectional
-  (relative ranking, dollar-neutral) and Time-Series (absolute trend, volatility-scaled)
-  alpha strategies.
-domain: Quant Research & Modeling
-subdomain: Model Architecture Design
-tags:
-- quant-modeling
-- cross-sectional
-- time-series
-- z-score
-- market-neutral
-- volatility-scaling
-- alpha-factors
-brokers_frameworks:
-- Pandas
-- NumPy
-- Scikit-Learn
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when choosing between a cross-sectional model that ranks instruments against peers
+  at one timestamp and a time-series model that scores each instrument against its own
+  history; the two imply different neutrality and sizing.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: financial-ml
+  tags: quant-modeling, cross-sectional, time-series, z-score, market-neutral, volatility-scaling, alpha-factors
+  brokers_frameworks: "Pandas; NumPy; Scikit-Learn"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

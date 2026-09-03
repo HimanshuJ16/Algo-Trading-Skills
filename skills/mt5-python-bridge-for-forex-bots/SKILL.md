@@ -1,24 +1,17 @@
 ---
 name: mt5-python-bridge-for-forex-bots
-description: Use when a Python bot submits market deals to a MetaTrader 5 terminal
-  and needs MqlTradeRequest construction, broker-metadata-driven volume/stop/filling
-  validation, and TRADE_RETCODE triage that separates a fill from an unknown outcome
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- mt5
-- metatrader-5
-- mql5
-- order-send
-- trade-retcode
-- forex-bot
-brokers_frameworks:
-- MetaTrader 5 Python API
-- MQL5 Trade Engine
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a Python bot submits market deals to a MetaTrader 5 terminal: MqlTradeRequest
+  construction, volume, stop and filling-mode validation against broker metadata, and
+  TRADE_RETCODE triage. Windows x86-64 only.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: global-market-integration
+  tags: broker-integration, mt5, metatrader-5, mql5, order-send, trade-retcode, forex-bot
+  brokers_frameworks: "MetaTrader 5 Python API; MQL5 Trade Engine"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

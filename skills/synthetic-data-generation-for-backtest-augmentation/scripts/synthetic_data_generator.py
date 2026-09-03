@@ -228,7 +228,7 @@ class GARCHPath:
     volatility), and ``returns`` has ``steps`` entries, where ``returns[t - 1]``
     is the log return realized over ``prices[t - 1] -> prices[t]``.
 
-    Iterating yields ``(prices, sigmas)`` so that the pre-2.0 two-tuple
+    Iterating yields ``(prices, sigmas)`` so that an earlier two-tuple
     unpacking ``prices, sigmas = generate_garch(cfg)`` keeps working unchanged.
     The return series -- which the workflow feeds to
     :meth:`SyntheticDataGenerator.validate_synthetic_path` -- is available as
@@ -380,7 +380,7 @@ class SyntheticDataGenerator:
         The recursion is started **at the stationary point**: both ``sigma_0^2``
         and ``eps_0^2`` are set to the unconditional variance
         ``omega / (1 - alpha - beta)``, so ``sigma_1^2`` equals it exactly and no
-        burn-in is required. (Starting from ``eps_0 = 0``, as the pre-2.0
+        burn-in is required. (Starting from ``eps_0 = 0``, as an earlier
         implementation did, gave ``sigma_1^2 = omega + beta * sigma_bar^2``,
         strictly below the stationary level, so early bars were systematically
         under-volatile.)
@@ -600,7 +600,7 @@ class SyntheticDataGenerator:
 
         if h_vol <= 0.0:
             # A constant baseline gives no scale to measure relative error
-            # against. The pre-2.0 code divided by max(h_vol, 1e-6): two
+            # against. a naive code divided by max(h_vol, 1e-6): two
             # different constant series (0.001 vs 0.002) both had ~1e-19 residual
             # dispersion, so the relative error came out near zero and the report
             # certified them "statistically consistent" -- a passing verdict

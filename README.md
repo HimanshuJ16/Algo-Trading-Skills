@@ -2,21 +2,20 @@
 
 # Algo-Trading-Skills
 
-### The largest open-source algorithmic trading skills library for AI agents
+### An open-source algorithmic trading skills library for AI agents
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](LICENSE)
 [![Validate & Test Skills](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml)
-[![Skills Built](https://img.shields.io/badge/skills_built-504-brightgreen?style=flat-square)](#whats-inside--16-categories)
-[![Tests](https://img.shields.io/badge/tests-20%2C302_passing-brightgreen?style=flat-square)](#what-production-grade-means-here)
-[![Roadmap](https://img.shields.io/badge/roadmap-504_built-brightgreen?style=flat-square)](docs/ROADMAP_500.md)
+[![Skills](https://img.shields.io/badge/skills-501-brightgreen?style=flat-square)](#whats-inside--16-categories)
+[![Tests](https://img.shields.io/badge/tests-20%2C302_passing-brightgreen?style=flat-square)](#what-verified-means-here)
 [![Domains](https://img.shields.io/badge/domains-16-9cf?style=flat-square)](#whats-inside--16-categories)
-[![Platforms](https://img.shields.io/badge/platforms-26%2B-blueviolet?style=flat-square)](#compatible-platforms--zero-config-auto-discovery)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square)](#quick-start)
 [![agentskills.io](https://img.shields.io/badge/standard-agentskills.io-ff6600?style=flat-square)](https://agentskills.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-**504 production-grade algorithmic trading skills · 16 engineering domains · 5 regulatory & exchange frameworks · 504 working reference implementations backed by 20,302 unit tests · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 26+ platforms · Apache 2.0**
+**501 algorithmic trading skills · 16 engineering domains · 5 regulatory & exchange frameworks · 501 working reference implementations backed by 20,289 unit tests · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI and any tool that reads `SKILL.md` · Apache 2.0**
 
-[Get Started](#quick-start) · [What's Inside](#whats-inside--16-categories) · [How It's Verified](#what-production-grade-means-here) · [Frameworks & Standards](#five-regulatory--exchange-frameworks-one-skill-library) · [Platforms](#compatible-platforms--zero-config-auto-discovery) · [Contributing](#contributing)
+[Get Started](#quick-start) · [What's Inside](#whats-inside--16-categories) · [How It's Verified](#what-verified-means-here) · [Frameworks & Standards](#five-regulatory--exchange-frameworks-one-skill-library) · [Platforms](#compatible-platforms--zero-config-auto-discovery) · [Contributing](#contributing)
 
 ---
 
@@ -32,9 +31,9 @@ An AI coding agent can write a WebSocket client, a backtest loop, or an order-pl
 
 **Your AI agent doesn't know these failure modes — unless you give it these skills.**
 
-This repo contains **504 structured skills** spanning **16 engineering domains**, each following the [agentskills.io](https://agentskills.io) open standard. The library maps across key financial regulatory & exchange frameworks — SEC Rule 15c3-5, Reg NMS / Reg SHO, FINRA, EU MiFID II / RTS 6 / MAR, UK FCA, ASIC, SEBI, and ISDA OTC derivative standards. Clone it, point your agent at it, and your next trading system deployment gets expert-level quant infrastructure guidance in seconds.
+This repo contains **501 structured skills** spanning **16 engineering domains**, each following the [agentskills.io](https://agentskills.io) open standard. The library maps across key financial regulatory & exchange frameworks — SEC Rule 15c3-5, Reg NMS / Reg SHO, FINRA, EU MiFID II / RTS 6 / MAR, UK FCA, ASIC, SEBI, and ISDA OTC derivative standards. Clone it, point your agent at it, and your next trading system deployment gets expert-level quant infrastructure guidance in seconds.
 
-Every skill also states **where it stops**. A `## When NOT to Use` section on all 504 skills names the cases the skill does not cover and hands each one to the skill that does — because an agent applying a correct playbook to the wrong problem is its own failure mode, and it is the one a keyword match is most likely to cause.
+Every skill also states **where it stops**. A `## When NOT to Use` section on all 501 skills names the cases the skill does not cover and hands each one to the skill that does — because an agent applying a correct playbook to the wrong problem is its own failure mode, and it is the one a keyword match is most likely to cause.
 
 ---
 
@@ -65,17 +64,30 @@ Each skill maps to the industry standards, exchange protocols, and regulatory ma
 ## Quick start
 
 ```bash
-# Option 1: Install directly with skills CLI (recommended)
+# Option 1: Claude Code — install one domain, not the whole library
+/plugin marketplace add HimanshuJ16/Algo-Trading-Skills
+/plugin install algo-trading-risk-management
+/plugin install algo-trading-broker-integration
+
+# Option 2: skills CLI — pick the skills you want interactively
 npx skills add HimanshuJ16/Algo-Trading-Skills
 
-# Option 2: Git clone
+# Option 3: git clone, then run the gates yourself
 git clone https://github.com/HimanshuJ16/Algo-Trading-Skills.git
 cd Algo-Trading-Skills
 pip install -r requirements-dev.txt
 
-python tools/validate_skills.py    # structure, frontmatter & cross-references (504/504 pass)
-python tools/run_all_tests.py      # 20,302 unit tests across 504 skills (~60-85s)
+python tools/validate_skills.py    # structure, frontmatter, cross-references & packaging
+python tools/run_all_tests.py      # every skill's unit test suite, isolated per subprocess
 ```
+
+**Install one domain, not all of them.** Claude Code loads the name and description of
+every skill in an installed plugin into the model's context at the start of every
+session. The marketplace therefore ships **one plugin per engineering domain**
+(`algo-trading-risk-management`, `algo-trading-execution-algorithms`, …), each a few
+thousand tokens. An `algo-trading-skills-all` plugin exists for completeness, but it
+costs tens of thousands of tokens per session — reach for it only if you know you want
+that.
 
 Run one skill's suite on its own — the same command every skill quotes in its own Verification section:
 
@@ -89,7 +101,7 @@ Works immediately with Claude Code, GitHub Copilot, OpenAI Codex CLI, Cursor, Ge
 
 ## Why this exists
 
-The quantitative trading and financial software engineering domain requires deep practitioner knowledge across market microstructure, exchange protocols, and risk engineering. AI agents can help build and scale trading infrastructure — but only if they have structured practitioner playbooks to work from. Today's generic LLMs can write Python code and API wrappers, but they lack the operational context that turns generic code into institutional-grade trading systems.
+The quantitative trading and financial software engineering domain requires deep practitioner knowledge across market microstructure, exchange protocols, and risk engineering. AI agents can help build and scale trading infrastructure — but only if they have structured practitioner playbooks to work from. Today's generic LLMs can write Python code and API wrappers, but they lack the operational context that separates code which works in a notebook from code that survives a live market.
 
 Existing trading libraries give you broker SDKs, indicator formulas, or naive strategy backtests. None of them give an AI agent the structured decision-making workflow a senior quant infrastructure engineer follows: when to use each technique, when *not* to, what prerequisites to check, how to execute step-by-step, and how to verify results in production. That is the gap this project fills.
 
@@ -97,20 +109,26 @@ Existing trading libraries give you broker SDKs, indicator formulas, or naive st
 
 ---
 
-## What "production-grade" means here
+## What "verified" means here
 
-Skill libraries are easy to generate and hard to trust. Everything in this table is re-checked by CI on every push and pull request, so the claims stay true or the build goes red.
+Skill libraries are easy to generate and hard to trust. Everything in this table is re-checked
+by CI on every push and pull request, on Python 3.10, 3.12 and 3.13, so the claims stay true or
+the build goes red.
 
 | | |
 |---|---|
-| **504 working reference implementations** | ~292,000 lines of Python under `skills/*/scripts/`. Not pseudocode — importable modules with validated inputs and named exceptions. 465 of the 504 import nothing outside the Python standard library; the 39 that do reach mostly for numpy or pandas, and the uncommon dependencies are guarded imports, so the whole suite still runs on `requirements-dev.txt` alone. |
-| **504 unit test suites · 20,302 tests** | ~228,000 lines of tests, whole suite in ~60-85 seconds. A skill whose own reference implementation fails its own tests fails the build. |
-| **A machine-enforced contract** | [`tools/validate_skills.py`](tools/validate_skills.py) checks frontmatter fields and semver, the seven required body sections, every `Related Skills` cross-reference against a real directory, the `scripts/` layout, and that every test command quoted anywhere in a skill's Markdown actually runs from the repository root. |
-| **Verification you can paste** | All 504 skills quote a runnable command in their `## Verification` section, alongside the concrete assertions to check by hand. |
-| **Sourced, or explicitly unsourced** | 461 of 504 `references/standards.md` cite at least one primary source — the rule text, the exchange notice, the vendor spec. Where no external standard exists, the file says so and labels its numbers as configurable defaults rather than inventing an authority for them. |
+| **501 working reference implementations** | ~292,000 lines of Python under `skills/*/scripts/`. Not pseudocode — importable modules with validated inputs and named exceptions. 466 of the 501 import nothing outside the Python standard library; the 35 that do reach mostly for numpy or pandas, so the whole suite still runs on `requirements-dev.txt` alone. |
+| **501 unit test suites · 20,289 tests** | ~228,000 lines of tests. Each suite runs in its own subprocess with a timeout, so no skill can leak module state into another or hang the build. A skill whose own reference implementation fails its own tests fails the build. |
+| **A machine-enforced contract** | [`tools/validate_skills.py`](tools/validate_skills.py) checks the frontmatter contract, the seven required body sections, `scripts/` layout, every skill cross-reference in both skills and repo docs, that every documented test command runs from the repository root, and that the plugin manifests cover every skill exactly once. |
+| **The specification, not our reading of it** | CI also runs [`skills-ref`](https://github.com/agentskills/agentskills/tree/main/skills-ref), the official agentskills.io reference validator, against every skill. |
+| **Descriptions that say when to trigger** | Every description starts with "Use when …" and fits in 280 characters — enforced, because it is the only thing an agent reads before choosing a skill, and it costs context on every session. |
+| **Generated files can't drift** | `index.json` and the plugin marketplace are generated and carry no timestamp; `--check` modes fail CI if either is stale. |
+| **Verification you can paste** | Every skill quotes a runnable command in its `## Verification` section, alongside the concrete assertions to check by hand. |
+| **Sourced, or explicitly unsourced** | 458 of 501 `references/standards.md` cite at least one primary source — the rule text, the exchange notice, the vendor spec. Where no external standard exists, the file says so and labels its numbers as configurable defaults rather than inventing an authority for them. |
 | **Stated scope boundaries** | `## When NOT to Use` on every skill, naming the excluded cases and handing each to the skill that owns it. |
+| **Examples that use the real code** | The three walkthroughs in `examples/` import the actual skill helpers rather than re-implementing them, and CI runs all three. |
 
-The CI workflow is [`.github/workflows/validate-skills.yml`](.github/workflows/validate-skills.yml): validate, then run all 504 suites, on every push and PR to `main`.
+The CI workflow is [`.github/workflows/validate-skills.yml`](.github/workflows/validate-skills.yml).
 
 ---
 
@@ -118,47 +136,47 @@ The CI workflow is [`.github/workflows/validate-skills.yml`](.github/workflows/v
 
 The library covers 16 core engineering domains spanning domestic and global markets — crypto exchanges, forex brokers, multi-currency and multi-timezone data handling, regulatory compliance, multi-asset derivatives, execution algorithms, custody/security, cross-strategy portfolio management, market microstructure, alternative-data research, and tax/accounting.
 
-| Domain | Built | Total Tracked | Key capabilities |
-|---|---|---|---|
-| [`broker-integration`](skills/) | **36** | 36 | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting, borrow cost modeling, cost budgeting |
-| [`real-time-architecture`](skills/) | **31** | 31 | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket reconnection without duplicate subscriptions |
-| [`backtesting-methodology`](skills/) | **31** | 31 | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation, synthetic data generation, standardized tearsheets |
-| [`financial-ml`](skills/) | **38** | 38 | Leakage-free feature engineering, offline-train/online-infer deployment, triple barrier labeler, sample weighting, model staleness detection |
-| [`risk-management`](skills/) | **39** | 39 | Kill switches and drawdown circuit breakers, correlation-aware exposure limits, Kupiec test VaR backtesting, tail risk hedging, risk escalation matrices |
-| [`deployment-ops`](skills/) | **30** | 30 | systemd process supervision, paper-to-live promotion checklist, IaC for trading hosts, canary releases, chaos engineering, secrets vault |
-| [`global-market-integration`](skills/) | **44** | 44 | Crypto exchange APIs (Binance/Coinbase/Kraken/Deribit/Bybit/OKX), FX (OANDA/MT5), CME Globex, Eurex, HKEX, SGX, ASX, JPX, CBOE, LSE, Xetra |
-| [`regulatory-compliance-global`](skills/) | **38** | 38 | US SEC Rule 15c3-5, PDT, FINRA, EU MiFID II/RTS 6/MAR, UK FCA, ASIC, MAS, India SEBI, Canada IIROC, Hong Kong SFC, Japan FSA |
-| [`multi-asset-derivatives`](skills/) | **28** | 28 | SPAN margin calculation, futures contract roll automation, real-time Greeks aggregation, perpetual futures funding rates, variance swaps, CDS, quanto options |
-| [`execution-algorithms`](skills/) | **33** | 33 | TWAP/VWAP order slicing, POV execution, implementation shortfall minimization, iceberg detection, smart order routing (SOR), dark pool routing, auctions |
-| [`data-management-global`](skills/) | **37** | 37 | Global exchange holiday calendars, DST transition handling, multi-timezone session scheduling, multi-currency P&L, ISIN/CUSIP/SEDOL cross-referencing |
-| [`crypto-custody-security`](skills/) | **29** | 29 | Wallet key custody, hot-cold split, withdrawal whitelisting, multi-sig approval, HSM integration, Shamir secret sharing, MPC custody |
-| [`portfolio-multi-strategy`](skills/) | **30** | 30 | Cross-strategy correlation monitoring, performance-based capital reallocation, strategy retirement criteria, risk parity allocation, meta-strategy signal arbitration |
-| [`market-microstructure-latency`](skills/) | **24** | 24 | Colocation latency budgets, PTP clock sync, tick-to-trade measurement, order book signals, adverse selection measurement, FPGA/microwave evaluation |
-| [`quant-research-alt-data`](skills/) | **20** | 20 | Satellite imagery signals, credit card transaction data, web-scraped sentiment, supply chain networks, Google Trends, social media bot filtering, transcript NLP |
-| [`tax-accounting-reporting-global`](skills/) | **16** | 16 | US wash sale tracking, FIFO vs specific-lot accounting, Section 475 MTM election, crypto tax lot tracking, 1099-B reconciliation, Section 1256 futures tax |
+| Domain | Skills | Key capabilities |
+|---|---|---|
+| [`broker-integration`](skills/) | **36** | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting, borrow cost modeling, cost budgeting |
+| [`real-time-architecture`](skills/) | **31** | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket subscription reconciliation after a reconnect |
+| [`backtesting-methodology`](skills/) | **31** | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation, synthetic data generation, standardized tearsheets |
+| [`financial-ml`](skills/) | **38** | Leakage-free feature engineering, offline-train/online-infer deployment, triple barrier labeler, sample weighting, model staleness detection |
+| [`risk-management`](skills/) | **39** | Kill switches and drawdown circuit breakers, correlation-aware exposure limits, Kupiec test VaR backtesting, tail risk hedging, risk escalation matrices |
+| [`deployment-ops`](skills/) | **30** | systemd process supervision, paper-to-live promotion checklist, IaC for trading hosts, canary releases, chaos engineering, secrets vault |
+| [`global-market-integration`](skills/) | **44** | Crypto exchange APIs (Binance/Coinbase/Kraken/Deribit/Bybit/OKX), FX (OANDA/MT5), CME Globex, Eurex, HKEX, SGX, ASX, JPX, CBOE, LSE, Xetra |
+| [`regulatory-compliance-global`](skills/) | **38** | US SEC Rule 15c3-5, PDT, FINRA, EU MiFID II/RTS 6/MAR, UK FCA, ASIC, MAS, India SEBI, Canada IIROC, Hong Kong SFC, Japan FSA |
+| [`multi-asset-derivatives`](skills/) | **28** | SPAN margin calculation, futures contract roll automation, real-time Greeks aggregation, perpetual futures funding rates, variance swaps, CDS, quanto options |
+| [`execution-algorithms`](skills/) | **33** | TWAP/VWAP order slicing, POV execution, implementation shortfall minimization, iceberg detection, smart order routing (SOR), dark pool routing, auctions |
+| [`data-management-global`](skills/) | **37** | Global exchange holiday calendars, DST transition handling, multi-timezone session scheduling, multi-currency P&L, ISIN/CUSIP/SEDOL cross-referencing |
+| [`crypto-custody-security`](skills/) | **29** | Wallet key custody, hot-cold split, withdrawal whitelisting, multi-sig approval, HSM integration, Shamir secret sharing, MPC custody |
+| [`portfolio-multi-strategy`](skills/) | **30** | Cross-strategy correlation monitoring, performance-based capital reallocation, strategy retirement criteria, risk parity allocation, meta-strategy signal arbitration |
+| [`market-microstructure-latency`](skills/) | **24** | Colocation latency budgets, PTP clock sync, tick-to-trade measurement, order book signals, adverse selection measurement, FPGA/microwave evaluation |
+| [`quant-research-alt-data`](skills/) | **20** | Satellite imagery signals, credit card transaction data, web-scraped sentiment, supply chain networks, Google Trends, social media bot filtering, transcript NLP |
+| [`tax-accounting-reporting-global`](skills/) | **16** | US wash sale tracking, FIFO vs specific-lot accounting, Section 475 MTM election, crypto tax lot tracking, 1099-B reconciliation, Section 1256 futures tax |
 
-Full indexed list with build status: [`index.json`](index.json). Full 504-entry roadmap with one-line scope for every skill: [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md).
+Full searchable index: [`index.json`](index.json). Every skill listed by domain with its trigger description: [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md).
 
 ---
 
 ## How AI agents use these skills
 
-The full library is roughly **1.4 million tokens** of Markdown — far past any context window. Progressive disclosure is what makes it usable: an agent searches short descriptions to find the right skill, then loads only that one.
+The full library is roughly **3.5 million tokens** of Markdown — far past any context window. Progressive disclosure is what makes it usable: an agent searches short descriptions to find the right skill, then loads only that one.
 
 | Stage | What the agent reads | Cost |
 |---|---|---|
-| **Discover** | `index.json` — name + description for all 504 skills, queryable without touching a single skill file | ~90 tokens per skill |
+| **Discover** | `index.json` — name + description for every skill, queryable without touching a single skill file | ~80 tokens per skill |
 | **Load** | The one matching `SKILL.md` — workflow, scope boundaries, pitfalls, verification | ~2,000-3,700 tokens (median ~2,700) |
 | **Go deeper** | `references/` and `scripts/` for that skill only, once it is actually implementing | on demand |
 
-Because `index.json` is a flat JSON array, an agent narrows 504 candidates to a handful with a grep or a filter before loading anything.
+`index.json` is a single JSON object with a `skills` array and a `subdomains` count map, so an agent can filter by domain or grep descriptions and narrow the whole library to a handful of candidates before loading anything.
 
 User prompt: *"My Fyers bot's live orders keep getting placed twice after a timeout"*
 
 Agent's internal process:
 
 ```text
-  1. Queries index.json descriptions for all 504 skills
+  1. Queries index.json descriptions for all 501 skills
      → identifies order-placement-idempotency and token-lifecycle-live-probing as top matches.
 
   2. Loads top match: skills/order-placement-idempotency/SKILL.md
@@ -203,27 +221,28 @@ Each helper is a **standalone module** — no imports from other skills, no shar
 ```yaml
 ---
 name: order-placement-idempotency
-description: Use whenever a bot places, modifies, or cancels live orders and must
-  guarantee it never double-executes an order due to retries, timeouts, or reconnects
-domain: algorithmic-trading
-subdomain: broker-integration
-tags:
-- broker-integration
-- fyers-api-v3
-- zerodha-kite-connect
-- icici-breeze-api
-brokers_frameworks:
-- Fyers API v3
-- Zerodha Kite Connect
-- ICICI Breeze API
-- Upstox API v2
-- Alpaca Trading API
-- IBKR API
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use whenever a bot places, modifies, or cancels live orders and must guarantee it
+  never double-executes an order due to retries, timeouts, or reconnects
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: broker-integration
+  tags: broker-integration, idempotency, client-order-id, order-ledger, retry-safety
+  brokers_frameworks: Fyers API v3; Zerodha Kite Connect; Upstox API v2; IBKR API
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 ```
+
+The [agentskills.io specification](https://agentskills.io/specification) allows six
+top-level fields, so everything this repository adds lives under `metadata:` as string
+values. Two rules on `description` do the heavy lifting for discovery: it starts with
+**"Use when …"** (the situation an agent is in, not a description of the subject), and
+it fits in **280 characters**, because every installed skill's description is loaded
+into context on every session. Both are enforced by
+[`tools/validate_skills.py`](tools/validate_skills.py), alongside the official
+`skills-ref validate`.
 
 ### Markdown body sections
 
@@ -247,7 +266,7 @@ This repository includes native auto-discovery instructions for all major AI cod
 
 | Platform / Agent | Zero-Config Rule File | Auto-Discovery Standard |
 |---|---|---|
-| **Claude Code** | [`CLAUDE.md`](CLAUDE.md) / [`.claude/config.json`](.claude/config.json) | Anthropic Claude Code project convention |
+| **Claude Code** | [`CLAUDE.md`](CLAUDE.md) + [`.claude-plugin/`](.claude-plugin/) | Anthropic Claude Code project + plugin marketplace convention |
 | **OpenAI Codex CLI / OpenHands** | [`AGENTS.md`](AGENTS.md) | Open cross-tool agent instruction format |
 | **Gemini CLI** | [`GEMINI.md`](GEMINI.md) | Google Gemini CLI project instructions |
 | **GitHub Copilot** | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) | GitHub Copilot repo-level rules |
@@ -257,19 +276,10 @@ This repository includes native auto-discovery instructions for all major AI cod
 | **Continue** | [`.continue/rules/algo-trading-skills.md`](.continue/rules/algo-trading-skills.md) | Continue dev auto-discovery rule |
 | **Aider** | [`CONVENTIONS.md`](CONVENTIONS.md) / [`.aider.conf.yml`](.aider.conf.yml) | Aider project conventions |
 
-### AI code assistants
-Claude Code (Anthropic) · GitHub Copilot (Microsoft) · Cursor · Windsurf · Cline · Aider · Continue · Roo Code · Amazon Q Developer · Tabnine · Sourcegraph Cody · JetBrains AI
-
-### CLI agents
-OpenAI Codex CLI · Gemini CLI (Google)
-
-### Autonomous agents
-Devin · Replit Agent · SWE-agent · OpenHands
-
-### Agent frameworks & SDKs
-LangChain · CrewAI · AutoGen · Semantic Kernel · Haystack · Vercel AI SDK · Any MCP-compatible agent
-
-All platforms that support the [agentskills.io](https://agentskills.io) standard load these skills with zero configuration.
+The table above lists the tools this repository ships a rule file for. Beyond those,
+the skills are plain `SKILL.md` directories in the [agentskills.io](https://agentskills.io)
+format, so any agent or framework that reads that format can load them — point it at
+`skills/` and it has everything it needs.
 
 ---
 
@@ -295,9 +305,11 @@ This repository supports machine-discoverable documentation standards for LLMs a
 
 ## Releases & Build Verification
 
-| Version | Highlights | Status |
-|---|---|:---:|
-| **v1.0.0** | 504 skills · 16 domains · 504 reference implementations · 504 unit test suites · `tools/validate_skills.py` + `tools/run_all_tests.py` CI-enforced | **504/504 skills validated · 20,302/20,302 tests passing** |
+| Version | Highlights |
+|---|---|
+| **v3.0.0** | Frontmatter migrated to the agentskills.io specification (repo fields under `metadata:`), one Claude Code plugin per domain instead of one monolith, descriptions rewritten as "Use when …" triggers capped at 280 characters, duplicate skills merged, and CI extended with `skills-ref`, a Python version matrix, generated-file drift checks and the cookbook examples. See [CHANGELOG.md](CHANGELOG.md). |
+| **v2.0.0** | Reference implementations upgraded across the core broker, risk and real-time skills. |
+| **v1.0.0** | Initial library across 16 engineering domains, with `tools/validate_skills.py` and `tools/run_all_tests.py` enforced in CI. |
 
 ---
 
@@ -333,7 +345,7 @@ If you use this project in research or publications:
   year         = {2026},
   url          = {https://github.com/HimanshuJ16/Algo-Trading-Skills},
   license      = {Apache-2.0},
-  note         = {504 structured algorithmic trading skills for AI agents,
+  note         = {501 structured algorithmic trading skills for AI agents,
                   mapped to SEC Rule 15c3-5, Reg NMS, MiFID II, FCA, SEBI, and ISDA standards}
 }
 ```

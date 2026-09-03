@@ -180,8 +180,7 @@ and safeguarding requirements, took effect **2024-04-04**.
 | Daily reconciliation of customers' assets | Mandatory |
 | At least **90%** of customers' DPTs held in wallets not connected to the internet | **Supervisory expectation** ("should"), not a statutory obligation |
 
-Two things MAS **did not** do, and which earlier revisions of this skill wrongly
-asserted:
+Two things MAS **did not** do, and which are commonly asserted anyway:
 
 - **No mandated independent third-party custodian.** A provider may maintain the
   trust account itself, subject to suitability assessment and controls.

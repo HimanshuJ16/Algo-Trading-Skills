@@ -1,14 +1,17 @@
 ---
 name: latency-arbitrage-defensive-order-sizing
 description: >-
-  Defensive sizing for a passive quote exposed to stale-quote sniping across a cross-venue cancel latency gap. Scores a Poisson sniping hazard, scales the shown quantity down, widens the quoted spread, pulls the quote above a risk threshold or below the instrument's round lot, and fails closed on unreadable latency telemetry.
-domain: Market Microstructure & Latency
-subdomain: HFT Defense & Passive Liquidity Risk
-tags: ["latency-arbitrage", "adverse-selection", "sniping-risk", "defensive-order-sizing", "market-making", "microstructure", "spread-widening"]
-brokers_frameworks: ["Cross-Venue Latency Telemetry", "FIX Order Gateway", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a passive quote rests on a venue slower to reach than the one where price
+  discovery happens, scoring the sniping hazard across the cancel latency gap and
+  reducing shown size or widening the quote.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: latency-arbitrage, adverse-selection, sniping-risk, defensive-order-sizing, market-making, microstructure, spread-widening
+  brokers_frameworks: "Cross-Venue Latency Telemetry; FIX Order Gateway; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

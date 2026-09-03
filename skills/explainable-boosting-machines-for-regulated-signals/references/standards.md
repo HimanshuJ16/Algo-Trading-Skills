@@ -2,10 +2,9 @@
 
 ## Read this first
 
-An earlier version of this file asserted that "SR 11-7 Model Governance | EBM signals
-MUST provide exact, un-approximated feature attributions." No regulator has published
-that requirement. It has been removed rather than softened, and what the sources
-actually say is quoted below.
+No regulator has published a requirement that "EBM signals MUST provide exact,
+un-approximated feature attributions" — not under SR 11-7 model governance, not
+anywhere else. What the sources actually say is quoted below.
 
 Two things to keep straight:
 

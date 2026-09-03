@@ -1,25 +1,17 @@
 ---
 name: risk-budget-allocation-across-time-horizons
-description: Use when a multi-horizon book (intraday through multi-week) needs one portfolio
-  volatility budget split across horizon sleeves, deriving each sleeve's volatility target
-  and position-size scalar from its risk budget and auditing the 100% risk cap and the
-  portfolio drawdown cap.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- risk-budgeting
-- time-horizons
-- volatility-targeting
-- position-sizing
-- drawdown-limits
-brokers_frameworks:
-- Risk Budgeting (Bruder & Roncalli 2012)
-- Volatility Targeting
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when one account runs intraday through multi-week strategies and the portfolio
+  volatility budget must be split across horizon sleeves, deriving each sleeve's
+  volatility target and position-size scalar.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, risk-budgeting, time-horizons, volatility-targeting, position-sizing, drawdown-limits
+  brokers_frameworks: "Risk Budgeting (Bruder & Roncalli 2012); Volatility Targeting; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

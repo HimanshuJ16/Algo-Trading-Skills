@@ -1,14 +1,17 @@
 ---
 name: social-media-sentiment-signal-with-bot-filtering
 description: >-
-  Use when building a trading signal from social-media post streams (StockTwits, X/Twitter, Reddit) and the feed must be screened for bots, spam and coordinated campaigns first. Applies per-post screens (account age, posting-rate burst, spam patterns), batch-level coordination screens (near-duplicate text collapse, one-vote-per-author), financial-lexicon sentiment scoring with negation handling, and a baseline Z-score that is suppressed entirely when the contributor count is too small to interpret.
-domain: Quant Research & Alternative Data
-subdomain: Social Media NLP & Bot Filtering
-tags: ["social-media-sentiment", "bot-filtering", "spam-detection", "coordination-detection", "nlp-sentiment", "z-score-signal"]
-brokers_frameworks: ["StockTwits API", "X (Twitter) API v2", "Reddit API", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when building a signal from social media posts and the stream must be screened for
+  bots, spam and coordinated campaigns before aggregation. Metadata hygiene rules, not a
+  bot detector.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: quant-research-alt-data
+  tags: social-media-sentiment, bot-filtering, spam-detection, coordination-detection, nlp-sentiment, z-score-signal
+  brokers_frameworks: "StockTwits API; X (Twitter) API v2; Reddit API; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

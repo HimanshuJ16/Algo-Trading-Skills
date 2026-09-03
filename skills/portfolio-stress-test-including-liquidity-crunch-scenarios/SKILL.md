@@ -1,24 +1,17 @@
 ---
 name: portfolio-stress-test-including-liquidity-crunch-scenarios
-description: Use when stress-testing a portfolio against a scenario that combines a price
-  shock with a liquidity crunch, reporting the stressed mark-to-market loss, the cost of
-  liquidating into the crunch, and the Days-to-Liquidate (DTL) horizon per position.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- stress-testing
-- liquidity-crunch
-- days-to-liquidate
-- liquidation-cost
-- market-impact
-- square-root-law
-brokers_frameworks:
-- Portfolio Liquidity Stress Engine
-- Python Standard Library
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a scenario must answer not only what the book is worth after a shock but what
+  getting out costs and how long it takes, combining a price shock with a liquidity
+  crunch and a participation cap.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: portfolio-multi-strategy
+  tags: risk-management, stress-testing, liquidity-crunch, days-to-liquidate, liquidation-cost, market-impact, square-root-law
+  brokers_frameworks: "Portfolio Liquidity Stress Engine; Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

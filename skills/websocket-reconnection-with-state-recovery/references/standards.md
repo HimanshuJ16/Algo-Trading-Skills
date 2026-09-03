@@ -139,7 +139,7 @@ gate where it does not.
 buffering and venue retransmission tiers (`sequence-number-gap-detection-for-feeds`),
 order book assembly from snapshot plus deltas
 (`market-data-snapshot-plus-delta-reconciliation`), SDK-level duplicate subscription
-bookkeeping (`websocket-reconnect-without-duplicate-subscriptions`), and acting on the
+bookkeeping (`websocket-subscription-reconciliation-after-reconnect`), and acting on the
 unsynchronised signal (`capital-preservation-mode-for-degraded-conditions`).
 
 ## 4. Engineering standard — fail closed, and prove the fill

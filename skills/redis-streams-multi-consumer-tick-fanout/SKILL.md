@@ -1,14 +1,17 @@
 ---
 name: redis-streams-multi-consumer-tick-fanout
 description: >-
-  Market-data fanout over Redis Streams with the consumer-group semantics Redis actually documents: `>` delivers only never-delivered entries, XACK is the only thing that drains the PEL, XCLAIM/XAUTOCLAIM recover a crashed worker's backlog while incrementing the delivery counter, and a pending entry trimmed out of the stream is gone rather than replayed as a zero-priced tick.
-domain: Infrastructure & DevOps
-subdomain: Low-Latency Tick Distribution & Messaging
-tags: ["redis-streams", "tick-fanout", "consumer-group", "xadd", "xack", "xclaim", "xautoclaim", "market-data-pipeline"]
-brokers_frameworks: ["Redis Streams (XADD/XREADGROUP/XACK/XCLAIM/XAUTOCLAIM/XPENDING)", "redis-py", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when one feed must reach several independent consumers with a bounded replay
+  window. Covers Redis Streams consumer groups, XACK as the only thing that drains the
+  pending entries list, and XAUTOCLAIM recovery of a crashed worker's backlog.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: redis-streams, tick-fanout, consumer-group, xadd, xack, xclaim, xautoclaim, market-data-pipeline
+  brokers_frameworks: "Redis Streams (XADD/XREADGROUP/XACK/XCLAIM/XAUTOCLAIM/XPENDING); redis-py; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -106,7 +106,7 @@ DEFAULT_CRYPTO_MINOR_UNITS: Dict[str, int] = {"BTC": 8, "ETH": 8}
 #: wrong for the 3- and 0-decimal ones, hence the warning on use.
 DEFAULT_MINOR_UNITS = 2
 
-#: Backwards-compatible alias for the pre-2.0 precision table.
+#: Backwards-compatible alias for an earlier precision table.
 CURRENCY_DECIMALS: Dict[str, int] = dict(ISO_4217_MINOR_UNITS)
 CURRENCY_DECIMALS.update(DEFAULT_CRYPTO_MINOR_UNITS)
 
@@ -632,7 +632,7 @@ class MultiCurrencyPnLEngine:
 
 
 # --------------------------------------------------------------------------
-# Pre-2.0 module-level helpers. Retained for callers that still import them;
+# older module-level helpers. Retained for callers that still import them;
 # they take a rate-lookup callable directly and apply no rounding or validation.
 # New code should use MultiCurrencyPnLEngine.
 # --------------------------------------------------------------------------

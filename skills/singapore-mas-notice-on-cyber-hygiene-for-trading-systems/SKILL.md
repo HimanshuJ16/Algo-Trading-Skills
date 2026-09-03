@@ -1,14 +1,17 @@
 ---
 name: singapore-mas-notice-on-cyber-hygiene-for-trading-systems
 description: >-
-  Compliance audit engine for the MAS Notice on Cyber Hygiene applied to trading infrastructure — the correct notice for the entity class (FSM-N22 for capital markets firms, FSM-N06 for banks), administrative account security, risk-commensurate patching with no invented 30-day SLA, written security standards, network perimeter defence, malware protection and multi-factor authentication scoped to critical systems and internet-facing customer-information systems.
-domain: Compliance & Cybersecurity Governance
-subdomain: MAS Cyber Hygiene Regulatory Controls
-tags: ["mas-cyber-hygiene", "singapore-compliance", "fsm-n22", "mfa-scoping", "patch-management", "trading-infrastructure"]
-brokers_frameworks: ["MAS Notice FSM-N22 (Cyber Hygiene, capital markets)", "MAS Notice FSM-N06 (Cyber Hygiene, banks)", "Financial Services and Markets Act 2022 (Singapore)", "MAS Technology Risk Management Guidelines", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when auditing trading infrastructure for a MAS-regulated institution against the
+  Notice on Cyber Hygiene, starting by picking the right notice for the entity class,
+  then administrative account control, patching and multi-factor authentication.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: mas-cyber-hygiene, singapore-compliance, fsm-n22, mfa-scoping, patch-management, trading-infrastructure
+  brokers_frameworks: "MAS Notice FSM-N22 (Cyber Hygiene, capital markets); MAS Notice FSM-N06 (Cyber Hygiene, banks); Financial Services and Markets Act 2022 (Singapore); MAS Technology Risk Management Guidelines; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

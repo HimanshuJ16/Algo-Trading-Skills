@@ -1,23 +1,17 @@
 ---
 name: dynamic-position-sizing-based-on-realized-volatility
-description: Use when calculating portfolio position sizes to scale allocations inversely
-  to recent realized volatility (volatility targeting), maintaining a constant ex-ante
-  risk budget across calm and volatile market regimes.
-domain: algorithmic-trading
-subdomain: risk-management
-tags:
-- risk-management
-- volatility-targeting
-- realized-volatility
-- position-sizing
-- riskmetrics-ema
-- vol-scaling
-brokers_frameworks:
-- Realized Volatility Position Sizer
-- Python NumPy
-version: "2.0.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when a fixed percentage-of-capital rule leaves risk far higher in volatile regimes
+  than calm ones; scales size inversely to realised volatility to hold an ex-ante risk
+  budget constant. It cannot anticipate a gap.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: risk-management
+  tags: risk-management, volatility-targeting, realized-volatility, position-sizing, riskmetrics-ema, vol-scaling
+  brokers_frameworks: "Realized Volatility Position Sizer; Python NumPy"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

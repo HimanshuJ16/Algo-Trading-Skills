@@ -164,11 +164,11 @@ file silently converted the whole pricing stack to order-dependence.
 - `median_price` is the median of the survivors
 - `filter_deadlocked` distinguishes "no outliers found" from "no outlier attributable"
 
-## 8. Version 1.x defects fixed in 2.0.0
+## 8. Defects this design prevents
 
-Each was reproduced against the previous implementation before being fixed.
+Each is a failure a naive reconciler exhibits, and each has a regression test here.
 
-| Defect | 1.x observed behaviour |
+| Defect | Incorrect behaviour |
 |---|---|
 | `NaN` quote | `canonical_price = nan`, `status = RECONCILIATION_SUCCESS`, 3 valid, 0 outliers |
 | Bimodal deadlock | `RECONCILIATION_SUCCESS`, 4 valid, **0 outliers**, after all four were rejected |

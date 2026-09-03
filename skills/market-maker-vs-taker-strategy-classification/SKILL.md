@@ -1,14 +1,17 @@
 ---
 name: market-maker-vs-taker-strategy-classification
 description: >-
-  Use when auditing a strategy's own fill log to determine whether it is predominantly liquidity-adding (maker), liquidity-removing (taker), or hybrid, and to attribute the exchange fees and rebates each side actually earned. Computes the maker ratio on an explicit quantity or notional basis and reports the effective fee rate in basis points.
-domain: Market Microstructure Latency
-subdomain: Strategy Classification & Fee Optimization
-tags: ["market-microstructure", "maker-vs-taker", "strategy-classification", "exchange-fees", "maker-rebates", "effective-fee-bps", "fix-lastliquidityind", "post-only"]
-brokers_frameworks: ["FIX LastLiquidityInd (tag 851)", "Binance VIP Fee Tiers", "Kraken Fee Schedule", "MiFID II RTS 8 (EU 2017/578)", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when auditing a strategy's own fill log to see what share of its flow added rather
+  than removed liquidity, and attributing the exchange fees and rebates each side
+  earned. Not a determination of regulated market-maker status.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: market-microstructure, maker-vs-taker, strategy-classification, exchange-fees, maker-rebates, effective-fee-bps, fix-lastliquidityind, post-only
+  brokers_frameworks: "FIX LastLiquidityInd (tag 851); Binance VIP Fee Tiers; Kraken Fee Schedule; MiFID II RTS 8 (EU 2017/578); Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -1,33 +1,17 @@
 ---
 name: vectorized-vs-event-driven-backtest-tradeoffs
 description: >-
-  Use when choosing between a vectorized and an event-driven backtest engine, or
-  when measuring how much of a backtest's reported performance is an artefact of
-  its fill assumption. Routes strategies whose execution a vectorized engine cannot
-  represent -- path-dependent stops, limit orders -- to the event-driven engine,
-  and runs a matched pair of engines that differ in one variable at a time so
-  transaction-cost drag and fill-latency drag are separately attributable. Reports
-  measured speedup, not a quoted constant.
-domain: algorithmic-trading
-subdomain: backtesting-methodology
-tags:
-- backtesting-methodology
-- vectorized-backtest
-- event-driven-backtest
-- execution-drag
-- fill-latency
-- transaction-costs
-- engine-parity
-brokers_frameworks:
-- NumPy
-- Python Standard Library
-- backtesting.py
-- Backtrader
-- VectorBT
-- Zipline
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when choosing between a vectorized and an event-driven backtest engine, or when
+  measuring how much of a vectorized result is an artefact of its fill assumption rather
+  than the strategy.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: backtesting-methodology
+  tags: backtesting-methodology, vectorized-backtest, event-driven-backtest, execution-drag, fill-latency, transaction-costs, engine-parity
+  brokers_frameworks: "NumPy; Python Standard Library; backtesting.py; Backtrader; VectorBT; Zipline"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 # Vectorized vs Event-Driven Backtest Tradeoffs

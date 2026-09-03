@@ -1,3 +1,9 @@
+<!--
+An internal working prompt used when revising an existing skill. It is not part of the
+skill contract; see docs/skill-anatomy.md for that, and CONTRIBUTING.md for the bar a
+change has to clear.
+-->
+
 # Production Skill Improvement Workflow
 
 The objective is **not** to rewrite skills.
@@ -17,10 +23,9 @@ Locate the target skill.
 Load every file belonging to the skill.
 
 - SKILL.md
-- references/
-- assets/
-- scripts/
-- tests/
+- references/standards.md and references/workflows.md
+- scripts/ (the helper module and its test_*.py suite)
+- assets/checklist.md
 
 Treat the skill as one integrated engineering package rather than independent files.
 

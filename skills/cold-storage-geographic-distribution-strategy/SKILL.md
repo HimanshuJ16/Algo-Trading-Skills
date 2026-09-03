@@ -1,24 +1,17 @@
 ---
 name: cold-storage-geographic-distribution-strategy
-description: Institutional crypto custody module for auditing Shamir Secret Sharing
-  (SSS) M-of-N key shard distribution across geographically and jurisdictionally diverse
-  vaults, flagging both single-point-of-failure (SPOF) directions - single-group key
-  reconstruction and single-group key loss.
-domain: Crypto Custody & Security
-subdomain: Key Management
-tags:
-- crypto-custody
-- cold-storage
-- shamir-secret-sharing
-- geographic-distribution
-- jurisdiction-risk
-- spof
-brokers_frameworks:
-- Generic Crypto Security
-- Python Standard Library
-version: "1.1.0"
-author: algo-trading-skills-contributors
+description: >-
+  Use when auditing how M-of-N key shards are spread across facilities, countries and
+  legal regimes, flagging both single points of failure and quorum concentrations.
+  Generating the shards is shamir-secret-sharing-for-key-backup.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: crypto-custody-security
+  tags: crypto-custody, cold-storage, shamir-secret-sharing, geographic-distribution, jurisdiction-risk, spof
+  brokers_frameworks: "Generic Crypto Security; Python Standard Library"
+  version: "1.1.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

@@ -8,9 +8,8 @@ relying on any of this for a production build.
 
 **UMDF stands for "Unified Market Data Feed."** B3's own documentation states:
 "The UMDF (Unified Market Data Feed) platform provides low latency, state of the
-art market data service." Earlier revisions of this file expanded it as "Unicast
-Market Data Format," which is wrong twice over — the acronym is *Unified*, and
-the feed is distributed over UDP **multicast**, not unicast.
+art market data service." It is not "Unicast Market Data Format" — the acronym is
+*Unified*, and the feed is distributed over UDP **multicast**, not unicast.
 
 ## Protocol suite comparison
 
@@ -26,10 +25,10 @@ the feed is distributed over UDP **multicast**, not unicast.
 | Gap recovery | TCP Replayer, TCP Historical Replayer, Snapshot Recovery stream | **No TCP recovery channel** — sequence tracking + snapshot recovery |
 | Available since | Long-standing | Mid-2023, in parallel with legacy |
 
-Latency figures are deliberately **omitted**. Earlier revisions of this file
-quoted precise ranges ("50–200 µs round trip", "10–50 µs multicast delivery")
-that could not be traced to any B3 or vendor publication. Measure latency in your
-own colocation footprint rather than trusting an unsourced number.
+Latency figures are deliberately **omitted**. Precise ranges of the kind commonly
+quoted for B3 ("50–200 µs round trip", "10–50 µs multicast delivery") cannot be
+traced to any B3 or vendor publication. Measure latency in your own colocation
+footprint rather than trusting an unsourced number.
 
 ## Recovery mechanisms — the reason for this skill's core constraint
 
@@ -61,12 +60,10 @@ implement "sequence number tracking, RptSeq/LastRptSeq synchronization, Snapshot
 Recovery, Channel Reset, and EmptyBook mechanisms." What is absent is the
 *TCP gap-fill channel* that the legacy feed offers.
 
-> **Correction to earlier revisions.** This skill previously instructed
-> implementers to "request gap fills via B3's dedicated gap recovery TCP channel
-> (separate from market data)" for SBE feeds. That is the exact facility
-> reported not to exist for Binary UMDF, and the instruction contradicted the
-> same document's own statement that SBE has no TCP recovery. Recover via
-> sequence tracking and snapshot/refresh instead.
+> **Do not request gap fills via a "dedicated gap recovery TCP channel
+> (separate from market data)" for SBE feeds.** That is the exact facility
+> reported not to exist for Binary UMDF. Recover via sequence tracking and
+> snapshot/refresh instead.
 
 > **Confidence and dating.** The "no TCP recovery channel" claim is
 > **vendor-reported**, not quoted from a B3 specification, and is qualified as
@@ -102,9 +99,9 @@ and confirm current gateway status with B3 before starting new legacy work.
 - Standard FIX 4.4 sessions use logon/logout, heartbeats, test requests, and
   sequence-number gap fill.
 
-Colocation and access-provider details are intentionally not asserted here. An
-earlier revision named specific Equinix facilities; that could not be verified
-and access arrangements should be confirmed directly with B3.
+Colocation and access-provider details are intentionally not asserted here. No
+specific Equinix facility could be verified as B3's; confirm access arrangements
+directly with B3.
 
 ## CompID format
 
@@ -121,10 +118,10 @@ B3 is a Brazilian exchange supervised by the **Comissão de Valores Mobiliários
 (CVM)**. Participants are subject to B3's own access, certification, and market
 data licensing rules.
 
-Earlier revisions asserted that "both protocols support regulation-mandated
-features like short sale price tests and position limits." That claim was
-removed: no source was found for it, and "short sale price test" is a US
-Regulation SHO concept that should not be transplanted onto the Brazilian regime.
+Do not assume that "both protocols support regulation-mandated features like
+short sale price tests and position limits." No source was found for that claim,
+and "short sale price test" is a US Regulation SHO concept that should not be
+transplanted onto the Brazilian regime.
 Pre-trade risk controls remain sound engineering practice regardless; confirm
 specific obligations with B3 and CVM rather than with this file.
 

@@ -1,26 +1,17 @@
 ---
 name: co-location-provider-selection-and-network-topology
 description: >-
-  Use when choosing where to place trading servers across co-location facilities
-  and cross-venue fiber/microwave links: decomposes one-way and round-trip latency
-  budgets from first-principles propagation physics, computes monthly TCO, and
-  ranks candidate facilities with a weighted latency/cost score.
-domain: Infrastructure
-subdomain: Network Architecture
-tags:
-- colocation
-- latency-budget
-- equinix-ny4
-- cme-aurora
-- slough-ld4
-- network-topology
-- propagation-delay
-- facility-scoring
-brokers_frameworks:
-- Generic Infrastructure
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when deciding where to place a latency-sensitive server across co-location
+  facilities and cross-venue links, decomposing one-way and round-trip budgets from
+  propagation physics and published equipment specifications.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: market-microstructure-latency
+  tags: colocation, latency-budget, equinix-ny4, cme-aurora, slough-ld4, network-topology, propagation-delay, facility-scoring
+  brokers_frameworks: Generic Infrastructure
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

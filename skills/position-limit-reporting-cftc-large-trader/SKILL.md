@@ -1,18 +1,17 @@
 ---
 name: position-limit-reporting-cftc-large-trader
 description: >-
-  Use when a US futures and options portfolio must be screened against CFTC
-  large-trader reporting levels (17 CFR 15.03) and Part 150 federal speculative
-  position limits, aggregating sub-account holdings per legal entity and keeping
-  the reporting test (gross, per contract month, "equals or exceeds") strictly
-  separate from the limit test (net, per limit type, "in excess of").
-domain: Regulatory Compliance & Risk Controls
-subdomain: CFTC Regulatory Reporting & Speculative Position Limits
-tags: ["cftc", "form-102", "large-trader-reporting", "position-limits", "futures", "speculative-limits", "regulatory-reporting"]
-brokers_frameworks: ["CFTC 17 CFR Part 15 (reporting levels)", "CFTC 17 CFR Part 17 (Form 102 / OCR)", "CFTC 17 CFR Part 150 (speculative position limits)", "Python Standard Library"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use for self-surveillance of US futures and options positions against CFTC
+  large-trader reporting levels in 17 CFR 15.03 and Part 150 speculative position
+  limits, aggregating sub-accounts before the carrying broker reports.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: regulatory-compliance-global
+  tags: cftc, form-102, large-trader-reporting, position-limits, futures, speculative-limits, regulatory-reporting
+  brokers_frameworks: "CFTC 17 CFR Part 15 (reporting levels); CFTC 17 CFR Part 17 (Form 102 / OCR); CFTC 17 CFR Part 150 (speculative position limits); Python Standard Library"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

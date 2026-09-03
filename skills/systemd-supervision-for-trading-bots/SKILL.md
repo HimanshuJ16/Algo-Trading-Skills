@@ -1,30 +1,17 @@
 ---
 name: systemd-supervision-for-trading-bots
 description: >-
-  Use when a trading bot runs as a systemd service on a Linux host and you need
-  its supervision to be correct rather than merely present — auditing a .service
-  unit for directives written in the wrong section, a watchdog whose pings
-  systemd silently discards, and a start rate limit that can never trip; plus
-  sd_notify READY=1 / WATCHDOG=1 / STOPPING=1 / EXTEND_TIMEOUT_USEC handling and
-  an ExecStartPre pre-market gate that tells a fault apart from a market holiday.
-domain: algorithmic-trading
-subdomain: deployment-ops
-tags:
-- deployment-ops
-- systemd
-- process-supervision
-- sd-notify
-- watchdog
-- graceful-shutdown
-- pre-market-healthcheck
-brokers_frameworks:
-- systemd (Linux service manager)
-- sd_notify(3) service notification protocol
-- systemd.service(5) / systemd.unit(5) directives
-- systemd.resource-control(5) cgroup v2 limits
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a bot that can send orders runs as a systemd unit and supervision must be
+  correct rather than merely present; audits directives placed in the wrong section,
+  restart limits that never engage, and missing hardening.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: deployment-ops
+  tags: deployment-ops, systemd, process-supervision, sd-notify, watchdog, graceful-shutdown, pre-market-healthcheck
+  brokers_frameworks: "systemd (Linux service manager); sd_notify(3) service notification protocol; systemd.service(5) / systemd.unit(5) directives; systemd.resource-control(5) cgroup v2 limits"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

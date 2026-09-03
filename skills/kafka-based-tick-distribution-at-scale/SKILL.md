@@ -1,14 +1,17 @@
 ---
 name: kafka-based-tick-distribution-at-scale
 description: >-
-  Symbol-keyed tick distribution over Apache Kafka: partition routing that reproduces each client library's actual hash (librdkafka CRC32 vs Java/kafka-python murmur2), producer settings that make per-symbol ordering real rather than assumed, and a consumer-lag, staleness and hot-partition audit.
-domain: Data Management Global
-subdomain: Real-Time Tick Streaming & Kafka Infrastructure
-tags: ["kafka", "tick-distribution", "market-data", "partition-routing", "consumer-lag", "batching", "streaming"]
-brokers_frameworks: ["Apache Kafka Python", "aiokafka / confluent-kafka", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when fanning ticks to many consumers over Kafka and per-symbol ordering must be
+  real. Reproduces each client library's partition hash (librdkafka CRC32 versus
+  murmur2), pins producer settings, and audits lag, staleness and hot partitions.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: real-time-architecture
+  tags: kafka, tick-distribution, market-data, partition-routing, consumer-lag, batching, streaming
+  brokers_frameworks: "Apache Kafka Python; aiokafka / confluent-kafka; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use

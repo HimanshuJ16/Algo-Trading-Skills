@@ -1,14 +1,17 @@
 ---
 name: market-data-latency-monitoring-per-vendor
 description: >-
-  Per-vendor market data latency auditing that decomposes an exchange-to-application tick path into vendor-transport, network-wire and app-queue segments, attributes the tail to the segment that actually caused it, and refuses to publish percentiles for a window whose four clock domains disagree.
-domain: Market Data & Vendor Infrastructure
-subdomain: Latency Decomposition & Vendor SLA Auditing
-tags: ["market-data", "latency-monitoring", "vendor-sla", "clock-domain", "tail-attribution", "hardware-timestamping", "percentiles", "jitter"]
-brokers_frameworks: ["Nasdaq TotalView-ITCH 5.0", "CME MDP 3.0", "HdrHistogram", "Linux PTP Hardware Clock", "Python Dataclasses"]
-version: "2.0.0"
-author: algo-trading-skills-contributors
+  Use when a feed is suspected of being slow and the question is which party owns the
+  delay, decomposing the exchange-to-application path into vendor transport, network
+  wire and application queue segments.
 license: Apache-2.0
+metadata:
+  domain: algorithmic-trading
+  subdomain: data-management-global
+  tags: market-data, latency-monitoring, vendor-sla, clock-domain, tail-attribution, hardware-timestamping, percentiles, jitter
+  brokers_frameworks: "Nasdaq TotalView-ITCH 5.0; CME MDP 3.0; HdrHistogram; Linux PTP Hardware Clock; Python Dataclasses"
+  version: "2.0.0"
+  author: algo-trading-skills-contributors
 ---
 
 ## When to Use
