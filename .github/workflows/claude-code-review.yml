@@ -6,10 +6,11 @@ on:
 
 jobs:
   claude-review:
-    # Secrets are not available to pull requests from forks, so the review only runs
-    # for branches in this repository. External PRs are still validated by
-    # validate-skills.yml and reviewed by maintainers.
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Secrets are not available to pull requests from forks or to Dependabot-triggered
+    # runs, so the review only runs for human-authored branches in this repository.
+    # External and bot PRs are still validated by validate-skills.yml and reviewed by
+    # maintainers.
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:

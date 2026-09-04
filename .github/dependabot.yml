@@ -1,12 +1,9 @@
-# Keeps the CI toolchain current. The library itself has no runtime dependencies to bump;
-# requirements-dev.txt only pins the test and validation tooling.
+# Keeps the GitHub Actions used by CI current. Python dependencies are deliberately not
+# tracked: requirements-dev.txt pins minimum versions rather than exact ones, so a floor
+# bump adds nothing and can drop an interpreter the library still supports (pandas 3.x
+# requires Python 3.11+, while this library runs on 3.10).
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
