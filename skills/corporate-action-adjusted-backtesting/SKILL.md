@@ -1,9 +1,9 @@
 ---
 name: corporate-action-adjusted-backtesting
 description: >-
-  Use when a backtest window contains a split, reverse split or cash dividend and raw
-  venue prices show artificial gaps; builds a CRSP-convention backward-adjusted series
-  for signals while keeping dividend cash accounted separately.
+  Use when a stock split, reverse split or cash dividend puts artificial gaps in a
+  backtest's price history and fabricates signals; builds a CRSP-convention
+  backward-adjusted series for signals while keeping dividend cash accounted separately.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading

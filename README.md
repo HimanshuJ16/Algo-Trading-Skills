@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](LICENSE)
 [![Validate & Test Skills](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml)
 [![Skills](https://img.shields.io/badge/skills-501-brightgreen?style=flat-square)](#whats-inside--16-categories)
-[![Tests](https://img.shields.io/badge/tests-20%2C302_passing-brightgreen?style=flat-square)](#what-verified-means-here)
+[![Tests](https://img.shields.io/badge/tests-20%2C289_passing-brightgreen?style=flat-square)](#what-verified-means-here)
 [![Domains](https://img.shields.io/badge/domains-16-9cf?style=flat-square)](#whats-inside--16-categories)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square)](#quick-start)
 [![agentskills.io](https://img.shields.io/badge/standard-agentskills.io-ff6600?style=flat-square)](https://agentskills.io)
@@ -138,22 +138,22 @@ The library covers 16 core engineering domains spanning domestic and global mark
 
 | Domain | Skills | Key capabilities |
 |---|---|---|
-| [`broker-integration`](skills/) | **36** | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting, borrow cost modeling, cost budgeting |
-| [`real-time-architecture`](skills/) | **31** | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket subscription reconciliation after a reconnect |
-| [`backtesting-methodology`](skills/) | **31** | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation, synthetic data generation, standardized tearsheets |
-| [`financial-ml`](skills/) | **38** | Leakage-free feature engineering, offline-train/online-infer deployment, triple barrier labeler, sample weighting, model staleness detection |
-| [`risk-management`](skills/) | **39** | Kill switches and drawdown circuit breakers, correlation-aware exposure limits, Kupiec test VaR backtesting, tail risk hedging, risk escalation matrices |
-| [`deployment-ops`](skills/) | **30** | systemd process supervision, paper-to-live promotion checklist, IaC for trading hosts, canary releases, chaos engineering, secrets vault |
-| [`global-market-integration`](skills/) | **44** | Crypto exchange APIs (Binance/Coinbase/Kraken/Deribit/Bybit/OKX), FX (OANDA/MT5), CME Globex, Eurex, HKEX, SGX, ASX, JPX, CBOE, LSE, Xetra |
-| [`regulatory-compliance-global`](skills/) | **38** | US SEC Rule 15c3-5, PDT, FINRA, EU MiFID II/RTS 6/MAR, UK FCA, ASIC, MAS, India SEBI, Canada IIROC, Hong Kong SFC, Japan FSA |
-| [`multi-asset-derivatives`](skills/) | **28** | SPAN margin calculation, futures contract roll automation, real-time Greeks aggregation, perpetual futures funding rates, variance swaps, CDS, quanto options |
-| [`execution-algorithms`](skills/) | **33** | TWAP/VWAP order slicing, POV execution, implementation shortfall minimization, iceberg detection, smart order routing (SOR), dark pool routing, auctions |
-| [`data-management-global`](skills/) | **37** | Global exchange holiday calendars, DST transition handling, multi-timezone session scheduling, multi-currency P&L, ISIN/CUSIP/SEDOL cross-referencing |
-| [`crypto-custody-security`](skills/) | **29** | Wallet key custody, hot-cold split, withdrawal whitelisting, multi-sig approval, HSM integration, Shamir secret sharing, MPC custody |
-| [`portfolio-multi-strategy`](skills/) | **30** | Cross-strategy correlation monitoring, performance-based capital reallocation, strategy retirement criteria, risk parity allocation, meta-strategy signal arbitration |
-| [`market-microstructure-latency`](skills/) | **24** | Colocation latency budgets, PTP clock sync, tick-to-trade measurement, order book signals, adverse selection measurement, FPGA/microwave evaluation |
-| [`quant-research-alt-data`](skills/) | **20** | Satellite imagery signals, credit card transaction data, web-scraped sentiment, supply chain networks, Google Trends, social media bot filtering, transcript NLP |
-| [`tax-accounting-reporting-global`](skills/) | **16** | US wash sale tracking, FIFO vs specific-lot accounting, Section 475 MTM election, crypto tax lot tracking, 1099-B reconciliation, Section 1256 futures tax |
+| [`broker-integration`](docs/ROADMAP_500.md) | **36** | Headless auth (REST + Selenium), token lifecycle via live probing, order idempotency, per-broker rate limiting, borrow cost modeling, cost budgeting |
+| [`real-time-architecture`](docs/ROADMAP_500.md) | **31** | Producer-consumer tick pipelines, burst-safe buffering, explicit backpressure policy, WebSocket subscription reconciliation after a reconnect |
+| [`backtesting-methodology`](docs/ROADMAP_500.md) | **31** | Lookahead bias elimination, walk-forward validation, realistic slippage/fee/latency simulation, synthetic data generation, standardized tearsheets |
+| [`financial-ml`](docs/ROADMAP_500.md) | **38** | Leakage-free feature engineering, offline-train/online-infer deployment, triple barrier labeler, sample weighting, model staleness detection |
+| [`risk-management`](docs/ROADMAP_500.md) | **39** | Kill switches and drawdown circuit breakers, correlation-aware exposure limits, Kupiec test VaR backtesting, tail risk hedging, risk escalation matrices |
+| [`deployment-ops`](docs/ROADMAP_500.md) | **30** | systemd process supervision, paper-to-live promotion checklist, IaC for trading hosts, canary releases, chaos engineering, secrets vault |
+| [`global-market-integration`](docs/ROADMAP_500.md) | **44** | Crypto exchange APIs (Binance/Coinbase/Kraken/Deribit/Bybit/OKX), FX (OANDA/MT5), CME Globex, Eurex, HKEX, SGX, ASX, JPX, CBOE, LSE, Xetra |
+| [`regulatory-compliance-global`](docs/ROADMAP_500.md) | **38** | US SEC Rule 15c3-5, PDT, FINRA, EU MiFID II/RTS 6/MAR, UK FCA, ASIC, MAS, India SEBI, Canada IIROC, Hong Kong SFC, Japan FSA |
+| [`multi-asset-derivatives`](docs/ROADMAP_500.md) | **28** | SPAN margin calculation, futures contract roll automation, real-time Greeks aggregation, perpetual futures funding rates, variance swaps, CDS, quanto options |
+| [`execution-algorithms`](docs/ROADMAP_500.md) | **32** | TWAP/VWAP order slicing, POV execution, implementation shortfall minimization, iceberg detection, smart order routing (SOR), dark pool routing, auctions |
+| [`data-management-global`](docs/ROADMAP_500.md) | **37** | Global exchange holiday calendars, DST transition handling, multi-timezone session scheduling, multi-currency P&L, ISIN/CUSIP/SEDOL cross-referencing |
+| [`crypto-custody-security`](docs/ROADMAP_500.md) | **29** | Wallet key custody, hot-cold split, withdrawal whitelisting, multi-sig approval, HSM integration, Shamir secret sharing, MPC custody |
+| [`portfolio-multi-strategy`](docs/ROADMAP_500.md) | **28** | Cross-strategy correlation monitoring, performance-based capital reallocation, strategy retirement criteria, risk parity allocation, meta-strategy signal arbitration |
+| [`market-microstructure-latency`](docs/ROADMAP_500.md) | **24** | Colocation latency budgets, PTP clock sync, tick-to-trade measurement, order book signals, adverse selection measurement, FPGA/microwave evaluation |
+| [`quant-research-alt-data`](docs/ROADMAP_500.md) | **20** | Satellite imagery signals, credit card transaction data, web-scraped sentiment, supply chain networks, Google Trends, social media bot filtering, transcript NLP |
+| [`tax-accounting-reporting-global`](docs/ROADMAP_500.md) | **16** | US wash sale tracking, FIFO vs specific-lot accounting, Section 475 MTM election, crypto tax lot tracking, 1099-B reconciliation, Section 1256 futures tax |
 
 Full searchable index: [`index.json`](index.json). Every skill listed by domain with its trigger description: [`docs/ROADMAP_500.md`](docs/ROADMAP_500.md).
 
@@ -165,7 +165,7 @@ The full library is roughly **3.5 million tokens** of Markdown — far past any 
 
 | Stage | What the agent reads | Cost |
 |---|---|---|
-| **Discover** | `index.json` — name + description for every skill, queryable without touching a single skill file | ~80 tokens per skill |
+| **Discover** | `index.json` — name, description, domain and tags for every skill, queryable without touching a single skill file | ~250 tokens per skill as shipped (~80 for a name+description projection) |
 | **Load** | The one matching `SKILL.md` — workflow, scope boundaries, pitfalls, verification | ~2,000-3,700 tokens (median ~2,700) |
 | **Go deeper** | `references/` and `scripts/` for that skill only, once it is actually implementing | on demand |
 
@@ -241,8 +241,7 @@ values. Two rules on `description` do the heavy lifting for discovery: it starts
 **"Use when …"** (the situation an agent is in, not a description of the subject), and
 it fits in **280 characters**, because every installed skill's description is loaded
 into context on every session. Both are enforced by
-[`tools/validate_skills.py`](tools/validate_skills.py), alongside the official
-the official `agentskills validate`.
+[`tools/validate_skills.py`](tools/validate_skills.py), alongside the official `agentskills validate`.
 
 ### Markdown body sections
 
@@ -285,7 +284,7 @@ format, so any agent or framework that reads that format can load them — point
 
 ## 🏃 Runnable Examples & Cookbook
 
-To see how skills chain together in institutional production pipelines, explore the runnable walkthroughs in [`examples/`](examples/):
+To see how skills chain together in complete pipelines, explore the runnable walkthroughs in [`examples/`](examples/):
 
 - [`examples/01_resilient_order_execution_and_circuit_breaker.py`](examples/01_resilient_order_execution_and_circuit_breaker.py) — Order idempotency + drawdown circuit breakers + live token probing.
 - [`examples/02_lookahead_free_backtest_with_slippage.py`](examples/02_lookahead_free_backtest_with_slippage.py) — Point-in-time signal engine + market impact slippage simulation + performance tear-sheet.
@@ -321,11 +320,16 @@ This project grows through community contributions. Here is how to get involved:
 - **Improve existing skills** — Update workflows, refine code engines, add unit tests, or extend regulatory mappings.
 - **Report issues** — Found an edge case or missing failure mode? Open an issue.
 
-Before opening a PR, run both gates locally — CI runs exactly these two commands:
+Before opening a PR, run the gates locally. CI runs these plus the agentskills.io
+reference validator and the cookbook examples — see
+[`CONTRIBUTING.md`](CONTRIBUTING.md#how-the-library-is-verified) for the full pipeline:
 
 ```bash
 python tools/validate_skills.py
 python tools/run_all_tests.py
+python tools/build_index.py --check      # regenerate and commit if this fails
+python tools/build_marketplace.py --check
+python -m unittest discover -s tests
 ```
 
 The quality bar is in [`CONTRIBUTING.md`](CONTRIBUTING.md), and it is a high one: would following this skill have prevented a real production bug, and is its Verification section actually checkable? A regulatory or broker-behaviour claim must be verifiable against an authoritative source — **a missing claim is better than a wrong or fabricated one.**

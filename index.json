@@ -889,7 +889,7 @@
     },
     {
       "name": "benchmark-relative-performance-attribution",
-      "description": "Use when one or several strategies must be judged against a benchmark rather than on raw return: alpha, beta, correlation, tracking error, information ratio with its t-statistic, a comparable multi-strategy table, and Brinson-Fachler allocation and selection effects.",
+      "description": "Use when a strategy must be judged against a benchmark index rather than on raw return: alpha, beta, tracking error, information ratio and Brinson-Fachler allocation and selection effects. Multi-factor attribution with inference is strategy-performance-attribution-vs-market-beta.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -2256,7 +2256,7 @@
     },
     {
       "name": "corporate-action-adjusted-backtesting",
-      "description": "Use when a backtest window contains a split, reverse split or cash dividend and raw venue prices show artificial gaps; builds a CRSP-convention backward-adjusted series for signals while keeping dividend cash accounted separately.",
+      "description": "Use when a stock split, reverse split or cash dividend puts artificial gaps in a backtest's price history and fabricates signals; builds a CRSP-convention backward-adjusted series for signals while keeping dividend cash accounted separately.",
       "domain": "algorithmic-trading",
       "subdomain": "backtesting-methodology",
       "tags": [
@@ -4562,7 +4562,7 @@
     },
     {
       "name": "factor-research-multiple-testing-correction",
-      "description": "Use when a research pipeline screens many candidate factors and selection rests on t-statistics, applying Bonferroni, Holm and Benjamini-Hochberg false discovery corrections plus the Harvey-Liu haircut.",
+      "description": "Use when a research pipeline screens many candidate factors and selection rests on t-statistics or p-values. Bonferroni and Holm bound family-wise error; Benjamini-Hochberg and BHY bound false discovery rate under dependence; plus the Harvey-Liu-Zhu t-hurdle.",
       "domain": "algorithmic-trading",
       "subdomain": "quant-research-alt-data",
       "tags": [
@@ -5688,7 +5688,7 @@
     },
     {
       "name": "implementation-shortfall-minimization",
-      "description": "Use when scheduling a large parent order against an arrival-price benchmark, or measuring what one cost after the fact: Almgren-Chriss optimal trajectories by urgency, plus the four-component Perold shortfall decomposition.",
+      "description": "Use when scheduling a large parent order, or measuring what one cost after the fact. Shortfall is measured against the decision price, not arrival; Almgren-Chriss trajectories by urgency, arrival-price capture, and the four-component Perold split.",
       "domain": "algorithmic-trading",
       "subdomain": "execution-algorithms",
       "tags": [
@@ -6160,7 +6160,7 @@
     },
     {
       "name": "kill-switch-and-drawdown-circuit-breakers",
-      "description": "Use when a live bot needs hard, strategy-independent limits that halt new orders and force-flatten positions on a drawdown or loss breach, so a strategy bug cannot cause unbounded loss. Degraded-condition triggers belong to capital-preservation-mode-for-degraded-conditions.",
+      "description": "Use when a bot must stop trading for the day on a daily loss limit or drawdown breach: hard, strategy-independent limits that halt new orders and force-flatten. Degraded-condition triggers are capital-preservation-mode-for-degraded-conditions.",
       "domain": "algorithmic-trading",
       "subdomain": "risk-management",
       "tags": [
@@ -6994,7 +6994,7 @@
     },
     {
       "name": "mifid-ii-algo-trading-compliance-eu",
-      "description": "Use when an algorithmic system executes on an EU trading venue and MiFID II RTS 6 obligations apply: pre-trade controls, kill functionality that cancels unexecuted orders, testing and annual self-assessment beyond ordinary engineering practice.",
+      "description": "Use when an algorithmic trading firm must meet EU MiFID II RTS 6 obligations for orders sent to any EU or EEA trading venue: pre-trade controls, kill functionality that cancels unexecuted orders, testing, and the annual self-assessment.",
       "domain": "algorithmic-trading",
       "subdomain": "regulatory-compliance-global",
       "tags": [
@@ -7344,7 +7344,7 @@
     },
     {
       "name": "multi-broker-consolidated-position-view",
-      "description": "Use when positions live across several brokers and exchanges and risk limits need one netted base-currency view. Normalises symbol formats, converts currencies, and audits breaks against the strategy's own target ledger.",
+      "description": "Use when your position or P&L does not match the broker, or positions live across several brokers and exchanges and risk limits need one netted base-currency view. Normalises symbols, converts currencies and reports the breaks against your own ledger.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -8524,7 +8524,7 @@
     },
     {
       "name": "order-placement-idempotency",
-      "description": "Use whenever a bot places or modifies live orders and must never double-execute after a retry, timeout or reconnect, because a timeout means unknown rather than failed. For cancel races see broker-api-idempotent-cancel-requests.",
+      "description": "Use when a bot places or modifies live orders and must never double-execute or send a duplicate order after a retry, timeout or reconnect, because a timeout means unknown rather than failed. For cancel races see broker-api-idempotent-cancel-requests.",
       "domain": "algorithmic-trading",
       "subdomain": "broker-integration",
       "tags": [
@@ -11124,7 +11124,7 @@
     },
     {
       "name": "strategy-performance-decay-detection-vs-market-wide-decay",
-      "description": "Use when a live Sharpe has fallen and the remediation depends on whether this strategy's own edge decayed or the whole peer group is impaired, testing the strategy against its cohort rather than against zero.",
+      "description": "Use when a strategy has stopped working and you must decide whether its own edge decayed or the whole peer group is impaired, because one means decommission and the other means wait. Tests the strategy against its cohort, not against zero.",
       "domain": "algorithmic-trading",
       "subdomain": "portfolio-multi-strategy",
       "tags": [

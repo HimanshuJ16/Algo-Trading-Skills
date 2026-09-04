@@ -1,9 +1,9 @@
 ---
 name: order-placement-idempotency
 description: >-
-  Use whenever a bot places or modifies live orders and must never double-execute after
-  a retry, timeout or reconnect, because a timeout means unknown rather than failed. For
-  cancel races see broker-api-idempotent-cancel-requests.
+  Use when a bot places or modifies live orders and must never double-execute or send a
+  duplicate order after a retry, timeout or reconnect, because a timeout means unknown
+  rather than failed. For cancel races see broker-api-idempotent-cancel-requests.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading

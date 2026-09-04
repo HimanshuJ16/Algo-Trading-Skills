@@ -1,9 +1,10 @@
 ---
 name: benchmark-relative-performance-attribution
 description: >-
-  Use when one or several strategies must be judged against a benchmark rather than on raw
-  return: alpha, beta, correlation, tracking error, information ratio with its t-statistic,
-  a comparable multi-strategy table, and Brinson-Fachler allocation and selection effects.
+  Use when a strategy must be judged against a benchmark index rather than on raw
+  return: alpha, beta, tracking error, information ratio and Brinson-Fachler allocation
+  and selection effects. Multi-factor attribution with inference is
+  strategy-performance-attribution-vs-market-beta.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading

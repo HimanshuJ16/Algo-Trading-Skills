@@ -1,9 +1,10 @@
 ---
 name: multi-broker-consolidated-position-view
 description: >-
-  Use when positions live across several brokers and exchanges and risk limits need one
-  netted base-currency view. Normalises symbol formats, converts currencies, and audits
-  breaks against the strategy's own target ledger.
+  Use when your position or P&L does not match the broker, or positions live across
+  several brokers and exchanges and risk limits need one netted base-currency view.
+  Normalises symbols, converts currencies and reports the breaks against your own
+  ledger.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading

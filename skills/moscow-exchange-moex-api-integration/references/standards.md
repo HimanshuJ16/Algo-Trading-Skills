@@ -134,10 +134,12 @@ Board registry verified against <https://iss.moex.com/iss/index.json>
 
 ### Lot size, price step and decimals are per instrument
 
-From `https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json`.
-`LOTSIZE` on that one board spans the full range from 1 to 1,000,000, with no
-value common enough to serve as a default. Worked examples used in `scripts/`
-(2026-08-26):
+From `https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json`
+(2026-08-26), 506 securities. `LOTSIZE` distribution: **1** (331 securities),
+**10** (80), **100** (45), **1,000** (27), **10,000** (19), **100,000** (3),
+**1,000,000** (1). The modal value covers about two thirds of the board, so a
+default of 1 would silently misprice the other third. Worked examples used in
+`scripts/`:
 
 | SECID | LOTSIZE | MINSTEP | DECIMALS | CURRENCYID |
 |---|---|---|---|---|

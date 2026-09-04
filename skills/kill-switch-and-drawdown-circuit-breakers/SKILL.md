@@ -1,10 +1,9 @@
 ---
 name: kill-switch-and-drawdown-circuit-breakers
 description: >-
-  Use when a live bot needs hard, strategy-independent limits that halt new orders and
-  force-flatten positions on a drawdown or loss breach, so a strategy bug cannot cause
-  unbounded loss. Degraded-condition triggers belong to
-  capital-preservation-mode-for-degraded-conditions.
+  Use when a bot must stop trading for the day on a daily loss limit or drawdown breach:
+  hard, strategy-independent limits that halt new orders and force-flatten.
+  Degraded-condition triggers are capital-preservation-mode-for-degraded-conditions.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading

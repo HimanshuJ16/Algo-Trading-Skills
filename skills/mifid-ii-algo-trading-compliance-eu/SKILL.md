@@ -1,9 +1,9 @@
 ---
 name: mifid-ii-algo-trading-compliance-eu
 description: >-
-  Use when an algorithmic system executes on an EU trading venue and MiFID II RTS 6
-  obligations apply: pre-trade controls, kill functionality that cancels unexecuted
-  orders, testing and annual self-assessment beyond ordinary engineering practice.
+  Use when an algorithmic trading firm must meet EU MiFID II RTS 6 obligations for
+  orders sent to any EU or EEA trading venue: pre-trade controls, kill functionality
+  that cancels unexecuted orders, testing, and the annual self-assessment.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading

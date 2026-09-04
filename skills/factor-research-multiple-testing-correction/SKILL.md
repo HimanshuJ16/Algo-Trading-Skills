@@ -2,8 +2,9 @@
 name: factor-research-multiple-testing-correction
 description: >-
   Use when a research pipeline screens many candidate factors and selection rests on
-  t-statistics, applying Bonferroni, Holm and Benjamini-Hochberg false discovery
-  corrections plus the Harvey-Liu haircut.
+  t-statistics or p-values. Bonferroni and Holm bound family-wise error;
+  Benjamini-Hochberg and BHY bound false discovery rate under dependence; plus the
+  Harvey-Liu-Zhu t-hurdle.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading

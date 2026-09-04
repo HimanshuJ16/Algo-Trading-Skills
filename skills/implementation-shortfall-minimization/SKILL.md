@@ -1,9 +1,9 @@
 ---
 name: implementation-shortfall-minimization
 description: >-
-  Use when scheduling a large parent order against an arrival-price benchmark, or
-  measuring what one cost after the fact: Almgren-Chriss optimal trajectories by
-  urgency, plus the four-component Perold shortfall decomposition.
+  Use when scheduling a large parent order, or measuring what one cost after the fact.
+  Shortfall is measured against the decision price, not arrival; Almgren-Chriss
+  trajectories by urgency, arrival-price capture, and the four-component Perold split.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading

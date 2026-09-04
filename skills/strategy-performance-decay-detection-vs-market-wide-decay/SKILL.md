@@ -1,9 +1,9 @@
 ---
 name: strategy-performance-decay-detection-vs-market-wide-decay
 description: >-
-  Use when a live Sharpe has fallen and the remediation depends on whether this
-  strategy's own edge decayed or the whole peer group is impaired, testing the strategy
-  against its cohort rather than against zero.
+  Use when a strategy has stopped working and you must decide whether its own edge
+  decayed or the whole peer group is impaired, because one means decommission and the
+  other means wait. Tests the strategy against its cohort, not against zero.
 license: Apache-2.0
 metadata:
   domain: algorithmic-trading
