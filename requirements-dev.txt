@@ -1,6 +1,6 @@
 # Development and CI testing dependencies for Algo-Trading-Skills
 -r requirements.txt
-pytest>=7.0.0
+pytest>=9.1.1
 
 # The agentskills.io reference validator is deliberately NOT listed here: it requires
 # Python 3.11+, while this library supports 3.10+, so pinning it would make the whole
