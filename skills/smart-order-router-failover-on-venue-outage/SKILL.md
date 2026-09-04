@@ -79,7 +79,7 @@ implementation: thread-safe, monotonic-clocked, with `HEALTHY` / `DEGRADED` /
 - **Calibrated thresholds.** The defaults (3 errors, 1 s quote age, 60 s
   cooldown) are engineering starting points, not regulatory figures — see
   `references/standards.md`.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

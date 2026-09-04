@@ -74,7 +74,7 @@ read thousands of times by threads that know nothing about rotation.
   key with a reset counter is refused on every request. That is what `on_activate` is for.
 - An operator or orchestrator able to **mint the key**: many venues gate key creation behind
   a 2FA console with no API.
-- Python 3.8+. No third-party package required.
+- Python 3.10+. No third-party package required.
 
 ## Workflow
 

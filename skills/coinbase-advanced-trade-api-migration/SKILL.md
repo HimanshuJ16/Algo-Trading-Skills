@@ -66,7 +66,7 @@ because each one silently changes what an order does rather than failing loudly:
   `cancel_after`/`funds` — not just `product_id`/`side`/`type`/`price`/`size`. If your
   order model never persisted `stop` and `time_in_force`, recovering them is the first
   migration task, before any translation code.
-- Python 3.9+. Standard library only (`decimal`, `uuid`, `logging`). No HTTP client is
+- Python 3.10+. Standard library only (`decimal`, `uuid`, `logging`). No HTTP client is
   bundled: the module translates, the caller signs and sends.
 
 ## Workflow

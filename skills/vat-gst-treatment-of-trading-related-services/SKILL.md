@@ -27,6 +27,11 @@ or an import triggering a reverse charge). On top of that sits the partial
 exemption ratio, because a trading entity's largely exempt income means most of
 its input VAT is a real cost, not a timing difference.
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill when processing vendor invoices, preparing a periodic VAT/GST
@@ -76,7 +81,7 @@ could not make from the category alone.
 
 ## Prerequisites
 
-- Python 3.7+, standard library only.
+- Python 3.10+, standard library only.
 - An accounts payable ledger providing, per invoice: `invoice_id`,
   `vendor_name`, `vendor_jurisdiction`, `entity_jurisdiction`,
   `service_category` and a VAT-exclusive `net_amount_usd`, all amounts already

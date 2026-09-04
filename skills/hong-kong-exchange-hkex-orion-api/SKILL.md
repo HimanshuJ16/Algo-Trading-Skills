@@ -67,7 +67,7 @@ pre-2025 documentation is now wrong across four price bands.
 
 ## Prerequisites
 
-- Python 3.7+ (`from __future__ import annotations`); standard library only.
+- Python 3.10+ (`from __future__ import annotations`); standard library only.
 - Per-security reference data from your security master or OMD-C Security Definition
   (11): the **Spread Table Code**, the issuer-set **board lot size**, and the 5-digit
   stock code. None of the three is derivable from the price or the ticker.

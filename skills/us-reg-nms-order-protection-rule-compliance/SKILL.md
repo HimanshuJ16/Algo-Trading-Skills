@@ -91,7 +91,7 @@ controls.
 
 ## Prerequisites
 
-- Python 3.9+. No third-party dependencies. `zoneinfo` needs a system tz
+- Python 3.10+. No third-party dependencies. `zoneinfo` needs a system tz
   database — on Windows and slim containers, `pip install tzdata`, or the
   regular-trading-hours test raises rather than guessing at Eastern time.
 - **Firm-specific quotation data**, timestamped as *the firm received it*. Per
@@ -272,7 +272,6 @@ controls.
   raise `RegNMSError` rather than return an audit result.
 - Run the test suite:
 ```bash
-cd skills/us-reg-nms-order-protection-rule-compliance/scripts
 python -m unittest discover -s skills/us-reg-nms-order-protection-rule-compliance/scripts
 ```
 

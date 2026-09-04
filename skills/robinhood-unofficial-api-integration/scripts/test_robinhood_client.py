@@ -97,6 +97,7 @@ def make_client(transport=None, **kwargs):
     """A client wired for tests: throttling off unless a test asks for it."""
     kwargs.setdefault("account_url", ACCOUNT_URL)
     kwargs.setdefault("min_poll_interval_s", 0)
+    kwargs.setdefault("client_id", "test-client-id")
     return RobinhoodUnofficialClient(
         transport or success_transport(), device_token="stored-device-token", **kwargs
     )
@@ -124,11 +125,11 @@ class TestConstruction(unittest.TestCase):
         pitfalls warn drives repeated challenges and security flags.
         """
         with self.assertRaises(ValueError) as ctx:
-            RobinhoodUnofficialClient(success_transport(), device_token="")
+            RobinhoodUnofficialClient(success_transport(), device_token="", client_id="cid")
         self.assertIn("persisted", str(ctx.exception))
 
         with self.assertRaises(ValueError):
-            RobinhoodUnofficialClient(success_transport(), device_token="   ")
+            RobinhoodUnofficialClient(success_transport(), device_token="   ", client_id="cid")
 
     def test_supplied_device_token_is_reused_verbatim(self):
         transport = success_transport()
@@ -145,7 +146,7 @@ class TestConstruction(unittest.TestCase):
         t1, t2 = success_transport(), success_transport()
         for transport in (t1, t2):
             client = RobinhoodUnofficialClient(
-                transport, device_token=stored, account_url=ACCOUNT_URL,
+                transport, device_token=stored, client_id="cid", account_url=ACCOUNT_URL,
                 min_poll_interval_s=0,
             )
             client.authenticate("user@email.com", "password123")
@@ -160,16 +161,27 @@ class TestConstruction(unittest.TestCase):
     def test_transport_is_required_at_construction(self):
         """Fail at construction, not at the first live order."""
         with self.assertRaises(ValueError):
-            RobinhoodUnofficialClient(None, device_token="tok")
+            RobinhoodUnofficialClient(None, device_token="tok", client_id="cid")
+
+    def test_client_id_is_required_and_has_no_default(self):
+        # Regression: the module used to ship Robinhood's web-client OAuth id as a
+        # default, silently binding every caller to a harvested credential.
+        with self.assertRaises(TypeError):
+            RobinhoodUnofficialClient(success_transport(), device_token="tok")
+        with self.assertRaises(ValueError) as ctx:
+            RobinhoodUnofficialClient(success_transport(), device_token="tok", client_id="  ")
+        self.assertIn("client_id", str(ctx.exception))
+        client = make_client(client_id="  my-id  ")
+        self.assertEqual(client.client_id, "my-id")
 
     def test_invalid_tuning_parameters_rejected(self):
         with self.assertRaises(ValueError):
             RobinhoodUnofficialClient(
-                success_transport(), device_token="tok", min_poll_interval_s=-1
+                success_transport(), device_token="tok", client_id="cid", min_poll_interval_s=-1
             )
         with self.assertRaises(ValueError):
             RobinhoodUnofficialClient(
-                success_transport(), device_token="tok", max_pages=0
+                success_transport(), device_token="tok", client_id="cid", max_pages=0
             )
 
 
@@ -372,7 +384,7 @@ class TestOrderPlacement(unittest.TestCase):
     def test_missing_account_url_blocks_submission(self):
         transport = success_transport()
         client = RobinhoodUnofficialClient(
-            transport, device_token="dev", min_poll_interval_s=0
+            transport, device_token="dev", client_id="cid", min_poll_interval_s=0
         )
         client.authenticate("user@email.com", "password123")
         with self.assertRaises(ValueError) as ctx:

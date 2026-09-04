@@ -31,7 +31,7 @@ The regulatory shape of the two tiers is real, though no rule prescribes a numbe
 
 ## Prerequisites
 
-- Python 3.8+, standard library only.
+- Python 3.10+, standard library only.
 - Per-strategy equity state (`StrategyState`: `strategy_id`, `peak_equity_usd`, `current_equity_usd`, `drawdown_limit_pct`), with `strategy_id` unique — a duplicate is rejected at construction rather than silently shadowing a monitored strategy.
 - Master portfolio equity state (`PortfolioState`: `total_peak_equity_usd`, `total_current_equity_usd`, `portfolio_drawdown_limit_pct`, `max_tripped_strategies_limit`).
 - All drawdown limits in **percentage points** (`10.0` is 10%, not `0.10`), all equity figures in one reporting currency, all sourced from the broker.

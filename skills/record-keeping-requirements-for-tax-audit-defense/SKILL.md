@@ -14,6 +14,11 @@ metadata:
   author: algo-trading-skills-contributors
 ---
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill when an algorithmic trading operation must be able to substantiate

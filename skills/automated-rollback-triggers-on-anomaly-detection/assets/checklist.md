@@ -1,7 +1,7 @@
 # Checklist for Automated Rollback Systems
 
 ## Prerequisites
-- [ ] Python 3.9+ runtime available in the CI/CD pipeline.
+- [ ] Python 3.10+ runtime available in the CI/CD pipeline.
 - [ ] Telemetry aggregator supplies per-version `DeploymentHealthMetrics` (latency, 5xx, order reject rate).
 - [ ] Previous known-good version retained in warm standby (Blue/Green); rollback is a traffic reroute.
 - [ ] Rollback thresholds agreed **before** the deploy, calibrated against the prior version's baseline.

@@ -59,7 +59,7 @@ message leaves your process:
   wire identifies instruments numerically.
 - The T7 ETI Derivatives Message Reference for your target release, for body
   offsets and `BodyLen`.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

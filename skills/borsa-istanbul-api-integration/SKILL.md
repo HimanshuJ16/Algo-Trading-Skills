@@ -44,7 +44,7 @@ access.
 
 ## Prerequisites
 
-- Python 3.9+.
+- Python 3.10+.
 - A real FIX engine for transport, and network connectivity to BIST's FIX gateways or the
   BISTECH simulator environment.
 - Approved SenderCompID and TargetCompID issued by Borsa Istanbul.

@@ -18,7 +18,10 @@ worth copying:
    documented refusal `error_type` reaches `REJECTED`.
 4. `UNKNOWN` resolves to `ABSENT` (safe to re-send) **only** when the broker echoes the client
    key back in its order book, so that absence is evidence — and an `ABSENT` verdict releases
-   the ledger claim, which is what makes the re-send it authorises possible.
+   the ledger claim, which is what makes the re-send it authorises possible. The book queried
+   must include the session's filled, cancelled and rejected orders, not only open ones; an
+   open-orders-only endpoint turns every fill that happened during the timeout into a
+   false `ABSENT`.
 5. The intent state machine refuses illegal transitions; `PLACED` and `REJECTED` are terminal.
 
 ## Full Procedure

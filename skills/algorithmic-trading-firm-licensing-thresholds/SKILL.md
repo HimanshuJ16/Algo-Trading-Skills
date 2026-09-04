@@ -69,7 +69,7 @@ counsel before the desk continues operating.
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - A `FirmTradingActivity` snapshot over a documented evaluation window:
   - `jurisdiction`, `is_exchange_member`, `has_customers`.
   - `off_exchange_volume_usd` and `exempt_off_exchange_volume_usd` — the

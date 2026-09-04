@@ -57,7 +57,7 @@ perturbations into the validation feature matrix and reports:
 
 ## Prerequisites
 
-- Python 3.9+, `numpy`.
+- Python 3.10+, `numpy`.
 - A **trained model** exposing `predict(X)` returning one of:
   - integer/boolean 1D labels (used directly as the signal),
   - a 1D float score (split at `decision_threshold`, default 0.5), or

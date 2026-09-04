@@ -81,7 +81,7 @@ spread model as though the publisher had sent them.
   matter how correct the adapters are.
 - **A pinned `target_version` per consumer**, equal to the version that
   consumer's own code was written against.
-- Python 3.8+, standard library only. Validated on CPython 3.11.
+- Python 3.10+, standard library only. Validated on CPython 3.11.
 
 ## Workflow
 

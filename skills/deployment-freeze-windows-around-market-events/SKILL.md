@@ -38,7 +38,7 @@ The dual sign-off path records *who* approved. For EU/EEA firms, RTS 6 (Commissi
 - A macro event schedule with a recorded refresh time (`event_id`, `event_name`, `event_start_epoch_sec`, pre/post buffers). Release dates move: after the 2025 lapse in appropriations BLS shifted the September 2025 Employment Situation from 3 October to 20 November 2025 and never published the October 2025 CPI.
 - Session window definitions: IANA timezone, local `HH:MM` anchor, buffers, trading weekdays, and per-date overrides for early closes and holidays.
 - An explicit inventory of environment names. Anything not listed as production or exempt is **denied**.
-- Python 3.9+ for `zoneinfo`. On Windows the stdlib tz database may be absent — install `tzdata` if `ZoneInfo` raises.
+- Python 3.10+ for `zoneinfo`. On Windows the stdlib tz database may be absent — install `tzdata` if `ZoneInfo` raises.
 
 ## Workflow
 

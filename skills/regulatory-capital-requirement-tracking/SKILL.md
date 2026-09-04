@@ -81,7 +81,7 @@ requirement is the thing actually constraining the business.
 - **A daily cadence at minimum.** "At all times" in 15c3-1(a) is stricter than
   daily; daily end-of-day is the practical floor, and firms close to their
   warning band should compute more often.
-- Python 3.7+ (ordered dicts and dataclasses). Standard library only.
+- Python 3.10+ (ordered dicts and dataclasses). Standard library only.
 
 ## Workflow
 

@@ -36,7 +36,7 @@ The regulatory pressure is real but less specific than kill-switch marketing sug
 
 ## Prerequisites
 
-- Python 3.9+ (`from __future__ import annotations`, stdlib only — no dependencies).
+- Python 3.10+ (`from __future__ import annotations`, stdlib only — no dependencies).
 - A `FirmRiskLimits` your firm has actually calibrated: max daily loss, max order rate per second, max net exposure. RTS 6 Art. 15(1) mandates that maximum order values, volumes and *message limits* exist; it publishes no numbers, and neither does 15c3-5. The calibration record is the audit artefact, not the number.
 - One `KillSwitchGateway` per venue/FIX session. Without gateways the engine still latches the lockout, but reports every cancel as `NO_GATEWAY` and escalates — it never claims a cancel it did not send.
 - A risk feed producing `RiskSnapshot(daily_pnl_usd=..., net_exposure_usd=..., as_of=...)`. **PnL is signed: negative is a loss.**

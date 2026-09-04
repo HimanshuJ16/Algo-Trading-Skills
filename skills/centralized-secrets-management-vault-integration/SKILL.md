@@ -71,7 +71,7 @@ revoked hours ago.
 - A decision, made before deployment, about what happens when the SecretID is spent: with
   `secret_id_num_uses=1`, re-login after max TTL fails permanently and an orchestrator
   must deliver a fresh wrapped SecretID.
-- Python 3.8+. No third-party package required; `hvac` can be substituted behind the
+- Python 3.10+. No third-party package required; `hvac` can be substituted behind the
   `VaultTransport` protocol.
 
 ## Workflow

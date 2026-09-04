@@ -32,7 +32,7 @@ It provides mechanisms to:
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - The firm's SM&CR classification (limited scope, core, enhanced, banking, or Solvency II insurance) — this determines which SMFs the firm may appoint and whether SYSC 25 applies.
 - FCA Individual Reference Numbers for all Senior Managers, verified against the [FCA Register](https://register.fca.org.uk/). The FCA publishes no fixed IRN format, so the engine checks presence only; format validation would be a false assurance.
 - Awareness of [MAR 7A](https://handbook.fca.org.uk/handbook/MAR/7A/) and UK-assimilated [RTS 6](https://www.legislation.gov.uk/eur/2017/589) obligations, which supply the underlying control evidence this skill records.

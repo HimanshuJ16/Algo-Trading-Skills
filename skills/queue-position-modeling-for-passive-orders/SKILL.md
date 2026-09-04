@@ -82,7 +82,7 @@ level activity:
 - Calibrated `Config`: `cancellation_share_alpha` (haircut in $[0, 1]$ on the
   uniform-cancellation assumption, default `0.5`), `average_order_size`,
   `average_trade_size`, `front_of_queue_tolerance`.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

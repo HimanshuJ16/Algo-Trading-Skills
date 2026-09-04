@@ -14,6 +14,11 @@ metadata:
   author: algo-trading-skills-contributors
 ---
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill when:
@@ -35,7 +40,7 @@ Do **not** use this skill when:
 
 ## Prerequisites
 
-- Python 3.9+.
+- Python 3.10+.
 - Frozen internal realized-lot ledger (all corporate actions, splits, mergers applied; all dividends reinvested).
 - Parsed 1099-B data from the clearing broker (CSV/JSON, ideally the **final** corrected version, not the preliminary February draft).
 - Understanding of **trade-date accounting**. Form 1099-B box 1c carries the *trade date* of the sale, and a security's holding period likewise runs from the day after the trade date to the trade date of the sale — not the settlement date (IRS Pub. 550, *Holding Period → Securities traded on an established market*; Instructions for Form 1099-B, box 1c).

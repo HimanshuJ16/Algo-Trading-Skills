@@ -173,4 +173,4 @@ arithmetic over those numbers, not about how they were obtained. It is not a com
 artifact, asserts no regulatory requirement, and its budgets carry no authority beyond
 the operator who sets them.
 
-Requires Python 3.9+ for `math.nextafter` and `math.ulp`.
+Requires Python 3.10+ for `math.nextafter` and `math.ulp`.

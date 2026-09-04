@@ -1,0 +1,14 @@
+# Keeps the CI toolchain current. The library itself has no runtime dependencies to bump;
+# requirements-dev.txt only pins the test and validation tooling.
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5

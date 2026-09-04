@@ -14,6 +14,11 @@ metadata:
   author: algo-trading-skills-contributors
 ---
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill in cross-border trading operations, multi-entity portfolio management, and dividend accounting engines. When an entity resident in Country A holds securities issued in Country B, the source country withholds tax at its domestic rate — 30% on US FDAP income, 25% plus solidarity surcharge in Germany, 35% in Switzerland, 0% on UK dividends paid to non-residents. A double taxation treaty may reduce that rate for a given class of income, and the residence country may credit some of what remains.

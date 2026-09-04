@@ -40,7 +40,7 @@ A successful `connect()` is therefore **not** evidence of reachability, valid cr
 
 ## Prerequisites
 
-- Python 3.9+
+- Python 3.10+
 - Network connectivity to B3 colocation or a certified B3 network provider
 - B3-assigned SenderCompID/TargetCompID from B3 Membership Services
 - Valid B3 credentials and IP whitelisting for order entry and market data

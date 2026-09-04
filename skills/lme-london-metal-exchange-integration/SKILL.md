@@ -75,7 +75,7 @@ own failure mode:
   reference the Daily Price Limit is measured from.
 - The LME trading calendar and current substitute-prompt-date notices, if you
   intend to confirm explicit prompt dates.
-- Python 3.9+. Standard library only (`decimal`, `dataclasses`, `datetime`,
+- Python 3.10+. Standard library only (`decimal`, `dataclasses`, `datetime`,
   `logging`).
 
 ## Workflow

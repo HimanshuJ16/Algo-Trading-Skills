@@ -60,7 +60,7 @@ metadata:
 | `metadata.subdomain` | one of the 16 domains listed in [`ROADMAP_500.md`](ROADMAP_500.md) |
 | `metadata.tags` | comma-separated keywords for search |
 | `metadata.brokers_frameworks` | semicolon-separated broker APIs / frameworks the skill references (semicolons, because vendor names contain commas) |
-| `metadata.version` | skill content version, quoted semver, bump on material rewrites |
+| `metadata.version` | skill content version, quoted semver; bump patch for a correction, minor when the workflow, helper API or tests gain something, major for a rewrite, then regenerate `index.json` |
 | `metadata.author` | `algo-trading-skills-contributors` |
 
 Two constraints on `description` deserve emphasis, because they are what makes a

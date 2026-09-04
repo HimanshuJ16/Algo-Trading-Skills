@@ -26,7 +26,7 @@ Do not wire automated rollback as the *primary* control loop for market-data ale
 
 ## Prerequisites
 
-- Python 3.9+
+- Python 3.10+
 - A telemetry aggregator (e.g., Prometheus, Datadog) capable of supplying real-time `DeploymentHealthMetrics` per deployment version.
 - Integration with a CI/CD controller (e.g., Kubernetes, ArgoCD, GitHub Actions, Jenkins) to execute the rollback script when `should_rollback == True`.
 - A "last known good" version retained in a standby/draining state (Blue/Green) so rollback is a traffic reroute, not a re-provision.

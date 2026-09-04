@@ -9,6 +9,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed — content accuracy
+- `dubai-financial-market-dfm-api`: the description and `brokers_frameworks` asserted order
+  submission "over FIX 4.4", which the skill's own `references/standards.md` lists as
+  unverified. Both now describe what the skill does (pre-dispatch validation and illustrative
+  FIX framing) and carry the caveat.
+- `section-1256-contract-tax-treatment-us-futures`: the net § 1256 contracts loss definition
+  said "plus $3,000"; it is the lesser of the net § 1256 loss and the carryover that would
+  exist without the carryback election, which is what the worked example already computed.
+- `mifid-ii-algo-trading-compliance-eu`: "the two numeric figures RTS 6 states" listed three.
+- Ten skills quoted `cd skills/<name>/scripts` on the line before the repo-root test
+  command, which fails after the `cd`. The line is gone and `tools/validate_skills.py` now
+  rejects it.
+- 113 skill documents claimed a Python floor of 3.7, 3.8 or 3.9; the library floor is
+  3.10, and the validator now rejects a lower claim.
+- Nine tax-accounting skills carried no "not tax advice" wording; every skill in that
+  domain now opens with the same one-line caveat.
+
+### Fixed — reference implementations
+- `order-placement-idempotency`: documented that `broker_order_book_fn` must return the
+  session's filled, cancelled and rejected orders as well as open ones — an open-orders-only
+  endpoint makes an order that filled during the timeout look `ABSENT`, releases the claim,
+  and re-sends it. Also stated that only the initial claim is safe across processes; the
+  later state transitions serialise on a per-process lock, so one ledger file belongs to one
+  process.
+- `kill-switch-and-drawdown-circuit-breakers`: the compatibility wrapper exposed a
+  `peak_equity` setter, so the drawdown breaker could be neutralised with no audit row; it is
+  read-only now, and `record_capital_flow` writes a `capital_flow_log` entry.
+- `robinhood-unofficial-api-integration`: no longer ships Robinhood's web-client OAuth id
+  as a default; `client_id` is a required constructor argument.
+- `earnings-call-transcript-nlp-signal-research`: dropped the dictionary authors' personal
+  email from the module docstring; the licensing pointer is the Master Dictionary page.
+
+### Changed — repository
+- Removed `docs/prompt.md`, an internal working prompt that was never part of the skill
+  contract. How the library is written and reviewed is described in `CONTRIBUTING.md`.
+- `.github/workflows/validate-skills.yml` declares `permissions: contents: read`; added
+  `.github/dependabot.yml` for pip and GitHub Actions updates and a tag-triggered release
+  workflow.
+- README: reworded the "named exceptions" claim (about half the helpers define their own
+  exception classes; all validate inputs) and noted that each per-domain plugin checks out
+  the whole repository even though only that domain's skills are loaded.
+
 ---
 
 ## [3.0.0] - 2026-09-04
@@ -79,11 +121,11 @@ anything parsing either needs updating.
   depends on a single floating-point bit.
 
 ### Changed — library shape
-- Merged duplicates: `cross-strategy-correlation-monitoring` into
+- Merged duplicates: `strategy-correlation-matrix-live-recomputation` into
   `cross-strategy-correlation-monitoring` (which gains EWMA weighting and a shrunken
-  covariance output), `implementation-shortfall-minimization` into
+  covariance output), `arrival-price-benchmark-execution-algo` into
   `implementation-shortfall-minimization`, and
-  `benchmark-relative-performance-attribution` into
+  `benchmark-portfolio-for-multi-strategy-performance-context` into
   `benchmark-relative-performance-attribution`.
 - Renamed for accuracy: `cme-group-fix-api-for-futures` to
   `cme-stp-fix-and-ilink2-tag-value-encoding` (it never covered live order entry), and
@@ -92,8 +134,8 @@ anything parsing either needs updating.
   indistinguishable from `websocket-reconnection-with-state-recovery`).
 - `moscow-exchange-moex-api-integration` reframed around its fail-closed OFAC sanctions gate,
   with the "submit an order once your sanctions position permits" verification step removed.
-- Removed the content generator's self-narration ("an earlier revision of this file
-  asserted …") from published reference files, keeping the corrected statements.
+- Removed revision-history narration ("an earlier revision of this file asserted …")
+  from published reference files, keeping the corrected statements.
 
 ### Changed — tooling and CI
 - `tools/run_all_tests.py` runs each skill's suite in its own subprocess with a timeout, so a

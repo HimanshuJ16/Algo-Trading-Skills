@@ -15,6 +15,11 @@ metadata:
   author: algo-trading-skills-contributors
 ---
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill when sorting a year's closed trades into the tax buckets a *particular* tax authority recognises — for end-of-year reporting, or for modelling net post-tax PnL in a backtest. The classification is jurisdiction-specific down to the category names, so the engine takes `Jurisdiction` as a required argument:

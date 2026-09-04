@@ -37,7 +37,7 @@ Its second job is **refusing to price when pricing would be wrong**. A crossed o
 - The instrument's **minimum price variation**. Under Rule 612 that is `$0.01` for NMS stocks priced at or above `$1.00` and `$0.0001` below `$1.00`; the engine defaults to `$0.01` and sub-dollar names must set `tick_size` explicitly on the quote.
 - Optional but strongly recommended: current **LULD price bands**, and the **Rule 201 short-sale restriction** flag for any short sale.
 - A configured **logging handler**. The module attaches a `NullHandler`, so suspension warnings are silent until the host application configures logging.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

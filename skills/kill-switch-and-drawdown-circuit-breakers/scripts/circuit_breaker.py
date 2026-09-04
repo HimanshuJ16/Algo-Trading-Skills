@@ -76,6 +76,16 @@ class ReEnableEventLog:
     rejection_reason: Optional[str] = None
 
 
+@dataclass
+class CapitalFlowEventLog:
+    """Audit record for every external deposit/withdrawal applied to the high-water mark."""
+
+    timestamp: str
+    amount: float
+    previous_peak_equity: float
+    new_peak_equity: float
+
+
 def _is_finite(*values: float) -> bool:
     """True only if every value is a real, finite number (rejects NaN and +/-Inf)."""
     for v in values:
@@ -198,6 +208,7 @@ class KillSwitchCircuitBreaker:
         self.consecutive_rejections = 0
         self.audit_log: List[BreachEventLog] = []
         self.re_enable_log: List[ReEnableEventLog] = []
+        self.capital_flow_log: List[CapitalFlowEventLog] = []
 
     # ------------------------------------------------------------------ orders
 
@@ -371,7 +382,16 @@ class KillSwitchCircuitBreaker:
         with self._lock:
             if self.peak_equity is None:
                 return None
-            self.peak_equity += float(amount)
+            previous = self.peak_equity
+            self.peak_equity = previous + float(amount)
+            self.capital_flow_log.append(
+                CapitalFlowEventLog(
+                    timestamp=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                    amount=float(amount),
+                    previous_peak_equity=previous,
+                    new_peak_equity=self.peak_equity,
+                )
+            )
             logger.info(
                 "Capital flow of %.2f applied; peak equity high-water mark adjusted to %.2f",
                 amount,
@@ -599,11 +619,14 @@ class CircuitBreaker:
 
     @property
     def peak_equity(self):
-        return self.engine.peak_equity
+        """Read-only. The high-water mark moves only through audited paths.
 
-    @peak_equity.setter
-    def peak_equity(self, val):
-        self.engine.peak_equity = val
+        There is deliberately no setter: assigning ``peak_equity = 1e12`` would disable
+        the drawdown breaker with no operator, no reason, and no audit row. Adjust it via
+        ``human_re_enable(..., new_peak_equity=...)`` or ``engine.record_capital_flow()``,
+        both of which leave a log entry.
+        """
+        return self.engine.peak_equity
 
     @property
     def halted(self):

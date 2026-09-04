@@ -38,7 +38,7 @@ This skill is US-only and an annual governance gate. Do NOT invoke it when:
 
 ## Prerequisites
 
-- Python 3.9+ (stdlib only).
+- Python 3.10+ (stdlib only).
 - **Tamper-evident, attributable, reproducible audit-log evidence.** Every date supplied to the checklist must be sourced from a primary recordkeeping system that produces time-stamped records per SEC Rule 17a-4(f): attributable to a named actor, reproducible from a source-system record ID, and protected against post-hoc modification. The agent MUST REFUSE unprovenanced dates (a date typed by hand with no source-system record ID) rather than populate the field — the engine cannot otherwise distinguish fabricated timestamps from genuine audit entries.
 - **Every date must be a `datetime.datetime`**, and all supplied datetimes must agree on timezone awareness (all naive or all tz-aware). A `datetime.date`, a string, or a naive/aware mix is rejected at construction with `ValueError`.
 - Audit logs of the CEO/CCO annual meeting (FINRA 3130(c)(2)) and the prior certification date, which fixes this year's anniversary deadline.

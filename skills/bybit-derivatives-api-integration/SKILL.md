@@ -52,7 +52,7 @@ client gets wrong:
   `retCode 10003` — an error easy to misread as a bad secret.
 - A clock kept NTP-synchronised. Bybit's documented recommendation is local device time
   under NTP; `sync_with_server_time()` is a fallback for hosts that cannot run a daemon.
-- Python 3.9+. Standard library only — `hmac`, `hashlib`, `json`, `uuid`. No SDK, and no
+- Python 3.10+. Standard library only — `hmac`, `hashlib`, `json`, `uuid`. No SDK, and no
   HTTP client is bundled: the module signs, the caller sends.
 
 ## Workflow

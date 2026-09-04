@@ -10,7 +10,7 @@ metadata:
   subdomain: broker-integration
   tags: broker-integration, idempotency, client-order-id, order-ledger, retry-safety, ambiguous-timeout, duplicate-orders
   brokers_frameworks: "Fyers API v3; Zerodha Kite Connect; ICICI Breeze API; Upstox API v2; Alpaca Trading API; IBKR API"
-  version: "2.0.0"
+  version: "2.0.1"
   author: algo-trading-skills-contributors
 ---
 
@@ -77,7 +77,11 @@ duplicative orders**."
 - A durable local order-intent ledger — a DB file or WAL, not a dict. It must live in the
   same failure domain as the bot and be fsync'd, or the crash it exists to survive takes it
   with the process.
-- An order book / order-status endpoint you can query independently of the placement call.
+- An order book / order-status endpoint you can query independently of the placement call,
+  and one that returns the session's **filled, cancelled and rejected orders as well as open
+  ones**. Reconciliation treats absence from the book as evidence, so an open-orders-only
+  query (Alpaca's `GET /v2/orders` defaults to `status=open`) makes an order that filled
+  during the timeout look absent, releases the claim, and re-sends it.
 - Canonical inputs for key derivation: a stable `strategy_id`, one representation of the
   signal timestamp, and one numeric type per field. `qty=50` and `qty=50.0` must not derive
   two keys for one order.
@@ -207,6 +211,10 @@ duplicative orders**."
   at 128 characters, and its uniqueness is reported to be enforced against *open* orders
   rather than for all time; IBKR's `orderId` is explicitly reusable across days. Scope key
   reuse to what the broker actually guarantees.
+- **Reconciling against an open-orders-only endpoint.** A market order that filled while the
+  response was lost is no longer *open*; if the book you query omits filled orders, the
+  reconciler concludes `ABSENT`, releases the claim and sends the order again. The book has
+  to include the session's completed orders.
 - **Keeping the ledger in memory.** A dict does not survive the crash the ledger exists to
   survive. So does not an unflushed file.
 

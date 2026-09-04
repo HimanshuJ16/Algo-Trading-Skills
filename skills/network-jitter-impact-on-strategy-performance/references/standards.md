@@ -54,7 +54,7 @@ common skew and PDV does not.
 
 This module reproduces that rank rule, including the one-ULP nudge, so its percentiles
 reconcile with HdrHistogram-based collectors and with the sibling skill
-`latency-monitoring-percentile-based-slas`. Requires Python 3.9+ for `math.nextafter`.
+`latency-monitoring-percentile-based-slas`. Requires Python 3.10+ for `math.nextafter`.
 
 ## The clock is the binding constraint on how tight a budget you can claim
 

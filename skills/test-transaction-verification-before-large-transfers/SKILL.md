@@ -56,7 +56,7 @@ authorised.
 
 ## Prerequisites
 
-- Python 3.9+. Standard library only; no third-party dependencies.
+- Python 3.10+. Standard library only; no third-party dependencies.
 - A trusted way to read back, for a broadcast transaction hash, the recipient
   address, the chain, the transferred amount, and the current confirmation depth
   — a node RPC, a block explorer API, or your custody provider's transaction

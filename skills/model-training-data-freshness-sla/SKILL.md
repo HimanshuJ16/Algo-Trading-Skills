@@ -44,7 +44,7 @@ Supervisory guidance on model risk management treats data relevance as an input 
 - Dataset metadata: `latest_record_timestamp_epoch` and `current_system_timestamp_epoch`, both in **epoch seconds** and **the same clock domain**; `total_record_count`; `missing_days_count`.
 - `timestamp_basis`: `EVENT_TIME` (default) or `INGESTION_TIME`. Freshness is only meaningful against event time; declaring `INGESTION_TIME` records the caveat in the audit trail rather than hiding it.
 - `calendar_excluded_hours`: hours inside the audit window during which the dataset was **not expected to publish** (weekend, exchange holiday, overnight). Required for correctness on any session-bound dataset — see the first pitfall below.
-- Python 3.8+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

@@ -61,7 +61,7 @@ per-order pre-trade reject.
 
 ## Prerequisites
 
-- Python 3.8+ (`from __future__ import annotations`; standard library only).
+- Python 3.10+ (`from __future__ import annotations`; standard library only).
 - **Per order**: the Exchange-provided `algo_id`; `algo_tag_kind` (`REGISTERED` for an
   exchange-registered algo, `GENERIC` for the standardised sub-threshold tag);
   `order_source` (`CLIENT_API` / `VENDOR_API` / `BROKER_ALGO` / `IBT_STWT` / `DMA`);

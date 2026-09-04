@@ -35,7 +35,7 @@ Part 5.6 of the ASIC Market Integrity Rules (Securities Markets) 2017 requires f
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - **Numeric input contract:** `price`, `qty` and `reference_price` must be `int` or `float`. `decimal.Decimal`, strings and `bool` are treated as non-finite and rejected with `NON_FINITE_INPUT` — the gate fails closed rather than mis-reading them, so convert at the system boundary.
 - A `AsicMarketIntegrityConfig` (frozen) carrying `max_order_value_aud`, `max_order_volume` and `max_price_deviation_pct`, approved by the firm's compliance officer. All limits must be positive and finite and the deviation must fall in `(0.0, 1.0]`; anything else raises `ValueError` at construction, because a disabled control is a misconfiguration and RG 241.45 states ASIC would not accept an AOP system where filters or filter parameters could be deactivated.
 - A real-time, valid reference price (last traded or mid) per instrument. A zero, negative or non-finite reference price is rejected rather than used, so a flaky reference feed becomes a trading outage rather than a silent control bypass. Decide that trade-off before deployment.

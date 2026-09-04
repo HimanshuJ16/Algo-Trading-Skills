@@ -58,7 +58,7 @@ Use this skill to compute Form 6781 Part I for one tax year on a book of IRC
 
 ## Prerequisites
 
-- Python 3.7+, standard library only.
+- Python 3.10+, standard library only.
 - A blotter for **one tax year** of `Section1256Trade` records:
   `trade_id`, `symbol`, `contract_type`, `realized_pnl_usd`,
   `year_end_mark_pnl_usd`, `is_open_at_year_end`,

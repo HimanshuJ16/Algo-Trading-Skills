@@ -35,10 +35,11 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = "https://api.robinhood.com"
 
-# Harvested from Robinhood's own web client by the community; it is not a
-# credential Robinhood issued to you, and it can be rotated or revoked at any
-# time.  Overridable so a caller is never silently bound to a stale value.
-DEFAULT_CLIENT_ID = "c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS"
+# There is deliberately no default OAuth ``client_id``.  The value community
+# libraries use is harvested from Robinhood's own web client: it is not a
+# credential Robinhood issued to you, it can be rotated or revoked at any time,
+# and redistributing it would bake a contractual problem into this module.  The
+# caller supplies whatever id their own authorisation covers.
 
 # Robinhood publishes no rate limit for these endpoints.  This is a conservative
 # default chosen by this skill, not an observed or documented broker figure.
@@ -247,8 +248,8 @@ class RobinhoodUnofficialClient:
         http_fn: HttpTransport,
         device_token: str,
         *,
+        client_id: str,
         account_url: Optional[str] = None,
-        client_id: str = DEFAULT_CLIENT_ID,
         min_poll_interval_s: float = DEFAULT_MIN_POLL_INTERVAL_S,
         max_pages: int = DEFAULT_MAX_PAGES,
     ) -> None:
@@ -264,16 +265,23 @@ class RobinhoodUnofficialClient:
             account_url: The account URL from Robinhood's account profile.
                 Required before placing an order; there is no default, because a
                 guessed account URL addresses the wrong account.
-            client_id: OAuth client id used on the token request.
+            client_id: OAuth client id used on the token request.  Required,
+                with no default: supply the id your own authorisation covers
+                rather than one harvested from Robinhood's web client.
             min_poll_interval_s: Minimum spacing between polling calls.  Not a
                 published Robinhood limit -- a conservative local default.
             max_pages: Cap on pages followed when walking a paginated response.
 
         Raises:
-            ValueError: if ``http_fn`` or ``device_token`` is missing/blank.
+            ValueError: if ``http_fn``, ``device_token`` or ``client_id`` is
+                missing/blank.
         """
         if http_fn is None:
             raise ValueError("http_fn is required; supply an HTTP transport.")
+        if not client_id or not str(client_id).strip():
+            raise ValueError(
+                "client_id is required; this module ships no default OAuth client id."
+            )
         if not device_token or not str(device_token).strip():
             raise ValueError(
                 "device_token is required and must be persisted across restarts. "
@@ -287,7 +295,7 @@ class RobinhoodUnofficialClient:
         self._http: HttpTransport = http_fn
         self.device_token: str = str(device_token).strip()
         self.account_url: Optional[str] = account_url
-        self.client_id: str = client_id
+        self.client_id: str = str(client_id).strip()
         self.min_poll_interval_s: float = min_poll_interval_s
         self.max_pages: int = max_pages
         self.auth_token: Optional[AuthToken] = None

@@ -42,7 +42,7 @@ The engine reports nearest-rank percentiles, jitter as both $\sigma$ and IQR, an
 - **Samples measured with a monotonic clock**, in Python `time.perf_counter_ns()` or `time.monotonic_ns()` — never `time.time()`, whose value can step backwards when NTP adjusts it and produce a negative duration.
 - **Samples collected after warm-up.** ONNX Runtime documents that "the very first `Run()` performs a variety of tasks under the hood like making CUDA memory allocations, capturing the CUDA graph for the model, and then performing a graph replay ... the latency associated with the first `Run()` is bound to be high." `trtexec` warms up for at least 200 ms by default before it times anything.
 - An `InferenceBudgetConfig`: `model_id`, `max_inference_budget_ms`, `warning_threshold_ms` (must not exceed the max), `fallback_action` (one of `QUANTIZED_ONNX_FALLBACK`, `LINEAR_HEURISTIC_FALLBACK`, `SKIP_SIGNAL`, `ALERT_ONLY`), and optionally `percentile_method` and `fallback_profiled_p99_ms`.
-- Python 3.9+ for `math.nextafter`. No third-party dependencies.
+- Python 3.10+ for `math.nextafter`. No third-party dependencies.
 
 ## Workflow
 

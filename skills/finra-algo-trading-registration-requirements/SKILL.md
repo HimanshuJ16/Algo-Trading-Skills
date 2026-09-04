@@ -32,7 +32,7 @@ The value of this skill is *scope discipline in both directions*. Registration i
 
 ## Prerequisites
 
-- Python 3.8+ (`from __future__ import annotations`; dependency-free stdlib).
+- Python 3.10+ (`from __future__ import annotations`; dependency-free stdlib).
 - A personnel registry sourced from CRD / FINRA Gateway: `personnel_id`, `name`, `role_title`, `is_series_57_active`, `is_sie_active`, plus `is_ce_inactive` (Rule 1240), `is_sie_grandfathered` (pre-1 Oct 2018 registrants), and `is_general_securities_principal` (Series 24).
 - A change classification per commit: `security_type`, `system_behavior`, `author_activity`, and whether the author is *primarily* responsible.
 - A firm-documented definition of "significant modification". FINRA's guidance is that it is "any change to the code of the algorithm that impacts the logic and functioning of the trading strategy" — a data-feed/vendor change generally is not; a change to a benchmark index generally is. Firms must map that to their own repository.

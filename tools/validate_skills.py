@@ -46,6 +46,10 @@ Beyond the spec, this validator enforces:
     named test_*.py (tools/run_all_tests.py collects test_*.py as suites).
   * Every test command quoted in a skill's Markdown is the repo-root form
     `python -m unittest discover -s skills/<name>/scripts`, and SKILL.md quotes it.
+    A `cd skills/...` line ahead of that command is rejected too, because the
+    repo-root path no longer resolves once the shell has changed directory.
+  * No skill document claims a Python floor below PYTHON_FLOOR (3.10): several
+    helpers use `dataclass(slots=True)` and `zoneinfo`, so a lower claim is false.
   * The version in .claude-plugin/plugin.json, .claude-plugin/marketplace.json and
     index.json agree, and every skill is listed in exactly one per-domain marketplace
     plugin entry.
@@ -112,6 +116,11 @@ TEST_CMD_RE = re.compile(
 # Markdown soft-wraps a long command onto an indented continuation line. Rejoin those
 # before scanning so a wrapped command is read as the single command it is.
 SOFT_WRAP_RE = re.compile(r"\n[ \t]+")
+# A `cd skills/<name>/scripts` line on its own breaks the repo-root command that follows it.
+CD_INTO_SKILL_RE = re.compile(r"^\s*cd\s+skills/\S+", re.M)
+# The library's interpreter floor; a skill may not advertise a lower one.
+PYTHON_FLOOR = (3, 10)
+PYTHON_CLAIM_RE = re.compile(r"Python\s+(\d+)\.(\d+)\+")
 
 # Repo-level documents whose backticked skill slugs must resolve to real skills.
 REPO_DOCS = [
@@ -290,14 +299,24 @@ def validate_test_commands(skill_dir, name, skill_md_text):
             + sorted(glob.glob(os.path.join(skill_dir, "assets", "*.md"))))
     for doc in docs:
         with open(doc, encoding="utf-8") as fh:
-            text = SOFT_WRAP_RE.sub(" ", fh.read())
+            raw = fh.read()
+        rel = os.path.relpath(doc, os.path.dirname(skill_dir)).replace(os.sep, "/")
+        for found in CD_INTO_SKILL_RE.findall(raw):
+            errors.append(
+                f"{name}: {rel} documents `{found.strip()}` -- the test command runs from "
+                f"the repository root, so drop the cd")
+        for major, minor in PYTHON_CLAIM_RE.findall(raw):
+            if (int(major), int(minor)) < PYTHON_FLOOR:
+                errors.append(
+                    f"{name}: {rel} claims Python {major}.{minor}+, below the library "
+                    f"floor of {PYTHON_FLOOR[0]}.{PYTHON_FLOOR[1]}")
+        text = SOFT_WRAP_RE.sub(" ", raw)
         for found in TEST_CMD_RE.findall(text):
             cmd = " ".join(found.split())
             if cmd.endswith(" -v"):
                 cmd = cmd[:-len(" -v")]
             if cmd in (canonical, WHOLE_REPO_TEST_CMD):
                 continue
-            rel = os.path.relpath(doc, os.path.dirname(skill_dir)).replace(os.sep, "/")
             errors.append(
                 f"{name}: {rel} documents `{cmd}`, which does not run from the "
                 f"repository root -- use `{canonical}`")

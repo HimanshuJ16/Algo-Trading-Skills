@@ -7,13 +7,13 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](LICENSE)
 [![Validate & Test Skills](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/HimanshuJ16/Algo-Trading-Skills/actions/workflows/validate-skills.yml)
 [![Skills](https://img.shields.io/badge/skills-501-brightgreen?style=flat-square)](#whats-inside--16-categories)
-[![Tests](https://img.shields.io/badge/tests-20%2C289_passing-brightgreen?style=flat-square)](#what-verified-means-here)
+[![Tests](https://img.shields.io/badge/tests-20%2C291_passing-brightgreen?style=flat-square)](#what-verified-means-here)
 [![Domains](https://img.shields.io/badge/domains-16-9cf?style=flat-square)](#whats-inside--16-categories)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square)](#quick-start)
 [![agentskills.io](https://img.shields.io/badge/standard-agentskills.io-ff6600?style=flat-square)](https://agentskills.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-**501 algorithmic trading skills · 16 engineering domains · 5 regulatory & exchange frameworks · 501 working reference implementations backed by 20,289 unit tests · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI and any tool that reads `SKILL.md` · Apache 2.0**
+**501 algorithmic trading skills · 16 engineering domains · 5 regulatory & exchange frameworks · 501 working reference implementations backed by 20,291 unit tests · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI and any tool that reads `SKILL.md` · Apache 2.0**
 
 [Get Started](#quick-start) · [What's Inside](#whats-inside--16-categories) · [How It's Verified](#what-verified-means-here) · [Frameworks & Standards](#five-regulatory--exchange-frameworks-one-skill-library) · [Platforms](#compatible-platforms--zero-config-auto-discovery) · [Contributing](#contributing)
 
@@ -87,7 +87,9 @@ session. The marketplace therefore ships **one plugin per engineering domain**
 (`algo-trading-risk-management`, `algo-trading-execution-algorithms`, …), each a few
 thousand tokens. An `algo-trading-skills-all` plugin exists for completeness, but it
 costs tens of thousands of tokens per session — reach for it only if you know you want
-that.
+that. One caveat on disk rather than context: every plugin entry points at the repository
+root, so installing a single domain checks out the whole tree (about 100 MB); only that
+domain's skills are loaded into the session.
 
 Run one skill's suite on its own — the same command every skill quotes in its own Verification section:
 
@@ -117,8 +119,8 @@ the build goes red.
 
 | | |
 |---|---|
-| **501 working reference implementations** | ~292,000 lines of Python under `skills/*/scripts/`. Not pseudocode — importable modules with validated inputs and named exceptions. 466 of the 501 import nothing outside the Python standard library; the 35 that do reach mostly for numpy or pandas, so the whole suite still runs on `requirements-dev.txt` alone. |
-| **501 unit test suites · 20,289 tests** | ~228,000 lines of tests. Each suite runs in its own subprocess with a timeout, so no skill can leak module state into another or hang the build. A skill whose own reference implementation fails its own tests fails the build. |
+| **501 working reference implementations** | ~292,000 lines of Python under `skills/*/scripts/`. Not pseudocode — importable modules that validate their inputs and raise on bad data; about half define their own exception classes, the rest raise the builtins. 466 of the 501 import nothing outside the Python standard library; the 35 that do reach mostly for numpy or pandas, so the whole suite still runs on `requirements-dev.txt` alone. |
+| **501 unit test suites · 20,291 tests** | ~228,000 lines of tests. Each suite runs in its own subprocess with a timeout, so no skill can leak module state into another or hang the build. A skill whose own reference implementation fails its own tests fails the build. |
 | **A machine-enforced contract** | [`tools/validate_skills.py`](tools/validate_skills.py) checks the frontmatter contract, the seven required body sections, `scripts/` layout, every skill cross-reference in both skills and repo docs, that every documented test command runs from the repository root, and that the plugin manifests cover every skill exactly once. |
 | **The specification, not our reading of it** | CI also runs [`skills-ref`](https://github.com/agentskills/agentskills/tree/main/skills-ref), the official agentskills.io reference validator, against every skill. It needs Python 3.11+, so that job runs on the newer interpreters while the library itself stays 3.10-compatible. |
 | **Descriptions that say when to trigger** | Every description starts with "Use when …" and fits in 280 characters — enforced, because it is the only thing an agent reads before choosing a skill, and it costs context on every session. |

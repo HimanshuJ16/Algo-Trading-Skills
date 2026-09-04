@@ -67,7 +67,7 @@ Manual orders should use the separate trader or short-code control path.
   identifier survives serialization into the actual outbound tag.
 - Durable compliance logs and an alert route for hard rejects, registry outages,
   and attempted stale deployments.
-- Python 3.9+ for the reference implementation.
+- Python 3.10+ for the reference implementation.
 
 ## Inputs and Outputs
 

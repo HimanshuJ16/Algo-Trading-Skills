@@ -61,7 +61,7 @@ error in this area:
 
 ## Prerequisites
 
-- Python 3.8+ (`from __future__ import annotations`; stdlib only).
+- Python 3.10+ (`from __future__ import annotations`; stdlib only).
 - **Firm attestations per order**: `algo_authorised_for_production` (Schedule 7 §1.1.1(b),(d)),
   `algo_testing_signed_off` (§3.2.1), `operator_approved_to_use` (§3.1.2). Hong Kong has no
   per-developer registration regime — the requirement is that the people involved are

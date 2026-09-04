@@ -35,7 +35,7 @@ The engine decomposes spreads into **quoted**, **effective** and **realized (5-m
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - L1 quote snapshots with bid/ask price and size, timestamped to at least millisecond precision.
 - Trade records tagged with **aggressor side**, from exchange execution records where available, or a signing rule (Lee-Ready, tick test) where not — signing error propagates directly into effective and realized spread.
 - **Trade size on every trade**, or the engine falls back to equal weighting and says so. Rule 605 spread averages are share-weighted (17 CFR 242.600(b)(8), (12), (13)); an equal-weighted average over-counts odd lots.

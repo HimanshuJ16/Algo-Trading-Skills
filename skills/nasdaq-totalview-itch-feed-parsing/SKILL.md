@@ -36,7 +36,7 @@ Its second job is **telling you when the book is wrong**. A feed with a dropped 
 - A **de-framed** ITCH 5.0 message: exactly one message starting at its 1-byte Message Type. A MoldUDP64 downstream packet carries a 20-byte header followed by message blocks, each prefixed with a 2-byte big-endian message length that excludes the length field itself — strip that prefix before calling in.
 - The **ITCH 5.0 specification at the version the feed publishes**. Field offsets change between protocol versions; ITCH 4.1 timestamps are not even the same width.
 - A **chronologically ordered** stream. The engine flags a timestamp regression but cannot repair one.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

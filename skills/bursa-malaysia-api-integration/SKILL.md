@@ -51,7 +51,7 @@ business — each with broker codes in its own format.
 
 ## Prerequisites
 
-- Python 3.9+ and a real FIX engine for transport.
+- Python 3.10+ and a real FIX engine for transport.
 - Participating Organisation status, and a BDA/BTS2 FIX connection of the right
   **connection type** for the business you intend to send.
 - Connectivity: for the BTS2 FIX Certification (UAT) environment, a site-to-site IPsec

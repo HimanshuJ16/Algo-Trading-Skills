@@ -79,7 +79,7 @@ the arithmetic notices when they disagree:
   actually attaches to (`audited_percentile`).
 - Optional: `clock_uncertainty_us`, the combined uncertainty of the two clocks bracketing
   the measurement, to enable the noise-floor annotation.
-- Python 3.9+ (`math.nextafter`, `math.ulp`).
+- Python 3.10+ (`math.nextafter`, `math.ulp`).
 
 ## Workflow
 

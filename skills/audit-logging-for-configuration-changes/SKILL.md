@@ -77,7 +77,7 @@ operational hygiene.
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - A single `ConfigurationAuditLogger` instance per audited configuration domain. The
   sequence number and chain are per-instance; two instances produce two independent
   chains that cannot be interleaved into one.

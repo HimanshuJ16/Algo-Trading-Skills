@@ -42,7 +42,7 @@ Two fields in this space have **regulator-designated** sources rather than merel
 - Multi-vendor snapshots as `VendorFieldData(vendor_name, fields, as_of)`. Vendor names unique per call; field values `str` or `None`; `as_of` timezone-aware.
 - Optional: `max_staleness` (a positive `timedelta`), which makes `evaluation_time` a required argument — the engine reads no clock.
 - Optional: `missing_sentinels` declared **per feed** from that feed's documented conventions (`"N/A"`, `"NULL"`, `"-"`).
-- Python 3.7+. No third-party dependencies.
+- Python 3.10+. No third-party dependencies.
 
 ## Workflow
 

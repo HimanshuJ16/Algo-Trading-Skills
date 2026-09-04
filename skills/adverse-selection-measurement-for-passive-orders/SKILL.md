@@ -53,7 +53,7 @@ with distribution statistics. A persistently negative curve = toxic flow.
 
 ## Prerequisites
 
-- Python 3.9+, `numpy`.
+- Python 3.10+, `numpy`.
 - A **ledger of passive fills** — each a `(trade_id, timestamp, side, fill_price,
   quantity)`. Active/aggressing fills must be filtered out upstream; this engine
   assumes every fill it receives is passive.

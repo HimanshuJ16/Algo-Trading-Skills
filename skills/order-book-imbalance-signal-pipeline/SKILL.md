@@ -70,7 +70,7 @@ numerics and is counted by kind.
   construction. Calibrate in `order-book-microstructure-signal-research`.
 - A **chronologically ordered** stream per symbol. The engine flags a regression;
   it cannot reorder.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

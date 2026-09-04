@@ -32,7 +32,7 @@ Do not treat a passing `DiligenceRecord` as license to skip those assessments.
 
 ## Prerequisites
 
-- Python 3.9+
+- Python 3.10+
 - The vendor's completed DDQ responses regarding data provenance, PII scrubbing, scraping methodologies, and Terms-of-Service compliance.
 - An independent verification artifact for the attested booleans (right-to-audit exercised, sample-data inspection, or third-party attestation) — see `references/standards.md`. Vendor self-attestation alone is insufficient (SEC App Annie enforcement, Sept 14 2021, Admin. Proc. Rel. No. 34-92975).
 - For any behind-login collection, the **written authorization instrument from the source operator**, read by the firm, before `has_documented_login_authorization` is set.

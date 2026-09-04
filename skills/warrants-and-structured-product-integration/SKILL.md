@@ -76,7 +76,7 @@ option-pricing code:
 
 ## Prerequisites
 
-- Python 3.9+ and the standard library only (`math`, `dataclasses`, `enum`,
+- Python 3.10+ and the standard library only (`math`, `dataclasses`, `enum`,
   `typing`, `logging`). No third-party dependencies.
 - Term-sheet data per line: warrant type, `strike_price`, `entitlement_ratio`
   (**shares per warrant**), `days_to_expiry`, and for a Turbo / CBBC the

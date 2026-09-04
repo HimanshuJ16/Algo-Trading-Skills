@@ -35,7 +35,7 @@ The module scores each section with the Loughran-McDonald (LM) financial lexicon
   - Source: <https://sraf.nd.edu/loughranmcdonald-master-dictionary/>
   - Licensing: "The dictionary/sentiment lists are free for use in academic research." Commercial licences must be obtained from the authors.
 - A timezone-aware transcript **publication** timestamp (not the call date) if the output feeds a backtest.
-- Python 3.8+ standard library only. No NLP framework, model download, or third-party dependency is required.
+- Python 3.10+ standard library only. No NLP framework, model download, or third-party dependency is required.
 
 ## Workflow
 

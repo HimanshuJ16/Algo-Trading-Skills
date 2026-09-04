@@ -148,6 +148,31 @@ class TestKillSwitchCircuitBreaker(unittest.TestCase):
         halted = cb.check_pnl(-1200, 10000)
         self.assertTrue(halted)
 
+    def test_wrapper_peak_equity_cannot_be_moved_by_assignment(self):
+        # Regression: the wrapper exposed a `peak_equity` setter, so `cb.peak_equity = 1e12`
+        # silently disabled the drawdown breaker with no audit row -- the same unaudited
+        # bypass the `halted` property refuses.
+        cb = CircuitBreaker(
+            max_position=100,
+            max_daily_loss=1000,
+            max_drawdown_pct=0.05,
+            alert_fn=self.mock_alert,
+        )
+        self.assertFalse(cb.check_pnl(0, 10000))
+        self.assertEqual(cb.peak_equity, 10000.0)
+
+        with self.assertRaises(AttributeError):
+            cb.peak_equity = 1e12
+        self.assertEqual(cb.peak_equity, 10000.0)
+        self.assertEqual(cb.engine.capital_flow_log, [])
+
+        # The audited paths still move it, and leave evidence.
+        self.assertEqual(cb.engine.record_capital_flow(-2000.0), 8000.0)
+        self.assertEqual(len(cb.engine.capital_flow_log), 1)
+        entry = cb.engine.capital_flow_log[0]
+        self.assertEqual((entry.amount, entry.previous_peak_equity, entry.new_peak_equity),
+                         (-2000.0, 10000.0, 8000.0))
+
     def test_wrapper_halt_cannot_be_cleared_by_assignment(self):
         # Regression: the wrapper used to expose a `halted` setter, so any caller could
         # clear a halt with no operator, no reason, and no audit row -- an unaudited

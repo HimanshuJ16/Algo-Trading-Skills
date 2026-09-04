@@ -34,7 +34,7 @@ This skill provides institutional mechanisms to:
 
 ## Prerequisites
 
-- Python 3.9+ (the module uses `from __future__ import annotations`; no third-party dependencies).
+- Python 3.10+ (the module uses `from __future__ import annotations`; no third-party dependencies).
 - The executed custody agreement and the vendor's recovery documentation — not the sales summary. Every boolean on `CustodyProviderProfile` is an assertion you must be able to support from a document you have read or a drill you have run.
 - Portfolio inventory: wallet counts, blockchain networks, and representative per-network gas costs.
 - Awareness that the scoring weights are **engineering defaults with no external standards basis**, listed in `references/standards.md` and intended for recalibration against your own drill outcomes.

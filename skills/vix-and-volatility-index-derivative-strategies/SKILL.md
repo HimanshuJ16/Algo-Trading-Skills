@@ -77,7 +77,7 @@ margin, calibrate a volatility surface, or route orders.
 
 ## Prerequisites
 
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 - Spot VIX and the front two VX futures: price, final settlement date, and
   calendar days to expiry for each.
 - For the call-spread pricer: **either** the implied volatility of each of the two

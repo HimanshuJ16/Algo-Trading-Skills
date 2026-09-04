@@ -13,6 +13,16 @@ frontmatter contract that `tools/validate_skills.py` enforces. Then check
 grouped by its domain, so you can see what already exists before proposing something
 new.
 
+## How the skills are written
+
+The skills are drafted with AI assistance against primary sources — broker documentation,
+exchange rulebooks, regulator publications — and then reviewed, corrected and tested by
+people. Every claim is expected to trace to a source a reader can check, every helper
+ships its own test suite, and the machine-enforced contract in `tools/validate_skills.py`
+keeps the structure honest. A contribution written the same way is welcome; a contribution
+that pastes unreviewed model output is not. If you cannot verify a broker or regulatory
+claim, leave it out rather than guess.
+
 Open an issue first for:
 - New category proposals or structural changes to the repo layout
 - Larger multi-skill additions
@@ -73,6 +83,9 @@ Before submitting, check your skill against these questions:
 
 - Fixing an inaccurate procedure, outdated broker behavior, or broken script:
   open a PR directly, referencing what changed and why.
+- Bump `metadata.version` in the skill's frontmatter when you change what it says or
+  does: patch for a correction, minor when the workflow, helper API or tests gain
+  something, major for a rewrite. Then regenerate `index.json`.
 - Adding broker coverage: extend `references/standards.md` for the relevant
   skill and update `mappings/broker-api-coverage.md`.
 - Reporting without fixing: open an issue using the bug report template.

@@ -107,7 +107,7 @@ cannot be the reason an order goes out.
   accounts, the client code (≤ 12 chars).
 - A caller-generated `ClOrdID`, unique per order and ≤ 20 characters.
 - The MOEX FIX specification for the interface you are certified against.
-- Python 3.9+. Standard library only (`decimal`, `dataclasses`, `datetime`, `re`,
+- Python 3.10+. Standard library only (`decimal`, `dataclasses`, `datetime`, `re`,
   `logging`).
 
 ## Workflow

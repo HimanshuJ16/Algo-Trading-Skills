@@ -33,7 +33,7 @@ Do **not** use this skill — and do not proceed to PIT feature construction —
 
 ## Prerequisites
 
-- Python 3.9+ (stdlib only; no third-party dependencies).
+- Python 3.10+ (stdlib only; no third-party dependencies).
 - Raw alternative data events containing an exact naive-UTC `event_timestamp`.
 - A known, defensible `publication_lag` per source (how long after the event the vendor actually publishes the dataset), confirmed directly with the vendor.
 - Completed **Step 0** of the Workflow (MNPI/PII/licensing compliance gate) for every source.

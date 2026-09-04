@@ -64,7 +64,7 @@ The engine:
 
 ## Prerequisites
 
-- Python 3.9+, standard library only (`csv`, `datetime`, `html`, `logging`, `math`, `re`).
+- Python 3.10+, standard library only (`csv`, `datetime`, `html`, `logging`, `math`, `re`).
 - `RawScrapedItem` records with `item_id`, `source`, `timestamp`, `ticker`, `text_content`.
 - **Timezone-aware timestamps.** Naive datetimes are rejected at construction. A naive stamp
   cannot be placed on a trading day without guessing an offset, and guessing is how future

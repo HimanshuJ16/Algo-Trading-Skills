@@ -15,6 +15,11 @@ metadata:
   author: algo-trading-skills-contributors
 ---
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill when processing raw execution records to generate compliance-ready capital gains reports. High-frequency algorithmic trading generates massive transaction volumes; computing the cost basis of sold assets manually is impossible. 
@@ -41,7 +46,7 @@ Do not use this skill when:
 
 ## Prerequisites
 
-- Python 3.9+
+- Python 3.10+
 - A data pipeline providing standardized trade records (Symbol, Timestamp, Action, Quantity, Price)
 - Trade records must be processed in strict chronological order by timestamp_ms
 - Understanding of tax lot accounting principles (FIFO/HIFO)

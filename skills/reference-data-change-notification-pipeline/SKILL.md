@@ -42,7 +42,7 @@ A field *disappearing* is floored at `WARNING` whatever the field is, because a 
 - A stable **`instrument_id` that is not the ticker**. The ticker is one of the fields whose change this engine exists to detect, so keying the master on it defeats the purpose. Prefer a persistent identifier: a FIGI never changes and is never reused; a US CUSIP survives a pure ticker rename (Meta's Class A CUSIP was explicitly unchanged when `FB` became `META` on 2022-06-09).
 - **Before/after snapshots for the same instrument** as `Mapping[str, Any]`, both produced by the **same source and the same schema version**.
 - **Canonicalized value types.** Comparison is plain `==`: `"100"` and `100` are reported as a change (a real schema change, not something to cast away silently), while `100` and `100.0` are not. Normalize types, case and padding in the loader — many vendors pad fixed-width fields, and `"AAPL "` vs `"AAPL"` is otherwise a `CRITICAL` alert every cycle.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

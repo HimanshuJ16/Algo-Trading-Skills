@@ -52,7 +52,7 @@ gets wrong, all of which fail silently:
 
 ## Prerequisites
 
-- Python 3.9+ for `zoneinfo`. On Windows and slim containers the `tzdata` package is
+- Python 3.10+ for `zoneinfo`. On Windows and slim containers the `tzdata` package is
   also required; the engine raises `TASEConfigurationError` at construction rather than
   falling back to a fixed UTC offset.
 - TASE membership or sponsored access, with `SenderCompID`, `TargetCompID` and

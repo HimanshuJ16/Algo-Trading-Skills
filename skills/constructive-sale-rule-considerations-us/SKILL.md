@@ -36,7 +36,7 @@ Only four transaction categories are constructive sales by operation of the stat
 
 ## Prerequisites
 
-- Python 3.9+ and the standard library only (`datetime`, `dataclasses`, `typing`, `math`, `logging`).
+- Python 3.10+ and the standard library only (`datetime`, `dataclasses`, `typing`, `math`, `logging`).
 - Long position cost basis and fair market value **as of the offsetting transaction's entry date** (§ 1259(a)(1) measures gain at that date, not at the reporting date).
 - Entry date, close date, and the end of the taxable year **in which the transaction was entered into** (not always Dec 31 — fiscal-year filers supply their own).
 - Any disposal of the long position, and any § 246(c)(4) risk-reduction events, in the 60 days after the close.

@@ -72,7 +72,7 @@ reasons — different position units, different compounding, different signal ti
   factor of ~20.
 - Your assumed execution delay in bars, for `execution_lag_bars`. If you have not
   decided, the default of 1 matches `backtesting.py`'s documented next-bar default.
-- Python 3.9+ and NumPy. No other dependency.
+- Python 3.10+ and NumPy. No other dependency.
 
 ## Workflow
 

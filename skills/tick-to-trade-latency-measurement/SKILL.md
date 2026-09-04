@@ -38,7 +38,7 @@ Three things make a tick-to-trade number wrong in ways nothing complains about, 
 
 ## Prerequisites
 
-- Python 3.9+ (`math.nextafter` is used for HdrHistogram's rank nudge). No third-party dependencies.
+- Python 3.10+ (`math.nextafter` is used for HdrHistogram's rank nudge). No third-party dependencies.
 - Hardware timestamping on the NIC for $T_0$ and $T_5$: request `SOF_TIMESTAMPING_RX_HARDWARE` / `SOF_TIMESTAMPING_TX_HARDWARE` via `SO_TIMESTAMPING`, and **confirm adapter support with `ethtool -T`** — the software path returns a populated field regardless.
 - An in-host counter for $T_1 \dots T_4$: `clock_gettime(CLOCK_MONOTONIC_RAW)`, or `rdtsc` converted with a calibrated invariant-TSC frequency (invariant TSC is advertised by `CPUID.80000007H:EDX[8]`).
 - **A documented conversion between the NIC PHC domain and the in-host timebase.** The Linux kernel does not convert hardware timestamps to system time; it exposes the NIC clock as a PTP clock source so userspace can. See `clock-synchronization-ptp-for-trading-hosts`.

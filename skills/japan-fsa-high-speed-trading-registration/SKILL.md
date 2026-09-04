@@ -77,7 +77,6 @@ Reach for this skill to classify whether a given order even falls inside the def
 - Confirm the audit trail is honest: an unregistered order of JPY 900,000,000 against a JPY 100,000,000 hard limit must report `is_pre_trade_limit_valid=False` and carry **both** breaches.
 - Run the test suite:
 ```bash
-cd skills/japan-fsa-high-speed-trading-registration/scripts
 python -m unittest discover -s skills/japan-fsa-high-speed-trading-registration/scripts
 ```
 

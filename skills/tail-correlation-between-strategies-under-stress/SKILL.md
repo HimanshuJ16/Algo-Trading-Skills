@@ -37,7 +37,7 @@ The `tail-correlation-between-strategies-under-stress` skill measures whether st
 
 - Overlapping daily return series per pair, sharing one timestamp index, with at least `min_observations` (default 20) aligned non-null rows — and realistically far more, since the *joint tail* is what must be populated, not the sample.
 - No non-finite values and no zero-variance (flat, stale or idle) series; the engine rejects both rather than imputing them.
-- Python 3.9+ with `numpy` and `pandas`.
+- Python 3.10+ with `numpy` and `pandas`.
 
 ## Workflow
 

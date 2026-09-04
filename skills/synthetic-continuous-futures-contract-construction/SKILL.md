@@ -40,7 +40,7 @@ Both adjusted methods anchor on the **newest** contract, which is what "back-adj
 - **One index label type across every contract**, and one bar per contract per session. Mixed `str` / `Timestamp` indexes and duplicate labels are rejected rather than silently mis-sorted.
 - **Two-digit year codes** (`ESZ24`, not `ESZ4`) if you rely on symbol parsing for contract ordering, or an explicit `contract_expiries` map. Symbols are decoded with the CME month codes F, G, H, J, K, M, N, Q, U, V, X, Z = January…December.
 - `contract_expiries` (`{'ESH24': '2024-03-15', ...}`) is **mandatory** for `DAYS_BEFORE_EXPIRY`, and is authoritative for ordering whenever supplied — pre-2000 history needs it, since two-digit year codes resolve into 2000-2099.
-- Python 3.9+, `pandas`.
+- Python 3.10+, `pandas`.
 
 ## Workflow
 

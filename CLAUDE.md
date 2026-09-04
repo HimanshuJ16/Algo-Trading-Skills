@@ -128,7 +128,9 @@ Validator rules that commonly bite:
   `run_all_tests.py` would collect it as a suite.
 - Every test command quoted in a skill's Markdown must be the repo-root form
   `python -m unittest discover -s skills/<name>/scripts` (a trailing `-v` is fine), or
-  `python tools/run_all_tests.py`. `SKILL.md` must quote its own command at least once.
+  `python tools/run_all_tests.py`. `SKILL.md` must quote its own command at least once,
+  and no `cd skills/...` line may precede it (the repo-root path breaks after the cd).
+- No skill document may claim a Python floor below 3.10 ("Python 3.9+" fails).
 - Line endings do not matter to the validator (it reads in text mode), but `.gitattributes`
   normalises the repository to LF. Preserve a file's existing line endings when editing it
   (read and write with `newline=""`) to keep diffs minimal.

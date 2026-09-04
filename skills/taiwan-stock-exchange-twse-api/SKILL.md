@@ -60,7 +60,7 @@ prices the matching engine rejects at every price above NT$10.
 
 ## Prerequisites
 
-- Python 3.9+. No third-party dependencies — `decimal` from the standard
+- Python 3.10+. No third-party dependencies — `decimal` from the standard
   library carries every price comparison.
 - A TWSE **Investor ID**, issued on registration under the Regulations
   Governing Investment in Securities by Overseas Chinese and Foreign Nationals.
@@ -210,7 +210,6 @@ prices the matching engine rejects at every price above NT$10.
   `MARKET` order must each raise `ValueError` rather than return a report.
 - Run the test suite:
 ```bash
-cd skills/taiwan-stock-exchange-twse-api/scripts
 python -m unittest discover -s skills/taiwan-stock-exchange-twse-api/scripts
 ```
 

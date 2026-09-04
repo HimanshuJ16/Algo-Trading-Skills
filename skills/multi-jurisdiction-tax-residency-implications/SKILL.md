@@ -14,6 +14,11 @@ metadata:
   author: algo-trading-skills-contributors
 ---
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill when a trading operation is spread across jurisdictions and you need to establish **which country taxes the entity as a resident** before any income is priced. A Cayman-incorporated fund whose investment committee meets in Singapore, a UK company whose CIO relocated to Miami, a Singapore manager renting FPGA space in a Frankfurt co-location cage — each of these is a residence or permanent establishment question, and each has to be answered before withholding rates, credits, or filing obligations mean anything.

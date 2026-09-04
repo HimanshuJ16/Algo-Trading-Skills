@@ -51,10 +51,17 @@ election. Only box D is modelled by this skill's script.
 
 The **net section 1256 contracts loss** is the *smaller* of:
 
-1. the excess of § 1256 losses over § 1256 gains plus $3,000 ($1,500 married
-   filing separately); and
-2. the total short-term and long-term capital loss carryovers to the following
-   year computed as if line 6 were zero.
+1. the net capital loss for the year computed from § 1256 contracts alone (the
+   excess of § 1256 losses over § 1256 gains); and
+2. the total short-term and long-term capital loss carryover to the following
+   year that would exist without the carryback election (Form 6781 line 6 taken as
+   zero) — that is, after the § 1211(b) $3,000 ($1,500 married filing separately)
+   allowance has been used against ordinary income.
+
+The $3,000 allowance therefore reduces the amount available to carry back; it is
+never added to it. In the worked example below a $50,000 net § 1256 loss with no
+other capital activity yields a $47,000 ceiling, and the amount actually carried
+back is further capped by the § 1256 gains of the three prior years.
 
 The amount reaching any single carryback year is limited to the *smaller* of that
 year's Schedule D line 16 gain counting only § 1256 gains and losses, or its

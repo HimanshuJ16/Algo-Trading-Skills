@@ -62,7 +62,7 @@ is what makes them expensive:
 - **When the instrument's own tick table is not loaded:** its RTS 11 liquidity band, derived
   from the FCA's annual ADNT calculation published through FITRS. `liquidity_band_for_adnt()`
   maps a published ADNT onto bands 1–6.
-- Python 3.7+. Standard library only (`decimal`, `dataclasses`, `enum`, `logging`).
+- Python 3.10+. Standard library only (`decimal`, `dataclasses`, `enum`, `logging`).
 
 ## Workflow
 

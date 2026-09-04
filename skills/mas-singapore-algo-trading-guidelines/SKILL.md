@@ -88,7 +88,6 @@ What does bind a Singapore algorithmic order, and what this skill actually audit
 - Confirm the audit trail is complete: an unlicensed, unregistered, kill-switchless order that is also over the value ceiling, outside the band, outside the Forced Order Range and over the rate ceiling must carry **all seven** breaches, with `status == "REJECTED_UNLICENSED_ENTITY"`.
 - Run the test suite:
 ```bash
-cd skills/mas-singapore-algo-trading-guidelines/scripts
 python -m unittest discover -s skills/mas-singapore-algo-trading-guidelines/scripts
 ```
 

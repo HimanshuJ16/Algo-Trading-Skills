@@ -78,7 +78,6 @@ Use this skill when building market gateways, order routers, or pre-trade risk f
 - Confirm code handling: `130A` must validate, `130B` must raise (excluded letter), and `A130` must raise (letter in position 1).
 - Run the test suite:
 ```bash
-cd skills/japan-exchange-group-jpx-api-integration/scripts
 python -m unittest discover -s skills/japan-exchange-group-jpx-api-integration/scripts
 ```
 

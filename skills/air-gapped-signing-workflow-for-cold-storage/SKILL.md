@@ -61,7 +61,7 @@ transaction, and an operator retrying a broadcast whose response was merely lost
 
 ## Prerequisites
 
-- Python 3.9+, standard library only.
+- Python 3.10+, standard library only.
 - An **approval callback** wired into `OfflineAirGappedSigner`. Without one the
   vault refuses to sign anything — a vault with no approver is a blind-signing
   oracle, so the default is denial, not convenience.

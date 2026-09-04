@@ -26,7 +26,7 @@ This skill leverages the centralized liquidity event of the exchange's Closing A
 
 ## Prerequisites
 
-- Python 3.9+ (the module uses `zoneinfo`; on a bare Windows or slim container
+- Python 3.10+ (the module uses `zoneinfo`; on a bare Windows or slim container
   install the `tzdata` package so `America/New_York` resolves).
 - Average Daily Volume (ADV) metrics for the target instrument.
 - The **scheduled session close** for the trading date, not just the current

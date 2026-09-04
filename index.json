@@ -3608,7 +3608,7 @@
     },
     {
       "name": "dubai-financial-market-dfm-api",
-      "description": "Use when submitting orders to Dubai Financial Market over FIX 4.4, validating the 10-digit National Investor Number, the tick size structure and per-security price limits before dispatch under UAE SCA rules.",
+      "description": "Use when validating an order for Dubai Financial Market before dispatch: the 10-digit National Investor Number, tick size and per-security price limits under UAE SCA rules, plus illustrative FIX 4.4 framing whose acceptance by DFM is unverified.",
       "domain": "algorithmic-trading",
       "subdomain": "global-market-integration",
       "tags": [
@@ -3621,11 +3621,12 @@
         "mena-trading"
       ],
       "brokers_frameworks": [
-        "DFM FIX 4.4 Gateway",
+        "DFM Membership, Trading and Derivatives Rules",
         "Dubai CSD",
+        "FIX 4.4 (illustrative framing, DFM acceptance unverified)",
         "Python Dataclasses"
       ],
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/dubai-financial-market-dfm-api",
@@ -6173,7 +6174,7 @@
         "mifid-rts6"
       ],
       "brokers_frameworks": [],
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/kill-switch-and-drawdown-circuit-breakers",
@@ -8544,7 +8545,7 @@
         "Alpaca Trading API",
         "IBKR API"
       ],
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/order-placement-idempotency",
@@ -10262,7 +10263,7 @@
         "Robinhood Crypto Trading API (official)",
         "robin_stocks (community reference)"
       ],
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": "algo-trading-skills-contributors",
       "license": "Apache-2.0",
       "path": "skills/robinhood-unofficial-api-integration",

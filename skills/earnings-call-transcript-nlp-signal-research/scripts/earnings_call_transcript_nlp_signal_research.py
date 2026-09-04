@@ -21,7 +21,9 @@ MUST load the current official dictionary and pass it to the constructor.
   Analysis, Dictionaries, and 10-Ks", Journal of Finance 66(1), 2011.
   Master Dictionary: https://sraf.nd.edu/loughranmcdonald-master-dictionary/
   Licensing: free for academic research; commercial use requires a licence from
-  the authors (loughranmcdonald@gmail.com).
+  the authors -- see the licensing terms on the Master Dictionary page above. The
+  short word lists below are a runnable sample only; obtain and load the official
+  dictionary under its own terms for any production or commercial use.
 """
 
 from __future__ import annotations

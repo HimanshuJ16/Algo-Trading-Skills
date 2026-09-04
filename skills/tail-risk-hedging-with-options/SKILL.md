@@ -71,7 +71,7 @@ route orders, or manage the position after purchase.
 - The contract multiplier from the contract specification. 100 is the OCC standard
   for listed US equity options and the CBOE SPX multiplier, but corporate-action-adjusted
   contracts can deliver a non-standard amount.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

@@ -46,7 +46,7 @@ value at year end.
 
 ## Prerequisites
 
-- Python 3.9+, standard library only.
+- Python 3.10+, standard library only.
 - Confirmation that the election is **perfected**, not merely intended: a
   Rev. Proc. 99-17 statement filed by the **unextended** due date of the prior
   year's return (new taxpayers: in books and records within 2 months and 15 days

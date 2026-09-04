@@ -40,7 +40,7 @@ Treat any "the desync window is two weeks" assumption as a bug: it is wrong for 
 
 ## Prerequisites
 
-- Python 3.9+ for `zoneinfo` (this module uses the standard library only).
+- Python 3.10+ for `zoneinfo` (this module uses the standard library only).
 - **A resolvable IANA tz database.** `zoneinfo` reads the *system* tz database; Windows has none (`zoneinfo.TZPATH` is empty there), so the `tzdata` PyPI package must be installed or every `ZoneInfo(...)` lookup raises `ZoneInfoNotFoundError`. This is not listed in the repository's `requirements.txt` — install it explicitly on Windows hosts and in slim Linux containers.
 - IANA zone names (`America/New_York`, `Europe/London`, `Asia/Tokyo`) — never fixed UTC offsets.
 - Exchange session times in local time as `HH:MM` (`local_open_time` e.g. `"09:30"`, `local_close_time` e.g. `"16:00"`).

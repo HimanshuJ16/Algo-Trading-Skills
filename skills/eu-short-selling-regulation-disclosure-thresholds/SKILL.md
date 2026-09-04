@@ -36,7 +36,7 @@ Both surfaces are evidence-backed against the regulation, the Delegated and Impl
 
 ## Prerequisites
 
-- Python 3.9+ (`zoneinfo`; stdlib only). On platforms with no system IANA database — Windows in particular — the `tzdata` package must be installed or deadline computation raises with that instruction.
+- Python 3.10+ (`zoneinfo`; stdlib only). On platforms with no system IANA database — Windows in particular — the `tzdata` package must be installed or deadline computation raises with that instruction.
 - **Delta-adjusted** long and short share equivalents per issuer (`long_shares_qty`, `short_shares_qty`), aggregated at the correct reporting level.
 - **Issued share capital** = total of ordinary *and* preference shares, all classes, irrespective of voting rights (Art. 2(1)(l); ESMA Q&A A6.6). Use the figure the issuer/NCA publishes, not a vendor's free float.
 - The **relevant competent authority** and the IANA timezone of its Member State (`nca_timezone`, e.g. `Europe/Helsinki`), plus a `next_trading_day` callable implementing that Member State's trading calendar. Without both, no deadline instant is produced.

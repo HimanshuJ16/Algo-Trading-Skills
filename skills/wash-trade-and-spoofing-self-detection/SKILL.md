@@ -61,7 +61,7 @@ venue-side mechanism in `exchange-self-match-prevention-configuration`.
 
 ## Prerequisites
 
-- Python 3.9+, standard library only.
+- Python 3.10+, standard library only.
 - An order event stream carrying `event_id`, `order_id`, `trader_id`, `account_id`,
   `symbol`, `side`, `quantity`, `action` (`PLACE` / `CANCEL` / `FILL`) and a
   **timezone-aware** `timestamp`. Naive timestamps are rejected: sub-second lifespan logic

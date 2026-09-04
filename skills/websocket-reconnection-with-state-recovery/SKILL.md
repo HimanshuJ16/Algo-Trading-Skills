@@ -76,7 +76,7 @@ rather than letting a hole propagate into a book.
   then locked out during the outage it is trying to survive.
 - The venue's **history-endpoint page size and weight**, which bounds `max_gap_fill_size`.
   Binance `aggTrades` returns at most 1000 records per call at IP weight 4.
-- Python 3.8+, standard library only. Validated on CPython 3.11.
+- Python 3.10+, standard library only. Validated on CPython 3.11.
 
 ## Workflow
 

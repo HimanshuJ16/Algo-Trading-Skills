@@ -15,6 +15,11 @@ metadata:
   author: algo-trading-skills-contributors
 ---
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill when a trading operation is split across legal entities and value has to be priced as it crosses between them: a US holdco that owns the strategy code, a UK-regulated manager, a Singapore execution hub, a Cayman fund. Quant research charged to the IP owner, execution routing recharged to the manager, shared market-data and co-location cost pools, and the split of global trading PnL between the entity that built the alpha and the entity that ran it are all controlled transactions that need an arm's length price and contemporaneous documentation.
@@ -38,7 +43,7 @@ Every settlement carries a `warnings` tuple recording the assumptions and red fl
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only: `dataclasses`, `decimal`, `enum`, `logging`).
+- Python 3.10+ (standard library only: `dataclasses`, `decimal`, `enum`, `logging`).
 - A benchmarking study, or an accepted APA/safe harbour, supporting each markup and each CUP rate you register.
 - Written intercompany service agreements covering each service line, in force for the periods being priced.
 - The provider's own P&L split into COGS and operating expenses, if you want a Berry ratio.

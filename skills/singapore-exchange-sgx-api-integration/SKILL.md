@@ -76,7 +76,7 @@ the way to S$1.995.
 
 ## Prerequisites
 
-- Python 3.7+ (`from __future__ import annotations`); standard library only.
+- Python 3.10+ (`from __future__ import annotations`); standard library only.
 - Per-contract reference data from your security master or the current SGX contract
   specification: product code, contract multiplier, currency, and the minimum price
   fluctuation **for the trade type you are pricing**.

@@ -131,7 +131,7 @@ elsewhere, off the hot path, and every guarantee it offers concerns arithmetic o
 samples. It is not a compliance artifact, asserts no regulatory requirement, and its SLA
 budgets carry no authority beyond the operator who sets them.
 
-Requires Python 3.9+ for `math.nextafter`.
+Requires Python 3.10+ for `math.nextafter`.
 
 ---
 

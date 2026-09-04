@@ -226,6 +226,31 @@ class TestSkillValidation(unittest.TestCase):
         errors = validate_skill_dir(skill_dir, {"relative-cmd"})
         self.assertTrue(any("does not run from the repository root" in e for e in errors))
 
+    def test_cd_into_skill_before_command_fails(self):
+        """`cd skills/x/scripts` on the line before the repo-root command breaks it."""
+        skill_dir = self._create_valid_skill("cd-cmd")
+        path = os.path.join(skill_dir, "SKILL.md")
+        with open(path, encoding="utf-8") as f:
+            text = f.read()
+        cmd = CANONICAL_TEST_CMD.format(name="cd-cmd")
+        text = text.replace(f"- Run `{cmd}`.",
+                            f"```bash\ncd skills/cd-cmd/scripts\n{cmd}\n```")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(text)
+        errors = validate_skill_dir(skill_dir, {"cd-cmd"})
+        self.assertTrue(any("drop the cd" in e for e in errors), errors)
+
+    def test_python_floor_below_library_floor_fails(self):
+        skill_dir = self._create_valid_skill("old-python")
+        path = os.path.join(skill_dir, "references", "workflows.md")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write("Requires Python 3.9+ for `math.nextafter`.\n")
+        errors = validate_skill_dir(skill_dir, {"old-python"})
+        self.assertTrue(any("below the library floor" in e for e in errors), errors)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write("Requires Python 3.10+ (standard library only).\n")
+        self.assertEqual(validate_skill_dir(skill_dir, {"old-python"}), [])
+
     def test_python3_and_pytest_forms_are_caught(self):
         skill_dir = self._create_valid_skill("python3-cmd")
         path = os.path.join(skill_dir, "references", "workflows.md")

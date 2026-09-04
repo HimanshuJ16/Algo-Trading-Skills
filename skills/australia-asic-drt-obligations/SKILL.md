@@ -39,7 +39,7 @@ Use this skill when your desk is a **Reporting Entity** under the **ASIC Derivat
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - The middle office must supply, per trade: the counterparty identifier and its **Item 8 type indicator** (`counterparty_identifier_is_lei`), the UTI, the UPI (from the Derivatives Service Bureau), and — where the transaction is one leg of a separately reported economic arrangement — the Item 92 package identifier.
 - **The business-day calendar of the Relevant Jurisdiction.** Rule 1.2.3 defines a Business Day as "a day that is not a Saturday, a Sunday, or a public holiday or bank holiday in the **Relevant Jurisdiction**", and Relevant Jurisdiction is Australia only where the transaction was booked to the P&L of an Australian branch or entered into in Australia; otherwise it is the jurisdiction where it was booked or entered into. Pass that jurisdiction's holidays as `holidays`. Omitting them skips weekends only, which overstates the deadline and suppresses genuine late flags.
 - **Date contract:** `trade_date`, `reporting_date` and every element of `holidays` must be plain `datetime.date` objects in the Relevant Jurisdiction's local calendar. `datetime` instances are rejected with `TypeError` — Item 103 (Reporting timestamp) is reported in UTC, so a UTC timestamp near midnight resolves to a different local day, and a `datetime` sitting in a holiday set never compares equal to the `date` being tested, silently overstating the deadline.

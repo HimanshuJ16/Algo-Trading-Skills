@@ -51,7 +51,7 @@ It provides mechanisms to:
 
 ## Prerequisites
 
-- Python 3.9+. Standard library only (`unicodedata`, `re`, `logging`, `dataclasses`) — no
+- Python 3.10+. Standard library only (`unicodedata`, `re`, `logging`, `dataclasses`) — no
   third-party dependency.
 - A per-venue encoding declaration (which codec each feed actually publishes). Without it
   the engine can only guess, and it will say so.

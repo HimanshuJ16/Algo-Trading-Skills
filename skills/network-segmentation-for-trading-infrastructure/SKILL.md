@@ -77,7 +77,7 @@ last one is not optional (see Prerequisites).
   financial entities shall verify the adequacy of the existing firewall rules
   and connection filters **at least every 6 months**." An order-routing gateway
   is squarely such a system. DORA has applied since 17 January 2025.
-- Python 3.8+. Standard library only — no dependencies.
+- Python 3.10+. Standard library only — no dependencies.
 
 ## Workflow
 

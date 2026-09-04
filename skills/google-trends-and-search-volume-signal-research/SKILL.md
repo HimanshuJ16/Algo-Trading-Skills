@@ -36,7 +36,7 @@ The module standardizes the latest SVI observation against a **strictly trailing
 - **Timezone-aware timestamps.** Google Trends uses different time bases by window length: for ranges of 30 days or longer "the data shown in the graph uses Coordinated Universal Time (UTC)", while for ranges of 7 days or less it "uses your own local time zone as set in your browser or device". The engine rejects timezone-naive timestamps for this reason.
 - A price momentum series for the same instrument, aligned to the same clock.
 - Understanding of the scale you are on. The Trends UI and pytrends return a per-request 0–100 index; the official Trends API (alpha) returns "consistently scaled data" that is explicitly "not scaled from 0 to 100". Set `svi_scale_max=None` for the latter.
-- Python 3.8+ standard library only. No third-party dependency is required — and note that **pytrends is not an official Google API** ("This is not an official or supported API"), was last released in April 2023, and is openly seeking maintainers.
+- Python 3.10+ standard library only. No third-party dependency is required — and note that **pytrends is not an official Google API** ("This is not an official or supported API"), was last released in April 2023, and is openly seeking maintainers.
 
 ## Workflow
 

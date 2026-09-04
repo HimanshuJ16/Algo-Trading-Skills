@@ -1,7 +1,7 @@
 # Checklist for App Usage Data Signals
 
 ## Prerequisites
-- [ ] Python 3.9+ available.
+- [ ] Python 3.10+ available.
 - [ ] Vendor feed contracted: per-ticker daily `downloads`, `dau`, `mau`.
 - [ ] Vendor diligence complete: panel methodology documented, license permits investment use, MNPI/MAR sign-off recorded (`alternative-data-vendor-due-diligence-checklist`).
 - [ ] Vendor publication lag documented and applied upstream via `alternative-data-feature-integration` (PIT alignment).

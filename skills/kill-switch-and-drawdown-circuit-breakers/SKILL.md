@@ -10,7 +10,7 @@ metadata:
   subdomain: risk-management
   tags: risk-management, kill-switch, drawdown-limit, circuit-breaker, force-flatten, sec-15c3-5, mifid-rts6
   brokers_frameworks: ""
-  version: "2.0.0"
+  version: "2.0.1"
   author: algo-trading-skills-contributors
 ---
 

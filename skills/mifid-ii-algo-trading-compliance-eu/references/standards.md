@@ -41,7 +41,7 @@ Article 15 does carry two non-numeric obligations that are easy to miss:
 - Maximum messages limits cover messages for the **submission, modification or
   cancellation** of an order (Art. 15(1)(d)), not new orders alone.
 
-The two numeric figures RTS 6 *does* state are Article 10's stress-test multiplier (twice
+The three numeric figures RTS 6 *does* state are Article 10's stress-test multiplier (twice
 the highest message and trade volumes of the previous six months), Article 16(5)'s
 five-second alert deadline, and Article 28's five-year retention for HFT order records.
 

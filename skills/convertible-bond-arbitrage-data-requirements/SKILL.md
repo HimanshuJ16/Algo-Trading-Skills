@@ -45,7 +45,7 @@ holding the package delta-neutral.
 - Model/vendor analytics: equity delta and implied volatility.
 - Funding terms: repo financing rate for the long CB leg, and the rate and haircut your
   prime broker applies to short-sale proceeds.
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 
 ## Workflow
 

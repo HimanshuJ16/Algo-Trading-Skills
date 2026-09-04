@@ -41,7 +41,7 @@ An incident review is a reconstruction problem. Unstructured text (`print`, ad-h
 
 ## Prerequisites
 
-- Python 3.7+ (`time.time_ns`, `time.monotonic_ns`).
+- Python 3.10+ (`time.time_ns`, `time.monotonic_ns`).
 - A configured `logging` handler pointing at a durable, appropriately retained sink — a file with rotation, a syslog socket, or a shipper into ELK/Datadog. Without one, `emit` formats records that go nowhere.
 - A decision, before you instrument, about **where the correlation ID is minted**: at the strategy signal, so that every downstream event inherits it. Retrofitting an ID at order-submission time loses the causal step you will most want.
 - A written retention target for the sink, taken from your jurisdiction and entity type rather than from this module's defaults.

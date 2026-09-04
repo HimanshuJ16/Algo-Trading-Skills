@@ -73,7 +73,7 @@ and most expensive mistake in this area:
 - The Exchange-set **anchor price** for the contract month you are pricing.
 - The ICE FIX specification for the session you are certified against, for the
   actual content of Tag 55 / Tag 48.
-- Python 3.9+. Standard library only (`decimal`, `dataclasses`, `logging`).
+- Python 3.10+. Standard library only (`decimal`, `dataclasses`, `logging`).
 
 ## Workflow
 

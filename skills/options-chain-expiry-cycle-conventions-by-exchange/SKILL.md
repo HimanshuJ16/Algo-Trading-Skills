@@ -61,7 +61,7 @@ date, provenance (`source`, `source_as_of`) and any unverified-input warnings.
 - Optional but strongly recommended: the exchange's non-trading days, ideally as
   a `{exchange: [dates]}` mapping so one venue's calendar cannot be applied to
   another.
-- Python 3.7+. Standard library only (`dataclasses`, `datetime`, `logging`).
+- Python 3.10+. Standard library only (`dataclasses`, `datetime`, `logging`).
 
 ## Workflow
 

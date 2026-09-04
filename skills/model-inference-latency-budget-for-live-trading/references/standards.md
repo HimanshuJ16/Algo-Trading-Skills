@@ -104,4 +104,4 @@ arithmetic over those samples. It recommends a fallback action; it does not exec
 one. It is not a compliance artifact, asserts no regulatory requirement, and its
 budgets carry no authority beyond the operator who sets them.
 
-Requires Python 3.9+ for `math.nextafter`. No third-party dependencies.
+Requires Python 3.10+ for `math.nextafter`. No third-party dependencies.

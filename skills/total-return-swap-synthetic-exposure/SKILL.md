@@ -54,7 +54,7 @@ It gives you:
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - The executed Confirmation — specifically: share count vs. notional reset basis, the
   Dividend Amount basis (Record / Ex / Paid), the dividend pass-through percentage, the
   day count convention, and the CSA's VM threshold and Minimum Transfer Amount.

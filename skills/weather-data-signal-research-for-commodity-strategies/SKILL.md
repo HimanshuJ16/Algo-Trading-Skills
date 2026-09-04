@@ -34,7 +34,7 @@ This skill provides institutional mechanisms to:
 
 ## Prerequisites
 
-- Python 3.9+
+- Python 3.10+
 - Standard Python libraries (`datetime`, `dataclasses`, `statistics`, `math`, `typing`).
 - Daily weather station observations or GFS/ECMWF numerical model ensemble forecasts (min/max temperature, location, population weight).
 - At least `lookback_years` of history for the *same* metric being scored, so a trailing climate norm can be estimated.

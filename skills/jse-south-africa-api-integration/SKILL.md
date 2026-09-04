@@ -79,7 +79,6 @@ Use this skill when routing equity orders to the Johannesburg Stock Exchange (JS
 - Confirm `S32` validates as an alpha code and that a zero `reference_price_zac` raises rather than dividing by zero.
 - Run the test suite:
 ```bash
-cd skills/jse-south-africa-api-integration/scripts
 python -m unittest discover -s skills/jse-south-africa-api-integration/scripts
 ```
 

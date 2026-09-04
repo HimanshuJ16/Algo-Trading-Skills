@@ -39,7 +39,7 @@ This module normalizes each vendor's native scale to $[0.0, 1.0]$ using that ven
   - **LSEG ESG Scores (formerly Refinitiv / ASSET4)** — 0–100 where 100 is best, benchmarked against the TRBC industry group for environmental and social categories and against the **country of incorporation** for governance.
 - Rule-based exclusion status determined upstream, passed as `has_controversial_weapons` and/or `exclusion_reasons`.
 - A timezone-aware `as_of` vintage stamp if the output feeds a backtest. Naive datetimes are rejected.
-- Python 3.7+ standard library only. No third-party dependency.
+- Python 3.10+ standard library only. No third-party dependency.
 
 ## Workflow
 

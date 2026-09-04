@@ -79,7 +79,6 @@ Use this skill in Southeast Asian market execution algorithms, IDX gateways, and
 - Confirm asymmetry: against a Rp 1,000 reference price, Rp 1,200 (+20%) is accepted while Rp 800 (−20%) returns `AUTO_REJECTION_EXCEEDED`.
 - Run the test suite:
 ```bash
-cd skills/idx-indonesia-stock-exchange-api/scripts
 python -m unittest discover -s skills/idx-indonesia-stock-exchange-api/scripts
 ```
 

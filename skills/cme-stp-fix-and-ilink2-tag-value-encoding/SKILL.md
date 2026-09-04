@@ -59,7 +59,7 @@ It covers the four things hand-rolled CME FIX code gets wrong:
 - Self-Match Prevention IDs registered in the CME Firm Administrator Dashboard (FADB).
   An SMP ID must be numeric to survive a port to iLink 3, where Tag 2362 is a `uInt64` —
   a string that is legal in tag=value FIX is not representable there.
-- Python 3.9+. Standard library only.
+- Python 3.10+. Standard library only.
 
 ## Workflow
 

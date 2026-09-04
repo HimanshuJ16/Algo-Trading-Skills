@@ -59,7 +59,7 @@ target under a penalty that keeps it near the pre-trained weights.
 
 ## Prerequisites
 
-- Python 3.9+. No third-party packages: `scripts/transfer_learning_bootstrap.py` uses
+- Python 3.10+. No third-party packages: `scripts/transfer_learning_bootstrap.py` uses
   only `math`, `logging`, `dataclasses` and `typing`.
 - Matched feature matrices for both instruments — identical feature definitions, lag
   structures and sampling frequency — with all values finite.

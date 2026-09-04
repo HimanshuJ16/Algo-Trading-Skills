@@ -34,7 +34,7 @@ The session schedule reflects ASX **Service Release 15** (effective 23 June 2025
 
 ## Prerequisites
 
-- Python 3.9+ (uses `zoneinfo` for AEDT/AEST conversion; production hosts must ship IANA tzdata — without it the module falls back to a fixed UTC+10 and logs a warning, and that fallback is wrong by one hour throughout AEDT).
+- Python 3.10+ (uses `zoneinfo` for AEDT/AEST conversion; production hosts must ship IANA tzdata — without it the module falls back to a fixed UTC+10 and logs a warning, and that fallback is wrong by one hour throughout AEDT).
 - Exchange-assigned `CompID` and cross-connect details (ASX Trade FIX Order Entry uses `TargetCompID = ASXTRADE`; `TargetSubID (57)` carries the environment — `TESTB` for CDE, `TESTC` for CDE+, `PROD` for production — and `MsgSeqNum (34)` is mandatory on every message).
 - For OUCH/ITCH, trading infrastructure co-located in the Australian Liquidity Centre (ALC).
 - A pre-decided **session-recovery policy** for sequence-number gaps on reconnect (`ResetSeqNumFlag 141=N` + ResendRequest vs. a clean `141=Y` logon) — this choice determines whether you can still see your own live GTC/GTD orders. See Common Pitfalls.

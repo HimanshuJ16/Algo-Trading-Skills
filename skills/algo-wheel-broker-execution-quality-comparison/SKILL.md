@@ -75,7 +75,7 @@ appropriate to the desk and configure it through `min_observations` and
 
 ## Prerequisites
 
-- Python 3.9+.
+- Python 3.10+.
 - A validated execution record containing broker, side, decision price, fill
   price, quantity, and explicit fees.
 - Decision price and fee currency aligned with the notional calculation, or a

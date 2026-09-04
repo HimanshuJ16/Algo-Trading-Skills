@@ -36,7 +36,7 @@ The engine enforces:
 
 ## Prerequisites
 
-- Python 3.9+ and the standard library only (`datetime`, `dataclasses`, `enum`, `math`, `typing`, `logging`).
+- Python 3.10+ and the standard library only (`datetime`, `dataclasses`, `enum`, `math`, `typing`, `logging`).
 - A **trusted clock** for `evaluation_timestamp`. Pass it explicitly for reproducible audits; never let the request supply it.
 - A **USD-equivalent valuation** for every request, from a price source you control. The caps are denominated in USD, so the oracle sits inside the trust boundary.
 - Per-account `AccountHistoricalProfile` (`mean_withdrawal_usd`, `std_dev_usd`, `historical_count`) computed point-in-time over a stated lookback.

@@ -69,7 +69,7 @@ means an order is not obviously invalid; SSE, SZSE and CSC remain authoritative.
 - **Institutional professional investor status** for any STAR (SSE 688xxx) or
   ChiNext (SZSE 300xxx/301xxx) order. Other investors may not trade them
   Northbound at all.
-- Python 3.9+. Standard library only. Prices and quota are `Decimal`; the engine
+- Python 3.10+. Standard library only. Prices and quota are `Decimal`; the engine
   refuses `float` prices outright, because `Decimal(0.01)` is not `0.01` and a
   tick-size check would then depend on how the caller spelled the number.
 

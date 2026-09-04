@@ -85,7 +85,6 @@ The rule that catches most integrations out is that the board lot and the tick a
 - Confirm input guards: `side="LONG"`, `quantity=0`, `quantity=True`, a NaN price and a NaN reference price must each raise `ValueError` rather than returning a report.
 - Run the test suite:
 ```bash
-cd skills/philippine-stock-exchange-api/scripts
 python -m unittest discover -s skills/philippine-stock-exchange-api/scripts
 ```
 

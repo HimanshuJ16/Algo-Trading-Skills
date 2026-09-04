@@ -14,6 +14,11 @@ metadata:
   author: algo-trading-skills-contributors
 ---
 
+> **Engineering guidance, not tax advice.** This skill encodes how to build and verify the
+> bookkeeping and the checks around it; it does not determine anyone's tax position. Confirm
+> the treatment with a qualified tax professional in the relevant jurisdiction before relying
+> on its output for a filing.
+
 ## When to Use
 
 Use this skill in post-trade tax processing for a **US taxable brokerage account**
@@ -87,7 +92,7 @@ it alone, in these cases:
 
 ## Prerequisites
 
-- Python 3.9+, standard library only (`datetime`, `dataclasses`, `enum`,
+- Python 3.10+, standard library only (`datetime`, `dataclasses`, `enum`,
   `logging`, `typing`).
 - A **complete long-side execution history for one account and one symbol**:
   unique `trade_id`, `symbol`, `trade_date` (a `datetime.date`, not a

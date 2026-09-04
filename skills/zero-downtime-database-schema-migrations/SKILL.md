@@ -34,7 +34,7 @@ It provides:
 
 ## Prerequisites
 
-- Python 3.9+, standard library only (`re`, `dataclasses`, `enum`, `logging`, `typing`).
+- Python 3.10+, standard library only (`re`, `dataclasses`, `enum`, `logging`, `typing`).
 - PostgreSQL 11+, MySQL 8.0.12+ (8.0.29+ for instant `DROP COLUMN`), or CockroachDB.
 - **A tested restore** of the target table — Phase 5 has no rollback.
 - **Replica lag monitoring** you can read programmatically. The backfill throttles on it; without a reading you are pacing blind.

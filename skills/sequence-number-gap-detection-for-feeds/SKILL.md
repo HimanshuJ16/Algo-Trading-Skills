@@ -42,7 +42,7 @@ Every protocol fact in this skill is cited to a primary specification in `refere
 - The **sequence number** decoded from the transport, and for a range-sequenced feed its **final** sequence number as well.
 - A **recovery path**: a retransmission/replay client, a snapshot client, or both. Without one, this engine can only tell you the feed is broken.
 - A **buffer bound** (`max_buffer_size`) sized from the stream's message rate times the longest recovery you intend to survive. Overflow is not a soft condition — it latches `RESET_REQUIRED`.
-- Python 3.8+, standard library only. Validated on CPython 3.11.
+- Python 3.10+, standard library only. Validated on CPython 3.11.
 
 ## Workflow
 

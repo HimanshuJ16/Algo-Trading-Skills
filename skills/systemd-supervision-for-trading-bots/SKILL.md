@@ -74,7 +74,7 @@ is the part where the expensive mistakes are silent.
   rather than raising, so the same code runs under a debugger.
 - **A measured worst-case order-unwind time.** `TimeoutStopSec=` is a number you
   should be able to defend; the default is not.
-- Python 3.8+. Standard library only — no dependencies.
+- Python 3.10+. Standard library only — no dependencies.
 
 ## Workflow
 

@@ -87,7 +87,7 @@ detect alteration.
   but strongly recommended: the engine never copies it into the report, and
   having it is the only thing that lets the engine *verify* redaction rather
   than merely assert it.
-- Python 3.7+ (dataclasses, ordered dicts). Standard library only.
+- Python 3.10+ (dataclasses, ordered dicts). Standard library only.
 
 ## Workflow
 

@@ -28,7 +28,7 @@ Invoke this whenever a bot's scheduling logic references "market open" or "marke
 
 ## Prerequisites
 
-- IANA time zone database access via `zoneinfo` (Python 3.9+) or `pytz`, for all exchange-local time representation. On hosts with no system tz database — notably Windows — the `tzdata` package must be installed, or every `ZoneInfo` lookup fails at runtime.
+- IANA time zone database access via `zoneinfo` (Python 3.10+) or `pytz`, for all exchange-local time representation. On hosts with no system tz database — notably Windows — the `tzdata` package must be installed, or every `ZoneInfo` lookup fails at runtime.
 - The trading host's own clock and time zone understood and controlled. Run the host in UTC and convert explicitly rather than relying on host-local time happening to match an exchange.
 - A source of truth for each exchange's published local session times, including intraday breaks. Exchange hours change: the Tokyo Stock Exchange moved its close from 15:00 to 15:30 JST on 2024-11-05.
 

@@ -462,6 +462,12 @@ class OrderLedger:
     (someone else already owns it). That is what makes ``record_intent`` safe
     across threads *and* across processes sharing one database file.
 
+    The later transitions (``update_status``, ``release_intent``) are
+    read-check-write sequences serialised on a per-process lock, not on the
+    database, so they are atomic across threads of one process only. Give each
+    ledger file a single owning process; replicas that must share a ledger need
+    an external lock or ``BEGIN IMMEDIATE`` around every transition.
+
     Usable as a context manager. ``check_same_thread=False`` is set because
     every method serialises on an instance lock.
     """
@@ -923,9 +929,14 @@ class IdempotentOrderRouter:
             broker_send_fn: ``(key, symbol, side, quantity, price, strategy_id)
                 -> response``. Must attach ``key`` to the broker's client-tag
                 field. Raising is interpreted as an *indeterminate* outcome.
-            broker_order_book_fn: Returns the broker's current order book.
-                Without it an ambiguous send can never be resolved and the
-                intent is parked as ``UNKNOWN`` for an operator.
+            broker_order_book_fn: Returns the broker's order book for the
+                current session **including filled, cancelled and rejected
+                orders**, not only open ones. Absence from the book is what
+                releases a claim, so an open-orders-only endpoint (Alpaca's
+                ``GET /v2/orders`` defaults to ``status=open``) makes an order
+                that filled during the timeout look ``ABSENT`` and re-sends it.
+                Without a book function an ambiguous send can never be resolved
+                and the intent is parked as ``UNKNOWN`` for an operator.
             sequence: Discriminator for legitimately identical repeat orders.
             max_key_len: Key length; must fit the broker's tag field.
 

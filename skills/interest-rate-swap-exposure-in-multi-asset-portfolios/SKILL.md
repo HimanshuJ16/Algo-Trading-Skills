@@ -26,7 +26,7 @@ This is a flat-curve, closed-form estimator, not a pricing library. Do not use i
 
 ## Prerequisites
 
-- Python 3.9+. No third-party dependencies.
+- Python 3.10+. No third-party dependencies.
 - IRS position payload: `swap_id`, `notional_usd` (non-negative), `pay_receive_type` (`PAY_FIXED` / `RECEIVE_FIXED`), `fixed_rate_pct` (percent), `tenor_years` (**remaining** tenor), `floating_rate_index`, `payment_frequency_per_year` (1 for USD SOFR), `currency`.
 - Bond portfolio DV01 **already signed as P&L per +1 bps rise** (negative for a long bond book) — see the sign convention below.
 - Current par swap rate and tenor for the hedge instrument, supplied via `IrsHedgeSpec`.

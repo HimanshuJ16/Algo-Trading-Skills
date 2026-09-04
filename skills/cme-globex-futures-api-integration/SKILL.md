@@ -55,7 +55,7 @@ most often gets wrong:
   team/ATS — the two are not interchangeable across manual and automated orders.
 - Per-symbol `ContractSpec`: tick size (minimum price increment), Price Band Variation,
   and Market-with-Protection points, refreshed from CME's product reference files.
-- Python 3.7+. Standard library only — `decimal`, `logging`, `dataclasses`.
+- Python 3.10+. Standard library only — `decimal`, `logging`, `dataclasses`.
 
 ## Workflow
 

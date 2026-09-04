@@ -79,7 +79,7 @@ wired before you need it, and as the record you hand to the post-mortem.
   regarding the functionality referred to in Article 12" — that is, when the
   kill switch may fire. Automating it does not remove the requirement to have
   written down when it should.
-- Python 3.7+. Standard library only — no dependencies.
+- Python 3.10+. Standard library only — no dependencies.
 
 ## Workflow
 

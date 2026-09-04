@@ -10,7 +10,7 @@ metadata:
   subdomain: broker-integration
   tags: broker-integration, robinhood, unofficial-api, us-equities, order-idempotency, device-approval
   brokers_frameworks: "Robinhood unofficial REST endpoints (api.robinhood.com); Robinhood Agentic Trading MCP server (official); Robinhood Crypto Trading API (official); robin_stocks (community reference)"
-  version: "2.0.0"
+  version: "2.0.1"
   author: algo-trading-skills-contributors
 ---
 
@@ -77,6 +77,10 @@ satisfies, `ref_id` as the only reconciliation handle on an order, and a
   symbol. Neither is derivable from a ticker.
 - A caller-supplied `http_fn` transport, so timeouts and TLS verification stay
   under caller control.
+- An OAuth `client_id` you are authorised to use. The reference client ships no
+  default: the id community libraries pass is harvested from Robinhood's own web
+  client, and redistributing it is part of the contractual problem this skill exists
+  to surface.
 
 ## Workflow
 

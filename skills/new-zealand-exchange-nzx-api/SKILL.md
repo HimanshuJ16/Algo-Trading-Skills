@@ -34,7 +34,7 @@ Use this skill when routing cash-equity or listed-fund orders to the NZX Main Bo
 
 ## Prerequisites
 
-- Python 3.9+ (uses `zoneinfo` for NZDT/NZST conversion; production hosts must ship IANA tzdata).
+- Python 3.10+ (uses `zoneinfo` for NZDT/NZST conversion; production hosts must ship IANA tzdata).
 - An NZX Participant FIX order-entry session, and the `BeginString` / `SenderCompID` / `TargetCompID` (and any `TargetSubID`) from NZX's specification for your firm.
 - A FIX engine that owns the session layer and can supply `MsgSeqNum (34)`, via `seq_num=` or a `seq_num_provider`.
 - A classification of each instrument as `EQUITY` or `FUND` for price-step purposes, and an NZ trading-holiday calendar (`NZXSessionSchedule` is time-of-day only).

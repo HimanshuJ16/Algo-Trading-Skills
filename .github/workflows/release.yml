@@ -1,0 +1,50 @@
+name: Release
+
+# Pushing a version tag (v3.0.0) publishes a GitHub Release whose notes are generated from
+# the merged pull requests since the previous tag. The job re-runs the fast gates first so
+# a release can never be cut from a tree that fails validation, and refuses a tag whose
+# version disagrees with .claude-plugin/plugin.json.
+on:
+  push:
+    tags: [ "v*" ]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Validate before releasing
+        run: |
+          python tools/validate_skills.py
+          python tools/build_index.py --check
+          python tools/build_marketplace.py --check
+
+      - name: Check the tag matches the plugin version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VERSION=$(python -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "Tag v$TAG does not match .claude-plugin/plugin.json version $VERSION"
+            exit 1
+          fi
+
+      - name: Publish the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag

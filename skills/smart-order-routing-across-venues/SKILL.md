@@ -33,7 +33,7 @@ The engine consolidates the best price *that actually has displayed size*, ranks
 
 ## Prerequisites
 
-- Python 3.9+, standard library only.
+- Python 3.10+, standard library only.
 - A same-instant top-of-book snapshot per venue (`VenueQuote`: `venue_id`, `bid_price`, `bid_qty`, `ask_price`, `ask_qty`, `taker_fee_per_share`, `maker_rebate_per_share`, `latency_ms`). One quote per venue — duplicates are rejected. A side with no displayed size is expressed as `qty=0`; its price may be a `0.0` placeholder.
 - Parent order specification: `parent_order_id`, `symbol`, `side` (`'BUY'`/`'SELL'`, anything else raises), `quantity` (finite, > 0).
 - The instrument's **tick size** for `price_increment`. The default is `$0.01` (Rule 612, NMS stocks ≥ $1.00). Sub-$1.00 stocks quote in `$0.0001` and must pass it explicitly — see the pitfall below.

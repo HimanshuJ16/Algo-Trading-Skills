@@ -68,7 +68,7 @@ currency come from the specification rather than from memory.
 
 ## Prerequisites
 
-- Python 3.9+, standard library only (`math`, `dataclasses`, `enum`, `logging`,
+- Python 3.10+, standard library only (`math`, `dataclasses`, `enum`, `logging`,
   `datetime`).
 - Daily station $(T_{\min}, T_{\max})$ observations, quality-controlled, with the
   temperature unit known — the engine never infers it.

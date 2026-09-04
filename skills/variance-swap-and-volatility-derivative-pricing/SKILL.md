@@ -58,7 +58,7 @@ per volatility point; variance notional is dollars per variance point.
 
 ## Prerequisites
 
-- Python 3.9+, standard library only (`math`, `dataclasses`, `enum`, `logging`).
+- Python 3.10+, standard library only (`math`, `dataclasses`, `enum`, `logging`).
 - An option chain for the swap's maturity: strike, `CALL`/`PUT`, and a price per
   quote. A full two-sided chain is fine — ITM quotes are discarded and each strike
   contributes once.

@@ -37,7 +37,7 @@ That comparison needs no interest rate, no volatility and no time to expiry, bec
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only; no third-party dependencies).
+- Python 3.10+ (standard library only; no third-party dependencies).
 - **The option's bid, not the mid and not the last trade.** The alternative to exercising is selling, and a sale realises the bid. At the true early-exercise boundary an American option's fair value sits exactly at parity, so a mid-based comparison systematically misses live exercise decisions, and a last-trade-based one invents them out of stale prints.
 - Current underlying price, cum-dividend while the underlying has not yet gone ex.
 - Declared dividend per share and a flag for the last cum-dividend session. Under T+1 settlement (US, since 28 May 2024) the ex-date *is* the record date, so an exercise submitted on the session **before** the ex-date settles onto the record-date books; an exercise on the ex-date itself is too late.

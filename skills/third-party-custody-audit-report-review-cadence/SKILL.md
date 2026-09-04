@@ -60,7 +60,7 @@ unassessed, never scored as satisfied.
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - Access to custodian compliance portals or a vendor-management repository holding
   the SOC reports, bridge letters and attestations themselves.
 - A documented internal policy fixing the cadences, because **no standard supplies

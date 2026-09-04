@@ -34,7 +34,7 @@ Do **not** use this skill when:
 
 ## Prerequisites
 
-- Python 3.9+.
+- Python 3.10+.
 - A vendor feed providing per-ticker, per-date `downloads`, `dau`, and `mau` estimates.
 - Completed vendor diligence: panel methodology documentation, data-licensing terms permitting investment use, and a documented MNPI/MAR compliance sign-off (see `alternative-data-vendor-due-diligence-checklist`).
 - Point-in-time alignment of the feed (event date shifted by the vendor's publication lag, typically 1-7 days).

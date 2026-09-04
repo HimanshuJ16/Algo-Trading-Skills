@@ -81,7 +81,7 @@ so re-verify the article citations against the FCA Handbook before relying on th
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - A **documented reference price** per instrument. There is no UK NBBO: the US
   consolidated best bid and offer is a Reg NMS construct, and the UK equity
   consolidated tape is still in procurement. RTS 6 Art. 15(1)(a) says only "set

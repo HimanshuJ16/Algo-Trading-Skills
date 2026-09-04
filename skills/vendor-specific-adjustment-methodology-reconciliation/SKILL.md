@@ -34,7 +34,7 @@ This skill provides institutional mechanisms to:
 
 ## Prerequisites
 
-- Python 3.9+; standard library only (`datetime`, `dataclasses`, `enum`, `math`, `typing`).
+- Python 3.10+; standard library only (`datetime`, `dataclasses`, `enum`, `math`, `typing`).
 - **Raw, unadjusted** OHLCV bars for one symbol at a time, free of duplicate dates.
 - Corporate action records carrying ex-date, action type, and the fields that type requires:
   - splits — `split_ratio` as **new shares per old share** (`2.0` for 2-for-1, `0.1` for 1-for-10 reverse);

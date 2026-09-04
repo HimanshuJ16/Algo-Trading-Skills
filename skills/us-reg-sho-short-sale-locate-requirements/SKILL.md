@@ -53,7 +53,7 @@ It provides mechanisms to:
 
 ## Prerequisites
 
-- Python 3.9+ (standard library only).
+- Python 3.10+ (standard library only).
 - A prime broker / clearing firm locate feed (ETB and HTB) that supplies a locate identifier,
   symbol, quantity, and validity window. Reg SHO prescribes no locate lifetime — the TTL in
   this engine is firm policy, and industry practice is good-for-the-trading-day.
