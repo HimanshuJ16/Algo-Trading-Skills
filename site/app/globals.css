@@ -1,0 +1,1397 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================================
+   TOKENS
+   Two committed looks, one token set.
+
+   Dark is the primary surface: ink black, warm off-white type, hairlines. It is the
+   look of an instrument left on overnight. Light is paper: warm white, black ink, the
+   same hairlines. Neither is an inversion of the other; each was set by hand.
+
+   Colour is rationed. The chrome is monochrome. The sixteen domain hues are the only
+   colour in the system and they arrive through one mechanism, `.tint`. One amber
+   "signal" exists for state that has to be seen (live, copied, halt) and is used in
+   fewer than five places.
+   ============================================================================ */
+
+:root {
+  --c-bg: #f4f2ec;
+  --c-bg-deep: #eae7df;
+  --c-panel: #fbfaf7;
+  --c-panel-2: #efece5;
+  --c-border: #dcd8ce;
+  --c-border-strong: #c3beb1;
+  --c-fg: #141311;
+  --c-fg-muted: #4f4c46;
+  --c-fg-subtle: #7c786f;
+  --c-signal: #915407;
+  --c-signal-wash: rgba(145, 84, 7, 0.1);
+  --c-danger: #a8261f;
+  --c-grid: rgba(20, 19, 17, 0.06);
+  --c-mark: rgba(230, 170, 40, 0.38);
+  --c-shadow: 0 1px 2px rgba(20, 19, 17, 0.06), 0 18px 40px -24px rgba(20, 19, 17, 0.35);
+  --c-scrim: rgba(234, 231, 223, 0.78);
+  --c-code-bg: #f7f5f0;
+
+  --tint-l: 40%;
+  --tint-s: 62%;
+
+  color-scheme: light;
+}
+
+.dark {
+  --c-bg: #0c0c0e;
+  --c-bg-deep: #070708;
+  --c-panel: #121214;
+  --c-panel-2: #18181b;
+  --c-border: #242427;
+  --c-border-strong: #37373c;
+  --c-fg: #ecebe6;
+  --c-fg-muted: #a5a49d;
+  --c-fg-subtle: #6e6d68;
+  --c-signal: #f0b429;
+  --c-signal-wash: rgba(240, 180, 41, 0.12);
+  --c-danger: #f26b66;
+  --c-grid: rgba(255, 255, 255, 0.04);
+  --c-mark: rgba(240, 180, 41, 0.3);
+  --c-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 30px 70px -30px rgba(0, 0, 0, 0.9);
+  --c-scrim: rgba(7, 7, 8, 0.74);
+  --c-code-bg: #0f0f11;
+
+  --tint-l: 66%;
+  --tint-s: 72%;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-bg-deep: var(--c-bg-deep);
+  --color-panel: var(--c-panel);
+  --color-panel-2: var(--c-panel-2);
+  --color-line: var(--c-border);
+  --color-line-strong: var(--c-border-strong);
+  --color-fg: var(--c-fg);
+  --color-muted: var(--c-fg-muted);
+  --color-subtle: var(--c-fg-subtle);
+  --color-signal: var(--c-signal);
+  --color-signal-wash: var(--c-signal-wash);
+  --color-danger: var(--c-danger);
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", "Cascadia Mono", monospace;
+  --font-serif: var(--font-instrument), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+
+  --breakpoint-xs: 30rem;
+}
+
+/* Motion tokens. The same numbers live in lib/motion.ts for JavaScript. */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-tap: 120ms;
+  --t-quick: 240ms;
+  --t-settle: 600ms;
+  --t-reveal: 900ms;
+
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --container: 88rem;
+  --section: clamp(5rem, 12vh, 9rem);
+  --header-h: 3.75rem;
+}
+
+@layer base {
+/* ============================================================================
+   BASE
+   ============================================================================ */
+
+* {
+  border-color: var(--c-border);
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 1.5rem);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--c-bg);
+  color: var(--c-fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--c-fg);
+  color: var(--c-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-fg);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-border-strong);
+  border: 3px solid var(--c-bg);
+  border-radius: 999px;
+}
+
+mark {
+  background: var(--c-mark);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+kbd {
+  font-family: var(--font-mono);
+}
+
+}
+
+@layer components {
+/* ============================================================================
+   TYPE
+   ============================================================================ */
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+  font-feature-settings: "ss01", "ss09";
+}
+
+.serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+/* Small caps label: the voice of the instrument, never of the copywriter. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-fg-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.display {
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.96;
+  text-wrap: balance;
+}
+
+.display-xl {
+  font-size: clamp(2.75rem, 7.2vw, 6.75rem);
+}
+
+.display-lg {
+  font-size: clamp(2.125rem, 4.4vw, 3.75rem);
+}
+
+.display-md {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+}
+
+/* The situation register: every description begins "Use when". It is set in the serif so
+   the trigger reads as a sentence someone said, not as a subtitle. */
+.situation {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.15rem + 0.7vw, 1.6rem);
+  line-height: 1.32;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+}
+
+.numeral {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+/* ============================================================================
+   TINT
+   One class turns --hue into a colour per theme. A card, a dot, a label, a rule and a
+   canvas stroke all draw from the same two properties, so sixteen accents exist with no
+   per-domain CSS anywhere.
+   ============================================================================ */
+
+.tint {
+  --tint: hsl(var(--hue) var(--tint-s) var(--tint-l));
+  --tint-wash: hsl(var(--hue) var(--tint-s) var(--tint-l) / 0.1);
+  --tint-line: hsl(var(--hue) var(--tint-s) var(--tint-l) / 0.35);
+}
+
+/* ============================================================================
+   SURFACES AND CONTROLS
+   ============================================================================ */
+
+.container-x {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.panel {
+  background: var(--c-panel);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+}
+
+.hairline-grid {
+  background-image: linear-gradient(var(--c-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  background-position: center top;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.625rem;
+  padding-inline: 1.125rem;
+  border-radius: 999px;
+  border: 1px solid var(--c-border-strong);
+  background: transparent;
+  color: var(--c-fg);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background var(--t-quick) var(--ease-out),
+    color var(--t-quick) var(--ease-out),
+    border-color var(--t-quick) var(--ease-out),
+    transform var(--t-settle) var(--ease-out);
+}
+.btn:hover {
+  border-color: var(--c-fg);
+}
+.btn-primary {
+  background: var(--c-fg);
+  color: var(--c-bg);
+  border-color: var(--c-fg);
+}
+.btn-primary:hover {
+  background: var(--c-fg-muted);
+  border-color: var(--c-fg-muted);
+}
+.btn-sm {
+  height: 2.125rem;
+  padding-inline: 0.875rem;
+  font-size: 0.8125rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-fg-muted);
+  border-radius: 999px;
+  padding: 0.1875rem 0.5625rem;
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  line-height: 1.5;
+  white-space: nowrap;
+  transition:
+    color var(--t-quick) var(--ease-out),
+    border-color var(--t-quick) var(--ease-out),
+    background var(--t-quick) var(--ease-out);
+}
+.chip-active {
+  border-color: var(--c-fg);
+  background: var(--c-fg);
+  color: var(--c-bg);
+}
+a.chip:hover,
+button.chip:hover {
+  border-color: var(--c-fg);
+  color: var(--c-fg);
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  color: var(--c-fg-muted);
+  border: 1px solid transparent;
+  transition:
+    color var(--t-quick) var(--ease-out),
+    border-color var(--t-quick) var(--ease-out),
+    background var(--t-quick) var(--ease-out);
+}
+.icon-btn:hover {
+  color: var(--c-fg);
+  border-color: var(--c-border);
+}
+
+/* The ledger row: how 501 items are listed everywhere on the site. */
+.row {
+  position: relative;
+  display: grid;
+  gap: 0.375rem 1.5rem;
+  padding: 0.875rem 0.75rem;
+  margin-inline: -0.75rem;
+  border-radius: var(--radius-md);
+  border-bottom: 1px solid var(--c-border);
+  color: var(--c-fg-muted);
+  text-decoration: none;
+  isolation: isolate;
+  transition: color var(--t-quick) var(--ease-out);
+}
+.row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    24rem circle at var(--mx, 50%) var(--my, 50%),
+    var(--tint-wash, var(--c-panel-2)),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--t-settle) var(--ease-out);
+}
+.row:hover::before,
+.row:focus-visible::before {
+  opacity: 1;
+}
+.row:hover {
+  color: var(--c-fg);
+}
+.row-slug {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--c-fg);
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+.row-desc {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--c-fg-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.row-domain {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tint, var(--c-fg-subtle));
+  white-space: nowrap;
+}
+@media (min-width: 48rem) {
+  .row {
+    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr) auto;
+    align-items: baseline;
+  }
+}
+
+.sticky-label {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 5;
+  background: color-mix(in oklab, var(--c-bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+/* A hairline that extends into the gutters. */
+.rule {
+  height: 1px;
+  background: var(--c-border);
+}
+
+.underline-grow {
+  position: relative;
+  text-decoration: none;
+}
+.underline-grow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.32s var(--ease-out);
+}
+.underline-grow:hover::after,
+.underline-grow:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Sequence-number rule with a hairline running off to the right. */
+.rule-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.rule-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--c-border);
+}
+
+/* ============================================================================
+   MOTION PRIMITIVES (CSS)
+   The document tier animates with these and nothing else. They translate and fade;
+   they never change layout, so no entrance can shift content.
+   ============================================================================ */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.rise {
+  animation: rise var(--t-settle) var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Word-by-word entrance for a headline. Pure CSS: the words are visible with no script and
+   the timing comes from --i, so no animation library is downloaded for a headline. */
+.word-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.word {
+  display: inline-block;
+  animation: word-in var(--t-reveal) var(--ease-out) both;
+  animation-delay: calc(var(--d0, 0ms) + var(--i, 0) * 45ms);
+}
+@keyframes word-in {
+  from {
+    opacity: 0;
+    translate: 0 110%;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Scroll-driven reveals. Where the browser supports scroll timelines an element rises as it
+   enters the viewport; everywhere else it is simply visible. No JavaScript in either case,
+   and content is never hidden behind a script that has not run. */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: rise linear both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 40%;
+  }
+  .reveal-stagger > * {
+    animation: rise linear both;
+    animation-timeline: view();
+    animation-range: entry calc(5% + var(--i, 0) * 6%) entry calc(38% + var(--i, 0) * 6%);
+  }
+  .strike::after {
+    animation: grow-x linear both;
+    animation-timeline: view();
+    animation-range: entry 35% entry 75%;
+  }
+}
+
+/* A line struck through as it enters view. Static, fully struck, without scroll timelines. */
+.strike {
+  position: relative;
+}
+.strike::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 54%;
+  height: 1px;
+  background: var(--c-danger);
+  transform-origin: left;
+}
+
+/* Hero: the graph sits behind the headline; a soft scrim keeps the copy legible. */
+.hero-scrim {
+  position: relative;
+}
+.hero-scrim::before {
+  content: "";
+  position: absolute;
+  inset: -12% -18%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklab, var(--c-bg) 92%, transparent) 30%,
+    color-mix(in oklab, var(--c-bg) 60%, transparent) 60%,
+    transparent 78%
+  );
+}
+
+.fade {
+  animation: fade var(--t-settle) var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.pulse {
+  animation: pulse 2.2s var(--ease-in-out) infinite;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-t, 80s) linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+.fade-x {
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* Reading progress, drawn by the browser from the scroll position. No script. */
+.progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--c-fg);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+@supports (animation-timeline: scroll()) {
+  .progress {
+    animation: grow-x linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* Cross-document and same-document view transitions. The clicked row's slug becomes the
+   page's title; everything else fades briefly. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-group(skill-title) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-old(skill-title),
+::view-transition-new(skill-title) {
+  height: 100%;
+  object-fit: none;
+  object-position: left top;
+}
+.vt-title {
+  view-transition-name: skill-title;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  /* Elements the motion library paints hidden before their entrance. Server HTML carries
+     that inline state; under reduced motion it is overruled here, so nothing waits on a
+     script to become visible. */
+  .mo {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .rise,
+  .fade,
+  .pulse,
+  .word,
+  .reveal,
+  .reveal-stagger > *,
+  .strike::after,
+  .marquee-track,
+  .progress {
+    animation: none !important;
+  }
+  .progress {
+    display: none;
+  }
+  .marquee-track {
+    width: auto;
+    flex-wrap: wrap;
+  }
+  .marquee .fade-x {
+    mask-image: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  .btn,
+  .row,
+  .chip {
+    transition-duration: 0ms;
+  }
+}
+
+}
+
+/* ============================================================================
+   DOCUMENT
+   The rendered SKILL.md. A reading column, seven numbered sections, restraint.
+   ============================================================================ */
+
+.doc {
+  color: var(--c-fg-muted);
+  font-size: 1rem;
+  line-height: 1.72;
+  counter-reset: section;
+  max-width: 70ch;
+}
+
+.doc > * + *,
+.doc-section > * + * {
+  margin-top: 1.1em;
+}
+
+.doc-section {
+  counter-increment: section;
+  padding-top: 2.75rem;
+  margin-top: 2.75rem;
+  border-top: 1px solid var(--c-border);
+}
+.doc-section:first-child {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: 0;
+}
+
+.doc h2 {
+  position: relative;
+  color: var(--c-fg);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  scroll-margin-top: calc(var(--header-h) + 2rem);
+  margin-bottom: 1.25rem;
+}
+.doc h2::before {
+  content: counter(section, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--tint, var(--c-fg-subtle));
+  margin-bottom: 0.625rem;
+  font-weight: 400;
+}
+
+/* The boundary section. A rule in the domain's colour marks where the skill stops. */
+.doc-section[data-section="when-not-to-use"] {
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--tint, var(--c-border-strong));
+}
+.doc-section[data-section="when-not-to-use"] h2::before {
+  content: counter(section, decimal-leading-zero) "  ·  boundary";
+}
+@media (min-width: 64rem) {
+  .doc-section[data-section="when-not-to-use"] {
+    margin-left: -1.25rem;
+    padding-left: calc(1.25rem - 2px);
+  }
+}
+
+.doc h3 {
+  margin-top: 2rem;
+  color: var(--c-fg);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  scroll-margin-top: calc(var(--header-h) + 2rem);
+}
+.doc h4 {
+  margin-top: 1.5rem;
+  color: var(--c-fg);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.doc strong {
+  color: var(--c-fg);
+  font-weight: 500;
+}
+.doc em {
+  font-style: italic;
+}
+
+.doc a {
+  color: var(--c-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--c-border-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--t-quick) var(--ease-out);
+}
+.doc a:hover {
+  text-decoration-color: var(--c-fg);
+}
+
+.doc ul,
+.doc ol {
+  padding-left: 1.5rem;
+}
+.doc ul {
+  list-style: none;
+}
+.doc ul > li {
+  position: relative;
+}
+.doc ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1.1rem;
+  top: 0.78em;
+  width: 0.4rem;
+  height: 1px;
+  background: var(--c-fg-subtle);
+}
+.doc ol {
+  list-style: decimal;
+}
+.doc ol > li::marker {
+  color: var(--c-fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.doc li + li {
+  margin-top: 0.55rem;
+}
+.doc li > ul,
+.doc li > ol {
+  margin-top: 0.55rem;
+}
+
+.doc blockquote {
+  border-left: 1px solid var(--c-fg);
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  color: var(--c-fg);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2em;
+  line-height: 1.4;
+}
+.doc blockquote strong {
+  font-weight: 400;
+}
+.doc blockquote > * + * {
+  margin-top: 0.7em;
+}
+
+.doc :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--c-panel-2);
+  border-radius: 4px;
+  padding: 0.12em 0.36em;
+  color: var(--c-fg);
+  overflow-wrap: anywhere;
+  font-variant-ligatures: none;
+}
+
+/* A backticked slug that resolved to a real skill is navigation, set in the domain tint
+   of the page it sits on. */
+.doc a.xref {
+  text-decoration: none;
+}
+.doc a.xref > code {
+  background: var(--tint-wash, var(--c-panel-2));
+  color: var(--c-fg);
+  box-shadow: inset 0 -1px 0 var(--tint-line, var(--c-border-strong));
+  transition:
+    background var(--t-quick) var(--ease-out),
+    box-shadow var(--t-quick) var(--ease-out);
+}
+.doc a.xref:hover > code {
+  background: var(--tint, var(--c-fg));
+  color: var(--c-bg);
+  box-shadow: none;
+}
+.doc a.handoff > code::before {
+  content: "→ ";
+  color: var(--tint, var(--c-fg-subtle));
+}
+.doc a.handoff:hover > code::before {
+  color: inherit;
+}
+
+.codeframe {
+  position: relative;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-code-bg);
+  overflow: hidden;
+}
+.codeframe-bar {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  padding-inline: 0.875rem;
+  border-bottom: 1px solid var(--c-border);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-fg-subtle);
+}
+.codeframe-copy {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.5rem;
+  height: 1.4rem;
+  padding-inline: 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-fg-subtle);
+  transition:
+    color var(--t-quick) var(--ease-out),
+    background var(--t-quick) var(--ease-out);
+}
+.codeframe-copy:hover {
+  color: var(--c-fg);
+  background: var(--c-panel-2);
+}
+.codeframe-copy[data-done] {
+  color: var(--c-signal);
+}
+.doc pre {
+  background: transparent !important;
+  padding: 0.875rem 1rem;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  tab-size: 2;
+  margin: 0;
+}
+.doc pre:focus-visible {
+  outline-offset: -3px;
+}
+.doc pre code {
+  font-family: var(--font-mono);
+  background: none;
+  border: 0;
+  padding: 0;
+  font-variant-ligatures: none;
+}
+
+.doc table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+.doc thead th {
+  text-align: left;
+  color: var(--c-fg);
+  font-weight: 500;
+  border-bottom: 1px solid var(--c-fg);
+  padding: 0.55rem 0.75rem 0.55rem 0;
+  white-space: nowrap;
+}
+.doc tbody td {
+  border-bottom: 1px solid var(--c-border);
+  padding: 0.6rem 0.75rem 0.6rem 0;
+  vertical-align: top;
+}
+
+.doc hr {
+  border: 0;
+  border-top: 1px solid var(--c-border);
+  margin: 2rem 0;
+}
+
+/* Shiki emits both themes as custom properties; the dark class swaps them. */
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+/* The contents rail: seven fixed positions, the marker slides between them. */
+.spine {
+  position: relative;
+  padding-left: 1.125rem;
+  border-left: 1px solid var(--c-border);
+}
+.spine-marker {
+  position: absolute;
+  left: -1px;
+  width: 1px;
+  background: var(--tint, var(--c-fg));
+  transition:
+    top var(--t-settle) var(--ease-out),
+    height var(--t-settle) var(--ease-out);
+}
+.spine a {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--c-fg-subtle);
+  transition: color var(--t-quick) var(--ease-out);
+}
+.spine a:hover {
+  color: var(--c-fg-muted);
+}
+.spine a[aria-current="true"] {
+  color: var(--c-fg);
+}
+.spine a > span:first-child {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  padding-top: 0.2em;
+  color: var(--c-fg-subtle);
+}
+.spine a[aria-current="true"] > span:first-child {
+  color: var(--tint, var(--c-fg));
+}
+
+/* Horizontal variant, used above the document on narrow viewports. */
+.spine-h {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.spine-h::-webkit-scrollbar {
+  display: none;
+}
+.spine-h a {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  padding: 0.375rem 0.625rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--c-fg-subtle);
+  white-space: nowrap;
+}
+.spine-h a[aria-current="true"] {
+  color: var(--c-fg);
+  border-color: var(--c-border);
+}
+
+@layer components {
+/* ============================================================================
+   EXPERIENCE TIER ONLY
+   ============================================================================ */
+
+/* Custom cursor: a ring that follows the pointer and changes meaning by context. It never
+   replaces the native cursor and never sits above text at full opacity. */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  pointer-events: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: -1.125rem 0 0 -1.125rem;
+  border-radius: 999px;
+  border: 1px solid var(--c-fg);
+  opacity: 0;
+  will-change: transform;
+  transition:
+    width var(--t-quick) var(--ease-out),
+    height var(--t-quick) var(--ease-out),
+    margin var(--t-quick) var(--ease-out),
+    opacity var(--t-quick) var(--ease-out),
+    background var(--t-quick) var(--ease-out),
+    border-color var(--t-quick) var(--ease-out);
+}
+.cursor[data-state="link"] {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: -1.75rem 0 0 -1.75rem;
+  background: color-mix(in oklab, var(--c-fg) 8%, transparent);
+}
+.cursor[data-state="text"] {
+  width: 0.375rem;
+  height: 0.375rem;
+  margin: -0.1875rem 0 0 -0.1875rem;
+  background: var(--c-fg);
+  opacity: 0.35;
+}
+.cursor[data-state="node"] {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin: -0.375rem 0 0 -0.375rem;
+  border-color: var(--c-fg);
+  background: var(--c-fg);
+}
+.cursor[data-state="drag"] {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: -2.25rem 0 0 -2.25rem;
+}
+.cursor-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-fg);
+  opacity: 0;
+  transition: opacity var(--t-quick) var(--ease-out);
+  white-space: nowrap;
+}
+.cursor[data-state="link"] .cursor-label,
+.cursor[data-state="drag"] .cursor-label {
+  opacity: 1;
+}
+
+/* Star button: the one control allowed to ask for attention. Amber, because amber is the
+   site's single signal colour. Every effect is a transform or an opacity. */
+.star-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2.25rem;
+  padding-inline: 0.7rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--c-border);
+  background: var(--c-panel);
+  color: var(--c-fg);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: visible;
+  isolation: isolate;
+  transition:
+    border-color var(--t-quick) var(--ease-out),
+    background var(--t-quick) var(--ease-out),
+    transform var(--t-settle) var(--ease-out),
+    box-shadow var(--t-settle) var(--ease-out);
+}
+.star-btn::before {
+  /* the periodic light sweep */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    color-mix(in oklab, var(--c-signal) 28%, transparent) 50%,
+    transparent 65%
+  );
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: -1;
+  animation: star-sweep 7s var(--ease-in-out) 2.4s infinite;
+}
+.star-btn:hover,
+.star-btn:focus-visible {
+  border-color: color-mix(in oklab, var(--c-signal) 60%, var(--c-border));
+  background: color-mix(in oklab, var(--c-signal) 10%, var(--c-panel));
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--c-signal) 12%, transparent);
+}
+.star-count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  padding-left: 0.55rem;
+  border-left: 1px solid var(--c-border);
+  color: var(--c-fg-muted);
+}
+.star-icon {
+  width: 1rem;
+  height: 1rem;
+  overflow: visible;
+  flex: none;
+}
+.star-icon path {
+  fill-opacity: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation:
+    star-draw 1.1s var(--ease-out) 0.5s both,
+    star-fill 0.5s var(--ease-out) 1.5s both,
+    star-pop 0.6s var(--ease-out) 1.5s both;
+}
+.star-btn:hover .star-icon path {
+  animation: star-pop 0.6s var(--ease-out);
+}
+/* one expanding ring on arrival and on hover */
+.star-ring {
+  position: absolute;
+  left: 0.7rem;
+  top: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--c-signal);
+  opacity: 0;
+  pointer-events: none;
+  animation: star-ring 0.9s var(--ease-out) 1.55s both;
+}
+.star-btn:hover .star-ring {
+  animation: star-ring 0.9s var(--ease-out);
+}
+/* six sparks thrown from the star */
+.star-sparks {
+  position: absolute;
+  left: calc(0.7rem + 0.5rem);
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.star-sparks i {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--c-signal);
+  opacity: 0;
+  transform: rotate(var(--a)) translateX(0);
+  animation: star-spark 0.8s var(--ease-out) 1.55s both;
+}
+.star-btn:hover .star-sparks i {
+  animation: star-spark 0.8s var(--ease-out);
+}
+@keyframes star-draw {
+  from {
+    stroke-dashoffset: 1;
+    fill-opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    fill-opacity: 0;
+  }
+}
+@keyframes star-fill {
+  from {
+    fill-opacity: 0;
+  }
+  to {
+    fill-opacity: 1;
+  }
+}
+@keyframes star-pop {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  35% {
+    transform: scale(1.35) rotate(-12deg);
+  }
+  70% {
+    transform: scale(0.94) rotate(6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+@keyframes star-ring {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  12% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+@keyframes star-spark {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--a)) translateX(2px) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--a)) translateX(18px) scale(0.4);
+  }
+}
+@keyframes star-sweep {
+  0%,
+  78% {
+    background-position: 120% 0;
+  }
+  92%,
+  100% {
+    background-position: -120% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .star-btn::before,
+  .star-icon path,
+  .star-ring,
+  .star-sparks i,
+  .star-btn:hover .star-icon path,
+  .star-btn:hover .star-ring,
+  .star-btn:hover .star-sparks i {
+    animation: none !important;
+  }
+  .star-icon path {
+    fill-opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Graph canvas label: a real anchor positioned over the hovered node. */
+.graph-label {
+  position: absolute;
+  translate: -50% calc(-100% - 0.75rem);
+  padding: 0.3rem 0.55rem;
+  border-radius: 4px;
+  background: var(--c-fg);
+  color: var(--c-bg);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  white-space: nowrap;
+  pointer-events: auto;
+  text-decoration: none;
+  box-shadow: var(--c-shadow);
+}
+.graph-label::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 8px;
+  height: 8px;
+  translate: -50% 0;
+  rotate: 45deg;
+  background: inherit;
+}
+
+/* The spectrum: one hairline per skill, height by word count. */
+.spectrum-bar {
+  transform-origin: bottom;
+  transition: opacity var(--t-quick) var(--ease-out);
+}
+}

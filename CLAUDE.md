@@ -11,6 +11,11 @@ shared Python package — the only executable code is the scripts in `tools/`, t
 `tests/`, the per-skill helper + test modules in `skills/*/scripts/`, and the three runnable
 cookbook scripts in `examples/`.
 
+`site/` is the one exception: a statically exported Next.js catalog that renders the library
+for humans. It is a *view*, never a source — every page is generated at build time from
+`index.json` and `skills/**/SKILL.md`, so no skill content is ever authored there. See
+[site/README.md](site/README.md).
+
 Two distinct kinds of work happen here, and they have different rules:
 
 1. **Using the skills** — writing/auditing/refactoring trading code (in this repo or elsewhere)
@@ -33,8 +38,20 @@ python -m unittest discover -s tests                      # root repo tests
 python -m pytest                                          # same root tests (pytest.ini pins testpaths)
 ```
 
-CI (`.github/workflows/validate-skills.yml`) runs all of the above on Python 3.10, 3.12 and
-3.13 for every push and PR to `main`, plus the three `examples/` scripts. Everything must pass.
+The catalog site has its own toolchain, deliberately separate from the Python one:
+
+```bash
+cd site && npm install                                    # Node 22; site/ only
+npm run dev                                               # local preview on :3000
+npm run build                                             # static export into site/out
+npm run typecheck
+```
+
+CI (`.github/workflows/validate-skills.yml`) runs all of the Python commands above on Python
+3.10, 3.12 and 3.13 for every push and PR to `main`, plus the three `examples/` scripts.
+Everything must pass. The catalog is deployed by Vercel from the `site/` directory (see
+[site/README.md](site/README.md) for the project settings); the Python workflow never needs
+Node, and the Vercel build never runs the Python suite.
 
 Things to know when reading the output:
 - `run_all_tests.py` runs each skill's suite in its own subprocess and prints one
