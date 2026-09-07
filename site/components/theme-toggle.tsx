@@ -17,7 +17,7 @@ export function ThemeToggle() {
       type="button"
       onClick={() => setTheme(dark ? "light" : "dark")}
       className="icon-btn relative overflow-hidden"
-      aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+      aria-label={!mounted ? "Toggle theme" : dark ? "Switch to light theme" : "Switch to dark theme"}
     >
       {/* Nothing renders until mounted: the server cannot know the stored preference. */}
       {mounted && (

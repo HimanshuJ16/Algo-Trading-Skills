@@ -16,6 +16,14 @@ export const SITE = {
   license: "Apache-2.0",
 } as const;
 
+/** The person behind the library, credited in the footer. */
+export const AUTHOR = {
+  name: "Himanshu Jangir",
+  github: "https://github.com/HimanshuJ16",
+  linkedin: "https://www.linkedin.com/in/himanshujangir16",
+  site: "https://himanshujangir.com",
+} as const;
+
 /** Raw file on the default branch, for "view source" links. */
 export function repoBlob(path: string): string {
   return `${SITE.repo}/blob/main/${path}`;

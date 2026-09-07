@@ -135,3 +135,16 @@ export const ArrowDown = (p: IconProps) => (
     <path d="m5.5 11.5 6.5 6.5 6.5-6.5" />
   </Icon>
 );
+
+export const LinkedInMark = (p: IconProps) => (
+  <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" {...p}>
+    <path d="M3.6 5.6H.9V15h2.7V5.6ZM2.25 1A1.55 1.55 0 1 0 2.3 4.1 1.55 1.55 0 0 0 2.25 1ZM15.1 9.85c0-2.6-1.4-4.45-3.7-4.45a3.2 3.2 0 0 0-2.9 1.6V5.6H5.9V15h2.7v-4.7c0-1.25.5-2.3 1.75-2.3 1.2 0 1.6.95 1.6 2.3V15h2.7V9.85Z" />
+  </svg>
+);
+
+export const GlobeIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+  </Icon>
+);
