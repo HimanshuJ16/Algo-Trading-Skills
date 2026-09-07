@@ -50,7 +50,7 @@ export function DomainAtlas({ domains, total, crossReferences }: { domains: Atla
 
       <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-8">
         <div className="lg:sticky lg:top-[calc(var(--header-h)+1rem)] lg:col-span-6 lg:self-start" data-cursor="drag" data-cursor-label="hover a node">
-          <GraphCanvas mode="map" focus={focus} className="mx-auto max-w-[36rem] lg:max-w-none" />
+          <GraphCanvas mode="map" focus={focus} className="mx-auto max-w-xl lg:max-w-none" />
         </div>
 
         <div className="lg:col-span-6">

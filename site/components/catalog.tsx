@@ -230,7 +230,7 @@ export function Catalog({
           )}
 
           {view === "map" ? (
-            <div className="mx-auto max-w-[44rem]" data-cursor="drag" data-cursor-label="hover a node">
+            <div className="mx-auto max-w-176" data-cursor="drag" data-cursor-label="hover a node">
               <GraphCanvas mode="map" focus={filters.domains.length === 1 ? filters.domains[0] : null} />
               <p className="mono mt-4 text-center text-[0.6875rem] uppercase tracking-[0.12em] text-subtle">
                 Select one domain in the rail to isolate its arc. Click a node to open it.
