@@ -91,7 +91,7 @@ export function Anatomy({ total }: { total: number }) {
       <section className="block border-b border-line bg-panel/40 lg:hidden lg:motion-reduce:block">
         <div className="container-x py-(--section)">
           <Heading total={total} />
-          <dl className="reveal-stagger mt-12 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3 [&>*]:bg-bg">
+          <dl className="reveal-stagger mt-12 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3 *:bg-bg">
             {SECTIONS.map((s, i) => (
               <div key={s.id} className="p-6" style={{ "--i": i } as React.CSSProperties}>
                 <dt className="flex items-baseline gap-3 text-fg">
@@ -133,7 +133,7 @@ export function Anatomy({ total }: { total: number }) {
                 <div className="relative">
                   <div
                     ref={marker}
-                    className="absolute inset-x-0 top-0 rounded-md bg-panel-2 transition-transform duration-(--t-settle) ease-(--ease-out)"
+                    className="absolute inset-x-0 top-0 rounded-md bg-panel-2 transition-transform duration-(--t-settle) ease-out"
                     style={{ height: `${100 / N}%` }}
                     aria-hidden="true"
                   />
@@ -151,7 +151,7 @@ export function Anatomy({ total }: { total: number }) {
                 </div>
               </div>
 
-              <div className="relative min-h-[14rem]">
+              <div className="relative min-h-56">
                 {SECTIONS.map((s, i) => (
                   <div
                     key={s.id}

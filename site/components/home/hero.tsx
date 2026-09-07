@@ -18,7 +18,7 @@ export function Hero({ version, stats, testsPassing }: { version: string; stats:
     <section className="relative overflow-clip border-b border-line">
       <link rel="preload" href={withBase("/graph.json")} as="fetch" crossOrigin="anonymous" />
       <div
-        className="hairline-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_70%)]"
+        className="hairline-grid pointer-events-none absolute inset-0 mask-[radial-gradient(ellipse_at_center,#000_20%,transparent_70%)]"
         aria-hidden="true"
       />
 
@@ -70,7 +70,7 @@ export function Hero({ version, stats, testsPassing }: { version: string; stats:
 
       {/* The ledger */}
       <div className="relative border-t border-line bg-[color-mix(in_oklab,var(--c-bg)_80%,transparent)] backdrop-blur-sm">
-        <div className="container-x grid grid-cols-2 gap-px bg-line sm:grid-cols-4 [&>*]:bg-bg">
+        <div className="container-x grid grid-cols-2 gap-px bg-line sm:grid-cols-4 *:bg-bg">
           {stats.map((stat) => (
             <div key={stat.label} className="py-5 pr-4 sm:py-6">
               <p className="eyebrow">{stat.label}</p>
