@@ -370,7 +370,7 @@ This project is licensed under the [Apache License 2.0](LICENSE). You are free t
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=HimanshuJ16/Algo-Trading-Skills&type=Date&theme=dark" />
     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=HimanshuJ16/Algo-Trading-Skills&type=Date" />
-    <img alt="Star history chart for Algo-Trading-Skills" src="https://api.star-history.com/svg?repos=HimanshuJ16/Algo-Trading-Skills&type=Date" width="600" />
+    <img alt="Star history chart for Algo-Trading-Skills" src="https://api.star-history.com/svg?repos=HimanshuJ16/Algo-Trading-Skills&type=Date" width="800" />
   </picture>
 </a>
 
